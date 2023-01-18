@@ -2,41 +2,45 @@
 
 <PageTitle>درخواست جدید</PageTitle>
 
-<h1>نظرات و پیشنهادات</h1>
-<br />
-<img src="cheetah.jpg" />
-<br />
 <div class="container-fluid">
+    <h1>نظرات و پیشنهادات</h1>
+    <br />
     <div class="row px-3">
-        <div class="col-md-6 col-lg-4 p-3">
+        <div class="p-3">
+            <img src="cheetah.jpg" />
+        </div>
+    </div>
+    <br />
+    <div class="row px-3">
+        <div class="col-md-6 col-lg-5 p-3">
             <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Default TextBox</RadzenText>
-                <RadzenTextBox Change=@(args => OnChange(args, "TextBox")) Class="w-100" />
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">نام و نام خانوادگی</RadzenText>
+                <RadzenTextBox Placeholder="مشخصات خود را وارد کنید" Class="w-100" />
             </RadzenCard>
         </div>
-        <div class="col-md-6 col-lg-4 p-3">
+        <div class="col-md-6 col-lg-5 p-3">
             <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Placeholder</RadzenText>
-                <RadzenTextBox Placeholder="Search..." Change=@(args => OnChange(args, "TextBox with placeholder")) Class="w-100" />
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">رایانامه</RadzenText>
+                <RadzenTextBox Placeholder="رایانامه خود را وارد نمایید" Class="w-100" />
             </RadzenCard>
         </div>
-        <div class="col-md-6 col-lg-4 p-3">
+        <div class="col-md-6 col-lg-2  p-3">
             <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">5 characters maximum</RadzenText>
-                <RadzenTextBox @bind-Value=@value MaxLength="5" Change=@(args => OnChange(args, "TextBox with 5 maximum characters")) Class="w-100" />
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">بارگذاری</RadzenText>
+                <RadzenUpload Url="upload/single" Icon="upload" ChooseText="" Progress=@(args => OnProgress(args, "Upload with icon"))>
+                </RadzenUpload>
             </RadzenCard>
         </div>
-        <div class="col-md-6 col-lg-4 p-3">
+        <div class="col-md-6 col-lg-12 p-3">
             <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Change on every input</RadzenText>
-                <RadzenTextBox @oninput=@(args => OnChange(args.Value.ToString(), "TextBox with change on every input")) Class="w-100" />
+                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">متن پیام</RadzenText>
+                <RadzenTextArea Placeholder="پیام خود را وارد نمایید." Class="w-100" />
             </RadzenCard>
         </div>
-        <div class="col-md-6 col-lg-4 p-3">
-            <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Disabled TextBox</RadzenText>
-                <RadzenTextBox Disabled="true" Class="w-100" />
-            </RadzenCard>
+    </div>
+    <div class="row px-3">
+        <div class="p-3">
+            <RadzenButton Text="ارسال بازخورد"></RadzenButton>
         </div>
     </div>
 </div>
@@ -49,5 +53,9 @@
     {
         //console.Log($"{name} value changed to {value}");
     }
+
+    void OnProgress(UploadProgressArgs args, string name)
+    {
+
+    }
 }
-<RadzenButton Text="ارسال بازخورد"></RadzenButton>
