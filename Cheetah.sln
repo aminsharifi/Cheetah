@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah", "Cheetah\Cheetah.csproj", "{8203F184-4A69-473B-A930-CA46B6B6154B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8203F184-4A69-473B-A930-CA46B6B6154B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8203F184-4A69-473B-A930-CA46B6B6154B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8203F184-4A69-473B-A930-CA46B6B6154B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8203F184-4A69-473B-A930-CA46B6B6154B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}
+	EndGlobalSection
+EndGlobal
