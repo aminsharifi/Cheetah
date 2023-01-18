@@ -1,0 +1,50 @@
+﻿@page "/Sent"
+
+<PageTitle>کارهای انجام شده</PageTitle>
+
+@using Cheetah.Data
+@inject WeatherForecastService ForecastService
+
+<h1>کارهای انجام شده</h1>
+
+<p>در این فرم کارهای انجام شده را مشاهده میکنید.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
+                AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5"
+                AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+                Data="@forecasts" TItem="WeatherForecast" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+        <Columns>
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="RadNumber" Title="شماره رهگیری" Frozen="true" Width="160px" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="CreateDate" Title="تاریخ" Width="160px" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="Creator" Title="درخواست کننده" Width="200px" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="ProcessName" Title="نام فرآیند" Width="120px" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="TaskName" Title="نام فرم"   Width="160px" />
+            <RadzenDataGridColumn TItem="WeatherForecast" Property="Summary" Title="خلاصه درخواست"   Width="160px" />
+        </Columns>
+    </RadzenDataGrid>
+    <hr />
+    <br/>
+    <br />
+}
+
+@code {
+
+    protected string GetPersianDate(DateTime date)
+    {
+        PersianCalendar p = new PersianCalendar();
+        return p.GetYear(date) + "/" + p.GetMonth(date) + "/" + p.GetDayOfMonth(date);
+    }
+
+    private IEnumerable<WeatherForecast>? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}

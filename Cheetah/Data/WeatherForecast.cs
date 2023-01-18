@@ -2,11 +2,15 @@ namespace Cheetah.Data
 {
     public class WeatherForecast
     {
-        public DateTime Date { get; set; }
+        public String RadNumber { get; set; }
 
-        public int TemperatureC { get; set; }
+        public DateTime CreateDate { get; set; }
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public String Creator { get; set; }
+
+        public String ProcessName { get; set; }
+
+        public String TaskName { get; set; }
 
         public string? Summary { get; set; }
     }
