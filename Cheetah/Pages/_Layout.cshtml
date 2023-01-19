@@ -11,8 +11,12 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="Cheetah.styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">    
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@11.1.1/dist/assets/bpmn-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@11.1.1/dist/assets/diagram-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@11.1.1/dist/assets/bpmn-font/css/bpmn.css">
+
+    
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body dir="rtl">
@@ -30,5 +34,9 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+    <script src="https://unpkg.com/bpmn-js@11.1.1/dist/bpmn-modeler.development.js"></script>
+    <script src="js/samplebpms.js"></script>
 </body>
 </html>

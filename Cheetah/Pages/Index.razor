@@ -1,57 +1,28 @@
 ﻿@page "/"
-
+@inject IJSRuntime _JSRuntime
 <PageTitle>درخواست جدید</PageTitle>
 
-<div class="container-fluid">
-    <h1>نظرات و پیشنهادات</h1>
-    <br />
-    <div class="row px-3">
-        <div class="p-3">
-            <img src="cheetah.jpg" />
-        </div>
-    </div>
-    <br />
-    <div class="row px-3">
-        <div class="col-md-6 col-lg-5 p-3">
-            <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">نام و نام خانوادگی</RadzenText>
-                <RadzenTextBox Placeholder="مشخصات خود را وارد کنید" Class="w-100" />
-            </RadzenCard>
-        </div>
-        <div class="col-md-6 col-lg-5 p-3">
-            <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">رایانامه</RadzenText>
-                <RadzenTextBox Placeholder="رایانامه خود را وارد نمایید" Class="w-100" />
-            </RadzenCard>
-        </div>
-        <div class="col-md-6 col-lg-2  p-3">
-            <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">بارگذاری</RadzenText>
-                <RadzenUpload Url="upload/single" Icon="upload" ChooseText="" Progress=@(args => OnProgress(args, "Upload with icon"))>
-                </RadzenUpload>
-            </RadzenCard>
-        </div>
-        <div class="col-md-6 col-lg-12 p-3">
-            <RadzenCard>
-                <RadzenText TextStyle="TextStyle.Subtitle1" TagName="TagName.H3">متن پیام</RadzenText>
-                <RadzenTextArea Placeholder="پیام خود را وارد نمایید." Class="w-100" />
-            </RadzenCard>
-        </div>
-    </div>
-    <div class="row px-3">
-        <div class="p-3">
-            <RadzenButton Text="ارسال بازخورد"></RadzenButton>
-        </div>
-    </div>
-</div>
+<h1>طراحی فرآیند</h1>
+<br />
 
+    <button class="btn btn-secondary" @onclick="TestConfirmation">بارگزاری اطلاعات</button>
+<div id="canvas" style="height:600px"></div>
 
 @code {
     string value;
 
+
+
     void OnChange(string value, string name)
     {
+        _JSRuntime.InvokeVoidAsync("ShowBPMN");
+
         //console.Log($"{name} value changed to {value}");
+    }
+
+    private async Task TestConfirmation()
+    {
+        await _JSRuntime.InvokeVoidAsync("ShowBPMN");
     }
 
     void OnProgress(UploadProgressArgs args, string name)
