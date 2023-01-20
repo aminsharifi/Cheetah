@@ -2,16 +2,17 @@
 @inject IJSRuntime _JSRuntime
 <PageTitle>درخواست جدید</PageTitle>
 
-<h1>طراحی فرآیند</h1>
-<br />
-
-    <button class="btn btn-secondary" @onclick="TestConfirmation">بارگزاری اطلاعات</button>
-<div id="canvas" style="height:600px"></div>
+<div dir="rtl">
+    <h1>طراحی فرآیند</h1>
+    <br />
+    <button class="btn btn-primary" @onclick="TestConfirmation">بارگزاری اطلاعات</button>
+    <button id="save-button" class="btn btn-secondary" >ذخیره اطلاعات</button>
+</div>
+<div dir="ltr" id="canvas" style="height:600px; direction:ltr"></div>
 
 @code {
+
     string value;
-
-
 
     void OnChange(string value, string name)
     {
@@ -23,6 +24,7 @@
     private async Task TestConfirmation()
     {
         await _JSRuntime.InvokeVoidAsync("ShowBPMN");
+        value = "دیاگرام لود شد.";
     }
 
     void OnProgress(UploadProgressArgs args, string name)

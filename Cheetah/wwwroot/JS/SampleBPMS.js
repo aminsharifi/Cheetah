@@ -1,6 +1,9 @@
 function ShowBPMN ()
 {
-    var diagramUrl = '/bpmn/goodsrequest.bpmn';
+    var diagramUrl = '/bpmn/goodsrequest.txt';
+    //diagramUrl = '';
+    //var diagramUrl = 'https://cdn.staticaly.com/gh/bpmn-io/bpmn-js-examples/dfceecba/starter/diagram.bpmn';
+    //var diagramUrl = '/bpmn/diagram.bpmn.txt';
     //<a href="~/bpmn/goodsrequest.bpmn">~/bpmn/goodsrequest.bpmn</a>
 
     // modeler instance
