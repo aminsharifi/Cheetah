@@ -19,7 +19,7 @@ namespace Cheetah_Business.Repository
         }
         public CopyROLEDTO Create(CopyROLEDTO obj_DTO)
         {
-            CopyROLE _CopyROLE = new CopyROLE()
+            var _CopyROLE = new CopyROLE()
             {
                 guidRole = new Guid(),
                 idRole = obj_DTO.idRole,
