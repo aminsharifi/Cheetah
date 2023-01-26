@@ -1,0 +1,89 @@
+﻿@page "/CopyROLE"
+@inject ICopyROLERepository iCopyROLERepository;
+@inject IJSRuntime _jSRuntime;
+
+<_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+
+<div style="direction:rtl">
+    @*<h3>CopyROLE</h3>*@
+    <div class="row mt-4">
+        <div class="col-6">
+            <h4 class="card-title text-primary">لیست نقش ها</h4>
+        </div>
+        <div class="col-2 offset-2">
+            <a href="CopyROLE/Create" class="btn btn-primary form-control">افزودن نقش</a>
+        </div>
+    </div>
+    <div class="col-12">
+        @if (copyROLEDTO.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>نام نقش</th>
+                        <th>اقدام</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in copyROLEDTO)
+                    {
+                        <tr>
+                            <td>@item.roleName</td>
+                            <td>
+                                <NavLink href="@($"CopyROLE/Edit/{item.idRole}")" class="btn-primary btn">ویرایش</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(item.idRole)">حذف</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                <h1>در حال بارگیری اطلاعات ...</h1>
+                @*<img src="imeges/Loading_Symbol.gif" />*@
+            }
+            else
+            {
+                <h1>هیچ روردی یافت نشد</h1>
+            }
+        }
+    </div>
+</div>
+@code {
+    private IEnumerable<CopyROLEDTO> copyROLEDTO { get; set; } = new List<CopyROLEDTO>();
+    public Boolean IsLoading { get; set; }
+    public int DeleteidRole { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await Load_CopyROLEDTO();
+    }
+    private async Task Load_CopyROLEDTO()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        copyROLEDTO = await iCopyROLERepository.GetAll();
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private void HandleDelete(int id)
+    {
+        DeleteidRole = id;
+        _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteidRole != 0)
+        {
+            await iCopyROLERepository.delete(DeleteidRole);
+            await Load_CopyROLEDTO();
+            await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading = false;
+    }
+}

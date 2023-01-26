@@ -6,7 +6,7 @@ namespace Cheetah_Models
     {
         public int idRole { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "وارد کردن نام نقش الزامی است.")]
         [StringLength(26)]
         public string roleName { get; set; }
     }

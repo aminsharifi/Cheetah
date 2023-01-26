@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
     <ProjectReference Include="..\Cheetah_Models\Cheetah_Models.csproj" />
   </ItemGroup>

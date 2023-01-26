@@ -8,7 +8,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
     <link href="css/site.css" rel="stylesheet" />
     <link href="Cheetah.styles.css" rel="stylesheet" />
     <!-- required modeler styles -->
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@11.1.1/dist/assets/bpmn-js.css">
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@11.1.1/dist/assets/diagram-js.css">
     <link rel="stylesheet" href="https://unpkg.com/bpmn-js@11.1.1/dist/assets/bpmn-font/css/bpmn.css">
+
 </head>
 <body>
     @RenderBody()
@@ -40,6 +42,8 @@
     <!-- needed for this example only -->
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
     <!-- example styles -->
-    <script src="js/samplebpms.js"></script>
+    <script src="JS/samplebpms.js"></script>
+    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+    <script src="JS/common.js"></script>
 </body>
 </html>

@@ -9,11 +9,10 @@ namespace Cheetah_Business.Repository.IRepository
 {
     public interface ICopyROLERepository
     {
-        public CopyROLEDTO Create(CopyROLEDTO obj_DTO);
-        public CopyROLEDTO Update(CopyROLEDTO obj_DTO);
-        public int delete (int id);
-        public CopyROLEDTO Get(int id);
-        public IEnumerable<CopyROLEDTO> GetAll();
-
+        public Task<CopyROLEDTO> Create(CopyROLEDTO obj_DTO);
+        public Task<CopyROLEDTO> Update(CopyROLEDTO obj_DTO);
+        public Task<int> delete (int id);
+        public Task<CopyROLEDTO> Get(int id);
+        public Task<IEnumerable<CopyROLEDTO>> GetAll();
     }
 }

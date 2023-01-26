@@ -1,0 +1,83 @@
+﻿@page "/CopyROLE/Create"
+@page "/CopyROLE/Edit/{idRole:int}"
+
+@inject ICopyROLERepository iCopyROLERepository;
+@inject NavigationManager _NavigationManager;
+
+<div class="row my-4" style="direction:rtl">
+    <h3 class="card-title text-primary mb-3 ml-3">@Title نقش</h3>
+
+    <div class="col-10">
+        @if (IsLoading)
+        {
+            <h1>در حال بارگیری اطلاعات ...</h1>
+        }
+        else
+        {
+            <EditForm Model="copyROLEDTO" OnValidSubmit="UpsertCopyROLE">
+                <DataAnnotationsValidator />
+                @*<ValidationSummary/>*@
+                <div class="form-group">
+                    <label>نام نقش</label>
+                    <InputText @bind-Value="copyROLEDTO.roleName" class="form-control"></InputText>
+                    <ValidationMessage For="()=>copyROLEDTO.roleName" />
+                </div>
+                <div class="form-group  py-2">
+                    <button class="btn btn-primary">@Title</button>
+                    <NavLink href="CopyROLE" class="btn btn-secondary">برگشت</NavLink>
+                </div>
+            </EditForm>
+        }
+
+    </div>
+
+</div>
+@code {
+    [Parameter]
+    public int idRole { get; set; }
+    private CopyROLEDTO copyROLEDTO { get; set; } = new CopyROLEDTO();
+
+    private String Title { get; set; } = "ایجاد";
+
+    public Boolean IsLoading { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (idRole == 0)
+            {
+                IsLoading = false;
+            }
+            else
+            {
+                Title = "ویرایش";
+                await Load_CopyROLEDTO();
+            }
+        }
+    }
+
+    private async Task Load_CopyROLEDTO()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        copyROLEDTO = await iCopyROLERepository.Get(idRole);
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+    private async Task UpsertCopyROLE()
+    {
+        if (copyROLEDTO.idRole == 0)
+        {
+            //copyROLEDTO.roleName = "دکمه کلیک شد.";
+           await iCopyROLERepository.Create(copyROLEDTO);
+        }
+        else
+        {
+            await iCopyROLERepository.Update(copyROLEDTO);
+        }
+
+        _NavigationManager.NavigateTo("CopyROLE");
+    }
+}

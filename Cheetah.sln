@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Common", "Cheetah_C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess", "Cheetah_DataAccess\Cheetah_DataAccess.csproj", "{960836BF-B0FC-4DFC-83A1-0036DB25A542}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah_Models", "Cheetah_Models\Cheetah_Models.csproj", "{80A3D62D-4E9F-4561-B7FB-5DE898331C34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Models", "Cheetah_Models\Cheetah_Models.csproj", "{80A3D62D-4E9F-4561-B7FB-5DE898331C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

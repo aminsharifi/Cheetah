@@ -1,4 +1,4 @@
-﻿using CheetahClassLibrary;
+﻿using Cheetah_DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,20 +13,21 @@ namespace Cheetah_DataAccess.Data
 {
     public partial class ApplicationDbContext : DbContext
     {
-        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        //{
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
 
-        //}
+        }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.ForNpgsqlHasEnum<SomeEnum>();
         //    modelBuilder.Entity<Blog>().ToTable("blog");
         //}
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("data source=POSHTIBANEBARTA;initial catalog=Cheetah;persist security info=True;user id=Cheetah;password=Cheetah123;Trust Server Certificate=true");
-        }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("data source=POSHTIBANEBARTA;initial catalog=Cheetah;persist security info=True;user id=Cheetah;password=Cheetah123;Trust Server Certificate=true");
+        //}
 
         public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
         /*

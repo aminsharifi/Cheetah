@@ -1,4 +1,4 @@
-namespace CheetahClassLibrary
+namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
