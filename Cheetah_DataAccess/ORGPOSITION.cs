@@ -14,15 +14,20 @@ namespace Cheetah_DataAccess
             ORGPOSITION1 = new HashSet<ORGPOSITION>();
         }
 
+        #region Common Prop
         [Key]
-        public int idPosition { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public long idPosition { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
+        #region Simple Prop
         [StringLength(26)]
         public string posName { get; set; }
-
         public int? idParentPosition { get; set; }
-
-        public Guid guidPosition { get; set; }
 
         [StringLength(40)]
         public string posDisplayName { get; set; }
@@ -36,15 +41,20 @@ namespace Cheetah_DataAccess
         [StringLength(150)]
         public string ancestorPath { get; set; }
 
-        public byte dplyPosition { get; set; }
+        public int idOrg { get; set; } 
+        #endregion
 
-        public int idOrg { get; set; }
+        #region Relation
 
-        public int finalEnt { get; set; }
+        #region Entity
+        public virtual ORGPOSITION ORGPOSITION2 { get; set; } 
+        #endregion
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORGPOSITION> ORGPOSITION1 { get; set; }
+        #region Collection
+        public virtual ICollection<ORGPOSITION> ORGPOSITION1 { get; set; }  
+        #endregion
 
-        public virtual ORGPOSITION ORGPOSITION2 { get; set; }
+        #endregion
+
     }
 }

@@ -9,7 +9,7 @@ namespace Cheetah_DataAccess
     public partial class CopyROLE
     {      
         public CopyROLE()
-        {
+        { 
         }
 
         [Key]

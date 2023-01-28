@@ -8,18 +8,18 @@ namespace Cheetah_DataAccess
     [Table("OrgPositions")]
     public partial class OrgPosition1
     {
+
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idOrgPositions { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
-        public int? finalEnt { get; set; }
-
-        public Guid guidOrgPositions { get; set; }
-
-        public bool dsblOrgPositions { get; set; }
-
-        public byte dplyOrgPositions { get; set; }
-
+        #region Basic Prop
         public short? OrgPositions_Code { get; set; }
 
         [StringLength(50)]
@@ -39,9 +39,12 @@ namespace Cheetah_DataAccess
 
         [StringLength(50)]
         public string OP_MedicineRole { get; set; }
+        #endregion
 
+        #region Relation
         public virtual ROLE ROLE { get; set; }
 
         public virtual ROLE ROLE1 { get; set; }
+        #endregion
     }
 }

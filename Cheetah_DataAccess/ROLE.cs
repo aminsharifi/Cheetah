@@ -8,36 +8,37 @@ namespace Cheetah_DataAccess
     [Table("ROLE")]
     public partial class ROLE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ROLE()
         {
             OrgPositions = new HashSet<OrgPosition1>();
             OrgPositions1 = new HashSet<OrgPosition1>();
         }
 
+        #region Common Prop
         [Key]
-        public int idRole { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public long idRole { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
+        #region Simple Prob
         [Required]
         [StringLength(26)]
         public string roleName { get; set; }
-
-        public Guid guidRole { get; set; }
 
         [StringLength(40)]
         public string roleDisplayName { get; set; }
 
         [StringLength(100)]
-        public string roleDescription { get; set; }
+        public string roleDescription { get; set; } 
+        #endregion
 
-        public byte dplyRole { get; set; }
-
-        public int finalEnt { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        #region Collection
         public virtual ICollection<OrgPosition1> OrgPositions { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrgPosition1> OrgPositions1 { get; set; }
+        public virtual ICollection<OrgPosition1> OrgPositions1 { get; set; } 
+        #endregion
     }
 }

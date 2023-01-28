@@ -7,12 +7,22 @@ namespace Cheetah_DataAccess
 
     public partial class CurrentProcessEndorseman
     {
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idCurrentProcessEndorsemen { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
-        public int? finalEnt { get; set; }
+        #region Simple Prop
+        public bool? CU_Active { get; set; } 
+        #endregion
 
+        #region Collection
+        public long? RequestGoods { get; set; }
         public long? CU_ProcessEndorsements { get; set; }
 
         public long? RequestInformation { get; set; }
@@ -21,17 +31,9 @@ namespace Cheetah_DataAccess
 
         public long? UserActionsProcess { get; set; }
 
-        public bool? CU_Active { get; set; }
-
-        public long? RequestGoods { get; set; }
-
         public int? CU_User { get; set; }
 
         public long? MeetingManagement { get; set; }
-
-        public long baCreatedTime { get; set; }
-
-        public Guid baGuid { get; set; }
 
         public virtual ProcessEndorsement ProcessEndorsement { get; set; }
 
@@ -41,6 +43,7 @@ namespace Cheetah_DataAccess
 
         public virtual WFUSER WFUSER { get; set; }
 
-        public virtual RequestInformation RequestInformation1 { get; set; }
+        public virtual RequestInformation RequestInformation1 { get; set; } 
+        #endregion
     }
 }

@@ -15,18 +15,17 @@ namespace Cheetah_DataAccess
             CurrentProcessEndorsemen = new HashSet<CurrentProcessEndorseman>();
         }
 
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idUserAction { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
-        public int? finalEnt { get; set; }
-
-        public Guid guidUserAction { get; set; }
-
-        public bool dsblUserAction { get; set; }
-
-        public byte dplyUserAction { get; set; }
-
+        #region Simple Prob
         public byte? UserAction_Code { get; set; }
 
         [StringLength(50)]
@@ -34,7 +33,6 @@ namespace Cheetah_DataAccess
 
         public int? UserAction_SortIndex { get; set; }
 
-        public long? UserActionGroup { get; set; }
 
         public int? ERPCode { get; set; }
 
@@ -43,13 +41,18 @@ namespace Cheetah_DataAccess
 
         [StringLength(200)]
         public string UserAction_Abbreviation { get; set; }
+        #endregion
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Approve> Approves { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
-
+        #region Relations
+        #region Entity
+        public long? UserActionGroup { get; set; }
         public virtual UserActionGroup UserActionGroup1 { get; set; }
+        #endregion
+        #region Collections
+        public virtual ICollection<Approve> Approves { get; set; }
+        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
+        #endregion
+        #endregion
+
     }
 }

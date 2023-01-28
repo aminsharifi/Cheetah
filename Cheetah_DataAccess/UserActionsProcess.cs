@@ -14,14 +14,17 @@ namespace Cheetah_DataAccess
             CurrentProcessEndorsemen1 = new HashSet<CurrentProcessEndorseman>();
         }
 
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idUserActionsProcess { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
-        public int? finalEnt { get; set; }
-
-        public long? CurrentProcessEndorsemen { get; set; }
-
+        #region Simple Prob
         public int? RequestTitles_Code { get; set; }
 
         public bool? Automation { get; set; }
@@ -45,23 +48,27 @@ namespace Cheetah_DataAccess
 
         public bool? SendERP { get; set; }
 
-        public long? RequestInformation { get; set; }
 
         public bool? SendNotifyERP { get; set; }
 
         public DateTime? CreateDate { get; set; }
 
         public bool? SMS { get; set; }
+        #endregion
 
-        public long baCreatedTime { get; set; }
+        #region Relations
 
-        public Guid baGuid { get; set; }
-
+        #region Entity
         public long? SupplierDocPrintDtl { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen1 { get; set; }
-
+        public long? RequestInformation { get; set; }
+        public long? CurrentProcessEndorsemen { get; set; }
         public virtual RequestInformation RequestInformation1 { get; set; }
+        #endregion
+
+        #region Collection
+        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen1 { get; set; } 
+        #endregion
+
+        #endregion
     }
 }

@@ -13,23 +13,18 @@ namespace Cheetah_DataAccess
             CurrentProcessEndorsemen = new HashSet<CurrentProcessEndorseman>();
         }
 
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idProcessEndorsements { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
-        public int? finalEnt { get; set; }
-
-        public Guid guidProcessEndorsements { get; set; }
-
-        public bool dsblProcessEndorsements { get; set; }
-
-        public byte dplyProcessEndorsements { get; set; }
-
-        public long? PE_OrgPositions { get; set; }
-
+        #region Simple Prop
         public byte? PE_ApproveOrder { get; set; }
-
-        public long? PE_RequestTitles { get; set; }
 
         public int? PE_Code { get; set; }
 
@@ -54,8 +49,6 @@ namespace Cheetah_DataAccess
         public string PE_ValidUserAction { get; set; }
 
         public bool? PE_Active { get; set; }
-
-        public long? PE_ProcessState { get; set; }
 
         [StringLength(50)]
         public string PE_SubRequestTitles { get; set; }
@@ -83,13 +76,22 @@ namespace Cheetah_DataAccess
         public bool? RT_AlborzSHare { get; set; }
 
         [StringLength(50)]
-        public string PE_UserRelationship { get; set; }
+        public string PE_UserRelationship { get; set; } 
+        #endregion
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
-
+        #region Relation
+        #region Entity
+        public long? PE_OrgPositions { get; set; }
+        public long? PE_ProcessState { get; set; }
         public virtual RequestTitle RequestTitle { get; set; }
-
         public virtual RI_ProcessState RI_ProcessState { get; set; }
+        public long? PE_RequestTitles { get; set; }
+        #endregion
+
+        #region Collection
+        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
+        #endregion 
+        #endregion
+
     }
 }

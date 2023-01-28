@@ -7,24 +7,28 @@ namespace Cheetah_DataAccess
 
     [Table("LOCATION")]
     public partial class LOCATION
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    {     
         public LOCATION()
         {
             LOCATION1 = new HashSet<LOCATION>();
             WFUSERs = new HashSet<WFUSER>();
         }
 
+        #region Common Prop
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idLocation { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
+
+        #region Simple Prop
 
         [Required]
         [StringLength(26)]
         public string locName { get; set; }
-
-        public int? idParentLocation { get; set; }
-
-        public Guid guidLocation { get; set; }
 
         [StringLength(40)]
         public string locDisplayName { get; set; }
@@ -36,24 +40,22 @@ namespace Cheetah_DataAccess
         public decimal? costLocation { get; set; }
 
         [StringLength(150)]
-        public string ancestorPath { get; set; }
+        public string ancestorPath { get; set; } 
+        #endregion
 
-        public byte dplyLocation { get; set; }
-
+        #region Relations
+        #region Entity
+        public int? idParentLocation { get; set; }
         public int? idWorkingTimeSchema { get; set; }
-
         public int idOrg { get; set; }
-
         public int? idTimeZone { get; set; }
+        public virtual LOCATION LOCATION2 { get; set; } 
+        #endregion
 
-        public int finalEnt { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        #region Collections
         public virtual ICollection<LOCATION> LOCATION1 { get; set; }
-
-        public virtual LOCATION LOCATION2 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WFUSER> WFUSERs { get; set; }
+        public virtual ICollection<WFUSER> WFUSERs { get; set; }  
+        #endregion
+        #endregion
     }
 }

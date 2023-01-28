@@ -8,26 +8,23 @@ namespace Cheetah_DataAccess
     [Table("ParameterList")]
     public partial class ParameterList
     {
+
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idParameterList { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
 
-        public int? finalEnt { get; set; }
-
-        public Guid guidParameterList { get; set; }
-
-        public bool dsblParameterList { get; set; }
-
-        public byte dplyParameterList { get; set; }
+        #region Basic Prop
 
         [StringLength(500)]
         public string Name { get; set; }
 
         public int? Code { get; set; }
-
-        public long? ParameterType { get; set; }
-
-        public long? PValue { get; set; }
 
         [StringLength(50)]
         public string CodeStr { get; set; }
@@ -36,7 +33,19 @@ namespace Cheetah_DataAccess
 
         [Column(TypeName = "ntext")]
         public string Dsc { get; set; }
+        #endregion
 
-        public virtual ParameterType ParameterType1 { get; set; }
+        #region Relation
+        
+        #region Entity
+        public long? ParameterType { get; set; }
+        public long? PValue { get; set; }
+        #endregion
+        
+        #region Collection
+        public virtual ParameterType ParameterType1 { get; set; }  
+        #endregion
+
+        #endregion
     }
 }

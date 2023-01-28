@@ -30,6 +30,10 @@ namespace Cheetah_DataAccess.Data
         //}
 
         public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
+        public virtual DbSet<ParameterType> ParameterTypes { get; set; }
+        public virtual DbSet<CopyProduct> CopyProducts  { get; set; }
+        
+
         /*
         public virtual DbSet<Approve> Approves { get; set; }
         public virtual DbSet<AREA> AREAs { get; set; }
@@ -39,7 +43,7 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<ORGPOSITION> ORGPOSITIONs { get; set; }
         public virtual DbSet<OrgPosition1> OrgPositions1 { get; set; }
         public virtual DbSet<ParameterList> ParameterLists { get; set; }
-        public virtual DbSet<ParameterType> ParameterTypes { get; set; }
+        
         public virtual DbSet<ProcessEndorsement> ProcessEndorsements { get; set; }
         public virtual DbSet<RequestInformation> RequestInformations { get; set; }
         public virtual DbSet<RequestTitle> RequestTitles { get; set; }

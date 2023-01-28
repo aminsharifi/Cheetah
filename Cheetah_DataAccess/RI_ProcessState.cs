@@ -13,18 +13,17 @@ namespace Cheetah_DataAccess
             ProcessEndorsements = new HashSet<ProcessEndorsement>();
         }
 
+
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long idRI_ProcessState { get; set; }
-
-        public int? finalEnt { get; set; }
-
-        public Guid guidRI_ProcessState { get; set; }
-
-        public bool dsblRI_ProcessState { get; set; }
-
-        public byte dplyRI_ProcessState { get; set; }
-
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
+        #region Simple Prob
         public int? PS_Code { get; set; }
 
         [StringLength(50)]
@@ -32,7 +31,9 @@ namespace Cheetah_DataAccess
 
         public int? PS_ERP { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProcessEndorsement> ProcessEndorsements { get; set; }
+        #endregion
+        #region Relations
+        public virtual ICollection<ProcessEndorsement> ProcessEndorsements { get; set; } 
+        #endregion
     }
 }

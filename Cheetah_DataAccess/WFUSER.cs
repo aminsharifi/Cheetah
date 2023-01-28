@@ -8,7 +8,7 @@ namespace Cheetah_DataAccess
     [Table("WFUSER")]
     public partial class WFUSER
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public WFUSER()
         {
             Approves = new HashSet<Approve>();
@@ -17,9 +17,17 @@ namespace Cheetah_DataAccess
             WFUSER11 = new HashSet<WFUSER>();
         }
 
+        #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int idUser { get; set; }
+        public long idUser { get; set; }
+        public int finalEnt { get; set; }
+        public long baCreatedTime { get; set; }
+        public Guid baGuid { get; set; }
+        public bool dsblRecord { get; set; }
+        #endregion
+
+        #region Simple Prob
 
         [Required]
         [StringLength(200)]
@@ -84,8 +92,6 @@ namespace Cheetah_DataAccess
         [Column(TypeName = "money")]
         public decimal? overtimeCost { get; set; }
 
-        public int finalEnt { get; set; }
-
         public int userStartPage { get; set; }
 
         [StringLength(50)]
@@ -129,8 +135,6 @@ namespace Cheetah_DataAccess
 
         public DateTime? Birthdate { get; set; }
 
-        public long baCreatedTime { get; set; }
-
         public long? baLastUpdated { get; set; }
 
         [StringLength(50)]
@@ -172,24 +176,25 @@ namespace Cheetah_DataAccess
         [Column(TypeName = "money")]
         public decimal? normalCost { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Approve> Approves { get; set; }
+        #endregion
 
+        #region Relations
+
+        #region Entity
         public virtual AREA AREA { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
-
-        public virtual LOCATION LOCATION { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WFUSER> WFUSER1 { get; set; }
-
         public virtual WFUSER WFUSER2 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WFUSER> WFUSER11 { get; set; }
-
         public virtual WFUSER WFUSER3 { get; set; }
+        public virtual LOCATION LOCATION { get; set; }
+        #endregion
+
+        #region Collection
+        public virtual ICollection<Approve> Approves { get; set; }
+        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
+        public virtual ICollection<WFUSER> WFUSER1 { get; set; }
+        public virtual ICollection<WFUSER> WFUSER11 { get; set; }  
+        #endregion
+
+        #endregion
+
     }
 }
