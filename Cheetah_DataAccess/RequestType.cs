@@ -1,7 +1,8 @@
-namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,9 +21,11 @@ namespace Cheetah_DataAccess
         #endregion
 
         #region Simple Prob
+        [Description("کد درخواست")]
         public int? RequestType_Code { get; set; }
 
         [StringLength(50)]
+        [Description("نوع درخواست")]
         public string RequestType_Name { get; set; } 
         #endregion
     }

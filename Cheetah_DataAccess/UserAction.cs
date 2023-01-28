@@ -1,7 +1,8 @@
-namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,8 +12,7 @@ namespace Cheetah_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserAction()
         {
-            Approves = new HashSet<Approve>();
-            CurrentProcessEndorsemen = new HashSet<CurrentProcessEndorseman>();
+         
         }
 
         #region Common Prop
@@ -26,31 +26,38 @@ namespace Cheetah_DataAccess
         #endregion
 
         #region Simple Prob
+
+        [Description("کد اقدام")]
         public byte? UserAction_Code { get; set; }
 
         [StringLength(50)]
+        [Description("عنوان اقدام")]
         public string UserAction_Name { get; set; }
 
+        [Description("اندیس سورت")]
         public int? UserAction_SortIndex { get; set; }
 
-
+        [Description("کد در سیستم ERP")]
         public int? ERPCode { get; set; }
 
         [StringLength(50)]
+        [Description("اقدامات مجاز")]
         public string UserAction_ValidActions { get; set; }
 
         [StringLength(200)]
+        [Description("مخفف")]
         public string UserAction_Abbreviation { get; set; }
         #endregion
 
         #region Relations
+
         #region Entity
-        public long? UserActionGroup { get; set; }
-        public virtual UserActionGroup UserActionGroup1 { get; set; }
+        [Description("گروه اقدام کاربر")]
+        public virtual UserActionGroup UserActionGroup { get; set; }
         #endregion
+
         #region Collections
-        public virtual ICollection<Approve> Approves { get; set; }
-        public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
+
         #endregion
         #endregion
 

@@ -1,7 +1,8 @@
-namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,28 +23,32 @@ namespace Cheetah_DataAccess
         #region Basic Prop
 
         [StringLength(500)]
+        [Description("نام")]
         public string Name { get; set; }
 
+        [Description("کد")]
         public int? Code { get; set; }
 
         [StringLength(50)]
         public string CodeStr { get; set; }
 
+        [Description("ترتیب")]
         public int? Ordering { get; set; }
+        public long? PValue { get; set; }
 
         [Column(TypeName = "ntext")]
+        [Description("توضیحات")]
         public string Dsc { get; set; }
         #endregion
 
         #region Relation
-        
+
         #region Entity
-        public long? ParameterType { get; set; }
-        public long? PValue { get; set; }
+        public virtual ParameterType parameterType { get; set; }        
         #endregion
         
         #region Collection
-        public virtual ParameterType ParameterType1 { get; set; }  
+        
         #endregion
 
         #endregion

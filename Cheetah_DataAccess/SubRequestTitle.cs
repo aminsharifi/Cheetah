@@ -1,7 +1,8 @@
-namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,16 +20,17 @@ namespace Cheetah_DataAccess
         #endregion
 
         #region Simple Prob
+        [Description("کد زیرفرآیند")]
         public int? SRT_Code { get; set; }
 
         [StringLength(200)]
-        public string SRT_Name { get; set; } 
+        [Description("نام زیرفرآیند")]
+        public string SRT_Name { get; set; }
         #endregion
 
         #region Relations
-        public long? RequestTitles { get; set; }
-
-        public virtual RequestTitle RequestTitle { get; set; } 
+        [Description("نام فرآیند")]
+        public virtual RequestTitle RequestTitles { get; set; } 
         #endregion
     }
 }

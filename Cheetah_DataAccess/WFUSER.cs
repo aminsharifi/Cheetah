@@ -8,7 +8,7 @@ namespace Cheetah_DataAccess
     [Table("WFUSER")]
     public partial class WFUSER
     {
-        
+
         public WFUSER()
         {
             Approves = new HashSet<Approve>();
@@ -40,13 +40,7 @@ namespace Cheetah_DataAccess
         [StringLength(25)]
         public string domain { get; set; }
 
-        public int? idArea { get; set; }
-
-        public int? idLocation { get; set; }
-
         public bool enabled { get; set; }
-
-        public int? idBossUser { get; set; }
 
         public byte? enabledForAssignation { get; set; }
 
@@ -68,13 +62,7 @@ namespace Cheetah_DataAccess
         [Column(TypeName = "smalldatetime")]
         public DateTime? wfClassAccessCacheExpiry { get; set; }
 
-        public int? idWorkingTimeSchema { get; set; }
-
-        public int? idDelegate { get; set; }
-
         public byte? DelegateEnabled { get; set; }
-
-        public int? idTimeZone { get; set; }
 
         public int? language { get; set; }
 
@@ -82,12 +70,7 @@ namespace Cheetah_DataAccess
 
         public byte? userPicture { get; set; }
 
-        public bool? offlineForms { get; set; }
-
-        public Guid? guidUser { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20220308_235415_0 { get; set; }
+        public bool? offlineForms { get; set; }    
 
         [Column(TypeName = "money")]
         public decimal? overtimeCost { get; set; }
@@ -102,11 +85,6 @@ namespace Cheetah_DataAccess
 
         [StringLength(10)]
         public string IDPersonel { get; set; }
-
-        public long? idDefaultPosition { get; set; }
-
-        public long? idUnitType { get; set; }
-
         [StringLength(20)]
         public string NationalCode { get; set; }
 
@@ -118,10 +96,6 @@ namespace Cheetah_DataAccess
 
         [StringLength(500)]
         public string DistrictManager_RelatedL { get; set; }
-
-        public int? FirstApprover { get; set; }
-
-        public int? SecondApprover { get; set; }
 
         public bool? IsNeedUpperApprove { get; set; }
 
@@ -140,33 +114,6 @@ namespace Cheetah_DataAccess
         [StringLength(50)]
         public string InternalPhone { get; set; }
 
-        public int? idFirstRoleUser { get; set; }
-
-        public int? idPosirionName { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20220606_155503_0 { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20220613_153951_0 { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20220704_113058_0 { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20220725_114415_0 { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20220801_151831_0 { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20221008_120219_0 { get; set; }
-
-        public long? id1 { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? normalCost20221119_115603_0 { get; set; }
-
         [StringLength(20)]
         public string Temp_IDPersonel { get; set; }
 
@@ -181,6 +128,27 @@ namespace Cheetah_DataAccess
         #region Relations
 
         #region Entity
+        public int? idFirstRoleUser { get; set; }
+
+        public int? FirstApprover { get; set; }
+
+        public int? SecondApprover { get; set; }
+
+        public int? idArea { get; set; }
+
+        public int? idLocation { get; set; }
+
+        public int? idBossUser { get; set; }
+        public int? idWorkingTimeSchema { get; set; }
+
+        public int? idDelegate { get; set; }
+
+        public int? idTimeZone { get; set; }
+
+        public long? idDefaultPosition { get; set; }
+
+        public long? idUnitType { get; set; }
+        public int? idPosirionName { get; set; }
         public virtual AREA AREA { get; set; }
         public virtual WFUSER WFUSER2 { get; set; }
         public virtual WFUSER WFUSER3 { get; set; }
@@ -191,7 +159,7 @@ namespace Cheetah_DataAccess
         public virtual ICollection<Approve> Approves { get; set; }
         public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
         public virtual ICollection<WFUSER> WFUSER1 { get; set; }
-        public virtual ICollection<WFUSER> WFUSER11 { get; set; }  
+        public virtual ICollection<WFUSER> WFUSER11 { get; set; }
         #endregion
 
         #endregion

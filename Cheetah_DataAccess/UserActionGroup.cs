@@ -1,7 +1,8 @@
-namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,7 +12,6 @@ namespace Cheetah_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserActionGroup()
         {
-            UserActions = new HashSet<UserAction>();
         }
 
         #region Common Prop
@@ -24,14 +24,14 @@ namespace Cheetah_DataAccess
         public bool dsblRecord { get; set; }
         #endregion
 
+        #region Simple Prop
+        [Description("کد گروه اقدام")]
         public byte? UserActionGroup_Code { get; set; }
 
         [StringLength(50)]
+        [Description("گروه اقدام")]
         public string UserActionGroup_Name { get; set; }
-
-
-        #region Relations
-        public virtual ICollection<UserAction> UserActions { get; set; } 
         #endregion
+
     }
 }

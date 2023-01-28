@@ -27,7 +27,6 @@ namespace Cheetah_DataAccess
         #endregion
 
 
-
         #region Simple Prob
         public bool? RI_IsCancelled { get; set; }
         public DateTime? RI_RequestDate { get; set; }
@@ -42,10 +41,10 @@ namespace Cheetah_DataAccess
         public string RI_Address { get; set; }
         [StringLength(50)]
         public string RI_LastUserComment { get; set; }
-        public int? RI_LastUserInCharge { get; set; }
+       
         public byte? RI_PE_Level { get; set; }
         public byte? RI_Attachment { get; set; }
-        public int? RI_ExpertUser { get; set; }
+   
         public bool? RI_ConditionOccur { get; set; }
 
         public long? ERPID { get; set; }
@@ -65,10 +64,6 @@ namespace Cheetah_DataAccess
         public string RI_ValidUserAction { get; set; }
 
         public bool? WSResult { get; set; }
-
-
-
-
 
         public DateTime? RI_OldDate { get; set; }
 
@@ -155,6 +150,8 @@ namespace Cheetah_DataAccess
 
         #region Relations
         #region Entity
+        public int? RI_ExpertUser { get; set; }
+        public int? RI_LastUserInCharge { get; set; }
         public int? RI_Requestor { get; set; }
         public int? RI_Creator { get; set; }
         public int? RI_Location { get; set; }

@@ -1,7 +1,8 @@
-namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,31 +21,37 @@ namespace Cheetah_DataAccess
         #endregion
 
         #region Basic Prop
+
+        [Description("کد سمت")]
         public short? OrgPositions_Code { get; set; }
 
         [StringLength(50)]
+        [Description("نام سمت")]
         public string OrgPositions_Name { get; set; }
 
         [StringLength(50)]
+        [Description("ایفاکننده")]
         public string OrgPositions_User { get; set; }
 
-        public int? OrgPositions_Role { get; set; }
-
+        [Description("سطح ستاد")]
         public bool? OrgPositions_Group { get; set; }
 
-        public int? OrgPositions_Role2 { get; set; }
-
         [StringLength(50)]
+        [Description("نقش FMCG")]
         public string OP_FMCGRole { get; set; }
 
         [StringLength(50)]
+        [Description("نقش دارویی")]
         public string OP_MedicineRole { get; set; }
         #endregion
 
-        #region Relation
-        public virtual ROLE ROLE { get; set; }
 
-        public virtual ROLE ROLE1 { get; set; }
+        #region Relation
+        [Description("نقش")]
+        public virtual ROLE OrgPositions_Role { get; set; }
+
+        [Description("نقش جایگزین")]
+        public virtual ROLE OrgPositions_Role2 { get; set; }
         #endregion
     }
 }

@@ -27,7 +27,6 @@ namespace Cheetah_DataAccess
         #region Simple Prop
         [StringLength(26)]
         public string posName { get; set; }
-        public int? idParentPosition { get; set; }
 
         [StringLength(40)]
         public string posDisplayName { get; set; }
@@ -41,12 +40,13 @@ namespace Cheetah_DataAccess
         [StringLength(150)]
         public string ancestorPath { get; set; }
 
-        public int idOrg { get; set; } 
         #endregion
 
         #region Relation
 
         #region Entity
+        public int? idParentPosition { get; set; }
+        public int idOrg { get; set; }
         public virtual ORGPOSITION ORGPOSITION2 { get; set; } 
         #endregion
 
