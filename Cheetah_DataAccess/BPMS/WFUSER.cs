@@ -1,20 +1,20 @@
-namespace Cheetah_DataAccess
+namespace Cheetah_DataAccess.BPMS
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Cheetah_DataAccess.Gizelle;
 
-    [Table("WFUSER")]
-    public partial class WFUSER
+    public partial class WFUser
     {
 
-        public WFUSER()
+        public WFUser()
         {
             Approves = new HashSet<Approve>();
             CurrentProcessEndorsemen = new HashSet<CurrentProcessEndorseman>();
-            WFUSER1 = new HashSet<WFUSER>();
-            WFUSER11 = new HashSet<WFUSER>();
+            WFUSER1 = new HashSet<WFUser>();
+            WFUSER11 = new HashSet<WFUser>();
         }
 
         #region Common Prop
@@ -70,7 +70,7 @@ namespace Cheetah_DataAccess
 
         public byte? userPicture { get; set; }
 
-        public bool? offlineForms { get; set; }    
+        public bool? offlineForms { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? overtimeCost { get; set; }
@@ -149,17 +149,17 @@ namespace Cheetah_DataAccess
 
         public long? idUnitType { get; set; }
         public int? idPosirionName { get; set; }
-        public virtual AREA AREA { get; set; }
-        public virtual WFUSER WFUSER2 { get; set; }
-        public virtual WFUSER WFUSER3 { get; set; }
-        public virtual LOCATION LOCATION { get; set; }
+        public virtual Area AREA { get; set; }
+        public virtual WFUser WFUSER2 { get; set; }
+        public virtual WFUser WFUSER3 { get; set; }
+        public virtual Location LOCATION { get; set; }
         #endregion
 
         #region Collection
         public virtual ICollection<Approve> Approves { get; set; }
         public virtual ICollection<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
-        public virtual ICollection<WFUSER> WFUSER1 { get; set; }
-        public virtual ICollection<WFUSER> WFUSER11 { get; set; }
+        public virtual ICollection<WFUser> WFUSER1 { get; set; }
+        public virtual ICollection<WFUser> WFUSER11 { get; set; }
         #endregion
 
         #endregion

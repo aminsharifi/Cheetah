@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
@@ -27,23 +27,28 @@
         #region Simple Prob
         [Description("کد فرآیند")]
         public int? RequestTitles_Code { get; set; }
-        
+
         [Description("ارسال نامه به اتوماسیون")]
         public bool? Automation { get; set; }
-        
-        [Description("sender_input")][StringLength(50)]
+
+        [Description("sender_input")]
+        [StringLength(50)]
         public string sender_input { get; set; }
 
-        [Description("Receiver_input")][StringLength(50)]
+        [Description("Receiver_input")]
+        [StringLength(50)]
         public string Receiver_input { get; set; }
-        
-        [Description("Subject_input")][StringLength(255)]
+
+        [Description("Subject_input")]
+        [StringLength(255)]
         public string Subject_input { get; set; }
-        
-        [Description("TextBody_input")][StringLength(2048)]
+
+        [Description("TextBody_input")]
+        [StringLength(2048)]
         public string TextBody_input { get; set; }
-        
-        [Description("IdentificationCode_input")][StringLength(215)]
+
+        [Description("IdentificationCode_input")]
+        [StringLength(215)]
         public string IdentificationCode_input { get; set; }
 
         [Description("SendLetterResponse")]
@@ -69,7 +74,8 @@
         #region CurrentProcessEndorsement
         [Description("وضعیت تایید فرآیند")]
         public long? idCurrentProcessEndorsement { get; set; }
-        [ForeignKey("idRequestInformation")][Description("وضعیت تایید فرآیند")]
+        [ForeignKey("idRequestInformation")]
+        [Description("وضعیت تایید فرآیند")]
         public virtual ProcessEndorsement currentProcessEndorsement { get; set; }
         #endregion
 
@@ -77,7 +83,8 @@
         [Description("اطلاعات عمومی درخواست")]
         public long? idRequestInformation { get; set; }
 
-        [ForeignKey("idRequestInformation")][Description("اطلاعات عمومی درخواست")]
+        [ForeignKey("idRequestInformation")]
+        [Description("اطلاعات عمومی درخواست")]
         public virtual RequestInformation requestInformation { get; set; }
         #endregion
 

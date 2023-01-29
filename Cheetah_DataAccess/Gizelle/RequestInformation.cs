@@ -1,4 +1,4 @@
-namespace Cheetah_DataAccess
+namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
@@ -41,10 +41,10 @@ namespace Cheetah_DataAccess
         public string RI_Address { get; set; }
         [StringLength(50)]
         public string RI_LastUserComment { get; set; }
-       
+
         public byte? RI_PE_Level { get; set; }
         public byte? RI_Attachment { get; set; }
-   
+
         public bool? RI_ConditionOccur { get; set; }
 
         public long? ERPID { get; set; }

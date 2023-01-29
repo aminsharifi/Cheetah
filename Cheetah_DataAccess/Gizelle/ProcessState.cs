@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
@@ -6,32 +6,39 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("UserActionGroup")]
-    public partial class UserActionGroup
+    public partial class ProcessState
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserActionGroup()
+        public ProcessState()
         {
+
         }
+
 
         #region Common Prop
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long idUserActionGroup { get; set; }
+        public long idProcessState { get; set; }
         public int finalEnt { get; set; }
         public long baCreatedTime { get; set; }
         public Guid baGuid { get; set; }
         public bool dsblRecord { get; set; }
         #endregion
 
-        #region Simple Prop
-        [Description("کد گروه اقدام")]
-        public byte? UserActionGroup_Code { get; set; }
+        #region Simple Prob
+        [Description("کد وضعیت فرآیند")]
+        public int? PS_Code { get; set; }
 
         [StringLength(50)]
-        [Description("گروه اقدام")]
-        public string UserActionGroup_Name { get; set; }
-        #endregion
+        [Description("وضعیت فرآیند")]
+        public string PS_Name { get; set; }
 
+        [Description("کد ERP")]
+        public int? PS_ERP { get; set; }
+
+        #endregion
+        #region Relations
+
+        #endregion
     }
 }

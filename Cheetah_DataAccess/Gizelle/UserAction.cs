@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserAction()
         {
-         
+
         }
 
         #region Common Prop

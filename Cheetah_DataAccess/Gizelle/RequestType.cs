@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +26,7 @@
 
         [StringLength(50)]
         [Description("نوع درخواست")]
-        public string RequestType_Name { get; set; } 
+        public string RequestType_Name { get; set; }
         #endregion
     }
 }

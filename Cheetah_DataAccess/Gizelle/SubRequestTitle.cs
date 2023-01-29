@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +30,7 @@
 
         #region Relations
         [Description("نام فرآیند")]
-        public virtual RequestTitle RequestTitles { get; set; } 
+        public virtual RequestTitle RequestTitles { get; set; }
         #endregion
     }
 }

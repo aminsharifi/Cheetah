@@ -1,24 +1,21 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Cheetah_DataAccess.BPMS;
 
     public partial class Approve
     {
+        //Passed
         #region Common Prop
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long idApproves { get; set; }
-
-        public int? finalEnt { get; set; }
-
-        public long baCreatedTime { get; set; }
-
-        public Guid baGuid { get; set; }
-        public bool dsblRecord { get; set; }
+        public long IdRecord { get; set; }
+        public long TimeRecord { get; set; } = DateTime.Now.Ticks;
+        public Guid GuidRecord { get; set; } = Guid.NewGuid();
+        public bool DsblRecord { get; set; } = false;
         #endregion
 
         #region Basic Prop
@@ -29,15 +26,15 @@
 
         [StringLength(1024)]
         [Description("توضیحات کاربر")]
-        public string Approves_UserDescription { get; set; }
+        public string? Approves_UserDescription { get; set; }
 
         [StringLength(50)]
         [Description("نام فرم")]
-        public string Approves_Subject { get; set; }
+        public string? Approves_Subject { get; set; }
 
         [StringLength(50)]
         [Description("شماره فعالیت")]
-        public string Approves_Number { get; set; }
+        public string? Approves_Number { get; set; }
         [Description("ضمیمه")]
         public byte? Approves_Attachment { get; set; }
         #endregion
@@ -45,21 +42,21 @@
         #region Relations
 
         #region RequestInformation
-        public long? idRequestInformation { get; set; }
-        [ForeignKey("idRequestInformation")]
-        public virtual RequestInformation? RequestInformation { get; set; }
+        public long? Approves_idRequestInformation { get; set; }
+        [ForeignKey("Approves_idRequestInformation")]
+        public virtual RequestInformation? Approves_RequestInformation { get; set; }
         #endregion
 
         #region Approves_UserAction
-        public long? idApproves_UserAction { get; set; }
-        [ForeignKey("idApproves_UserAction")]
+        public long? Approves_idUserAction { get; set; }
+        [ForeignKey("Approves_idUserAction")]
         public virtual UserAction? Approves_UserAction { get; set; }
         #endregion
 
         #region Approves_UserInCharge
-        public long? idApproves_UserInCharge { get; set; }
-        [ForeignKey("idApproves_UserInCharge")]
-        public virtual WFUSER? Approves_UserInCharge { get; set; }
+        public long? Approves_idUserInCharge { get; set; }
+        [ForeignKey("Approves_idUserInCharge")]
+        public virtual WFUser? Approves_UserInCharge { get; set; }
         #endregion
 
         #endregion

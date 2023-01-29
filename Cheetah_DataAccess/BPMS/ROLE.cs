@@ -1,17 +1,16 @@
-namespace Cheetah_DataAccess
+namespace Cheetah_DataAccess.BPMS
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("ROLE")]
-    public partial class ROLE
+    public partial class Role
     {
-        public ROLE()
+        public Role()
         {
-            OrgPositions = new HashSet<OrgPosition1>();
-            OrgPositions1 = new HashSet<OrgPosition1>();
+            OrgPositions = new HashSet<OrgPosition>();
+            OrgPositions1 = new HashSet<OrgPosition>();
         }
 
         #region Common Prop
@@ -33,12 +32,12 @@ namespace Cheetah_DataAccess
         public string roleDisplayName { get; set; }
 
         [StringLength(100)]
-        public string roleDescription { get; set; } 
+        public string roleDescription { get; set; }
         #endregion
 
         #region Collection
-        public virtual ICollection<OrgPosition1> OrgPositions { get; set; }
-        public virtual ICollection<OrgPosition1> OrgPositions1 { get; set; } 
+        public virtual ICollection<OrgPosition> OrgPositions { get; set; }
+        public virtual ICollection<OrgPosition> OrgPositions1 { get; set; }
         #endregion
     }
 }

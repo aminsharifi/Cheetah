@@ -1,13 +1,13 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Cheetah_DataAccess.BPMS;
 
-    [Table("OrgPositions")]
-    public partial class OrgPosition1
+    public partial class PositionOrganization
     {
 
         #region Common Prop
@@ -48,10 +48,10 @@
 
         #region Relation
         [Description("نقش")]
-        public virtual ROLE OrgPositions_Role { get; set; }
+        public virtual Role OrgPositions_Role { get; set; }
 
         [Description("نقش جایگزین")]
-        public virtual ROLE OrgPositions_Role2 { get; set; }
+        public virtual Role OrgPositions_Role2 { get; set; }
         #endregion
     }
 }

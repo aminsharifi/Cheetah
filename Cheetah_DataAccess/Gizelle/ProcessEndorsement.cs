@@ -1,10 +1,11 @@
-﻿namespace Cheetah_DataAccess
+﻿namespace Cheetah_DataAccess.Gizelle
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Cheetah_DataAccess.BPMS;
 
     public partial class ProcessEndorsement
     {
@@ -96,10 +97,10 @@
         #region Entity
 
         [Description("کارشناس تخصیص پیشفرض")]
-        public virtual WFUSER PE_ExpertUser { get; set; }
+        public virtual WFUser PE_ExpertUser { get; set; }
 
         [Description("سمت سازمانی")]
-        public virtual OrgPosition1 PE_OrgPositions { get; set; }
+        public virtual PositionOrganization PE_OrgPositions { get; set; }
 
         [Description("نام فرآیند")]
         public virtual RequestTitle PE_RequestTitles { get; set; }
