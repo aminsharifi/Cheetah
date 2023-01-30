@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 using FluentAssertions.Common;
-using Cheetah_DataAccess.Gizelle;
+using Cheetah_DataAccess.Parameters;
 
 namespace Cheetah_DataAccess.Data
 {
@@ -30,7 +30,7 @@ namespace Cheetah_DataAccess.Data
         //}
 
         public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
-        public virtual DbSet<ParameterType> ParameterTypes { get; set; }
+        public virtual DbSet<P_ParameterType> ParameterTypes { get; set; }
         public virtual DbSet<CopyProduct> CopyProducts  { get; set; }
         
 

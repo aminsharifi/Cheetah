@@ -1,20 +1,16 @@
-namespace Cheetah_DataAccess.Gizelle
+namespace Cheetah_DataAccess.Masters
 {
+    using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Parameters;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class CallWebService
+    [Table("M_CallWebService")]
+    public partial class M_CallWebService : BaseClass
     {
         //Passed
-        #region Common Prop
-        [Key]
-        public long IdRecord { get; set; }
-        public long TimeRecord { get; set; } = DateTime.Now.Ticks;
-        public Guid GuidRecord { get; set; } = Guid.NewGuid();
-        public bool DsblRecord { get; set; } = false;
-        #endregion
 
         #region Basic Prop
         [StringLength(500)]
@@ -31,13 +27,20 @@ namespace Cheetah_DataAccess.Gizelle
         public string? CWS_WSResult_Desc { get; set; }
         #endregion
 
-        #region Relations        
+        #region Relations 
+        
+        #region ParameterList
         public long CWS_idParameterList { get; set; }
         [ForeignKey("CWS_idParameterList")]
-        public virtual ParameterList? CWS_ParameterList { get; set; }
+        public virtual P_ParameterList? CWS_ParameterList { get; set; } 
+        #endregion
+
+        #region RequestInformation
         public long CWS_idRequestInformation { get; set; }
         [ForeignKey("CWS_idRequestInformation")]
-        public virtual RequestInformation? CWS_RequestInformation { get; set; }
+        public virtual M_RequestInformation? CWS_RequestInformation { get; set; } 
+        #endregion
+
         #endregion
     }
 }

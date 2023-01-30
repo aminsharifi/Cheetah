@@ -1,0 +1,44 @@
+﻿using Cheetah_DataAccess.Systems;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Cheetah_DataAccess.Data
+{
+    public abstract class BasePSClass:BaseClass
+    {
+        [Description("کد پارامتر")]
+        [Required]
+        public long PCode { get; set; }
+
+        [StringLength(50)]
+        [Description("نام پارامتر")]
+        [Required]
+        public string PName { get; set; }
+
+        [Description("اندیس سورت")]
+        public long PIndex { get; set;}
+
+        [Description("کد در سیستم ERP")]
+        public long? PERPCode { get; set; }
+
+        [StringLength(512)]
+        [Description("نام پارامتر")]
+        public string? PDescription { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? PCost { get; set; }
+
+        #region Pchilds
+        public long? PidChilds { get; set; }
+        [ForeignKey("PidChilds")]
+        public virtual IEnumerable<BasePSClass>? PChilds { get; set; }
+        #endregion
+    }
+}

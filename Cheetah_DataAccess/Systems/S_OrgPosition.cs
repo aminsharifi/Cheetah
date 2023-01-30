@@ -1,26 +1,21 @@
-namespace Cheetah_DataAccess.BPMS
+namespace Cheetah_DataAccess.Systems
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class OrgPosition
+    [Table("OrgPosition")]
+    public partial class S_OrgPosition
     {
-        #region Common Prop
-        [Key]
-        public long IdRecord { get; set; }
-        public long TimeRecord { get; set; } = DateTime.Now.Ticks;
-        public Guid GuidRecord { get; set; } = Guid.NewGuid();
-        public bool DsblRecord { get; set; } = false;
-        #endregion
-
         #region Simple Prop
         [StringLength(26)]
-        public string? POS_Name { get; set; }
+        [Required]
+        public string POS_Name { get; set; }
 
         [StringLength(40)]
-        public string? POS_DisplayName { get; set; }
+        [Required]
+        public string POS_DisplayName { get; set; }
 
         [StringLength(100)]
         public string? POS_Description { get; set; }
@@ -41,13 +36,13 @@ namespace Cheetah_DataAccess.BPMS
         #region POS_ParentPosition
         public long? POS_idParentPosition { get; set; }
         [ForeignKey("POS_idParentPosition")]
-        public virtual OrgPosition? POS_ParentPosition { get; set; }
+        public virtual S_OrgPosition? POS_ParentPosition { get; set; }
         #endregion
 
         #endregion
 
         #region Collection
-        public virtual ICollection<OrgPosition>? ORGPOPOS_ChildPosition { get; set; }
+        public virtual ICollection<S_OrgPosition>? ORGPOPOS_ChildPosition { get; set; }
         #endregion
 
         #endregion
