@@ -16,7 +16,7 @@
         //Passed
 
         #region Simple Prop
-        public bool CPE_Active { get; set; } = true;
+
         #endregion
 
         #region Collection
@@ -27,7 +27,6 @@
         [ForeignKey("CPE_idProcessEndorsements")]
         public virtual P_ProcessEndorsement? CPE_ProcessEndorsements { get; set; }
         #endregion
-
 
         #region CPE_RequestInformation
         public long? CPE_idRequestInformation { get; set; }

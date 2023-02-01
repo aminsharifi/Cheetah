@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 using FluentAssertions.Common;
 using Cheetah_DataAccess.Parameters;
+using Cheetah_DataAccess.Masters;
 
 namespace Cheetah_DataAccess.Data
 {
@@ -24,14 +25,12 @@ namespace Cheetah_DataAccess.Data
         //    modelBuilder.Entity<Blog>().ToTable("blog");
         //}
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("data source=POSHTIBANEBARTA;initial catalog=Cheetah;persist security info=True;user id=Cheetah;password=Cheetah123;Trust Server Certificate=true");
-        //}
 
         public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
-        public virtual DbSet<P_ParameterType> ParameterTypes { get; set; }
-        public virtual DbSet<CopyProduct> CopyProducts  { get; set; }
+        public virtual DbSet<CopyProduct> CopyProducts { get; set; }
+        public virtual DbSet<P_ParameterType> P_ParameterTypes { get; set; }
+        public virtual DbSet<P_ParameterList> P_ParameterList { get; set; }
+        public virtual DbSet<M_CallWebService> M_CallWebService { get; set; }
         
 
         /*

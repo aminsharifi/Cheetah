@@ -141,34 +141,34 @@ namespace Cheetah_DataAccess.Masters
 
         #region Relations
         #region Entity
-        public long? RI_idUnitType { get; set; }
-        public long? RI_Person { get; set; }
-        public long? RI_RejectReason { get; set; }
+        public virtual long? RI_idUnitType { get; set; }
+        public virtual long? RI_Person { get; set; }
+        public virtual long? RI_RejectReason { get; set; }
 
         #region WFUsers
 
         #region RI_ExpertUser
         public long? RI_idExpertUser { get; set; }
         [ForeignKey("RI_idExpertUser")]
-        public S_User? RI_ExpertUser { get; set; }
+        public virtual S_User? RI_ExpertUser { get; set; }
         #endregion
 
         #region RI_LastUserInCharge
         public long? RI_idLastUserInCharge { get; set; }
         [ForeignKey("RI_idLastUserInCharge")]
-        public S_User? RI_LastUserInCharge { get; set; }
+        public virtual S_User? RI_LastUserInCharge { get; set; }
         #endregion
 
         #region RI_Requestor
         public long? RI_idRequestor { get; set; }
         [ForeignKey("RI_idRequestor")]
-        public S_User? RI_Requestor { get; set; }
+        public virtual S_User? RI_Requestor { get; set; }
         #endregion
 
         #region RI_Creator
         public long? RI_idCreator { get; set; }
         [ForeignKey("RI_idCreator")]
-        public S_User? RI_Creator { get; set; }
+        public virtual S_User? RI_Creator { get; set; }
         #endregion
 
         #endregion
@@ -176,56 +176,56 @@ namespace Cheetah_DataAccess.Masters
         #region RI_Location
         public long? RI_idLocation { get; set; }
         [ForeignKey("RI_idLocation")]
-        public S_Location? RI_Location { get; set; }
+        public virtual S_Location? RI_Location { get; set; }
         #endregion
 
         #region RI_idRequestType
         public long? RI_idRequestType { get; set; }
         [ForeignKey("RI_idRequestType")]
-        public P_RequestType? RI_RequestType { get; set; }
+        public virtual P_RequestType? RI_RequestType { get; set; }
         #endregion
 
         #region RI_RequestTitle
         public long? RI_idRequestTitle { get; set; }
         [ForeignKey("RI_idRequestTitle")]
-        public P_RequestTitle? RI_RequestTitle { get; set; }
+        public virtual P_RequestTitle? RI_RequestTitle { get; set; }
         #endregion
 
         #region RI_SubRequestTitle
         public long? RI_idSubRequestTitle { get; set; }
         [ForeignKey("RI_idSubRequestTitle")]
-        public P_SubRequestTitle? RI_SubRequestTitle { get; set; }
+        public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
         #endregion
 
         #region RI_ActiveProcessEndorsement
         [Description("RI_ActiveidProcessEndorsement")]
         public long? RI_ActiveidProcessEndorsement { get; set; }
         [ForeignKey("RI_ActiveidProcessEndorsement")]
-        public P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
+        public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
         #endregion
 
         #region RI_Area
         public long? RI_idArea { get; set; }
         [ForeignKey("RI_idArea")]
-        public S_Area? RI_Area { get; set; }
+        public virtual S_Area? RI_Area { get; set; }
         #endregion
 
         #region RI_UserAction
         public long? RI_idUserAction { get; set; }
         [ForeignKey("RI_idUserAction")]
-        public P_UserAction? RI_UserAction { get; set; }
+        public virtual P_UserAction? RI_UserAction { get; set; }
         #endregion
 
         #region RI_LastUserAction
         public long? RI_idLastUserAction { get; set; }
         [ForeignKey("RI_idLastUserAction")]
-        public P_UserAction? RI_LastUserAction { get; set; }
+        public virtual P_UserAction? RI_LastUserAction { get; set; }
         #endregion
 
         #region RI_ProcessState
         public long? RI_idProcessState { get; set; }
         [ForeignKey("RI_idProcessState")]
-        public P_ProcessState? RI_ProcessState { get; set; }
+        public virtual P_ProcessState? RI_ProcessState { get; set; }
         #endregion
 
         #endregion

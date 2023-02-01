@@ -11,8 +11,11 @@ namespace Cheetah_DataAccess.Data
     {
         [Key]
         public long IdRecord { get; set; }
-        public long TimeRecord { get; set; } = DateTime.Now.Ticks;
+        public long CreateTimeRecord { get; set; } = DateTime.Now.Ticks;
+        public long? LastUpdatedRecord { get; set; } = DateTime.Now.Ticks;
         public Guid GuidRecord { get; set; } = Guid.NewGuid();
         public bool DsblRecord { get; set; } = false;
+
+        //public ICollection<BaseClass>? ChildBaseClass = new List<BaseClass>();
     }
 }

@@ -8,10 +8,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("P_ParameterType")]
-    public partial class P_ParameterType : BasePSClass
+    public partial class P_ParameterType: BasePSClass
     {
-        #region Relation
 
-        #endregion
     }
 }

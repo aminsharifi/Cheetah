@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Cheetah_DataAccess.Data
 {
-    public abstract class BasePSClass:BaseClass
+    public abstract class BasePSClass : BaseClass
     {
         [Description("کد پارامتر")]
         [Required]
@@ -35,10 +35,11 @@ namespace Cheetah_DataAccess.Data
         [Column(TypeName = "numeric")]
         public decimal? PCost { get; set; }
 
-        #region Pchilds
-        public long? PidChilds { get; set; }
-        [ForeignKey("PidChilds")]
-        public virtual IEnumerable<BasePSClass>? PChilds { get; set; }
+        #region PParentchilds
+        //public long? PidParent { get; set; }
+        //[ForeignKey("PidParent")]
+        //public virtual BasePSClass? PParent { get; set; }
+        //public virtual ICollection<BasePSClass>? PChilds { get; set; }
         #endregion
     }
 }

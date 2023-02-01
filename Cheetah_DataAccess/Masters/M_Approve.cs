@@ -36,24 +36,9 @@
         #endregion
 
         #region Relations
-
-        #region RequestInformation
-        public long? APV_idRequestInformation { get; set; }
-        [ForeignKey("APV_idRequestInformation")]
-        public virtual M_RequestInformation? APV_RequestInformation { get; set; }
-        #endregion
-
-        #region APV_UserAction
-        public long? APV_idUserAction { get; set; }
-        [ForeignKey("APV_idUserAction")]
-        public virtual P_UserAction? APV_UserAction { get; set; }
-        #endregion
-
-        #region APV_UserInCharge
-        public long? APV_idUserInCharge { get; set; }
-        [ForeignKey("APV_idUserInCharge")]
+        public virtual M_RequestInformation? APV_RequestInformation { get; set; }        
+        public virtual P_UserAction? APV_UserAction { get; set; }        
         public virtual S_User? APV_UserInCharge { get; set; }
-        #endregion
 
         #endregion
     }

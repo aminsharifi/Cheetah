@@ -28,7 +28,6 @@
         public string? PSO_MedicineRole { get; set; }
         #endregion
 
-
         #region Relation
 
         #region PSO_Role

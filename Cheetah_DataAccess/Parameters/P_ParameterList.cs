@@ -14,16 +14,11 @@
 
         #region Entity
 
-        #region PL_ParameterType
-        public long PL_idParameterType { get; set; }
-        [ForeignKey("PL_idParameterType")]
-        public virtual P_ParameterType? PL_ParameterType { get; set; }
-        #endregion
-
-        #endregion
+               
+        #endregion        
 
         #region Collection
-
+        public virtual ICollection<P_ParameterType> PL_ParameterType { get; set; } = new List<P_ParameterType>();
         #endregion
 
         #endregion

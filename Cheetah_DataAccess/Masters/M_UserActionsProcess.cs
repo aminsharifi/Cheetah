@@ -12,8 +12,7 @@
     public partial class M_UserActionsProcess : BaseClass
     {
         #region Simple Prob
-        [Description("کد فرآیند")]
-        public int? UAP_RequestTitles_Code { get; set; }
+        
 
         [Description("ارسال نامه به اتوماسیون")]
         public bool? UAP_Automation { get; set; }
@@ -64,6 +63,13 @@
         [ForeignKey("UAP_idCurrentPE")]
         [Description("وضعیت تایید فرآیند")]
         public virtual P_ProcessEndorsement? UAP_CurrentPE { get; set; }
+        #endregion
+
+        #region UAP_RequestTitle
+        [Description("کد فرآیند")]
+        public long? UAP_idRequestTitle { get; set; }
+        [ForeignKey("UAP_idRequestTitle")]
+        public virtual P_RequestTitle? UAP_RequestTitle { get; set; } 
         #endregion
 
         #region RequestInformation
