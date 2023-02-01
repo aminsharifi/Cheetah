@@ -30,14 +30,10 @@ namespace Cheetah_DataAccess.Masters
         #region Relations 
         
         #region ParameterList
-        public long CWS_idParameterList { get; set; }
-        [ForeignKey("CWS_idParameterList")]
         public virtual P_ParameterList? CWS_ParameterList { get; set; } 
         #endregion
 
         #region RequestInformation
-        //public long CWS_idRequestInformation { get; set; }
-        //[ForeignKey("CWS_idRequestInformation")]
         public virtual M_RequestInformation? CWS_RequestInformation { get; set; } 
         #endregion
 
