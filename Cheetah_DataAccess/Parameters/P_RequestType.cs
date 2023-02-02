@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_RequestType")]
+    [Table("P_RequestType", Schema = "Parameters")]
     public partial class P_RequestType : BasePSClass
     {
         #region Simple Prob

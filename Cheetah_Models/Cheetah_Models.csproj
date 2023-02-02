@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

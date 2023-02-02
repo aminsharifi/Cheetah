@@ -23,6 +23,18 @@ x.UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
 
 builder.Services.AddScoped<ICopyROLERepository, CopyROLERepository>();
 
+builder.Services.AddScoped<IP_ParameterListRepository, P_ParameterListRepository>();
+builder.Services.AddScoped<IP_ParameterTypeRepository, P_ParameterTypeRepository>();
+builder.Services.AddScoped<IP_PositionOrgRepository, P_PositionOrgRepository>();
+builder.Services.AddScoped<IP_ProcessEndorsementRepository, P_ProcessEndorsementRepository>();
+builder.Services.AddScoped<IP_ProcessStateRepository, P_ProcessStateRepository>();
+builder.Services.AddScoped<IP_RequestTitleRepository, P_RequestTitleRepository>();
+builder.Services.AddScoped<IP_RequestTypeRepository, P_RequestTypeRepository>();
+builder.Services.AddScoped<IP_SubRequestTitleRepository, P_SubRequestTitleRepository>();
+builder.Services.AddScoped<IP_UserActionGroupRepository, P_UserActionGroupRepository>();
+builder.Services.AddScoped<IP_UserActionRepository, P_UserActionRepository>();
+builder.Services.AddScoped<IBasePSClassRepository, BasePSClassRepository>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();

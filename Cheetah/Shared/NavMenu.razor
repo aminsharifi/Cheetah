@@ -1,12 +1,12 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Microsoft.EntityFrameworkCore.Metadata;
+@inject IBasePSClassRepository iBasePSClassRepository;
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BPMS متن باز چیتا</a>
-        
         <button style="background-image:url(cheetah.jpg)" title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
-            
         </button>
-        
     </div>
 </div>
 
@@ -33,18 +33,25 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="CopyROLE">
-                <span class="oi oi-task" aria-hidden="true"></span>نقش ها
+            <NavLink class="nav-link" href="Parameters/List">
+                <span class="oi oi-task" aria-hidden="true"></span>گروه اقدام
             </NavLink>
         </div>
+        @*@foreach (var item in iEntityType)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="@($"Parameters/List/{item.DisplayName()}")">
+                    <span class="oi oi-task" aria-hidden="true"></span>@item.DisplayName()
+                </NavLink>
+            </div>
+        }*@
     </nav>
 </div>
 
 @code {
+    IEnumerable<IEntityType> iEntityType => iBasePSClassRepository.GetAllEntityType().Take(5);
     private bool collapseNavMenu = true;
-
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;

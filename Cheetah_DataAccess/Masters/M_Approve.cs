@@ -9,7 +9,8 @@
     using Cheetah_DataAccess.Parameters;
     using Cheetah_DataAccess.Systems;
 
-    [Table("M_Approve")]
+    [Table("M_Approve", Schema ="Masters")]
+    
     public partial class M_Approve: BaseClass
     {
         //Passed
@@ -35,11 +36,8 @@
         public byte? APV_Attachment { get; set; }
         #endregion
 
-        #region Relations
         public virtual M_RequestInformation? APV_RequestInformation { get; set; }        
         public virtual P_UserAction? APV_UserAction { get; set; }        
         public virtual S_User? APV_UserInCharge { get; set; }
-
-        #endregion
     }
 }

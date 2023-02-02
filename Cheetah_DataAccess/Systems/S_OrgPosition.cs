@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Systems
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("OrgPosition")]
+    [Table("S_OrgPosition", Schema = "Systems")]
     public partial class S_OrgPosition: BasePSClass
     {
         #region Simple Prop

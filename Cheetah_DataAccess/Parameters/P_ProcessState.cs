@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_ProcessState")]
+    [Table("P_ProcessState", Schema = "Parameters")]
     public partial class P_ProcessState : BasePSClass
     {
         #region Relations

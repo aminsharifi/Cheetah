@@ -8,12 +8,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("M_UserActionsProcess")]
+    [Table("M_UserActionsProcess", Schema = "Masters")]
     public partial class M_UserActionsProcess : BaseClass
     {
-        #region Simple Prob
-        
-
         [Description("ارسال نامه به اتوماسیون")]
         public bool? UAP_Automation { get; set; }
 
@@ -51,42 +48,14 @@
 
         [Description("پیام کوتاه")]
         public bool? UAP_SMS { get; set; }
-        #endregion
 
-        #region Relations
-
-        #region Entity
-
-        #region CurrentProcessEndorsement
-        [Description("وضعیت تایید فرآیند")]
-        public long? UAP_idCurrentPE { get; set; }
-        [ForeignKey("UAP_idCurrentPE")]
         [Description("وضعیت تایید فرآیند")]
         public virtual P_ProcessEndorsement? UAP_CurrentPE { get; set; }
-        #endregion
 
-        #region UAP_RequestTitle
         [Description("کد فرآیند")]
-        public long? UAP_idRequestTitle { get; set; }
-        [ForeignKey("UAP_idRequestTitle")]
         public virtual P_RequestTitle? UAP_RequestTitle { get; set; } 
-        #endregion
 
-        #region RequestInformation
-        [Description("اطلاعات عمومی درخواست")]
-        public long? idRequestInformation { get; set; }
-
-        [ForeignKey("idRequestInformation")]
         [Description("اطلاعات عمومی درخواست")]
         public virtual M_RequestInformation? UAP_RequestInformation { get; set; }
-        #endregion
-
-        #endregion
-
-        #region Collection
-
-        #endregion
-
-        #endregion
     }
 }

@@ -7,7 +7,7 @@ namespace Cheetah_DataAccess.Masters
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("M_CallWebService")]
+    [Table("M_CallWebService", Schema ="Masters")]
     public partial class M_CallWebService : BaseClass
     {
         //Passed
