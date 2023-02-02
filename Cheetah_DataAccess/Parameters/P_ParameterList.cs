@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_ParameterList")]
+    [Table("P_ParameterList", Schema = "Parameters")]
     public partial class P_ParameterList : BasePSClass
     {
         #region Relation

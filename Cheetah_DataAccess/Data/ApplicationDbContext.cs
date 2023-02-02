@@ -9,6 +9,7 @@ using System.Reflection.Metadata;
 using FluentAssertions.Common;
 using Cheetah_DataAccess.Parameters;
 using Cheetah_DataAccess.Masters;
+using Cheetah_DataAccess.Systems;
 
 namespace Cheetah_DataAccess.Data
 {
@@ -25,36 +26,27 @@ namespace Cheetah_DataAccess.Data
         //    modelBuilder.Entity<Blog>().ToTable("blog");
         //}
 
-
         public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
         public virtual DbSet<CopyProduct> CopyProducts { get; set; }
         public virtual DbSet<P_ParameterType> P_ParameterTypes { get; set; }
-        public virtual DbSet<P_ParameterList> P_ParameterList { get; set; }
-        public virtual DbSet<M_CallWebService> M_CallWebService { get; set; }
-        
-
-        /*
-        public virtual DbSet<Approve> Approves { get; set; }
-        public virtual DbSet<AREA> AREAs { get; set; }
-        public virtual DbSet<CallWebService> CallWebServices { get; set; }
-        public virtual DbSet<CurrentProcessEndorseman> CurrentProcessEndorsemen { get; set; }
-        public virtual DbSet<LOCATION> LOCATIONs { get; set; }
-        public virtual DbSet<ORGPOSITION> ORGPOSITIONs { get; set; }
-        public virtual DbSet<OrgPosition1> OrgPositions1 { get; set; }
-        public virtual DbSet<ParameterList> ParameterLists { get; set; }
-        
-        public virtual DbSet<ProcessEndorsement> ProcessEndorsements { get; set; }
-        public virtual DbSet<RequestInformation> RequestInformations { get; set; }
-        public virtual DbSet<RequestTitle> RequestTitles { get; set; }
-        public virtual DbSet<RequestType> RequestTypes { get; set; }
-        public virtual DbSet<RI_ProcessState> RI_ProcessState { get; set; }
-        public virtual DbSet<ROLE> ROLEs { get; set; }
-        public virtual DbSet<SubRequestTitle> SubRequestTitles { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<UserAction> UserActions { get; set; }
-        public virtual DbSet<UserActionGroup> UserActionGroups { get; set; }
-        public virtual DbSet<UserActionsProcess> UserActionsProcesses { get; set; }
-        public virtual DbSet<WFUSER> WFUSERs { get; set; }
-        */
+        public virtual DbSet<P_ParameterList> P_ParameterLists { get; set; }
+        public virtual DbSet<P_RequestTitle> P_RequestTitles { get; set; }
+        public virtual DbSet<P_RequestType> P_RequestTypes { get; set; }
+        public virtual DbSet<P_ProcessState> P_ProcessStates { get; set; }
+        public virtual DbSet<P_SubRequestTitle> P_SubRequestTitles { get; set; }
+        public virtual DbSet<P_UserAction> P_UserActions { get; set; }
+        public virtual DbSet<P_UserActionGroup> P_UserActionGroups { get; set; }
+        public virtual DbSet<P_PositionOrg> P_PositionOrgs { get; set; }
+        public virtual DbSet<P_ProcessEndorsement> P_ProcessEndorsements { get; set; }
+        public virtual DbSet<S_Area> S_Areas { get; set; }
+        public virtual DbSet<S_OrgPosition> S_OrgPositions { get; set; }
+        public virtual DbSet<S_Location> S_Locations { get; set; }
+        public virtual DbSet<S_Role> S_Roles { get; set; }
+        public virtual DbSet<S_User> S_Users { get; set; }        
+        public virtual DbSet<M_RequestInformation> M_RequestInformations { get; set; }
+        public virtual DbSet<M_CallWebService> M_CallWebServices { get; set; }
+        public virtual DbSet<M_UserActionsProcess> M_UserActionsProcesses { get; set; }
+        public virtual DbSet<M_CurrentPE> M_CurrentPEs { get; set; }
+        public virtual DbSet<M_Approve> M_Approves { get; set; }
     }
 }

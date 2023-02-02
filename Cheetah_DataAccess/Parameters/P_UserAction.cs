@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_UserAction")]
+    [Table("P_UserAction", Schema = "Parameters")]
     public partial class P_UserAction : BasePSClass
     {
         #region Simple Prob
@@ -25,8 +25,6 @@
 
         #region Entity
         [Description("گروه اقدام کاربر")]
-        public long? UA_idUserActionGroup { get; set; }
-        [ForeignKey("UA_idUserActionGroup")]
         public virtual P_UserActionGroup? UA_UserActionGroup { get; set; }
         #endregion
 

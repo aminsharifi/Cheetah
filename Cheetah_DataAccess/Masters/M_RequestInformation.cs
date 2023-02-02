@@ -9,7 +9,7 @@ namespace Cheetah_DataAccess.Masters
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("M_RequestInformation")]
+    [Table("M_RequestInformation", Schema = "Masters")]
     public partial class M_RequestInformation : BaseClass
     {
         #region Simple Prob
@@ -64,7 +64,7 @@ namespace Cheetah_DataAccess.Masters
 
         #region RI_Inputuser
         [StringLength(50)]
-        public string RI_Inputuser1 { get; set; }
+        public string? RI_Inputuser1 { get; set; }
         #endregion
 
         #region RI_OutputVar
@@ -91,8 +91,6 @@ namespace Cheetah_DataAccess.Masters
         [StringLength(50)]
         public string? RI_ERPBranchs { get; set; }
         #endregion
-
-        #region Others
 
         public bool? RI_IsCancelled { get; set; } = false;
         public bool? IsTest { get; set; } = false;
@@ -134,106 +132,25 @@ namespace Cheetah_DataAccess.Masters
         [StringLength(2000)]
         public string? RI_CurrentUserNames { get; set; }
 
-
-        #endregion
-
-        #endregion
-
-        #region Relations
-        #region Entity
         public virtual long? RI_idUnitType { get; set; }
         public virtual long? RI_Person { get; set; }
         public virtual long? RI_RejectReason { get; set; }
-
-        #region WFUsers
-
-        #region RI_ExpertUser
-        public long? RI_idExpertUser { get; set; }
-        [ForeignKey("RI_idExpertUser")]
         public virtual S_User? RI_ExpertUser { get; set; }
-        #endregion
-
-        #region RI_LastUserInCharge
-        public long? RI_idLastUserInCharge { get; set; }
-        [ForeignKey("RI_idLastUserInCharge")]
         public virtual S_User? RI_LastUserInCharge { get; set; }
-        #endregion
-
-        #region RI_Requestor
-        public long? RI_idRequestor { get; set; }
-        [ForeignKey("RI_idRequestor")]
         public virtual S_User? RI_Requestor { get; set; }
-        #endregion
-
-        #region RI_Creator
-        public long? RI_idCreator { get; set; }
-        [ForeignKey("RI_idCreator")]
         public virtual S_User? RI_Creator { get; set; }
-        #endregion
-
-        #endregion
-
-        #region RI_Location
-        public long? RI_idLocation { get; set; }
-        [ForeignKey("RI_idLocation")]
         public virtual S_Location? RI_Location { get; set; }
-        #endregion
-
-        #region RI_idRequestType
-        public long? RI_idRequestType { get; set; }
-        [ForeignKey("RI_idRequestType")]
         public virtual P_RequestType? RI_RequestType { get; set; }
-        #endregion
-
-        #region RI_RequestTitle
-        public long? RI_idRequestTitle { get; set; }
-        [ForeignKey("RI_idRequestTitle")]
         public virtual P_RequestTitle? RI_RequestTitle { get; set; }
-        #endregion
-
-        #region RI_SubRequestTitle
-        public long? RI_idSubRequestTitle { get; set; }
-        [ForeignKey("RI_idSubRequestTitle")]
         public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
-        #endregion
-
-        #region RI_ActiveProcessEndorsement
-        [Description("RI_ActiveidProcessEndorsement")]
-        public long? RI_ActiveidProcessEndorsement { get; set; }
-        [ForeignKey("RI_ActiveidProcessEndorsement")]
         public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
-        #endregion
-
-        #region RI_Area
-        public long? RI_idArea { get; set; }
-        [ForeignKey("RI_idArea")]
         public virtual S_Area? RI_Area { get; set; }
-        #endregion
-
-        #region RI_UserAction
-        public long? RI_idUserAction { get; set; }
-        [ForeignKey("RI_idUserAction")]
         public virtual P_UserAction? RI_UserAction { get; set; }
-        #endregion
-
-        #region RI_LastUserAction
-        public long? RI_idLastUserAction { get; set; }
-        [ForeignKey("RI_idLastUserAction")]
         public virtual P_UserAction? RI_LastUserAction { get; set; }
-        #endregion
-
-        #region RI_ProcessState
-        public long? RI_idProcessState { get; set; }
-        [ForeignKey("RI_idProcessState")]
         public virtual P_ProcessState? RI_ProcessState { get; set; }
-        #endregion
-
-        #endregion
-        #region Collection
         public virtual ICollection<M_Approve>? RI_Approves { get; set; }
         public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
         public virtual ICollection<M_UserActionsProcess>? RI_UserActionsProcesses { get; set; }
-        #endregion
         #endregion
     }
 }

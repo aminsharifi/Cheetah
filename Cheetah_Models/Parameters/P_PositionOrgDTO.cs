@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess.Parameters
+﻿namespace Cheetah_Models.Parameters
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Systems;
@@ -8,8 +8,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_PositionOrganization")]
-    public partial class P_PositionOrganization : BasePSClass
+
+    public partial class P_PositionOrgDTO : BasePSClass
     {
         #region Basic Prop
         [StringLength(50)]
@@ -32,16 +32,12 @@
 
         #region PSO_Role
         [Description("نقش")]
-        public long? PSO_idRole { get; set; }
-        [ForeignKey("PSO_idRole")]
         public virtual S_Role? PSO_Role { get; set; }
-        #endregion
 
-        #region PSO_Role2
         [Description("نقش جایگزین")]
-        public long? PSO_idRole2 { get; set; }
-        [ForeignKey("PSO_idRole2")]
-        public virtual S_Role? PSO_Role2 { get; set; } 
+        public virtual S_Role? PSO_Role2 { get; set; }
+
+
         #endregion
 
         #endregion

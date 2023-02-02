@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_UserActionGroup")]
+    [Table("P_UserActionGroup", Schema = "Parameters")]
     public partial class P_UserActionGroup : BasePSClass
     {
 

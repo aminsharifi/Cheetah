@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_ParameterType")]
+    [Table("P_ParameterType", Schema = "Parameters")]
     public partial class P_ParameterType: BasePSClass
     {
 

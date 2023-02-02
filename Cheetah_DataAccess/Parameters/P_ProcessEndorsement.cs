@@ -8,7 +8,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("P_ProcessEndorsement")]
+    [Table("P_ProcessEndorsement", Schema = "Parameters")]
     public partial class P_ProcessEndorsement : BasePSClass
     {
         #region Simple Prop
@@ -80,44 +80,28 @@
         #endregion
 
         #region Relation
+
         #region Entity
 
         [StringLength(50)]
         [Description("وضعیت استخدامی")]
         public long? PSE_UserRelationship { get; set; }
 
-        #region PSE_ExpertUser
         [Description("کارشناس تخصیص پیشفرض")]
-        public long? PSE_idExpertUser { get; set; }
-        [ForeignKey("PSE_idExpertUser")]
         public virtual S_User? PSE_ExpertUser { get; set; }
-        #endregion
 
-        #region PSE_OrgPositions
+
         [Description("سمت سازمانی")]
-        public long? PSE_idPON { get; set; }
-        [ForeignKey("PSE_idPON")]
-        public virtual P_PositionOrganization? PSE_PON { get; set; }
-        #endregion
+        public virtual P_PositionOrg? PSE_PON { get; set; }
 
-        #region PSE_RequestTitle
         [Description("نام فرآیند")]
-        public long? PSE_idRequestTitle { get; set; }
-        [ForeignKey("PSE_idRequestTitle")]
         public virtual P_RequestTitle? PSE_RequestTitle { get; set; }
-        #endregion
 
-        #region PSE_ProcessState
+
         [Description("وضعیت فرآیند")]
-        public long? PSE_idProcessState { get; set; }
-        [ForeignKey("PSE_idProcessState")]
         public virtual P_ProcessState? PSE_ProcessState { get; set; } 
         #endregion
-
-        #endregion
-        #region Collection
-
-        #endregion
+        
         #endregion
     }
 }

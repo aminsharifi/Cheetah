@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Systems
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("S_User")]
+    [Table("S_User", Schema = "Systems")]
     public partial class S_User: BasePSClass
     {
         #region Common Prop
@@ -25,15 +25,10 @@ namespace Cheetah_DataAccess.Systems
         [Required]
         [StringLength(25)]
         public string? User_Domain { get; set; }
-
         public bool? User_Enabled { get; set; }
-
         public byte? User_EnabledForAssignation { get; set; }
-
         public bool? User_NotifByEmail { get; set; }
-
         public bool? User_NotifByMessenger { get; set; }
-
         public bool? User_NotifByCell { get; set; }
 
         [StringLength(100)]
@@ -101,61 +96,35 @@ namespace Cheetah_DataAccess.Systems
         public long? User_idTimeZone { get; set; }
         public long? User_idUnitType { get; set; }
 
-        #region FirstRoleUser
-        public long? User_idFirstRoleUser { get; set; }
-        [ForeignKey("User_idFirstRoleUser")]
-        public virtual S_User? User_FirstRoleUser { get; set; }
-        #endregion
-
-        #region FirstApprover
-        public long? User_idFirstApprover { get; set; }
-        [ForeignKey("User_idFirstApprover")]
-        public virtual S_User? User_FirstApprover { get; set; }
-        #endregion
-
-        #region SecondApprover
-        public long? User_idSecondApprover { get; set; }
-        [ForeignKey("User_idSecondApprover")]
-        public virtual S_User? User_SecondApprover { get; set; }
-        #endregion
-
-        #region Area
-        public long? User_idArea { get; set; }
-        [ForeignKey("User_idArea")]
-        public virtual S_Area? User_Area { get; set; }
-        #endregion
-
-        #region Location
-        public long? User_idLocation { get; set; }
-        [ForeignKey("User_idLocation")]
         public virtual S_Location? User_Location { get; set; }
-        #endregion
+        public virtual S_Area? User_Area { get; set; }
+        public virtual S_OrgPosition? User_DefaultPosition { get; set; }
 
-        #region BossUser
-        public long? User_idBossUser { get; set; }
-        [ForeignKey("User_idBossUser")]
+        public long? User_FirstRoleUserId { get; set; }
+        [ForeignKey("User_FirstRoleUserId")]
+        public virtual S_User? User_FirstRoleUser { get; set; }
+
+        public long? User_FirstApproverId { get; set; }
+        [ForeignKey("User_FirstApproverId")]
+        public virtual S_User? User_FirstApprover { get; set; }
+
+        public long? User_SecondApproverId { get; set; }
+        [ForeignKey("User_SecondApproverId")]
+        public virtual S_User? User_SecondApprover { get; set; }
+
+        public long? User_BossUserId { get; set; }
+        [ForeignKey("User_BossUserId")]
         public virtual S_User? User_BossUser { get; set; }
-        #endregion
 
-        #region Delegate
-        public long? User_idDelegate { get; set; }
-        [ForeignKey("User_idDelegate")]
+        public long? User_DelegateId { get; set; }
+        [ForeignKey("User_DelegateId")]
         public virtual S_User? User_Delegate { get; set; }
         #endregion
 
-        #region DefaultPosition
-        public long? User_idDefaultPosition { get; set; }
-        [ForeignKey("User_idDefaultPosition")]
-        public virtual S_OrgPosition? User_DefaultPosition { get; set; } 
-        #endregion
-
-        #endregion
-
         #region Collection
-   
-        #endregion
 
         #endregion
 
+        #endregion
     }
 }
