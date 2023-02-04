@@ -5,7 +5,7 @@
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Parameters;
     using Cheetah_Models;
-    using Cheetah_Models.Parameters; 
+    using Cheetah_Models.Parameters;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Threading.Tasks;
-   
+
     public class P_ParameterListRepository : IP_ParameterListRepository
     {
         private readonly ApplicationDbContext _db;
@@ -28,6 +28,12 @@
             var obj = _mapper.Map<P_ParameterListDTO, P_ParameterList>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
+
+            obj.PL_ParameterType.Add(new P_ParameterType()
+            {
+                GuidRecord = Guid.NewGuid(),
+                PName = obj.IdRecord.ToString()
+            });
 
             var AddedObj = await _db.P_ParameterLists.AddAsync(obj);
 
@@ -49,7 +55,8 @@
 
         public async Task<P_ParameterListDTO> Get(long id)
         {
-            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_ParameterLists.Include(x => x.PL_ParameterType)
+                .FirstOrDefaultAsync(u => u.IdRecord == id);
             if (obj != null)
             {
                 return _mapper.Map<P_ParameterList, P_ParameterListDTO>(obj);
@@ -68,6 +75,11 @@
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;
+                obj.PL_ParameterType.Add(new P_ParameterType()
+                {
+                    GuidRecord = Guid.NewGuid(),
+                    PName = obj.IdRecord.ToString()
+                });
                 _db.P_ParameterLists.Update(obj);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<P_ParameterList, P_ParameterListDTO>(obj);
