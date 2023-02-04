@@ -59,9 +59,10 @@
             return new P_ParameterTypeDTO();
         }
 
-        public async Task<IEnumerable<P_ParameterTypeDTO>> GetAll()
+        public async Task<IEnumerable<P_ParameterTypeDTO>> GetAll(long id)
         {
-            return _mapper.Map<IEnumerable<P_ParameterType>, IEnumerable<P_ParameterTypeDTO>>(_db.P_ParameterTypes);
+            return _mapper.Map<IEnumerable<P_ParameterType>, IEnumerable<P_ParameterTypeDTO>>
+                (_db.P_ParameterTypes.Where(x=>x.P_ParameterList.IdRecord == id));
         }
 
         public async Task<P_ParameterTypeDTO> Update(P_ParameterTypeDTO obj_DTO)

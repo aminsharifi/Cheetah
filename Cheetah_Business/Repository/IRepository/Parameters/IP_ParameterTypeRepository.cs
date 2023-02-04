@@ -15,6 +15,6 @@
         public Task<P_ParameterTypeDTO> Update(P_ParameterTypeDTO obj_DTO);
         public Task<Int32> delete(long id);
         public Task<P_ParameterTypeDTO> Get(long id);
-        public Task<IEnumerable<P_ParameterTypeDTO>> GetAll();
+        public Task<IEnumerable<P_ParameterTypeDTO>> GetAll(long id);
     }
 }
