@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cheetah_WebAPI.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
+    [ApiController]
     public class P_ParameterListController : ControllerBase
     {
         private readonly IP_ParameterListRepository _ParameterListRepository;

@@ -1,9 +1,64 @@
 ﻿@page "/"
+@inject IP_ParameterListService _P_ParameterListService
 
-<PageTitle>Index</PageTitle>
+@if (IsProcessing)
+{
+    <div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
+        <img src="images/ajax-loader.gif" />
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row  pb-3 pt-3 backgroundWhite">
+            @foreach (var parameterType in P_ParameterLists.Select(u => u.PL_ParameterType).Distinct())
+            {
+                <h2 class="text-success pl-1"><b>@parameterType.First().PName</b></h2>
 
-<h1>Hello, world!</h1>
+                @foreach (var parameterList in P_ParameterLists.Where(u => u.PL_ParameterType == parameterType))
+                {
+                    <div class="col-lg-4 col-md-6 pb-4 filter">
+                        <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
+                            <div class="card-body pb-1 row">
+                                <div class="col-8 h5">@parameterList.PName</div>
+                                <div class="col-4 text-end">
+                                    <span class="text-info h4">
+                                        @parameterList.PL_ParameterType.OrderBy(u=>u.PName)
+                                        .FirstOrDefault()?.PName.ToString()
+                                    </span>
+                                </div>
+                            </div>
+                            @*    <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@product.ImageUrl" alt="menuitem image">
+                <div class="card-body p-1 px-3 row">
+                <div class="col-6">
+                <span class="badge p-2 border w-100 text-dark bg-warning ">@product.Category.Name</span>
+                </div>
+                <div class="col-6 border-0">
+                <span class="badge p-2 border w-100 bg-info ">@product.Color</span>
+                </div>
+                <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
+                <p>@((MarkupString)product.Description)</p>
+                </div>
+                <div class="col-12 p-1">
+                <a href="/details/@product.Id" class="btn btn-dark form-control btn-sm p-2" style="height:40px">View Details</a>
+                </div>
+                </div>*@
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
 
-Welcome to your new app.
+@code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<P_ParameterListDTO> P_ParameterLists { get; set; } = new List<P_ParameterListDTO>();
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        P_ParameterLists = await _P_ParameterListService.GetAll();
+        IsProcessing = false;
+    }
+}
