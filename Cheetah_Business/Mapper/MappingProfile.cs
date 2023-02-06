@@ -17,7 +17,7 @@ namespace Cheetah_Business.Mapper
         {
             CreateMap<CopyROLE, CopyROLEDTO>().ReverseMap();
             CreateMap<P_ParameterList, P_ParameterListDTO>().ReverseMap();
-            CreateMap<P_ParameterType, P_ParameterTypeDTO>().ReverseMap();
+            CreateMap<P_ParameterType, P_ParameterListDTO>().ReverseMap();
             CreateMap<P_PositionOrg, P_PositionOrgDTO>().ReverseMap();
             CreateMap<P_ProcessEndorsement, P_ProcessEndorsementDTO>().ReverseMap();
             CreateMap<P_ProcessState, P_ProcessStateDTO>().ReverseMap();

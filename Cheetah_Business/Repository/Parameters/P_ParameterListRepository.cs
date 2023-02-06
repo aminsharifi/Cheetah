@@ -68,7 +68,9 @@
 
         public async Task<IEnumerable<P_ParameterListDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<P_ParameterList>, IEnumerable<P_ParameterListDTO>>(_db.P_ParameterLists);
+            var P_ParameterLists = await _db.P_ParameterLists.ToListAsync();
+
+            return _mapper.Map<IEnumerable<P_ParameterList>, IEnumerable<P_ParameterListDTO>>(P_ParameterLists);
         }
 
         public async Task<P_ParameterListDTO> Update(P_ParameterListDTO obj_DTO)
