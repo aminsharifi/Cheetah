@@ -17,6 +17,6 @@ namespace Cheetah_DataAccess
         public String Name { get; set; }
         public int idRole { get; set; }
         [ForeignKey("idRole")]
-        public CopyROLE copyROLE { get; set; }
+        public virtual CopyROLE? copyROLE { get; set; }
     }
 }

@@ -29,7 +29,9 @@ namespace Cheetah_WebAPI.Controllers
                     StatusCode = StatusCodes.Status400BadRequest
                 });
             }
+
             var P_ParameterList = await _ParameterListRepository.Get(id.Value);
+
             if(P_ParameterList == null)
             {
                 return BadRequest(new ErrorModelDTO()

@@ -57,10 +57,12 @@
         {
             var obj = await _db.P_ParameterLists.Include(x => x.PL_ParameterType)
                 .FirstOrDefaultAsync(u => u.IdRecord == id);
+
             if (obj != null)
             {
                 return _mapper.Map<P_ParameterList, P_ParameterListDTO>(obj);
             }
+
             return new P_ParameterListDTO();
         }
 
