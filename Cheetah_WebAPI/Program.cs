@@ -18,10 +18,15 @@ builder.Services.AddControllersWithViews()
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 
-builder.Services.AddDbContext<ApplicationDbContext>(x =>
-
-x.UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
+//builder.Services.AddDbContext<ApplicationDbContext>(x =>
+//x.UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
+
+builder.Services.AddDbContext<ApplicationDbContext>(
+    b => b.UseLazyLoadingProxies()
+          .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IP_ParameterListRepository, P_ParameterListRepository>();
 

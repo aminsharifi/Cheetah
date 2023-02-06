@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
- 
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -18,8 +18,12 @@ builder.Services.AddBootstrapBlazor();
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDbContext<ApplicationDbContext>(x =>
-x.UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
+//builder.Services.AddDbContext<ApplicationDbContext>(x =>
+//x.UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
+
+builder.Services.AddDbContext<ApplicationDbContext>(
+    b => b.UseLazyLoadingProxies()
+          .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
 
 builder.Services.AddScoped<ICopyROLERepository, CopyROLERepository>();
 
