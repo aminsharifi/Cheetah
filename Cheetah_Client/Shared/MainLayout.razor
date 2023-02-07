@@ -1,6 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
-<NavMenu />
-<div class="main">
-@Body
+<PageTitle>چیتا</PageTitle>
+<div class="page">
+    <main>
+        <div class="top-row px-4" dir="rtl">
+            <a href="#">ورود</a>
+        </div>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+    <div class="sidebar" dir="rtl">
+        <NavMenu />
+    </div>
 </div>
