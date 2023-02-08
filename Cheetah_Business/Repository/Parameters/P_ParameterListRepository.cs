@@ -55,8 +55,7 @@
 
         public async Task<P_ParameterListDTO> Get(long id)
         {
-            var obj = await _db.P_ParameterLists.Include(x => x.PL_ParameterType)
-                .FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == id);
 
             if (obj != null)
             {

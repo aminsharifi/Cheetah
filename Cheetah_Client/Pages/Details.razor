@@ -1,0 +1,35 @@
+﻿@page "/details/{PL_ParameterTypeID:long}"
+@inject IP_ParameterListRepository _IP_ParameterListRepository;
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _jsRuntime
+
+@if (IsProcessing)
+{
+    <div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
+        <h1>در حال بارگیری اطلاعات ...</h1>
+    </div>
+}
+else
+{
+    <EditForm Model="p_ParameterListDTO" method="post">
+        <DataAnnotationsValidator />
+        <div class="card container mt-4">
+            <InputText @bind-Value="p_ParameterListDTO.PName" class="form-control" />
+        </div>
+    </EditForm>
+
+}
+@code {
+    [Parameter]
+    public long PL_ParameterTypeID { get; set; }
+
+    public P_ParameterListDTO p_ParameterListDTO { get; set; } = new();
+    public bool IsProcessing { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        p_ParameterListDTO = await _IP_ParameterListRepository.Get(PL_ParameterTypeID);
+        IsProcessing = false;
+    }
+}
