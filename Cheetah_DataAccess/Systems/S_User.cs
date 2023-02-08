@@ -1,16 +1,26 @@
 namespace Cheetah_DataAccess.Systems
 {
     using Cheetah_DataAccess.Data;
+    using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("S_User", Schema = "Systems")]
-    public partial class S_User: BasePSClass
+    public partial class S_User : BasePSClass
     {
-        #region Common Prop
+        public S_User()
+        {
 
+        }
+        public S_User(IdentityUser identityUser)
+        {
+            this.identityUser = identityUser;
+        }
+
+        #region Common Prop
+        public virtual IdentityUser? identityUser { get; set; }
         #endregion
 
         #region Simple Prob
@@ -74,7 +84,7 @@ namespace Cheetah_DataAccess.Systems
 
         [StringLength(500)]
         public string? User_DistrictManager_RelatedL { get; set; }
-        public bool? User_IsNeedUpperApprove { get; set; }      
+        public bool? User_IsNeedUpperApprove { get; set; }
         public DateTime? User_Birthdate { get; set; }
 
         [StringLength(50)]
