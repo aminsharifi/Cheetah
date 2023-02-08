@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ builder.Services.AddBootstrapBlazor();
 builder.Services.AddDbContext<ApplicationDbContext>(
     b => b.UseLazyLoadingProxies()
           .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<ICopyROLERepository, CopyROLERepository>();
 
