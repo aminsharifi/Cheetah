@@ -10,10 +10,11 @@ using FluentAssertions.Common;
 using Cheetah_DataAccess.Parameters;
 using Cheetah_DataAccess.Masters;
 using Cheetah_DataAccess.Systems;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Data
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
