@@ -1,4 +1,4 @@
-namespace Cheetah_DataAccess.Masters
+﻿namespace Cheetah_DataAccess.Masters
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Parameters;
@@ -132,22 +132,49 @@ namespace Cheetah_DataAccess.Masters
         [StringLength(2000)]
         public string? RI_CurrentUserNames { get; set; }
 
-        public virtual long? RI_idUnitType { get; set; }
-        public virtual long? RI_Person { get; set; }
-        public virtual long? RI_RejectReason { get; set; }
+        #region S_User
+        public virtual S_User? RI_Person { get; set; }
         public virtual S_User? RI_ExpertUser { get; set; }
         public virtual S_User? RI_LastUserInCharge { get; set; }
         public virtual S_User? RI_Requestor { get; set; }
         public virtual S_User? RI_Creator { get; set; }
-        public virtual S_Location? RI_Location { get; set; }
-        public virtual P_RequestType? RI_RequestType { get; set; }
-        public virtual P_RequestTitle? RI_RequestTitle { get; set; }
-        public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
-        public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
-        public virtual S_Area? RI_Area { get; set; }
+        #endregion
+
+        #region P_UserAction
+        [Description("اقدام کاربر")]
         public virtual P_UserAction? RI_UserAction { get; set; }
+
+        [Description("آخرین اقدام کننده")]
         public virtual P_UserAction? RI_LastUserAction { get; set; }
+        #endregion
+
+        [Description("وضعیت فرآیند")]
         public virtual P_ProcessState? RI_ProcessState { get; set; }
+
+        [Description("نوع واحد")]
+        public virtual long? RI_idUnitType { get; set; }
+        [Description("نوع درخواست")]
+        public virtual P_RequestType? RI_RequestType { get; set; }
+        
+        [Description("نام فرآیند")]
+        public virtual P_RequestTitle? RI_RequestTitle { get; set; }
+
+        [Description("علت عدم تایید")]
+        public virtual P_ParameterList? RI_RejectReason { get; set; }
+
+        [Description("زیرفرآیند")]
+        public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
+        
+        [Description("وضعیت تایید فعال")]
+        public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
+
+        [Description("موقعیت")]
+        public virtual S_Location? RI_Location { get; set; }
+
+        [Description("واحد")]
+        public virtual S_Area? RI_Area { get; set; }
+
+        [Description("تاریخچه نظرات کاربران")]
         public virtual ICollection<M_Approve>? RI_Approves { get; set; }
         public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
         public virtual ICollection<M_UserActionsProcess>? RI_UserActionsProcesses { get; set; }

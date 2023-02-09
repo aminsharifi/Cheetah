@@ -3,7 +3,6 @@
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Parameters;
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -50,12 +49,12 @@
         public bool? UAP_SMS { get; set; }
 
         [Description("وضعیت تایید فرآیند")]
-        public virtual P_ProcessEndorsement? UAP_CurrentPE { get; set; }
+        public virtual P_ProcessEndorsement? UAP_P_CurrentPE { get; set; }
 
-        [Description("کد فرآیند")]
-        public virtual P_RequestTitle? UAP_RequestTitle { get; set; } 
-
-        [Description("اطلاعات عمومی درخواست")]
-        public virtual M_RequestInformation? UAP_RequestInformation { get; set; }
+        [Description("نام فرآیند")]
+        public virtual P_RequestTitle? UAP_P_RequestTitle { get; set; }
+        
+        [Description("نام فرآیند")]
+        public virtual P_PositionOrg? UAP_P_PositionOrg { get; set; }
     }
 }

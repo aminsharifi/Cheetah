@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230209174348_atc10")]
+    partial class atc10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -444,7 +447,7 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long?>("RI_PersonIdRecord")
+                    b.Property<long?>("RI_Person")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("RI_ProcessStateIdRecord")
@@ -470,7 +473,7 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<long?>("RI_RejectReasonIdRecord")
+                    b.Property<long?>("RI_RejectReason")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RI_RequestDate")
@@ -559,11 +562,7 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("RI_LocationIdRecord");
 
-                    b.HasIndex("RI_PersonIdRecord");
-
                     b.HasIndex("RI_ProcessStateIdRecord");
-
-                    b.HasIndex("RI_RejectReasonIdRecord");
 
                     b.HasIndex("RI_RequestTitleIdRecord");
 
@@ -2007,17 +2006,9 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_LocationIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Systems.S_User", "RI_Person")
-                        .WithMany()
-                        .HasForeignKey("RI_PersonIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Parameters.P_ProcessState", "RI_ProcessState")
                         .WithMany()
                         .HasForeignKey("RI_ProcessStateIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_ParameterList", "RI_RejectReason")
-                        .WithMany()
-                        .HasForeignKey("RI_RejectReasonIdRecord");
 
                     b.HasOne("Cheetah_DataAccess.Parameters.P_RequestTitle", "RI_RequestTitle")
                         .WithMany()
@@ -2053,11 +2044,7 @@ namespace CheetahDataAccess.Migrations
 
                     b.Navigation("RI_Location");
 
-                    b.Navigation("RI_Person");
-
                     b.Navigation("RI_ProcessState");
-
-                    b.Navigation("RI_RejectReason");
 
                     b.Navigation("RI_RequestTitle");
 
