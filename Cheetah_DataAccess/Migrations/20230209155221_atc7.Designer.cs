@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230209155221_atc7")]
+    partial class atc7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,6 +215,13 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("CWS_WSResult")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("CWS_WSResult_Code")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CWS_WSResult_Desc")
+                        .HasMaxLength(2500)
+                        .HasColumnType("nvarchar(2500)");
+
                     b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
@@ -226,27 +236,6 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<long?>("M_RequestInformationIdRecord")
                         .HasColumnType("bigint");
-
-                    b.Property<long>("PCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("PCost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("PDescription")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PIndex")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -264,9 +253,6 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<bool?>("CPE_Active")
-                        .HasColumnType("bit");
 
                     b.Property<long?>("CPE_ProcessEndorsementsIdRecord")
                         .HasColumnType("bigint");
@@ -444,7 +430,7 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long?>("RI_PersonIdRecord")
+                    b.Property<long?>("RI_Person")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("RI_ProcessStateIdRecord")
@@ -470,7 +456,7 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<long?>("RI_RejectReasonIdRecord")
+                    b.Property<long?>("RI_RejectReason")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RI_RequestDate")
@@ -559,11 +545,7 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("RI_LocationIdRecord");
 
-                    b.HasIndex("RI_PersonIdRecord");
-
                     b.HasIndex("RI_ProcessStateIdRecord");
-
-                    b.HasIndex("RI_RejectReasonIdRecord");
 
                     b.HasIndex("RI_RequestTitleIdRecord");
 
@@ -598,31 +580,28 @@ namespace CheetahDataAccess.Migrations
                     b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("M_RequestInformationIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<bool?>("UAP_Automation")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UAP_CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long?>("UAP_CurrentPEIdRecord")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("UAP_IdentificationCode_input")
                         .HasMaxLength(215)
                         .HasColumnType("nvarchar(215)");
 
-                    b.Property<long?>("UAP_P_CurrentPEIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UAP_P_PositionOrgIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UAP_P_RequestTitleIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("UAP_Receiver_input")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<long?>("UAP_RequestInformationIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UAP_RequestTitleIdRecord")
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("UAP_SMS")
                         .HasColumnType("bit");
@@ -650,13 +629,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasKey("IdRecord");
 
-                    b.HasIndex("M_RequestInformationIdRecord");
+                    b.HasIndex("UAP_CurrentPEIdRecord");
 
-                    b.HasIndex("UAP_P_CurrentPEIdRecord");
+                    b.HasIndex("UAP_RequestInformationIdRecord");
 
-                    b.HasIndex("UAP_P_PositionOrgIdRecord");
-
-                    b.HasIndex("UAP_P_RequestTitleIdRecord");
+                    b.HasIndex("UAP_RequestTitleIdRecord");
 
                     b.ToTable("M_UserActionsProcess", "Masters");
                 });
@@ -2007,17 +1984,9 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_LocationIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Systems.S_User", "RI_Person")
-                        .WithMany()
-                        .HasForeignKey("RI_PersonIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Parameters.P_ProcessState", "RI_ProcessState")
                         .WithMany()
                         .HasForeignKey("RI_ProcessStateIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_ParameterList", "RI_RejectReason")
-                        .WithMany()
-                        .HasForeignKey("RI_RejectReasonIdRecord");
 
                     b.HasOne("Cheetah_DataAccess.Parameters.P_RequestTitle", "RI_RequestTitle")
                         .WithMany()
@@ -2053,11 +2022,7 @@ namespace CheetahDataAccess.Migrations
 
                     b.Navigation("RI_Location");
 
-                    b.Navigation("RI_Person");
-
                     b.Navigation("RI_ProcessState");
-
-                    b.Navigation("RI_RejectReason");
 
                     b.Navigation("RI_RequestTitle");
 
@@ -2072,27 +2037,23 @@ namespace CheetahDataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_DataAccess.Masters.M_UserActionsProcess", b =>
                 {
-                    b.HasOne("Cheetah_DataAccess.Masters.M_RequestInformation", null)
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_ProcessEndorsement", "UAP_CurrentPE")
+                        .WithMany()
+                        .HasForeignKey("UAP_CurrentPEIdRecord");
+
+                    b.HasOne("Cheetah_DataAccess.Masters.M_RequestInformation", "UAP_RequestInformation")
                         .WithMany("RI_UserActionsProcesses")
-                        .HasForeignKey("M_RequestInformationIdRecord");
+                        .HasForeignKey("UAP_RequestInformationIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_ProcessEndorsement", "UAP_P_CurrentPE")
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_RequestTitle", "UAP_RequestTitle")
                         .WithMany()
-                        .HasForeignKey("UAP_P_CurrentPEIdRecord");
+                        .HasForeignKey("UAP_RequestTitleIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_PositionOrg", "UAP_P_PositionOrg")
-                        .WithMany()
-                        .HasForeignKey("UAP_P_PositionOrgIdRecord");
+                    b.Navigation("UAP_CurrentPE");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_RequestTitle", "UAP_P_RequestTitle")
-                        .WithMany()
-                        .HasForeignKey("UAP_P_RequestTitleIdRecord");
+                    b.Navigation("UAP_RequestInformation");
 
-                    b.Navigation("UAP_P_CurrentPE");
-
-                    b.Navigation("UAP_P_PositionOrg");
-
-                    b.Navigation("UAP_P_RequestTitle");
+                    b.Navigation("UAP_RequestTitle");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ParameterType", b =>
