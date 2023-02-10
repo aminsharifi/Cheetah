@@ -10,7 +10,6 @@
     [Table("P_ParameterType", Schema = "Parameters")]
     public partial class P_ParameterType: BasePSClass
     {
-        [Description("گروه لیست")]
-        public virtual P_ParameterList? P_ParameterList { get; set; }
+        
     }
 }

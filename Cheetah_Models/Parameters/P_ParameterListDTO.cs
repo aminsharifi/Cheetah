@@ -18,7 +18,7 @@
         #endregion        
 
         #region Collection
-        public virtual ICollection<P_ParameterType> PL_ParameterType { get; set; } = new List<P_ParameterType>();
+        public virtual P_ParameterType? PL_ParameterType { get; set; }
         #endregion
 
         #endregion

@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230210131216_P_Person")]
+    partial class PPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -540,7 +543,7 @@ namespace CheetahDataAccess.Migrations
                     b.Property<int?>("RI_WS_TryNum")
                         .HasColumnType("int");
 
-                    b.Property<long?>("RI_idUnitTypeIdRecord")
+                    b.Property<long?>("RI_idUnitType")
                         .HasColumnType("bigint");
 
                     b.HasKey("IdRecord");
@@ -574,8 +577,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("RI_SubRequestTitleIdRecord");
 
                     b.HasIndex("RI_UserActionIdRecord");
-
-                    b.HasIndex("RI_idUnitTypeIdRecord");
 
                     b.ToTable("M_RequestInformation", "Masters");
                 });
@@ -699,17 +700,12 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long>("PIndex")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("PL_ParameterTypeIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
-
-                    b.HasIndex("PL_ParameterTypeIdRecord");
 
                     b.ToTable("P_ParameterList", "Parameters");
                 });
@@ -755,87 +751,14 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<long?>("P_ParameterListIdRecord")
+                        .HasColumnType("bigint");
+
                     b.HasKey("IdRecord");
+
+                    b.HasIndex("P_ParameterListIdRecord");
 
                     b.ToTable("P_ParameterType", "Parameters");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_Person", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<string>("CellPhone")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("CreateTimeRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("DsblRecord")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid>("GuidRecord")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("LastUpdatedRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LicenseNum")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("NationalID")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<long>("PCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("PCost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("PDescription")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PIndex")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("RegistrationNumber")
-                        .HasMaxLength(215)
-                        .HasColumnType("nvarchar(215)");
-
-                    b.HasKey("IdRecord");
-
-                    b.ToTable("P_Person", "Parameters");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_PositionOrg", b =>
@@ -1282,55 +1205,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("SBT_RequestTitlesIdRecord");
 
                     b.ToTable("P_SubRequestTitle", "Parameters");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_UnitType", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<DateTime>("CreateTimeRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("DsblRecord")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("GuidRecord")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("LastUpdatedRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("PCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("PCost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("PDescription")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PIndex")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("UT_KindID")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdRecord");
-
-                    b.ToTable("P_UnitType", "Parameters");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_UserAction", b =>
@@ -2168,10 +2042,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_UserActionIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_UnitType", "RI_idUnitType")
-                        .WithMany()
-                        .HasForeignKey("RI_idUnitTypeIdRecord");
-
                     b.Navigation("RI_ActiveProcessEndorsement");
 
                     b.Navigation("RI_Area");
@@ -2201,8 +2071,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_SubRequestTitle");
 
                     b.Navigation("RI_UserAction");
-
-                    b.Navigation("RI_idUnitType");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Masters.M_UserActionsProcess", b =>
@@ -2230,13 +2098,13 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("UAP_P_RequestTitle");
                 });
 
-            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ParameterList", b =>
+            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ParameterType", b =>
                 {
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_ParameterType", "PL_ParameterType")
-                        .WithMany()
-                        .HasForeignKey("PL_ParameterTypeIdRecord");
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_ParameterList", "P_ParameterList")
+                        .WithMany("PL_ParameterType")
+                        .HasForeignKey("P_ParameterListIdRecord");
 
-                    b.Navigation("PL_ParameterType");
+                    b.Navigation("P_ParameterList");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_PositionOrg", b =>
@@ -2419,6 +2287,11 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_CallWebServices");
 
                     b.Navigation("RI_UserActionsProcesses");
+                });
+
+            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ParameterList", b =>
+                {
+                    b.Navigation("PL_ParameterType");
                 });
 #pragma warning restore 612, 618
         }
