@@ -1,15 +1,15 @@
-﻿namespace Cheetah_Models.Parameters
+﻿namespace Cheetah_DataAccess.Parameters
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Parameters;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class P_ParameterTypeDTO : BasePSClass
+    [Table("P_UnitType", Schema = "Parameters")]
+    public partial class P_UnitType : BasePSClass
     {
-
+        public int UT_KindID { get; set; }
     }
 }

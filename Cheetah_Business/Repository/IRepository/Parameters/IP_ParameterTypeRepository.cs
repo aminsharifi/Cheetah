@@ -11,10 +11,10 @@
 
     public interface IP_ParameterTypeRepository
     {
-        public Task<P_ParameterListDTO> Create(P_ParameterListDTO obj_DTO);
-        public Task<P_ParameterListDTO> Update(P_ParameterListDTO obj_DTO);
+        public Task<P_ParameterTypeDTO> Create(P_ParameterTypeDTO obj_DTO);
+        public Task<P_ParameterTypeDTO> Update(P_ParameterTypeDTO obj_DTO);
         public Task<Int32> delete(long id);
-        public Task<P_ParameterListDTO> Get(long id);
-        public Task<IEnumerable<P_ParameterListDTO>> GetAll(long id);
+        public Task<P_ParameterTypeDTO> Get(long id);
+        public Task<IEnumerable<P_ParameterTypeDTO>> GetAll(long id);
     }
 }

@@ -23,10 +23,10 @@
                     <InputText @bind-Value="p_ParameterListDTO.PName" class="form-control"></InputText>
                     <ValidationMessage For="()=>p_ParameterListDTO.PName" />
                     <label>نوع پارامترها</label>
-                    @foreach (var item in p_ParameterListDTO.PL_ParameterType)
+                    @*@foreach (var item in p_ParameterListDTO.PL_ParameterType)
                     {   
                         <InputText @bind-Value="item.PName" class="form-control"></InputText>
-                    }
+                    }*@
                 </div>
                 <div class="form-group  py-2">
                     <button class="btn btn-primary">@Title</button>

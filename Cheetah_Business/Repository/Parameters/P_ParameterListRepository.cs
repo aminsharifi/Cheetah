@@ -29,11 +29,11 @@
 
             obj.GuidRecord = Guid.NewGuid();
 
-            obj.PL_ParameterType.Add(new P_ParameterType()
-            {
-                GuidRecord = Guid.NewGuid(),
-                PName = obj.IdRecord.ToString()
-            });
+            //obj.PL_ParameterType.Add(new P_ParameterType()
+            //{
+            //    GuidRecord = Guid.NewGuid(),
+            //    PName = obj.IdRecord.ToString()
+            //});
 
             var AddedObj = await _db.P_ParameterLists.AddAsync(obj);
 
@@ -78,11 +78,7 @@
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;
-                obj.PL_ParameterType.Add(new P_ParameterType()
-                {
-                    GuidRecord = Guid.NewGuid(),
-                    PName = obj.IdRecord.ToString()
-                });
+
                 _db.P_ParameterLists.Update(obj);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<P_ParameterList, P_ParameterListDTO>(obj);

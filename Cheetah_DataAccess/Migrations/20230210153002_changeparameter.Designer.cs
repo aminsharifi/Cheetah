@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230210153002_changeparameter")]
+    partial class changeparameter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -699,17 +702,12 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long>("PIndex")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("PL_ParameterTypeIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
-
-                    b.HasIndex("PL_ParameterTypeIdRecord");
 
                     b.ToTable("P_ParameterList", "Parameters");
                 });
@@ -2228,15 +2226,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("UAP_P_PositionOrg");
 
                     b.Navigation("UAP_P_RequestTitle");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ParameterList", b =>
-                {
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_ParameterType", "PL_ParameterType")
-                        .WithMany()
-                        .HasForeignKey("PL_ParameterTypeIdRecord");
-
-                    b.Navigation("PL_ParameterType");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_PositionOrg", b =>

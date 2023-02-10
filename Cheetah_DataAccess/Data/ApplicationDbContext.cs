@@ -48,9 +48,9 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<M_CallWebService> M_CallWebServices { get; set; }
         public virtual DbSet<M_UserActionsProcess> M_UserActionsProcesses { get; set; }
         public virtual DbSet<M_CurrentPE> M_CurrentPEs { get; set; }
-        public virtual DbSet<M_Approve> M_Approves { get; set; }
-        
+        public virtual DbSet<M_Approve> M_Approves { get; set; }        
         public virtual DbSet<M_Attachment> M_Attachments { get; set; }
-
+        public virtual DbSet<P_Person> P_Persons { get; set; }        
+        public virtual DbSet<P_UnitType> UnitTypes { get; set; }
     }
 }

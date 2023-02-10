@@ -152,7 +152,7 @@
         public virtual P_ProcessState? RI_ProcessState { get; set; }
 
         [Description("نوع واحد")]
-        public virtual long? RI_idUnitType { get; set; }
+        public virtual P_UnitType? RI_idUnitType { get; set; }
         [Description("نوع درخواست")]
         public virtual P_RequestType? RI_RequestType { get; set; }
         
