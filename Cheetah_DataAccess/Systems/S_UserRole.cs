@@ -6,15 +6,17 @@ namespace Cheetah_DataAccess.Systems
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("S_Role", Schema = "Systems")]
-    public partial class S_Role: BasePSClass
+    [Table("S_UserRole", Schema = "Systems")]
+    public partial class S_UserRole: BasePSClass
     {
         #region Simple Prob
-
+        public virtual S_Role? UR_Role { get; set; }
+        public virtual S_User? UR_User { get; set; }
+        
         #endregion
 
         #region Collection
-        public virtual ICollection<S_UserRole>? S_UserRoles { get; set; }
+
         #endregion
     }
 }

@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230210155909_RT_P_SubRequestTitle")]
+    partial class RTPSubRequestTitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,16 +89,16 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("APV_UserInChargeIdRecord")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("M_RequestInformationIdRecord")
@@ -148,16 +151,16 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("M_ApproveIdRecord")
@@ -212,16 +215,16 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("CWS_WSResult")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("M_RequestInformationIdRecord")
@@ -277,20 +280,17 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("CPE_UserIdRecord")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
-
-                    b.Property<long?>("M_RequestInformationIdRecord")
-                        .HasColumnType("bigint");
 
                     b.HasKey("IdRecord");
 
@@ -299,8 +299,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("CPE_UserActionIdRecord");
 
                     b.HasIndex("CPE_UserIdRecord");
-
-                    b.HasIndex("M_RequestInformationIdRecord");
 
                     b.ToTable("M_CurrentPE", "Masters");
                 });
@@ -313,13 +311,13 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IdWorkItem")
@@ -329,7 +327,7 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("IsTest")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("RI_ActiveProcessEndorsementIdRecord")
@@ -525,9 +523,6 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long?>("RI_UserRelationshipIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("RI_ValidUserAction")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -583,8 +578,6 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("RI_UserActionIdRecord");
 
-                    b.HasIndex("RI_UserRelationshipIdRecord");
-
                     b.HasIndex("RI_idUnitTypeIdRecord");
 
                     b.ToTable("M_RequestInformation", "Masters");
@@ -598,16 +591,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("M_RequestInformationIdRecord")
@@ -681,16 +674,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -732,16 +725,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -786,24 +779,24 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LicenseNum")
@@ -856,16 +849,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -927,16 +920,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1059,16 +1052,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1105,16 +1098,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1206,16 +1199,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1257,16 +1250,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1308,16 +1301,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1357,16 +1350,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1416,16 +1409,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1462,16 +1455,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1508,16 +1501,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1554,16 +1547,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1600,16 +1593,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1649,16 +1642,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1695,16 +1688,16 @@ namespace CheetahDataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTime>("CreateTimeRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("DsblRecord")
+                    b.Property<bool>("DsblRecord")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("GuidRecord")
+                    b.Property<Guid>("GuidRecord")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTime>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
@@ -1755,8 +1748,8 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("User_DefaultPositionIdRecord")
                         .HasColumnType("bigint");
 
-                    b.Property<bool?>("User_DelegateEnabled")
-                        .HasColumnType("bit");
+                    b.Property<byte?>("User_DelegateEnabled")
+                        .HasColumnType("tinyint");
 
                     b.Property<long?>("User_DelegateId")
                         .HasColumnType("bigint");
@@ -1773,8 +1766,8 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("User_Enabled")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("User_EnabledForAssignation")
-                        .HasColumnType("bit");
+                    b.Property<byte?>("User_EnabledForAssignation")
+                        .HasColumnType("tinyint");
 
                     b.Property<long?>("User_FirstApproverId")
                         .HasColumnType("bigint");
@@ -1782,6 +1775,9 @@ namespace CheetahDataAccess.Migrations
                     b.Property<string>("User_FirstName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<long?>("User_FirstRoleUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("User_FullName")
                         .IsRequired()
@@ -1829,15 +1825,9 @@ namespace CheetahDataAccess.Migrations
                     b.Property<decimal?>("User_OvertimeCost")
                         .HasColumnType("money");
 
-                    b.Property<long?>("User_P_UnitTypeIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("User_RelatedLocation")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<long?>("User_S_RoleIdRecord")
-                        .HasColumnType("bigint");
 
                     b.Property<long?>("User_SecondApproverId")
                         .HasColumnType("bigint");
@@ -1854,16 +1844,16 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<byte[]>("User_UserPicture")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<long?>("User_UserRelationshipIdRecord")
-                        .HasColumnType("bigint");
+                    b.Property<byte?>("User_UserPicture")
+                        .HasColumnType("tinyint");
 
                     b.Property<int?>("User_UserStartPage")
                         .HasColumnType("int");
 
                     b.Property<long?>("User_idTimeZone")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("User_idUnitType")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("User_idWorkingTimeSchema")
@@ -1887,75 +1877,15 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("User_FirstApproverId");
 
+                    b.HasIndex("User_FirstRoleUserId");
+
                     b.HasIndex("User_LocationIdRecord");
 
-                    b.HasIndex("User_P_UnitTypeIdRecord");
-
-                    b.HasIndex("User_S_RoleIdRecord");
-
                     b.HasIndex("User_SecondApproverId");
-
-                    b.HasIndex("User_UserRelationshipIdRecord");
 
                     b.HasIndex("identityUserId");
 
                     b.ToTable("S_User", "Systems");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_UserRole", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("PCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("PCost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("PDescription")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PIndex")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<long?>("UR_RoleIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UR_UserIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("IdRecord");
-
-                    b.HasIndex("UR_RoleIdRecord");
-
-                    b.HasIndex("UR_UserIdRecord");
-
-                    b.ToTable("S_UserRole", "Systems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -2224,10 +2154,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("CPE_UserIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Masters.M_RequestInformation", null)
-                        .WithMany("RI_M_CurrentPEs")
-                        .HasForeignKey("M_RequestInformationIdRecord");
-
                     b.Navigation("CPE_ProcessEndorsements");
 
                     b.Navigation("CPE_User");
@@ -2297,10 +2223,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_UserActionIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_UserRelationship", "RI_UserRelationship")
-                        .WithMany()
-                        .HasForeignKey("RI_UserRelationshipIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Parameters.P_UnitType", "RI_idUnitType")
                         .WithMany()
                         .HasForeignKey("RI_idUnitTypeIdRecord");
@@ -2334,8 +2256,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_SubRequestTitle");
 
                     b.Navigation("RI_UserAction");
-
-                    b.Navigation("RI_UserRelationship");
 
                     b.Navigation("RI_idUnitType");
                 });
@@ -2469,25 +2389,17 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("User_FirstApproverId");
 
+                    b.HasOne("Cheetah_DataAccess.Systems.S_User", "User_FirstRoleUser")
+                        .WithMany()
+                        .HasForeignKey("User_FirstRoleUserId");
+
                     b.HasOne("Cheetah_DataAccess.Systems.S_Location", "User_Location")
                         .WithMany()
                         .HasForeignKey("User_LocationIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_UnitType", "User_P_UnitType")
-                        .WithMany()
-                        .HasForeignKey("User_P_UnitTypeIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Systems.S_Role", "User_S_Role")
-                        .WithMany()
-                        .HasForeignKey("User_S_RoleIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "User_SecondApprover")
                         .WithMany()
                         .HasForeignKey("User_SecondApproverId");
-
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_UserRelationship", "User_UserRelationship")
-                        .WithMany()
-                        .HasForeignKey("User_UserRelationshipIdRecord");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "identityUser")
                         .WithMany()
@@ -2503,32 +2415,13 @@ namespace CheetahDataAccess.Migrations
 
                     b.Navigation("User_FirstApprover");
 
+                    b.Navigation("User_FirstRoleUser");
+
                     b.Navigation("User_Location");
-
-                    b.Navigation("User_P_UnitType");
-
-                    b.Navigation("User_S_Role");
 
                     b.Navigation("User_SecondApprover");
 
-                    b.Navigation("User_UserRelationship");
-
                     b.Navigation("identityUser");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_UserRole", b =>
-                {
-                    b.HasOne("Cheetah_DataAccess.Systems.S_Role", "UR_Role")
-                        .WithMany("S_UserRoles")
-                        .HasForeignKey("UR_RoleIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Systems.S_User", "UR_User")
-                        .WithMany("S_UserRoles")
-                        .HasForeignKey("UR_UserIdRecord");
-
-                    b.Navigation("UR_Role");
-
-                    b.Navigation("UR_User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2593,24 +2486,12 @@ namespace CheetahDataAccess.Migrations
 
                     b.Navigation("RI_CallWebServices");
 
-                    b.Navigation("RI_M_CurrentPEs");
-
                     b.Navigation("RI_UserActionsProcesses");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_RequestTitle", b =>
                 {
                     b.Navigation("RT_P_SubRequestTitle");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_Role", b =>
-                {
-                    b.Navigation("S_UserRoles");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_User", b =>
-                {
-                    b.Navigation("S_UserRoles");
                 });
 #pragma warning restore 612, 618
         }

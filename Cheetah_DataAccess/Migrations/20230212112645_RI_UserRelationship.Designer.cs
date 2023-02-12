@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230212112645_RI_UserRelationship")]
+    partial class RIUserRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,9 +292,6 @@ namespace CheetahDataAccess.Migrations
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("M_RequestInformationIdRecord")
-                        .HasColumnType("bigint");
-
                     b.HasKey("IdRecord");
 
                     b.HasIndex("CPE_ProcessEndorsementsIdRecord");
@@ -299,8 +299,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("CPE_UserActionIdRecord");
 
                     b.HasIndex("CPE_UserIdRecord");
-
-                    b.HasIndex("M_RequestInformationIdRecord");
 
                     b.ToTable("M_CurrentPE", "Masters");
                 });
@@ -1857,9 +1855,6 @@ namespace CheetahDataAccess.Migrations
                     b.Property<byte[]>("User_UserPicture")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<long?>("User_UserRelationshipIdRecord")
-                        .HasColumnType("bigint");
-
                     b.Property<int?>("User_UserStartPage")
                         .HasColumnType("int");
 
@@ -1895,67 +1890,9 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("User_SecondApproverId");
 
-                    b.HasIndex("User_UserRelationshipIdRecord");
-
                     b.HasIndex("identityUserId");
 
                     b.ToTable("S_User", "Systems");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_UserRole", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("PCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<decimal?>("PCost")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("PDescription")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("PIndex")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<long?>("UR_RoleIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UR_UserIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("IdRecord");
-
-                    b.HasIndex("UR_RoleIdRecord");
-
-                    b.HasIndex("UR_UserIdRecord");
-
-                    b.ToTable("S_UserRole", "Systems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -2224,10 +2161,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("CPE_UserIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Masters.M_RequestInformation", null)
-                        .WithMany("RI_M_CurrentPEs")
-                        .HasForeignKey("M_RequestInformationIdRecord");
-
                     b.Navigation("CPE_ProcessEndorsements");
 
                     b.Navigation("CPE_User");
@@ -2485,10 +2418,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("User_SecondApproverId");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_UserRelationship", "User_UserRelationship")
-                        .WithMany()
-                        .HasForeignKey("User_UserRelationshipIdRecord");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "identityUser")
                         .WithMany()
                         .HasForeignKey("identityUserId");
@@ -2511,24 +2440,7 @@ namespace CheetahDataAccess.Migrations
 
                     b.Navigation("User_SecondApprover");
 
-                    b.Navigation("User_UserRelationship");
-
                     b.Navigation("identityUser");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_UserRole", b =>
-                {
-                    b.HasOne("Cheetah_DataAccess.Systems.S_Role", "UR_Role")
-                        .WithMany("S_UserRoles")
-                        .HasForeignKey("UR_RoleIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Systems.S_User", "UR_User")
-                        .WithMany("S_UserRoles")
-                        .HasForeignKey("UR_UserIdRecord");
-
-                    b.Navigation("UR_Role");
-
-                    b.Navigation("UR_User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -2593,24 +2505,12 @@ namespace CheetahDataAccess.Migrations
 
                     b.Navigation("RI_CallWebServices");
 
-                    b.Navigation("RI_M_CurrentPEs");
-
                     b.Navigation("RI_UserActionsProcesses");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_RequestTitle", b =>
                 {
                     b.Navigation("RT_P_SubRequestTitle");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_Role", b =>
-                {
-                    b.Navigation("S_UserRoles");
-                });
-
-            modelBuilder.Entity("Cheetah_DataAccess.Systems.S_User", b =>
-                {
-                    b.Navigation("S_UserRoles");
                 });
 #pragma warning restore 612, 618
         }
