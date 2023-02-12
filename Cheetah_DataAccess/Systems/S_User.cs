@@ -1,7 +1,9 @@
 namespace Cheetah_DataAccess.Systems
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Parameters;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -36,7 +38,7 @@ namespace Cheetah_DataAccess.Systems
         [StringLength(25)]
         public string? User_Domain { get; set; }
         public bool? User_Enabled { get; set; }
-        public byte? User_EnabledForAssignation { get; set; }
+        public bool? User_EnabledForAssignation { get; set; }
         public bool? User_NotifByEmail { get; set; }
         public bool? User_NotifByMessenger { get; set; }
         public bool? User_NotifByCell { get; set; }
@@ -50,13 +52,11 @@ namespace Cheetah_DataAccess.Systems
         [StringLength(20)]
         public string? User_ContactCell { get; set; }
 
-        public byte? User_DelegateEnabled { get; set; }
-
-        public int? User_language { get; set; }
+        public bool? User_DelegateEnabled { get; set; }
 
         public bool? User_CreatedCasesSkipAssigRules { get; set; }
 
-        public byte? User_UserPicture { get; set; }
+        public byte[]? User_UserPicture { get; set; }
 
         public bool? User_OfflineForms { get; set; }
 
@@ -101,38 +101,34 @@ namespace Cheetah_DataAccess.Systems
         #region Relations
 
         #region Entity
-
+        public int? User_language { get; set; }
         public long? User_idWorkingTimeSchema { get; set; }
         public long? User_idTimeZone { get; set; }
-        public long? User_idUnitType { get; set; }
-
+        public virtual P_UserRelationship? User_UserRelationship { get; set; }
+        public virtual P_UnitType? User_P_UnitType { get; set; }
         public virtual S_Location? User_Location { get; set; }
         public virtual S_Area? User_Area { get; set; }
         public virtual S_OrgPosition? User_DefaultPosition { get; set; }
+        public virtual S_Role? User_S_Role { get; set; }
 
-        public long? User_FirstRoleUserId { get; set; }
-        [ForeignKey("User_FirstRoleUserId")]
-        public virtual S_User? User_FirstRoleUser { get; set; }
-
+        #region S_User
         public long? User_FirstApproverId { get; set; }
         [ForeignKey("User_FirstApproverId")]
         public virtual S_User? User_FirstApprover { get; set; }
-
         public long? User_SecondApproverId { get; set; }
         [ForeignKey("User_SecondApproverId")]
         public virtual S_User? User_SecondApprover { get; set; }
-
         public long? User_BossUserId { get; set; }
         [ForeignKey("User_BossUserId")]
         public virtual S_User? User_BossUser { get; set; }
-
         public long? User_DelegateId { get; set; }
         [ForeignKey("User_DelegateId")]
         public virtual S_User? User_Delegate { get; set; }
         #endregion
+        #endregion
 
         #region Collection
-
+        public virtual ICollection<S_UserRole>? S_UserRoles { get; set; }
         #endregion
 
         #endregion

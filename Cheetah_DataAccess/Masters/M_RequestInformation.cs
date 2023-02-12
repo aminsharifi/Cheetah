@@ -155,7 +155,7 @@
         public virtual P_UnitType? RI_idUnitType { get; set; }
         [Description("نوع درخواست")]
         public virtual P_RequestType? RI_RequestType { get; set; }
-        
+
         [Description("نام فرآیند")]
         public virtual P_RequestTitle? RI_RequestTitle { get; set; }
 
@@ -164,7 +164,7 @@
 
         [Description("زیرفرآیند")]
         public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
-        
+
         [Description("وضعیت تایید فعال")]
         public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
 
@@ -174,10 +174,14 @@
         [Description("واحد")]
         public virtual S_Area? RI_Area { get; set; }
 
+        public virtual P_UserRelationship? RI_UserRelationship { get; set; }
+
         [Description("تاریخچه نظرات کاربران")]
         public virtual ICollection<M_Approve>? RI_Approves { get; set; }
         public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
         public virtual ICollection<M_UserActionsProcess>? RI_UserActionsProcesses { get; set; }
+        public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; }
+        
         #endregion
     }
 }

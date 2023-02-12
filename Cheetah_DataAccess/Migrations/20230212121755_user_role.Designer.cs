@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230212121755_user_role")]
+    partial class userrole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,9 +292,6 @@ namespace CheetahDataAccess.Migrations
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("M_RequestInformationIdRecord")
-                        .HasColumnType("bigint");
-
                     b.HasKey("IdRecord");
 
                     b.HasIndex("CPE_ProcessEndorsementsIdRecord");
@@ -299,8 +299,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("CPE_UserActionIdRecord");
 
                     b.HasIndex("CPE_UserIdRecord");
-
-                    b.HasIndex("M_RequestInformationIdRecord");
 
                     b.ToTable("M_CurrentPE", "Masters");
                 });
@@ -2224,10 +2222,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("CPE_UserIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Masters.M_RequestInformation", null)
-                        .WithMany("RI_M_CurrentPEs")
-                        .HasForeignKey("M_RequestInformationIdRecord");
-
                     b.Navigation("CPE_ProcessEndorsements");
 
                     b.Navigation("CPE_User");
@@ -2592,8 +2586,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_Approves");
 
                     b.Navigation("RI_CallWebServices");
-
-                    b.Navigation("RI_M_CurrentPEs");
 
                     b.Navigation("RI_UserActionsProcesses");
                 });

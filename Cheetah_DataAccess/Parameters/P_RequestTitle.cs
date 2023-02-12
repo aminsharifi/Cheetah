@@ -63,13 +63,14 @@
         public bool? RT_AnotherRequester { get; set; }
 
         [Description("حذف تایید درخواست کننده")]
-        public bool? RT_RemoveRequestorApproval { get; set; } 
+        public bool? RT_RemoveRequestorApproval { get; set; }
         #endregion
 
         #endregion
 
         #region Relations
-
+        [Description("نام فرآیند")]
+        public virtual ICollection<P_SubRequestTitle>? RT_P_SubRequestTitle { get; set; }
         #endregion
     }
 }

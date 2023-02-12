@@ -43,14 +43,17 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<S_OrgPosition> S_OrgPositions { get; set; }
         public virtual DbSet<S_Location> S_Locations { get; set; }
         public virtual DbSet<S_Role> S_Roles { get; set; }
-        public virtual DbSet<S_User> S_Users { get; set; }        
+        public virtual DbSet<S_User> S_Users { get; set; }
         public virtual DbSet<M_RequestInformation> M_RequestInformations { get; set; }
         public virtual DbSet<M_CallWebService> M_CallWebServices { get; set; }
         public virtual DbSet<M_UserActionsProcess> M_UserActionsProcesses { get; set; }
         public virtual DbSet<M_CurrentPE> M_CurrentPEs { get; set; }
-        public virtual DbSet<M_Approve> M_Approves { get; set; }        
+        public virtual DbSet<M_Approve> M_Approves { get; set; }
         public virtual DbSet<M_Attachment> M_Attachments { get; set; }
-        public virtual DbSet<P_Person> P_Persons { get; set; }        
+        public virtual DbSet<P_Person> P_Persons { get; set; }
         public virtual DbSet<P_UnitType> UnitTypes { get; set; }
+        public virtual DbSet<P_UserRelationship> P_UserRelationships { get; set; }
+        public virtual DbSet<S_UserRole> S_UserRoles { get; set; }
+
     }
 }

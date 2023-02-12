@@ -85,7 +85,7 @@
 
         [StringLength(50)]
         [Description("وضعیت استخدامی")]
-        public long? PSE_UserRelationship { get; set; }
+        public virtual P_UserRelationship? PSE_UserRelationship { get; set; }
 
         [Description("کارشناس تخصیص پیشفرض")]
         public virtual S_User? PSE_ExpertUser { get; set; }
