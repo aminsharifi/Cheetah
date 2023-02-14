@@ -138,7 +138,8 @@
         public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
 
         [Description("وضعیت تایید فعال")]
-        public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
+        public virtual M_CurrentPE? RI_M_CurrentPE { get; set; }
+        //public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
 
         [Description("تاریخچه نظرات کاربران")]
         public virtual ICollection<M_Approve>? RI_Approves { get; set; }
