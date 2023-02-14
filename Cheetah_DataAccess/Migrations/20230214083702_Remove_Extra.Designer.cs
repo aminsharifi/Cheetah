@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214083702_Remove_Extra")]
+    partial class RemoveExtra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,58 +340,6 @@ namespace CheetahDataAccess.Migrations
                     b.ToTable("M_CommonAttrib", "Masters");
                 });
 
-            modelBuilder.Entity("Cheetah_DataAccess.Masters.M_CommonCondition", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<bool?>("CCD_CompanySHare")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_ConditionDrug")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_ConditionFMCG")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional2")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional3")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional4")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional5")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_SupplierSHare")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("IdRecord");
-
-                    b.ToTable("M_CommonCondition", "Masters");
-                });
-
             modelBuilder.Entity("Cheetah_DataAccess.Masters.M_CurrentPE", b =>
                 {
                     b.Property<long>("IdRecord")
@@ -471,6 +422,9 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<bool?>("RI_AlborzSHare")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("RI_AllApproveIdRecord")
                         .HasColumnType("bigint");
 
@@ -480,8 +434,26 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("RI_CommonAttribIdRecord")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("RI_CommonConditionIdRecord")
-                        .HasColumnType("bigint");
+                    b.Property<bool?>("RI_ConditionDrug")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionFMCG")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur1")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur2")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur3")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur4")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur5")
+                        .HasColumnType("bit");
 
                     b.Property<long?>("RI_CreatorIdRecord")
                         .HasColumnType("bigint");
@@ -602,6 +574,9 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("RI_SubRequestTitleIdRecord")
                         .HasColumnType("bigint");
 
+                    b.Property<bool?>("RI_SupplierSHare")
+                        .HasColumnType("bit");
+
                     b.Property<string>("RI_TaskName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -637,8 +612,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("RI_AllApproveIdRecord");
 
                     b.HasIndex("RI_CommonAttribIdRecord");
-
-                    b.HasIndex("RI_CommonConditionIdRecord");
 
                     b.HasIndex("RI_CreatorIdRecord");
 
@@ -1035,8 +1008,29 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("PSE_Automation")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("PSE_CommonConditionIdRecord")
-                        .HasColumnType("bigint");
+                    b.Property<bool?>("PSE_CompanySHare")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_ConditionDrug")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_ConditionFMCG")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional2")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional3")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional4")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional5")
+                        .HasColumnType("bit");
 
                     b.Property<long?>("PSE_ExpertUserIdRecord")
                         .HasColumnType("bigint");
@@ -1063,6 +1057,9 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool?>("PSE_SupplierSHare")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PSE_TaskName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -1082,8 +1079,6 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
-
-                    b.HasIndex("PSE_CommonConditionIdRecord");
 
                     b.HasIndex("PSE_ExpertUserIdRecord");
 
@@ -2326,10 +2321,6 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_CommonAttribIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Masters.M_CommonCondition", "RI_CommonCondition")
-                        .WithMany()
-                        .HasForeignKey("RI_CommonConditionIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "RI_Creator")
                         .WithMany()
                         .HasForeignKey("RI_CreatorIdRecord");
@@ -2367,8 +2358,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_AllApprove");
 
                     b.Navigation("RI_CommonAttrib");
-
-                    b.Navigation("RI_CommonCondition");
 
                     b.Navigation("RI_Creator");
 
@@ -2438,10 +2427,6 @@ namespace CheetahDataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ProcessEndorsement", b =>
                 {
-                    b.HasOne("Cheetah_DataAccess.Masters.M_CommonCondition", "PSE_CommonCondition")
-                        .WithMany()
-                        .HasForeignKey("PSE_CommonConditionIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "PSE_ExpertUser")
                         .WithMany()
                         .HasForeignKey("PSE_ExpertUserIdRecord");
@@ -2461,8 +2446,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasOne("Cheetah_DataAccess.Parameters.P_UserRelationship", "PSE_UserRelationship")
                         .WithMany()
                         .HasForeignKey("PSE_UserRelationshipIdRecord");
-
-                    b.Navigation("PSE_CommonCondition");
 
                     b.Navigation("PSE_ExpertUser");
 

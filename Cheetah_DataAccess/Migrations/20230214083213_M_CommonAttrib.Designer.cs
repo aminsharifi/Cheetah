@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230214083213_M_CommonAttrib")]
+    partial class MCommonAttrib
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,58 +340,6 @@ namespace CheetahDataAccess.Migrations
                     b.ToTable("M_CommonAttrib", "Masters");
                 });
 
-            modelBuilder.Entity("Cheetah_DataAccess.Masters.M_CommonCondition", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<bool?>("CCD_CompanySHare")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_ConditionDrug")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_ConditionFMCG")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional2")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional3")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional4")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_Conditional5")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CCD_SupplierSHare")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("IdRecord");
-
-                    b.ToTable("M_CommonCondition", "Masters");
-                });
-
             modelBuilder.Entity("Cheetah_DataAccess.Masters.M_CurrentPE", b =>
                 {
                     b.Property<long>("IdRecord")
@@ -471,7 +422,13 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<bool?>("RI_AlborzSHare")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("RI_AllApproveIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RI_AreaIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<byte?>("RI_Attachment")
@@ -480,8 +437,26 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("RI_CommonAttribIdRecord")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("RI_CommonConditionIdRecord")
-                        .HasColumnType("bigint");
+                    b.Property<bool?>("RI_ConditionDrug")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionFMCG")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur1")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur2")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur3")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur4")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("RI_ConditionOccur5")
+                        .HasColumnType("bit");
 
                     b.Property<long?>("RI_CreatorIdRecord")
                         .HasColumnType("bigint");
@@ -511,8 +486,14 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("RI_IsCancelled")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("RI_LastTaskSentDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("RI_LastTimeModify")
                         .HasColumnType("datetime2");
+
+                    b.Property<long?>("RI_LocationIdRecord")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RI_NewDate")
                         .HasColumnType("datetime2");
@@ -602,6 +583,9 @@ namespace CheetahDataAccess.Migrations
                     b.Property<long?>("RI_SubRequestTitleIdRecord")
                         .HasColumnType("bigint");
 
+                    b.Property<bool?>("RI_SupplierSHare")
+                        .HasColumnType("bit");
+
                     b.Property<string>("RI_TaskName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -609,6 +593,9 @@ namespace CheetahDataAccess.Migrations
                     b.Property<string>("RI_UserNameCreator")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<long?>("RI_UserRelationshipIdRecord")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("RI_ValidUserAction")
                         .HasMaxLength(50)
@@ -630,19 +617,24 @@ namespace CheetahDataAccess.Migrations
                     b.Property<int?>("RI_WS_TryNum")
                         .HasColumnType("int");
 
+                    b.Property<long?>("RI_idUnitTypeIdRecord")
+                        .HasColumnType("bigint");
+
                     b.HasKey("IdRecord");
 
                     b.HasIndex("RI_ActiveProcessEndorsementIdRecord");
 
                     b.HasIndex("RI_AllApproveIdRecord");
 
-                    b.HasIndex("RI_CommonAttribIdRecord");
+                    b.HasIndex("RI_AreaIdRecord");
 
-                    b.HasIndex("RI_CommonConditionIdRecord");
+                    b.HasIndex("RI_CommonAttribIdRecord");
 
                     b.HasIndex("RI_CreatorIdRecord");
 
                     b.HasIndex("RI_ExpertUserIdRecord");
+
+                    b.HasIndex("RI_LocationIdRecord");
 
                     b.HasIndex("RI_PersonIdRecord");
 
@@ -655,6 +647,10 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("RI_RequestorIdRecord");
 
                     b.HasIndex("RI_SubRequestTitleIdRecord");
+
+                    b.HasIndex("RI_UserRelationshipIdRecord");
+
+                    b.HasIndex("RI_idUnitTypeIdRecord");
 
                     b.ToTable("M_RequestInformation", "Masters");
                 });
@@ -1035,8 +1031,29 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("PSE_Automation")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("PSE_CommonConditionIdRecord")
-                        .HasColumnType("bigint");
+                    b.Property<bool?>("PSE_CompanySHare")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_ConditionDrug")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_ConditionFMCG")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional2")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional3")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional4")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PSE_Conditional5")
+                        .HasColumnType("bit");
 
                     b.Property<long?>("PSE_ExpertUserIdRecord")
                         .HasColumnType("bigint");
@@ -1063,6 +1080,9 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool?>("PSE_SupplierSHare")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PSE_TaskName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -1082,8 +1102,6 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
-
-                    b.HasIndex("PSE_CommonConditionIdRecord");
 
                     b.HasIndex("PSE_ExpertUserIdRecord");
 
@@ -1775,6 +1793,9 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<long?>("User_AreaIdRecord")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("User_Birthdate")
                         .HasColumnType("datetime2");
 
@@ -1854,6 +1875,9 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<long?>("User_LocationIdRecord")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("User_NationalCode")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
@@ -1872,6 +1896,9 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<decimal?>("User_OvertimeCost")
                         .HasColumnType("money");
+
+                    b.Property<long?>("User_P_UnitTypeIdRecord")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("User_RelatedLocation")
                         .HasMaxLength(500)
@@ -1918,6 +1945,8 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasKey("IdRecord");
 
+                    b.HasIndex("User_AreaIdRecord");
+
                     b.HasIndex("User_BossUserId");
 
                     b.HasIndex("User_CommonAttribIdRecord");
@@ -1927,6 +1956,10 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("User_DelegateId");
 
                     b.HasIndex("User_FirstApproverId");
+
+                    b.HasIndex("User_LocationIdRecord");
+
+                    b.HasIndex("User_P_UnitTypeIdRecord");
 
                     b.HasIndex("User_S_RoleIdRecord");
 
@@ -2322,13 +2355,13 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_AllApproveIdRecord");
 
+                    b.HasOne("Cheetah_DataAccess.Systems.S_Area", "RI_Area")
+                        .WithMany()
+                        .HasForeignKey("RI_AreaIdRecord");
+
                     b.HasOne("Cheetah_DataAccess.Masters.M_CommonAttrib", "RI_CommonAttrib")
                         .WithMany()
                         .HasForeignKey("RI_CommonAttribIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Masters.M_CommonCondition", "RI_CommonCondition")
-                        .WithMany()
-                        .HasForeignKey("RI_CommonConditionIdRecord");
 
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "RI_Creator")
                         .WithMany()
@@ -2337,6 +2370,10 @@ namespace CheetahDataAccess.Migrations
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "RI_ExpertUser")
                         .WithMany()
                         .HasForeignKey("RI_ExpertUserIdRecord");
+
+                    b.HasOne("Cheetah_DataAccess.Systems.S_Location", "RI_Location")
+                        .WithMany()
+                        .HasForeignKey("RI_LocationIdRecord");
 
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "RI_Person")
                         .WithMany()
@@ -2362,17 +2399,27 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RI_SubRequestTitleIdRecord");
 
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_UserRelationship", "RI_UserRelationship")
+                        .WithMany()
+                        .HasForeignKey("RI_UserRelationshipIdRecord");
+
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_UnitType", "RI_idUnitType")
+                        .WithMany()
+                        .HasForeignKey("RI_idUnitTypeIdRecord");
+
                     b.Navigation("RI_ActiveProcessEndorsement");
 
                     b.Navigation("RI_AllApprove");
 
-                    b.Navigation("RI_CommonAttrib");
+                    b.Navigation("RI_Area");
 
-                    b.Navigation("RI_CommonCondition");
+                    b.Navigation("RI_CommonAttrib");
 
                     b.Navigation("RI_Creator");
 
                     b.Navigation("RI_ExpertUser");
+
+                    b.Navigation("RI_Location");
 
                     b.Navigation("RI_Person");
 
@@ -2385,6 +2432,10 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_Requestor");
 
                     b.Navigation("RI_SubRequestTitle");
+
+                    b.Navigation("RI_UserRelationship");
+
+                    b.Navigation("RI_idUnitType");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Masters.M_UserActionsProcess", b =>
@@ -2438,10 +2489,6 @@ namespace CheetahDataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ProcessEndorsement", b =>
                 {
-                    b.HasOne("Cheetah_DataAccess.Masters.M_CommonCondition", "PSE_CommonCondition")
-                        .WithMany()
-                        .HasForeignKey("PSE_CommonConditionIdRecord");
-
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "PSE_ExpertUser")
                         .WithMany()
                         .HasForeignKey("PSE_ExpertUserIdRecord");
@@ -2461,8 +2508,6 @@ namespace CheetahDataAccess.Migrations
                     b.HasOne("Cheetah_DataAccess.Parameters.P_UserRelationship", "PSE_UserRelationship")
                         .WithMany()
                         .HasForeignKey("PSE_UserRelationshipIdRecord");
-
-                    b.Navigation("PSE_CommonCondition");
 
                     b.Navigation("PSE_ExpertUser");
 
@@ -2502,6 +2547,10 @@ namespace CheetahDataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_DataAccess.Systems.S_User", b =>
                 {
+                    b.HasOne("Cheetah_DataAccess.Systems.S_Area", "User_Area")
+                        .WithMany()
+                        .HasForeignKey("User_AreaIdRecord");
+
                     b.HasOne("Cheetah_DataAccess.Systems.S_User", "User_BossUser")
                         .WithMany()
                         .HasForeignKey("User_BossUserId");
@@ -2522,6 +2571,14 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("User_FirstApproverId");
 
+                    b.HasOne("Cheetah_DataAccess.Systems.S_Location", "User_Location")
+                        .WithMany()
+                        .HasForeignKey("User_LocationIdRecord");
+
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_UnitType", "User_P_UnitType")
+                        .WithMany()
+                        .HasForeignKey("User_P_UnitTypeIdRecord");
+
                     b.HasOne("Cheetah_DataAccess.Systems.S_Role", "User_S_Role")
                         .WithMany()
                         .HasForeignKey("User_S_RoleIdRecord");
@@ -2538,6 +2595,8 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("identityUserId");
 
+                    b.Navigation("User_Area");
+
                     b.Navigation("User_BossUser");
 
                     b.Navigation("User_CommonAttrib");
@@ -2547,6 +2606,10 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("User_Delegate");
 
                     b.Navigation("User_FirstApprover");
+
+                    b.Navigation("User_Location");
+
+                    b.Navigation("User_P_UnitType");
 
                     b.Navigation("User_S_Role");
 

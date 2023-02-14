@@ -1,6 +1,7 @@
 namespace Cheetah_DataAccess.Systems
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Masters;
     using Cheetah_DataAccess.Parameters;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -105,11 +106,9 @@ namespace Cheetah_DataAccess.Systems
         public long? User_idWorkingTimeSchema { get; set; }
         public long? User_idTimeZone { get; set; }
         public virtual P_UserRelationship? User_UserRelationship { get; set; }
-        public virtual P_UnitType? User_P_UnitType { get; set; }
-        public virtual S_Location? User_Location { get; set; }
-        public virtual S_Area? User_Area { get; set; }
         public virtual S_OrgPosition? User_DefaultPosition { get; set; }
         public virtual S_Role? User_S_Role { get; set; }
+        public virtual M_CommonAttrib? User_CommonAttrib { get; set; }
 
         #region S_User
         public long? User_FirstApproverId { get; set; }
