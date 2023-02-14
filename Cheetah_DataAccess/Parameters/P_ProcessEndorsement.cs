@@ -1,6 +1,7 @@
 ﻿namespace Cheetah_DataAccess.Parameters
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Masters;
     using Cheetah_DataAccess.Systems;
     using System;
     using System.Collections.Generic;
@@ -13,36 +14,7 @@
     {
         #region Simple Prop
 
-        #region Condition        
-
-        #region PSE_Conditional
-        [Description("شرطی")]
-        public bool? PSE_Conditional { get; set; }
-        [Description("شرطی 2")]
-        public bool? PSE_Conditional2 { get; set; }
-        [Description("شرطی 3")]
-        public bool? PSE_Conditional3 { get; set; }
-
-        [Description("شرطی 4")]
-        public bool? PSE_Conditional4 { get; set; }
-
-        [Description("شرطی 5")]
-        public bool? PSE_Conditional5 { get; set; }
-        #endregion
-
-        [Description("شرط دارویی")]
-        public bool? PSE_ConditionDrug { get; set; }
-
-        [Description("شرط FMCG")]
-        public bool? PSE_ConditionFMCG { get; set; }
-
-        [Description("سهم تامین کننده")]
-        public bool? PSE_SupplierSHare { get; set; }
-
-        [Description("سهم شرکت")]
-        public bool? PSE_CompanySHare { get; set; }
-
-        #endregion
+        
 
         #region Notifications
         [Description("ارسال ایمیل")]
@@ -90,6 +62,7 @@
         [Description("کارشناس تخصیص پیشفرض")]
         public virtual S_User? PSE_ExpertUser { get; set; }
 
+        public virtual M_CommonCondition? PSE_CommonCondition { get; set; }
 
         [Description("سمت سازمانی")]
         public virtual P_PositionOrg? PSE_PON { get; set; }

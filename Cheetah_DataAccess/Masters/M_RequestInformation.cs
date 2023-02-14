@@ -31,17 +31,7 @@
         public DateTime? RI_LastTimeModify { get; set; }
         #endregion
 
-        #region ConditionOccur
-        public bool? RI_ConditionOccur1 { get; set; }
-        public bool? RI_ConditionOccur2 { get; set; }
-        public bool? RI_ConditionOccur3 { get; set; }
-        public bool? RI_ConditionOccur4 { get; set; }
-        public bool? RI_ConditionOccur5 { get; set; }
-        public bool? RI_ConditionDrug { get; set; }
-        public bool? RI_ConditionFMCG { get; set; }
-        public bool? RI_SupplierSHare { get; set; }
-        public bool? RI_AlborzSHare { get; set; }
-        #endregion
+        public virtual M_CommonCondition? RI_CommonCondition { get; set; }
 
         #region ProcessVar
 
@@ -105,8 +95,6 @@
         [StringLength(255)]
         public string? RI_Address { get; set; }
 
-        [StringLength(50)]
-        public string? RI_LastUserComment { get; set; }
         public byte? RI_PE_Level { get; set; }
         public byte? RI_Attachment { get; set; }
 
@@ -122,10 +110,6 @@
         [StringLength(50)]
         public string? RI_ValidUserAction { get; set; }
 
-        [StringLength(512)]
-        public string? RI_UserComment { get; set; }
-        public DateTime? RI_LastTaskSentDate { get; set; }
-
         [StringLength(50)]
         public string? RI_People { get; set; }
 
@@ -135,32 +119,20 @@
         #region S_User
         public virtual S_User? RI_Person { get; set; }
         public virtual S_User? RI_ExpertUser { get; set; }
-        public virtual S_User? RI_LastUserInCharge { get; set; }
         public virtual S_User? RI_Requestor { get; set; }
         public virtual S_User? RI_Creator { get; set; }
-        #endregion
-
-        #region P_UserAction
-        [Description("اقدام کاربر")]
-        public virtual P_UserAction? RI_UserAction { get; set; }
-
-        [Description("آخرین اقدام کننده")]
-        public virtual P_UserAction? RI_LastUserAction { get; set; }
+        public virtual M_CommonAttrib? RI_CommonAttrib { get; set; }
+        public virtual M_AllApprove? RI_AllApprove { get; set; }
         #endregion
 
         [Description("وضعیت فرآیند")]
         public virtual P_ProcessState? RI_ProcessState { get; set; }
 
-        [Description("نوع واحد")]
-        public virtual P_UnitType? RI_idUnitType { get; set; }
         [Description("نوع درخواست")]
         public virtual P_RequestType? RI_RequestType { get; set; }
 
         [Description("نام فرآیند")]
         public virtual P_RequestTitle? RI_RequestTitle { get; set; }
-
-        [Description("علت عدم تایید")]
-        public virtual P_ParameterList? RI_RejectReason { get; set; }
 
         [Description("زیرفرآیند")]
         public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
@@ -168,20 +140,12 @@
         [Description("وضعیت تایید فعال")]
         public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
 
-        [Description("موقعیت")]
-        public virtual S_Location? RI_Location { get; set; }
-
-        [Description("واحد")]
-        public virtual S_Area? RI_Area { get; set; }
-
-        public virtual P_UserRelationship? RI_UserRelationship { get; set; }
-
         [Description("تاریخچه نظرات کاربران")]
         public virtual ICollection<M_Approve>? RI_Approves { get; set; }
         public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
         public virtual ICollection<M_UserActionsProcess>? RI_UserActionsProcesses { get; set; }
         public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; }
-        
+
         #endregion
     }
 }
