@@ -34,25 +34,9 @@ BEGIN
 	select * into #TempView_M_RequestInformation FROM View_M_RequestInformation
 	where M_RequestInformation_IdRecord = @IdRequestInformation
 
-	select * from #TempView_M_RequestInformation
+	select * into #TempView_P_ProcessEndorsement from View_P_ProcessEndorsement
+	where View_P_ProcessEndorsement.CPE_M_RequestInformationIdRecord = @IdRequestInformation and CPE_Active = 1
 
-	/*
-
-	select top(1) @CU_ProcessEndorsements = P_ProcessEndorsement.IdRecord,
-	@idOrgPositions = S_OrgPosition.IdRecord,
-	@OrgPositions_Name = S_OrgPosition.PName
-	from [Masters].M_CurrentPE  --جدول تاییدات
-	inner join [Parameters].P_ProcessEndorsement on P_ProcessEndorsement.IdRecord = M_CurrentPE.CPE_ProcessEndorsementsIdRecord
-	inner join [Parameters].P_UserAction on P_UserAction .IdRecord = M_CurrentPE.CPE_UserActionIdRecord
-	inner join [Systems].S_OrgPosition on S_OrgPosition.IdRecord = P_ProcessEndorsement.IdRecord
-	where M_CurrentPE.IdRecord = @RI_RequestNumber and M_CurrentPE.CPE_Active = 1 and CPE_Active = 1 and P_UserAction.PCode != 1
-
-	select @ExistsRecord = count(*)  from [Masters].M_CurrentPE --در جدول تاییدات رکوردی هست که تایید نشده باشد؟
-	inner join [Parameters].[P_UserAction] on [P_UserAction].IdRecord = M_CurrentPE.CPE_UserActionIdRecord
-	inner join [Parameters].[P_ProcessEndorsement] on [P_ProcessEndorsement].IdRecord = M_CurrentPE.CPE_ProcessEndorsementsIdRecord
-	where M_CurrentPE.CPE_ProcessEndorsementsIdRecord = @IdRequestInformation and [P_UserAction].PCode != 1
-	and M_CurrentPE.CPE_Active = 1 AND [P_ProcessEndorsement].PSE_Active = 1 
-	*/
 	END
 
 	COMMIT TRANSACTION [GetBasicInformation]
