@@ -14,7 +14,7 @@
 
         #region Entity
 
-        public virtual P_ParameterType? PL_ParameterType { get; set; }
+        
 
         #endregion
 

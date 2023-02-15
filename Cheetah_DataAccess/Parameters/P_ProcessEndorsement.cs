@@ -14,7 +14,7 @@
     {
         #region Simple Prop
 
-        
+
 
         #region Notifications
         [Description("ارسال ایمیل")]
@@ -49,6 +49,8 @@
         [Description("ارسال به همه")]
         public bool? PSE_SendAll { get; set; }
 
+        public long? PSE_Int_P_FieldType { get; set; }
+        public bool? PSE_Bool_P_FieldType { get; set; }
         #endregion
 
         #region Relation
@@ -62,19 +64,21 @@
         [Description("کارشناس تخصیص پیشفرض")]
         public virtual S_User? PSE_ExpertUser { get; set; }
 
-        public virtual M_CommonCondition? PSE_CommonCondition { get; set; }
-
-        [Description("سمت سازمانی")]
-        public virtual P_PositionOrg? PSE_PON { get; set; }
-
         [Description("نام فرآیند")]
         public virtual P_RequestTitle? PSE_RequestTitle { get; set; }
 
 
         [Description("وضعیت فرآیند")]
-        public virtual P_ProcessState? PSE_ProcessState { get; set; } 
+        public virtual P_ProcessState? PSE_ProcessState { get; set; }
+
+        [Description("سمت سازمانی")]
+        public virtual ICollection<P_PositionOrg>? PSE_PON { get; set; } = new List<P_PositionOrg>();
+
+        public virtual P_FieldType? PT_P_FieldType { get; set; }
+        public virtual P_Operand? PT_P_Operand { get; set; }
+        public virtual ICollection<P_ParameterList>? PT_P_ParameterList { get; set; } = new List<P_ParameterList>();
         #endregion
-        
+
         #endregion
     }
 }

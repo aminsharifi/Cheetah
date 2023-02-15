@@ -1,8 +1,6 @@
 ﻿namespace Cheetah_DataAccess.Masters
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Parameters;
-    using Cheetah_DataAccess.Systems;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,7 +16,7 @@
         #endregion
 
         #region Collection
-        public virtual ICollection<M_Approve>? M_Approves { get; set; }
+        public virtual ICollection<M_Approve>? M_Approves { get; set; } = new List<M_Approve>();
         #endregion
     }
 }

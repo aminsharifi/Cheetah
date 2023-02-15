@@ -8,7 +8,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class P_ParameterListDTO : BasePSClass
+    public partial class P_ParameterListDTO : BasePSClass 
     {
         #region Relation
 

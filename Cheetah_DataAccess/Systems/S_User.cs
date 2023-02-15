@@ -1,4 +1,4 @@
-namespace Cheetah_DataAccess.Systems
+﻿namespace Cheetah_DataAccess.Systems
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Masters;
@@ -7,6 +7,7 @@ namespace Cheetah_DataAccess.Systems
     using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -108,8 +109,11 @@ namespace Cheetah_DataAccess.Systems
         public virtual P_UserRelationship? User_UserRelationship { get; set; }
         public virtual S_OrgPosition? User_DefaultPosition { get; set; }
         public virtual S_Role? User_S_Role { get; set; }
-        public virtual M_CommonAttrib? User_CommonAttrib { get; set; }
 
+        [Description("واحد")]
+        public virtual S_Area? CMA_S_Area { get; set; }
+        [Description("موقعیت")]
+        public virtual S_Location? CMA_S_Location { get; set; }
         #region S_User
         public long? User_FirstApproverId { get; set; }
         [ForeignKey("User_FirstApproverId")]
