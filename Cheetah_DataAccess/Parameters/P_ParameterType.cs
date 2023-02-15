@@ -6,10 +6,12 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    [Table("P_ParameterType", Schema = "Parameters")]
+    
+    [Table("P_ParameterType", Schema = "Parameters")]    
     public partial class P_ParameterType: BasePSClass
     {
-        
+        public virtual P_FieldType? PT_P_FieldType { get; set; }
+        public virtual ICollection<P_ParameterList>? PT_P_ParameterList { get; set; } = new List<P_ParameterList>();    
+
     }
 }

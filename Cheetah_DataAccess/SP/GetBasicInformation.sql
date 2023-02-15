@@ -23,7 +23,7 @@ BEGIN
 	DECLARE	@return_value int,@IdRequestInformation int
 	end
 
-	BEGIN TRANSACTION [GetBasicInformation]
+	BEGIN TRANSACTION [PerformRequest]
 
 	BEGIN TRY
 	
@@ -39,14 +39,12 @@ BEGIN
 
 	END
 
-	COMMIT TRANSACTION [GetBasicInformation]
+	COMMIT TRANSACTION [PerformRequest]
 	END TRY
 	BEGIN CATCH
 	SELECT 0 as Passed, ERROR_NUMBER() AS ID  ,ERROR_MESSAGE() AS Content;  
-	ROLLBACK TRANSACTION [GetBasicInformation]
+	ROLLBACK TRANSACTION [PerformRequest]
 	END CATCH
 END
 return @IdRequestInformation
 GO
-
-

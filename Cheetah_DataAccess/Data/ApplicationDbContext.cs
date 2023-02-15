@@ -55,7 +55,8 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<P_UserRelationship> P_UserRelationships { get; set; }
         public virtual DbSet<S_UserRole> S_UserRoles { get; set; }
         public virtual DbSet<M_AllApprove> M_AllApproves { get; set; }
-        public virtual DbSet<M_CommonAttrib> M_CommonAttribs { get; set; }
-        public virtual DbSet<M_CommonCondition> M_CommonConditions { get; set; }
+        public virtual DbSet<P_FieldType> P_FieldTypes { get; set; }
+        public virtual DbSet<P_Operand> P_Operands { get; set; }
+
     }
 }

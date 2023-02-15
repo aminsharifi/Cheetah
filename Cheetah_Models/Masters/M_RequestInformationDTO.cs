@@ -1,6 +1,7 @@
-﻿namespace Cheetah_DataAccess.Masters
+﻿namespace Cheetah_Models.Masters
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Masters;
     using Cheetah_DataAccess.Parameters;
     using Cheetah_DataAccess.Systems;
     using System;
@@ -9,8 +10,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("M_RequestInformation", Schema = "Masters")]
-    public partial class M_RequestInformation : BaseClass
+    public partial class M_RequestInformationDTO : BasePSClass
     {
         #region Simple Prob
 
@@ -136,6 +136,10 @@
 
         [Description("وضعیت تایید فعال")]
         public virtual M_CurrentPE? RI_M_CurrentPE { get; set; }
+        //public virtual P_ProcessEndorsement? RI_ActiveProcessEndorsement { get; set; }
+
+        [Description("تاریخچه نظرات کاربران")]
+        public virtual ICollection<M_Approve>? RI_Approves { get; set; }
         public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
         public virtual ICollection<M_UserActionsProcess>? RI_UserActionsProcesses { get; set; }
         public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; }

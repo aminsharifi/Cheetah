@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
+using Cheetah_Business.Repository.IRepository.General;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,7 @@
 ﻿namespace Cheetah_Business.Repository.IRepository
 {
     using AutoMapper;
+    using Cheetah_Business.Repository.IRepository.General;
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Parameters;
     using Cheetah_DataAccess.Systems;
