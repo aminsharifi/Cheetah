@@ -12,7 +12,7 @@ namespace Cheetah_DataAccess.Systems
     {
         #region Simple Prop        
         [InverseProperty("S_Location")]
-        public virtual ICollection<S_UserLocation>? S_UserLocation { get; set; }
+        public virtual ICollection<S_UserLocation>? S_UserLocation { get; set; } = new HashSet<S_UserLocation>();
         #endregion
 
         #region Relations

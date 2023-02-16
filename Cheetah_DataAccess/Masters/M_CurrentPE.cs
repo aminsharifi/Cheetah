@@ -11,7 +11,6 @@
     public partial class M_CurrentPE : BaseClass
     {
         //Passed
-
         #region Simple Prop
         [Description("فعال")]
         public Boolean? CPE_Active { get; set; } = false;

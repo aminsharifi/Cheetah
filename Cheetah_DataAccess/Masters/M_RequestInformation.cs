@@ -13,15 +13,10 @@
     public partial class M_RequestInformation : BaseClass
     {
         #region Simple Prob
-
-        #region WSResults
-        public bool? RI_WS_Result { get; set; }
-        [StringLength(1024)]
-        public string? RI_WS_Result_Desc { get; set; }
-        public int? RI_WS_TryNum { get; set; }
-        public int? RI_WS_Result_Code { get; set; }
-        public long? RI_WS_CurrentId { get; set; }
-        #endregion
+        public long? RI_ERPID { get; set; }
+        public bool? RI_IsCancelled { get; set; } = false;
+        public bool? IsTest { get; set; } = false;
+        public byte? RI_PE_Level { get; set; }
 
         #region DateTimes
         public DateTime? RI_RequestDate { get; set; } = DateTime.Now;
@@ -30,11 +25,6 @@
         public DateTime? RI_NewDate { get; set; }
         public DateTime? RI_LastTimeModify { get; set; }
         #endregion
-
-        public long? RI_ERPID { get; set; }
-        public bool? RI_IsCancelled { get; set; } = false;
-        public bool? IsTest { get; set; } = false;
-        public byte? RI_PE_Level { get; set; }
 
         #region S_User
         public virtual S_User? RI_ExpertUser { get; set; }
@@ -57,9 +47,8 @@
 
         [Description("وضعیت تایید فعال")]
         public virtual M_CurrentPE? RI_M_CurrentPE { get; set; }
-        public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
-        public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; }
-        public virtual ICollection<M_ListOfParameter>? RI_M_ListOfParameters { get; set; } = new List<M_ListOfParameter>();
+        public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; } = new HashSet<M_CurrentPE>();
+        public virtual ICollection<M_ListOfParameter>? RI_M_ListOfParameters { get; set; } = new HashSet<M_ListOfParameter>();
         #endregion
     }
 }

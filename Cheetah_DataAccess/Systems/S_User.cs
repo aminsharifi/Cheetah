@@ -102,7 +102,6 @@
         public int? User_language { get; set; }
         public long? User_idWorkingTimeSchema { get; set; }
         public long? User_idTimeZone { get; set; }
-        public virtual S_OrgPosition? User_DefaultPosition { get; set; }
         public virtual S_Role? User_S_Role { get; set; }
 
         #region S_User
@@ -122,17 +121,17 @@
 
         [Description("واحد")]
         [InverseProperty("UR_User")]
-        public virtual ICollection<S_UserArea>? User_S_UserAreas { get; set; } = new List<S_UserArea>();
+        public virtual ICollection<S_UserArea>? User_S_UserAreas { get; set; } = new HashSet<S_UserArea>();
         [Description("موقعیت")]
 
         [InverseProperty("UL_UserLocation")]
-        public virtual ICollection<S_UserLocation>? S_UserLocations { get; set; } = new List<S_UserLocation>();
+        public virtual ICollection<S_UserLocation>? S_UserLocations { get; set; } = new HashSet<S_UserLocation>();
         [InverseProperty("UL_RelatedUserLocation")]
-        public virtual ICollection<S_UserLocation>? User_Related_S_UserLocations { get; set; } = new List<S_UserLocation>();
+        public virtual ICollection<S_UserLocation>? User_Related_S_UserLocations { get; set; } = new HashSet<S_UserLocation>();
         
         [InverseProperty("UR_User")]
-        public virtual ICollection<S_UserRole>? User_S_UserRoles { get; set; } = new List<S_UserRole>();
-        public virtual ICollection<M_ListOfParameter>? User_M_ListOfParameter { get; set; } = new List<M_ListOfParameter>();
+        public virtual ICollection<S_UserRole>? User_S_UserRoles { get; set; } = new HashSet<S_UserRole>();
+        public virtual ICollection<M_ListOfParameter>? User_M_ListOfParameter { get; set; } = new HashSet<M_ListOfParameter>();
         #endregion
 
         #endregion

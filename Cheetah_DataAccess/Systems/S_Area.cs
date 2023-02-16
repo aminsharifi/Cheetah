@@ -11,7 +11,7 @@ namespace Cheetah_DataAccess.Systems
     {
         #region Relations
         [InverseProperty("UR_Area")]
-        public virtual ICollection<S_UserArea>? Area_S_UserAreas { get; set; } = new List<S_UserArea>();
+        public virtual ICollection<S_UserArea>? Area_S_UserAreas { get; set; } = new HashSet<S_UserArea>();
         #endregion
     }
 }

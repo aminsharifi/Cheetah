@@ -140,7 +140,6 @@
 
         [Description("تاریخچه نظرات کاربران")]
         public virtual ICollection<M_Approve>? RI_Approves { get; set; }
-        public virtual ICollection<M_CallWebService>? RI_CallWebServices { get; set; }
         public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; }
 
         #endregion

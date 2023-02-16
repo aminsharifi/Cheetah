@@ -25,6 +25,6 @@
         [Description("بررسی کننده")]
         public virtual S_User? APV_UserInCharge { get; set; }
         [Description("ضمیمه")]
-        public virtual ICollection<M_Attachment>? APV_M_Attachment { get; set; }
+        public virtual ICollection<M_Attachment>? APV_M_Attachment { get; set; } = new HashSet<M_Attachment>();
     }
 }
