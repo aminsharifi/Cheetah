@@ -28,6 +28,8 @@
         #endregion
 
         #region Simple Prob
+        public long? User_Int_P_FieldType { get; set; }
+        public bool? User_Bool_P_FieldType { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -39,7 +41,6 @@
         [Required]
         [StringLength(25)]
         public string? User_Domain { get; set; }
-        public bool? User_Enabled { get; set; }
         public bool? User_EnabledForAssignation { get; set; }
         public bool? User_NotifByEmail { get; set; }
         public bool? User_NotifByMessenger { get; set; }
@@ -77,16 +78,6 @@
         public string? User_IDPersonel { get; set; }
         [StringLength(20)]
         public string? User_NationalCode { get; set; }
-
-        [StringLength(500)]
-        public string? User_RelatedLocation { get; set; }
-
-        [StringLength(500)]
-        public string? User_SubUsers { get; set; }
-
-        [StringLength(500)]
-        public string? User_DistrictManager_RelatedL { get; set; }
-        public bool? User_IsNeedUpperApprove { get; set; }
         public DateTime? User_Birthdate { get; set; }
 
         [StringLength(50)]
@@ -98,6 +89,11 @@
         [StringLength(20)]
         public string? User_LDAPDescription { get; set; }
 
+        [StringLength(512)]
+        public String? User_Address { get; set; }
+        [StringLength(215)]
+        public String? User_RegistrationNumber { get; set; }
+
         #endregion
 
         #region Relations
@@ -106,32 +102,37 @@
         public int? User_language { get; set; }
         public long? User_idWorkingTimeSchema { get; set; }
         public long? User_idTimeZone { get; set; }
-        public virtual P_UserRelationship? User_UserRelationship { get; set; }
         public virtual S_OrgPosition? User_DefaultPosition { get; set; }
         public virtual S_Role? User_S_Role { get; set; }
 
-        [Description("واحد")]
-        public virtual S_Area? CMA_S_Area { get; set; }
-        [Description("موقعیت")]
-        public virtual S_Location? CMA_S_Location { get; set; }
         #region S_User
-        public long? User_FirstApproverId { get; set; }
-        [ForeignKey("User_FirstApproverId")]
-        public virtual S_User? User_FirstApprover { get; set; }
-        public long? User_SecondApproverId { get; set; }
-        [ForeignKey("User_SecondApproverId")]
-        public virtual S_User? User_SecondApprover { get; set; }
+
         public long? User_BossUserId { get; set; }
         [ForeignKey("User_BossUserId")]
         public virtual S_User? User_BossUser { get; set; }
         public long? User_DelegateId { get; set; }
         [ForeignKey("User_DelegateId")]
         public virtual S_User? User_Delegate { get; set; }
+        public virtual P_FieldType? User_P_FieldType { get; set; }
+        public virtual P_Operand? User_P_Operand { get; set; }
         #endregion
         #endregion
 
         #region Collection
-        public virtual ICollection<S_UserRole>? S_UserRoles { get; set; }
+
+        [Description("واحد")]
+        [InverseProperty("UR_User")]
+        public virtual ICollection<S_UserArea>? User_S_UserAreas { get; set; } = new List<S_UserArea>();
+        [Description("موقعیت")]
+
+        [InverseProperty("UL_UserLocation")]
+        public virtual ICollection<S_UserLocation>? S_UserLocations { get; set; } = new List<S_UserLocation>();
+        [InverseProperty("UL_RelatedUserLocation")]
+        public virtual ICollection<S_UserLocation>? User_Related_S_UserLocations { get; set; } = new List<S_UserLocation>();
+        
+        [InverseProperty("UR_User")]
+        public virtual ICollection<S_UserRole>? User_S_UserRoles { get; set; } = new List<S_UserRole>();
+        public virtual ICollection<M_ListOfParameter>? User_M_ListOfParameter { get; set; } = new List<M_ListOfParameter>();
         #endregion
 
         #endregion
