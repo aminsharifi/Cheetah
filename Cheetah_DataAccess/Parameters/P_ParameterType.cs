@@ -12,7 +12,7 @@
     {
         public virtual P_FieldType? PT_P_FieldType { get; set; }
         [InverseProperty("PL_P_ParameterType")]
-        public virtual ICollection<P_ParameterList>? PT_P_ParameterList { get; set; } = new List<P_ParameterList>();    
+        public virtual ICollection<P_ParameterList>? PT_P_ParameterList { get; set; } = new HashSet<P_ParameterList>();    
 
     }
 }

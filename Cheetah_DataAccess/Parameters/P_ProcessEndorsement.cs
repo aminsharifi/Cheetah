@@ -63,8 +63,8 @@
         public virtual P_ProcessState? PSE_ProcessState { get; set; }
 
         [Description("سمت سازمانی")]
-        public virtual ICollection<P_PositionOrg>? PSE_PON { get; set; } = new List<P_PositionOrg>();        
-        public virtual ICollection<M_ListOfParameter>? PSE_M_ListOfParameter { get; set; } = new List<M_ListOfParameter>();
+        public virtual ICollection<P_PositionOrg>? PSE_PON { get; set; } = new HashSet<P_PositionOrg>();        
+        public virtual ICollection<M_ListOfParameter>? PSE_M_ListOfParameter { get; set; } = new HashSet<M_ListOfParameter>();
         #endregion
 
         #endregion

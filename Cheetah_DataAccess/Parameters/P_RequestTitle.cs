@@ -70,7 +70,7 @@
 
         #region Relations
         [Description("نام فرآیند")]
-        public virtual ICollection<P_SubRequestTitle>? RT_P_SubRequestTitle { get; set; }
+        public virtual ICollection<P_SubRequestTitle>? RT_P_SubRequestTitle { get; set; } = new HashSet<P_SubRequestTitle>();
         #endregion
     }
 }

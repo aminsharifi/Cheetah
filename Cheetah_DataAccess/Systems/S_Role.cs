@@ -15,7 +15,7 @@ namespace Cheetah_DataAccess.Systems
 
         #region Collection
         [InverseProperty("UR_Role")]
-        public virtual ICollection<S_UserRole>? S_UserRoles { get; set; }
+        public virtual ICollection<S_UserRole>? S_UserRoles { get; set; } = new HashSet<S_UserRole>();
         #endregion
     }
 }

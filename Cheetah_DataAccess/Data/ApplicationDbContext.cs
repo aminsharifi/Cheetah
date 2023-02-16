@@ -23,8 +23,8 @@ namespace Cheetah_DataAccess.Data
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-        //    modelBuilder.ForNpgsqlHasEnum<SomeEnum>();
-        //    modelBuilder.Entity<Blog>().ToTable("blog");
+        //    modelBuilder.Entity<BaseClass>()
+        //        .Property(x => x.GuidRecord).HasDefaultValueSql("newid()");
         //}
         public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
         public virtual DbSet<CopyProduct> CopyProducts { get; set; }
@@ -39,12 +39,10 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<P_PositionOrg> P_PositionOrgs { get; set; }
         public virtual DbSet<P_ProcessEndorsement> P_ProcessEndorsements { get; set; }
         public virtual DbSet<S_Area> S_Areas { get; set; }
-        public virtual DbSet<S_OrgPosition> S_OrgPositions { get; set; }
         public virtual DbSet<S_Location> S_Locations { get; set; }
         public virtual DbSet<S_Role> S_Roles { get; set; }
         public virtual DbSet<S_User> S_Users { get; set; }
         public virtual DbSet<M_RequestInformation> M_RequestInformations { get; set; }
-        public virtual DbSet<M_CallWebService> M_CallWebServices { get; set; }
         public virtual DbSet<M_CurrentPE> M_CurrentPEs { get; set; }
         public virtual DbSet<M_Approve> M_Approves { get; set; }
         public virtual DbSet<M_Attachment> M_Attachments { get; set; }
