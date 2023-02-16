@@ -14,12 +14,11 @@
 
         #region Entity
 
-        
+        public virtual P_ParameterType? PL_P_ParameterType { get; set; }
 
         #endregion
 
         #region Collection
-        //public virtual ICollection<P_ParameterType> PL_ParameterType { get; set; } = new List<P_ParameterType>();
         #endregion
 
         #endregion

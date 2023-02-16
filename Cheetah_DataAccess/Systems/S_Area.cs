@@ -10,7 +10,8 @@ namespace Cheetah_DataAccess.Systems
     public partial class S_Area: BasePSClass
     {
         #region Relations
-
+        [InverseProperty("UR_Area")]
+        public virtual ICollection<S_UserArea>? Area_S_UserAreas { get; set; } = new List<S_UserArea>();
         #endregion
     }
 }

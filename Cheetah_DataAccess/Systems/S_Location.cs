@@ -8,10 +8,11 @@ namespace Cheetah_DataAccess.Systems
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("S_Location", Schema = "Systems")]
-    public partial class S_Location: BasePSClass
+    public partial class S_Location : BasePSClass
     {
-        #region Simple Prop
-
+        #region Simple Prop        
+        [InverseProperty("S_Location")]
+        public virtual ICollection<S_UserLocation>? S_UserLocation { get; set; }
         #endregion
 
         #region Relations
