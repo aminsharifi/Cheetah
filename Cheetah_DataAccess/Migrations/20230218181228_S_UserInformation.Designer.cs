@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230218181228_S_UserInformation")]
+    partial class SUserInformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -734,7 +737,13 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("PSE_Automation")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("PSE_Bool_P_FieldType")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("PSE_ExpertUserIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PSE_Int_P_FieldType")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("PSE_Mail")
@@ -1436,8 +1445,30 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("User_Address")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<DateTime?>("User_Birthdate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("User_Bool_P_FieldType")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("User_BossUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("User_ContactCell")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("User_ContactEmail")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("User_ContactMessenger")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool?>("User_CreatedCasesSkipAssigRules")
                         .HasColumnType("bit");
@@ -1456,6 +1487,10 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("User_EnabledForAssignation")
                         .HasColumnType("bit");
 
+                    b.Property<string>("User_FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("User_FullName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -1465,16 +1500,66 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<long?>("User_Int_P_FieldType")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("User_InternalPhone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("User_LDAPDescription")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("User_LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("User_NationalCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool?>("User_NotifByCell")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("User_NotifByEmail")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("User_NotifByMessenger")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("User_OfflineForms")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("User_OvertimeCost")
+                        .HasColumnType("money");
+
+                    b.Property<long?>("User_P_FieldTypeIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("User_P_OperandIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("User_RegistrationNumber")
+                        .HasMaxLength(215)
+                        .HasColumnType("nvarchar(215)");
+
                     b.Property<long?>("User_S_UserInformationIdRecord")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("User_Temp_IDPersonel")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("User_UserName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<byte[]>("User_UserPicture")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("User_UserStartPage")
+                        .HasColumnType("int");
 
                     b.Property<string>("identityUserId")
                         .HasColumnType("nvarchar(450)");
@@ -1484,6 +1569,10 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("User_BossUserId");
 
                     b.HasIndex("User_DelegateId");
+
+                    b.HasIndex("User_P_FieldTypeIdRecord");
+
+                    b.HasIndex("User_P_OperandIdRecord");
 
                     b.HasIndex("User_S_UserInformationIdRecord");
 
@@ -1593,55 +1682,47 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("UI_Address")
+                    b.Property<string>("User_Address")
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
 
-                    b.Property<DateTime?>("UI_Birthdate")
+                    b.Property<DateTime?>("User_Birthdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UI_ContactCell")
+                    b.Property<string>("User_ContactCell")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("UI_ContactEmail")
+                    b.Property<string>("User_ContactEmail")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("UI_ContactMessenger")
+                    b.Property<string>("User_ContactMessenger")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("UI_FirstName")
+                    b.Property<string>("User_InternalPhone")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("UI_InternalPhone")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UI_LastName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("UI_NationalCode")
+                    b.Property<string>("User_NationalCode")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<bool?>("UI_NotifByCell")
+                    b.Property<bool?>("User_NotifByCell")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("UI_NotifByEmail")
+                    b.Property<bool?>("User_NotifByEmail")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("UI_NotifByMessenger")
+                    b.Property<bool?>("User_NotifByMessenger")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UI_RegistrationNumber")
+                    b.Property<string>("User_RegistrationNumber")
                         .HasMaxLength(215)
                         .HasColumnType("nvarchar(215)");
 
-                    b.Property<byte[]>("UI_UserPicture")
+                    b.Property<byte[]>("User_UserPicture")
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("IdRecord");
@@ -2293,6 +2374,14 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("User_DelegateId");
 
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_FieldType", "User_P_FieldType")
+                        .WithMany()
+                        .HasForeignKey("User_P_FieldTypeIdRecord");
+
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_Operand", "User_P_Operand")
+                        .WithMany()
+                        .HasForeignKey("User_P_OperandIdRecord");
+
                     b.HasOne("Cheetah_DataAccess.Systems.S_UserInformation", "User_S_UserInformation")
                         .WithMany()
                         .HasForeignKey("User_S_UserInformationIdRecord");
@@ -2304,6 +2393,10 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("User_BossUser");
 
                     b.Navigation("User_Delegate");
+
+                    b.Navigation("User_P_FieldType");
+
+                    b.Navigation("User_P_Operand");
 
                     b.Navigation("User_S_UserInformation");
 

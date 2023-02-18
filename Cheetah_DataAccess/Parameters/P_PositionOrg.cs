@@ -14,7 +14,7 @@
     {
         public Boolean? PSO_Independent_Location { get; set; } = false;
         public virtual S_Location? PSO_Default_Location { get; set; }
-        public virtual ICollection<S_User>? PSO_Users { get; set; }= new HashSet<S_User>();
-        public virtual ICollection<S_Role>? PSO_Role { get; set; } = new HashSet<S_Role>();
+        public virtual ICollection<S_UserSkill>? PSO_S_UserSkills { get; set; } = new HashSet<S_UserSkill>();
+        public virtual ICollection<P_RolePosition>? PSO_P_RolePositions { get; set; } = new HashSet<P_RolePosition>();
     }
 }

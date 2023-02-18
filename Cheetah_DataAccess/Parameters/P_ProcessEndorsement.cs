@@ -45,8 +45,6 @@
 
         [Description("ارسال به همه")]
         public bool? PSE_SendAll { get; set; }
-        public long? PSE_Int_P_FieldType { get; set; }
-        public bool? PSE_Bool_P_FieldType { get; set; }
         #endregion
 
         #region Relation
