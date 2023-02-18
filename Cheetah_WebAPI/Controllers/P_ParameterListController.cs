@@ -1,4 +1,5 @@
 ﻿using Cheetah_Business.Repository.IRepository;
+using Cheetah_DataAccess.Parameters;
 using Cheetah_Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +9,8 @@ namespace Cheetah_WebAPI.Controllers
     [ApiController]
     public class P_ParameterListController : ControllerBase
     {
-        private readonly IP_ParameterListRepository _ParameterListRepository;
-        public P_ParameterListController(IP_ParameterListRepository iP_ParameterListRepository)
+        private readonly IGeneralRepository<P_ParameterList> _ParameterListRepository;
+        public P_ParameterListController(IGeneralRepository<P_ParameterList> iP_ParameterListRepository)
         {
             this._ParameterListRepository = iP_ParameterListRepository;
         }

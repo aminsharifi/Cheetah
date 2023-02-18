@@ -1,5 +1,4 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata;
-@inject IBasePSClassRepository iBasePSClassRepository;
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -49,7 +48,7 @@
 </div>
 
 @code {
-    IEnumerable<IEntityType> iEntityType => iBasePSClassRepository.GetAllEntityType().Take(5);
+    //IEnumerable<IEntityType> iEntityType => iBasePSClassRepository.GetAllEntityType().Take(5);
     private bool collapseNavMenu = true;
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
     private void ToggleNavMenu()

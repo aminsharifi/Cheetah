@@ -1,8 +1,7 @@
 ﻿@page "/Parameters/Create"
 @page "/Parameters/Edit/{idRole:long}"
-@using Cheetah_Models.Parameters;
 
-@inject IP_ParameterListRepository iP_ParameterListRepository;
+@inject IGeneralRepository<P_ParameterList> iP_ParameterListRepository;
 @inject NavigationManager _NavigationManager;
 
 <div class="row my-4" style="direction:rtl">
@@ -40,7 +39,7 @@
 @code {
     [Parameter]
     public long idRole { get; set; }
-    private P_ParameterListDTO p_ParameterListDTO { get; set; } = new P_ParameterListDTO();
+    private P_ParameterList p_ParameterListDTO { get; set; } = new P_ParameterList();
 
     private String Title { get; set; } = "ایجاد";
 

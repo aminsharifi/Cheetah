@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Cheetah_Business.Repository.IRepository;
+using Cheetah_DataAccess.Parameters;
 using Cheetah_Models;
-using Cheetah_Models.Parameters;
-using Cheetah_Business.Repository.IRepository;
+using Newtonsoft.Json;
 
 namespace Cheetah_Client.Service
 {
-    public class P_ParameterListService : IP_ParameterListRepository
+    public class P_ParameterListService : IGeneralRepository<P_ParameterList>
     {
 
         private readonly HttpClient _httpClient;
@@ -18,13 +18,13 @@ namespace Cheetah_Client.Service
             BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
 
-        public async Task<P_ParameterListDTO> Get(long RecordId)
+        public async Task<P_ParameterList> Get(long RecordId)
         {
             var response = await _httpClient.GetAsync($"/P_ParameterList/{RecordId}");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var p_ParameterList = JsonConvert.DeserializeObject<P_ParameterListDTO>(content);
+                var p_ParameterList = JsonConvert.DeserializeObject<P_ParameterList>(content);
                 //product.ImageUrl=BaseServerUrl+product.ImageUrl;
                 return p_ParameterList;
             }
@@ -35,28 +35,28 @@ namespace Cheetah_Client.Service
             }
         }
 
-        public async Task<IEnumerable<P_ParameterListDTO>> GetAll()
+        public async Task<IEnumerable<P_ParameterList>> GetAll()
         {
             var response = await _httpClient.GetAsync("/P_ParameterList");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<P_ParameterListDTO>>(content);
+                var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<P_ParameterList>>(content);
                 foreach (var prod in ParameterLists)
                 {
                     //prod.ImageUrl=BaseServerUrl+prod.ImageUrl;
                 }
                 return ParameterLists;
             }
-            return new List<P_ParameterListDTO>();
+            return new List<P_ParameterList>();
         }
 
-        public Task<P_ParameterListDTO> Update(P_ParameterListDTO obj_DTO)
+        public Task<P_ParameterList> Update(P_ParameterList obj_DTO)
         {
             throw new NotImplementedException();
         }
 
-        public Task<P_ParameterListDTO> Create(P_ParameterListDTO obj_DTO)
+        public Task<P_ParameterList> Create(P_ParameterList obj_DTO)
         {
             throw new NotImplementedException();
         }

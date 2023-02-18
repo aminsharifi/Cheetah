@@ -1,13 +1,9 @@
 using Cheetah.Data;
-using Cheetah_Business.Repository;
 using Cheetah_Business.Repository.IRepository;
 using Cheetah_DataAccess.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Cheetah_DataAccess.Parameters;
 using Microsoft.AspNetCore.Identity;
-using Cheetah_Business.Repository.IRepository.General;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,19 +26,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<ICopyROLERepository, CopyROLERepository>();
-
-builder.Services.AddScoped<IP_ParameterListRepository, P_ParameterListRepository>();
-builder.Services.AddScoped<IP_ParameterTypeRepository, P_ParameterTypeRepository>();
-builder.Services.AddScoped<IP_PositionOrgRepository, P_PositionOrgRepository>();
-builder.Services.AddScoped<IP_ProcessEndorsementRepository, P_ProcessEndorsementRepository>();
-builder.Services.AddScoped<IP_ProcessStateRepository, P_ProcessStateRepository>();
-builder.Services.AddScoped<IP_RequestTitleRepository, P_RequestTitleRepository>();
-builder.Services.AddScoped<IP_RequestTypeRepository, P_RequestTypeRepository>();
-builder.Services.AddScoped<IP_SubRequestTitleRepository, P_SubRequestTitleRepository>();
-builder.Services.AddScoped<IP_UserActionGroupRepository, P_UserActionGroupRepository>();
-builder.Services.AddScoped<IP_UserActionRepository, P_UserActionRepository>();
-builder.Services.AddScoped<IBasePSClassRepository, BasePSClassRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_ParameterList>, P_ParameterListRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_ParameterType>, P_ParameterTypeRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_PositionOrg>, P_PositionOrgRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_ProcessEndorsement>, P_ProcessEndorsementRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_ProcessState>, P_ProcessStateRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_RequestTitle>, P_RequestTitleRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_RequestType>, P_RequestTypeRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_SubRequestTitle>, P_SubRequestTitleRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_UserActionGroup>, P_UserActionGroupRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_UserAction>, P_UserActionRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

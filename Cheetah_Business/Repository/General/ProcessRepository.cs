@@ -1,25 +1,14 @@
 ﻿namespace Cheetah_Business.Repository.IRepository.General
 {
+    using AutoMapper;
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Systems;
-    using Cheetah_Models;
-    using Cheetah_Models.Parameters;
+    using Cheetah_DataAccess.Masters;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using Cheetah_Business.Repository.IRepository.General;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using Microsoft.EntityFrameworkCore.Metadata;
-    using Cheetah_DataAccess.Masters;
-    using Cheetah_DataAccess.Parameters;
-    using CheetahDataAccess.Migrations;
-    using Cheetah_Models.Masters;
     using System.Text.Json;
-    using System.Security.Cryptography.X509Certificates;
-    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
 
     public class ProcessRepository : IProcessRepository
     {
