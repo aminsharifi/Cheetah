@@ -12,6 +12,7 @@
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
+
         public P_ParameterListRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;

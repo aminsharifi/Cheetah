@@ -2,9 +2,7 @@
 {
     using AutoMapper;
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Parameters;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -19,8 +17,7 @@
         }
         public async Task<TEntity> Create(TEntity obj_DTO)
         {
-            var AddedObj = await _db.Set<TEntity>().AddAsync(obj_DTO);
-
+            var AddedObj = await _db.Set<TEntity>().AddAsync(obj_DTO);           
             await _db.SaveChangesAsync();
 
             return obj_DTO;
