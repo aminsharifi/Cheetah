@@ -1,9 +1,6 @@
-﻿using Cheetah_Business.Repository.IRepository;
-using Cheetah_Business.Repository.IRepository.General;
+﻿using Cheetah_Business.Repository.IRepository.General;
 using Cheetah_Models;
-using Cheetah_Models.Masters;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace Cheetah_WebAPI.Controllers
 {

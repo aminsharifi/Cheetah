@@ -1,11 +1,8 @@
 using Cheetah_Business.Repository.IRepository;
 using Cheetah_Business.Repository.IRepository.General;
 using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Masters;
-using Cheetah_Models.Masters;
-using FluentAssertions.Common;
+using Cheetah_DataAccess.Parameters;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IP_ParameterListRepository, P_ParameterListRepository>();
+builder.Services.AddScoped<IGeneralRepository<P_ParameterList>, P_ParameterListRepository>();
 
 builder.Services.AddScoped<IProcessRepository, ProcessRepository>();
 

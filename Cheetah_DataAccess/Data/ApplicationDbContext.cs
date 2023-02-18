@@ -26,8 +26,6 @@ namespace Cheetah_DataAccess.Data
         //    modelBuilder.Entity<BaseClass>()
         //        .Property(x => x.GuidRecord).HasDefaultValueSql("newid()");
         //}
-        public virtual DbSet<CopyROLE> CopyROLEs { get; set; }
-        public virtual DbSet<CopyProduct> CopyProducts { get; set; }
         public virtual DbSet<P_ParameterType> P_ParameterTypes { get; set; }
         public virtual DbSet<P_ParameterList> P_ParameterLists { get; set; }
         public virtual DbSet<P_RequestTitle> P_RequestTitles { get; set; }

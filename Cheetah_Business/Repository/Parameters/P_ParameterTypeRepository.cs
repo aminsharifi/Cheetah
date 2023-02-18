@@ -1,20 +1,14 @@
 ﻿namespace Cheetah_Business.Repository.IRepository
 {
     using AutoMapper;
-    using Cheetah_DataAccess;
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Parameters;
-    using Cheetah_Models;
-    using Cheetah_Models.Parameters;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Threading.Tasks;
 
-    public class P_ParameterTypeRepository : IP_ParameterTypeRepository
+    public class P_ParameterTypeRepository : IGeneralRepository<P_ParameterType>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -25,9 +19,9 @@
             _mapper = mapper;
         }
 
-        public async Task<P_ParameterTypeDTO> Create(P_ParameterTypeDTO obj_DTO)
+        public async Task<P_ParameterType> Create(P_ParameterType obj_DTO)
         {
-            var obj = _mapper.Map<P_ParameterTypeDTO, P_ParameterType>(obj_DTO);
+            var obj = _mapper.Map<P_ParameterType, P_ParameterType>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
 
@@ -35,7 +29,7 @@
 
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<P_ParameterType, P_ParameterTypeDTO>(AddedObj.Entity);
+            return _mapper.Map<P_ParameterType, P_ParameterType>(AddedObj.Entity);
         }
 
         public async Task<int> delete(long id)
@@ -49,23 +43,23 @@
             return -1;
         }
 
-        public async Task<P_ParameterTypeDTO> Get(long id)
+        public async Task<P_ParameterType> Get(long id)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.IdRecord == id);
             if (obj != null)
             {
-                return _mapper.Map<P_ParameterType, P_ParameterTypeDTO>(obj);
+                return _mapper.Map<P_ParameterType, P_ParameterType>(obj);
             }
-            return new P_ParameterTypeDTO();
+            return new P_ParameterType();
         }
 
-        public async Task<IEnumerable<P_ParameterTypeDTO>> GetAll(long id)
+        public async Task<IEnumerable<P_ParameterType>> GetAll()
         {
-            return _mapper.Map<IEnumerable<P_ParameterType>, IEnumerable<P_ParameterTypeDTO>>
+            return _mapper.Map<IEnumerable<P_ParameterType>, IEnumerable<P_ParameterType>>
                 (_db.P_ParameterTypes);
         }
 
-        public async Task<P_ParameterTypeDTO> Update(P_ParameterTypeDTO obj_DTO)
+        public async Task<P_ParameterType> Update(P_ParameterType obj_DTO)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
             if (obj != null)
@@ -73,7 +67,7 @@
                 obj.PName = obj_DTO.PName;
                 _db.P_ParameterTypes.Update(obj);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<P_ParameterType, P_ParameterTypeDTO>(obj);
+                return _mapper.Map<P_ParameterType, P_ParameterType>(obj);
             }
             return obj_DTO;
         }
