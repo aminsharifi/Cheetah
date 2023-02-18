@@ -55,8 +55,7 @@
 
         public async Task<IEnumerable<P_ParameterType>> GetAll()
         {
-            return _mapper.Map<IEnumerable<P_ParameterType>, IEnumerable<P_ParameterType>>
-                (_db.P_ParameterTypes);
+            return _db.P_ParameterTypes;
         }
 
         public async Task<P_ParameterType> Update(P_ParameterType obj_DTO)

@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230218182022_Change_UserInformation")]
+    partial class ChangeUserInformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -734,7 +737,13 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("PSE_Automation")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("PSE_Bool_P_FieldType")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("PSE_ExpertUserIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PSE_Int_P_FieldType")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("PSE_Mail")
@@ -1436,6 +1445,9 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool?>("User_Bool_P_FieldType")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("User_BossUserId")
                         .HasColumnType("bigint");
 
@@ -1465,9 +1477,18 @@ namespace CheetahDataAccess.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<long?>("User_Int_P_FieldType")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("User_LDAPDescription")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<long?>("User_P_FieldTypeIdRecord")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("User_P_OperandIdRecord")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("User_S_UserInformationIdRecord")
                         .HasColumnType("bigint");
@@ -1484,6 +1505,10 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("User_BossUserId");
 
                     b.HasIndex("User_DelegateId");
+
+                    b.HasIndex("User_P_FieldTypeIdRecord");
+
+                    b.HasIndex("User_P_OperandIdRecord");
 
                     b.HasIndex("User_S_UserInformationIdRecord");
 
@@ -2293,6 +2318,14 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("User_DelegateId");
 
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_FieldType", "User_P_FieldType")
+                        .WithMany()
+                        .HasForeignKey("User_P_FieldTypeIdRecord");
+
+                    b.HasOne("Cheetah_DataAccess.Parameters.P_Operand", "User_P_Operand")
+                        .WithMany()
+                        .HasForeignKey("User_P_OperandIdRecord");
+
                     b.HasOne("Cheetah_DataAccess.Systems.S_UserInformation", "User_S_UserInformation")
                         .WithMany()
                         .HasForeignKey("User_S_UserInformationIdRecord");
@@ -2304,6 +2337,10 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("User_BossUser");
 
                     b.Navigation("User_Delegate");
+
+                    b.Navigation("User_P_FieldType");
+
+                    b.Navigation("User_P_Operand");
 
                     b.Navigation("User_S_UserInformation");
 

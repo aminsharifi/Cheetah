@@ -2,7 +2,7 @@
 @page "/Parameters/List/{idList:long}"
 @*@page "/Parameters/List/{entityName:String}"*@
 @using Cheetah_DataAccess.Parameters;
-@inject IGeneralRepository<P_ParameterList> iP_ParameterListRepository;
+@inject IGeneralRepository<P_ParameterType> iP_ParameterListRepository;
 @inject IJSRuntime _jSRuntime;
 
 <_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
@@ -60,7 +60,7 @@
     [Parameter]
     public long? idList { get; set; }
 
-    private IEnumerable<P_ParameterList> p_ParameterListDTO { get; set; } = new List<P_ParameterList>();
+    private IEnumerable<P_ParameterType> p_ParameterListDTO { get; set; } = new List<P_ParameterType>();
 
     public Boolean IsLoading { get; set; } = true;
     public long DeleteidRole { get; set; }
@@ -78,10 +78,23 @@
         IsLoading = false;
         StateHasChanged();
     }
-    private void HandleDelete(long id)
+    private async void HandleDelete(long id)
     {
         DeleteidRole = id;
-        _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+        var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "آیا مطمئن هستید؟"); // Confirm
+        if (isConfirmed)
+        {
+            IsLoading = true;
+            if (isConfirmed && DeleteidRole != 0)
+            {
+                await iP_ParameterListRepository.delete(DeleteidRole);
+                await Load_p_UserActionGroupDTO();
+                await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+            }
+            IsLoading = false;
+        }
+        //_jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+        //_jSRuntime.InvokeVoidAsync("$('#deleteConfirmationModal').modal('show'); ");
     }
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {

@@ -13,15 +13,10 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddBootstrapBlazor();
 
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-//builder.Services.AddDbContext<ApplicationDbContext>(x =>
-//x.UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
-
 builder.Services.AddDbContext<ApplicationDbContext>(
     b => b.UseLazyLoadingProxies()
-          .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")));
+          .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
+           ServiceLifetime.Transient);
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
