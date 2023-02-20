@@ -15,8 +15,6 @@ namespace Cheetah_Business.Mapper
             CreateMap<P_RequestTitle, P_RequestTitle>().ReverseMap();
             CreateMap<P_RequestType, P_RequestType>().ReverseMap();
             CreateMap<P_SubRequestTitle, P_SubRequestTitle>().ReverseMap();
-            CreateMap<P_UserAction, P_UserAction>().ReverseMap();
-            CreateMap<P_UserActionGroup, P_UserActionGroup>().ReverseMap();
         }
     }
 }
