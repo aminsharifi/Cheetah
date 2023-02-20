@@ -10,8 +10,11 @@ namespace Cheetah_DataAccess.Systems
     public partial class S_UserLocation : BasePSClass
     {
         #region Simple Prob
+        [Column(Order = 100)]
         public virtual S_User? UL_UserLocation { get; set; }
+        [Column(Order = 101)]
         public virtual S_User? UL_RelatedUserLocation { get; set; }
+        [Column(Order = 102)]
         public virtual S_Location? S_Location { get; set; }
 
 

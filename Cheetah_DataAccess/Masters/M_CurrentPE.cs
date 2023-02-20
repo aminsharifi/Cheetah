@@ -13,15 +13,19 @@
         //Passed
         #region Simple Prop
         [Description("فعال")]
+        [Column(Order = 100)]
         public Boolean? CPE_Active { get; set; } = false;
         #endregion
 
         #region Collection
         [Description("تایید کننده")]
+        [Column(Order = 101)]
         public virtual P_ProcessEndorsement? CPE_ProcessEndorsements { get; set; }
         [Description("اقدام کاربر")]
+        [Column(Order = 102)]
         public virtual P_UserAction? CPE_UserAction { get; set; }
         [Description("کاربر")]
+        [Column(Order = 103)]
         public virtual S_User? CPE_User { get; set; }
 
         #endregion

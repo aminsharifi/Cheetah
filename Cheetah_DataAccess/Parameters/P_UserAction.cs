@@ -15,6 +15,7 @@
 
         #region Entity
         [Description("گروه اقدام کاربر")]
+        [Column(Order = 100)]
         public virtual P_UserActionGroup? UA_UserActionGroup { get; set; }
         #endregion
 

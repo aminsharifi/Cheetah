@@ -12,7 +12,9 @@
     [Table("P_RolePosition", Schema = "Parameters")]
     public partial class P_RolePosition : BasePSClass
     {
+        [Column(Order = 100)]
         public virtual S_Role? UP_Role { get; set; }
+        [Column(Order = 101)]
         public virtual P_PositionOrg? UP_PositionOrg { get; set; }
     }
 }
