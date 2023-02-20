@@ -10,7 +10,9 @@ namespace Cheetah_DataAccess.Systems
     public partial class S_UserRole: BasePSClass
     {
         #region Simple Prob
+        [Column(Order = 100)]
         public virtual S_Role? UR_Role { get; set; }
+        [Column(Order = 101)]
         public virtual S_User? UR_User { get; set; }
         
         #endregion

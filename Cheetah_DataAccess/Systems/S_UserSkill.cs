@@ -10,7 +10,9 @@ namespace Cheetah_DataAccess.Systems
     public partial class S_UserSkill : BasePSClass
     {
         #region Simple Prob
+        [Column(Order = 100)]
         public virtual S_Skill? US_Skill { get; set; }
+        [Column(Order = 101)]
         public virtual S_User? US_User { get; set; }
 
         #endregion

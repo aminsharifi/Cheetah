@@ -23,25 +23,31 @@
         }
 
         #region Common Prop
-        public virtual IdentityUser? identityUser { get; set; }
         #endregion
-
         #region Simple Prob
         [Required]
         [StringLength(200)]
+        [Column(Order = 100)]
         public string? User_FullName { get; set; }
         [StringLength(100)]
+        [Column(Order = 101)]
         public string? User_UserName { get; set; }
         [Required]
         [StringLength(25)]
+        [Column(Order = 102)]
         public string? User_Domain { get; set; }
-        public bool? User_EnabledForAssignation { get; set; }        
+        [Column(Order = 103)]
+        public bool? User_EnabledForAssignation { get; set; }
+        [Column(Order = 104)]
         public bool? User_DelegateEnabled { get; set; }
+        [Column(Order = 105)]
         public bool? User_CreatedCasesSkipAssigRules { get; set; }       
         [StringLength(10)]
+        [Column(Order = 106)]
         public string? User_IDPersonel { get; set; }      
         [StringLength(20)]
-        public string? User_LDAPDescription { get; set; }        
+        [Column(Order = 107)]
+        public string? User_LDAPDescription { get; set; }
 
         #endregion
 
@@ -50,15 +56,19 @@
         #region Entity   
 
         #region S_User
-
+        [Column(Order = 108)]
         public long? User_BossUserId { get; set; }
         [ForeignKey("User_BossUserId")]
         public virtual S_User? User_BossUser { get; set; }
+        [Column(Order = 109)]
         public long? User_DelegateId { get; set; }
         [ForeignKey("User_DelegateId")]
         public virtual S_User? User_Delegate { get; set; }
+        [Column(Order = 110)]
         public virtual S_UserInformation? User_S_UserInformation { get; set; }
         #endregion
+        [Column(Order = 111)]
+        public virtual IdentityUser? identityUser { get; set; }
         #endregion
 
         #region Collection

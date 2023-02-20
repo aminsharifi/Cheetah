@@ -12,6 +12,7 @@
     {
         #region Simple Prob
         [Description("نام فرآیند")]
+        [Column(Order = 100)]
         public virtual P_RequestTitle? SBT_RequestTitles { get; set; }
         #endregion
     }

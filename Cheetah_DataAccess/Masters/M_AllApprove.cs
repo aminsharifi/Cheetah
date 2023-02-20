@@ -11,7 +11,9 @@
         //Passed
 
         #region Simple Prop
+        [Column(Order = 100)]
         public virtual M_Approve? Current_M_Approve { get; set; }
+        [Column(Order = 101)]
         public virtual M_Approve? Last_M_Approve { get; set; }
         #endregion
 

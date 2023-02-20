@@ -15,25 +15,27 @@ namespace Cheetah_DataAccess.Data
     {
         [Description("کد پارامتر")]
         [Required]
+        [Column(Order = 50)]
         public long PCode { get; set; }
 
         [StringLength(50)]
         [Description("نام پارامتر")]
         [Required]
+        [Column(Order = 51)]
         public string PName { get; set; }
 
         [Description("اندیس سورت")]
+        [Column(Order = 52)]
         public long PIndex { get; set;}
 
         [Description("کد در سیستم ERP")]
+        [Column(Order = 53)]
         public long? PERPCode { get; set; }
 
         [StringLength(512)]
         [Description("نام پارامتر")]
+        [Column(Order = 54)]
         public string? PDescription { get; set; }
-
-        [Column(TypeName = "numeric")]
-        public decimal? PCost { get; set; }
 
         #region PParentchilds
         //public long? PidParent { get; set; }

@@ -18,13 +18,18 @@
 
         [StringLength(50)]
         [Description("نام فرم")]
+        [Column(Order = 100)]
         public string? APV_Subject { get; set; }
         #endregion
         [Description("اقدام کاربر")]
+        [Column(Order = 101)]
         public virtual P_UserAction? APV_UserAction { get; set; }
         [Description("بررسی کننده")]
+        [Column(Order = 102)]
         public virtual S_User? APV_UserInCharge { get; set; }
         [Description("ضمیمه")]
-        public virtual ICollection<M_Attachment>? APV_M_Attachment { get; set; } = new HashSet<M_Attachment>();
+        [Column(Order = 103)]
+        public virtual P_ProcessEndorsement? APV_P_ProcessEndorsement { get; set; }
+        public virtual ICollection<M_Attachment>? APV_M_Attachments { get; set; } = new HashSet<M_Attachment>();
     }
 }

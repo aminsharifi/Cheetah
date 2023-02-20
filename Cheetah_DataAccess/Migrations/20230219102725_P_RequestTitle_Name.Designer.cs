@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230219102725_P_RequestTitle_Name")]
+    partial class PRequestTitleName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,31 +32,26 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("Current_M_ApproveIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("Last_M_ApproveIdRecord")
                         .HasColumnType("bigint");
@@ -71,8 +69,7 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
@@ -81,8 +78,7 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<string>("APV_Subject")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(100);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("APV_UserActionIdRecord")
                         .HasColumnType("bigint");
@@ -92,47 +88,41 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("M_AllApproveIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -151,63 +141,54 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<byte[]>("ATC_Data")
-                        .HasColumnType("varbinary(max)")
-                        .HasColumnOrder(101);
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ATC_Name")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnOrder(100);
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("M_ApproveIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -220,14 +201,12 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<bool?>("CPE_Active")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(100);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("CPE_ProcessEndorsementsIdRecord")
                         .HasColumnType("bigint");
@@ -240,21 +219,17 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("M_RequestInformationIdRecord")
                         .HasColumnType("bigint");
@@ -276,31 +251,25 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<bool?>("BooleanValue")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(101);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<float?>("FloatValue")
-                        .HasColumnType("real")
-                        .HasColumnOrder(100);
+                        .HasColumnType("real");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long?>("LOP_P_ParameterListIdRecord")
                         .HasColumnType("bigint");
@@ -310,34 +279,31 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("M_RequestInformationIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("PT_P_OperandIdRecord")
                         .HasColumnType("bigint");
@@ -349,8 +315,7 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("StringValue")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(102);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdRecord");
 
@@ -373,32 +338,26 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("IsTest")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(102);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("RI_AllApproveIdRecord")
                         .HasColumnType("bigint");
@@ -407,45 +366,37 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<long?>("RI_ERPID")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(100);
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("RI_ExpertUserIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("RI_IsCancelled")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(101);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("RI_LastTimeModify")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(108);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("RI_M_CurrentPEIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RI_NewDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(107);
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("RI_OldDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(106);
+                        .HasColumnType("datetime2");
 
                     b.Property<byte?>("RI_PE_Level")
-                        .HasColumnType("tinyint")
-                        .HasColumnOrder(103);
+                        .HasColumnType("tinyint");
 
                     b.Property<long?>("RI_ProcessStateIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RI_RequestDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(104);
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("RI_RequestFinishDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(105);
+                        .HasColumnType("datetime2");
 
                     b.Property<long?>("RI_RequestTitleIdRecord")
                         .HasColumnType("bigint");
@@ -482,120 +433,48 @@ namespace CheetahDataAccess.Migrations
                     b.ToTable("M_RequestInformation", "Masters");
                 });
 
-            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_EndorsementPosition", b =>
-                {
-                    b.Property<long>("IdRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
-
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
-
-                    b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
-
-                    b.Property<string>("PDescription")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
-
-                    b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
-
-                    b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
-
-                    b.Property<string>("PName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
-
-                    b.Property<long?>("UP_PositionOrgIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("UP_ProcessEndorsementIdRecord")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("IdRecord");
-
-                    b.HasIndex("UP_PositionOrgIdRecord");
-
-                    b.HasIndex("UP_ProcessEndorsementIdRecord");
-
-                    b.ToTable("P_EndorsementPosition", "Parameters");
-                });
-
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_FieldType", b =>
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -606,51 +485,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -661,45 +533,39 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("PL_P_ParameterTypeIdRecord")
                         .HasColumnType("bigint");
@@ -707,8 +573,7 @@ namespace CheetahDataAccess.Migrations
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -721,51 +586,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("PT_P_FieldTypeIdRecord")
                         .HasColumnType("bigint");
@@ -781,58 +639,50 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("PSO_Default_LocationIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("PSO_Independent_Location")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(100);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("P_ProcessEndorsementIdRecord")
                         .HasColumnType("bigint");
@@ -850,66 +700,56 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("PSE_Automation")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(101);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("PSE_ExpertUserIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("PSE_Mail")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(100);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("PSE_NeedApprove")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(104);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("PSE_ProcessStateIdRecord")
                         .HasColumnType("bigint");
@@ -918,19 +758,29 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("PSE_SMS")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(102);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("PSE_SendAll")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(105);
+                        .HasColumnType("bit");
 
-                    b.Property<long?>("PSE_SubRequestTitleIdRecord")
-                        .HasColumnType("bigint");
+                    b.Property<string>("PSE_SubRequestTitles")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PSE_TaskName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("PSE_Transcript")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(103);
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PSE_ValidOutput")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PSE_ValidUserAction")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -940,8 +790,6 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("PSE_RequestTitleIdRecord");
 
-                    b.HasIndex("PSE_SubRequestTitleIdRecord");
-
                     b.ToTable("P_ProcessEndorsement", "Parameters");
                 });
 
@@ -949,51 +797,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -1004,71 +845,59 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool?>("RT_AnotherRequester")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(103);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("RT_CheckList")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(101);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("RT_ERP")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(102);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("RT_RemoveRequestorApproval")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(104);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("RT_ShowSupport")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(100);
+                        .HasColumnType("bit");
 
                     b.HasKey("IdRecord");
 
@@ -1079,51 +908,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("SBT_RequestTitlesIdRecord")
                         .HasColumnType("bigint");
@@ -1139,51 +961,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("UP_PositionOrgIdRecord")
                         .HasColumnType("bigint");
@@ -1204,51 +1019,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("P_RequestTitleIdRecord")
                         .HasColumnType("bigint");
@@ -1264,51 +1072,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("UA_UserActionGroupIdRecord")
                         .HasColumnType("bigint");
@@ -1324,51 +1125,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -1379,51 +1173,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -1434,51 +1221,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -1489,51 +1269,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -1544,51 +1317,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("IdRecord");
 
@@ -1599,101 +1365,84 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("User_BossUserId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(108);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("User_CreatedCasesSkipAssigRules")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(105);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("User_DelegateEnabled")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(104);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("User_DelegateId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(109);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("User_Domain")
                         .IsRequired()
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)")
-                        .HasColumnOrder(102);
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<bool?>("User_EnabledForAssignation")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(103);
+                        .HasColumnType("bit");
 
                     b.Property<string>("User_FullName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasColumnOrder(100);
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("User_IDPersonel")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(106);
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("User_LDAPDescription")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnOrder(107);
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<long?>("User_S_UserInformationIdRecord")
                         .HasColumnType("bigint");
 
                     b.Property<string>("User_UserName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(101);
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("identityUserId")
                         .HasColumnType("nvarchar(450)");
@@ -1715,51 +1464,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("UR_AreaIdRecord")
                         .HasColumnType("bigint");
@@ -1780,116 +1522,95 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UI_Address")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(112);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<DateTime?>("UI_Birthdate")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(110);
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UI_ContactCell")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnOrder(107);
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("UI_ContactEmail")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(105);
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UI_ContactMessenger")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnOrder(106);
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UI_FirstName")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(100);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UI_InternalPhone")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(111);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UI_LastName")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(101);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UI_NationalCode")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnOrder(109);
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool?>("UI_NotifByCell")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(104);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("UI_NotifByEmail")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(102);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("UI_NotifByMessenger")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(103);
+                        .HasColumnType("bit");
 
                     b.Property<string>("UI_RegistrationNumber")
                         .HasMaxLength(215)
-                        .HasColumnType("nvarchar(215)")
-                        .HasColumnOrder(113);
+                        .HasColumnType("nvarchar(215)");
 
                     b.Property<byte[]>("UI_UserPicture")
-                        .HasColumnType("varbinary(max)")
-                        .HasColumnOrder(108);
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("IdRecord");
 
@@ -1900,51 +1621,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("S_LocationIdRecord")
                         .HasColumnType("bigint");
@@ -1970,51 +1684,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("UR_RoleIdRecord")
                         .HasColumnType("bigint");
@@ -2035,51 +1742,44 @@ namespace CheetahDataAccess.Migrations
                 {
                     b.Property<long>("IdRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRecord"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(3);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(2);
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("PCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal?>("PCost")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(54);
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<long?>("PERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(53);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("PIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(52);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnOrder(51);
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long?>("P_PositionOrgIdRecord")
                         .HasColumnType("bigint");
@@ -2465,21 +2165,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("RI_SubRequestTitle");
                 });
 
-            modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_EndorsementPosition", b =>
-                {
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_PositionOrg", "UP_PositionOrg")
-                        .WithMany("PSO_P_EndorsementPosition")
-                        .HasForeignKey("UP_PositionOrgIdRecord");
-
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_ProcessEndorsement", "UP_ProcessEndorsement")
-                        .WithMany("PSE_P_EndorsementPosition")
-                        .HasForeignKey("UP_ProcessEndorsementIdRecord");
-
-                    b.Navigation("UP_PositionOrg");
-
-                    b.Navigation("UP_ProcessEndorsement");
-                });
-
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_ParameterList", b =>
                 {
                     b.HasOne("Cheetah_DataAccess.Parameters.P_ParameterType", "PL_P_ParameterType")
@@ -2525,17 +2210,11 @@ namespace CheetahDataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("PSE_RequestTitleIdRecord");
 
-                    b.HasOne("Cheetah_DataAccess.Parameters.P_SubRequestTitle", "PSE_SubRequestTitle")
-                        .WithMany()
-                        .HasForeignKey("PSE_SubRequestTitleIdRecord");
-
                     b.Navigation("PSE_ExpertUser");
 
                     b.Navigation("PSE_ProcessState");
 
                     b.Navigation("PSE_RequestTitle");
-
-                    b.Navigation("PSE_SubRequestTitle");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_RequestType", b =>
@@ -2750,8 +2429,6 @@ namespace CheetahDataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_PositionOrg", b =>
                 {
-                    b.Navigation("PSO_P_EndorsementPosition");
-
                     b.Navigation("PSO_P_RolePositions");
 
                     b.Navigation("PSO_S_UserSkills");
@@ -2762,8 +2439,6 @@ namespace CheetahDataAccess.Migrations
                     b.Navigation("PSE_M_ListOfParameter");
 
                     b.Navigation("PSE_PON");
-
-                    b.Navigation("PSE_P_EndorsementPosition");
                 });
 
             modelBuilder.Entity("Cheetah_DataAccess.Parameters.P_RequestTitle", b =>

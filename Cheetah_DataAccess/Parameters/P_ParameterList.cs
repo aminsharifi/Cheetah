@@ -13,7 +13,7 @@
         #region Relation
 
         #region Entity
-
+        [Column(Order = 100)]
         public virtual P_ParameterType? PL_P_ParameterType { get; set; }
 
         #endregion
