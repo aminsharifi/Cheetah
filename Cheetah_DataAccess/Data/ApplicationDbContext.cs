@@ -32,8 +32,6 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<P_RequestType> P_RequestTypes { get; set; }
         public virtual DbSet<P_ProcessState> P_ProcessStates { get; set; }
         public virtual DbSet<P_SubRequestTitle> P_SubRequestTitles { get; set; }
-        public virtual DbSet<P_UserAction> P_UserActions { get; set; }
-        public virtual DbSet<P_UserActionGroup> P_UserActionGroups { get; set; }
         public virtual DbSet<P_PositionOrg> P_PositionOrgs { get; set; }
         public virtual DbSet<P_ProcessEndorsement> P_ProcessEndorsements { get; set; }
         public virtual DbSet<S_Area> S_Areas { get; set; }
@@ -41,7 +39,6 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<S_Role> S_Roles { get; set; }
         public virtual DbSet<S_User> S_Users { get; set; }
         public virtual DbSet<M_RequestInformation> M_RequestInformations { get; set; }
-        public virtual DbSet<M_CurrentPE> M_CurrentPEs { get; set; }
         public virtual DbSet<M_Approve> M_Approves { get; set; }
         public virtual DbSet<M_Attachment> M_Attachments { get; set; }
         public virtual DbSet<S_UserRole> S_UserRoles { get; set; }

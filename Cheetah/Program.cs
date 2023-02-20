@@ -29,8 +29,6 @@ builder.Services.AddScoped<IGeneralRepository<P_ProcessState>, P_ProcessStateRep
 builder.Services.AddScoped<IGeneralRepository<P_RequestTitle>, P_RequestTitleRepository>();
 builder.Services.AddScoped<IGeneralRepository<P_RequestType>, P_RequestTypeRepository>();
 builder.Services.AddScoped<IGeneralRepository<P_SubRequestTitle>, P_SubRequestTitleRepository>();
-builder.Services.AddScoped<IGeneralRepository<P_UserActionGroup>, P_UserActionGroupRepository>();
-builder.Services.AddScoped<IGeneralRepository<P_UserAction>, P_UserActionRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

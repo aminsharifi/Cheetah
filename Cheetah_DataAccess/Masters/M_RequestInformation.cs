@@ -61,11 +61,6 @@
         [Description("زیرفرآیند")]
         [Column(Order = 116)]
         public virtual P_SubRequestTitle? RI_SubRequestTitle { get; set; }
-
-        [Description("وضعیت تایید فعال")]
-        [Column(Order = 117)]
-        public virtual M_CurrentPE? RI_M_CurrentPE { get; set; }
-        public virtual ICollection<M_CurrentPE>? RI_M_CurrentPEs { get; set; } = new HashSet<M_CurrentPE>();
         public virtual ICollection<M_ListOfParameter>? RI_M_ListOfParameters { get; set; } = new HashSet<M_ListOfParameter>();
         #endregion
     }

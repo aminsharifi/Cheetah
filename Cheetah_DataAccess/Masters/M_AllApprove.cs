@@ -18,6 +18,7 @@
         #endregion
 
         #region Collection
+        public virtual ICollection<M_Approve>? M_NeedApproves { get; set; } = new HashSet<M_Approve>();
         public virtual ICollection<M_Approve>? M_Approves { get; set; } = new HashSet<M_Approve>();
         #endregion
     }
