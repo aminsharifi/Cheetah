@@ -6,7 +6,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class GeneralRepository<TEntity> where TEntity : BasePSClass, IGeneralRepository<TEntity>
+    public class GeneralRepository<TEntity> where TEntity : BaseDimClass, IGeneralRepository<TEntity>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;

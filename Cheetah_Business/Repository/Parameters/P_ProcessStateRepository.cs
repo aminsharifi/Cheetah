@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class P_ProcessStateRepository : IGeneralRepository<P_ProcessState>
+    public class P_ProcessStateRepository : IGeneralRepository<D_ProcessState>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -19,9 +19,9 @@
             _mapper = mapper;
         }
 
-        public async Task<P_ProcessState> Create(P_ProcessState obj_DTO)
+        public async Task<D_ProcessState> Create(D_ProcessState obj_DTO)
         {
-            var obj = _mapper.Map<P_ProcessState, P_ProcessState>(obj_DTO);
+            var obj = _mapper.Map<D_ProcessState, D_ProcessState>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
 
@@ -29,7 +29,7 @@
 
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<P_ProcessState, P_ProcessState>(AddedObj.Entity);
+            return _mapper.Map<D_ProcessState, D_ProcessState>(AddedObj.Entity);
         }
 
         public async Task<int> delete(long id)
@@ -43,22 +43,22 @@
             return -1;
         }
 
-        public async Task<P_ProcessState> Get(long id)
+        public async Task<D_ProcessState> Get(long id)
         {
             var obj = await _db.P_ProcessStates.FirstOrDefaultAsync(u => u.IdRecord == id);
             if (obj != null)
             {
-                return _mapper.Map<P_ProcessState, P_ProcessState>(obj);
+                return _mapper.Map<D_ProcessState, D_ProcessState>(obj);
             }
-            return new P_ProcessState();
+            return new D_ProcessState();
         }
 
-        public async Task<IEnumerable<P_ProcessState>> GetAll()
+        public async Task<IEnumerable<D_ProcessState>> GetAll()
         {
-            return _mapper.Map<IEnumerable<P_ProcessState>, IEnumerable<P_ProcessState>>(_db.P_ProcessStates);
+            return _mapper.Map<IEnumerable<D_ProcessState>, IEnumerable<D_ProcessState>>(_db.P_ProcessStates);
         }
 
-        public async Task<P_ProcessState> Update(P_ProcessState obj_DTO)
+        public async Task<D_ProcessState> Update(D_ProcessState obj_DTO)
         {
             var obj = await _db.P_ProcessStates.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
             if (obj != null)
@@ -66,7 +66,7 @@
                 obj.PName = obj_DTO.PName;
                 _db.P_ProcessStates.Update(obj);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<P_ProcessState, P_ProcessState>(obj);
+                return _mapper.Map<D_ProcessState, D_ProcessState>(obj);
             }
             return obj_DTO;
         }

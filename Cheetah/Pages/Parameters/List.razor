@@ -2,7 +2,7 @@
 @page "/Parameters/List/{idList:long}"
 @*@page "/Parameters/List/{entityName:String}"*@
 @using Cheetah_DataAccess.Parameters;
-@inject IGeneralRepository<P_ParameterType> iP_ParameterListRepository;
+@inject IGeneralRepository<D_ParameterType> iP_ParameterListRepository;
 @inject IJSRuntime _jSRuntime;
 
 <_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
@@ -60,7 +60,7 @@
     [Parameter]
     public long? idList { get; set; }
 
-    private IEnumerable<P_ParameterType> p_ParameterListDTO { get; set; } = new List<P_ParameterType>();
+    private IEnumerable<D_ParameterType> p_ParameterListDTO { get; set; } = new List<D_ParameterType>();
 
     public Boolean IsLoading { get; set; } = true;
     public long DeleteidRole { get; set; }

@@ -9,8 +9,8 @@ namespace Cheetah_WebAPI.Controllers
     [ApiController]
     public class P_ParameterListController : ControllerBase
     {
-        private readonly IGeneralRepository<P_ParameterList> _ParameterListRepository;
-        public P_ParameterListController(IGeneralRepository<P_ParameterList> iP_ParameterListRepository)
+        private readonly IGeneralRepository<D_ParameterList> _ParameterListRepository;
+        public P_ParameterListController(IGeneralRepository<D_ParameterList> iP_ParameterListRepository)
         {
             this._ParameterListRepository = iP_ParameterListRepository;
         }

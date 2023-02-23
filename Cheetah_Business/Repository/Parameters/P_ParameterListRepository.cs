@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class P_ParameterListRepository : IGeneralRepository<P_ParameterList>
+    public class P_ParameterListRepository : IGeneralRepository<D_ParameterList>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -18,9 +18,9 @@
             _db = db;
             _mapper = mapper;
         }
-        public async Task<P_ParameterList> Create(P_ParameterList obj_DTO)
+        public async Task<D_ParameterList> Create(D_ParameterList obj_DTO)
         {
-            var obj = _mapper.Map<P_ParameterList, P_ParameterList>(obj_DTO);
+            var obj = _mapper.Map<D_ParameterList, D_ParameterList>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
 
@@ -34,7 +34,7 @@
 
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<P_ParameterList, P_ParameterList>(AddedObj.Entity);
+            return _mapper.Map<D_ParameterList, D_ParameterList>(AddedObj.Entity);
         }
 
         public async Task<int> delete(long id)
@@ -48,26 +48,26 @@
             return -1;
         }
 
-        public async Task<P_ParameterList> Get(long id)
+        public async Task<D_ParameterList> Get(long id)
         {
             var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == id);
 
             if (obj != null)
             {
-                return _mapper.Map<P_ParameterList, P_ParameterList>(obj);
+                return _mapper.Map<D_ParameterList, D_ParameterList>(obj);
             }
 
-            return new P_ParameterList();
+            return new D_ParameterList();
         }
 
-        public async Task<IEnumerable<P_ParameterList>> GetAll()
+        public async Task<IEnumerable<D_ParameterList>> GetAll()
         {
             var P_ParameterLists = await _db.P_ParameterLists.ToListAsync();
 
-            return _mapper.Map<IEnumerable<P_ParameterList>, IEnumerable<P_ParameterList>>(P_ParameterLists);
+            return _mapper.Map<IEnumerable<D_ParameterList>, IEnumerable<D_ParameterList>>(P_ParameterLists);
         }
 
-        public async Task<P_ParameterList> Update(P_ParameterList obj_DTO)
+        public async Task<D_ParameterList> Update(D_ParameterList obj_DTO)
         {
             var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
             if (obj != null)
@@ -76,7 +76,7 @@
 
                 _db.P_ParameterLists.Update(obj);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<P_ParameterList, P_ParameterList>(obj);
+                return _mapper.Map<D_ParameterList, D_ParameterList>(obj);
             }
             return obj_DTO;
         }

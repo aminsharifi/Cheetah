@@ -1,0 +1,26 @@
+﻿namespace Cheetah_DataAccess.Masters
+{
+    using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Parameters;
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("F_ListOfParameter", Schema = "Facts")]
+    public partial class F_ListOfParameter : BaseDimClass
+    {
+        [Column(Order = 100)]
+        public Single? LOP_FloatValue { get; set; }
+        [Column(Order = 101)]
+        public Boolean? LOP_BooleanValue { get; set; }
+        [Column(Order = 102)]
+        public String? LOP_StringValue { get; set; }
+        [Column(Order = 103)]
+        public virtual D_ParameterList? LOP_ParameterList { get; set; }
+        [Column(Order = 104)]
+        public virtual D_ParameterType? LOP_ParameterType { get; set; }
+        [Column(Order = 105)]
+        public virtual D_Operand? PT_Operand { get; set; }
+
+
+    }
+}

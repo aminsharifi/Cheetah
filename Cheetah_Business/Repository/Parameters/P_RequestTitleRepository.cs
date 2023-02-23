@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class P_RequestTitleRepository : IGeneralRepository<P_RequestTitle>
+    public class P_RequestTitleRepository : IGeneralRepository<D_RequestTitle>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -19,9 +19,9 @@
             _mapper = mapper;
         }
 
-        public async Task<P_RequestTitle> Create(P_RequestTitle obj_DTO)
+        public async Task<D_RequestTitle> Create(D_RequestTitle obj_DTO)
         {
-            var obj = _mapper.Map<P_RequestTitle, P_RequestTitle>(obj_DTO);
+            var obj = _mapper.Map<D_RequestTitle, D_RequestTitle>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
 
@@ -29,7 +29,7 @@
 
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<P_RequestTitle, P_RequestTitle>(AddedObj.Entity);
+            return _mapper.Map<D_RequestTitle, D_RequestTitle>(AddedObj.Entity);
         }
 
         public async Task<int> delete(long id)
@@ -43,22 +43,22 @@
             return -1;
         }
 
-        public async Task<P_RequestTitle> Get(long id)
+        public async Task<D_RequestTitle> Get(long id)
         {
             var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.IdRecord == id);
             if (obj != null)
             {
-                return _mapper.Map<P_RequestTitle, P_RequestTitle>(obj);
+                return _mapper.Map<D_RequestTitle, D_RequestTitle>(obj);
             }
-            return new P_RequestTitle();
+            return new D_RequestTitle();
         }
 
-        public async Task<IEnumerable<P_RequestTitle>> GetAll()
+        public async Task<IEnumerable<D_RequestTitle>> GetAll()
         {
-            return _mapper.Map<IEnumerable<P_RequestTitle>, IEnumerable<P_RequestTitle>>(_db.P_RequestTitles);
+            return _mapper.Map<IEnumerable<D_RequestTitle>, IEnumerable<D_RequestTitle>>(_db.P_RequestTitles);
         }
 
-        public async Task<P_RequestTitle> Update(P_RequestTitle obj_DTO)
+        public async Task<D_RequestTitle> Update(D_RequestTitle obj_DTO)
         {
             var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
             if (obj != null)
@@ -66,7 +66,7 @@
                 obj.PName = obj_DTO.PName;
                 _db.P_RequestTitles.Update(obj);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<P_RequestTitle, P_RequestTitle>(obj);
+                return _mapper.Map<D_RequestTitle, D_RequestTitle>(obj);
             }
             return obj_DTO;
         }
