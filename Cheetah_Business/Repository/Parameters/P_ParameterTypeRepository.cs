@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class P_ParameterTypeRepository : IGeneralRepository<P_ParameterType>
+    public class P_ParameterTypeRepository : IGeneralRepository<D_ParameterType>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -19,9 +19,9 @@
             _mapper = mapper;
         }
 
-        public async Task<P_ParameterType> Create(P_ParameterType obj_DTO)
+        public async Task<D_ParameterType> Create(D_ParameterType obj_DTO)
         {
-            var obj = _mapper.Map<P_ParameterType, P_ParameterType>(obj_DTO);
+            var obj = _mapper.Map<D_ParameterType, D_ParameterType>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
 
@@ -29,7 +29,7 @@
 
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<P_ParameterType, P_ParameterType>(AddedObj.Entity);
+            return _mapper.Map<D_ParameterType, D_ParameterType>(AddedObj.Entity);
         }
 
         public async Task<int> delete(long id)
@@ -43,22 +43,22 @@
             return -1;
         }
 
-        public async Task<P_ParameterType> Get(long id)
+        public async Task<D_ParameterType> Get(long id)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.IdRecord == id);
             if (obj != null)
             {
-                return _mapper.Map<P_ParameterType, P_ParameterType>(obj);
+                return _mapper.Map<D_ParameterType, D_ParameterType>(obj);
             }
-            return new P_ParameterType();
+            return new D_ParameterType();
         }
 
-        public async Task<IEnumerable<P_ParameterType>> GetAll()
+        public async Task<IEnumerable<D_ParameterType>> GetAll()
         {
             return _db.P_ParameterTypes;
         }
 
-        public async Task<P_ParameterType> Update(P_ParameterType obj_DTO)
+        public async Task<D_ParameterType> Update(D_ParameterType obj_DTO)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
             if (obj != null)
@@ -66,7 +66,7 @@
                 obj.PName = obj_DTO.PName;
                 _db.P_ParameterTypes.Update(obj);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<P_ParameterType, P_ParameterType>(obj);
+                return _mapper.Map<D_ParameterType, D_ParameterType>(obj);
             }
             return obj_DTO;
         }

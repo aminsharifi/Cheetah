@@ -25,15 +25,15 @@
             return _db.Model.GetEntityTypes();
         }
 
-        public async Task<M_RequestInformation> CreateProcess(String Input)
+        public async Task<F_RequestInformation> CreateProcess(String Input)
         {
             //var obj_DTO = JsonSerializer.Deserialize<M_RequestInformationDTO>(Input);
             //var obj = _mapper.Map<M_RequestInformationDTO, M_RequestInformation>(obj_DTO);
 
-            var obj = JsonSerializer.Deserialize<M_RequestInformation>(Input);
-            obj.RI_AllApprove = new M_AllApprove()
+            var obj = JsonSerializer.Deserialize<F_RequestInformation>(Input);
+            obj.RI_AllApprove = new F_AllApprove()
             {
-                Current_M_Approve = new M_Approve()
+                AAP_Current_Approve = new F_Approve()
                 {
                     PCode = 10,
                     PName = "10"
@@ -45,9 +45,9 @@
 
             await _db.SaveChangesAsync();
 
-            AddedObj.Entity.RI_AllApprove.Last_M_Approve = AddedObj.Entity.RI_AllApprove.Current_M_Approve;
+            AddedObj.Entity.RI_AllApprove.AAP_Last_Approve = AddedObj.Entity.RI_AllApprove.AAP_Current_Approve;
 
-            AddedObj.Entity.RI_AllApprove.M_Approves.Add(AddedObj.Entity.RI_AllApprove.Current_M_Approve);
+            AddedObj.Entity.RI_AllApprove.AAP_Approves.Add(AddedObj.Entity.RI_AllApprove.AAP_Current_Approve);
 
             await _db.SaveChangesAsync();
             
@@ -56,7 +56,7 @@
             //return _mapper.Map<M_RequestInformation, M_RequestInformationDTO>(AddedObj.Entity);
         }
 
-        public async Task<M_RequestInformation> GetProcess(long id)
+        public async Task<F_RequestInformation> GetProcess(long id)
         {
             var obj = await _db.M_RequestInformations.FirstOrDefaultAsync(x => x.IdRecord == id);
 
@@ -66,7 +66,7 @@
                 //return _mapper.Map<M_RequestInformation, M_RequestInformationDTO>(obj);
             }
 
-            return new M_RequestInformation();
+            return new F_RequestInformation();
         }
     }
 }

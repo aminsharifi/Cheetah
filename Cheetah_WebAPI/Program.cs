@@ -25,7 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IGeneralRepository<P_ParameterList>, P_ParameterListRepository>();
+builder.Services.AddScoped<IGeneralRepository<D_ParameterList>, P_ParameterListRepository>();
 
 builder.Services.AddScoped<IProcessRepository, ProcessRepository>();
 

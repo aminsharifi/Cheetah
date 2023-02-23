@@ -7,14 +7,14 @@ namespace Cheetah_Business.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<P_ParameterList, P_ParameterList>().ReverseMap();
-            CreateMap<P_ParameterType, P_ParameterType>().ReverseMap();
-            CreateMap<P_PositionOrg, P_PositionOrg>().ReverseMap();
-            CreateMap<P_ProcessEndorsement, P_ProcessEndorsement>().ReverseMap();
-            CreateMap<P_ProcessState, P_ProcessState>().ReverseMap();
-            CreateMap<P_RequestTitle, P_RequestTitle>().ReverseMap();
-            CreateMap<P_RequestType, P_RequestType>().ReverseMap();
-            CreateMap<P_SubRequestTitle, P_SubRequestTitle>().ReverseMap();
+            CreateMap<D_ParameterList, D_ParameterList>().ReverseMap();
+            CreateMap<D_ParameterType, D_ParameterType>().ReverseMap();
+            CreateMap<D_Position, D_Position>().ReverseMap();
+            CreateMap<D_ProcessEndorsement, D_ProcessEndorsement>().ReverseMap();
+            CreateMap<D_ProcessState, D_ProcessState>().ReverseMap();
+            CreateMap<D_RequestTitle, D_RequestTitle>().ReverseMap();
+            CreateMap<D_RequestType, D_RequestType>().ReverseMap();
+            CreateMap<D_SubRequestTitle, D_SubRequestTitle>().ReverseMap();
         }
     }
 }

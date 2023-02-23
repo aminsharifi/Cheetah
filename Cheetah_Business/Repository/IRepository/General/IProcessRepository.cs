@@ -6,7 +6,7 @@
 
     public interface IProcessRepository
     {
-        public Task<M_RequestInformation> CreateProcess(String Input);
-        public Task<M_RequestInformation> GetProcess(long id);
+        public Task<F_RequestInformation> CreateProcess(String Input);
+        public Task<F_RequestInformation> GetProcess(long id);
     }
 }

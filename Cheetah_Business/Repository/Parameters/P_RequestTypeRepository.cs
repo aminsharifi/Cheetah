@@ -8,7 +8,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class P_RequestTypeRepository : IGeneralRepository<P_RequestType>
+    public class P_RequestTypeRepository : IGeneralRepository<D_RequestType>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -18,9 +18,9 @@
             _db = db;
             _mapper = mapper;
         }
-        public async Task<P_RequestType> Create(P_RequestType obj_DTO)
+        public async Task<D_RequestType> Create(D_RequestType obj_DTO)
         {
-            var obj = _mapper.Map<P_RequestType, P_RequestType>(obj_DTO);
+            var obj = _mapper.Map<D_RequestType, D_RequestType>(obj_DTO);
 
             obj.GuidRecord = Guid.NewGuid();
 
@@ -28,7 +28,7 @@
 
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<P_RequestType, P_RequestType>(AddedObj.Entity);
+            return _mapper.Map<D_RequestType, D_RequestType>(AddedObj.Entity);
         }
 
         public async Task<int> delete(long id)
@@ -42,22 +42,22 @@
             return -1;
         }
 
-        public async Task<P_RequestType> Get(long id)
+        public async Task<D_RequestType> Get(long id)
         {
             var obj = await _db.P_RequestTypes.FirstOrDefaultAsync(u => u.IdRecord == id);
             if (obj != null)
             {
-                return _mapper.Map<P_RequestType, P_RequestType>(obj);
+                return _mapper.Map<D_RequestType, D_RequestType>(obj);
             }
-            return new P_RequestType();
+            return new D_RequestType();
         }
 
-        public async Task<IEnumerable<P_RequestType>> GetAll()
+        public async Task<IEnumerable<D_RequestType>> GetAll()
         {
-            return _mapper.Map<IEnumerable<P_RequestType>, IEnumerable<P_RequestType>>(_db.P_RequestTypes);
+            return _mapper.Map<IEnumerable<D_RequestType>, IEnumerable<D_RequestType>>(_db.P_RequestTypes);
         }
 
-        public async Task<P_RequestType> Update(P_RequestType obj_DTO)
+        public async Task<D_RequestType> Update(D_RequestType obj_DTO)
         {
             var obj = await _db.P_RequestTypes.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
             if (obj != null)
@@ -65,7 +65,7 @@
                 obj.PName = obj_DTO.PName;
                 _db.P_RequestTypes.Update(obj);
                 await _db.SaveChangesAsync();
-                return _mapper.Map<P_RequestType, P_RequestType>(obj);
+                return _mapper.Map<D_RequestType, D_RequestType>(obj);
             }
             return obj_DTO;
         }
