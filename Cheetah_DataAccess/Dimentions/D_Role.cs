@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Parameters
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_Role", Schema = "Dimentions")]
-    public partial class D_Role : BaseDimClass
+    public partial class D_Role : BaseClass<D_Role>
     {
         #region Simple Prob
 

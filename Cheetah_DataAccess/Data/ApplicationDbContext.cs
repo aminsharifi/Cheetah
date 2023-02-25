@@ -11,6 +11,7 @@ using Cheetah_DataAccess.Parameters;
 using Cheetah_DataAccess.Masters;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Cheetah_DataAccess.Facts;
+using Cheetah_DataAccess.Dimentions;
 
 namespace Cheetah_DataAccess.Data
 {
@@ -36,7 +37,7 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<D_Area> S_Areas { get; set; }
         public virtual DbSet<D_Location> S_Locations { get; set; }
         public virtual DbSet<D_Role> S_Roles { get; set; }
-        public virtual DbSet<F_User> S_Users { get; set; }
+        public virtual DbSet<D_User> S_Users { get; set; }
         public virtual DbSet<F_RequestInformation> M_RequestInformations { get; set; }
         public virtual DbSet<F_Approve> M_Approves { get; set; }
         public virtual DbSet<F_Attachment> M_Attachments { get; set; }

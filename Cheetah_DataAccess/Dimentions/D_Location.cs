@@ -7,7 +7,7 @@ namespace Cheetah_DataAccess.Parameters
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_Location", Schema = "Dimentions")]
-    public partial class D_Location : BaseDimClass
+    public partial class D_Location : BaseClass<D_Location>
     {
         #region Simple Prop        
         [InverseProperty("UL_Location")]

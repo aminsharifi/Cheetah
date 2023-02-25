@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_Operand", Schema = "Dimentions")]    
-    public partial class D_Operand : BaseDimClass
+    public partial class D_Operand : BaseClass<D_Operand>
     {
         
     }

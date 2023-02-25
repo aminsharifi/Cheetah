@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_FieldType", Schema = "Dimentions")]    
-    public partial class D_FieldType : BaseDimClass
+    public partial class D_FieldType : BaseClass<D_FieldType>
     {
         
     }

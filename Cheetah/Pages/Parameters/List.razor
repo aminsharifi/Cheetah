@@ -33,8 +33,8 @@
                         <tr>
                             <td>@item.PName</td>
                             <td>
-                                <NavLink href="@($"Parameters/Edit/{item.IdRecord}")" class="btn-primary btn">ویرایش</NavLink>
-                                <button class="btn btn-danger" @onclick="()=>HandleDelete(item.IdRecord)">حذف</button>
+                                <NavLink href="@($"Parameters/Edit/{item.Id}")" class="btn-primary btn">ویرایش</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(item.Id)">حذف</button>
                             </td>
                         </tr>
                     }

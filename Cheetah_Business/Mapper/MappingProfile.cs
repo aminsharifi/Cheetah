@@ -13,7 +13,6 @@ namespace Cheetah_Business.Mapper
             CreateMap<D_ProcessEndorsement, D_ProcessEndorsement>().ReverseMap();
             CreateMap<D_ProcessState, D_ProcessState>().ReverseMap();
             CreateMap<D_RequestTitle, D_RequestTitle>().ReverseMap();
-            CreateMap<D_RequestType, D_RequestType>().ReverseMap();
             CreateMap<D_SubRequestTitle, D_SubRequestTitle>().ReverseMap();
         }
     }

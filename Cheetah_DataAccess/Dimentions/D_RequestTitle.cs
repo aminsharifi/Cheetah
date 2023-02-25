@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_RequestTitle", Schema = "Dimentions")]
-    public partial class D_RequestTitle : BaseDimClass
+    public partial class D_RequestTitle : BaseClass<D_RequestTitle>
     {
         #region Simple Prob
 

@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_ParameterList", Schema = "Dimentions")]
-    public partial class D_ParameterList : BaseDimClass
+    public partial class D_ParameterList : BaseClass<D_ParameterList>
     {
         #region Relation
 

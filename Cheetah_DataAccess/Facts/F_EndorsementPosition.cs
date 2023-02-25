@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Facts
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_EndorsementPosition", Schema = "Facts")]
-    public partial class F_EndorsementPosition : BaseDimClass
+    public partial class F_EndorsementPosition : BaseClass<F_EndorsementPosition>
     {
         [Column(Order = 100)]
         public virtual D_ProcessEndorsement? UP_ProcessEndorsement { get; set; }

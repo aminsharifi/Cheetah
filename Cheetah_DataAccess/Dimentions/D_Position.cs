@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_Position", Schema = "Dimentions")]
-    public partial class D_Position : BaseDimClass
+    public partial class D_Position : BaseClass<D_Position>
     {
         [Column(Order = 100)]
         public Boolean? PSO_Independent_Location { get; set; } = false;

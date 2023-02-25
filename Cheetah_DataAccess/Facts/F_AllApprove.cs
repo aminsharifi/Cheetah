@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_AllApprove", Schema = "Facts")]
-    public partial class F_AllApprove : BaseClass
+    public partial class F_AllApprove : BaseClass<F_AllApprove>
     {
         //Passed
 

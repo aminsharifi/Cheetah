@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Parameters
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_Area", Schema = "Dimentions")]
-    public partial class D_Area : BaseDimClass
+    public partial class D_Area : BaseClass<D_Area>
     {
         [Column(Order = 100)]
         public virtual D_UnitType? Area_UnitType { get; set; }

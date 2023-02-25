@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_ListOfParameter", Schema = "Facts")]
-    public partial class F_ListOfParameter : BaseDimClass
+    public partial class F_ListOfParameter : BaseClass<F_ListOfParameter>
     {
         [Column(Order = 100)]
         public Single? LOP_FloatValue { get; set; }

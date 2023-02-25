@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_UserInformation", Schema = "Facts")]
-    public partial class F_UserInformation : BaseDimClass
+    public partial class F_UserInformation : BaseClass<F_UserInformation>
     {
         [StringLength(50)]
         [Column(Order = 100)]

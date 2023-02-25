@@ -8,7 +8,7 @@
 
     [Table("F_Attachment", Schema = "Facts")]
 
-    public partial class F_Attachment: BaseDimClass
+    public partial class F_Attachment: BaseClass<F_Attachment>
     {
         //Passed 
 
