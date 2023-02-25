@@ -27,7 +27,6 @@ builder.Services.AddScoped<IGeneralRepository<D_Position>, P_PositionOrgReposito
 builder.Services.AddScoped<IGeneralRepository<D_ProcessEndorsement>, P_ProcessEndorsementRepository>();
 builder.Services.AddScoped<IGeneralRepository<D_ProcessState>, P_ProcessStateRepository>();
 builder.Services.AddScoped<IGeneralRepository<D_RequestTitle>, P_RequestTitleRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_RequestType>, P_RequestTypeRepository>();
 builder.Services.AddScoped<IGeneralRepository<D_SubRequestTitle>, P_SubRequestTitleRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

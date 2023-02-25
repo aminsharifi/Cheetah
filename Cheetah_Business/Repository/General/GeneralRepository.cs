@@ -6,7 +6,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class GeneralRepository<TEntity> where TEntity : BaseDimClass, IGeneralRepository<TEntity>
+    public class GeneralRepository<TEntity> where TEntity : BaseClass<TEntity>, IGeneralRepository<TEntity>
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
@@ -24,7 +24,7 @@
         }
         public async Task<int> delete(long id)
         {
-            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 _db.Set<TEntity>().Remove(obj);
@@ -34,7 +34,7 @@
         }
         public async Task<TEntity> Get(long id)
         {
-            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.Id == id);
 
             return obj;
         }
@@ -46,7 +46,7 @@
         }
         public async Task<TEntity> Update(TEntity obj_DTO)
         {
-            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
+            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;

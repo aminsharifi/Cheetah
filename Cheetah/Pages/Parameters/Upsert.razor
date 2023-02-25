@@ -72,7 +72,7 @@
 
     private async Task UpsertTask()
     {
-        if (p_ParameterListDTO.IdRecord == 0)
+        if (p_ParameterListDTO.Id == 0)
         {
             //copyROLEDTO.roleName = "دکمه کلیک شد.";
             await iP_ParameterListRepository.Create(p_ParameterListDTO);

@@ -1,7 +1,7 @@
 ﻿namespace Cheetah_DataAccess.Masters
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Facts;
+    using Cheetah_DataAccess.Dimentions;
     using Cheetah_DataAccess.Parameters;
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_RequestInformation", Schema = "Facts")]
-    public partial class F_RequestInformation : BaseClass
+    public partial class F_RequestInformation : BaseClass<F_RequestInformation>
     {
         #region Simple Prob
         [Column(Order = 100)]
@@ -30,11 +30,11 @@
 
         #region S_User
         [Column(Order = 106)]
-        public virtual F_User? RI_ExpertUser { get; set; }
+        public virtual D_User? RI_ExpertUser { get; set; }
         [Column(Order = 107)]
-        public virtual F_User? RI_Requestor { get; set; }
+        public virtual D_User? RI_Requestor { get; set; }
         [Column(Order = 108)]
-        public virtual F_User? RI_Creator { get; set; }
+        public virtual D_User? RI_Creator { get; set; }
         [Column(Order = 109)]
         public virtual F_AllApprove? RI_AllApprove { get; set; }
         #endregion

@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_ProcessState", Schema = "Dimentions")]
-    public partial class D_ProcessState : BaseDimClass
+    public partial class D_ProcessState : BaseClass<D_ProcessState>
     {
         #region Relations
 

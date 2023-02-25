@@ -58,7 +58,7 @@
 
         public async Task<F_RequestInformation> GetProcess(long id)
         {
-            var obj = await _db.M_RequestInformations.FirstOrDefaultAsync(x => x.IdRecord == id);
+            var obj = await _db.M_RequestInformations.FirstOrDefaultAsync(x => x.Id == id);
 
             if (obj != null)
             {

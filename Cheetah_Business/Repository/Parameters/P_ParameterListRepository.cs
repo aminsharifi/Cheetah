@@ -39,7 +39,7 @@
 
         public async Task<int> delete(long id)
         {
-            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 _db.P_ParameterLists.Remove(obj);
@@ -50,7 +50,7 @@
 
         public async Task<D_ParameterList> Get(long id)
         {
-            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.Id == id);
 
             if (obj != null)
             {
@@ -69,7 +69,7 @@
 
         public async Task<D_ParameterList> Update(D_ParameterList obj_DTO)
         {
-            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
+            var obj = await _db.P_ParameterLists.FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;

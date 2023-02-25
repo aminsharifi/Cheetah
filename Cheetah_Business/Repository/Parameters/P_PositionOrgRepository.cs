@@ -33,7 +33,7 @@
 
         public async Task<int> delete(long id)
         {
-            var obj = await _db.P_PositionOrgs.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_PositionOrgs.FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 _db.P_PositionOrgs.Remove(obj);
@@ -44,7 +44,7 @@
 
         public async Task<D_Position> Get(long id)
         {
-            var obj = await _db.P_PositionOrgs.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_PositionOrgs.FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 return _mapper.Map<D_Position, D_Position>(obj);
@@ -59,7 +59,7 @@
 
         public async Task<D_Position> Update(D_Position obj_DTO)
         {
-            var obj = await _db.P_PositionOrgs.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
+            var obj = await _db.P_PositionOrgs.FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;

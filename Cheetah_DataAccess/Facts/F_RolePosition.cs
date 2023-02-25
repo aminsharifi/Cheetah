@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Facts
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_RolePosition", Schema = "Facts")]
-    public partial class F_RolePosition : BaseDimClass
+    public partial class F_RolePosition : BaseClass<F_RolePosition>
     {
         [Column(Order = 100)]
         public virtual D_Role? UP_Role { get; set; }

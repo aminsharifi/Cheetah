@@ -1,6 +1,7 @@
 ﻿namespace Cheetah_DataAccess.Parameters
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Dimentions;
     using Cheetah_DataAccess.Facts;
     using Cheetah_DataAccess.Masters;
     using System.Collections.Generic;
@@ -9,7 +10,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_ProcessEndorsement", Schema = "Dimentions")]
-    public partial class D_ProcessEndorsement : BaseDimClass
+    public partial class D_ProcessEndorsement : BaseClass<D_ProcessEndorsement>
     {
         #region Simple Prop
 
@@ -47,7 +48,7 @@
 
         [Description("کارشناس تخصیص پیشفرض")]
         [Column(Order = 107)]
-        public virtual F_User? PSE_ExpertUser { get; set; }
+        public virtual D_User? PSE_ExpertUser { get; set; }
 
         [Description("نام فرآیند")]
         [Column(Order = 108)]

@@ -34,7 +34,7 @@
 
         public async Task<int> delete(long id)
         {
-            var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 _db.P_RequestTitles.Remove(obj);
@@ -45,7 +45,7 @@
 
         public async Task<D_RequestTitle> Get(long id)
         {
-            var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.IdRecord == id);
+            var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
                 return _mapper.Map<D_RequestTitle, D_RequestTitle>(obj);
@@ -60,7 +60,7 @@
 
         public async Task<D_RequestTitle> Update(D_RequestTitle obj_DTO)
         {
-            var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.IdRecord == obj_DTO.IdRecord);
+            var obj = await _db.P_RequestTitles.FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;

@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("D_ParameterType", Schema = "Dimentions")]    
-    public partial class D_ParameterType: BaseDimClass
+    public partial class D_ParameterType: BaseClass<D_ParameterType>
     {
         [Column(Order = 100)]
         public virtual D_FieldType? PT_P_FieldType { get; set; }
