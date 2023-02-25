@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230225122054_ReindexDuplicate")]
+    partial class ReindexDuplicate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,9 +152,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -169,6 +169,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("User_DelegateId");
 
                     b.HasIndex("User_UserInformationId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_User", "Dimentions");
                 });
@@ -253,9 +258,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -271,6 +273,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("UP_PositionOrgId");
 
                     b.HasIndex("UP_ProcessEndorsementId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_EndorsementPosition", "Facts");
                 });
@@ -355,9 +362,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -373,6 +377,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("UP_PositionOrgId");
 
                     b.HasIndex("UP_RoleId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_RolePosition", "Facts");
                 });
@@ -457,9 +466,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -475,6 +481,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("UA_AreaId");
 
                     b.HasIndex("UA_UserId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_UserArea", "Facts");
                 });
@@ -618,9 +629,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -632,6 +640,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_UserInformation", "Facts");
                 });
@@ -719,9 +732,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -739,6 +749,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("UL_RelatedUserLocationId");
 
                     b.HasIndex("UL_UserLocationId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_UserLocation", "Facts");
                 });
@@ -823,9 +838,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -841,6 +853,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("UR_RoleId");
 
                     b.HasIndex("UR_UserId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_UserRole", "Facts");
                 });
@@ -930,9 +947,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -948,6 +962,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("US_SkillId");
 
                     b.HasIndex("US_UserId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_UserSkill", "Facts");
                 });
@@ -1036,9 +1055,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1050,6 +1066,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_AllApprove", "Facts");
                 });
@@ -1153,9 +1174,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1167,6 +1185,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_Approve", "Facts");
                 });
@@ -1259,9 +1282,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1273,6 +1293,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_Attachment", "Facts");
                 });
@@ -1391,9 +1416,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1407,6 +1429,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_ListOfParameter", "Facts");
                 });
@@ -1527,9 +1554,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1553,6 +1577,11 @@ namespace CheetahDataAccess.Migrations
                     b.HasIndex("RI_RequestTitleId");
 
                     b.HasIndex("RI_RequestorId");
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("F_RequestInformation", "Facts");
                 });
@@ -1636,9 +1665,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1650,6 +1676,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_Area", "Dimentions");
                 });
@@ -1728,9 +1759,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1742,6 +1770,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_FieldType", "Dimentions");
                 });
@@ -1820,9 +1853,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1834,6 +1864,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_Location", "Dimentions");
                 });
@@ -1912,9 +1947,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -1926,6 +1958,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_Operand", "Dimentions");
                 });
@@ -2007,9 +2044,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2023,6 +2057,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_ParameterList", "Dimentions");
                 });
@@ -2104,9 +2143,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2120,6 +2156,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_ParameterType", "Dimentions");
                 });
@@ -2205,9 +2246,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2221,6 +2259,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_Position", "Dimentions");
                 });
@@ -2335,9 +2378,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2357,6 +2397,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_ProcessEndorsement", "Dimentions");
                 });
@@ -2435,9 +2480,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2449,6 +2491,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_ProcessState", "Dimentions");
                 });
@@ -2547,9 +2594,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2561,6 +2605,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_RequestTitle", "Dimentions");
                 });
@@ -2639,9 +2688,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2653,6 +2699,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_Role", "Dimentions");
                 });
@@ -2731,9 +2782,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2745,6 +2793,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_Skill", "Dimentions");
                 });
@@ -2828,9 +2881,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2842,6 +2892,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_SubRequestTitle", "Dimentions");
                 });
@@ -2920,9 +2975,6 @@ namespace CheetahDataAccess.Migrations
                         .IsUnique()
                         .IsDescending();
 
-                    b.HasIndex("PERPCode")
-                        .IsDescending();
-
                     b.HasIndex("PIndex")
                         .IsUnique()
                         .IsDescending()
@@ -2934,6 +2986,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("PERPCode", "Parent_Id")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PERPCode] IS NOT NULL AND [Parent_Id] IS NOT NULL");
 
                     b.ToTable("D_UnitType", "Dimentions");
                 });

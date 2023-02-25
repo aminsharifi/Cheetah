@@ -21,13 +21,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<IGeneralRepository<D_ParameterList>, P_ParameterListRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_ParameterType>, P_ParameterTypeRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_Position>, P_PositionOrgRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_ProcessEndorsement>, P_ProcessEndorsementRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_ProcessState>, P_ProcessStateRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_RequestTitle>, P_RequestTitleRepository>();
-builder.Services.AddScoped<IGeneralRepository<D_SubRequestTitle>, P_SubRequestTitleRepository>();
+builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
+
+//builder.Services.AddScoped<IGeneralRepository<D_ParameterList>, P_ParameterListRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

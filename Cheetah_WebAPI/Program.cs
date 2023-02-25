@@ -25,9 +25,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IGeneralRepository<D_ParameterList>, P_ParameterListRepository>();
-
 builder.Services.AddScoped<IProcessRepository, ProcessRepository>();
+
+builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
 
 builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
 {

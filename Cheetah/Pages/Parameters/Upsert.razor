@@ -1,6 +1,5 @@
 ﻿@page "/Parameters/Create"
 @page "/Parameters/Edit/{idRole:long}"
-
 @inject IGeneralRepository<D_ParameterType> iP_ParameterListRepository;
 @inject NavigationManager _NavigationManager;
 
@@ -16,12 +15,15 @@
         {
             <EditForm Model="p_ParameterListDTO" OnValidSubmit="UpsertTask">
                 <DataAnnotationsValidator />
-                @*<ValidationSummary/>*@
+                <ValidationSummary/>
                 <div class="form-group">
                     <label>نام گروه اقدام</label>
                     <InputText @bind-Value="p_ParameterListDTO.PName" class="form-control"></InputText>
-                    <ValidationMessage For="()=>p_ParameterListDTO.PName" />
-                    <label>نوع پارامترها</label>
+                    <label>کد گروه اقدام</label>
+                    <InputNumber @bind-Value="p_ParameterListDTO.PCode" class="form-control"></InputNumber>
+                    <label>ایندکس گروه اقدام</label>
+                    <InputNumber @bind-Value="p_ParameterListDTO.PIndex" class="form-control"></InputNumber>                                          
+                    @*<label>نوع پارامترها</label>*@
                     @*@foreach (var item in p_ParameterListDTO.PL_ParameterType)
                     {   
                         <InputText @bind-Value="item.PName" class="form-control"></InputText>

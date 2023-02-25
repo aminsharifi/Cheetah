@@ -10,8 +10,8 @@
 
     public class P_ParameterTypeRepository : IGeneralRepository<D_ParameterType>
     {
-        private readonly ApplicationDbContext _db;
-        private readonly IMapper _mapper;
+        protected readonly ApplicationDbContext _db;
+        protected readonly IMapper _mapper;
 
         public P_ParameterTypeRepository(ApplicationDbContext db, IMapper mapper)
         {

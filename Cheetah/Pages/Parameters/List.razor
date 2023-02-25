@@ -24,6 +24,8 @@
                 <thead>
                     <tr>
                         <th>نام گروه</th>
+                        <th>کد گروه اقدام</th>
+                        <th>ایندکس گروه اقدام</th>
                         <th>اقدام</th>
                     </tr>
                 </thead>
@@ -32,6 +34,8 @@
                     {
                         <tr>
                             <td>@item.PName</td>
+                            <td>@item.PCode</td>
+                            <td>@item.PIndex</td>
                             <td>
                                 <NavLink href="@($"Parameters/Edit/{item.Id}")" class="btn-primary btn">ویرایش</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete(item.Id)">حذف</button>

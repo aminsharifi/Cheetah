@@ -6,52 +6,53 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class GeneralRepository<TEntity> where TEntity : BaseClass<TEntity>, IGeneralRepository<TEntity>
+    public class GeneralRepository<T> : IGeneralRepository<T> where T : BaseClass<T>, new()
     {
-        private readonly ApplicationDbContext _db;
-        private readonly IMapper _mapper;
+        protected readonly ApplicationDbContext _db;
+        protected readonly IMapper _mapper;
         public GeneralRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
         }
-        public async Task<TEntity> Create(TEntity obj_DTO)
+        public async Task<T> Create(T obj_DTO)
         {
-            var AddedObj = await _db.Set<TEntity>().AddAsync(obj_DTO);           
+            var AddedObj = await _db.Set<T>().AddAsync(obj_DTO);
             await _db.SaveChangesAsync();
 
             return obj_DTO;
         }
         public async Task<int> delete(long id)
         {
-            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.Id == id);
+
+            var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)
             {
-                _db.Set<TEntity>().Remove(obj);
+                _db.Set<T>().Remove(obj);
                 return await _db.SaveChangesAsync();
             }
             return -1;
         }
-        public async Task<TEntity> Get(long id)
+        public async Task<T> Get(long id)
         {
-            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.Id == id);
+            var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == id);
 
             return obj;
         }
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            var P_ParameterLists = await _db.Set<TEntity>().ToListAsync();
+            var P_ParameterLists = await _db.Set<T>().ToListAsync();
 
             return P_ParameterLists;
         }
-        public async Task<TEntity> Update(TEntity obj_DTO)
+        public async Task<T> Update(T obj_DTO)
         {
-            var obj = await _db.Set<TEntity>().FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
+            var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
             if (obj != null)
             {
                 obj.PName = obj_DTO.PName;
 
-                _db.Set<TEntity>().Update(obj);
+                _db.Set<T>().Update(obj);
                 await _db.SaveChangesAsync();
                 return obj;
             }
