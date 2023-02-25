@@ -3,10 +3,19 @@
     using Cheetah_DataAccess.Data;
     using Microsoft.EntityFrameworkCore.Metadata.Internal;
     using System;
+    using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("F_UserInformation", Schema = "Facts")]
+    [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
+    [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
+    [Index(nameof(PName), IsUnique = true, AllDescending = true)]
+    [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
+    [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
+    [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
+    [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
+    [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class F_UserInformation : BaseClass<F_UserInformation>
     {
         [StringLength(50)]

@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Cheetah_Models\Cheetah_Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repository\Parameters\" />
+  </ItemGroup>
+
 </Project>
