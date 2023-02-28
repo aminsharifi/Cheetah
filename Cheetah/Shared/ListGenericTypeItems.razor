@@ -1,0 +1,75 @@
+﻿@using Cheetah_DataAccess.Data
+@using System.ComponentModel;
+@typeparam TEntity
+<div>
+
+    @if (Records != null && Records.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    @HeaderContent
+                    @foreach (var CProperties1 in Records.First().GetType().GetProperties()
+                   .Where(x => x.CustomAttributes
+                   .Any(z => z.AttributeType == typeof(DescriptionAttribute)))
+                   .Select(x => x.CustomAttributes
+                   .Where(y => y.AttributeType == typeof(DescriptionAttribute))
+                   .FirstOrDefault().ConstructorArguments[0].Value).ToList())
+                    {
+                        <th>@CProperties1</th>
+                    }
+                    <th>اقدام</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Records as IEnumerable<BaseClass<TEntity>>)
+                {
+                    <tr>
+                        @foreach (var CProperties1 in Records.First().GetType().GetProperties()
+                       .Where(x => x.CustomAttributes
+                       .Any(z => z.AttributeType == typeof(DescriptionAttribute))).Select(x => x.Name)
+                       .ToList())
+                        {
+                            <td>
+                                @(item.GetType().GetProperty(CProperties1).GetValue(item, null))
+                            </td>
+                        }
+                        @*<td>@((item as BaseClass<TEntity>).Id)</td>*@
+                        @BodyContent
+                        <td>
+                            @if (item.GetType().BaseType.Name.StartsWith("Base"))
+                            {
+                                <NavLink href="@($"Dimentions/Edit/{item.GetType().Name}/{(item as BaseClass<TEntity>).Id}")" class="btn-primary btn">ویرایش</NavLink>
+                            }
+                            else
+                            {
+                                <NavLink href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as BaseClass<TEntity>).Id}")" class="btn-primary btn">ویرایش</NavLink>
+                            }
+
+                            <button class="btn btn-danger" @onclick="()=>HandleDelete((item as BaseClass<TEntity>).Id)">حذف</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+@code {
+    [Parameter]
+    public IEnumerable<TEntity>? Records { get; set; }
+    [Parameter]
+    public EventCallback<long> ConfirmationDelete { get; set; }
+    [Parameter]
+    public RenderFragment HeaderContent { get; set; }
+    [Parameter]
+    public RenderFragment BodyContent { get; set; }
+    private async Task HandleDelete(long DeletedState)
+    {
+        //https://stackoverflow.com/questions/16760683/get-value-of-field-by-string
+        await ConfirmationDelete.InvokeAsync(DeletedState);
+    }
+
+
+}

@@ -1,0 +1,150 @@
+﻿@page "/Dimentions/Parameters/List"
+@page "/Dimentions/Parameters/List/{Name}"
+@page "/Dimentions/Parameters/List/{Id:long}"
+@using Cheetah_DataAccess.Data;
+@inject IGeneralRepository<D_ParameterType> iGeneralRepository;
+@inject IGeneralRepository<D_FieldType> iD_FieldTypeRepository;
+@inject IGeneralRepository<D_Operand> iD_OperandRepository;
+@inject IJSRuntime _jSRuntime;
+@inject NavigationManager _NavigationManager;
+
+<_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+
+<div style="direction:rtl">
+    @*<h3>CopyROLE</h3>*@
+    <div class="row mt-4">
+        <div class="col-6">
+            <h4 class="card-title text-primary">انتخاب پارامتر</h4>
+            <select value=@Name bind=@Name @onchange="SelectedProcessesChanged">
+                <option value="">یک جدول را انتخاب نمایید</option>
+                <option value="D_ParameterType">D_ParameterType</option>
+                <option value="D_FieldType">D_FieldType</option>
+                <option value="D_Operand">D_Operand</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12">
+        @if (Records != null)
+        {
+            <br />
+            <div class="col-2 offset-2">
+                <a href="@($"/Dimentions/Create/{Name}")" class="btn btn-primary form-control">افزودن نوع پارامتر</a>
+            </div>
+            <br />
+            <ListGenericTypeItems Records="@Records" ConfirmationDelete="HandleDelete">
+            </ListGenericTypeItems>
+        }
+        else
+        {
+            if (IsLoading)
+            {
+                <h1>در حال بارگیری اطلاعات ...</h1>
+                @*<img src="imeges/Loading_Symbol.gif" />*@
+            }
+            else
+            {
+                <h1>هیچ ورودی یافت نشد</h1>
+            }
+        }
+    </div>
+</div>
+@code {
+
+    [Parameter]
+    public long? Id { get; set; }
+    [Parameter]
+    public String Name { get; set; }
+
+    public dynamic Records { get; set; }
+
+    private async Task SelectedProcessesChanged(ChangeEventArgs e)
+    {
+        if (e.Value is not null)
+        {
+            Name = (string)e.Value;
+            _NavigationManager.NavigateTo($"/Dimentions/Parameters/List/{Name}");
+            await LoadRecords();
+        }
+    }
+
+    public Boolean IsLoading { get; set; } = false;
+    public long DeleteidRole { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await LoadRecords();
+    }
+
+    private async Task LoadRecords()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        switch (Name)
+        {
+            case "D_ParameterType":
+                Records = await iGeneralRepository.GetAll();
+                break;
+            case "D_FieldType":
+                Records = await iD_FieldTypeRepository.GetAll();
+                break;
+            case "D_Operand":
+                Records = await iD_OperandRepository.GetAll();
+                break;
+            default:
+                //Records = await iGeneralRepository.GetAll();
+                break;
+        }
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private async void HandleDelete(long id)
+    {
+        DeleteidRole = id;
+        var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "آیا مطمئن هستید؟"); // Confirm
+        if (isConfirmed)
+        {
+            IsLoading = true;
+            if (isConfirmed && DeleteidRole != 0)
+            {
+
+                //await iGeneralRepository.delete(DeleteidRole);
+                //await iD_OperandRepository.delete(DeleteidRole);
+
+                switch (Name)
+                {
+                    case "D_ParameterType":
+                        await iGeneralRepository.delete(DeleteidRole);
+                        break;
+                    case "D_FieldType":
+                        await iD_FieldTypeRepository.delete(DeleteidRole);
+                        break;
+                    case "D_Operand":
+                        await iD_OperandRepository.delete(DeleteidRole);
+                        break;
+                    default:
+                        //Records = await iGeneralRepository.GetAll();
+                        break;
+                }
+
+
+                await LoadRecords();
+                await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+            }
+            IsLoading = false;
+        }
+    }
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading = true;
+        if (isConfirmed && DeleteidRole != 0)
+        {
+            //await iD_FieldTypeRepository.delete(DeleteidRole);
+            //await iGeneralRepository.delete(DeleteidRole);
+            await iD_OperandRepository.delete(DeleteidRole);
+            await LoadRecords();
+            await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading = false;
+    }
+}

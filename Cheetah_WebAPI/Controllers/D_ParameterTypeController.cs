@@ -7,10 +7,10 @@ namespace Cheetah_WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class P_ParameterListController : ControllerBase
+    public class D_ParameterTypeController : ControllerBase
     {
-        private readonly IGeneralRepository<D_ParameterList> _ParameterListRepository;
-        public P_ParameterListController(IGeneralRepository<D_ParameterList> iP_ParameterListRepository)
+        private readonly IGeneralRepository<D_ParameterType> _ParameterListRepository;
+        public D_ParameterTypeController(IGeneralRepository<D_ParameterType> iP_ParameterListRepository)
         {
             this._ParameterListRepository = iP_ParameterListRepository;
         }

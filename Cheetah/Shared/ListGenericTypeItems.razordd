@@ -1,0 +1,42 @@
+﻿@using Cheetah_DataAccess.Data;
+@*
+@if (Records is not null)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>کد</th>
+                <th>ایندکس</th>
+                <th>نام</th>
+                <th>نام نمایشی</th>
+                <th>اقدام</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Records)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.PCode</td>
+                    <td>@item.PIndex</td>
+                    <td>@item.PName</td>
+                    <td>@item.PDescription</td>
+                    <td>
+                        <NavLink href="@($"Dimentions/D_ParameterType/Edit/{item.Id}")" class="btn-primary btn">ویرایش</NavLink>
+                       <button class="btn btn-danger" @onclick="()=>HandleDelete(item.Id)">حذف</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+*@
+
+@code {
+    [Parameter]
+    public IEnumerable<BaseClass>? Records { get; set; } = new List<BaseClass>()
+    {
+
+    };
+}
