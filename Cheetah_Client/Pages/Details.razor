@@ -1,6 +1,6 @@
 ﻿@page "/details/{PL_ParameterTypeID:long}"
 @using Cheetah_DataAccess.Parameters;
-@inject IGeneralRepository<D_ParameterList> _IP_ParameterListRepository;
+@inject IGeneralRepository<D_ParameterType> _IP_ParameterListRepository;
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 
@@ -24,7 +24,7 @@ else
     [Parameter]
     public long PL_ParameterTypeID { get; set; }
 
-    public D_ParameterList p_ParameterListDTO { get; set; } = new();
+    public D_ParameterType p_ParameterListDTO { get; set; } = new();
     public bool IsProcessing { get; set; } = false;
 
     protected override async Task OnInitializedAsync()

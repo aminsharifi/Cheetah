@@ -8,20 +8,32 @@ namespace Cheetah_DataAccess.Data
     public abstract class BaseClass<I>
     {
         [Key]
+        [Description("شناسه")]
         [Column(Order = 0)]
         public Int64 Id { get; set; }
-        [Description("کد پارامتر")]
-        [Required]
+        
+        [Description("کد")]
+        [Required(ErrorMessage ="کد اجباری است")]
         [Column(Order = 1)]
         public Int64 PCode { get; set; }
-        [Description("اندیس سورت")]
+
+        [Description("اندیس مرتب‌سازی")]
         [Column(Order = 2)]
+        [Required(ErrorMessage = "اندیس سورت اجباری است")]
         public Int64? PIndex { get; set; }
+
+
         [StringLength(50)]
-        [Description("نام پارامتر")]
-        [Required]
+        [Description("نام")]
         [Column(Order = 3)]
+        [Required(ErrorMessage = "نام اجباری است")]
         public String? PName { get; set; }
+
+        [StringLength(512)]
+        [Description("نام نمایشی")]
+        [Required(ErrorMessage = "نام نمایشی اجباری است")]
+        [Column(Order = 9)]
+        public String? PDescription { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 4)]
@@ -37,14 +49,9 @@ namespace Cheetah_DataAccess.Data
         [Column(Order = 7)]
         public bool? DsblRecord { get; set; } = false;
 
-        [Description("کد در سیستم ERP")]
+        [Description("کد در ERP")]
         [Column(Order = 8)]
         public Int64? PERPCode { get; set; }
-
-        [StringLength(512)]
-        [Description("نام پارامتر")]
-        [Column(Order = 9)]
-        public String? PDescription { get; set; }
 
         [Column(Order = 10)]
         public long? Parent_Id { get; set; }

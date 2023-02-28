@@ -3,6 +3,7 @@
     using AutoMapper;
     using Cheetah_DataAccess.Data;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -35,9 +36,32 @@
         }
         public async Task<T> Get(long id)
         {
-            var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == id);
-
-            return obj;
+            if (id == 0)
+            {
+                if (await _db.Set<T>().AnyAsync())
+                {
+                    return new T()
+                    {
+                        PCode = await _db.Set<T>().MaxAsync(x => x.PCode) + 1,
+                        PIndex = await _db.Set<T>().MaxAsync(x => x.PIndex) + 1
+                    };
+                }
+                else
+                {
+                    return new T()
+                    {
+                        PCode = 1,
+                        PIndex = 1
+                    };
+                }
+            }
+            else
+            {
+                var obj = await _db.Set<T>().SingleAsync(u => u.Id == id);
+               
+                return obj;
+            }
+            //var _Id = await _db.Set<T>().MaxAsync(x => x.Id);
         }
         public async Task<IEnumerable<T>> GetAll()
         {

@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using Cheetah_DataAccess.Parameters;
-@inject IGeneralRepository<D_ParameterList> _IP_ParameterListRepository
+@inject IGeneralRepository<D_ParameterType> _IP_ParameterListRepository
 
 @if (IsProcessing)
 {
@@ -32,7 +32,7 @@ else
 
 @code {
     public bool IsProcessing { get; set; } = false;
-    public IEnumerable<D_ParameterList> P_ParameterList { get; set; } = new HashSet<D_ParameterList>();
+    public IEnumerable<D_ParameterType> P_ParameterList { get; set; } = new HashSet<D_ParameterType>();
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
