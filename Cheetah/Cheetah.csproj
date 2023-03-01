@@ -7,12 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\Dimentions\D_ParameterType\Upsert.razorf" />
     <None Remove="Shared\ListGenericTypeItems.razordd" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Pages\Dimentions\D_ParameterType\Upsert.razorf" />
     <Content Include="Shared\ListGenericTypeItems.razordd" />
   </ItemGroup>
 

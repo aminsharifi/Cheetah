@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Dimentions;
     using Cheetah_DataAccess.Parameters;
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -43,7 +44,7 @@
             return -1;
         }
 
-        public async Task<D_ParameterType> Get(long id)
+        public async Task<D_ParameterType> Get(long? id)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.Id == id);
             if (obj != null)

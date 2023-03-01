@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess.Parameters
+﻿namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
     using Microsoft.EntityFrameworkCore;

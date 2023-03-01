@@ -1,4 +1,5 @@
 ﻿using Cheetah_Business.Repository.IRepository;
+using Cheetah_DataAccess.Dimentions;
 using Cheetah_DataAccess.Parameters;
 using Cheetah_Models;
 using Newtonsoft.Json;
@@ -18,7 +19,7 @@ namespace Cheetah_Client.Service
             BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
 
-        public async Task<D_ParameterType> Get(long RecordId)
+        public async Task<D_ParameterType> Get(long? RecordId)
         {
             var response = await _httpClient.GetAsync($"/D_ParameterType/{RecordId}");
             var content = await response.Content.ReadAsStringAsync();
