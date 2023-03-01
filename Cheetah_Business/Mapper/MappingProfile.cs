@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cheetah_DataAccess.Dimentions;
 using Cheetah_DataAccess.Parameters;
 
 namespace Cheetah_Business.Mapper

@@ -3,6 +3,7 @@
 namespace Cheetah_DataAccess.Facts
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Dimentions;
     using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations.Schema;
 

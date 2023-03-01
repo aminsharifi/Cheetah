@@ -1,0 +1,57 @@
+﻿@page "/Dimentions/Create/D_ParameterType"
+@page "/Dimentions/Edit/D_ParameterType/{Id:long}"
+@using Cheetah_DataAccess.Dimentions;
+
+@inject IGeneralRepository<D_ParameterType> iGeneralRepository;
+@inject NavigationManager _NavigationManager;
+
+<div class="row my-4" style="direction:rtl">
+    <h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>
+
+    <div class="col-10">
+        @if (IsLoading)
+        {
+            <h1>در حال بارگیری اطلاعات ...</h1>
+        }
+        else
+        {
+            <FormGenericTypeItems Record="@Record"
+                              Name="@Name" Title="@Title">
+            </FormGenericTypeItems>
+        }
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public long? Id { get; set; }
+    [Parameter]
+    public String? Name { get; set; } = "D_ParameterType";
+
+    public D_ParameterType Record { get; set; }
+
+    private String Title { get; set; } = "ایجاد";
+
+    public Boolean IsLoading { get; set; } = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Title = (Id > 0) ? "ویرایش" : "ایجاد";
+            await LoadDTO();
+        }
+    }
+
+    private async Task LoadDTO()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Record = await iGeneralRepository.Get(Id.Value);
+        IsLoading = false;
+        StateHasChanged();
+    }
+
+
+}

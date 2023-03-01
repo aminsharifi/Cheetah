@@ -1,9 +1,8 @@
 ﻿@using Cheetah_DataAccess.Data
 @using System.ComponentModel;
+@using Cheetah_DataAccess.Dimentions;
 @typeparam TEntity where TEntity : BaseClass<TEntity>
-@inject IGeneralRepository<D_ParameterType> iGeneralRepository;
-@inject IGeneralRepository<D_FieldType> iD_FieldTypeRepository;
-@inject IGeneralRepository<D_Operand> iD_OperandRepository;
+@inject IGeneralRepository<TEntity> iGeneralRepository;
 @inject NavigationManager _NavigationManager;
 <div>
     <EditForm Model="Record" OnValidSubmit="UpsertTask">
@@ -38,7 +37,6 @@
     </EditForm>
 </div>
 
-
 @code {
     [Parameter]
     public TEntity Record { get; set; }
@@ -51,41 +49,11 @@
     {
         if (Record.Id > 0)
         {
-            switch (Name)
-            {
-                case "D_ParameterType":
-                    //Record = await iGeneralRepository.Update(Record);
-                    await iGeneralRepository.Update(Record as D_ParameterType);
-                    break;
-                case "D_FieldType":
-                    //Record = await iD_FieldTypeRepository.Update(Record);
-                    break;
-                case "D_Operand":
-                    //Record = await iD_OperandRepository.Update(Record);
-                    break;
-                default:
-                    //Record = await iGeneralRepository.Update(Record);
-                    break;
-            }
+            await iGeneralRepository.Update(Record);
         }
         else
         {
-            switch (Name)
-            {
-                case "D_ParameterType":
-                    //Record = await iGeneralRepository.Create(Record);
-                    await iGeneralRepository.Create(Record as D_ParameterType);
-                    break;
-                case "D_FieldType":
-                    //Record = await iD_FieldTypeRepository.Update(Record);
-                    break;
-                case "D_Operand":
-                    //Record = await iD_OperandRepository.Update(Record);
-                    break;
-                default:
-                    //Record = await iGeneralRepository.Update(Record);
-                    break;
-            }
+            await iGeneralRepository.Create(Record);
         }
         _NavigationManager.NavigateTo($"/Dimentions/Parameters/List/{Name}");
     }

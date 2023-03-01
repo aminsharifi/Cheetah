@@ -34,8 +34,12 @@
             }
             return -1;
         }
-        public async Task<T> Get(long id)
+        public async Task<T> Get(long? id)
         {
+            if (!id.HasValue)
+            {
+                id = 0;
+            }
             if (id == 0)
             {
                 if (await _db.Set<T>().AnyAsync())
@@ -58,11 +62,11 @@
             else
             {
                 var obj = await _db.Set<T>().SingleAsync(u => u.Id == id);
-               
+
                 return obj;
             }
-            //var _Id = await _db.Set<T>().MaxAsync(x => x.Id);
         }
+
         public async Task<IEnumerable<T>> GetAll()
         {
             var P_ParameterLists = await _db.Set<T>().ToListAsync();
