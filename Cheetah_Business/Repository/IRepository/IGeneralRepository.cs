@@ -9,5 +9,6 @@
         public Task<int> delete(long id);
         public Task<T> Get(long? id);
         public Task<IEnumerable<T>> GetAll();
+        public Task<IEnumerable<Object>> GetAllByName(String Name);
     }
 }

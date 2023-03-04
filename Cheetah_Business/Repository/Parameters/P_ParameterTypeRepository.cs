@@ -59,6 +59,11 @@
             return _db.P_ParameterTypes.ToList();
         }
 
+        public Task<IEnumerable<object>> GetAllByName(string Name)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<D_ParameterType> Update(D_ParameterType obj_DTO)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);

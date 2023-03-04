@@ -6,26 +6,12 @@
 @inject IGeneralRepository<D_Skill> iGeneralRepository;
 @inject NavigationManager _NavigationManager;
 
-<div class="row my-4" style="direction:rtl">
-    <h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>
-
-    <div class="col-10">
-        @if (IsLoading)
-        {
-            <h1>در حال بارگیری اطلاعات ...</h1>
-        }
-        else
-        {
-          @*      <FormGenericTypeItems Record="@Record"
-                              Name="@Name" Title="@Title">
-                </FormGenericTypeItems>*@
-        }
-    </div>
-</div>
-
+<FormGenericTypeItems Record="@Record"
+                      Name="@Name" Title="@Title" IsLoading="@IsLoading">
+</FormGenericTypeItems>
 @code {
     [Parameter]
-    public long? Id { get; set; }
+    public long Id { get; set; } = 0;
     [Parameter]
     public String? Name { get; set; } = "D_Skill";
 
@@ -48,7 +34,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await iGeneralRepository.Get(Id.Value);
+        Record = await iGeneralRepository.Get(Id);
         IsLoading = false;
         StateHasChanged();
     }
