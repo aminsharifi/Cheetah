@@ -3,9 +3,24 @@
 @page "/Dimentions/Parameters/List/{Id:long}"
 @using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
-@inject IGeneralRepository<D_ParameterType> iGeneralRepository;
+
+@inject IGeneralRepository<D_Area> iD_AreaRepository;
 @inject IGeneralRepository<D_FieldType> iD_FieldTypeRepository;
+@inject IGeneralRepository<D_Location> iD_LocationRepository;
 @inject IGeneralRepository<D_Operand> iD_OperandRepository;
+@inject IGeneralRepository<D_ParameterList> iD_ParameterListRepository;
+@inject IGeneralRepository<D_ParameterType> iD_ParameterTypeRepository;
+@inject IGeneralRepository<D_Position> iD_PositionRepository;
+@inject IGeneralRepository<D_ProcessEndorsement> iD_ProcessEndorsementRepository;
+@inject IGeneralRepository<D_ProcessState> iD_ProcessStateRepository;
+@inject IGeneralRepository<D_RequestTitle> iD_RequestTitleRepository;
+@inject IGeneralRepository<D_Role> iD_RoleRepository;
+@inject IGeneralRepository<D_Skill> iD_SkillRepository;
+@inject IGeneralRepository<D_SubRequestTitle> iD_SubRequestTitleRepository;
+@inject IGeneralRepository<D_UnitType> iD_UnitTypeRepository;
+@inject IGeneralRepository<D_User> iD_UserRepository;
+
+
 @inject IJSRuntime _jSRuntime;
 @inject NavigationManager _NavigationManager;
 
@@ -18,9 +33,21 @@
             <h4 class="card-title text-primary">انتخاب پارامتر</h4>
             <select value=@Name bind=@Name @onchange="SelectedProcessesChanged">
                 <option value="">یک جدول را انتخاب نمایید</option>
-                <option value="D_ParameterType">D_ParameterType</option>
-                <option value="D_FieldType">D_FieldType</option>
-                <option value="D_Operand">D_Operand</option>
+                <option value="D_Area">ناحیه</option>
+                <option value="D_FieldType">نوع فیلد</option>
+                <option value="D_Location">موقعیت</option>
+                <option value="D_Operand">عملگر</option>
+                <option value="D_ParameterList">لیست پارامتر</option>
+                <option value="D_ParameterType">نوع پارامتر</option>
+                <option value="D_Position">موقعیت</option>
+                <option value="D_ProcessEndorsement">تاییدها</option>
+                <option value="D_ProcessState">وضعیت فرآیند</option>
+                <option value="D_RequestTitle">نوع درخواست</option>
+                <option value="D_Role">نقش</option>
+                <option value="D_Skill">مهارت</option>
+                <option value="D_SubRequestTitle">زیرفرآیند</option>
+                <option value="D_UnitType">نوع واحد</option>
+                <option value="D_User">کاربر</option>
             </select>
         </div>
     </div>
@@ -83,17 +110,53 @@
         StateHasChanged();
         switch (Name)
         {
-            case "D_ParameterType":
-                Records = await iGeneralRepository.GetAll();
+            case "D_Area":
+                Records = await iD_AreaRepository.GetAll();
                 break;
             case "D_FieldType":
                 Records = await iD_FieldTypeRepository.GetAll();
                 break;
+            case "D_Location":
+                Records = await iD_LocationRepository.GetAll();
+                break;
             case "D_Operand":
                 Records = await iD_OperandRepository.GetAll();
                 break;
+            case "D_ParameterList":
+                Records = await iD_ParameterListRepository.GetAll();
+                break;
+            case "D_ParameterType":
+                Records = await iD_ParameterTypeRepository.GetAll();
+                break;
+            case "D_Position":
+                Records = await iD_PositionRepository.GetAll();
+                break;
+            case "D_ProcessEndorsement":
+                Records = await iD_ProcessEndorsementRepository.GetAll();
+                break;
+            case "D_ProcessState":
+                Records = await iD_ProcessStateRepository.GetAll();
+                break;
+            case "D_RequestTitle":
+                Records = await iD_RequestTitleRepository.GetAll();
+                break;
+            case "D_Role":
+                Records = await iD_RoleRepository.GetAll();
+                break;
+            case "D_Skill":
+                Records = await iD_SkillRepository.GetAll();
+                break;
+            case "D_SubRequestTitle":
+                Records = await iD_SubRequestTitleRepository.GetAll();
+                break;
+            case "D_UnitType":
+                Records = await iD_UnitTypeRepository.GetAll();
+                break;
+            case "D_User":
+                Records = await iD_UserRepository.GetAll();
+                break;
             default:
-                //Records = await iGeneralRepository.GetAll();
+                Records = null;
                 break;
         }
         IsLoading = false;
@@ -108,27 +171,57 @@
             IsLoading = true;
             if (isConfirmed && DeleteidRole != 0)
             {
-
-                //await iGeneralRepository.delete(DeleteidRole);
-                //await iD_OperandRepository.delete(DeleteidRole);
-
                 switch (Name)
                 {
-                    case "D_ParameterType":
-                        await iGeneralRepository.delete(DeleteidRole);
+                    case "D_Area":
+                        await iD_AreaRepository.delete(DeleteidRole);
                         break;
                     case "D_FieldType":
                         await iD_FieldTypeRepository.delete(DeleteidRole);
                         break;
+                    case "D_Location":
+                        await iD_LocationRepository.delete(DeleteidRole);
+                        break;
                     case "D_Operand":
                         await iD_OperandRepository.delete(DeleteidRole);
                         break;
+                    case "D_ParameterList":
+                        await iD_ParameterListRepository.delete(DeleteidRole);
+                        break;
+                    case "D_ParameterType":
+                        await iD_ParameterTypeRepository.delete(DeleteidRole);
+                        break;
+                    case "D_Position":
+                        await iD_PositionRepository.delete(DeleteidRole);
+                        break;
+                    case "D_ProcessEndorsement":
+                        await iD_ProcessEndorsementRepository.delete(DeleteidRole);
+                        break;
+                    case "D_ProcessState":
+                        await iD_ProcessStateRepository.delete(DeleteidRole);
+                        break;
+                    case "D_RequestTitle":
+                        await iD_RequestTitleRepository.delete(DeleteidRole);
+                        break;
+                    case "D_Role":
+                        await iD_RoleRepository.delete(DeleteidRole);
+                        break;
+                    case "D_Skill":
+                        await iD_SkillRepository.delete(DeleteidRole);
+                        break;
+                    case "D_SubRequestTitle":
+                        await iD_SubRequestTitleRepository.delete(DeleteidRole);
+                        break;
+                    case "D_UnitType":
+                        await iD_UnitTypeRepository.delete(DeleteidRole);
+                        break;
+                    case "D_User":
+                        await iD_UserRepository.delete(DeleteidRole);
+                        break;
                     default:
-                        //Records = await iGeneralRepository.GetAll();
+
                         break;
                 }
-
-
                 await LoadRecords();
                 await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
             }
@@ -140,9 +233,57 @@
         IsLoading = true;
         if (isConfirmed && DeleteidRole != 0)
         {
-            //await iD_FieldTypeRepository.delete(DeleteidRole);
-            //await iGeneralRepository.delete(DeleteidRole);
-            await iD_OperandRepository.delete(DeleteidRole);
+            switch (Name)
+            {
+                case "D_Area":
+                    await iD_AreaRepository.delete(DeleteidRole);
+                    break;
+                case "D_FieldType":
+                    await iD_FieldTypeRepository.delete(DeleteidRole);
+                    break;
+                case "D_Location":
+                    await iD_LocationRepository.delete(DeleteidRole);
+                    break;
+                case "D_Operand":
+                    await iD_OperandRepository.delete(DeleteidRole);
+                    break;
+                case "D_ParameterList":
+                    await iD_ParameterListRepository.delete(DeleteidRole);
+                    break;
+                case "D_ParameterType":
+                    await iD_ParameterTypeRepository.delete(DeleteidRole);
+                    break;
+                case "D_Position":
+                    await iD_PositionRepository.delete(DeleteidRole);
+                    break;
+                case "D_ProcessEndorsement":
+                    await iD_ProcessEndorsementRepository.delete(DeleteidRole);
+                    break;
+                case "D_ProcessState":
+                    await iD_ProcessStateRepository.delete(DeleteidRole);
+                    break;
+                case "D_RequestTitle":
+                    await iD_RequestTitleRepository.delete(DeleteidRole);
+                    break;
+                case "D_Role":
+                    await iD_RoleRepository.delete(DeleteidRole);
+                    break;
+                case "D_Skill":
+                    await iD_SkillRepository.delete(DeleteidRole);
+                    break;
+                case "D_SubRequestTitle":
+                    Records = await iD_SubRequestTitleRepository.delete(DeleteidRole);
+                    break;
+                case "D_UnitType":
+                    await iD_UnitTypeRepository.delete(DeleteidRole);
+                    break;
+                case "D_User":
+                    await iD_UserRepository.delete(DeleteidRole);
+                    break;
+                default:
+
+                    break;
+            }
             await LoadRecords();
             await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
         }

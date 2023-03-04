@@ -73,6 +73,13 @@
 
             return P_ParameterLists;
         }
+        public async Task<IEnumerable<Object>> GetAllByName(String Name)
+        {
+            var P_ParameterLists = await _db.Set<T>().ToListAsync();
+
+            return P_ParameterLists;
+        }
+
         public async Task<T> Update(T obj_DTO)
         {
             var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);

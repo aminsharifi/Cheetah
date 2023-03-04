@@ -66,5 +66,10 @@ namespace Cheetah_Client.Service
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<object>> GetAllByName(string Name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
