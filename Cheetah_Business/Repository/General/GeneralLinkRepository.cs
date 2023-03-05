@@ -3,26 +3,19 @@
     using AutoMapper;
     using Cheetah_DataAccess.Data;
     using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class GeneralRepository<T> : IGeneralRepository<T> where T : BaseClass<T>, new()
+    public class GeneralLinkRepository<T> : IGeneralLinkRepository<T> where T : BaseLinkClass<T>, new()
     {
         protected readonly ApplicationDbContext _db;
         protected readonly IMapper _mapper;
-        public GeneralRepository(ApplicationDbContext db, IMapper mapper)
+        public GeneralLinkRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
         }
-        public async Task<T> Create(T obj_DTO)
-        {
-            var AddedObj = await _db.Set<T>().AddAsync(obj_DTO);
-            await _db.SaveChangesAsync();
 
-            return obj_DTO;
-        }
         public async Task<int> delete(long id)
         {
             var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == id);
@@ -32,6 +25,21 @@
                 return await _db.SaveChangesAsync();
             }
             return -1;
+        }
+
+        public async Task<IEnumerable<T>> GetAllFirst(long Second)
+        {
+            var P_ParameterLists = await _db.Set<T>().Where(x => x.SecondId == Second)
+                .ToListAsync();
+
+            return P_ParameterLists;
+        }
+        public async Task<IEnumerable<T>> GetAllSecond(long First)
+        {
+            var P_ParameterLists = await _db.Set<T>().Where(x => x.FirstId == First)
+               .ToListAsync();
+
+            return P_ParameterLists;
         }
         public async Task<T> Get(long? id)
         {
@@ -65,33 +73,5 @@
                 return obj;
             }
         }
-
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            var P_ParameterLists = await _db.Set<T>().ToListAsync();
-
-            return P_ParameterLists;
-        }
-        public async Task<IEnumerable<Object>> GetAllByName(String Name)
-        {
-            var P_ParameterLists = await _db.Set<T>().ToListAsync();
-
-            return P_ParameterLists;
-        }
-
-        public async Task<T> Update(T obj_DTO)
-        {
-            var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
-            if (obj != null)
-            {
-                obj.PName = obj_DTO.PName;
-
-                _db.Set<T>().Update(obj);
-                await _db.SaveChangesAsync();
-                return obj;
-            }
-            return obj_DTO;
-        }
-
     }
 }

@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheetahDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230305074131_add_link")]
+    partial class addlink
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1396,6 +1399,7 @@ namespace CheetahDataAccess.Migrations
                         .HasColumnOrder(109);
 
                     b.Property<string>("User_Domain")
+                        .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)")
                         .HasColumnOrder(102);
@@ -1403,6 +1407,12 @@ namespace CheetahDataAccess.Migrations
                     b.Property<bool?>("User_EnabledForAssignation")
                         .HasColumnType("bit")
                         .HasColumnOrder(103);
+
+                    b.Property<string>("User_FullName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnOrder(100);
 
                     b.Property<string>("User_IDPersonel")
                         .HasMaxLength(10)
@@ -1416,6 +1426,11 @@ namespace CheetahDataAccess.Migrations
 
                     b.Property<long?>("User_UserInformationId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("User_UserName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnOrder(101);
 
                     b.HasKey("Id");
 

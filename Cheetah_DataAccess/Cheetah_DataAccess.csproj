@@ -22,4 +22,8 @@
     <Folder Include="SP\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cheetah_Common\Cheetah_Common.csproj" />
+  </ItemGroup>
+
 </Project>

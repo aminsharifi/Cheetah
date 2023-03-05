@@ -1,7 +1,7 @@
 namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Facts;
+    using Cheetah_DataAccess.Links;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -22,8 +22,7 @@ namespace Cheetah_DataAccess.Dimentions
         #endregion
 
         #region Collection
-        [InverseProperty("US_Skill")]
-        public virtual ICollection<F_UserSkill>? SKL_UserSkills { get; set; } = new HashSet<F_UserSkill>();
+        public virtual ICollection<L_UserSkill>? SKL_UserSkills { get; set; } = new HashSet<L_UserSkill>();
         #endregion
     }
 }

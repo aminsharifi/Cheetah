@@ -26,7 +26,6 @@ namespace Cheetah_DataAccess.Dimentions
         #endregion
 
         #region Collections
-        [InverseProperty("Area_UnitType")]
         public virtual ICollection<D_Area>? UT_Areas { get; set; } = new HashSet<D_Area>();
         #endregion
         #endregion

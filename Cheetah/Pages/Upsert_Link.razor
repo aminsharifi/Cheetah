@@ -1,0 +1,133 @@
+﻿@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}/{Ref}"
+@using Cheetah_Common;
+@using Cheetah_DataAccess.Dimentions;
+@using Cheetah_DataAccess.Links;
+@using Cheetah_DataAccess.Facts;
+
+@inject IGeneralRepository<D_Area> iD_AreaRepository;
+@inject IGeneralRepository<D_User> iD_UserRepository;
+@inject IGeneralLinkRepository<L_UserArea> iUserAreaRepository;
+@inject NavigationManager _NavigationManager;
+
+<FormGenericTypeItems Record="@Record"
+                      Name="@Name" Title="@Title" IsLoading="@IsLoading">
+    <RowTemplate>
+        @if (type == SD.First)
+        {
+            <label>کاربر</label>
+            <InputSelect @bind-Value="Record.FirstId" class="form-control">
+                @if (Record.UA_User is null)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_User in d_Users)
+                {
+                    <option value="@d_User.Id">شناسه: @d_User.Id | نام: @d_User.PName | نام فارسی: @d_User.PDescription</option>
+                }
+                <ValidationMessage For="@(() => Record.UA_User)" />
+            </InputSelect>
+            <label>واحد</label>
+            <InputSelect @bind-Value="Record.SecondId" class="form-control">
+                @if (Record.UA_Area is null)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_Area in d_Areas)
+                {
+                    <option value="@d_Area.Id">شناسه: @d_Area.Id | نام: @d_Area.PName | نام فارسی: @d_Area.PDescription</option>
+                }
+                <ValidationMessage For="@(() => Record.UA_Area)" />
+            </InputSelect>
+        }
+        else if (type == SD.Second)
+        {
+            <label>کاربر</label>
+            <InputSelect @bind-Value="Record.FirstId" class="form-control">
+                @if (Record.UA_User is null)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_User in d_Users)
+                {
+                    <option value="@d_User.Id">شناسه: @d_User.Id | نام: @d_User.PName | نام فارسی: @d_User.PDescription</option>
+                }
+                <ValidationMessage For="@(() => Record.UA_User)" />
+            </InputSelect>
+            <label>واحد</label>
+            <InputSelect @bind-Value="Record.SecondId" class="form-control">
+                @if (Record.UA_Area is null)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_Area in d_Areas)
+                {
+                    <option value="@d_Area.Id">شناسه: @d_Area.Id | نام: @d_Area.PName | نام فارسی: @d_Area.PDescription</option>
+                }
+                <ValidationMessage For="@(() => Record.UA_Area)" />
+            </InputSelect>
+        }
+        <NavLink href="@Ref" class="btn btn-secondary">برگشت</NavLink>
+    </RowTemplate>
+</FormGenericTypeItems>
+
+@code {
+    [Parameter]
+    public long Id { get; set; } = 0;
+    [Parameter]
+    public long LinkId { get; set; } = 0;
+    [Parameter]
+    public String? Name { get; set; } = "L_UserArea";
+    [Parameter]
+    public String type { get; set; }
+    [Parameter]
+    public String Ref { get; set; }
+
+    public L_UserArea Record { get; set; }
+
+    public IEnumerable<D_User> d_Users { get; set; }
+
+    public IEnumerable<D_Area> d_Areas { get; set; }
+
+    private String Title { get; set; } = "ایجاد";
+
+    public Boolean IsLoading { get; set; } = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Title = (Id > 0) ? "ویرایش" : "ایجاد";
+            await LoadDTO();
+        }
+    }
+
+    private async Task LoadDTO()
+    {
+        IsLoading = true;
+
+        StateHasChanged();
+
+        Record = await iUserAreaRepository.Get(Id);
+
+        if (type == SD.First)
+        {
+            Record.FirstId = LinkId;
+            var Tmp = new List<D_User>();
+            Tmp.Add(
+                await iD_UserRepository.Get(LinkId));
+            d_Users = Tmp;
+            d_Areas = await iD_AreaRepository.GetAll();
+        }
+        else if (type == SD.Second)
+        {
+            Record.SecondId = LinkId;
+            d_Users = await iD_UserRepository.GetAll();
+            var Tmp = new List<D_Area>();
+            Tmp.Add(await iD_AreaRepository.Get(LinkId));
+            d_Areas = Tmp;
+        }
+
+        IsLoading = false;
+        StateHasChanged();
+    }
+}

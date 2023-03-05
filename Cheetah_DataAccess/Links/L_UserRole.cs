@@ -1,12 +1,13 @@
-namespace Cheetah_DataAccess.Dimentions
+using Cheetah_DataAccess.Parameters;
+
+namespace Cheetah_DataAccess.Links
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Links;
+    using Cheetah_DataAccess.Dimentions;
     using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("D_Role", Schema = "Dimentions")]
+    [Table("L_UserRole", Schema = "Links")]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -15,14 +16,16 @@ namespace Cheetah_DataAccess.Dimentions
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class D_Role : BaseClass<D_Role>
+    [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
+    [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
+    public partial class L_UserRole : BaseLinkClass<L_UserRole>
     {
-        #region Simple Prob
+        [Column(Order = 100)]
+        [ForeignKey("FirstId")]
+        public virtual D_Role? UR_Role { get; set; }
+        [Column(Order = 101)]
+        [ForeignKey("SecondId")]
+        public virtual D_User? UR_User { get; set; }
 
-        #endregion
-
-        #region Collection
-        public virtual ICollection<L_UserRole>? ROL_UserRoles { get; set; } = new HashSet<L_UserRole>();
-        #endregion
     }
 }

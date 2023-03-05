@@ -22,7 +22,6 @@ namespace Cheetah_DataAccess.Data
         [Required(ErrorMessage = "اندیس سورت اجباری است")]
         public Int64? PIndex { get; set; }
 
-
         [StringLength(50)]
         [Description("نام")]
         [Column(Order = 3)]
@@ -47,7 +46,7 @@ namespace Cheetah_DataAccess.Data
         public Guid? GuidRecord { get; set; } = Guid.NewGuid();
         [DefaultValue(false)]
         [Column(Order = 7)]
-        public bool? DsblRecord { get; set; } = false;
+        public bool DsblRecord { get; set; } = false;
 
         [Description("کد در ERP")]
         [Column(Order = 8)]
@@ -60,7 +59,7 @@ namespace Cheetah_DataAccess.Data
         public virtual I? ParentId { get; set; }
 
         [InverseProperty("ParentId")]
-        public virtual ICollection<I>? RI_ListOfParameters { get; set; } = new HashSet<I>();
+        public virtual ICollection<I>? Childs { get; set; } = new HashSet<I>();
 
     }
 }
