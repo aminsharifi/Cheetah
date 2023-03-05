@@ -60,6 +60,8 @@
     [Parameter]
     public IEnumerable<TEntity>? Records { get; set; }
     [Parameter]
+    public String? type { get; set; }
+    [Parameter]
     public EventCallback<long> ConfirmationDelete { get; set; }
     [Parameter]
     public RenderFragment HeaderContent { get; set; }

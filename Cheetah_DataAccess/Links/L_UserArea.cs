@@ -1,13 +1,13 @@
 using Cheetah_DataAccess.Parameters;
 
-namespace Cheetah_DataAccess.Facts
+namespace Cheetah_DataAccess.Links
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Dimentions;
     using Microsoft.EntityFrameworkCore;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("F_UserArea", Schema = "Facts")]
+    [Table("L_UserArea", Schema = "Links")]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -16,12 +16,16 @@ namespace Cheetah_DataAccess.Facts
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class F_UserArea : BaseClass<F_UserArea>
+    [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
+    [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
+    public partial class L_UserArea : BaseLinkClass<L_UserArea>
     {
         #region Simple Prob
         [Column(Order = 100)]
+        [ForeignKey("FirstId")]
         public virtual D_Area? UA_Area { get; set; }
         [Column(Order = 101)]
+        [ForeignKey("SecondId")]
         public virtual D_User? UA_User { get; set; }
         #endregion
 

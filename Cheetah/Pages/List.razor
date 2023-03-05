@@ -1,8 +1,10 @@
 ﻿@page "/Dimentions/Parameters/List"
 @page "/Dimentions/Parameters/List/{Name}"
-@page "/Dimentions/Parameters/List/{Id:long}"
+@page "/Dimentions/Parameters/List/{Name}/{type}/{Id:long}"
+@using Cheetah_Common;
 @using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
+@using Cheetah_DataAccess.Links;
 
 @inject IGeneralRepository<D_Area> iD_AreaRepository;
 @inject IGeneralRepository<D_FieldType> iD_FieldTypeRepository;
@@ -19,47 +21,56 @@
 @inject IGeneralRepository<D_SubRequestTitle> iD_SubRequestTitleRepository;
 @inject IGeneralRepository<D_UnitType> iD_UnitTypeRepository;
 @inject IGeneralRepository<D_User> iD_UserRepository;
-
-
+@inject IGeneralLinkRepository<L_UserArea> iL_UserAreaRepository;
 @inject IJSRuntime _jSRuntime;
 @inject NavigationManager _NavigationManager;
 
 <_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 
 <div style="direction:rtl">
-    @*<h3>CopyROLE</h3>*@
-    <div class="row mt-4">
-        <div class="col-6">
-            <h4 class="card-title text-primary">انتخاب پارامتر</h4>
-            <select value=@Name bind=@Name @onchange="SelectedProcessesChanged">
-                <option value="">یک جدول را انتخاب نمایید</option>
-                <option value="D_Area">ناحیه</option>
-                <option value="D_FieldType">نوع فیلد</option>
-                <option value="D_Location">موقعیت</option>
-                <option value="D_Operand">عملگر</option>
-                <option value="D_ParameterList">لیست پارامتر</option>
-                <option value="D_ParameterType">نوع پارامتر</option>
-                <option value="D_Position">موقعیت</option>
-                <option value="D_ProcessEndorsement">تاییدها</option>
-                <option value="D_ProcessState">وضعیت فرآیند</option>
-                <option value="D_RequestTitle">نوع درخواست</option>
-                <option value="D_Role">نقش</option>
-                <option value="D_Skill">مهارت</option>
-                <option value="D_SubRequestTitle">زیرفرآیند</option>
-                <option value="D_UnitType">نوع واحد</option>
-                <option value="D_User">کاربر</option>
-            </select>
+    @if (type != SD.First && type != SD.Second)
+    {
+        <div class="row mt-4">
+            <div class="col-6">
+                <h4 class="card-title text-primary">انتخاب پارامتر</h4>
+                <select value=@Name bind=@Name @onchange="SelectedProcessesChanged">
+                    <option value="">یک جدول را انتخاب نمایید</option>
+                    <option value="D_Area">ناحیه</option>
+                    <option value="D_FieldType">نوع فیلد</option>
+                    <option value="D_Location">موقعیت</option>
+                    <option value="D_Operand">عملگر</option>
+                    <option value="D_ParameterList">لیست پارامتر</option>
+                    <option value="D_ParameterType">نوع پارامتر</option>
+                    <option value="D_Position">موقعیت</option>
+                    <option value="D_ProcessEndorsement">تاییدها</option>
+                    <option value="D_ProcessState">وضعیت فرآیند</option>
+                    <option value="D_RequestTitle">نوع درخواست</option>
+                    <option value="D_Role">نقش</option>
+                    <option value="D_Skill">مهارت</option>
+                    <option value="D_SubRequestTitle">زیرفرآیند</option>
+                    <option value="D_UnitType">نوع واحد</option>
+                    <option value="D_User">کاربر</option>
+                </select>
+            </div>
         </div>
-    </div>
+    }
     <div class="col-12">
         @if (Records != null)
         {
             <br />
             <div class="col-2 offset-2">
-                <a href="@($"/Dimentions/Create/{Name}")" class="btn btn-primary form-control">افزودن نوع پارامتر</a>
+                @if (type == SD.First || type == SD.Second)
+                {
+                    <a href="@($"/Upsert_Link/Create/{Name}/{type}/0/{Id}/ddddd")" class="btn btn-primary form-control">افزودن</a>
+                }
+                else
+                {
+                    <a href="@($"/Dimentions/Create/{Name}")" class="btn btn-primary form-control">افزودن</a>
+                }
             </div>
             <br />
-            <ListGenericTypeItems Records="@Records" ConfirmationDelete="HandleDelete">
+            <ListGenericTypeItems Records="@Records" 
+                ConfirmationDelete="HandleDelete" type="@type">
             </ListGenericTypeItems>
         }
         else
@@ -82,6 +93,8 @@
     public long? Id { get; set; }
     [Parameter]
     public String Name { get; set; }
+    [Parameter]
+    public String? type { get; set; }
 
     public dynamic Records { get; set; }
 
@@ -155,6 +168,13 @@
             case "D_User":
                 Records = await iD_UserRepository.GetAll();
                 break;
+            case "L_UserArea":
+                if (type == SD.First)
+                    Records = await iL_UserAreaRepository.GetAllFirst(Id.Value);
+                if (type == SD.Second)
+                    Records = await iL_UserAreaRepository.GetAllSecond(Id.Value);
+                break;
+
             default:
                 Records = null;
                 break;
@@ -218,6 +238,9 @@
                     case "D_User":
                         await iD_UserRepository.delete(DeleteidRole);
                         break;
+                    case "L_UserArea":
+                        Records = await iL_UserAreaRepository.delete(DeleteidRole);
+                        break;
                     default:
 
                         break;
@@ -280,8 +303,8 @@
                 case "D_User":
                     await iD_UserRepository.delete(DeleteidRole);
                     break;
-                default:
-
+                case "L_UserArea":
+                    Records = await iL_UserAreaRepository.delete(DeleteidRole);
                     break;
             }
             await LoadRecords();

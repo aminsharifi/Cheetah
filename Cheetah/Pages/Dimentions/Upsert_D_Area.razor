@@ -1,12 +1,33 @@
 ﻿@page "/Dimentions/Create/D_Area"
 @page "/Dimentions/Edit/D_Area/{Id:long}"
+@using Cheetah_Common;
 @using Cheetah_DataAccess.Dimentions;
+@using Cheetah_DataAccess.Links;
+@using Cheetah_DataAccess.Facts;
 
 @inject IGeneralRepository<D_Area> iGeneralRepository;
+@inject IGeneralRepository<D_UnitType> iUnitTypeRepository;
+@inject IGeneralLinkRepository<L_UserArea> iUserAreaRepository;
 @inject NavigationManager _NavigationManager;
 
 <FormGenericTypeItems Record="@Record"
-Name="@Name" Title="@Title" IsLoading="@IsLoading">
+                      Name="@Name" Title="@Title" IsLoading="@IsLoading">
+    <RowTemplate>
+        <label>نوع واحد</label>
+        <InputSelect @bind-Value="Record.Area_UnitTypeId" class="form-control">
+            @if (Record.Area_UnitType is null)
+            {
+                <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+            }
+            @foreach (var unitType in unitTypes)
+            {
+                <option value="@unitType.Id">شناسه: @unitType.Id | نام: @unitType.PName | نام فارسی: @unitType.PDescription</option>
+            }
+            <ValidationMessage For="@(() => Record.Area_UnitType)" />
+        </InputSelect>
+        <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}")"
+                 class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
+    </RowTemplate>
 </FormGenericTypeItems>
 
 @code {
@@ -16,6 +37,10 @@ Name="@Name" Title="@Title" IsLoading="@IsLoading">
     public String? Name { get; set; } = "D_Area";
 
     public D_Area Record { get; set; }
+
+    public IEnumerable<D_UnitType> unitTypes { get; set; }
+
+    public IEnumerable<L_UserArea> UserAreas { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -35,6 +60,7 @@ Name="@Name" Title="@Title" IsLoading="@IsLoading">
         IsLoading = true;
         StateHasChanged();
         Record = await iGeneralRepository.Get(Id);
+        unitTypes = await iUnitTypeRepository.GetAll();
         IsLoading = false;
         StateHasChanged();
     }

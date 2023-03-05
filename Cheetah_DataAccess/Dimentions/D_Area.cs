@@ -1,7 +1,7 @@
 namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Facts;
+    using Cheetah_DataAccess.Links;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -17,11 +17,12 @@ namespace Cheetah_DataAccess.Dimentions
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class D_Area : BaseClass<D_Area>
     {
+        public long? Area_UnitTypeId { get; set; }
         [Column(Order = 100)]
+        [ForeignKey("Area_UnitTypeId")]
         public virtual D_UnitType? Area_UnitType { get; set; }
         #region Relations
-        [InverseProperty("UA_Area")]
-        public virtual ICollection<F_UserArea>? Area_UserAreas { get; set; } = new HashSet<F_UserArea>();
+        public virtual ICollection<L_UserArea>? Area_UserAreas { get; set; } = new HashSet<L_UserArea>();
         #endregion
     }
 }

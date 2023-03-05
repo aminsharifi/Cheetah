@@ -2,6 +2,7 @@
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Facts;
+    using Cheetah_DataAccess.Links;
     using Cheetah_DataAccess.Masters;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -28,15 +29,8 @@
 
         #region Common Prop
         #endregion
+
         #region Simple Prob
-        [Required]
-        [StringLength(200)]
-        [Column(Order = 100)]
-        public string? User_FullName { get; set; }
-        [StringLength(100)]
-        [Column(Order = 101)]
-        public string? User_UserName { get; set; }
-        [Required]
         [StringLength(25)]
         [Column(Order = 102)]
         public string? User_Domain { get; set; }
@@ -75,17 +69,11 @@
 
         #region Collection
         [Description("واحد")]
-        [InverseProperty("UA_User")]
-        public virtual ICollection<F_UserArea>? User_UserAreas { get; set; } = new HashSet<F_UserArea>();
+        public virtual ICollection<L_UserArea>? User_UserAreas { get; set; } = new HashSet<L_UserArea>();
         [Description("موقعیت")]
-
-        [InverseProperty("UL_UserLocation")]
-        public virtual ICollection<F_UserLocation>? User_UserLocations { get; set; } = new HashSet<F_UserLocation>();
-        [InverseProperty("UL_RelatedUserLocation")]
-        public virtual ICollection<F_UserLocation>? User_Related_UserLocations { get; set; } = new HashSet<F_UserLocation>();
-
-        [InverseProperty("UR_User")]
-        public virtual ICollection<F_UserRole>? User_UserRoles { get; set; } = new HashSet<F_UserRole>();
+        public virtual ICollection<L_UserLocation>? User_UserLocations { get; set; } = new HashSet<L_UserLocation>();
+        public virtual ICollection<L_UserRelatedLocation>? User_Related_UserLocations { get; set; } = new HashSet<L_UserRelatedLocation>();
+        public virtual ICollection<L_UserRole>? User_UserRoles { get; set; } = new HashSet<L_UserRole>();
         public virtual ICollection<F_ListOfParameter>? User_ListOfParameters { get; set; } = new HashSet<F_ListOfParameter>();
         #endregion
 

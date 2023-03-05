@@ -1,6 +1,7 @@
 ﻿@using Cheetah_DataAccess.Data
 @using System.ComponentModel;
 @using Cheetah_DataAccess.Dimentions;
+@using Cheetah_Common;
 @typeparam TEntity where TEntity : BaseClass<TEntity>
 @inject IGeneralRepository<TEntity> iGeneralRepository;
 @inject NavigationManager _NavigationManager;
@@ -27,12 +28,18 @@
                     <label>ایندکس</label>
                     <InputNumber @bind-Value="Record.PIndex" class="form-control"></InputNumber>
                     <ValidationMessage For="@(() => Record.PIndex)" />
+                    <label>نام نمایشی</label>
+                    <InputText class="form-control"
+                           @bind-Value="Record.PDescription"></InputText>
+                    <ValidationMessage For="@(() => Record.PDescription)" />
                     <label>نام</label>
                     <InputText @bind-Value="Record.PName" class="form-control"></InputText>
                     <ValidationMessage For="@(() => Record.PName)" />
-                    <label>نام نمایشی</label>
-                    <InputText @bind-Value="Record.PDescription" class="form-control"></InputText>
-                    <ValidationMessage For="@(() => Record.PDescription)" />
+
+                    @if (RowTemplate is not null)
+                    {
+                        @RowTemplate
+                    }
                     @*<label>نوع پارامترها</label>
                 @foreach (var item in p_ParameterListDTO.PL_ParameterType)
                 {
@@ -53,13 +60,16 @@
 @code {
     [Parameter]
     public Boolean IsLoading { get; set; } = true;
-
     [Parameter]
     public TEntity Record { get; set; }
     [Parameter]
     public String? Name { get; set; }
     [Parameter]
+    public String Type { get; set; }
+    [Parameter]
     public String? Title { get; set; }
+    [Parameter]
+    public RenderFragment? RowTemplate { get; set; }
 
     private async Task UpsertTask()
     {
