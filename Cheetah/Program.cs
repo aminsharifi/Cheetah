@@ -22,6 +22,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
+builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 builder.Services.AddScoped(typeof(IGeneralLinkRepository<>), typeof(GeneralLinkRepository<>));
 
 //builder.Services.AddScoped<IGeneralRepository<D_ParameterList>, P_ParameterListRepository>();

@@ -22,12 +22,13 @@ namespace Cheetah_DataAccess.Links
     {
         #region Simple Prob
         [Column(Order = 100)]
-        [ForeignKey("FirstId")]
-        public virtual D_Skill? US_Skill { get; set; }
-        [Column(Order = 101)]        
-        [ForeignKey("SecondId")]
+        [ForeignKey("FirstId")]        
         public virtual D_User? US_User { get; set; }
 
+        [Column(Order = 101)]
+        [ForeignKey("SecondId")]
+        public virtual D_Skill? US_Skill { get; set; }
+       
         #endregion
 
         #region Collection

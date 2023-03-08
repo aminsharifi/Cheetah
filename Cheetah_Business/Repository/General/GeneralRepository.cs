@@ -2,15 +2,19 @@
 {
     using AutoMapper;
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Dimentions;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
+    using System.Runtime.ConstrainedExecution;
     using System.Threading.Tasks;
+    using System.Xml.Linq;
 
     public class GeneralRepository<T> : IGeneralRepository<T> where T : BaseClass<T>, new()
     {
-        protected readonly ApplicationDbContext _db;
-        protected readonly IMapper _mapper;
+        protected ApplicationDbContext _db;
+        protected IMapper _mapper;
         public GeneralRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
@@ -65,20 +69,12 @@
                 return obj;
             }
         }
-
         public async Task<IEnumerable<T>> GetAll()
         {
             var P_ParameterLists = await _db.Set<T>().ToListAsync();
 
             return P_ParameterLists;
         }
-        public async Task<IEnumerable<Object>> GetAllByName(String Name)
-        {
-            var P_ParameterLists = await _db.Set<T>().ToListAsync();
-
-            return P_ParameterLists;
-        }
-
         public async Task<T> Update(T obj_DTO)
         {
             var obj = await _db.Set<T>().FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
@@ -92,6 +88,5 @@
             }
             return obj_DTO;
         }
-
     }
 }

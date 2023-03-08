@@ -64,6 +64,11 @@
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<SimpleClass>> GetAllByName(Type type)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<D_ParameterType> Update(D_ParameterType obj_DTO)
         {
             var obj = await _db.P_ParameterTypes.FirstOrDefaultAsync(u => u.Id == obj_DTO.Id);
@@ -76,5 +81,6 @@
             }
             return obj_DTO;
         }
+
     }
 }

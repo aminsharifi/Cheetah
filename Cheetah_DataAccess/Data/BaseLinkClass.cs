@@ -7,12 +7,10 @@ namespace Cheetah_DataAccess.Data
 {
     public abstract class BaseLinkClass<I> : BaseClass<I>
     {
-        [Description("شناسه اول")]
         [Column(Order = 50)]
         [Required]
         public Int64 FirstId { get; set; }
 
-        [Description("شناسه دوم")]
         [Column(Order = 51)]
         public Int64 SecondId { get; set; }
     }
