@@ -1,27 +1,14 @@
 ﻿@page "/Dimentions/Parameters/List"
 @page "/Dimentions/Parameters/List/{Name}"
-@page "/Dimentions/Parameters/List/{Name}/{type}/{Id:long}"
+@page "/Dimentions/Parameters/List/{Name}/{type}/{Id:long}/{reference}"
 @using Cheetah_Common;
 @using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
 @using Cheetah_DataAccess.Links;
+@using System.Linq;
+@using Microsoft.CodeAnalysis.CSharp.Scripting;
 
-@inject IGeneralRepository<D_Area> iD_AreaRepository;
-@inject IGeneralRepository<D_FieldType> iD_FieldTypeRepository;
-@inject IGeneralRepository<D_Location> iD_LocationRepository;
-@inject IGeneralRepository<D_Operand> iD_OperandRepository;
-@inject IGeneralRepository<D_ParameterList> iD_ParameterListRepository;
-@inject IGeneralRepository<D_ParameterType> iD_ParameterTypeRepository;
-@inject IGeneralRepository<D_Position> iD_PositionRepository;
-@inject IGeneralRepository<D_ProcessEndorsement> iD_ProcessEndorsementRepository;
-@inject IGeneralRepository<D_ProcessState> iD_ProcessStateRepository;
-@inject IGeneralRepository<D_RequestTitle> iD_RequestTitleRepository;
-@inject IGeneralRepository<D_Role> iD_RoleRepository;
-@inject IGeneralRepository<D_Skill> iD_SkillRepository;
-@inject IGeneralRepository<D_SubRequestTitle> iD_SubRequestTitleRepository;
-@inject IGeneralRepository<D_UnitType> iD_UnitTypeRepository;
-@inject IGeneralRepository<D_User> iD_UserRepository;
-@inject IGeneralLinkRepository<L_UserArea> iL_UserAreaRepository;
+@inject ISimpleClassRepository simpleClassRepository;
 @inject IJSRuntime _jSRuntime;
 @inject NavigationManager _NavigationManager;
 
@@ -61,7 +48,9 @@
             <div class="col-2 offset-2">
                 @if (type == SD.First || type == SD.Second)
                 {
-                    <a href="@($"/Upsert_Link/Create/{Name}/{type}/0/{Id}/ddddd")" class="btn btn-primary form-control">افزودن</a>
+                    <a href="@($"/{reference.Replace("*","/")}")" class="btn btn-secondary form-control">برگشت</a>
+                    <br />
+                    <a href="@($"/Upsert_Link/Create/{Name}/{type}/0/{Id}/{reference}")" class="btn btn-primary form-control">افزودن</a>
                 }
                 else
                 {
@@ -69,11 +58,14 @@
                 }
             </div>
             <br />
-            <ListGenericTypeItems Records="@Records" 
-                ConfirmationDelete="HandleDelete" type="@type">
-            </ListGenericTypeItems>
+            @if (Records.Count > 0)
+            {
+                <ListGenericTypeItems Records="@Records"
+                              ConfirmationDelete="HandleDelete" type="@type" reference="@reference">
+                </ListGenericTypeItems>
+            }
         }
-        else
+        @if (Records == null || Records.Count == 0)
         {
             if (IsLoading)
             {
@@ -95,6 +87,8 @@
     public String Name { get; set; }
     [Parameter]
     public String? type { get; set; }
+    [Parameter]
+    public String? reference { get; set; }
 
     public dynamic Records { get; set; }
 
@@ -121,63 +115,9 @@
     {
         IsLoading = true;
         StateHasChanged();
-        switch (Name)
+        if (!String.IsNullOrEmpty(Name))
         {
-            case "D_Area":
-                Records = await iD_AreaRepository.GetAll();
-                break;
-            case "D_FieldType":
-                Records = await iD_FieldTypeRepository.GetAll();
-                break;
-            case "D_Location":
-                Records = await iD_LocationRepository.GetAll();
-                break;
-            case "D_Operand":
-                Records = await iD_OperandRepository.GetAll();
-                break;
-            case "D_ParameterList":
-                Records = await iD_ParameterListRepository.GetAll();
-                break;
-            case "D_ParameterType":
-                Records = await iD_ParameterTypeRepository.GetAll();
-                break;
-            case "D_Position":
-                Records = await iD_PositionRepository.GetAll();
-                break;
-            case "D_ProcessEndorsement":
-                Records = await iD_ProcessEndorsementRepository.GetAll();
-                break;
-            case "D_ProcessState":
-                Records = await iD_ProcessStateRepository.GetAll();
-                break;
-            case "D_RequestTitle":
-                Records = await iD_RequestTitleRepository.GetAll();
-                break;
-            case "D_Role":
-                Records = await iD_RoleRepository.GetAll();
-                break;
-            case "D_Skill":
-                Records = await iD_SkillRepository.GetAll();
-                break;
-            case "D_SubRequestTitle":
-                Records = await iD_SubRequestTitleRepository.GetAll();
-                break;
-            case "D_UnitType":
-                Records = await iD_UnitTypeRepository.GetAll();
-                break;
-            case "D_User":
-                Records = await iD_UserRepository.GetAll();
-                break;
-            case "L_UserArea":
-                if (type == SD.First)
-                    Records = await iL_UserAreaRepository.GetAllFirst(Id.Value);
-                if (type == SD.Second)
-                    Records = await iL_UserAreaRepository.GetAllSecond(Id.Value);
-                break;
-
-            default:
-                Records = null;
-                break;
+            Records = await simpleClassRepository.GetAllByName(Name);
         }
         IsLoading = false;
         StateHasChanged();
@@ -185,66 +125,14 @@
     private async void HandleDelete(long id)
     {
         DeleteidRole = id;
-        var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "آیا مطمئن هستید؟"); // Confirm
+        var isConfirmed = await _jSRuntime.InvokeAsync<bool>
+    ("confirm", "آیا مطمئن هستید؟"); // Confirm
         if (isConfirmed)
         {
             IsLoading = true;
             if (isConfirmed && DeleteidRole != 0)
             {
-                switch (Name)
-                {
-                    case "D_Area":
-                        await iD_AreaRepository.delete(DeleteidRole);
-                        break;
-                    case "D_FieldType":
-                        await iD_FieldTypeRepository.delete(DeleteidRole);
-                        break;
-                    case "D_Location":
-                        await iD_LocationRepository.delete(DeleteidRole);
-                        break;
-                    case "D_Operand":
-                        await iD_OperandRepository.delete(DeleteidRole);
-                        break;
-                    case "D_ParameterList":
-                        await iD_ParameterListRepository.delete(DeleteidRole);
-                        break;
-                    case "D_ParameterType":
-                        await iD_ParameterTypeRepository.delete(DeleteidRole);
-                        break;
-                    case "D_Position":
-                        await iD_PositionRepository.delete(DeleteidRole);
-                        break;
-                    case "D_ProcessEndorsement":
-                        await iD_ProcessEndorsementRepository.delete(DeleteidRole);
-                        break;
-                    case "D_ProcessState":
-                        await iD_ProcessStateRepository.delete(DeleteidRole);
-                        break;
-                    case "D_RequestTitle":
-                        await iD_RequestTitleRepository.delete(DeleteidRole);
-                        break;
-                    case "D_Role":
-                        await iD_RoleRepository.delete(DeleteidRole);
-                        break;
-                    case "D_Skill":
-                        await iD_SkillRepository.delete(DeleteidRole);
-                        break;
-                    case "D_SubRequestTitle":
-                        await iD_SubRequestTitleRepository.delete(DeleteidRole);
-                        break;
-                    case "D_UnitType":
-                        await iD_UnitTypeRepository.delete(DeleteidRole);
-                        break;
-                    case "D_User":
-                        await iD_UserRepository.delete(DeleteidRole);
-                        break;
-                    case "L_UserArea":
-                        Records = await iL_UserAreaRepository.delete(DeleteidRole);
-                        break;
-                    default:
-
-                        break;
-                }
+                await simpleClassRepository.delete(Name, DeleteidRole);
                 await LoadRecords();
                 await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
             }
@@ -256,57 +144,7 @@
         IsLoading = true;
         if (isConfirmed && DeleteidRole != 0)
         {
-            switch (Name)
-            {
-                case "D_Area":
-                    await iD_AreaRepository.delete(DeleteidRole);
-                    break;
-                case "D_FieldType":
-                    await iD_FieldTypeRepository.delete(DeleteidRole);
-                    break;
-                case "D_Location":
-                    await iD_LocationRepository.delete(DeleteidRole);
-                    break;
-                case "D_Operand":
-                    await iD_OperandRepository.delete(DeleteidRole);
-                    break;
-                case "D_ParameterList":
-                    await iD_ParameterListRepository.delete(DeleteidRole);
-                    break;
-                case "D_ParameterType":
-                    await iD_ParameterTypeRepository.delete(DeleteidRole);
-                    break;
-                case "D_Position":
-                    await iD_PositionRepository.delete(DeleteidRole);
-                    break;
-                case "D_ProcessEndorsement":
-                    await iD_ProcessEndorsementRepository.delete(DeleteidRole);
-                    break;
-                case "D_ProcessState":
-                    await iD_ProcessStateRepository.delete(DeleteidRole);
-                    break;
-                case "D_RequestTitle":
-                    await iD_RequestTitleRepository.delete(DeleteidRole);
-                    break;
-                case "D_Role":
-                    await iD_RoleRepository.delete(DeleteidRole);
-                    break;
-                case "D_Skill":
-                    await iD_SkillRepository.delete(DeleteidRole);
-                    break;
-                case "D_SubRequestTitle":
-                    Records = await iD_SubRequestTitleRepository.delete(DeleteidRole);
-                    break;
-                case "D_UnitType":
-                    await iD_UnitTypeRepository.delete(DeleteidRole);
-                    break;
-                case "D_User":
-                    await iD_UserRepository.delete(DeleteidRole);
-                    break;
-                case "L_UserArea":
-                    Records = await iL_UserAreaRepository.delete(DeleteidRole);
-                    break;
-            }
+            await simpleClassRepository.delete(Name, DeleteidRole);
             await LoadRecords();
             await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
         }

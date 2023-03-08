@@ -1,34 +1,29 @@
-﻿@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}/{Ref}"
+﻿@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}"
+@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}/{reference}"
+@page "/Upsert_Link/Edit/{Name}/{type}/{Id:long}/{reference}"
 @using Cheetah_Common;
 @using Cheetah_DataAccess.Dimentions;
 @using Cheetah_DataAccess.Links;
 @using Cheetah_DataAccess.Facts;
 
-@inject IGeneralRepository<D_Area> iD_AreaRepository;
 @inject IGeneralRepository<D_User> iD_UserRepository;
+@inject IGeneralRepository<D_Area> iD_AreaRepository;
 @inject IGeneralLinkRepository<L_UserArea> iUserAreaRepository;
 @inject NavigationManager _NavigationManager;
 
-<FormGenericTypeItems Record="@Record"
-                      Name="@Name" Title="@Title" IsLoading="@IsLoading">
-    <RowTemplate>
-        @if (type == SD.First)
-        {
-            <label>کاربر</label>
-            <InputSelect @bind-Value="Record.FirstId" class="form-control">
-                @if (Record.UA_User is null)
-                {
-                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                }
-                @foreach (var d_User in d_Users)
-                {
-                    <option value="@d_User.Id">شناسه: @d_User.Id | نام: @d_User.PName | نام فارسی: @d_User.PDescription</option>
-                }
-                <ValidationMessage For="@(() => Record.UA_User)" />
-            </InputSelect>
-            <label>واحد</label>
-            <InputSelect @bind-Value="Record.SecondId" class="form-control">
-                @if (Record.UA_Area is null)
+@if (!IsLoading)
+{
+    <FormGenericTypeItems Record="@Record" type="@type" LinkId="@LinkId"
+                      Id="@Id" Name="@Name" Title="@Title" IsLoading="@IsLoading"
+                      reference="@reference">
+        <RowTemplate>
+            @if (type == SD.First)
+            {
+                <label>کاربر</label>
+                <label class="form-control">شناسه: @d_Users.First().Id | نام: @d_Users.First().PName | نام فارسی: @d_Users.First().PDescription</label>
+                <label>واحد</label>
+                <InputSelect @bind-Value="Record.SecondId" class="form-control">
+                    @if (Record.UA_Area is null)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                 }
@@ -38,12 +33,12 @@
                 }
                 <ValidationMessage For="@(() => Record.UA_Area)" />
             </InputSelect>
-        }
-        else if (type == SD.Second)
-        {
-            <label>کاربر</label>
-            <InputSelect @bind-Value="Record.FirstId" class="form-control">
-                @if (Record.UA_User is null)
+            }
+            else if (type == SD.Second)
+            {
+                <label>کاربر</label>
+                <InputSelect @bind-Value="Record.FirstId" class="form-control">
+                    @if (Record.UA_User is null)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                 }
@@ -53,22 +48,12 @@
                 }
                 <ValidationMessage For="@(() => Record.UA_User)" />
             </InputSelect>
-            <label>واحد</label>
-            <InputSelect @bind-Value="Record.SecondId" class="form-control">
-                @if (Record.UA_Area is null)
-                {
-                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                }
-                @foreach (var d_Area in d_Areas)
-                {
-                    <option value="@d_Area.Id">شناسه: @d_Area.Id | نام: @d_Area.PName | نام فارسی: @d_Area.PDescription</option>
-                }
-                <ValidationMessage For="@(() => Record.UA_Area)" />
-            </InputSelect>
-        }
-        <NavLink href="@Ref" class="btn btn-secondary">برگشت</NavLink>
-    </RowTemplate>
-</FormGenericTypeItems>
+                <label>واحد</label>
+                <label class="form-control">شناسه: @d_Areas.First().Id | نام: @d_Areas.First().PName | نام فارسی: @d_Areas.First().PDescription</label>
+            }
+        </RowTemplate>
+    </FormGenericTypeItems>
+}
 
 @code {
     [Parameter]
@@ -78,9 +63,9 @@
     [Parameter]
     public String? Name { get; set; } = "L_UserArea";
     [Parameter]
-    public String type { get; set; }
+    public String? reference { get; set; }
     [Parameter]
-    public String Ref { get; set; }
+    public String type { get; set; }
 
     public L_UserArea Record { get; set; }
 
@@ -111,19 +96,25 @@
 
         if (type == SD.First)
         {
-            Record.FirstId = LinkId;
+            if (Record.FirstId == null || Record.FirstId == 0)
+            {
+                Record.FirstId = LinkId;
+            }
             var Tmp = new List<D_User>();
             Tmp.Add(
-                await iD_UserRepository.Get(LinkId));
+                await iD_UserRepository.Get(Record.FirstId));
             d_Users = Tmp;
             d_Areas = await iD_AreaRepository.GetAll();
         }
         else if (type == SD.Second)
         {
-            Record.SecondId = LinkId;
+            if (Record.SecondId == null || Record.SecondId == 0)
+            {
+                Record.SecondId = LinkId;
+            }
             d_Users = await iD_UserRepository.GetAll();
             var Tmp = new List<D_Area>();
-            Tmp.Add(await iD_AreaRepository.Get(LinkId));
+            Tmp.Add(await iD_AreaRepository.Get(Record.SecondId));
             d_Areas = Tmp;
         }
 

@@ -25,6 +25,6 @@ namespace Cheetah_DataAccess.Links
         public virtual D_Role? UP_Role { get; set; }
         [Column(Order = 101)]
         [ForeignKey("SecondId")]
-        public virtual D_Position? UP_PositionOrg { get; set; }
+        public virtual D_Position? UP_Position { get; set; }
     }
 }

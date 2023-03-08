@@ -20,12 +20,14 @@ namespace Cheetah_DataAccess.Links
     [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
     public partial class L_UserRole : BaseLinkClass<L_UserRole>
     {
-        [Column(Order = 100)]
-        [ForeignKey("FirstId")]
-        public virtual D_Role? UR_Role { get; set; }
         [Column(Order = 101)]
-        [ForeignKey("SecondId")]
+        [ForeignKey("FirstId")]        
         public virtual D_User? UR_User { get; set; }
+
+        [Column(Order = 100)]
+        [ForeignKey("SecondId")]
+        public virtual D_Role? UR_Role { get; set; }
+        
 
     }
 }
