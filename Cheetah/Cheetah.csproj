@@ -29,6 +29,7 @@
     <ProjectReference Include="..\Cheetah_Business\Cheetah_Business.csproj" />
     <ProjectReference Include="..\Cheetah_Common\Cheetah_Common.csproj" />
     <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
+    <ProjectReference Include="..\Cheetah_Models\Cheetah_Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

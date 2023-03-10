@@ -12,6 +12,7 @@ using Cheetah_DataAccess.Masters;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Cheetah_DataAccess.Dimentions;
 using Cheetah_DataAccess.Links;
+using System.Transactions;
 
 namespace Cheetah_DataAccess.Data
 {
@@ -19,7 +20,7 @@ namespace Cheetah_DataAccess.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-           
+            
         }
         public virtual DbSet<D_ParameterType> P_ParameterTypes { get; set; }
         public virtual DbSet<D_ParameterList> P_ParameterLists { get; set; }
