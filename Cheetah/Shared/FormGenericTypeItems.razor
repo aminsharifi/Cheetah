@@ -3,7 +3,6 @@
 @using Cheetah_DataAccess.Dimentions;
 @using Cheetah_Common;
 @typeparam TEntity where TEntity : SimpleClass
-@*@inject IGeneralRepository<TEntity> iGeneralRepository;*@
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
@@ -15,7 +14,7 @@
         {
             <h1>در حال بارگیری اطلاعات ...</h1>
         }
-        else
+        else if(Record != null)
         {
             <EditForm Model="Record" OnValidSubmit="UpsertTask">
                 <DataAnnotationsValidator />
@@ -36,7 +35,6 @@
                     <label>نام</label>
                     <InputText @bind-Value="Record.PName" class="form-control"></InputText>
                     <ValidationMessage For="@(() => Record.PName)" />
-
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate
@@ -88,14 +86,15 @@
 
     private async Task UpsertTask()
     {
+
         var RecordId = Record.Id;
         if (RecordId > 0)
         {
-            Record = await simpleClassRepository.Update(Record) as TEntity;
+            Record = await  simpleClassRepository.Update(Record) as TEntity;
         }
         else
         {
-            Record = await simpleClassRepository.Create(Record) as TEntity;
+            Record = await  simpleClassRepository.Create(Record) as TEntity;
         }
 
         if (type == SD.First || type == SD.Second)

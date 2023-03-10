@@ -9,13 +9,15 @@
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
-<FormGenericTypeItems Record="@Record"
+<FormGenericTypeItems Record="@Record" 
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
     <RowTemplate>
 
         <label>نوع واحد</label>
 
-        <InputSelect @bind-Value="Record.Area_UnitTypeId" class="form-control">
+        <select @bind-value="Record.Area_UnitTypeId" @bind-value:event="oninput"
+                @onchange="SelectedProcessesChanged" class="form-control">
+
             @if (Record.Area_UnitType == null)
             {
                 <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
@@ -24,7 +26,7 @@
             {
                 <option value="@unitType.Id">شناسه: @unitType.Id | نام: @unitType.PName | نام فارسی: @unitType.PDescription</option>
             }
-        </InputSelect>
+        </select>
         <ValidationMessage For="@(() => Record.Area_UnitTypeId)" />
 
         <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}")"
@@ -57,7 +59,14 @@
             await LoadDTO();
         }
     }
-
+    private async Task SelectedProcessesChanged(ChangeEventArgs e)
+    {
+        if (e.Value is not null)
+        {
+            var Area_UnitTypeId = Int64.Parse(e.Value.ToString());
+            Record.Area_UnitType = await simpleClassRepository.Get("D_UnitType", Area_UnitTypeId) as D_UnitType;
+        }
+    }
     private async Task LoadDTO()
     {
         IsLoading = true;
