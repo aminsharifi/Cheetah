@@ -1,6 +1,6 @@
 ﻿namespace Cheetah_DataModel
 {
-    public class Class1
+    public class SimpleClassDTO : SimpleClass
     {
 
     }

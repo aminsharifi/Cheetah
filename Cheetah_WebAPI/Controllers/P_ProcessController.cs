@@ -8,7 +8,6 @@ namespace Cheetah_WebAPI.Controllers
     [ApiController]
     public class P_ProcessController : ControllerBase
     {
-
         private readonly IProcessRepository _IProcessRepository;
         public P_ProcessController(IProcessRepository iProcessRepository)
         {

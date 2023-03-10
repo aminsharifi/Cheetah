@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cheetah_DataAccess.Data
-{
+{ 
     public abstract class BaseClass<I> : SimpleClass
     {
         [Column(Order = 10)]

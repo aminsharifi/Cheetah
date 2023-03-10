@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cheetah_DataAccess.Data
-{
-    public abstract class BaseLinkClass<I> : BaseClass<I>
+{ 
+    public abstract class SimpleLinkClass : SimpleClass
     {
         [Column(Order = 50)]
         [Required]

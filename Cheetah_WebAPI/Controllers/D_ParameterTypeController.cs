@@ -1,8 +1,9 @@
-﻿using Cheetah_Business.Repository.IRepository;
-using Cheetah_DataAccess.Dimentions;
-using Cheetah_DataAccess.Parameters;
+﻿using AutoMapper;
+using Cheetah_Business.Repository.IRepository;
+using Cheetah_DataAccess.Data;
 using Cheetah_Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace Cheetah_WebAPI.Controllers
 {
@@ -10,15 +11,28 @@ namespace Cheetah_WebAPI.Controllers
     [ApiController]
     public class D_ParameterTypeController : ControllerBase
     {
-        private readonly IGeneralRepository<D_ParameterType> _ParameterListRepository;
-        public D_ParameterTypeController(IGeneralRepository<D_ParameterType> iP_ParameterListRepository)
+        private readonly ISimpleClassRepository simpleClassRepository;
+        private readonly IMapper _mapper;
+        public D_ParameterTypeController(ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
         {
-            this._ParameterListRepository = iP_ParameterListRepository;
+            this._mapper = mapper;
+            this.simpleClassRepository = iP_ParameterListRepository;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _ParameterListRepository.GetAll());
+            var D_ParameterList = await simpleClassRepository.GetAllByName("D_ParameterList") as IEnumerable<SimpleClass>;
+            var simpleClassDTO = new List<SimpleClassDTO>();
+            foreach (var SimpleClassDTO in D_ParameterList)
+            {
+                simpleClassDTO.Add(new SimpleClassDTO()
+                {
+                    Id = SimpleClassDTO.Id,
+                    PName = SimpleClassDTO.PName,
+                    PDescription = SimpleClassDTO.PDescription
+                });
+            }
+            return Ok(simpleClassDTO);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long? id)
@@ -32,9 +46,9 @@ namespace Cheetah_WebAPI.Controllers
                 });
             }
 
-            var P_ParameterList = await _ParameterListRepository.Get(id.Value);
+            var P_ParameterList = await simpleClassRepository.Get("P_ParameterList", id.Value);
 
-            if(P_ParameterList == null)
+            if (P_ParameterList == null)
             {
                 return BadRequest(new ErrorModelDTO()
                 {
@@ -43,7 +57,7 @@ namespace Cheetah_WebAPI.Controllers
                 });
             }
 
-            return Ok( P_ParameterList);
+            return Ok(P_ParameterList);
         }
     }
 }

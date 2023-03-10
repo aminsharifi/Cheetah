@@ -15,10 +15,9 @@ namespace Cheetah_DataAccess.Links
     [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-    [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
     [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
-    public partial class L_UserLocation : BaseLinkClass<L_UserLocation>
+    public partial class L_UserLocation : SimpleLinkClass
     {
         [Column(Order = 100)]
         [ForeignKey("FirstId")]

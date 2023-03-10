@@ -1,31 +1,34 @@
-﻿using Cheetah_Business.Repository.IRepository;
+﻿using AutoMapper;
+using Cheetah_Business.Repository.IRepository;
+using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Dimentions;
-using Cheetah_DataAccess.Parameters;
 using Cheetah_Models;
 using Newtonsoft.Json;
 
 namespace Cheetah_Client.Service
 {
-    public class D_ParameterTypeService : IGeneralRepository<D_ParameterType>
+    public class D_ParameterTypeService : ISimpleClassRepository
     {
 
         private readonly HttpClient _httpClient;
         private IConfiguration _configuration;
         private string BaseServerUrl;
+        
         public D_ParameterTypeService(HttpClient httpClient, IConfiguration configuration)
         {
+            
             _httpClient = httpClient;
             _configuration = configuration;
             BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
 
-        public async Task<D_ParameterType> Get(long? RecordId)
+        public async Task<SimpleClassDTO> Get(long? RecordId)
         {
             var response = await _httpClient.GetAsync($"/D_ParameterType/{RecordId}");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var p_ParameterList = JsonConvert.DeserializeObject<D_ParameterType>(content);
+                var p_ParameterList = JsonConvert.DeserializeObject<SimpleClassDTO>(content);
                 //product.ImageUrl=BaseServerUrl+product.ImageUrl;
                 return p_ParameterList;
             }
@@ -39,6 +42,7 @@ namespace Cheetah_Client.Service
         public async Task<IEnumerable<D_ParameterType>> GetAll()
         {
             var response = await _httpClient.GetAsync("/D_ParameterType");
+
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -47,6 +51,7 @@ namespace Cheetah_Client.Service
                 {
                     //prod.ImageUrl=BaseServerUrl+prod.ImageUrl;
                 }
+
                 return ParameterLists;
             }
             return new List<D_ParameterType>();
@@ -67,7 +72,58 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<object>> GetAllByName(string Name)
+        public async Task<IEnumerable<SimpleClass>> GetAllByName(string Name)
+        {
+            var response = await _httpClient.GetAsync("/" + Name);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<SimpleClassDTO>>(content);
+                return ParameterLists;
+            }
+            return null;
+        }
+
+        public Task<int> delete(string type, long id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task<IEnumerable<KeyValuePair<string, string>>> GetAllTableName(string SchemaName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<SimpleLinkClass>> GetAllLink(string type, string sd_Status, long linkID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<SimpleClass> Get(string type, long? id)
+        {
+            var response = await _httpClient.GetAsync($"/D_ParameterType/{id}");
+            var content = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                var p_ParameterList = JsonConvert.DeserializeObject<SimpleClass>(content);
+                //product.ImageUrl=BaseServerUrl+product.ImageUrl;
+                return p_ParameterList;
+            }
+            else
+            {
+                var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+                throw new Exception(errorModel.ErorrMessage);
+            }
+        }
+
+        public Task<SimpleClass> Create(SimpleClass obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SimpleClass> Update(SimpleClass obj_DTO)
         {
             throw new NotImplementedException();
         }
