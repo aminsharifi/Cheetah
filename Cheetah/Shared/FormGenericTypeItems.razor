@@ -2,8 +2,9 @@
 @using System.ComponentModel;
 @using Cheetah_DataAccess.Dimentions;
 @using Cheetah_Common;
-@typeparam TEntity where TEntity : BaseClass<TEntity>
-@inject IGeneralRepository<TEntity> iGeneralRepository;
+@typeparam TEntity where TEntity : SimpleClass
+@*@inject IGeneralRepository<TEntity> iGeneralRepository;*@
+@inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
 <div class="row my-4" style="direction:rtl">
@@ -61,7 +62,6 @@
                     }
                 </div>
             </EditForm>
-
         }
     </div>
 </div>
@@ -88,17 +88,19 @@
 
     private async Task UpsertTask()
     {
-        if (Record.Id > 0)
+        var RecordId = Record.Id;
+        if (RecordId > 0)
         {
-            await iGeneralRepository.Update(Record);
+            Record = await simpleClassRepository.Update(Record) as TEntity;
         }
         else
         {
-            await iGeneralRepository.Create(Record);
+            Record = await simpleClassRepository.Create(Record) as TEntity;
         }
-        @if (type == SD.First || type == SD.Second)
+
+        if (type == SD.First || type == SD.Second)
         {
-            _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{Id}/{reference}");
+            _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{reference}");
         }
         else
         {

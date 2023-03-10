@@ -15,28 +15,16 @@
 <_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 
 <div style="direction:rtl">
-    @if (type != SD.First && type != SD.Second)
+    @if (keyValuePair != null && type != SD.First && type != SD.Second)
     {
         <div class="row mt-4">
             <div class="col-6">
                 <h4 class="card-title text-primary">انتخاب پارامتر</h4>
                 <select value=@Name bind=@Name @onchange="SelectedProcessesChanged">
-                    <option value="">یک جدول را انتخاب نمایید</option>
-                    <option value="D_Area">ناحیه</option>
-                    <option value="D_FieldType">نوع فیلد</option>
-                    <option value="D_Location">موقعیت</option>
-                    <option value="D_Operand">عملگر</option>
-                    <option value="D_ParameterList">لیست پارامتر</option>
-                    <option value="D_ParameterType">نوع پارامتر</option>
-                    <option value="D_Position">موقعیت</option>
-                    <option value="D_ProcessEndorsement">تاییدها</option>
-                    <option value="D_ProcessState">وضعیت فرآیند</option>
-                    <option value="D_RequestTitle">نوع درخواست</option>
-                    <option value="D_Role">نقش</option>
-                    <option value="D_Skill">مهارت</option>
-                    <option value="D_SubRequestTitle">زیرفرآیند</option>
-                    <option value="D_UnitType">نوع واحد</option>
-                    <option value="D_User">کاربر</option>
+                    @foreach (var item in keyValuePair)
+                    {
+                        <option value="@item.Key">@item.Value</option>
+                    }
                 </select>
             </div>
         </div>
@@ -58,14 +46,14 @@
                 }
             </div>
             <br />
-            @if (Records.Count > 0)
+            @if (Records.Count() > 0)
             {
                 <ListGenericTypeItems Records="@Records"
                               ConfirmationDelete="HandleDelete" type="@type" reference="@reference">
                 </ListGenericTypeItems>
             }
         }
-        @if (Records == null || Records.Count == 0)
+        @if (Records == null || Records.Count() == 0)
         {
             if (IsLoading)
             {
@@ -90,7 +78,9 @@
     [Parameter]
     public String? reference { get; set; }
 
-    public dynamic Records { get; set; }
+    public IEnumerable<SimpleClass> Records { get; set; }
+
+    public IEnumerable<KeyValuePair<string, string>> keyValuePair { get; set; }
 
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
     {
@@ -108,14 +98,28 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-            await LoadRecords();
+            await FirstLoadRecords();
     }
 
+    private async Task FirstLoadRecords()
+    {
+        if (keyValuePair == null)
+            keyValuePair = await simpleClassRepository.GetAllTableName("Dimentions");
+
+        if (Name == null)
+            Name = keyValuePair.First().Value;
+
+        await LoadRecords();
+    }
     private async Task LoadRecords()
     {
         IsLoading = true;
         StateHasChanged();
-        if (!String.IsNullOrEmpty(Name))
+        if (Name == "L_UserArea")
+        {
+            Records = await simpleClassRepository.GetAllLink(Name, type, Id.Value);
+        }
+        else
         {
             Records = await simpleClassRepository.GetAllByName(Name);
         }

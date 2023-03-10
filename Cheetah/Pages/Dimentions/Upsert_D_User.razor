@@ -1,9 +1,10 @@
 ﻿@page "/Dimentions/Create/D_User"
 @page "/Dimentions/Edit/D_User/{Id:long}"
 
+@using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
 
-@inject IGeneralRepository<D_User> iGeneralRepository;
+@inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
 <FormGenericTypeItems Record="@Record"
@@ -15,7 +16,7 @@
     [Parameter]
     public String? Name { get; set; } = "D_User";
 
-    public D_User Record { get; set; }
+    public SimpleClass Record { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -25,7 +26,7 @@
     {
         if (firstRender)
         {
-            Title = (Id > 0) ? "ویرایش" : "ایجاد";
+            Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
         }
     }
@@ -34,7 +35,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await iGeneralRepository.Get(Id);
+        Record = await simpleClassRepository.Get("D_User",Id);
         IsLoading = false;
         StateHasChanged();
     }

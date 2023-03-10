@@ -1,9 +1,10 @@
 ﻿@page "/Dimentions/Create/D_SubRequestTitle"
 @page "/Dimentions/Edit/D_SubRequestTitle/{Id:long}"
+@using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
 
 
-@inject IGeneralRepository<D_ParameterType> iGeneralRepository;
+@inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
 <FormGenericTypeItems Record="@Record"
@@ -15,7 +16,7 @@
     [Parameter]
     public String? Name { get; set; } = "D_SubRequestTitle";
 
-    public D_ParameterType? Record { get; set; }
+    public SimpleClass? Record { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -25,7 +26,7 @@
     {
         if (firstRender)
         {
-            Title = (Id > 0) ? "ویرایش" : "ایجاد";
+            Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
         }
     }
@@ -34,7 +35,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await iGeneralRepository.Get(Id);
+        Record = await simpleClassRepository.Get("D_SubRequestTitle", Id);
         IsLoading = false;
         StateHasChanged();
     }

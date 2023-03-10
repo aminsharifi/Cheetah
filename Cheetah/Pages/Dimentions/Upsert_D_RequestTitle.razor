@@ -1,9 +1,10 @@
 ﻿@page "/Dimentions/Create/D_RequestTitle"
 @page "/Dimentions/Edit/D_RequestTitle/{Id:long}"
+@using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
 
 
-@inject IGeneralRepository<D_RequestTitle> iGeneralRepository;
+@inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 <FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
@@ -14,7 +15,7 @@
     [Parameter]
     public String? Name { get; set; } = "D_RequestTitle";
 
-    public D_RequestTitle Record { get; set; }
+    public SimpleClass Record { get; set; }
 
 
     private String Title { get; set; } = "ایجاد";
@@ -25,7 +26,7 @@
     {
         if (firstRender)
         {
-            Title = (Id > 0) ? "ویرایش" : "ایجاد";
+            Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
         }
     }
@@ -34,7 +35,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await iGeneralRepository.Get(Id);
+        Record = await simpleClassRepository.Get(Name,Id);
         IsLoading = false;
         StateHasChanged();
     }

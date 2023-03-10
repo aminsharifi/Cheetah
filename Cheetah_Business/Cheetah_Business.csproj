@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
-    <ProjectReference Include="..\Cheetah_Models\Cheetah_Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

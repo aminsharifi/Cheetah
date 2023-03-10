@@ -1,21 +1,22 @@
 ﻿@page "/Dimentions/Create/D_Area"
 @page "/Dimentions/Edit/D_Area/{Id:long}"
 @using Cheetah_Common;
+@using Cheetah_DataAccess.Data;
 @using Cheetah_DataAccess.Dimentions;
 @using Cheetah_DataAccess.Links;
 @using Cheetah_DataAccess.Facts;
 
-@inject IGeneralRepository<D_Area> iGeneralRepository;
-@inject IGeneralRepository<D_UnitType> iUnitTypeRepository;
-@inject IGeneralLinkRepository<L_UserArea> iUserAreaRepository;
+@inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
 <FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
     <RowTemplate>
+
         <label>نوع واحد</label>
+
         <InputSelect @bind-Value="Record.Area_UnitTypeId" class="form-control">
-            @if (Record.Area_UnitType is null)
+            @if (Record.Area_UnitType == null)
             {
                 <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
             }
@@ -23,11 +24,13 @@
             {
                 <option value="@unitType.Id">شناسه: @unitType.Id | نام: @unitType.PName | نام فارسی: @unitType.PDescription</option>
             }
-            <ValidationMessage For="@(() => Record.Area_UnitType)" />
         </InputSelect>
+        <ValidationMessage For="@(() => Record.Area_UnitTypeId)" />
+
         <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}")"
                  class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
     </RowTemplate>
+
 </FormGenericTypeItems>
 
 @code {
@@ -38,9 +41,9 @@
 
     public D_Area Record { get; set; }
 
-    public IEnumerable<D_UnitType> unitTypes { get; set; }
+    public IEnumerable<SimpleClass> unitTypes { get; set; }
 
-    public IEnumerable<L_UserArea> UserAreas { get; set; }
+    public IEnumerable<SimpleClass> UserAreas { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -48,9 +51,9 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && Record is null)
         {
-            Title = (Id > 0) ? "ویرایش" : "ایجاد";
+            Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
         }
     }
@@ -59,8 +62,8 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await iGeneralRepository.Get(Id);
-        unitTypes = await iUnitTypeRepository.GetAll();
+        Record = await simpleClassRepository.Get("D_Area", Id) as D_Area;
+        unitTypes = await simpleClassRepository.GetAllByName("D_UnitType");
         IsLoading = false;
         StateHasChanged();
     }
