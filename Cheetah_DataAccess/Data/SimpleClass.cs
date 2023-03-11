@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,9 +10,9 @@ namespace Cheetah_DataAccess.Data
         [Description("شناسه")]
         [Column(Order = 0)]
         public Int64 Id { get; set; }
-         
+
         [Description("کد")]
-        [Required(ErrorMessage ="کد اجباری است")]
+        [Required(ErrorMessage = "کد اجباری است")]
         [Column(Order = 1)]
         public Int64 PCode { get; set; }
 

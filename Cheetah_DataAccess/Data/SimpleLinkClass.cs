@@ -12,6 +12,7 @@ namespace Cheetah_DataAccess.Data
         public Int64 FirstId { get; set; }
 
         [Column(Order = 51)]
+        [Required]
         public Int64 SecondId { get; set; }
     }
 }

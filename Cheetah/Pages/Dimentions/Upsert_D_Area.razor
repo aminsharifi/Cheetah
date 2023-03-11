@@ -1,15 +1,11 @@
 ﻿@page "/Dimentions/Create/D_Area"
 @page "/Dimentions/Edit/D_Area/{Id:long}"
-@using Cheetah_Common;
-@using Cheetah_DataAccess.Data;
-@using Cheetah_DataAccess.Dimentions;
-@using Cheetah_DataAccess.Links;
-@using Cheetah_DataAccess.Facts;
+
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
-<FormGenericTypeItems Record="@Record" 
+<FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
     <RowTemplate>
 
@@ -61,7 +57,7 @@
     }
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
     {
-        if (e.Value is not null)
+        if (Id > 0 && e.Value is not null)
         {
             var Area_UnitTypeId = Int64.Parse(e.Value.ToString());
             Record.Area_UnitType = await simpleClassRepository.Get("D_UnitType", Area_UnitTypeId) as D_UnitType;
