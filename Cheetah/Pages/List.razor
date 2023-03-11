@@ -109,7 +109,10 @@
     {
         IsLoading = true;
         StateHasChanged();
-        if (Name == "L_UserArea")
+
+        var getTableType = DatabaseClass.GetTableType(Name);
+
+        if (getTableType == SD.TableType.Links)
         {
             Records = await simpleClassRepository.GetAllLink(Name, type, Id.Value);
         }
@@ -123,19 +126,8 @@
     private async void HandleDelete(long id)
     {
         DeleteidRole = id;
-        var isConfirmed = await _jSRuntime.InvokeAsync<bool>
-    ("confirm", "آیا مطمئن هستید؟"); // Confirm
-        if (isConfirmed)
-        {
-            IsLoading = true;
-            if (isConfirmed && DeleteidRole != 0)
-            {
-                await simpleClassRepository.delete(Name, DeleteidRole);
-                await LoadRecords();
-                await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
-            }
-            IsLoading = false;
-        }
+        var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "آیا مطمئن هستید؟"); // Confirm
+        await ConfirmDelete_Click(isConfirmed);
     }
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {

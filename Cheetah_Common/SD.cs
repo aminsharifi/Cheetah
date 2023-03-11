@@ -24,5 +24,12 @@ namespace Cheetah_Common
 
         public const string First = "First";
         public const string Second = "Second";
+
+        public enum TableType
+        {
+            Dimentions,
+            Links,
+            Facts
+        }
     }
 }
