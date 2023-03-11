@@ -3,8 +3,6 @@
     using AutoMapper;
     using Cheetah_Common;
     using Cheetah_DataAccess.Data;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -12,6 +10,7 @@
     public class SimpleClassRepository : ISimpleClassRepository
     {
         protected ApplicationDbContext _db;
+
         protected IMapper _mapper;
         public SimpleClassRepository(ApplicationDbContext db, IMapper mapper)
         {
@@ -28,8 +27,7 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
-                String schema = type.StartsWith("D") ? "Dimentions" : "Links";
-                Type gtype = Type.GetType("Cheetah_DataAccess." + schema + "." + type + ",Cheetah_DataAccess");
+                var gtype = DatabaseClass.GetDBType(type);
                 var obj = await _db.FindAsync(gtype, id);
 
                 if (obj != null)
@@ -45,9 +43,7 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
-                String schema = type.StartsWith("D") ? "Dimentions" : "Links";
-
-                Type gtype = Type.GetType("Cheetah_DataAccess." + schema + "." + type + ",Cheetah_DataAccess");
+                var gtype = DatabaseClass.GetDBType(type);
 
                 if (!id.HasValue)
                 {
@@ -55,9 +51,7 @@
                 }
                 if (id == 0)
                 {
-
-                    var method = _db.GetType().GetMethod("Set", new Type[0]).MakeGenericMethod(gtype);
-                    var aa = method.Invoke(_db, new object[0]) as IEnumerable<SimpleClass>;
+                    var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
                     var instance = (SimpleClass)Activator.CreateInstance(gtype);
                     instance.PCode = aa.Any() ? aa.Max(x => x.PCode) + 1 : 1;
                     instance.PIndex = aa.Any() ? aa.Max(x => x.PIndex) + 1 : 1;
@@ -76,9 +70,8 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
-                Type gtype = Type.GetType("Cheetah_DataAccess.Dimentions." + type + ",Cheetah_DataAccess");
-                var method = _db.GetType().GetMethod("Set", new Type[0]).MakeGenericMethod(gtype);
-                var aa = method.Invoke(_db, new object[0]) as IEnumerable<SimpleClass>;
+                var gtype = DatabaseClass.GetDBType(type);
+                var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
                 return await Task.FromResult(aa.ToList());
             }
             return new List<SimpleClass>();
@@ -87,18 +80,12 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
-                Type gtype = Type.GetType("Cheetah_DataAccess.Links." + type + ",Cheetah_DataAccess");
-                var method = _db.GetType().GetMethod("Set", new Type[0]).MakeGenericMethod(gtype);
-                var aa = method.Invoke(_db, new object[0]) as IEnumerable<SimpleLinkClass>;
+                var gtype = DatabaseClass.GetDBType(type);
+                var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleLinkClass>;
 
-                if (sd_Status == SD.First)
-                {
-                    return await Task.FromResult(aa.Where(x => x.FirstId == linkID).ToList());
-                }
-                else if (sd_Status == SD.Second)
-                {
-                    return await Task.FromResult(aa.Where(x => x.SecondId == linkID).ToList());
-                }
+                return await Task.FromResult(
+                    aa.Where(x => (x.FirstId == linkID && sd_Status == SD.First) ||
+                    (x.SecondId == linkID && sd_Status == SD.Second)).ToList());
             }
             return new List<SimpleLinkClass>();
         }
@@ -112,11 +99,8 @@
             }
             return new List<KeyValuePair<string, string>>();
         }
-
         public async Task<SimpleClass> Update(SimpleClass obj_DTO)
         {
-            var type = "D_Area";
-            Type gtype = Type.GetType("Cheetah_DataAccess.Dimentions." + type + ",Cheetah_DataAccess");
             _db.Update(obj_DTO);
             await _db.SaveChangesAsync();
             return obj_DTO;

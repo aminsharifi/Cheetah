@@ -1,18 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Metadata;
-using FluentAssertions.Common;
-using Cheetah_DataAccess.Parameters;
-using Cheetah_DataAccess.Masters;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Cheetah_DataAccess.Dimentions;
+﻿using Cheetah_DataAccess.Dimentions;
 using Cheetah_DataAccess.Links;
-using System.Transactions;
+using Cheetah_DataAccess.Masters;
+using Cheetah_DataAccess.Parameters;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Data
 {

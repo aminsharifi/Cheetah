@@ -1,10 +1,8 @@
 using Cheetah.Data;
 using Cheetah_Business.Repository.IRepository;
 using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Parameters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Transactions;
 
 var builder = WebApplication.CreateBuilder(args);
 

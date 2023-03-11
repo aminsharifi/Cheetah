@@ -1,8 +1,4 @@
-﻿@using Cheetah_DataAccess.Data
-@using System.ComponentModel;
-@using Cheetah_DataAccess.Dimentions;
-@using Cheetah_Common;
-@typeparam TEntity where TEntity : SimpleClass
+﻿@typeparam TEntity where TEntity : SimpleClass
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
@@ -14,14 +10,16 @@
         {
             <h1>در حال بارگیری اطلاعات ...</h1>
         }
-        else if(Record != null)
+        else if (Record != null)
         {
             <EditForm Model="Record" OnValidSubmit="UpsertTask">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="form-group">
-                    <label>شناسه</label>
-                    <input @bind="Record.Id" disabled="disabled" class="form-control"></input>
+                    <div hidden="@(Record.Id < 1)">
+                        <label>شناسه</label>
+                        <input @bind="Record.Id" disabled="disabled" class="form-control"></input>
+                    </div>
                     <label>کد</label>
                     <InputNumber @bind-Value="Record.PCode" class="form-control"></InputNumber>
                     <ValidationMessage For="@(() => Record.PCode)" />
@@ -68,7 +66,9 @@
     [Parameter]
     public Boolean IsLoading { get; set; } = true;
     [Parameter]
-    public long Id { get; set; } = 0;
+    public long? Id { get; set; }
+    [Parameter]
+    public long? LinkId { get; set; } = 0;
     [Parameter]
     public TEntity Record { get; set; }
     [Parameter]
@@ -78,23 +78,19 @@
     [Parameter]
     public String? type { get; set; }
     [Parameter]
-    public long? LinkId { get; set; } = 0;
-    [Parameter]
     public String? Title { get; set; }
     [Parameter]
     public RenderFragment? RowTemplate { get; set; }
 
     private async Task UpsertTask()
     {
-
-        var RecordId = Record.Id;
-        if (RecordId > 0)
+        if (Record.Id > 0)
         {
-            Record = await  simpleClassRepository.Update(Record) as TEntity;
+            Record = await simpleClassRepository.Update(Record) as TEntity;
         }
         else
         {
-            Record = await  simpleClassRepository.Create(Record) as TEntity;
+            Record = await simpleClassRepository.Create(Record) as TEntity;
         }
 
         if (type == SD.First || type == SD.Second)

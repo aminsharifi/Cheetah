@@ -1,11 +1,6 @@
 ﻿@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}"
 @page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}/{reference}"
 @page "/Upsert_Link/Edit/{Name}/{type}/{Id:long}/{reference}"
-@using Cheetah_Common;
-@using Cheetah_DataAccess.Data;
-@using Cheetah_DataAccess.Dimentions;
-@using Cheetah_DataAccess.Links;
-@using Cheetah_DataAccess.Facts;
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
@@ -56,7 +51,7 @@
 
 @code {
     [Parameter]
-    public long Id { get; set; } = 0;
+    public long? Id { get; set; }
     [Parameter]
     public long LinkId { get; set; } = 0;
     [Parameter]
@@ -72,7 +67,7 @@
 
     public IEnumerable<SimpleClass> d_Areas { get; set; }
 
-    private String Title { get; set; } = "ایجاد";
+    private String Title { get; set; }
 
     public Boolean IsLoading { get; set; } = true;
 
@@ -80,7 +75,6 @@
     {
         if (firstRender)
         {
-            Title = (Id > 0) ? "ویرایش" : "ایجاد";
             await LoadDTO();
         }
     }
@@ -125,6 +119,7 @@
             Tmp.Add(await simpleClassRepository.Get("D_Area", Record.SecondId));
             d_Areas = Tmp;
         }
+        Title = Record.Id > 0 ? "ویرایش" : "ایجاد";
         IsLoading = false;
         StateHasChanged();
     }
