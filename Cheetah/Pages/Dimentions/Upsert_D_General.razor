@@ -1,16 +1,24 @@
-﻿@page "/Dimentions/Create/D_ProcessState"
+﻿@page "/Dimentions/Create/D_Operand"
+@page "/Dimentions/Edit/D_Operand/{Id:long}"
+
+@page "/Dimentions/Create/D_FieldType"
+@page "/Dimentions/Edit/D_FieldType/{Id:long}"
+
+@page "/Dimentions/Create/D_ProcessState"
 @page "/Dimentions/Edit/D_ProcessState/{Id:long}"
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
+
 <FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
 </FormGenericTypeItems>
+
 @code {
     [Parameter]
     public long Id { get; set; } = 0;
     [Parameter]
-    public String Name { get; set; } = "D_ProcessState";
+    public String Name { get; set; } = "D_Operand";
 
     public SimpleClass Record { get; set; }
 
@@ -31,10 +39,8 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get(Name,Id);
+        Record = await simpleClassRepository.Get(Name, Id);
         IsLoading = false;
         StateHasChanged();
     }
-
-
 }
