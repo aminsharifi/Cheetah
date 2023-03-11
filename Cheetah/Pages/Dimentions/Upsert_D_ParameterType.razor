@@ -12,7 +12,7 @@
     [Parameter]
     public long Id { get; set; } = 0;
     [Parameter]
-    public String? Name { get; set; } = "D_ParameterType";
+    public String Name { get; set; } = "D_ParameterType";
 
     public SimpleClass Record { get; set; }
 
@@ -33,7 +33,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get("D_ParameterType", Id);
+        Record = await simpleClassRepository.Get(Name, Id);
         IsLoading = false;
         StateHasChanged();
     }

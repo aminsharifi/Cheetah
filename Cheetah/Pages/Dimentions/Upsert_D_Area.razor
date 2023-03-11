@@ -35,7 +35,7 @@
     [Parameter]
     public long Id { get; set; } = 0;
     [Parameter]
-    public String? Name { get; set; } = "D_Area";
+    public String Name { get; set; } = "D_Area";
 
     public D_Area Record { get; set; }
 
@@ -60,7 +60,7 @@
         if (Id > 0 && e.Value is not null)
         {
             var Area_UnitTypeId = Int64.Parse(e.Value.ToString());
-            Record.Area_UnitType = await simpleClassRepository.Get("D_UnitType", Area_UnitTypeId) as D_UnitType;
+            Record.Area_UnitType = unitTypes.First(x => x.Id == Area_UnitTypeId) as D_UnitType;
         }
     }
     private async Task LoadDTO()

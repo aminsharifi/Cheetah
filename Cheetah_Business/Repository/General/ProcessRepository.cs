@@ -40,7 +40,6 @@
                 },
             };
 
-
             var AddedObj = await _db.M_RequestInformations.AddAsync(obj);
 
             await _db.SaveChangesAsync();
@@ -65,7 +64,6 @@
                 return obj;
                 //return _mapper.Map<M_RequestInformation, M_RequestInformationDTO>(obj);
             }
-
             return new F_RequestInformation();
         }
     }

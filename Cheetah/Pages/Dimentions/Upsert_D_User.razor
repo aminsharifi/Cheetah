@@ -11,7 +11,7 @@
     [Parameter]
     public long Id { get; set; } = 0;
     [Parameter]
-    public String? Name { get; set; } = "D_User";
+    public String Name { get; set; } = "D_User";
 
     public SimpleClass Record { get; set; }
 
@@ -32,7 +32,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get("D_User",Id);
+        Record = await simpleClassRepository.Get(Name, Id);
         IsLoading = false;
         StateHasChanged();
     }

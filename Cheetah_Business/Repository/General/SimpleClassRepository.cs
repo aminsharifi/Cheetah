@@ -10,7 +10,6 @@
     public class SimpleClassRepository : ISimpleClassRepository
     {
         protected ApplicationDbContext _db;
-
         protected IMapper _mapper;
         public SimpleClassRepository(ApplicationDbContext db, IMapper mapper)
         {
