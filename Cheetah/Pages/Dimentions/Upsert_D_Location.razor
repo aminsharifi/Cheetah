@@ -14,7 +14,7 @@ Name="@Name" Title="@Title" IsLoading="@IsLoading">
     [Parameter]
     public String Name { get; set; } = "D_Location";
 
-    public SimpleClass Record { get; set; }
+    public D_Location Record { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -33,7 +33,7 @@ Name="@Name" Title="@Title" IsLoading="@IsLoading">
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get(Name, Id);
+        Record = await simpleClassRepository.Get(Name, Id) as D_Location;
         IsLoading = false;
         StateHasChanged();
     }

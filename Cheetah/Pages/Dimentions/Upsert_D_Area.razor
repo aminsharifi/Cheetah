@@ -1,7 +1,6 @@
 ﻿@page "/Dimentions/Create/D_Area"
 @page "/Dimentions/Edit/D_Area/{Id:long}"
 
-
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 
@@ -28,7 +27,6 @@
         <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}")"
                  class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
     </RowTemplate>
-
 </FormGenericTypeItems>
 
 @code {

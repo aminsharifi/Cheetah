@@ -13,7 +13,7 @@
     [Parameter]
     public String Name { get; set;} = "D_Role";
 
-    public SimpleClass Record { get; set; }
+    public D_Role Record { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -32,7 +32,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get(Name, Id);
+        Record = await simpleClassRepository.Get(Name, Id) as D_Role;
         IsLoading = false;
         StateHasChanged();
     }

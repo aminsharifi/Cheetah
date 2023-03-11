@@ -13,7 +13,7 @@
     [Parameter]
     public String Name { get; set; } = "D_UnitType";
 
-    public SimpleClass Record { get; set; }
+    public D_UnitType Record { get; set; }
 
 
     private String Title { get; set; } = "ایجاد";
@@ -33,7 +33,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get(Name, Id);
+        Record = await simpleClassRepository.Get(Name, Id) as D_UnitType;
         IsLoading = false;
         StateHasChanged();
     }

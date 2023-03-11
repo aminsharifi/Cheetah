@@ -12,7 +12,7 @@
     [Parameter]
     public String Name { get; set; } = "D_ProcessEndorsement";
 
-    public SimpleClass Record { get; set; }
+    public D_ProcessEndorsement Record { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -31,7 +31,7 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Record = await simpleClassRepository.Get(Name, Id);
+        Record = await simpleClassRepository.Get(Name, Id) as D_ProcessEndorsement;
         IsLoading = false;
         StateHasChanged();
     }
