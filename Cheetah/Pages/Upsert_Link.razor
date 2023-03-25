@@ -11,28 +11,9 @@
                       Id="@Id" Name="@Name" Title="@Title" IsLoading="@IsLoading"
                       reference="@reference">
         <RowTemplate>
-            @if (type == SD.First)
-            {
-                <label>کاربر</label>
-                <label class="form-control">شناسه: @d_Users.First().Id | نام: @d_Users.First().PName | نام فارسی: @d_Users.First().PDescription</label>
-                <label>واحد</label>
-                <InputSelect @bind-Value="Record.SecondId" class="form-control">
-                    @if (Record.FirstId < 1)
-                {
-                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                }
-                @foreach (var d_Area in d_Areas)
-                {
-                    <option value="@d_Area.Id">شناسه: @d_Area.Id | نام: @d_Area.PName | نام فارسی: @d_Area.PDescription</option>
-                }
-                <ValidationMessage For="@(() => Record.FirstId)" />
-            </InputSelect>
-            }
-            else if (type == SD.Second)
-            {
-                <label>کاربر</label>
-                <InputSelect @bind-Value="Record.FirstId" class="form-control">
-                    @if (Record.SecondId < 1)
+            <label>کاربر</label>
+            <select @bind-value="Record.FirstId" @bind-value:event="oninput" class="form-control" disabled="@(type == SD.First)">
+                @if (Record.SecondId < 1)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                 }
@@ -40,11 +21,20 @@
                 {
                     <option value="@d_User.Id">شناسه: @d_User.Id | نام: @d_User.PName | نام فارسی: @d_User.PDescription</option>
                 }
-                <ValidationMessage For="@(() => Record.SecondId)" />
-            </InputSelect>
-                <label>واحد</label>
-                <label class="form-control">شناسه: @d_Areas.First().Id | نام: @d_Areas.First().PName | نام فارسی: @d_Areas.First().PDescription</label>
-            }
+                <ValidationMessage For="@(() => Record.FirstId)" />
+            </select>
+            <label>واحد</label>
+            <select @bind-value="Record.SecondId" @bind-value:event="oninput" class="form-control" disabled="@(type == SD.Second)">
+                @if (Record.FirstId < 1)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_Area in d_Areas)
+                {
+                    <option value="@d_Area.Id">شناسه: @d_Area.Id | نام: @d_Area.PName | نام فارسی: @d_Area.PDescription</option>
+                }
+            </select>
+            <ValidationMessage For="@(() => Record.SecondId)" />
         </RowTemplate>
     </FormGenericTypeItems>
 }
@@ -55,20 +45,15 @@
     [Parameter]
     public long LinkId { get; set; } = 0;
     [Parameter]
-    public String? Name { get; set; } = "L_UserArea";
+    public String? Name { get; set; }
     [Parameter]
     public String? reference { get; set; }
     [Parameter]
     public String type { get; set; }
-
     public SimpleLinkClass Record { get; set; }
-
     public IEnumerable<SimpleClass> d_Users { get; set; }
-
     public IEnumerable<SimpleClass> d_Areas { get; set; }
-
     private String Title { get; set; }
-
     public Boolean IsLoading { get; set; } = true;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -82,43 +67,26 @@
     private async Task LoadDTO()
     {
         IsLoading = true;
-
         StateHasChanged();
-
         Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
 
         if (type == SD.First)
         {
-            if (Record.FirstId == null || Record.FirstId == 0)
-            {
-                LinkId = Record.FirstId;
-            }
+            if (Record.FirstId == 0)
+                Record.FirstId = LinkId;
             else
-            {
                 LinkId = Record.FirstId;
-            }
-            var Tmp = new List<SimpleClass>();
-            Tmp.Add(
-                await simpleClassRepository.Get("D_User", Record.FirstId));
-            d_Users = Tmp;
-            d_Areas = await simpleClassRepository.GetAllByName("D_Area");
         }
-        else if (type == SD.Second)
+        else
         {
-            if (Record.SecondId == null || Record.SecondId == 0)
-            {
+            if (Record.SecondId == 0)
                 Record.SecondId = LinkId;
-            }
             else
-            {
                 LinkId = Record.SecondId;
-            }
-            var ff = await simpleClassRepository.GetAllByName("D_User");
-            d_Users = await simpleClassRepository.GetAllByName("D_User");
-            var Tmp = new List<SimpleClass>();
-            Tmp.Add(await simpleClassRepository.Get("D_Area", Record.SecondId));
-            d_Areas = Tmp;
         }
+
+        d_Areas = await simpleClassRepository.GetAllByName("D_Area");
+        d_Users = await simpleClassRepository.GetAllByName("D_User");
         Title = Record.Id > 0 ? "ویرایش" : "ایجاد";
         IsLoading = false;
         StateHasChanged();
