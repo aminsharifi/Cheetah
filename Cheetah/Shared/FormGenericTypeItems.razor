@@ -15,47 +15,77 @@
             <EditForm Model="Record" OnValidSubmit="UpsertTask">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-                <div class="form-group">
-                    <div hidden="@(Record.Id < 1)">
-                        <label>شناسه</label>
-                        <input @bind="Record.Id" disabled="disabled" class="form-control"></input>
+                <div class="row">
+                    <div class="form-group col-sm-12 col-md-6">
+                        <div hidden="@(Record.Id < 1)">
+                            <strong>شناسه</strong>
+                            <input @bind="Record.Id" disabled="disabled" class="form-control"></input>
+                        </div>
+                        <br />
                     </div>
-                    <label>کد</label>
-                    <InputNumber @bind-Value="Record.PCode" class="form-control"></InputNumber>
-                    <ValidationMessage For="@(() => Record.PCode)" />
-                    <label>ایندکس</label>
-                    <InputNumber @bind-Value="Record.PIndex" class="form-control"></InputNumber>
-                    <ValidationMessage For="@(() => Record.PIndex)" />
-                    <label>نام نمایشی</label>
-                    <InputText class="form-control"
-                           @bind-Value="Record.PDescription"></InputText>
-                    <ValidationMessage For="@(() => Record.PDescription)" />
-                    <label>نام</label>
-                    <InputText @bind-Value="Record.PName" class="form-control"></InputText>
-                    <ValidationMessage For="@(() => Record.PName)" />
+                    <div class="form-group col-sm-12 col-md-6">
+                        <strong>کد</strong>
+                        <InputNumber @bind-Value="Record.PCode" class="form-control"></InputNumber>
+                        <ValidationMessage For="@(() => Record.PCode)" />
+                        <br />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6">
+                        <strong>ایندکس</strong>
+                        <InputNumber @bind-Value="Record.PIndex" class="form-control"></InputNumber>
+                        <ValidationMessage For="@(() => Record.PIndex)" />
+                        <br />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6">
+                        <strong>نام نمایشی</strong>
+                        <InputText class="form-control"
+                               @bind-Value="Record.PDescription"></InputText>
+                        <ValidationMessage For="@(() => Record.PDescription)" />
+                        <br />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6">
+                        <strong>نام</strong>
+                        <InputText @bind-Value="Record.PName" class="form-control"></InputText>
+                        <ValidationMessage For="@(() => Record.PName)" />
+                        <br />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6">
+                        <strong>غیرفعال</strong>
+                        <br />
+                        <div class="form-check form-switch" style="float:right">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                               @bind="Record.DsblRecord" style="width:5em;height:1.5em">
+                        </div>
+                        <ValidationMessage For="@(() => Record.DsblRecord)" />
+                        <br />
+                        <br />
+                    </div>
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate
                     }
+                    <br />
+
                 </div>
-                <div class="form-group  py-2">
-                    <button class="btn btn-primary">@Title</button>
-                    @if (type == SD.First || type == SD.Second)
-                    {
-                        @if (LinkId != 0)
+                <div class="form-group  py-2" style="direction: ltr;float: right;">
+                    <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
+                        <button class="btn btn-primary">@Title</button>
+                        @if (type == SD.First || type == SD.Second)
                         {
-                            <NavLink href="@($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{reference}")" class="btn btn-secondary">برگشت</NavLink>
+                            @if (LinkId != 0)
+                            {
+                                <NavLink href="@($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{reference}")" class="btn btn-secondary">برگشت</NavLink>
+                            }
+                            else
+                            {
+                                <NavLink href="@($"Dimentions/Parameters/List/{Name}/{type}/{Id}/{reference}")" class="btn btn-secondary">برگشت</NavLink>
+                            }
                         }
                         else
                         {
-                            <NavLink href="@($"Dimentions/Parameters/List/{Name}/{type}/{Id}/{reference}")" class="btn btn-secondary">برگشت</NavLink>
+                            <NavLink href="@($"Dimentions/Parameters/List/{Name}")"
+                             class="btn btn-secondary">برگشت</NavLink>
                         }
-                    }
-                    else
-                    {
-                        <NavLink href="@($"Dimentions/Parameters/List/{Name}")"
-                         class="btn btn-secondary">برگشت</NavLink>
-                    }
+                    </div>
                 </div>
             </EditForm>
         }

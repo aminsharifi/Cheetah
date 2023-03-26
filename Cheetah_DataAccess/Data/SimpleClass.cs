@@ -45,6 +45,7 @@ namespace Cheetah_DataAccess.Data
         public Guid? GuidRecord { get; set; } = Guid.NewGuid();
         [DefaultValue(false)]
         [Column(Order = 7)]
+        [Description("غیرفعال")]
         public bool DsblRecord { get; set; } = false;
 
         [Description("کد در ERP")]

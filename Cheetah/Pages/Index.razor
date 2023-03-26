@@ -5,9 +5,12 @@
 <div dir="rtl">
     <h1>طراحی فرآیند</h1>
     <br />
-    <button class="btn btn-primary" @onclick="TestConfirmation">بارگزاری اطلاعات</button>
-    <button id="save-button" class="btn btn-secondary" >ذخیره اطلاعات</button>
+    <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;width: 20em;">
+        <button id="save-button" class="btn btn-secondary">ذخیره اطلاعات</button>
+        <button class="btn btn-primary" @onclick="TestConfirmation">بارگزاری اطلاعات</button>
+    </div>
 </div>
+<br/>
 <div dir="ltr" id="canvas" style="height:400px; direction:ltr"></div>
 
 @code {

@@ -1,11 +1,10 @@
 ﻿@typeparam TEntity
 <div>
-
     @if (Records != null && Records.Any())
     {
         <table class="table table-bordered">
             <thead>
-                <tr> 
+                <tr>
                     @HeaderContent
                     @foreach (var CProperties1 in Records.First().GetType().GetProperties()
                    .Where(x => x.CustomAttributes
@@ -18,7 +17,7 @@
                     }
                     <th>اقدام</th>
                 </tr>
-            </thead> 
+            </thead>
             <tbody>
                 @foreach (var item in Records as IEnumerable<SimpleClass>)
                 {
@@ -29,25 +28,41 @@
                        .ToList())
                         {
                             <td>
-                                @(item.GetType().GetProperty(CProperties1).GetValue(item, null))
+                                @if (
+                               item.GetType().GetProperty(CProperties1).GetValue(item, null) != null &&
+                               (item.GetType().GetProperty(CProperties1).GetValue(item, null).ToString() == "True" ||
+                               item.GetType().GetProperty(CProperties1).GetValue(item, null).ToString() == "False"))
+                                {
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" disabled
+                               style="width:3em"
+                               checked="@(item.GetType().GetProperty(CProperties1).GetValue(item, null))">
+                                    </div>
+                                }
+                                else
+                                {
+                                    @(item.GetType().GetProperty(CProperties1).GetValue(item, null))
+                                }
                             </td>
                         }
                         @*<td>@((item as BaseClass<TEntity>).Id)</td>*@
                         @BodyContent
                         <td>
-                            @if (item.GetType().BaseType.Name.StartsWith("Base"))
-                            {
-                                <NavLink href="@($"Dimentions/Edit/{item.GetType().Name}/{(item as SimpleClass).Id}")" class="btn-primary btn">ویرایش</NavLink>
-                            }
-                            else if (type == SD.First || type == SD.Second)
-                            {
-                                <a href="@($"/Upsert_Link/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")" class="btn btn-primary btn">ویرایش</a>
-                            }
-                            else
-                            {
-                                <NavLink href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}")" class="btn-primary btn">ویرایش</NavLink>
-                            }
-                            <button class="btn btn-danger" @onclick="()=>HandleDelete((item as SimpleClass).Id)">حذف</button>
+                            <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;width: 10em;">
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete((item as SimpleClass).Id)">حذف</button>
+                                @if (item.GetType().BaseType.Name.StartsWith("Base"))
+                                {
+                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().Name}/{(item as SimpleClass).Id}")" class="btn-primary btn">ویرایش</NavLink>
+                                }
+                                else if (type == SD.First || type == SD.Second)
+                                {
+                                    <a href="@($"/Upsert_Link/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")" class="btn btn-primary btn">ویرایش</a>
+                                }
+                                else
+                                {
+                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}")" class="btn-primary btn">ویرایش</NavLink>
+                                }
+                            </div>
                         </td>
                     </tr>
                 }
@@ -70,9 +85,13 @@
     public RenderFragment HeaderContent { get; set; }
     [Parameter]
     public RenderFragment BodyContent { get; set; }
+    public String CurrentState { get; set; }
     private async Task HandleDelete(long DeletedState)
     {
         //https://stackoverflow.com/questions/16760683/get-value-of-field-by-string
         await ConfirmationDelete.InvokeAsync(DeletedState);
+    }
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
     }
 }
