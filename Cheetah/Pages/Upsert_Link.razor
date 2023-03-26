@@ -12,7 +12,8 @@
                       reference="@reference">
         <RowTemplate>
             <label>کاربر</label>
-            <select @bind-value="Record.FirstId" @bind-value:event="oninput" class="form-control" disabled="@(type == SD.First)">
+            <select @bind-value="Record.FirstId" @bind-value:event="oninput"
+                class="form-select" disabled="@(type == SD.First)">
                 @if (Record.SecondId < 1)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
@@ -24,7 +25,8 @@
                 <ValidationMessage For="@(() => Record.FirstId)" />
             </select>
             <label>واحد</label>
-            <select @bind-value="Record.SecondId" @bind-value:event="oninput" class="form-control" disabled="@(type == SD.Second)">
+            <select @bind-value="Record.SecondId" @bind-value:event="oninput"
+                class="form-select" disabled="@(type == SD.Second)">
                 @if (Record.FirstId < 1)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>

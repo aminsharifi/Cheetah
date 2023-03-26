@@ -5,21 +5,27 @@
 @inject ISimpleClassRepository simpleClassRepository;
 @inject IJSRuntime _jSRuntime;
 @inject NavigationManager _NavigationManager;
-
-<_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
-
+@if (Records != null)
+{
+    <_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+}
 <div style="direction:rtl">
     @if (keyValuePair != null && type != SD.First && type != SD.Second)
     {
         <div class="row mt-4">
             <div class="col-6">
-                <h4 class="card-title text-primary">انتخاب پارامتر</h4>
-                <select value=@Name bind=@Name @onchange="SelectedProcessesChanged">
-                    @foreach (var item in keyValuePair)
-                    {
-                        <option value="@item.Key">@item.Value</option>
-                    }
-                </select>
+                <div class="form-group">
+                    <H3>انتخاب پارامتر</H3>
+                    <select id="exampleFormControlSelect1"
+                        class="form-select" value=@Name bind=@Name
+                        aria-label="Default select example"
+                        @onchange="SelectedProcessesChanged">
+                        @foreach (var item in keyValuePair)
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     }
@@ -71,7 +77,8 @@
     public String? type { get; set; }
     [Parameter]
     public String? reference { get; set; }
-
+    public Boolean IsLoading { get; set; } = true;
+    public long DeleteidRole { get; set; }
     public IEnumerable<SimpleClass> Records { get; set; }
 
     public IEnumerable<KeyValuePair<string, string>> keyValuePair { get; set; }
@@ -85,9 +92,6 @@
             await LoadRecords();
         }
     }
-
-    public Boolean IsLoading { get; set; } = false;
-    public long DeleteidRole { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -123,15 +127,17 @@
         IsLoading = false;
         StateHasChanged();
     }
-    private async void HandleDelete(long id)
+    public async Task HandleDelete(long id)
     {
         DeleteidRole = id;
-        var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "آیا مطمئن هستید؟"); // Confirm
-        await ConfirmDelete_Click(isConfirmed);
+        //var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "آیا مطمئن هستید؟"); // Confirm
+        //await ConfirmDelete_Click(isConfirmed);
+        await _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {
         IsLoading = true;
+
         if (isConfirmed && DeleteidRole != 0)
         {
             await simpleClassRepository.delete(Name, DeleteidRole);
