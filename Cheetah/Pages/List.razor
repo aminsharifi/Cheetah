@@ -7,7 +7,8 @@
 @inject NavigationManager _NavigationManager;
 @if (Records != null)
 {
-    <_DeleteConfirmation IsParntComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+    <_DeleteConfirmation IsParntComponentProcessing="IsLoading"
+                     ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 }
 <div style="direction:rtl">
     @if (keyValuePair != null && type != SD.First && type != SD.Second)
@@ -15,7 +16,9 @@
         <div class="row mt-4">
             <div class="col-6">
                 <div class="form-group">
-                    <H3>انتخاب پارامتر</H3>
+                    <div class="alert alert-primary" role="alert">
+                        انتخاب پارامتر
+                    </div>
                     <select id="exampleFormControlSelect1"
                         class="form-select" value=@Name bind=@Name
                         aria-label="Default select example"
@@ -57,8 +60,8 @@
         {
             if (IsLoading)
             {
-                <h1>در حال بارگیری اطلاعات ...</h1>
-                @*<img src="imeges/Loading_Symbol.gif" />*@
+                <center><img src="imeges/Gears.png" /></center>
+                @*<h1>در حال بارگیری اطلاعات ...</h1>*@
             }
             else
             {
