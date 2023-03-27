@@ -1,14 +1,18 @@
 ﻿@typeparam TEntity where TEntity : SimpleClass
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
+@inject IJSRuntime _JsRuntime
 
 <div class="row my-4" style="direction:rtl">
-    <h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>
-
+    <div class="alert alert-primary  mb-3 ml-3" role="alert">
+        @Title @Name
+    </div>
+    @*<h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>*@
     <div class="col-10">
         @if (IsLoading)
         {
-            <h1>در حال بارگیری اطلاعات ...</h1>
+            <center><img src="imeges/Gears.png" /></center>
+            @*<h1>در حال بارگیری اطلاعات ...</h1>*@
         }
         else if (Record != null)
         {
@@ -16,57 +20,74 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="row">
-                    <div class="form-group col-sm-12 col-md-6">
-                        <div hidden="@(Record.Id < 1)">
-                            <strong>شناسه</strong>
-                            <input @bind="Record.Id" disabled="disabled" class="form-control"></input>
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5" hidden="@(Record.Id < 1)">
+                        <div class="input-group" style="direction:ltr">
+                            <input @bind="Record.Id" disabled="disabled" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">شناسه</span>
+                            </div>
                         </div>
-                        <br />
                     </div>
-                    <div class="form-group col-sm-12 col-md-6">
-                        <strong>کد</strong>
-                        <InputNumber @bind-Value="Record.PCode" class="form-control"></InputNumber>
-                        <ValidationMessage For="@(() => Record.PCode)" />
-                        <br />
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6">
-                        <strong>ایندکس</strong>
-                        <InputNumber @bind-Value="Record.PIndex" class="form-control"></InputNumber>
-                        <ValidationMessage For="@(() => Record.PIndex)" />
-                        <br />
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6">
-                        <strong>نام نمایشی</strong>
-                        <InputText class="form-control"
-                               @bind-Value="Record.PDescription"></InputText>
-                        <ValidationMessage For="@(() => Record.PDescription)" />
-                        <br />
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6">
-                        <strong>نام</strong>
-                        <InputText @bind-Value="Record.PName" class="form-control"></InputText>
-                        <ValidationMessage For="@(() => Record.PName)" />
-                        <br />
-                    </div>
-                    <div class="form-group col-sm-12 col-md-6">
-                        <strong>غیرفعال</strong>
-                        <br />
-                        <div class="form-check form-switch" style="float:right">
-                            <input class="form-check-input" type="checkbox" role="switch"
-                               @bind="Record.DsblRecord" style="width:5em;height:1.5em">
+
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+                        <div class="input-group" style="direction:ltr">
+                            <InputNumber @bind-Value="Record.PCode" class="form-control"
+                                     aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                                     data-toggle="popover" data-trigger="focus" data-content="Click anywhere in the document to close this popover"></InputNumber>
+                            <ValidationMessage For="@(() => Record.PCode)" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">کد</span>
+                            </div>
                         </div>
-                        <ValidationMessage For="@(() => Record.DsblRecord)" />
-                        <br />
-                        <br />
+                    </div>
+
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+                        <div class="input-group" style="direction:ltr">
+                            <InputNumber @bind-Value="Record.PIndex" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl"></InputNumber>
+                            <ValidationMessage For="@(() => Record.PIndex)" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">ایندکس</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+                        <div class="input-group" style="direction:ltr">
+                            <InputText @bind-Value="Record.PDescription" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl"></InputText>
+                            <ValidationMessage For="@(() => Record.PDescription)" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نام نمایشی</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+                        <div class="input-group" style="direction:ltr">
+                            <InputText @bind-Value="Record.PName" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl"></InputText>
+                            <ValidationMessage For="@(() => Record.PName)" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نام</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+                        <div class="input-group" style="direction:rtl">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">غیرفعال</span>
+                            </div>
+                            <div class="form-check form-switch" style="float:right">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                   @bind="Record.DsblRecord" style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
+                            </div>
+                            <ValidationMessage For="@(() => Record.DsblRecord)" />
+                        </div>
                     </div>
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate
                     }
                     <br />
-
                 </div>
-                <div class="form-group  py-2" style="direction: ltr;float: right;">
+                <div class="form-group py-2 col-lg-4 col-lg-offset-4" style="direction: ltr">
                     <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
                         <button class="btn btn-primary">@Title</button>
                         @if (type == SD.First || type == SD.Second)
@@ -117,10 +138,12 @@
         if (Record.Id > 0)
         {
             Record = await simpleClassRepository.Update(Record) as TEntity;
+            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDescription} با موفقیت ذخیره شد");
         }
         else
         {
             Record = await simpleClassRepository.Create(Record) as TEntity;
+            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد.");
         }
 
         if (type == SD.First || type == SD.Second)
