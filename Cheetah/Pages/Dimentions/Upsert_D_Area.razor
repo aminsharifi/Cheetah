@@ -1,16 +1,19 @@
-﻿@page "/Dimentions/Create/D_Area"
-@page "/Dimentions/Edit/D_Area/{Id:long}"
+﻿@page "/Dimentions/Create/D_Area/{reference}"
+@page "/Dimentions/Edit/D_Area/{Id:long}/{reference}"
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
+@inject CNavigation _CNavigation;
 
-<FormGenericTypeItems Record="@Record"
+<NavigationComponent _CNavigation="@_CNavigation" />
+<FormGenericTypeItems Record="@Record" 
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
     <RowTemplate>
         <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
             <div class="input-group" style="direction:ltr">
                 <select @bind-value="Record.Area_UnitTypeId" @bind-value:event="oninput"
-                        @onchange="SelectedProcessesChanged" class="form-select" aria-describedby="basic-addon2" lang="fa" dir="rtl">
+                        @onchange="SelectedProcessesChanged" class="form-select"
+                        aria-describedby="basic-addon2" lang="fa" dir="rtl">
 
                     @if (Record.Area_UnitType == null)
                     {
@@ -29,7 +32,7 @@
             </div>
         </div>
         <div class="form-group mx-1 my-1 col-sm-11 col-md-5">
-            <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}")"
+            <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}/{reference}")"
                      class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
             <br />
         </div>
@@ -40,6 +43,8 @@
     public long Id { get; set; } = 0;
     [Parameter]
     public String Name { get; set; } = "D_Area";
+    [Parameter]
+    public String? reference { get; set; }
 
     public D_Area Record { get; set; }
 
@@ -57,6 +62,15 @@
         {
             Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
+
+        }
+        if (reference is null || firstRender)
+        {
+            _CNavigation.LoadNavigation(TableName: Name, RowDescription: Record.PDescription,
+            RowId: Record.Id, reference: reference);
+            reference = _CNavigation.Serialize();
+            IsLoading = false;
+            StateHasChanged();
         }
     }
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
@@ -69,11 +83,7 @@
     }
     private async Task LoadDTO()
     {
-        IsLoading = true;
-        StateHasChanged();
         Record = await simpleClassRepository.Get("D_Area", Id) as D_Area;
         unitTypes = await simpleClassRepository.GetAllByName("D_UnitType");
-        IsLoading = false;
-        StateHasChanged();
     }
 }

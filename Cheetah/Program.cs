@@ -1,5 +1,6 @@
 using Cheetah.Data;
 using Cheetah_Business.Repository.IRepository;
+using Cheetah_Common;
 using Cheetah_DataAccess.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
 builder.Services.AddTransient(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<CNavigation>();
 
 var app = builder.Build();
 

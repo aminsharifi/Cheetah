@@ -1,0 +1,24 @@
+﻿<div class="row" style="direction:rtl">
+    <ul class="step-menu">
+        @foreach (var item in _CNavigation.NavigationList)
+        {
+            @if (_CNavigation.NavigationList.Last() == item)
+            {
+                <li role="button" class="current">@item.DisplayName</li>
+            }
+            else
+            {
+                <li role="button" class="complete">@item.DisplayName</li>
+            }
+        }
+        @*<li role="button" class="complete">گام 1</li>
+        <li role="button" class="current">گام 2</li>
+        <li role="button">گام 3</li>
+        <li role="button">گام 4</li>*@
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public CNavigation _CNavigation { get; set; }
+}

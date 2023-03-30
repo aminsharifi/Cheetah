@@ -31,5 +31,13 @@ namespace Cheetah_Common
             Links,
             Facts
         }
+
+    }
+    public enum FieldType
+    {
+        CInt,
+        CNInt,
+        CString,
+        CBool
     }
 }

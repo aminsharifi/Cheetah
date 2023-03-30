@@ -52,7 +52,7 @@
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete((item as SimpleClass).Id)">حذف</button>
                                 @if (item.GetType().BaseType.Name.StartsWith("Base"))
                                 {
-                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().Name}/{(item as SimpleClass).Id}")" class="btn-primary btn">ویرایش</NavLink>
+                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().Name}/{(item as SimpleClass).Id}/{reference}")" class="btn-primary btn">ویرایش</NavLink>
                                 }
                                 else if (type == SD.First || type == SD.Second)
                                 {
@@ -60,7 +60,7 @@
                                 }
                                 else
                                 {
-                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}")" class="btn-primary btn">ویرایش</NavLink>
+                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}/{reference}")" class="btn-primary btn">ویرایش</NavLink>
                                 }
                             </div>
                         </td>
@@ -88,10 +88,6 @@
     public String CurrentState { get; set; }
     private async Task HandleDelete(long DeletedState)
     {
-        //https://stackoverflow.com/questions/16760683/get-value-of-field-by-string
         await ConfirmationDelete.InvokeAsync(DeletedState);
-    }
-    public async Task ConfirmDelete_Click(bool isConfirmed)
-    {
     }
 }
