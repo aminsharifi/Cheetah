@@ -5,30 +5,42 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
-    <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
-    <link href="css/site.css" rel="stylesheet" />
-    <link href="Cheetah.styles.css" rel="stylesheet" />
-    <!-- required modeler styles -->
-    <link rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <link rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-js.css">
-    <link rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/diagram-js.css">
-    <link rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-font/css/bpmn.css">
-    <link href="codeseven-toastr-2.1.4-7/toastr.min.css" rel="stylesheet" />
-    <link href="vazirmatn-v33.003/misc/ui-farsi-digits/vazirmatn-ui-fd-font-face.css" rel="stylesheet" />
-    <link href="vazirmatn-v33.003\round-dots\misc\ui-farsi-digits\vazirmatn-rd-ui-fd-font-face.css" rel="stylesheet" />
-    <style>
+    <link defer rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
+    <link defer href="css/site.css" rel="stylesheet" />
+    <link defer href="Cheetah.styles.css" rel="stylesheet" />
+    <link deferrel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
+    <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-js.css">
+    <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/diagram-js.css">
+    <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-font/css/bpmn.css">
+    <link defer href="codeseven-toastr-2.1.4-7/toastr.min.css" rel="stylesheet" />
+    <link defer href="vazirmatn-v33.003/misc/ui-farsi-digits/vazirmatn-ui-fd-font-face.css" rel="stylesheet" />
+    <link defer href="vazirmatn-v33.003\round-dots\misc\ui-farsi-digits\vazirmatn-rd-ui-fd-font-face.css" rel="stylesheet" />
+    <link defer href="css/chevronprogressbar.css" rel="stylesheet" />
+    <style defer>
         body {
             font-family: 'Vazirmatn RD UI FD';
         }
     </style>
+    <script defer src="_framework/blazor.server.js"></script>
+    @*<script src="jquery/3.6.0/jquery.min.js"></script>*@
+    @*<script src="js/popper.min.js"></script>*@
+    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+    <script defer src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <script defer src="js/sweetalert2@11.js"></script>
+    <script defer src="bpmn-js-11.5.0/dist/bpmn-modeler.development.js"></script>
+    <script defer src="JS/samplebpms.js"></script>
+    <script defer src="codeseven-toastr-2.1.4-7/toastr.min.js"></script>
+    <script defer src="js/chevronprogressbar.js"></script>
+    <script defer src="JS/common.js"></script>
+
 </head>
 <body>
     @RenderBody()
-
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
             An error has occurred. This application may no longer respond until reloaded.
@@ -39,15 +51,5 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.server.js"></script>
-    @*<script src="jquery/3.6.0/jquery.min.js"></script>*@
-    @*<script src="js/popper.min.js"></script>*@
-    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
-    <script src="js/sweetalert2@11.js"></script>
-    <script src="bpmn-js-11.5.0/dist/bpmn-modeler.development.js"></script>
-    <script src="JS/samplebpms.js"></script>
-    <script src="codeseven-toastr-2.1.4-7/toastr.min.js"></script>
-    <script src="JS/common.js"></script>
 </body>
 </html>

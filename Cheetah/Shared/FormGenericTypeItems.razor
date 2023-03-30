@@ -2,9 +2,9 @@
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 @inject IJSRuntime _JsRuntime
-
+@inject CNavigation _CNavigation;
 <div class="row my-4" style="direction:rtl">
-    <div class="alert alert-primary  mb-3 ml-3" role="alert">
+    <div class="alert alert-primary mb-3 ml-3" role="alert">
         @Title @Name
     </div>
     @*<h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>*@
@@ -22,65 +22,33 @@
                 <div class="row">
                     <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5" hidden="@(Record.Id < 1)">
                         <div class="input-group" style="direction:ltr">
-                            <input @bind="Record.Id" disabled="disabled" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
+                            <input @bind="Record.Id" disabled="disabled"
+                               class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">شناسه</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-                        <div class="input-group" style="direction:ltr">
-                            <InputNumber @bind-Value="Record.PCode" class="form-control"
-                                     aria-describedby="basic-addon2" lang="fa" dir="rtl"
-                                     data-toggle="popover" data-trigger="focus" data-content="Click anywhere in the document to close this popover"></InputNumber>
-                            <ValidationMessage For="@(() => Record.PCode)" />
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">کد</span>
-                            </div>
-                        </div>
-                    </div>
+                    <CInput @bind-LValue="Record.PCode"
+                        CDescription="کد یکتا سیستمی"
+                        CDisplayName="کد" CFieldType="@(FieldType.CInt)"></CInput>
 
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-                        <div class="input-group" style="direction:ltr">
-                            <InputNumber @bind-Value="Record.PIndex" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl"></InputNumber>
-                            <ValidationMessage For="@(() => Record.PIndex)" />
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">ایندکس</span>
-                            </div>
-                        </div>
-                    </div>
+                    <CInput @bind-NLValue="Record.PIndex"
+                        CDescription="ایندکس جهت مرتب سازی می باشد."
+                        CDisplayName="ایندکس" CFieldType="@(FieldType.CNInt)"></CInput>
 
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-                        <div class="input-group" style="direction:ltr">
-                            <InputText @bind-Value="Record.PDescription" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl"></InputText>
-                            <ValidationMessage For="@(() => Record.PDescription)" />
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نام نمایشی</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-                        <div class="input-group" style="direction:ltr">
-                            <InputText @bind-Value="Record.PName" class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl"></InputText>
-                            <ValidationMessage For="@(() => Record.PName)" />
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نام</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-                        <div class="input-group" style="direction:rtl">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">غیرفعال</span>
-                            </div>
-                            <div class="form-check form-switch" style="float:right">
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                   @bind="Record.DsblRecord" style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
-                            </div>
-                            <ValidationMessage For="@(() => Record.DsblRecord)" />
-                        </div>
-                    </div>
+                    <CInput @bind-SValue="Record.PDescription"
+                        CDescription="متنی که کاربر مشاهده می کند"
+                        CDisplayName="نام نمایشی" CFieldType="@(FieldType.CString)"></CInput>
+
+                    <CInput @bind-SValue="Record.PName"
+                        CDescription="متنی که در سیستم استفاده میشود."
+                        CDisplayName="نام" CFieldType="@(FieldType.CString)"></CInput>
+
+                    <CInput @bind-BValue="Record.DsblRecord"
+                        CDescription="جهت غیرفعال سازی"
+                        CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate
@@ -94,17 +62,25 @@
                         {
                             @if (LinkId != 0)
                             {
-                                <NavLink href="@($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{reference}")" class="btn btn-secondary">برگشت</NavLink>
+                                <div type="button" class="btn btn-secondary"
+                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}"))">
+                                    برگشت
+                                </div>
                             }
                             else
                             {
-                                <NavLink href="@($"Dimentions/Parameters/List/{Name}/{type}/{Id}/{reference}")" class="btn btn-secondary">برگشت</NavLink>
+                                <div type="button" class="btn btn-secondary"
+                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{Id}"))">
+                                    برگشت
+                                </div>
                             }
                         }
                         else
                         {
-                            <NavLink href="@($"Dimentions/Parameters/List/{Name}")"
-                             class="btn btn-secondary">برگشت</NavLink>
+                            <div type="button" class="btn btn-secondary"
+                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}"))">
+                                برگشت
+                            </div>
                         }
                     </div>
                 </div>
@@ -123,6 +99,8 @@
     [Parameter]
     public TEntity Record { get; set; }
     [Parameter]
+    public String? FirstPart { get; set; }
+    [Parameter]
     public String? reference { get; set; }
     [Parameter]
     public String? Name { get; set; }
@@ -133,8 +111,18 @@
     [Parameter]
     public RenderFragment? RowTemplate { get; set; }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _JsRuntime.InvokeVoidAsync("CreateToolTip");
+    }
+    private async Task BackNavigation(String Name)
+    {
+        _CNavigation.BackNavigation(_NavigationManager, Name);
+    }
     private async Task UpsertTask()
     {
+        _CNavigation.RemoveNavigation();
+
         if (Record.Id > 0)
         {
             Record = await simpleClassRepository.Update(Record) as TEntity;
@@ -148,7 +136,7 @@
 
         if (type == SD.First || type == SD.Second)
         {
-            _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{reference}");
+            _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}/{reference}");
         }
         else
         {

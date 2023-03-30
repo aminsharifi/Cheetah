@@ -1,5 +1,16 @@
-﻿window.ShowToastr = (type, message) => {
+﻿window.CreateToolTip = () => {
+    tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
+    $('[data-toggle="popover"]').click(function () {
+
+        setTimeout(function () {
+            $('.tooltip').fadeOut('slow');
+        }, 5000);
+
+    });
+}
+window.ShowToastr = (type, message) => {
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -53,6 +64,21 @@ function HideDeleteConfirmationModal() {
 }
 
 
-$(document).ready(function () {
-    $('[data-toggle="popover"]').popover();
-});
+//$(document).ready(function () {
+//    $('[data-toggle="popover"]').popover();
+//});
+
+//$(document).ready(function () {
+//    const popover = new bootstrap.Popover('.popover-dismiss', {
+//        trigger: 'focus'
+//    })
+//});
+//$(document).ready(function () {
+//    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+//    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+//});
+
+//$(function () {
+//    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+//    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+//});

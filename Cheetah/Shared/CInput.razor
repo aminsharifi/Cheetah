@@ -1,0 +1,129 @@
+﻿@using System.Linq.Expressions;
+<div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+    <div class="input-group" style="direction:ltr">
+        @if (CFieldType == FieldType.CInt)
+        {
+            <InputNumber @bind-Value="LValue" class="form-control"
+                     aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                     data-bs-toggle="tooltip" data-bs-placement="top"
+                     data-bs-custom-class="custom-tooltip"
+                     data-bs-delay='{"show":100, "hide":100}'
+                     data-bs-animation="true"
+                     data-bs-trigger="hover"
+                     data-bs-title="@CDescription">
+            </InputNumber>
+        }
+        else if (CFieldType == FieldType.CNInt)
+        {
+            <InputNumber @bind-Value="NLValue" class="form-control"
+                     aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                     data-bs-toggle="tooltip" data-bs-placement="top"
+                     data-bs-custom-class="custom-tooltip"
+                     data-bs-delay='{"show":100, "hide":100}'
+                     data-bs-animation="true"
+                     data-bs-trigger="hover"
+                     data-bs-title="@CDescription">
+            </InputNumber>
+        }
+        else if (CFieldType == FieldType.CString)
+        {
+            <InputText @bind-Value="SValue" class="form-control"
+                   aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                   data-bs-toggle="tooltip" data-bs-placement="top"
+                   data-bs-custom-class="custom-tooltip"
+                   data-bs-delay='{"show":100, "hide":100}'
+                   data-bs-animation="true"
+                   data-bs-trigger="hover"
+                   data-bs-title="@CDescription">
+            </InputText>
+        }
+        else if (CFieldType == FieldType.CBool)
+        {
+            <div class="form-check form-switch ms-3 me-3" >
+                <InputCheckbox class="form-check-input" type="checkbox" role="switch"
+                           @bind-Value="BValue"
+                           style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
+                </InputCheckbox>
+            </div>
+        }
+        <div class="input-group-prepend">
+            <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
+                  lang="fa" dir="rtl">@CDisplayName</span>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private String _Svalue;
+    [Parameter]
+    public String SValue
+    {
+        get => _Svalue;
+        set
+        {
+            if (_Svalue == value) return;
+            _Svalue = value;
+            SValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<String> SValueChanged { get; set; }
+
+    private long? _NLvalue;
+    [Parameter]
+    public long? NLValue
+    {
+        get => _NLvalue;
+        set
+        {
+            if (_NLvalue == value) return;
+            _NLvalue = value;
+            NLValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<long?> NLValueChanged { get; set; }
+
+
+    private long _Lvalue;
+    [Parameter]
+    public long LValue
+    {
+        get => _Lvalue;
+        set
+        {
+            if (_Lvalue == value) return;
+            _Lvalue = value;
+            LValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<long> LValueChanged { get; set; }
+
+
+    private Boolean _Bvalue;
+    [Parameter]
+    public Boolean BValue
+    {
+        get => _Bvalue;
+        set
+        {
+            if (_Bvalue == value) return;
+            _Bvalue = value;
+            BValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<Boolean> BValueChanged { get; set; }
+
+    //[Parameter]
+    //public Expression<Func<object>> MessageValue { get; set; }
+    [Parameter]
+    public FieldType CFieldType { get; set; }
+
+    [Parameter]
+    public String CDisplayName { get; set; }
+    [Parameter]
+    public String CDescription { get; set; }
+}

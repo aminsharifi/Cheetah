@@ -1,13 +1,17 @@
-﻿@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}"
-@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}/{reference}"
-@page "/Upsert_Link/Edit/{Name}/{type}/{Id:long}/{reference}"
+﻿@page "/Upsert_Link/Create/{Name}/{type}/{Id:long}/{LinkId:long}/{FirstPart}/{reference}"
+@page "/Upsert_Link/Edit/{Name}/{type}/{Id:long}/{FirstPart}/{reference}"
+@using System.Web;
+@using System.Runtime.Serialization.Formatters.Binary;
+@using System.Text;
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
-
+@inject CNavigation _CNavigation;
+<NavigationComponent _CNavigation="@_CNavigation" />
 @if (!IsLoading)
 {
     <FormGenericTypeItems Record="@Record" type="@type" LinkId="@LinkId"
+                      FirstPart="@FirstPart"
                       Id="@Id" Name="@Name" Title="@Title" IsLoading="@IsLoading"
                       reference="@reference">
         <RowTemplate>
@@ -44,18 +48,30 @@
 @code {
     [Parameter]
     public long? Id { get; set; }
+
     [Parameter]
     public long LinkId { get; set; } = 0;
+
     [Parameter]
     public String? Name { get; set; }
+
     [Parameter]
     public String? reference { get; set; }
+
     [Parameter]
     public String type { get; set; }
+
+    [Parameter]
+    public String? FirstPart { get; set; }
+
     public SimpleLinkClass Record { get; set; }
+
     public IEnumerable<SimpleClass> d_Users { get; set; }
+
     public IEnumerable<SimpleClass> d_Areas { get; set; }
+
     private String Title { get; set; }
+
     public Boolean IsLoading { get; set; } = true;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -64,12 +80,17 @@
         {
             await LoadDTO();
         }
+        if (reference is null || firstRender)
+        {
+            _CNavigation.LoadNavigation(TableName: Name, RowDescription: Record.PDescription,
+                RowId: Record.Id, reference: reference);
+            reference = _CNavigation.Serialize();
+            IsLoading = false;
+            StateHasChanged();
+        }
     }
-
     private async Task LoadDTO()
     {
-        IsLoading = true;
-        StateHasChanged();
         Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
 
         if (type == SD.First)
@@ -90,7 +111,5 @@
         d_Areas = await simpleClassRepository.GetAllByName("D_Area");
         d_Users = await simpleClassRepository.GetAllByName("D_User");
         Title = Record.Id > 0 ? "ویرایش" : "ایجاد";
-        IsLoading = false;
-        StateHasChanged();
     }
 }
