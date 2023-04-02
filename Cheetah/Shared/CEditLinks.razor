@@ -9,26 +9,16 @@
         @Title @Name
     </div>
 
-    <div class="col-10">
-        @if (IsLoading)
-        {
-            <center><img src="imeges/Gears.png" /></center>
-        }
-        else if (Record != null)
+    <div class="col-12">
+        @if (!IsLoading)
         {
             <EditForm Model="Record" OnValidSubmit="UpsertTask">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="row">
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5" hidden="@(Record.Id < 1)">
-                        <div class="input-group" style="direction:ltr">
-                            <input @bind="Record.Id" disabled="disabled"
-                               class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">شناسه</span>
-                            </div>
-                        </div>
-                    </div>
+                    <CInput @bind-LValue="Record.Id"
+                        CDescription="شناسه یکتا سیستمی"
+                        CDisplayName="شناسه" CFieldType="@(FieldType.CID)"></CInput>
                     <CInput @bind-BValue="Record.DsblRecord"
                         CDescription="جهت غیرفعال سازی"
                         CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
@@ -36,31 +26,21 @@
                     {
                         @RowTemplate
                     }
-                    <br />
                 </div>
                 <div class="form-group py-2 col-lg-4 col-lg-offset-4" style="direction: ltr">
                     <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
                         <button class="btn btn-primary">@Title</button>
-                        @if (LinkId != 0)
-                        {
-                            <div type="button" class="btn btn-secondary"
-                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}"))">
-                                برگشت
-                            </div>
-                        }
-                        else
-                        {
-                            <div type="button" class="btn btn-secondary"
-                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{Id}"))">
-                                برگشت
-                            </div>
-                        }
+                        <div type="button" class="btn btn-secondary"
+                         @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
+                            برگشت
+                        </div>
                     </div>
                 </div>
             </EditForm>
         }
     </div>
 </div>
+<CLoading IsLoading="@IsLoading" AnyRecord="@true"></CLoading>
 
 @code {
     [Parameter]
@@ -71,8 +51,6 @@
     public long? LinkId { get; set; } = 0;
     [Parameter]
     public TEntity Record { get; set; }
-    [Parameter]
-    public String? FirstPart { get; set; }
     [Parameter]
     public String? reference { get; set; }
     [Parameter]
@@ -85,33 +63,26 @@
     public RenderFragment? RowTemplate { get; set; }
 
     protected override void OnAfterRender(bool firstRender)
-        {
+    {
         base.OnAfterRender(firstRender);
         //_JsRuntime.InvokeVoidAsync("CreateToolTip");
     }
 
-    private async Task BackNavigation(String Name)
-        {
-        _CNavigation.BackNavigation(_NavigationManager, Name);
-    }
 
     private async Task UpsertTask()
-        {
-        _CNavigation.RemoveNavigation();
-
+    {
         if (Record.Id > 0)
-            {
+        {
             Record = await simpleClassRepository.Update(Record) as TEntity;
             await _JsRuntime.ToastrSuccess($"ردیف {Record.PDescription} با موفقیت ذخیره شد");
         }
-            else
-            {
+        else
+        {
             Record = await simpleClassRepository.Create(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد.");
+            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
         }
-
-        _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}/{reference}");
+        _CNavigation.BackNavigation(_NavigationManager);
 
     }
-    
+
 }

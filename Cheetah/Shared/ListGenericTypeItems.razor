@@ -38,8 +38,8 @@
                                 {
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch" disabled
-                               style="width:3em"
-                               checked="@(item.GetType().GetProperty(CProperties1).GetValue(item, null))">
+                                               style="width:3em"
+                                               checked="@(item.GetType().GetProperty(CProperties1).GetValue(item, null))">
                                     </div>
                                 }
                                 else
@@ -48,22 +48,20 @@
                                 }
                             </td>
                         }
-                        @*<td>@((item as BaseClass<TEntity>).Id)</td>*@
                         @BodyContent
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;width: 10em;">
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete((item as SimpleClass).Id)">حذف</button>
-                                @if (item.GetType().BaseType.Name.StartsWith("Base"))
+
+                                @if (type == SD.First || type == SD.Second)
                                 {
-                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().Name}/{(item as SimpleClass).Id}/{reference}")" class="btn-primary btn">ویرایش</NavLink>
-                                }
-                                else if (type == SD.First || type == SD.Second)
-                                {
-                                    <NavLink href="@($"/Upsert_Link/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")" class="btn btn-primary btn">ویرایش</NavLink>
+                                    <NavLink class="btn btn-primary btn"
+                                             href="@($"Links/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")">ویرایش</NavLink>
                                 }
                                 else
                                 {
-                                    <NavLink href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}/{reference}")" class="btn-primary btn">ویرایش</NavLink>
+                                    <NavLink class="btn btn-primary btn"
+                                             href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}/{reference}")">ویرایش</NavLink>
                                 }
                             </div>
                         </td>

@@ -17,10 +17,10 @@ namespace Cheetah_DataAccess.Dimentions
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class D_Area : BaseClass<D_Area>
     {
-        public long? Area_UnitTypeId { get; set; }
+        public long Area_UnitTypeId { get; set; }
         [Column(Order = 100)]
         [ForeignKey("Area_UnitTypeId")]
-        public virtual D_UnitType? Area_UnitType { get; set; }
+        public virtual D_UnitType Area_UnitType { get; set; }
         #region Relations
         public virtual ICollection<L_UserArea>? Area_UserAreas { get; set; } = new HashSet<L_UserArea>();
         #endregion
