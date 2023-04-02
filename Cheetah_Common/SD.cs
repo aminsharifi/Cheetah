@@ -35,9 +35,11 @@ namespace Cheetah_Common
     }
     public enum FieldType
     {
+        CID,
         CInt,
         CNInt,
         CString,
-        CBool
+        CBool,
+        CSelect
     }
 }

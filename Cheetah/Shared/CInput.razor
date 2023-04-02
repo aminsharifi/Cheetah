@@ -1,40 +1,47 @@
 ﻿@using System.Linq.Expressions;
-<div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
+<div class="shadow rounded p-3 form-group m-1 col-sm-11 @((CFieldType != FieldType.CSelect)?"col-md-5":"col-md-10" )"
+     style="@((LValue < 1 && (CFieldType == FieldType.CID))? "display: none;" : "")">
     <div class="input-group d-flex justify-content-end" style="direction:ltr">
-        @if (CFieldType == FieldType.CInt)
+        @if (CFieldType == FieldType.CID)
+        {
+            <InputNumber @bind-Value="LValue" disabled="disabled"
+                         class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
+            </InputNumber>
+        }
+        else if (CFieldType == FieldType.CInt)
         {
             <InputNumber @bind-Value="LValue" class="form-control"
-                     aria-describedby="basic-addon2" lang="fa" dir="rtl"
-                     data-bs-toggle="tooltip" data-bs-placement="top"
-                     data-bs-custom-class="custom-tooltip"
-                     data-bs-delay='{"show":100, "hide":100}'
-                     data-bs-animation="true"
-                     data-bs-trigger="hover"
-                     data-bs-title="@CDescription">
+                         aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                         data-bs-toggle="tooltip" data-bs-placement="top"
+                         data-bs-custom-class="custom-tooltip"
+                         data-bs-delay='{"show":100, "hide":100}'
+                         data-bs-animation="true"
+                         data-bs-trigger="hover"
+                         data-bs-title="@CDescription">
             </InputNumber>
         }
         else if (CFieldType == FieldType.CNInt)
         {
             <InputNumber @bind-Value="NLValue" class="form-control"
-                     aria-describedby="basic-addon2" lang="fa" dir="rtl"
-                     data-bs-toggle="tooltip" data-bs-placement="top"
-                     data-bs-custom-class="custom-tooltip"
-                     data-bs-delay='{"show":100, "hide":100}'
-                     data-bs-animation="true"
-                     data-bs-trigger="hover"
-                     data-bs-title="@CDescription">
+                         aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                         data-bs-toggle="tooltip" data-bs-placement="top"
+                         data-bs-custom-class="custom-tooltip"
+                         data-bs-delay='{"show":100, "hide":100}'
+                         data-bs-animation="true"
+                         data-bs-trigger="hover"
+                         data-bs-title="@CDescription">
             </InputNumber>
         }
         else if (CFieldType == FieldType.CString)
         {
             <InputText @bind-Value="SValue" class="form-control"
-                   aria-describedby="basic-addon2" lang="fa" dir="rtl"
-                   data-bs-toggle="tooltip" data-bs-placement="top"
-                   data-bs-custom-class="custom-tooltip"
-                   data-bs-delay='{"show":100, "hide":100}'
-                   data-bs-animation="true"
-                   data-bs-trigger="hover"
-                   data-bs-title="@CDescription">
+                       aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                       data-bs-toggle="tooltip" data-bs-placement="top"
+                       data-bs-custom-class="custom-tooltip"
+                       data-bs-delay='{"show":100, "hide":100}'
+                       data-bs-animation="true"
+                       data-bs-trigger="hover"
+                       data-bs-title="@CDescription">
             </InputText>
         }
         else if (CFieldType == FieldType.CBool)
@@ -42,9 +49,23 @@
             <div class="form-check form-switch">
                 <InputCheckbox class="form-check-input" type="checkbox" role="switch"
                            @bind-Value="BValue"
-                           style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
+                               style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
                 </InputCheckbox>
             </div>
+        }
+        else if (CFieldType == FieldType.CSelect)
+        {
+            <InputSelect @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
+                         disabled="@Disabled" class="col-10">
+                @if (LValue < 1)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_User in Records)
+                {
+                    <option value="@d_User.Id">شناسه: @d_User.Id | نام: @d_User.PName | نام فارسی: @d_User.PDescription</option>
+                }
+            </InputSelect>
         }
         <div class="input-group-prepend">
             <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
@@ -54,6 +75,17 @@
 </div>
 
 @code {
+    [Parameter]
+    public EventCallback<ChangeEventArgs> SelectedProcessesChanged { get; set; }
+
+    [Parameter]
+    public Boolean Disabled { get; set; } = false;
+
+    [Parameter]
+    public SimpleClass Record { get; set; }
+
+    [Parameter]
+    public IEnumerable<SimpleClass> Records { get; set; } = new List<SimpleClass>();
 
     private String _Svalue;
     [Parameter]
@@ -126,4 +158,6 @@
     public String CDisplayName { get; set; }
     [Parameter]
     public String CDescription { get; set; }
+
+
 }

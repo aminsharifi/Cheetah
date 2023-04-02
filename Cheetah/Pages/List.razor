@@ -31,12 +31,12 @@
         @if (!String.IsNullOrEmpty(Name))
         {
             <div class="col-2 offset-2 btn-group m-2" role="group"
-             aria-label="Basic example" style="width: 20em;direction: ltr">
+                 aria-label="Basic example" style="width: 20em;direction: ltr">
                 <a href="@($"/Dimentions/Create/{Name}/{reference}")" class="btn btn-primary">افزودن</a>
             </div>
             <ListGenericTypeItems Records="@Records" ConfirmationDelete="ConfirmDelete_Click"
                               reference="@reference" Name="@Name">
-        </ListGenericTypeItems>
+            </ListGenericTypeItems>
         }
         <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
     </div>
@@ -80,13 +80,9 @@
         {
             _CNavigation.NavigationList.Clear();
 
-            _CNavigation.LoadNavigation(TableName: Name, RowDescription: null,
-                RowId: Id, reference: reference);
+            reference = _CNavigation.LoadNavigation(Address: $"List/{Name}", RowDescription: Name,
+                RowId: Id, Reference: reference);
 
-            if (String.IsNullOrEmpty(reference))
-            {
-                reference = _CNavigation.Serialize();
-            }
             IsLoading = false;
             StateHasChanged();
         }

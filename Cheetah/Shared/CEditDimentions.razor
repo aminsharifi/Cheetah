@@ -8,26 +8,17 @@
         @Title @Name
     </div>
     @*<h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>*@
-    <div class="col-10">
-        @if (IsLoading)
-        {
-            <center><img src="imeges/Gears.png" /></center>
-        }
-        else if (Record != null)
+    <div class="col-12">
+        @if (!IsLoading)
         {
             <EditForm Model="Record" OnValidSubmit="UpsertTask">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="row">
-                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5" hidden="@(Record.Id < 1)">
-                        <div class="input-group" style="direction:ltr">
-                            <input @bind="Record.Id" disabled="disabled"
-                               class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">شناسه</span>
-                            </div>
-                        </div>
-                    </div>
+
+                    <CInput @bind-LValue="Record.Id"
+                        CDescription="شناسه یکتا سیستمی"
+                        CDisplayName="شناسه" CFieldType="@(FieldType.CID)"></CInput>
 
                     <CInput @bind-LValue="Record.PCode"
                         CDescription="کد یکتا سیستمی"
@@ -58,7 +49,7 @@
                     <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
                         <button class="btn btn-primary">@Title</button>
                         <div type="button" class="btn btn-secondary"
-                         @onclick="@(e => BackNavigation($"List/{Name}"))">
+                         @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
                             برگشت
                         </div>
                     </div>
@@ -67,7 +58,7 @@
         }
     </div>
 </div>
-
+<CLoading IsLoading="@IsLoading" AnyRecord="@true"></CLoading>
 @code {
     [Parameter]
     public Boolean IsLoading { get; set; } = true;
@@ -92,14 +83,8 @@
         //_JsRuntime.InvokeVoidAsync("CreateToolTip");
     }
 
-    private async Task BackNavigation(String Name)
-    {
-        _CNavigation.BackNavigation(_NavigationManager, Name);
-    }
     private async Task UpsertTask()
     {
-        _CNavigation.RemoveNavigation();
-
         if (Record.Id > 0)
         {
             Record = await simpleClassRepository.Update(Record) as TEntity;
@@ -108,8 +93,8 @@
         else
         {
             Record = await simpleClassRepository.Create(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد.");
+            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
         }
-        _NavigationManager.NavigateTo($"List/{Name}");
+        _CNavigation.BackNavigation(_NavigationManager);
     }
 }

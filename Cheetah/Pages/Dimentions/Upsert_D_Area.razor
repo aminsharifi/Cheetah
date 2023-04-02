@@ -8,34 +8,20 @@
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
 @if (!IsLoading)
 {
-    <FormGenericTypeItems Record="@Record"
-                      Name="@Name" Title="@Title" IsLoading="@IsLoading">
+    <CEditDimentions Record="@Record"
+                 Name="@Name" Title="@Title" IsLoading="@IsLoading">
         <RowTemplate>
-            <div class="shadow rounded p-3 form-group m-1 col-sm-11 col-md-5">
-                <div class="input-group" style="direction:ltr">
-                    <select @bind-value="Record.Area_UnitTypeId" @bind-value:event="oninput"
-                        @onchange="SelectedProcessesChanged" class="form-select"
-                        aria-describedby="basic-addon2" lang="fa" dir="rtl">
-                        @if (Record.Area_UnitType == null)
-                        {
-                            <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                        }
-                        @foreach (var unitType in unitTypes)
-                        {
-                            <option value="@unitType.Id">شناسه: @unitType.Id | نام: @unitType.PName | نام فارسی: @unitType.PDescription</option>
-                        }
-                    </select>
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نوع واحد</span>
-                    </div>
-                </div>
-            </div>
+            <CInput @bind-LValue="Record.Area_UnitTypeId"
+                Records="@unitTypes" CDescription="واحد"
+                Record="@(Record.Area_UnitType)"
+                SelectedProcessesChanged="@SelectedProcessesChanged"
+                CDisplayName="واحد" CFieldType="@(FieldType.CSelect)"></CInput>
             <div class="form-group m-1 col-sm-11 col-md-5">
-                <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}/{reference}")"
-                     class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
+                <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
+                         class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
             </div>
         </RowTemplate>
-    </FormGenericTypeItems>
+    </CEditDimentions>
 }
 @code {
     [Parameter]
@@ -64,9 +50,10 @@
         }
         if (reference is null || firstRender)
         {
-            _CNavigation.LoadNavigation(TableName: Name, RowDescription: Record.PDescription,
-            RowId: Record.Id, reference: reference);
-            reference = _CNavigation.Serialize();
+            reference = _CNavigation.LoadNavigation(Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
+            RowDescription: Record.PDescription,
+            RowId: Record.Id, Reference: reference);
+
             IsLoading = false;
             StateHasChanged();
         }

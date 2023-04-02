@@ -16,14 +16,16 @@ namespace Cheetah_Common
         public Int64? Id { get; set; }
         public String Address { get; set; }
         public String DisplayName { get; set; }
+        public String Reference { get; set; }
         public CNavigationEnum? CNavigationEnum { get; set; }
 
-        public CNavigationStruct(Int64? id, String address, String displayName)
+        public CNavigationStruct(Int64? id, String address, String displayName, String Reference)
         {
             this.Id = id;
             this.Address = address;
             this.DisplayName = displayName;
             this.CNavigationEnum = Cheetah_Common.CNavigationEnum.current;
+            this.Reference = Reference;
         }
     }
     public class CNavigation
@@ -40,14 +42,17 @@ namespace Cheetah_Common
                 new CNavigationStruct(
                     id: navigationStruct.Id,
                     address: navigationStruct.Address,
-                    displayName: navigationStruct.DisplayName)
+                    displayName: navigationStruct.DisplayName,
+                    Reference: navigationStruct.Reference)
                 );
         }
-        public void BackNavigation(NavigationManager _NavigationManager, String Name)
+        public void BackNavigation(NavigationManager _NavigationManager)
         {
+            var LastRecord = NavigationList.SkipLast(1).Last();
+
             RemoveNavigation();
 
-            _NavigationManager.NavigateTo(Name + (NavigationList.Any() ? @"\" +Serialize() : ""));
+            _NavigationManager.NavigateTo($"{LastRecord.Address}/{LastRecord.Reference}");
         }
         public void RemoveNavigation()
         {
@@ -67,21 +72,24 @@ namespace Cheetah_Common
              .Deserialize<List<CNavigationStruct>>
                  (System.Convert.FromBase64String(jsonString));
         }
-        public void LoadNavigation(String TableName, String RowDescription, Int64? RowId, String reference)
+        public String LoadNavigation(String Address, String RowDescription, Int64? RowId, String Reference)
         {
-            if (!string.IsNullOrEmpty(reference))
-                Deserialize(reference);
+            if (!string.IsNullOrEmpty(Reference))
+                Deserialize(Reference);
 
             var PDescription = (RowId > 0) ? $"ردیف '{RowDescription}'" : "ایجاد ردیف";
 
             if (!RowId.HasValue)
-                PDescription = $"جدول {TableName}";
+                PDescription = $"جدول {RowDescription}";
 
             this.AddNavigation(new CNavigationStruct(
             id: RowId,
-            address: TableName,
-            displayName: PDescription
-       ));
+            address: Address,
+            displayName: PDescription,
+            Reference: Reference
+            ));
+
+            return this.Serialize();
         }
 
     }
