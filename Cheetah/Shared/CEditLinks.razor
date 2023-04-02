@@ -3,16 +3,16 @@
 @inject NavigationManager _NavigationManager;
 @inject IJSRuntime _JsRuntime
 @inject CNavigation _CNavigation;
+
 <div class="row my-4" style="direction:rtl">
     <div class="alert alert-primary mb-3 ml-3" role="alert">
         @Title @Name
     </div>
-    @*<h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>*@
+
     <div class="col-10">
         @if (IsLoading)
         {
             <center><img src="imeges/Gears.png" /></center>
-            @*<h1>در حال بارگیری اطلاعات ...</h1>*@
         }
         else if (Record != null)
         {
@@ -29,23 +29,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <CInput @bind-LValue="Record.PCode"
-                        CDescription="کد یکتا سیستمی"
-                        CDisplayName="کد" CFieldType="@(FieldType.CInt)"></CInput>
-
-                    <CInput @bind-NLValue="Record.PIndex"
-                        CDescription="ایندکس جهت مرتب سازی می باشد."
-                        CDisplayName="ایندکس" CFieldType="@(FieldType.CNInt)"></CInput>
-
-                    <CInput @bind-SValue="Record.PDescription"
-                        CDescription="متنی که کاربر مشاهده می کند"
-                        CDisplayName="نام نمایشی" CFieldType="@(FieldType.CString)"></CInput>
-
-                    <CInput @bind-SValue="Record.PName"
-                        CDescription="متنی که در سیستم استفاده میشود."
-                        CDisplayName="نام" CFieldType="@(FieldType.CString)"></CInput>
-
                     <CInput @bind-BValue="Record.DsblRecord"
                         CDescription="جهت غیرفعال سازی"
                         CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
@@ -58,27 +41,17 @@
                 <div class="form-group py-2 col-lg-4 col-lg-offset-4" style="direction: ltr">
                     <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
                         <button class="btn btn-primary">@Title</button>
-                        @if (type == SD.First || type == SD.Second)
+                        @if (LinkId != 0)
                         {
-                            @if (LinkId != 0)
-                            {
-                                <div type="button" class="btn btn-secondary"
+                            <div type="button" class="btn btn-secondary"
                          @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}"))">
-                                    برگشت
-                                </div>
-                            }
-                            else
-                            {
-                                <div type="button" class="btn btn-secondary"
-                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{Id}"))">
-                                    برگشت
-                                </div>
-                            }
+                                برگشت
+                            </div>
                         }
                         else
                         {
                             <div type="button" class="btn btn-secondary"
-                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}"))">
+                         @onclick="@(e => BackNavigation($"Dimentions/Parameters/List/{Name}/{type}/{Id}"))">
                                 برگشت
                             </div>
                         }
@@ -111,36 +84,34 @@
     [Parameter]
     public RenderFragment? RowTemplate { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await _JsRuntime.InvokeVoidAsync("CreateToolTip");
+    protected override void OnAfterRender(bool firstRender)
+        {
+        base.OnAfterRender(firstRender);
+        //_JsRuntime.InvokeVoidAsync("CreateToolTip");
     }
+
     private async Task BackNavigation(String Name)
-    {
+        {
         _CNavigation.BackNavigation(_NavigationManager, Name);
     }
+
     private async Task UpsertTask()
-    {
+        {
         _CNavigation.RemoveNavigation();
 
         if (Record.Id > 0)
-        {
+            {
             Record = await simpleClassRepository.Update(Record) as TEntity;
             await _JsRuntime.ToastrSuccess($"ردیف {Record.PDescription} با موفقیت ذخیره شد");
         }
-        else
-        {
+            else
+            {
             Record = await simpleClassRepository.Create(Record) as TEntity;
             await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد.");
         }
 
-        if (type == SD.First || type == SD.Second)
-        {
-            _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}/{reference}");
-        }
-        else
-        {
-            _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}");
-        }
+        _NavigationManager.NavigateTo($"Dimentions/Parameters/List/{Name}/{type}/{LinkId}/{FirstPart}/{reference}");
+
     }
+    
 }

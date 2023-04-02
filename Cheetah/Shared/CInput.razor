@@ -1,6 +1,6 @@
 ﻿@using System.Linq.Expressions;
 <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-    <div class="input-group" style="direction:ltr">
+    <div class="input-group d-flex justify-content-end" style="direction:ltr">
         @if (CFieldType == FieldType.CInt)
         {
             <InputNumber @bind-Value="LValue" class="form-control"
@@ -39,7 +39,7 @@
         }
         else if (CFieldType == FieldType.CBool)
         {
-            <div class="form-check form-switch ms-3 me-3" >
+            <div class="form-check form-switch">
                 <InputCheckbox class="form-check-input" type="checkbox" role="switch"
                            @bind-Value="BValue"
                            style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">

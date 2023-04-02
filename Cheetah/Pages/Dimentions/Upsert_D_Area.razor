@@ -5,39 +5,38 @@
 @inject NavigationManager _NavigationManager;
 @inject CNavigation _CNavigation;
 
-<NavigationComponent _CNavigation="@_CNavigation" />
-<FormGenericTypeItems Record="@Record" 
+<NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
+@if (!IsLoading)
+{
+    <FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
-    <RowTemplate>
-        <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5">
-            <div class="input-group" style="direction:ltr">
-                <select @bind-value="Record.Area_UnitTypeId" @bind-value:event="oninput"
+        <RowTemplate>
+            <div class="shadow rounded p-3 form-group m-1 col-sm-11 col-md-5">
+                <div class="input-group" style="direction:ltr">
+                    <select @bind-value="Record.Area_UnitTypeId" @bind-value:event="oninput"
                         @onchange="SelectedProcessesChanged" class="form-select"
                         aria-describedby="basic-addon2" lang="fa" dir="rtl">
-
-                    @if (Record.Area_UnitType == null)
-                    {
-                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                    }
-                    @foreach (var unitType in unitTypes)
-                    {
-                        <option value="@unitType.Id">شناسه: @unitType.Id | نام: @unitType.PName | نام فارسی: @unitType.PDescription</option>
-                    }
-                </select>
-                <br />
-                <ValidationMessage For="@(() => Record.Area_UnitTypeId)" />
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نوع واحد</span>
+                        @if (Record.Area_UnitType == null)
+                        {
+                            <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                        }
+                        @foreach (var unitType in unitTypes)
+                        {
+                            <option value="@unitType.Id">شناسه: @unitType.Id | نام: @unitType.PName | نام فارسی: @unitType.PDescription</option>
+                        }
+                    </select>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">نوع واحد</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group mx-1 my-1 col-sm-11 col-md-5">
-            <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}/{reference}")"
+            <div class="form-group m-1 col-sm-11 col-md-5">
+                <NavLink href="@($"Dimentions/Parameters/List/L_UserArea/{SD.Second}/{Record.Id}/Dimentions*Edit*{Name}*{Id}/{reference}")"
                      class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
-            <br />
-        </div>
-    </RowTemplate>
-</FormGenericTypeItems>
+            </div>
+        </RowTemplate>
+    </FormGenericTypeItems>
+}
 @code {
     [Parameter]
     public long Id { get; set; } = 0;
@@ -62,7 +61,6 @@
         {
             Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
-
         }
         if (reference is null || firstRender)
         {
