@@ -1,0 +1,121 @@
+﻿@page "/Links/{Name}/{type}/{Id:long}/{FirstPart}/{reference}"
+@using System.Web;
+
+@inject ISimpleClassRepository simpleClassRepository;
+@inject IJSRuntime _jSRuntime;
+@inject NavigationManager _NavigationManager;
+@inject CNavigation _CNavigation;
+<NavigationComponent _CNavigation="@_CNavigation" />
+@if (Records != null)
+{
+    <_DeleteConfirmation IsParntComponentProcessing="IsLoading"
+                     ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+}
+<div style="direction:rtl">
+    <div class="col-12">
+        @if (Records != null)
+        {
+            <br />
+            <div class="col-2 offset-2 btn-group" role="group"
+             aria-label="Basic example" style="width: 20em;direction: ltr">
+                <div type="button" class="btn btn-secondary"
+                 @onclick="@(e => BackNavigation(reference))">
+                    برگشت
+                </div>
+                <br />
+                <a href="@($"/Upsert_Link/Create/{Name}/{type}/0/{Id}/{FirstPart}/{reference}")" class="btn btn-primary">افزودن</a>
+            </div>
+            <br />
+            @if (Records.Count() > 0)
+            {
+                <ListGenericTypeItems Records="@Records"
+                              type="@type" reference="@reference">
+                </ListGenericTypeItems>
+            }
+        }
+        @if (Records == null || Records.Count() == 0)
+        {
+            if (IsLoading)
+            {
+                <center><img src="imeges/Gears.png" /></center>
+            }
+            else
+            {
+                <center>
+                    <img class="mt-2" src="imeges/norecordfound.gif" />
+                </center>
+            }
+        }
+    </div>
+</div>
+@code {
+
+    [Parameter]
+    public long? Id { get; set; }
+
+    [Parameter]
+    public String Name { get; set; }
+
+    [Parameter]
+    public String? type { get; set; }
+
+    [Parameter]
+    public String? reference { get; set; }
+
+    [Parameter]
+    public String? FirstPart { get; set; }
+
+    public Boolean IsLoading { get; set; } = true;
+
+    public long DeleteidRole { get; set; }
+
+    public IEnumerable<SimpleClass> Records { get; set; }    
+
+    private async Task BackNavigation(String Name)
+    {
+        _CNavigation.BackNavigation(_NavigationManager, $"{FirstPart.Replace("*", "/")}");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadRecords();
+        }
+        if (reference is null || firstRender)
+        {
+            _CNavigation.LoadNavigation(TableName: Name, RowDescription: Name,
+                RowId: Id, reference: reference);
+
+            if (String.IsNullOrEmpty(reference))
+            {
+                reference = _CNavigation.Serialize();
+            }
+            IsLoading = false;
+            StateHasChanged();
+        }
+    }
+
+
+    private async Task LoadRecords()
+    {
+        Records = await simpleClassRepository.GetAllLink(Name, type, Id.Value);
+    }
+    public async Task HandleDelete(long id)
+    {
+        DeleteidRole = id;
+        await _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading = true;
+
+        if (isConfirmed && DeleteidRole != 0)
+        {
+            await simpleClassRepository.delete(Name, DeleteidRole);
+            await LoadRecords();
+            await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading = false;
+    }
+}

@@ -1,83 +1,44 @@
-﻿@page "/Dimentions/Parameters/List"
-@page "/Dimentions/Parameters/List/{Name}"
-@page "/Dimentions/Parameters/List/{Name}/{reference}"
-@page "/Dimentions/Parameters/List/{Name}/{type}/{Id:long}/{FirstPart}/{reference}"
+﻿@page "/List"
+@page "/List/{Name}"
+@page "/List/{Name}/{reference}"
 @using System.Web;
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject IJSRuntime _jSRuntime;
 @inject NavigationManager _NavigationManager;
 @inject CNavigation _CNavigation;
-<NavigationComponent _CNavigation="@_CNavigation" />
-@if (Records != null)
-{
-    <_DeleteConfirmation IsParntComponentProcessing="IsLoading"
-                     ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
-}
+<NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
 <div style="direction:rtl">
-    @if (keyValuePair != null && type != SD.First && type != SD.Second)
-    {
-        <div class="row mt-4">
-            <div class="col-6">
-                <div class="form-group">
-                    <div class="alert alert-primary" role="alert">
-                        انتخاب پارامتر
-                    </div>
-                    <select id="exampleFormControlSelect1"
-                        class="form-select" value=@Name bind=@Name
-                        aria-label="Default select example"
-                        @onchange="SelectedProcessesChanged">
-                        @foreach (var item in keyValuePair)
-                        {
-                            <option value="@item.Key">@item.Value</option>
-                        }
-                    </select>
+
+    <div class="row mt-4">
+        <div class="col-6">
+            <div class="form-group">
+                <div class="alert alert-primary" role="alert">
+                    انتخاب پارامتر
                 </div>
+                <select class="form-select" value=@Name bind=@Name
+                        @onchange="SelectedProcessesChanged">
+                    @foreach (var item in keyValuePair)
+                    {
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                </select>
             </div>
         </div>
-    }
+    </div>
+
     <div class="col-12">
-        @if (Records != null)
+        @if (!String.IsNullOrEmpty(Name))
         {
-            <br />
-            <div class="col-2 offset-2 btn-group" role="group"
+            <div class="col-2 offset-2 btn-group m-2" role="group"
              aria-label="Basic example" style="width: 20em;direction: ltr">
-                @if (type == SD.First || type == SD.Second)
-                {
-                    <div type="button" class="btn btn-secondary"
-                 @onclick="@(e => BackNavigation(reference))">
-                        برگشت
-                    </div>
-
-                    <br />
-                    <a href="@($"/Upsert_Link/Create/{Name}/{type}/0/{Id}/{FirstPart}/{reference}")" class="btn btn-primary">افزودن</a>
-                }
-                else
-                {
-                    <a href="@($"/Dimentions/Create/{Name}/{reference}")" class="btn btn-primary">افزودن</a>
-                }
-
+                <a href="@($"/Dimentions/Create/{Name}/{reference}")" class="btn btn-primary">افزودن</a>
             </div>
-            <br />
-            @if (Records.Count() > 0)
-            {
-                <ListGenericTypeItems Records="@Records"
-                              ConfirmationDelete="HandleDelete" type="@type" reference="@reference">
-                </ListGenericTypeItems>
-            }
+            <ListGenericTypeItems Records="@Records" ConfirmationDelete="ConfirmDelete_Click"
+                              reference="@reference" Name="@Name">
+        </ListGenericTypeItems>
         }
-        @if (Records == null || Records.Count() == 0)
-        {
-            if (IsLoading)
-            {
-                <center><img src="imeges/Gears.png" /></center>
-                @*<h1>در حال بارگیری اطلاعات ...</h1>*@
-            }
-            else
-            {
-                <h1>هیچ ورودی یافت نشد</h1>
-            }
-        }
+        <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
     </div>
 </div>
 @code {
@@ -89,34 +50,22 @@
     public String Name { get; set; }
 
     [Parameter]
-    public String? type { get; set; }
-
-    [Parameter]
     public String? reference { get; set; }
-
-    [Parameter]
-    public String? FirstPart { get; set; }
 
     public Boolean IsLoading { get; set; } = true;
 
     public long DeleteidRole { get; set; }
 
-    public IEnumerable<SimpleClass> Records { get; set; }
+    public IEnumerable<SimpleClass> Records { get; set; } = new List<SimpleClass>();
 
-    public IEnumerable<KeyValuePair<string, string>> keyValuePair { get; set; }
+    public IEnumerable<KeyValuePair<string, string>> keyValuePair { get; set; } = new List<KeyValuePair<string, string>>();
 
-    public SD.TableType getTableType { get; set; }
-
-    private async Task BackNavigation(String Name)
-    {
-        _CNavigation.BackNavigation(_NavigationManager, $"{FirstPart.Replace("*", "/")}");
-    }
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
     {
         if (e.Value is not null)
         {
             Name = (string)e.Value;
-            _NavigationManager.NavigateTo($"/Dimentions/Parameters/List/{Name}");
+            _NavigationManager.NavigateTo($"/List/{Name}");
             await FirstLoadRecords();
         }
     }
@@ -129,14 +78,9 @@
         }
         if (reference is null || firstRender)
         {
-            if (getTableType != SD.TableType.Links)
-            {
-                _CNavigation.NavigationList.Clear();
-            }
+            _CNavigation.NavigationList.Clear();
 
-            var RowDescription = (getTableType == SD.TableType.Links) ? Name : null;
-
-            _CNavigation.LoadNavigation(TableName: Name, RowDescription: RowDescription,
+            _CNavigation.LoadNavigation(TableName: Name, RowDescription: null,
                 RowId: Id, reference: reference);
 
             if (String.IsNullOrEmpty(reference))
@@ -150,43 +94,24 @@
 
     private async Task FirstLoadRecords()
     {
-        if (keyValuePair == null)
-            keyValuePair = await simpleClassRepository.GetAllTableName("Dimentions");
+        keyValuePair = await simpleClassRepository.GetAllTableName("Dimentions");
 
         if (Name == null)
+        {
             Name = keyValuePair.First().Value;
-
+            _NavigationManager.NavigateTo($"/List/{Name}");
+        }
         await LoadRecords();
     }
 
     private async Task LoadRecords()
     {
-        getTableType = DatabaseClass.GetTableType(Name);
-
-        if (getTableType == SD.TableType.Links)
-        {
-            Records = await simpleClassRepository.GetAllLink(Name, type, Id.Value);
-        }
-        else
-        {
-            Records = await simpleClassRepository.GetAllByName(Name);
-        }
+        Records = await simpleClassRepository.GetAllByName(Name);
     }
-    public async Task HandleDelete(long id)
-    {
-        DeleteidRole = id;
-        await _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
-    }
-    public async Task ConfirmDelete_Click(bool isConfirmed)
+    public async Task ConfirmDelete_Click()
     {
         IsLoading = true;
-
-        if (isConfirmed && DeleteidRole != 0)
-        {
-            await simpleClassRepository.delete(Name, DeleteidRole);
-            await LoadRecords();
-            await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
-        }
+        await LoadRecords();
         IsLoading = false;
     }
 }

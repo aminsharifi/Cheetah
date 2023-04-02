@@ -1,0 +1,115 @@
+﻿@typeparam TEntity where TEntity : SimpleClass
+@inject ISimpleClassRepository simpleClassRepository;
+@inject NavigationManager _NavigationManager;
+@inject IJSRuntime _JsRuntime
+@inject CNavigation _CNavigation;
+<div class="row my-4" style="direction:rtl">
+    <div class="alert alert-primary mb-3 ml-3" role="alert">
+        @Title @Name
+    </div>
+    @*<h3 class="card-title text-primary mb-3 ml-3">@Title @Name</h3>*@
+    <div class="col-10">
+        @if (IsLoading)
+        {
+            <center><img src="imeges/Gears.png" /></center>
+        }
+        else if (Record != null)
+        {
+            <EditForm Model="Record" OnValidSubmit="UpsertTask">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="row">
+                    <div class="shadow rounded p-3 form-group mx-1 my-1 col-sm-11 col-md-5" hidden="@(Record.Id < 1)">
+                        <div class="input-group" style="direction:ltr">
+                            <input @bind="Record.Id" disabled="disabled"
+                               class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;" lang="fa" dir="rtl">شناسه</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <CInput @bind-LValue="Record.PCode"
+                        CDescription="کد یکتا سیستمی"
+                        CDisplayName="کد" CFieldType="@(FieldType.CInt)"></CInput>
+
+                    <CInput @bind-NLValue="Record.PIndex"
+                        CDescription="ایندکس جهت مرتب سازی می باشد."
+                        CDisplayName="ایندکس" CFieldType="@(FieldType.CNInt)"></CInput>
+
+                    <CInput @bind-SValue="Record.PDescription"
+                        CDescription="متنی که کاربر مشاهده می کند"
+                        CDisplayName="نام نمایشی" CFieldType="@(FieldType.CString)"></CInput>
+
+                    <CInput @bind-SValue="Record.PName"
+                        CDescription="متنی که در سیستم استفاده میشود."
+                        CDisplayName="نام" CFieldType="@(FieldType.CString)"></CInput>
+
+                    <CInput @bind-BValue="Record.DsblRecord"
+                        CDescription="جهت غیرفعال سازی"
+                        CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
+                    @if (RowTemplate is not null)
+                    {
+                        @RowTemplate
+                    }
+                    <br />
+                </div>
+                <div class="form-group py-2 col-lg-4 col-lg-offset-4" style="direction: ltr">
+                    <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
+                        <button class="btn btn-primary">@Title</button>
+                        <div type="button" class="btn btn-secondary"
+                         @onclick="@(e => BackNavigation($"List/{Name}"))">
+                            برگشت
+                        </div>
+                    </div>
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Boolean IsLoading { get; set; } = true;
+    [Parameter]
+    public long? Id { get; set; }
+    [Parameter]
+    public long? LinkId { get; set; } = 0;
+    [Parameter]
+    public TEntity Record { get; set; }
+    [Parameter]
+    public String? reference { get; set; }
+    [Parameter]
+    public String? Name { get; set; }
+    [Parameter]
+    public String? Title { get; set; }
+    [Parameter]
+    public RenderFragment? RowTemplate { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        //_JsRuntime.InvokeVoidAsync("CreateToolTip");
+    }
+
+    private async Task BackNavigation(String Name)
+    {
+        _CNavigation.BackNavigation(_NavigationManager, Name);
+    }
+    private async Task UpsertTask()
+    {
+        _CNavigation.RemoveNavigation();
+
+        if (Record.Id > 0)
+        {
+            Record = await simpleClassRepository.Update(Record) as TEntity;
+            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDescription} با موفقیت ذخیره شد");
+        }
+        else
+        {
+            Record = await simpleClassRepository.Create(Record) as TEntity;
+            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد.");
+        }
+        _NavigationManager.NavigateTo($"List/{Name}");
+    }
+}

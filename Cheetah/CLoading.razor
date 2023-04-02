@@ -1,0 +1,17 @@
+﻿<center>
+    @if (IsLoading)
+    {
+        <img src="imeges/Gears.png" />
+    }
+    else if (!AnyRecord)
+    {
+        <img class="mt-2" src="imeges/norecordfound.gif" />
+    }
+</center>
+@code {
+    [Parameter]
+    public Boolean IsLoading { get; set; } = true;
+
+    [Parameter]
+    public Boolean AnyRecord { get; set; } = true;
+}

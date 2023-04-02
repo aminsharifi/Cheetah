@@ -1,4 +1,7 @@
 ﻿@typeparam TEntity
+@inject IJSRuntime _jSRuntime;
+@inject ISimpleClassRepository simpleClassRepository;
+<_DeleteConfirmation ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 <div>
     @if (Records != null && Records.Any())
     {
@@ -56,7 +59,7 @@
                                 }
                                 else if (type == SD.First || type == SD.Second)
                                 {
-                                    <a href="@($"/Upsert_Link/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")" class="btn btn-primary btn">ویرایش</a>
+                                    <NavLink href="@($"/Upsert_Link/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")" class="btn btn-primary btn">ویرایش</NavLink>
                                 }
                                 else
                                 {
@@ -73,21 +76,44 @@
 
 
 @code {
+
     [Parameter]
     public IEnumerable<TEntity>? Records { get; set; }
+
     [Parameter]
     public String? type { get; set; }
+
     [Parameter]
     public String? reference { get; set; }
+
     [Parameter]
-    public EventCallback<long> ConfirmationDelete { get; set; }
+    public EventCallback ConfirmationDelete { get; set; }
+
     [Parameter]
     public RenderFragment HeaderContent { get; set; }
+
     [Parameter]
     public RenderFragment BodyContent { get; set; }
+
+    [Parameter]
+    public String Name { get; set; }
+
     public String CurrentState { get; set; }
+
+    public long DeleteidRole { get; set; }
+
     private async Task HandleDelete(long DeletedState)
     {
-        await ConfirmationDelete.InvokeAsync(DeletedState);
+        DeleteidRole = DeletedState;
+        await _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        if (isConfirmed && DeleteidRole != 0)
+        {
+            await simpleClassRepository.delete(Name, DeleteidRole);
+            await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+            await ConfirmationDelete.InvokeAsync();
+        }
     }
 }
