@@ -1,16 +1,49 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime _jSRuntime;
 
 <PageTitle>چیتا</PageTitle>
 <div class="page">
-    <main>
-        <div class="top-row px-4" dir="rtl">
+    <div class="sidebar bd-sidebar">
+        <NavMenu />
+    </div>
+    <main style="bd-content">
+        <div class="top-row px-4">
             <LoginDisplay></LoginDisplay>
         </div>
         <article class="content px-4">
             @Body
         </article>
     </main>
-    <div class="sidebar" dir="rtl">
+</div>
+
+@*<div class="collapse show" id="navbarToggleExternalContent" style="direction:rtl">
+    <div class="bg-dark">
         <NavMenu />
     </div>
 </div>
+<nav class="navbar navbar-dark bg-dark" style="direction:rtl">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">منو</a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<article class="content px-4">
+    @Body
+</article>*@
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //return base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            //await _jSRuntime.InvokeVoidAsync("CreateNavBar");
+            await _jSRuntime.InvokeVoidAsync("CreateTooltip");
+        }
+    }
+}

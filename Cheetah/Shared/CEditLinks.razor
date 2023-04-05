@@ -5,9 +5,9 @@
 @inject CNavigation _CNavigation;
 
 <div class="row my-4" style="direction:rtl">
-    <div class="alert alert-primary mb-3 ml-3" role="alert">
-        @Title @Name
-    </div>
+    @*  <div class="alert alert-primary mb-3 ml-3" role="alert">
+    @Title @Name
+    </div>*@
 
     <div class="col-12">
         @if (!IsLoading)
@@ -27,12 +27,20 @@
                         @RowTemplate
                     }
                 </div>
-                <div class="form-group py-2 col-lg-4 col-lg-offset-4" style="direction: ltr">
-                    <div class="btn-group" role="group" aria-label="Basic example" style="width: 20em;">
-                        <button class="btn btn-primary">@Title</button>
-                        <div type="button" class="btn btn-secondary"
+                <div class="form-group col-6 mx-auto my-1">
+                    <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr">
+                        <button class="btn btn-primary">
+                            @Title
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                            </svg>
+                        </button>
+                        <div type="button" class="btn btn-info"
                          @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
                             برگشت
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                            </svg>
                         </div>
                     </div>
                 </div>

@@ -64,21 +64,22 @@ function HideDeleteConfirmationModal() {
 }
 
 
-//$(document).ready(function () {
-//    $('[data-toggle="popover"]').popover();
-//});
+window.CreateTooltip = () => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+}
 
-//$(document).ready(function () {
-//    const popover = new bootstrap.Popover('.popover-dismiss', {
-//        trigger: 'focus'
-//    })
-//});
-//$(document).ready(function () {
-//    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-//    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-//});
+window.CreateNavBar = () => {
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 
-//$(function () {
-//    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-//    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-//});
+    $(window).resize(function (e) {
+        if ($(window).width() <= 768) {
+            $("#wrapper").removeClass("toggled");
+        } else {
+            $("#wrapper").addClass("toggled");
+        }
+    });
+}

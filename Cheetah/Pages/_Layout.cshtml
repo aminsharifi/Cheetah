@@ -3,7 +3,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl" data-bs-theme="dark">
 <head>
 
     <meta charset="utf-8" />
@@ -13,17 +13,19 @@
     <link defer rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
     <link defer href="css/site.css" rel="stylesheet" />
     <link defer href="Cheetah.styles.css" rel="stylesheet" />
-    <link deferrel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
+    <link defer href="css/chevronprogressbar.css" rel="stylesheet" />
+    <link defer rel="stylesheet" href="_content/Radzen.Blazor/css/standard-base.css">
+    <link defer href="codeseven-toastr-2.1.4-7/toastr.min.css" rel="stylesheet" />
+    <link defer href="vazirmatn-v33.003/round-dots/misc/ui-farsi-digits/vazirmatn-rd-ui-fd-font-face.css" rel="stylesheet" />
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-js.css">
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/diagram-js.css">
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-font/css/bpmn.css">
-    <link defer href="codeseven-toastr-2.1.4-7/toastr.min.css" rel="stylesheet" />
-    <link defer href="vazirmatn-v33.003/misc/ui-farsi-digits/vazirmatn-ui-fd-font-face.css" rel="stylesheet" />
-    <link defer href="vazirmatn-v33.003\round-dots\misc\ui-farsi-digits\vazirmatn-rd-ui-fd-font-face.css" rel="stylesheet" />
-    <link defer href="css/chevronprogressbar.css" rel="stylesheet" />
+
+    @*<link defer href="css/navbar.css" rel="stylesheet" />*@
     <style defer>
         body {
             font-family: 'Vazirmatn RD UI FD';
+            background: white;
         }
     </style>
     <script defer src="_framework/blazor.server.js"></script>
@@ -48,7 +50,7 @@
         <environment include="Development">
             An unhandled exception has occurred. See browser dev tools for details.
         </environment>
-        <a href="" class="reload">Reload</a>
+        <a href="" class="reload">بازنشانی</a>
         <a class="dismiss">🗙</a>
     </div>
 </body>

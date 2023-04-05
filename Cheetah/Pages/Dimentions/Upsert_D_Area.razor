@@ -16,18 +16,21 @@
                 Record="@(Record.Area_UnitType)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
                 CDisplayName="واحد" CFieldType="@(FieldType.CSelect)"></CInput>
-            <div class="form-group m-1 col-sm-11 col-md-5">
-                <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
-                         class="btn btn-secondary">لیست کاربرانی که این واحد را دارند</NavLink>
-            </div>
+           
+                <NavLink  href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
+                         class=" my-1">لیست کاربرانی که این واحد را دارند</NavLink>
+           
         </RowTemplate>
     </CEditDimentions>
 }
 @code {
+
     [Parameter]
     public long Id { get; set; } = 0;
+
     [Parameter]
     public String Name { get; set; } = "D_Area";
+
     [Parameter]
     public String? reference { get; set; }
 
@@ -58,6 +61,7 @@
             StateHasChanged();
         }
     }
+
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
     {
         if (Id > 0 && e.Value is not null)
@@ -66,6 +70,7 @@
             Record.Area_UnitType = unitTypes.First(x => x.Id == Area_UnitTypeId) as D_UnitType;
         }
     }
+
     private async Task LoadDTO()
     {
         Record = await simpleClassRepository.Get("D_Area", Id) as D_Area;
