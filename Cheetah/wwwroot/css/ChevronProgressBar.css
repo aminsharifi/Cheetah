@@ -17,7 +17,7 @@
             content: '';
             position: absolute;
             border: 25px solid transparent;
-            border-right-color: #fff;
+            border-right-color: white;
             top: 0px;
             left: -60px;
         }
@@ -34,7 +34,7 @@
         .step-menu li:nth-child(1) {
             z-index: 600;
             margin-right: 0;
-            padding-right: 30px
+            padding-right: 5px
         }
 
         .step-menu li:nth-child(2) {
@@ -55,7 +55,7 @@
 
         .step-menu li:nth-child(6) {
             z-index: 100;
-            padding-left: 30px
+            padding-left: 5px
         }
 
             .step-menu li:nth-child(6):after,
@@ -64,19 +64,19 @@
             }
 
         .step-menu li.current {
-            background: rgba(51,122,183, 0.75);
+            background: darkgreen;
             color: white;
         }
 
             .step-menu li.current:after {
-                border-right-color: rgba(51,122,183, 0.75);
+                border-right-color: darkgreen;
             }
 
         .step-menu li.complete {
-            background: rgba(51,122,183, 0.4);
+            background: gray;
             color: white;
         }
 
             .step-menu li.complete:after {
-                border-right-color: rgba(51,122,183, 0.4);
+                border-right-color: gray;
             }

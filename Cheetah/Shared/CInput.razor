@@ -1,6 +1,10 @@
 ﻿@using System.Linq.Expressions;
-<div class="shadow rounded p-3 form-group m-1 col-sm-11 @((CFieldType != FieldType.CSelect)?"col-md-5":"col-md-10" )"
+
+<div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11 @((CFieldType != FieldType.CSelect)?"col-md-5":"col-md-10" )"
      style="@((LValue < 1 && (CFieldType == FieldType.CID))? "display: none;" : "")">
+
+
+
     <div class="input-group d-flex justify-content-end" style="direction:ltr">
         @if (CFieldType == FieldType.CID)
         {
@@ -56,7 +60,7 @@
         else if (CFieldType == FieldType.CSelect)
         {
             <InputSelect @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
-                         disabled="@Disabled" class="col-10">
+                         disabled="@Disabled" class="col-8">
                 @if (LValue < 1)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>

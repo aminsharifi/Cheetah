@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Text;
-using System.Web;
-using System.Xml.Linq;
 
 namespace Cheetah_Common
 {
