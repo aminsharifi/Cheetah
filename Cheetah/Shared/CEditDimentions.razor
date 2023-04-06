@@ -27,14 +27,17 @@
                         CDescription="ایندکس جهت مرتب سازی می باشد."
                         CDisplayName="ایندکس" CFieldType="@(FieldType.CNInt)"></CInput>
 
-                    <CInput @bind-SValue="Record.PDescription"
-                        CDescription="متنی که کاربر مشاهده می کند"
-                        CDisplayName="نام نمایشی" CFieldType="@(FieldType.CString)"></CInput>
-
                     <CInput @bind-SValue="Record.PName"
                         CDescription="متنی که در سیستم استفاده میشود."
                         CDisplayName="نام" CFieldType="@(FieldType.CString)"></CInput>
 
+                    <CInput @bind-SValue="Record.PDisplayName"
+                        CDescription="متنی که کاربر مشاهده می کند"
+                        CDisplayName="نام نمایشی" CFieldType="@(FieldType.CString)"></CInput>
+
+                        <CInput @bind-SValue="Record.PDescription"
+                        CDescription="متن راهنما"
+                            CDisplayName="متن راهنما" CFieldType="@(FieldType.CString)"></CInput>
                     <CInput @bind-BValue="Record.DsblRecord"
                         CDescription="جهت غیرفعال سازی"
                         CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
@@ -95,7 +98,7 @@
         if (Record.Id > 0)
         {
             Record = await simpleClassRepository.Update(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDescription} با موفقیت ذخیره شد");
+            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
         }
         else
         {

@@ -54,7 +54,7 @@
         if (reference is null || firstRender)
         {
             reference = _CNavigation.LoadNavigation(Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
-            RowDescription: Record.PDescription,
+            RowDescription: Record.PDisplayName,
             RowId: Record.Id, Reference: reference);
 
             IsLoading = false;

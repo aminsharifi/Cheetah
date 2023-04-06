@@ -82,7 +82,7 @@
         if (Record.Id > 0)
         {
             Record = await simpleClassRepository.Update(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDescription} با موفقیت ذخیره شد");
+            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
         }
         else
         {

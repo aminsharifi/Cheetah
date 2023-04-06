@@ -62,7 +62,7 @@
         if (reference is null || firstRender)
         {
             reference = _CNavigation.LoadNavigation(Address: $"Links/{((Id > 0) ? "Edit" : "Create")}/{Name}/{type}/{((Id > 0) ? Id : LinkId)}",
-            RowDescription: Record.PDescription, RowId: Record.Id, Reference: reference);
+            RowDescription: Record.PDisplayName, RowId: Record.Id, Reference: reference);
 
             IsLoading = false;
             StateHasChanged();

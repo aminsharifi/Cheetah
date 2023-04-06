@@ -30,26 +30,32 @@ namespace Cheetah_DataAccess.Data
         [StringLength(512)]
         [Description("نام نمایشی")]
         [Required(ErrorMessage = "نام نمایشی اجباری است")]
-        [Column(Order = 9)]
+        [Column(Order = 4)]
+        public String? PDisplayName { get; set; }
+
+
+        [StringLength(512)]
+        [Description("توضیحات")]
+        [Column(Order = 5)]
         public String? PDescription { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column(Order = 4)]
+        [Column(Order = 6)]
         public DateTime? CreateTimeRecord { get; set; } = DateTime.Now;
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [Column(Order = 5)]
+        [Column(Order = 7)]
         [ConcurrencyCheck]
         public DateTime? LastUpdatedRecord { get; set; } = DateTime.Now;
 
-        [Column(Order = 6)]
+        [Column(Order = 8)]
         public Guid? GuidRecord { get; set; } = Guid.NewGuid();
         [DefaultValue(false)]
-        [Column(Order = 7)]
+        [Column(Order = 9)]
         [Description("غیرفعال")]
         public bool DsblRecord { get; set; } = false;
 
         [Description("کد در ERP")]
-        [Column(Order = 8)]
+        [Column(Order = 10)]
         public Int64? PERPCode { get; set; }
     }
 }
