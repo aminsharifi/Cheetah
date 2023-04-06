@@ -11,7 +11,12 @@ namespace Cheetah_DataAccess.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Seed();
         }
         public virtual DbSet<D_ParameterType> P_ParameterTypes { get; set; }
         public virtual DbSet<D_ParameterList> P_ParameterLists { get; set; }
@@ -26,14 +31,24 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<D_User> S_Users { get; set; }
         public virtual DbSet<D_FieldType> P_FieldTypes { get; set; }
         public virtual DbSet<D_Operand> P_Operands { get; set; }
-        public virtual DbSet<F_RequestInformation> M_RequestInformations { get; set; }
-        public virtual DbSet<F_Approve> M_Approves { get; set; }
-        public virtual DbSet<F_Attachment> M_Attachments { get; set; }
-        public virtual DbSet<F_AllApprove> M_AllApproves { get; set; }
+        public virtual DbSet<D_Entity> D_Entities { get; set; }
+
+
+
         public virtual DbSet<L_RolePosition> L_RolePositions { get; set; }
         public virtual DbSet<L_UserArea> L_UserAreas { get; set; }
         public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
         public virtual DbSet<L_UserRole> L_UserRoles { get; set; }
         public virtual DbSet<L_UserSkill> L_UserSkills { get; set; }
+
+
+
+        public virtual DbSet<F_RequestInformation> M_RequestInformations { get; set; }
+        public virtual DbSet<F_Approve> M_Approves { get; set; }
+        public virtual DbSet<F_Attachment> M_Attachments { get; set; }
+        public virtual DbSet<F_AllApprove> M_AllApproves { get; set; }
+
+
+
     }
 }

@@ -109,11 +109,14 @@
 
     private async Task FirstLoadRecords()
     {
-        keyValuePair = await simpleClassRepository.GetAllTableName("Dimentions");
+        //keyValuePair = await simpleClassRepository.GetAllTableName("Dimentions");
+        var _D_Entity = await simpleClassRepository.GetAllByName("D_Entity");
+
+        keyValuePair = _D_Entity.Select(x => new KeyValuePair<String, String>(x.PName, x.PDisplayName)).ToList();
 
         if (Name == null)
         {
-            Name = keyValuePair.First().Value;
+            Name = keyValuePair.First().Key;
             _NavigationManager.NavigateTo($"/List/{Name}");
         }
         await LoadRecords();

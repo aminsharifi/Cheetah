@@ -7,10 +7,10 @@ namespace Cheetah_DataAccess.Data
 { 
     public abstract class BaseClass<I> : SimpleClass
     {
-        [Column(Order = 10)]
+        [Column(Order = 50)]
         public long? Parent_Id { get; set; }
         [ForeignKey("Parent_Id")]
-        [Column(Order = 11)]
+        [Column(Order = 51)]
         public virtual I? ParentId { get; set; }
 
         [InverseProperty("ParentId")]
