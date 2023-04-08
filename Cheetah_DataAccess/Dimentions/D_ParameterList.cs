@@ -18,9 +18,13 @@
         #region Relation
 
         #region Entity
-        [Column(Order = 100)]
-        public virtual D_ParameterType? PL_ParameterType { get; set; }
 
+
+        public long PL_ParameterTypeId { get; set; }
+        [Column(Order = 100)]
+        [ForeignKey("PL_ParameterTypeId")]
+        public virtual D_ParameterType? PL_ParameterType { get; set; }
+         
         #endregion
 
         #region Collection

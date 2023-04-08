@@ -65,7 +65,9 @@
         }
         if (reference is null || firstRender)
         {
-            reference = _CNavigation.LoadNavigation(Address: $"Links/{Name}/{type}/{Id}", RowDescription: Name,
+            var _D_Entity = await simpleClassRepository.GetAllByName("D_Entity");
+            var PDisplayName = _D_Entity.Where(x => x.PName == Name).Single().PDisplayName;
+            reference = _CNavigation.LoadNavigation(Address: $"Links/{Name}/{type}/{Id}", RowDescription: PDisplayName,
                 RowId: null, Reference: reference);
 
             IsLoading = false;

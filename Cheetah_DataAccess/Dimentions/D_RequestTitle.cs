@@ -1,7 +1,6 @@
 ﻿namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Parameters;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -43,8 +42,7 @@
         #endregion
 
         #region Relations
-        [Description("نام فرآیند")]
-        public virtual ICollection<D_SubRequestTitle>? RT_SubRequestTitles { get; set; } = new HashSet<D_SubRequestTitle>();
+
         #endregion
     }
 }

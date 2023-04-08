@@ -1,5 +1,3 @@
-using Cheetah_DataAccess.Parameters;
-
 namespace Cheetah_DataAccess.Links
 {
     using Cheetah_DataAccess.Data;

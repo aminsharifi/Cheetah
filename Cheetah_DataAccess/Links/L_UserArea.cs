@@ -1,13 +1,9 @@
-using Cheetah_DataAccess.Parameters;
-
 namespace Cheetah_DataAccess.Links
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Dimentions;
     using Microsoft.EntityFrameworkCore;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Text;
 
     [Table("L_UserArea", Schema = "Links")]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]

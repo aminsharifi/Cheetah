@@ -1,5 +1,7 @@
-﻿@page "/Dimentions/Create/D_Area/{reference}"
-@page "/Dimentions/Edit/D_Area/{Id:long}/{reference}"
+﻿@page "/Dimentions/Create/F_EndorsementPosition/{reference}"
+@page "/Dimentions/Edit/F_EndorsementPosition/{Id:long}/{reference}"
+@page "/Dimentions/Create/F_EndorsementPosition/{FilterName}/{reference}"
+@page "/Dimentions/Edit/F_EndorsementPosition/{FilterName}/{Id:long}/{reference}"
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
@@ -32,6 +34,9 @@
 
     [Parameter]
     public String Name { get; set; } = "D_Area";
+
+    [Parameter]
+    public String FilterName { get; set; }
 
     [Parameter]
     public String? reference { get; set; }

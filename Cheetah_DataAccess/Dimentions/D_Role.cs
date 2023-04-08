@@ -1,6 +1,7 @@
 namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
+    using Cheetah_DataAccess.Facts;
     using Cheetah_DataAccess.Links;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -17,12 +18,10 @@ namespace Cheetah_DataAccess.Dimentions
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class D_Role : BaseClass<D_Role>
     {
-        #region Simple Prob
-
-        #endregion
 
         #region Collection
-        public virtual ICollection<L_UserRole>? ROL_UserRoles { get; set; } = new HashSet<L_UserRole>();
+        public virtual ICollection<L_RolePosition>? ROL_RolePositions { get; set; } = new HashSet<L_RolePosition>();
+        public virtual ICollection<F_Endorsement>? ROL_EndorsementPosition { get; set; } = new HashSet<F_Endorsement>();
         #endregion
     }
 }

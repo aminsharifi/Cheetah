@@ -1,7 +1,6 @@
 using Cheetah_Business.Repository.IRepository;
 using Cheetah_Business.Repository.IRepository.General;
 using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Parameters;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

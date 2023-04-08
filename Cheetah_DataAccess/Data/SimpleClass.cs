@@ -22,7 +22,7 @@ namespace Cheetah_DataAccess.Data
         public Int64? PIndex { get; set; }
 
 
-        [StringLength(50)]
+        [StringLength(512)]
         [Description("نام")]
         [Column(Order = 3)]
         [Required(ErrorMessage = "نام اجباری است")]

@@ -6,7 +6,7 @@ namespace Cheetah_DataAccess.Dimentions
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("D_Area", Schema = "Dimentions")]
+    [Table("D_Area", Schema = "Dimentions")] 
    
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]

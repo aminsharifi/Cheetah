@@ -73,7 +73,7 @@
         [Description("موقعیت")]
         public virtual ICollection<L_UserLocation>? User_UserLocations { get; set; } = new HashSet<L_UserLocation>();
         public virtual ICollection<L_UserRelatedLocation>? User_Related_UserLocations { get; set; } = new HashSet<L_UserRelatedLocation>();
-        public virtual ICollection<L_UserRole>? User_UserRoles { get; set; } = new HashSet<L_UserRole>();
+        public virtual ICollection<L_UserPosition>? User_UserRoles { get; set; } = new HashSet<L_UserPosition>();
         public virtual ICollection<F_ListOfParameter>? User_ListOfParameters { get; set; } = new HashSet<F_ListOfParameter>();
         #endregion
 

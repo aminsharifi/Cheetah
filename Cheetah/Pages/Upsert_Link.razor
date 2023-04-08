@@ -12,7 +12,8 @@
 @if (!IsLoading)
 {
     <CEditLinks Record="@Record" type="@type" LinkId="@LinkId"
-            Id="@Id" Name="@Name" FirstName="D_User" SecondName="D_Area"
+            Id="@Id" Name="@Name" FirstName="@(FirstClassRecord.PName)"
+            SecondName="@(SecondClassRecord.PName)"
             Title="@Title" IsLoading="@IsLoading"
             reference="@reference">
         <RowTemplate>

@@ -1,10 +1,8 @@
 ﻿namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Dimentions;
     using Cheetah_DataAccess.Facts;
     using Cheetah_DataAccess.Masters;
-    using Cheetah_DataAccess.Parameters;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -51,11 +49,6 @@
 
         #region Entity
 
-        [StringLength(50)]
-        [Description("زیرفرآیند")]
-        [Column(Order = 106)]
-        public virtual D_SubRequestTitle? PSE_SubRequestTitle { get; set; }
-
         [Description("کارشناس تخصیص پیشفرض")]
         [Column(Order = 107)]
         public virtual D_User? PSE_ExpertUser { get; set; }
@@ -69,7 +62,7 @@
         public virtual D_ProcessState? PSE_ProcessState { get; set; }
 
         public virtual ICollection<F_ListOfParameter>? PSE_ListOfParameter { get; set; } = new HashSet<F_ListOfParameter>();
-        public virtual ICollection<F_EndorsementPosition>? PSE_EndorsementPosition { get; set; } = new HashSet<F_EndorsementPosition>();
+        public virtual ICollection<F_Endorsement>? PSE_EndorsementPosition { get; set; } = new HashSet<F_Endorsement>();
         #endregion
 
         #endregion

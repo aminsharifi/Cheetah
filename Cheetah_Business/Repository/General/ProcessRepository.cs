@@ -40,7 +40,7 @@
                 },
             };
 
-            var AddedObj = await _db.M_RequestInformations.AddAsync(obj);
+            var AddedObj = await _db.F_RequestInformations.AddAsync(obj);
 
             await _db.SaveChangesAsync();
 
@@ -57,7 +57,7 @@
 
         public async Task<F_RequestInformation> GetProcess(long id)
         {
-            var obj = await _db.M_RequestInformations.FirstOrDefaultAsync(x => x.Id == id);
+            var obj = await _db.F_RequestInformations.FirstOrDefaultAsync(x => x.Id == id);
 
             if (obj != null)
             {

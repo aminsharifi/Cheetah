@@ -47,17 +47,16 @@ namespace Cheetah_DataAccess.Data
               new D_Operand { Id = 5, PCode = 5, PIndex = 5, PName = "<", PDisplayName = " کوچکتر از" },
               new D_Operand { Id = 6, PCode = 6, PIndex = 6, PName = "<=", PDisplayName = "کوچکتر و مساوی" }
               );
-
+            //new D_ParameterType { Id = 8, PCode = 8, PIndex = 8, PName = "InputVar", PDisplayName = "متغییر ورودی" },
+            //  new D_ParameterType { Id = 9, PCode = 9, PIndex = 9, PName = "OutputVar", PDisplayName = "متغییر خروجی" },
+            //       new D_ParameterType { Id = 1, PCode = 1, PIndex = 1, PName = "OthersShare", PDisplayName = "سهم دیگران" },
+            //  new D_ParameterType { Id = 2, PCode = 2, PIndex = 2, PName = "OursShare", PDisplayName = "سهم شرکت" },
+            //  new D_ParameterType { Id = 3, PCode = 3, PIndex = 3, PName = "AreaType", PDisplayName = "نوع واحد مرتبط" },
+            //  new D_ParameterType { Id = 4, PCode = 4, PIndex = 4, PName = "Staff", PDisplayName = "ستاد" },
+            //  new D_ParameterType { Id = 5, PCode = 5, PIndex = 5, PName = "Refrigerator", PDisplayName = "مخدر/ یخچالی" },
+            //  new D_ParameterType { Id = 6, PCode = 6, PIndex = 6, PName = "Price", PDisplayName = "مبلغ" },
             modelBuilder.Entity<D_ParameterType>().HasData(
-              new D_ParameterType { Id = 1, PCode = 1, PIndex = 1, PName = "OthersShare", PDisplayName = "سهم دیگران" },
-              new D_ParameterType { Id = 2, PCode = 2, PIndex = 2, PName = "OursShare", PDisplayName = "سهم شرکت" },
-              new D_ParameterType { Id = 3, PCode = 3, PIndex = 3, PName = "AreaType", PDisplayName = "نوع واحد مرتبط" },
-              new D_ParameterType { Id = 4, PCode = 4, PIndex = 4, PName = "Staff", PDisplayName = "ستاد" },
-              new D_ParameterType { Id = 5, PCode = 5, PIndex = 5, PName = "Refrigerator", PDisplayName = "مخدر/ یخچالی" },
-              new D_ParameterType { Id = 6, PCode = 6, PIndex = 6, PName = "Price", PDisplayName = "مبلغ" },
               new D_ParameterType { Id = 7, PCode = 7, PIndex = 7, PName = "ProcessVar", PDisplayName = "متغیر فرآیندی" },
-              new D_ParameterType { Id = 8, PCode = 8, PIndex = 8, PName = "InputVar", PDisplayName = "متغییر ورودی" },
-              new D_ParameterType { Id = 9, PCode = 9, PIndex = 9, PName = "OutputVar", PDisplayName = "متغییر خروجی" },
               new D_ParameterType { Id = 10, PCode = 10, PIndex = 10, PName = "ProcessAction", PDisplayName = "اقدام های فرآیندی" }
               );
 
@@ -65,6 +64,31 @@ namespace Cheetah_DataAccess.Data
                 new D_User { Id = 1, PCode = 1, PIndex = 1, PName = "m.sharifi", PDisplayName = "محمد شریفی" },
                 new D_User { Id = 2, PCode = 2, PIndex = 2, PName = "a.sharifi", PDisplayName = "امین شریفی" }
                 );
+
+            modelBuilder.Entity<L_UserLocation>().HasData(
+                new L_UserLocation { Id = 1, PCode = 1, PIndex = 1, PName = "m.sharifi-Tehran", PDisplayName = "محمد شریفی-تهران", FirstId = 1, SecondId = 1 },
+                new L_UserLocation { Id = 2, PCode = 2, PIndex = 2, PName = "a.sharifi-Fars", PDisplayName = "امین شریفی-فارس", FirstId = 2, SecondId = 2 }
+                );
+
+
+            modelBuilder.Entity<D_Role>().HasData(
+             new D_Role { Id = 1, PCode = 1, PIndex = 1, PName = "PharmaceuticalDeputy", PDisplayName = "معاونت دارویی" },
+             new D_Role { Id = 2, PCode = 2, PIndex = 2, PName = "FMCGDeputy", PDisplayName = "معاونت غذایی" },
+             new D_Role { Id = 3, PCode = 3, PIndex = 3, PName = "BusinessSpecialist", PDisplayName = "کارشناس بازرگانی" },
+             new D_Role { Id = 4, PCode = 4, PIndex = 4, PName = "SalesSpecialist", PDisplayName = "کارشناس فروش" },
+             new D_Role { Id = 5, PCode = 5, PIndex = 5, PName = "DistributionCenterManager", PDisplayName = "مدیریت مرکز توزیع" }
+             );
+
+            modelBuilder.Entity<D_Position>().HasData(
+         new D_Position { Id = 1, PCode = 1, PIndex = 1, PName = "PharmaceuticalDeputy", PDisplayName = "معاون دارویی", PSO_Independent = true },
+         new D_Position { Id = 2, PCode = 2, PIndex = 2, PName = "FMCGDeputy", PDisplayName = "معاون غذایی", PSO_Independent = true },
+         new D_Position { Id = 3, PCode = 3, PIndex = 3, PName = "BusinessSeniorSpecialist", PDisplayName = "کارشناس ارشد بازرگانی", PSO_Independent = true },
+         new D_Position { Id = 4, PCode = 4, PIndex = 4, PName = "BusinessSpecialist", PDisplayName = "کارشناس بازرگانی", PSO_Independent = true },
+         new D_Position { Id = 5, PCode = 5, PIndex = 5, PName = "SalesSeniorSpecialist", PDisplayName = "کارشناس ارشد فروش", PSO_Independent = true },
+         new D_Position { Id = 6, PCode = 6, PIndex = 6, PName = "SalesSpecialist", PDisplayName = "کارشناس فروش", PSO_Independent = true },
+         new D_Position { Id = 7, PCode = 7, PIndex = 7, PName = "DistributionCenterManager", PDisplayName = "مدیر مرکز توزیع", PSO_Independent = false }
+         );
+
 
             modelBuilder.Entity<D_Entity>().HasData(
               new D_Entity { Id = 1, PCode = 1, PIndex = 1, PName = "D_Area", PDisplayName = new StringBuilder().Append("واحدها").Append($"({TableType.Dimentions})").ToString() },
@@ -93,14 +117,11 @@ namespace Cheetah_DataAccess.Data
               new D_Entity { Id = 24, PCode = 24, PIndex = 24, PName = "L_UserArea", PDisplayName = new StringBuilder().Append("کاربر-واحدها").Append($"({TableType.Links})").ToString() },
               new D_Entity { Id = 25, PCode = 25, PIndex = 25, PName = "L_UserLocation", PDisplayName = new StringBuilder().Append("کاربر-موقعیت").Append($"({TableType.Links})").ToString() },
               new D_Entity { Id = 26, PCode = 26, PIndex = 26, PName = "L_UserRelatedLocation", PDisplayName = new StringBuilder().Append("کاربر-موقعیت‌های مرتبط").Append($"({TableType.Links})").ToString() },
-              new D_Entity { Id = 27, PCode = 27, PIndex = 27, PName = "L_UserRole", PDisplayName = new StringBuilder().Append("کاربر-نقش").Append($"({TableType.Links})").ToString() },
+              new D_Entity { Id = 27, PCode = 27, PIndex = 27, PName = "L_UserPosition", PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString() },
               new D_Entity { Id = 28, PCode = 28, PIndex = 28, PName = "L_UserSkill", PDisplayName = new StringBuilder().Append("کاربر-حرفه").Append($"({TableType.Links})").ToString() }
               );
 
-            modelBuilder.Entity<L_UserLocation>().HasData(
-             new L_UserLocation { Id = 1, PCode = 1, PIndex = 1, PName = "m.sharifi-Tehran", PDisplayName = "محمد شریفی-تهران", FirstId = 1, SecondId = 1 },
-             new L_UserLocation { Id = 2, PCode = 2, PIndex = 2, PName = "a.sharifi-Fars", PDisplayName = "امین شریفی-فارس", FirstId = 2, SecondId = 2 }
-             );
+
         }
     }
 }
