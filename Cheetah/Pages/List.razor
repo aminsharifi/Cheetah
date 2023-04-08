@@ -100,8 +100,10 @@
         {
             _CNavigation.NavigationList.Clear();
 
-            reference = _CNavigation.LoadNavigation(Address: $"List/{Name}", RowDescription: Name,
-                RowId: Id, Reference: reference);
+            var Value = keyValuePair.Where(x => x.Key == Name).First().Value;
+
+            reference = _CNavigation.LoadNavigation(Address: $"List/{Name}", RowDescription: Value,
+            RowId: Id, Reference: reference);
 
             IsLoading = false;
             StateHasChanged();

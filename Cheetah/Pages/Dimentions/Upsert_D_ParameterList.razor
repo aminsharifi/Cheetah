@@ -1,21 +1,39 @@
-﻿@page "/Dimentions/Create/D_ParameterList"
-@page "/Dimentions/Edit/D_ParameterList/{Id:long}"
+﻿@page "/Dimentions/Create/D_ParameterList/{reference}"
+@page "/Dimentions/Edit/D_ParameterList/{Id:long}/{reference}"
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
+@inject CNavigation _CNavigation;
 @inject IJSRuntime _JsRuntime;
 
-<FormGenericTypeItems Record="@Record"
-                      Name="@Name" Title="@Title" IsLoading="@IsLoading">
-</FormGenericTypeItems>
-
+<NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
+@if (!IsLoading)
+{
+    <CEditDimentions Record="@Record"
+                 Name="@Name" Title="@Title" IsLoading="@IsLoading">
+        <RowTemplate>
+            <CInput @bind-LValue="Record.PL_ParameterTypeId"
+                Records="@d_ParameterType" CDescription="نوع پارامتر"
+                Record="@(Record.PL_ParameterType)"
+                SelectedProcessesChanged="@SelectedProcessesChanged"
+                CDisplayName="نوع پارامتر" CFieldType="@(FieldType.CSelect)"></CInput>
+        </RowTemplate>
+    </CEditDimentions>
+}
 @code {
+
     [Parameter]
     public long Id { get; set; } = 0;
+
     [Parameter]
     public String Name { get; set; } = "D_ParameterList";
 
+    [Parameter]
+    public String? reference { get; set; }
+
     public D_ParameterList Record { get; set; }
+
+    public IEnumerable<SimpleClass> d_ParameterType { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -23,10 +41,29 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && Record is null)
         {
             Title = (Id > 0) ? "ذخیره" : "ایجاد";
             await LoadDTO();
+        }
+        if (reference is null || firstRender)
+        {
+            reference = _CNavigation.LoadNavigation(Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
+            RowDescription: Record.PDisplayName,
+            RowId: Record.Id, Reference: reference);
+
+            IsLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task SelectedProcessesChanged(ChangeEventArgs e)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var _D_ParameterType = Int64.Parse(e.Value.ToString());
+
+            Record.PL_ParameterType = d_ParameterType.First(x => x.Id == _D_ParameterType) as D_ParameterType;
         }
     }
 
@@ -34,17 +71,13 @@
     {
         try
         {
-            IsLoading = true;
-            StateHasChanged();
             Record = await simpleClassRepository.Get(Name, Id) as D_ParameterList;
-            IsLoading = false;
-            StateHasChanged();
+
+            d_ParameterType = await simpleClassRepository.GetAllByName("D_ParameterType");
         }
         catch (Exception ex)
         {
             await _JsRuntime.ToastrError(ex.InnerException.Message);
         }
     }
-
-
 }

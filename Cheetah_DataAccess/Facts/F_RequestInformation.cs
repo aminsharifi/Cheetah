@@ -2,12 +2,11 @@
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Dimentions;
-    using Cheetah_DataAccess.Parameters;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations.Schema;
-    using Microsoft.EntityFrameworkCore;
 
     [Table("F_RequestInformation", Schema = "Facts")]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]

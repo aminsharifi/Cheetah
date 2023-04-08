@@ -17,14 +17,14 @@
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
+    [Index(nameof(PSO_Independent), IsUnique = false, AllDescending = true)]
     public partial class D_Position : BaseClass<D_Position>
     {
         [Column(Order = 100)]
-        public Boolean? PSO_Independent_Location { get; set; } = false;
-        [Column(Order = 101)]
-        public virtual D_Location? PSO_Default_Location { get; set; }
-        public virtual ICollection<L_UserSkill>? PSO_UserSkills { get; set; } = new HashSet<L_UserSkill>();
-        public virtual ICollection<L_RolePosition>? PSO_RolePositions { get; set; } = new HashSet<L_RolePosition>();
-        public virtual ICollection<F_EndorsementPosition>? PSO_EndorsementPosition { get; set; } = new HashSet<F_EndorsementPosition>();
+        public Boolean PSO_Independent { get; set; } = false;
+
+        public virtual ICollection<L_UserPosition>? PSO_UserPositions { get; set; } = new HashSet<L_UserPosition>();
+
+        public virtual ICollection<L_RolePosition>? PSO_RolePositions { get; set; } = new HashSet<L_RolePosition>();        
     }
 }

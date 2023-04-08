@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Cheetah_DataAccess.Dimentions;
-using Cheetah_DataAccess.Parameters;
 
 namespace Cheetah_Business.Mapper
 {
@@ -14,7 +13,6 @@ namespace Cheetah_Business.Mapper
             CreateMap<D_ProcessEndorsement, D_ProcessEndorsement>().ReverseMap();
             CreateMap<D_ProcessState, D_ProcessState>().ReverseMap();
             CreateMap<D_RequestTitle, D_RequestTitle>().ReverseMap();
-            CreateMap<D_SubRequestTitle, D_SubRequestTitle>().ReverseMap();
         }
     }
 }
