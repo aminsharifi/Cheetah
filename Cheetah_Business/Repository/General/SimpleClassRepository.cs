@@ -3,6 +3,7 @@
     using AutoMapper;
     using Cheetah_Common;
     using Cheetah_DataAccess.Data;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -38,7 +39,7 @@
             }
             return -1;
         }
-        public async Task<SimpleClass> Get(string type, long? id)
+        public async Task<SimpleClass> Get(string type, long? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -59,7 +60,13 @@
                 }
                 else
                 {
-                    return await _db.FindAsync(gtype, id) as SimpleClass;
+                    _db.ChangeTracker.QueryTrackingBehavior = Tracking;
+
+                    var _SimpleClass = await _db.FindAsync(gtype, id) as SimpleClass;
+
+                    _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+
+                    return _SimpleClass;
                 }
             }
             return null;
@@ -69,9 +76,12 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
+                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
                 var gtype = DatabaseClass.GetDBType(type);
                 var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
-                return await Task.FromResult(aa.ToList());
+                var Result = await Task.FromResult(aa.ToList());
+                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+                return Result;
             }
             return new List<SimpleClass>();
         }
@@ -79,22 +89,28 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
+                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
                 var gtype = DatabaseClass.GetDBType(type);
                 var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleLinkClass>;
 
-                return await Task.FromResult(
+                var Result = await Task.FromResult(
                     aa.Where(x => (x.FirstId == linkID && sd_Status == SD.First) ||
                     (x.SecondId == linkID && sd_Status == SD.Second)).ToList());
+                return Result;
             }
+            _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
             return new List<SimpleLinkClass>();
         }
         public async Task<IEnumerable<KeyValuePair<string, string>>> GetAllTableName(string SchemaName)
         {
             if (!String.IsNullOrEmpty(SchemaName))
             {
-                return await Task.FromResult(
+                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+                var Result = await Task.FromResult(
                     _db.Model.GetEntityTypes()
                     .ToDictionary(x => x.Name.Split('.').Last(), x => x.Name.Split('.').Last()).ToList());
+                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+                return Result;
             }
             return new List<KeyValuePair<string, string>>();
         }

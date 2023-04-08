@@ -4,6 +4,7 @@
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 @inject CNavigation _CNavigation;
+@inject IJSRuntime _JsRuntime;
 
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
 @if (!IsLoading)
@@ -12,14 +13,15 @@
                  Name="@Name" Title="@Title" IsLoading="@IsLoading">
         <RowTemplate>
             <CInput @bind-LValue="Record.Area_UnitTypeId"
-                Records="@unitTypes" CDescription="واحد"
+                Records="@unitTypes" CDescription="نوع واحد"
                 Record="@(Record.Area_UnitType)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
-                CDisplayName="واحد" CFieldType="@(FieldType.CSelect)"></CInput>
-           
-                <NavLink  href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
-                         class=" my-1">لیست کاربرانی که این واحد را دارند</NavLink>
-           
+                CDisplayName="نوع واحد" CFieldType="@(FieldType.CSelect)"></CInput>
+
+            <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
+                     class="link-primary my-1">
+                <strong>لیست کاربرانی که این واحد را دارند</strong>
+            </NavLink>
         </RowTemplate>
     </CEditDimentions>
 }
@@ -73,7 +75,14 @@
 
     private async Task LoadDTO()
     {
-        Record = await simpleClassRepository.Get("D_Area", Id) as D_Area;
-        unitTypes = await simpleClassRepository.GetAllByName("D_UnitType");
+        try
+        {
+            Record = await simpleClassRepository.Get(Name, Id) as D_Area;
+            unitTypes = await simpleClassRepository.GetAllByName("D_UnitType");
+        }
+        catch (Exception ex)
+        {
+            await _JsRuntime.ToastrError(ex.InnerException.Message);
+        }
     }
 }

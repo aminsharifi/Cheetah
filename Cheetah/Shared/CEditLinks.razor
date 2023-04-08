@@ -1,4 +1,5 @@
-﻿@typeparam TEntity where TEntity : SimpleClass
+﻿@using System.Text;
+@using Microsoft.EntityFrameworkCore;
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 @inject IJSRuntime _JsRuntime
@@ -12,7 +13,7 @@
     <div class="col-12">
         @if (!IsLoading)
         {
-            <EditForm Model="Record" OnValidSubmit="UpsertTask">
+            <EditForm OnSubmit="UpsertTask" Model="@Record" EditContext="editContext">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="row">
@@ -58,17 +59,22 @@
     [Parameter]
     public long? LinkId { get; set; } = 0;
     [Parameter]
-    public TEntity Record { get; set; }
+    public SimpleLinkClass Record { get; set; }
     [Parameter]
     public String? reference { get; set; }
     [Parameter]
-    public String? Name { get; set; }
+    public String Name { get; set; }
+    [Parameter]
+    public String FirstName { get; set; }
+    [Parameter]
+    public String SecondName { get; set; }
     [Parameter]
     public String? type { get; set; }
     [Parameter]
     public String? Title { get; set; }
     [Parameter]
     public RenderFragment? RowTemplate { get; set; }
+    private EditContext? editContext;
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -77,20 +83,49 @@
     }
 
 
-    private async Task UpsertTask()
+    private async Task UpsertTask(EditContext editContext)
     {
-        if (Record.Id > 0)
-        {
-            Record = await simpleClassRepository.Update(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
-        }
-        else
-        {
-            Record = await simpleClassRepository.Create(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
-        }
-        _CNavigation.BackNavigation(_NavigationManager);
 
+        var FirstDB = await simpleClassRepository.Get(type: FirstName,
+        id: Record.FirstId, Tracking: QueryTrackingBehavior.NoTracking);
+
+        var SecondDB = await simpleClassRepository.Get(type: SecondName,
+        id: Record.SecondId, Tracking: QueryTrackingBehavior.NoTracking);
+
+        Record.PDisplayName = new StringBuilder()
+                  .Append(FirstDB?.PDisplayName ?? String.Empty)
+                  .Append("-")
+                  .Append(SecondDB?.PDisplayName ?? String.Empty)
+                  .ToString();
+
+        Record.PName = new StringBuilder()
+                          .Append(FirstDB?.PName ?? String.Empty)
+                          .Append("-")
+                          .Append(SecondDB?.PName ?? String.Empty)
+                          .ToString();
+
+        var formIsValid = editContext.Validate();
+
+        if (formIsValid)
+        {
+            try
+            {
+                if (Record.Id > 0)
+                {
+                    Record = await simpleClassRepository.Update(Record) as SimpleLinkClass;
+                    await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
+                }
+                else
+                {
+                    Record = await simpleClassRepository.Create(Record) as SimpleLinkClass;
+                    await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
+                }
+                _CNavigation.BackNavigation(_NavigationManager);
+            }
+            catch (Exception ex)
+            {
+                await _JsRuntime.ToastrError(ex.InnerException.Message);
+            }
+        }
     }
-
 }
