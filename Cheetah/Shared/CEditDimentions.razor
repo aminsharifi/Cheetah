@@ -35,9 +35,9 @@
                         CDescription="متنی که کاربر مشاهده می کند"
                         CDisplayName="نام نمایشی" CFieldType="@(FieldType.CString)"></CInput>
 
-                        <CInput @bind-SValue="Record.PDescription"
+                    <CInput @bind-SValue="Record.PDescription"
                         CDescription="متن راهنما"
-                            CDisplayName="متن راهنما" CFieldType="@(FieldType.CString)"></CInput>
+                        CDisplayName="متن راهنما" CFieldType="@(FieldType.CString)"></CInput>
                     <CInput @bind-BValue="Record.DsblRecord"
                         CDescription="جهت غیرفعال سازی"
                         CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
@@ -95,16 +95,24 @@
 
     private async Task UpsertTask()
     {
-        if (Record.Id > 0)
+        try
         {
-            Record = await simpleClassRepository.Update(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
+            if (Record.Id > 0)
+            {
+                Record = await simpleClassRepository.Update(Record) as TEntity;
+                await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
+            }
+            else
+            {
+                Record = await simpleClassRepository.Create(Record) as TEntity;
+                await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
+            }
+            _CNavigation.BackNavigation(_NavigationManager);
+
         }
-        else
+        catch (Exception ex)
         {
-            Record = await simpleClassRepository.Create(Record) as TEntity;
-            await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
+            await _JsRuntime.ToastrError(ex.InnerException.Message);
         }
-        _CNavigation.BackNavigation(_NavigationManager);
     }
 }

@@ -3,6 +3,7 @@ using Cheetah_Business.Repository.IRepository;
 using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Dimentions;
 using Cheetah_Models;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Cheetah_Client.Service
@@ -101,7 +102,18 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public async Task<SimpleClass> Get(string type, long? id)
+
+        public Task<SimpleClass> Create(SimpleClass obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SimpleClass> Update(SimpleClass obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<SimpleClass> Get(string type, long? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
         {
             var response = await _httpClient.GetAsync($"/D_ParameterType/{id}");
             var content = await response.Content.ReadAsStringAsync();
@@ -116,16 +128,6 @@ namespace Cheetah_Client.Service
                 var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
                 throw new Exception(errorModel.ErorrMessage);
             }
-        }
-
-        public Task<SimpleClass> Create(SimpleClass obj_DTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<SimpleClass> Update(SimpleClass obj_DTO)
-        {
-            throw new NotImplementedException();
         }
     }
 }

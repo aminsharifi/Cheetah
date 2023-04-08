@@ -4,9 +4,10 @@
 @using System.Web;
 
 @inject ISimpleClassRepository simpleClassRepository;
-@inject IJSRuntime _jSRuntime;
+@inject IJSRuntime _JsRuntime;
 @inject NavigationManager _NavigationManager;
 @inject CNavigation _CNavigation;
+
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
 <div style="direction:rtl">
     <div class="row mb-2">
@@ -124,7 +125,14 @@
 
     private async Task LoadRecords()
     {
-        Records = await simpleClassRepository.GetAllByName(Name);
+        try
+        {
+            Records = await simpleClassRepository.GetAllByName(Name);
+        }
+        catch (Exception ex)
+        {
+            await _JsRuntime.ToastrError(ex.InnerException.Message);
+        }
     }
     public async Task ConfirmDelete_Click()
     {

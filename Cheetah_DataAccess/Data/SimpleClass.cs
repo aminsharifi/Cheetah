@@ -21,6 +21,7 @@ namespace Cheetah_DataAccess.Data
         [Required(ErrorMessage = "اندیس سورت اجباری است")]
         public Int64? PIndex { get; set; }
 
+
         [StringLength(50)]
         [Description("نام")]
         [Column(Order = 3)]

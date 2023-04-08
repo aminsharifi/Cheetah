@@ -3,6 +3,7 @@
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
+@inject IJSRuntime _JsRuntime;
 
 <FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
@@ -11,7 +12,7 @@
     [Parameter]
     public long Id { get; set; } = 0;
     [Parameter]
-    public String Name { get; set;} = "D_Role";
+    public String Name { get; set; } = "D_Role";
 
     public D_Role Record { get; set; }
 
@@ -30,10 +31,17 @@
 
     private async Task LoadDTO()
     {
-        IsLoading = true;
-        StateHasChanged();
-        Record = await simpleClassRepository.Get(Name, Id) as D_Role;
-        IsLoading = false;
-        StateHasChanged();
+        try
+        {
+            IsLoading = true;
+            StateHasChanged();
+            Record = await simpleClassRepository.Get(Name, Id) as D_Role;
+            IsLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await _JsRuntime.ToastrError(ex.InnerException.Message);
+        }
     }
 }

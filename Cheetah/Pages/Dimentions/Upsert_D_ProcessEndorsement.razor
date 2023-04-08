@@ -2,7 +2,8 @@
 @page "/Dimentions/Edit/D_ProcessEndorsement/{Id:long}"
 
 @inject ISimpleClassRepository simpleClassRepository;
-@inject NavigationManager _NavigationManager;
+@inject IJSRuntime _JsRuntime;
+
 <FormGenericTypeItems Record="@Record"
                       Name="@Name" Title="@Title" IsLoading="@IsLoading">
 </FormGenericTypeItems>
@@ -29,11 +30,18 @@
 
     private async Task LoadDTO()
     {
-        IsLoading = true;
-        StateHasChanged();
-        Record = await simpleClassRepository.Get(Name, Id) as D_ProcessEndorsement;
-        IsLoading = false;
-        StateHasChanged();
+        try
+        {
+            IsLoading = true;
+            StateHasChanged();
+            Record = await simpleClassRepository.Get(Name, Id) as D_ProcessEndorsement;
+            IsLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await _JsRuntime.ToastrError(ex.InnerException.Message);
+        }
     }
 
 

@@ -339,3 +339,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[__EFM
 DROP TABLE [dbo].[__EFMigrationsHistory]
 GO
 
+/****** Object:  Table [Dimentions].[D_Entity]    Script Date: 4/7/2023 9:54:22 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Entity]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Entity]
+GO

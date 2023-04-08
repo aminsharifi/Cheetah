@@ -8,13 +8,14 @@
     <div class="input-group d-flex justify-content-end" style="direction:ltr">
         @if (CFieldType == FieldType.CID)
         {
-            <InputNumber @bind-Value="LValue" disabled="disabled"
+            <InputNumber @bind-Value="LValue" disabled="disabled" @attributes=CapturedAttributes
                          class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
             </InputNumber>
         }
         else if (CFieldType == FieldType.CInt)
         {
-            <InputNumber @bind-Value="LValue" class="form-control"
+            <InputNumber @attributes=CapturedAttributes
+                     @bind-Value="LValue" class="form-control"
                          aria-describedby="basic-addon2" lang="fa" dir="rtl"
                          data-bs-toggle="tooltip" data-bs-placement="top"
                          data-bs-custom-class="custom-tooltip"
@@ -26,7 +27,8 @@
         }
         else if (CFieldType == FieldType.CNInt)
         {
-            <InputNumber @bind-Value="NLValue" class="form-control"
+            <InputNumber @attributes=CapturedAttributes
+                     @bind-Value="NLValue" class="form-control"
                          aria-describedby="basic-addon2" lang="fa" dir="rtl"
                          data-bs-toggle="tooltip" data-bs-placement="top"
                          data-bs-custom-class="custom-tooltip"
@@ -38,7 +40,8 @@
         }
         else if (CFieldType == FieldType.CString)
         {
-            <InputText @bind-Value="SValue" class="form-control"
+            <InputText @attributes=CapturedAttributes
+                   @bind-Value="SValue" class="form-control"
                        aria-describedby="basic-addon2" lang="fa" dir="rtl"
                        data-bs-toggle="tooltip" data-bs-placement="top"
                        data-bs-custom-class="custom-tooltip"
@@ -51,7 +54,8 @@
         else if (CFieldType == FieldType.CBool)
         {
             <div class="form-check form-switch">
-                <InputCheckbox class="form-check-input" type="checkbox" role="switch"
+                <InputCheckbox @attributes=CapturedAttributes
+                               class="form-check-input" type="checkbox" role="switch"
                            @bind-Value="BValue"
                                style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
                 </InputCheckbox>
@@ -59,8 +63,9 @@
         }
         else if (CFieldType == FieldType.CSelect)
         {
-            <InputSelect @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
-                         disabled="@Disabled" class="col-8">
+            <InputSelect @attributes=CapturedAttributes
+                     @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
+                         disabled="@Disabled" class="col-6">
                 @if (LValue < 1)
                 {
                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
@@ -71,14 +76,19 @@
                 }
             </InputSelect>
         }
-        <div class="input-group-prepend">
-            <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
-                  lang="fa" dir="rtl">@CDisplayName</span>
+        <div class="input-group-prepend @((CFieldType != FieldType.CSelect)?"col-4":"col-6")">
+            <span class="input-group-text" style="border-radius:revert"
+                  lang="fa" dir="rtl"><strong>@CDisplayName</strong></span>
         </div>
     </div>
 </div>
 
 @code {
+
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> CapturedAttributes { get; set; }
+
     [Parameter]
     public EventCallback<ChangeEventArgs> SelectedProcessesChanged { get; set; }
 

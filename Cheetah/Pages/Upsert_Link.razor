@@ -7,21 +7,22 @@
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
 @inject CNavigation _CNavigation;
+@inject IJSRuntime _JsRuntime;
 <NavigationComponent _CNavigation="@_CNavigation" />
 @if (!IsLoading)
 {
     <CEditLinks Record="@Record" type="@type" LinkId="@LinkId"
-            Id="@Id" Name="@Name" Title="@Title" IsLoading="@IsLoading"
+            Id="@Id" Name="@Name" FirstName="D_User" SecondName="D_Area"
+            Title="@Title" IsLoading="@IsLoading"
             reference="@reference">
         <RowTemplate>
+            <CInput @bind-LValue="Record.FirstId" Records="@FirstClass"
+                CDescription="@(FirstClassRecord.PDisplayName)" Disabled="@(type == SD.First)"
+                CDisplayName="@(FirstClassRecord.PDisplayName)" CFieldType="@(FieldType.CSelect)"></CInput>
 
-            <CInput @bind-LValue="Record.FirstId" Records="@d_Users"
-                CDescription="کاربر" Disabled="@(type == SD.First)"
-                CDisplayName="کاربر" CFieldType="@(FieldType.CSelect)"></CInput>
-
-            <CInput @bind-LValue="Record.SecondId" Records="@d_Areas"
-                CDescription="واحد" Disabled="@(type == SD.Second)"
-                CDisplayName="واحد" CFieldType="@(FieldType.CSelect)"></CInput>
+            <CInput @bind-LValue="Record.SecondId" Records="@SecondClass"
+                CDescription="@(SecondClassRecord.PDisplayName)" Disabled="@(type == SD.Second)"
+                CDisplayName="@(SecondClassRecord.PDisplayName)" CFieldType="@(FieldType.CSelect)"></CInput>
         </RowTemplate>
     </CEditLinks>
 }
@@ -45,9 +46,13 @@
 
     public SimpleLinkClass Record { get; set; }
 
-    public IEnumerable<SimpleClass> d_Users { get; set; }
+    public SimpleClass FirstClassRecord { get; set; }
 
-    public IEnumerable<SimpleClass> d_Areas { get; set; }
+    public SimpleClass SecondClassRecord { get; set; }
+
+    public IEnumerable<SimpleClass> FirstClass { get; set; }
+
+    public IEnumerable<SimpleClass> SecondClass { get; set; }
 
     private String Title { get; set; }
 
@@ -70,25 +75,44 @@
     }
     private async Task LoadDTO()
     {
-        Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
-
-        if (type == SD.First)
+        try
         {
-            if (Record.FirstId == 0)
-                Record.FirstId = LinkId;
-            else
-                LinkId = Record.FirstId;
-        }
-        else
-        {
-            if (Record.SecondId == 0)
-                Record.SecondId = LinkId;
-            else
-                LinkId = Record.SecondId;
-        }
+            Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
 
-        d_Areas = await simpleClassRepository.GetAllByName("D_Area");
-        d_Users = await simpleClassRepository.GetAllByName("D_User");
-        Title = Record.Id > 0 ? "ویرایش" : "ایجاد";
+            if (type == SD.First)
+            {
+                if (Record.FirstId == 0)
+                    Record.FirstId = LinkId;
+                else
+                    LinkId = Record.FirstId;
+            }
+            else
+            {
+                if (Record.SecondId == 0)
+                    Record.SecondId = LinkId;
+                else
+                    LinkId = Record.SecondId;
+            }
+
+            var _D_Entity = await simpleClassRepository.GetAllByName("D_Entity");
+
+            var FirstClassName = Record.GetType().GetProperties()[0].PropertyType.Name;
+
+            var SecondClassName = Record.GetType().GetProperties()[1].PropertyType.Name;
+
+            FirstClassRecord = _D_Entity.Where(x => x.PName == FirstClassName).Single();
+
+            SecondClassRecord = _D_Entity.Where(x => x.PName == SecondClassName).Single();
+
+            FirstClass = await simpleClassRepository.GetAllByName(FirstClassName);
+
+            SecondClass = await simpleClassRepository.GetAllByName(SecondClassName);
+
+            Title = Record.Id > 0 ? "ویرایش" : "ایجاد";
+        }
+        catch (Exception ex)
+        {
+            await _JsRuntime.ToastrError(ex.InnerException.Message);
+        }
     }
 }
