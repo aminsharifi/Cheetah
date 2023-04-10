@@ -1,6 +1,6 @@
 ﻿namespace Cheetah_Business.Repository.IRepository.General
 {
-    using Cheetah_DataAccess.Masters;
+    using Cheetah_DataAccess.Facts;
     using System;
 
 

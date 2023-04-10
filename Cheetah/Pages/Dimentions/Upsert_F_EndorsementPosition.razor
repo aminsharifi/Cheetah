@@ -14,12 +14,6 @@
     <CEditDimentions Record="@Record"
                  Name="@Name" Title="@Title" IsLoading="@IsLoading">
         <RowTemplate>
-            <CInput @bind-LValue="Record.Area_UnitTypeId"
-                Records="@unitTypes" CDescription="نوع واحد"
-                Record="@(Record.Area_UnitType)"
-                SelectedProcessesChanged="@SelectedProcessesChanged"
-                CDisplayName="نوع واحد" CFieldType="@(FieldType.CSelect)"></CInput>
-
             <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
                      class="link-primary my-1">
                 <strong>لیست کاربرانی که این واحد را دارند</strong>
@@ -42,8 +36,6 @@
     public String? reference { get; set; }
 
     public D_Area Record { get; set; }
-
-    public IEnumerable<SimpleClass> unitTypes { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -72,7 +64,6 @@
         if (Id > 0 && e.Value is not null)
         {
             var Area_UnitTypeId = Int64.Parse(e.Value.ToString());
-            Record.Area_UnitType = unitTypes.First(x => x.Id == Area_UnitTypeId) as D_UnitType;
         }
     }
 
@@ -81,7 +72,6 @@
         try
         {
             Record = await simpleClassRepository.Get(Name, Id) as D_Area;
-            unitTypes = await simpleClassRepository.GetAllByName("D_UnitType");
         }
         catch (Exception ex)
         {

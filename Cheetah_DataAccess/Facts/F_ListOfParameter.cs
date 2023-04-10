@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess.Masters
+﻿namespace Cheetah_DataAccess.Facts
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Dimentions;

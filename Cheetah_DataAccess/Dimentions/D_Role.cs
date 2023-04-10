@@ -16,8 +16,12 @@ namespace Cheetah_DataAccess.Dimentions
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
+    [Index(nameof(ROL_Independent), IsUnique = false, AllDescending = true)]
     public partial class D_Role : BaseClass<D_Role>
     {
+
+        [Column(Order = 100)]
+        public Boolean ROL_Independent { get; set; } = false;
 
         #region Collection
         public virtual ICollection<L_RolePosition>? ROL_RolePositions { get; set; } = new HashSet<L_RolePosition>();

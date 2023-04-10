@@ -4,9 +4,9 @@
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <PageTitle>Not found</PageTitle>
+        <PageTitle>چنین صفحه‌ای پیدا نشد</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
+            <CLoading IsLoading="@false" AnyRecord="@false"></CLoading>
         </LayoutView>
     </NotFound>
 </Router>

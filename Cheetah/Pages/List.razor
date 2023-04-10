@@ -1,6 +1,9 @@
 ﻿@page "/List"
 @page "/List/{Name}"
 @page "/List/{Name}/{reference}"
+@page "/List/{Name}/{FilterTableName}/{FilterTableId:long}/{reference}"
+
+
 @using System.Web;
 
 @inject ISimpleClassRepository simpleClassRepository;
@@ -9,11 +12,11 @@
 @inject CNavigation _CNavigation;
 
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
-<div style="direction:rtl">
-    <div class="row mb-2">
+<div class="row mb-2" style="direction:rtl">
+    <div class="col-12">
         @if (!IsLoading)
         {
-            <div class="shadow rounded p-3 form-group m-1 col-sm-11 col-md-5">
+            <div class="shadow rounded p-3 form-group my-1 col-sm-8 col-md-5">
                 <div class="input-group d-flex justify-content-end" style="direction:ltr">
                     <select class="form-select" id="floatingSelectGrid" value=@Name bind=@Name
                         @onchange="SelectedProcessesChanged"
@@ -37,7 +40,7 @@
             </div>
 
 
-            <div class="col-md-2 col-sm-5 my-2 btn-group" role="group">
+            <div class="col-md-2 col-sm-5 my-1 btn-group" role="group">
                 <a href="@($"/Dimentions/Create/{Name}/{reference}")"
                    class="btn btn-primary"
                    style="align-self: center;">
@@ -54,13 +57,25 @@
     <div class="col-12">
         @if (!String.IsNullOrEmpty(Name))
         {
+            @if (FilterTable is not null)
+            {
+                <div class="shadow rounded p-3 form-group my-2 col-sm-12 col-md-6">
+                    <div class="input-group d-flex justify-content-end" style="direction:ltr">
+                        <span class="form-control"> @(keyValuePair.Where(x => x.Key == FilterTableName).Single().Value + ":" + FilterTable.PDisplayName)</span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
+                                  lang="fa" dir="rtl">فیلتر</span>
+                        </div>
+                    </div>
+                </div>
+            }
             <ListGenericTypeItems Records="@Records" ConfirmationDelete="ConfirmDelete_Click"
                               reference="@reference" Name="@Name">
             </ListGenericTypeItems>
         }
-        <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
     </div>
 </div>
+<CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
 
     [Parameter]
@@ -71,6 +86,14 @@
 
     [Parameter]
     public String? reference { get; set; }
+
+    [Parameter]
+    public String? FilterTableName { get; set; }
+
+    [Parameter]
+    public Int64? FilterTableId { get; set; }
+
+    public SimpleClass? FilterTable { get; set; }
 
     public Boolean IsLoading { get; set; } = true;
 
@@ -130,10 +153,13 @@
         try
         {
             Records = await simpleClassRepository.GetAllByName(Name);
+
+            if (!String.IsNullOrEmpty(FilterTableName))
+                FilterTable = await simpleClassRepository.Get(FilterTableName, FilterTableId);
         }
         catch (Exception ex)
         {
-            await _JsRuntime.ToastrError(ex.InnerException.Message);
+            await _JsRuntime.ToastrError((ex.InnerException is not null) ? ex.InnerException.Message : ex.Message);
         }
     }
     public async Task ConfirmDelete_Click()
