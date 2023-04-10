@@ -11,11 +11,7 @@
 {
     <CEditDimentions Record="@Record"
                  Name="@Name" Title="@Title" IsLoading="@IsLoading">
-        <RowTemplate>
-            <CInput @bind-BValue="Record.PSO_Independent"
-                CDescription="ستاد"
-                CDisplayName="ستاد" CFieldType="@(FieldType.CBool)"></CInput>
-
+        <RowTemplate>           
             <NavLink href="@($"Links/L_RolePosition/{SD.Second}/{Record.Id}/{reference}")"
                      class="link-primary my-1">
                 <strong>لیست نقش‌هایی که این سمت را دارند</strong>

@@ -2,7 +2,6 @@
 {
     using Cheetah_DataAccess.Data;
     using Cheetah_DataAccess.Facts;
-    using Cheetah_DataAccess.Masters;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.ComponentModel;

@@ -1,6 +1,6 @@
 ﻿using Cheetah_DataAccess.Dimentions;
 using Cheetah_DataAccess.Links;
-using Cheetah_DataAccess.Masters;
+using Cheetah_DataAccess.Facts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +39,7 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<F_Approve> F_Approves { get; set; }
         public virtual DbSet<F_Attachment> F_Attachments { get; set; }
         public virtual DbSet<F_AllApprove> F_AllApproves { get; set; }
+        public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
         #endregion
 
         #region Links

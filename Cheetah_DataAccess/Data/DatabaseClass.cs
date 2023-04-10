@@ -8,7 +8,8 @@ namespace Cheetah_DataAccess.Data
         public DatabaseClass() { }
         public static SD.TableType GetTableType(String dBType)
         {
-            return dBType.StartsWith("D") ? SD.TableType.Dimentions : dBType.StartsWith("L") ? SD.TableType.Links : SD.TableType.Facts;
+            return dBType.StartsWith("D") ? SD.TableType.Dimentions : dBType.StartsWith("L") ?
+                SD.TableType.Links : SD.TableType.Facts;
         }
         public static Type GetDBType(String dBType)
         {

@@ -2,7 +2,7 @@
 {
     using AutoMapper;
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Masters;
+    using Cheetah_DataAccess.Facts;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata;
     using System;
