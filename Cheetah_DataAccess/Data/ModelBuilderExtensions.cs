@@ -13,22 +13,23 @@ namespace Cheetah_DataAccess.Data
             #region Dimentions
 
             modelBuilder.Entity<D_Area>().HasData(
-            new D_Area { Id = 1, PCode = 1, PIndex = 1, PName = "DrugSale", PDisplayName = "فروش دارویی" },
-            new D_Area { Id = 2, PCode = 2, PIndex = 2, PName = "FMCGSale", PDisplayName = "فروش مصرفی" },
-            new D_Area { Id = 3, PCode = 3, PIndex = 3, PName = "PurchaseAccounting", PDisplayName = "حسابداری خرید" },
-            new D_Area { Id = 4, PCode = 4, PIndex = 4, PName = "SaleAccounting", PDisplayName = "حسابداری فروش" }
-            );
+                new D_Area { Id = 1, PCode = 1, PIndex = 1, PName = "DrugSale", PDisplayName = "فروش دارویی" },
+                new D_Area { Id = 2, PCode = 2, PIndex = 2, PName = "FMCGSale", PDisplayName = "فروش مصرفی" },
+                new D_Area { Id = 3, PCode = 3, PIndex = 3, PName = "PurchaseAccounting", PDisplayName = "حسابداری خرید" },
+                new D_Area { Id = 4, PCode = 4, PIndex = 4, PName = "SaleAccounting", PDisplayName = "حسابداری فروش" }
+                );
 
             modelBuilder.Entity<D_RequestTitle>().HasData(
-             new D_RequestTitle { Id = 1, PCode = 1, PIndex = 1, PName = "CustomerDefinition", PDisplayName = "تعریف/اصلاح مشتری" },
-             new D_RequestTitle { Id = 2, PCode = 2, PIndex = 2, PName = "PolicyCenter", PDisplayName = "مجوزهای موردی" },
-             new D_RequestTitle { Id = 3, PCode = 3, PIndex = 3, PName = "CustomerCredit", PDisplayName = "اعتباردهی مالی مشتری" }
-             );
+                new D_RequestTitle { Id = 1, PCode = 1, PIndex = 1, PName = "CustomerDefinition", PDisplayName = "تعریف/اصلاح مشتری" },
+                new D_RequestTitle { Id = 2, PCode = 2, PIndex = 2, PName = "PolicyCenter", PDisplayName = "مجوزهای موردی" },
+                new D_RequestTitle { Id = 3, PCode = 3, PIndex = 3, PName = "CustomerCredit", PDisplayName = "اعتباردهی مالی مشتری" }
+                );
 
             modelBuilder.Entity<D_ProcessState>().HasData(
-                new D_ProcessState { Id = 1, PCode = 1, PIndex = 1, PName = "Running", PDisplayName = "در حال اجرا" },
-                new D_ProcessState { Id = 2, PCode = 2, PIndex = 2, PName = "Completed", PDisplayName = "کامل شده" },
-                new D_ProcessState { Id = 3, PCode = 3, PIndex = 3, PName = "Aborted", PDisplayName = "ابطال شده" }
+                new D_ProcessState { Id = 1, PCode = 1, PIndex = 1, PName = "Ongoing", PDisplayName = "در دست بررسی" },
+                new D_ProcessState { Id = 2, PCode = 2, PIndex = 2, PName = "Editing", PDisplayName = "منتظر بازنگری" },
+                new D_ProcessState { Id = 3, PCode = 3, PIndex = 3, PName = "Completed", PDisplayName = "کامل شده" },
+                new D_ProcessState { Id = 4, PCode = 4, PIndex = 4, PName = "Aborted", PDisplayName = "ابطال شده" }
                  );
 
             modelBuilder.Entity<D_Location>().HasData(
@@ -41,7 +42,9 @@ namespace Cheetah_DataAccess.Data
                 new D_FieldType { Id = 1, PCode = 1, PIndex = 1, PName = "Parameter", PDisplayName = "پارامتریک" },
                 new D_FieldType { Id = 2, PCode = 2, PIndex = 2, PName = "Number", PDisplayName = "عددی" },
                 new D_FieldType { Id = 3, PCode = 3, PIndex = 3, PName = "Date", PDisplayName = "تاریخ" },
-                new D_FieldType { Id = 4, PCode = 4, PIndex = 4, PName = "String", PDisplayName = "حروف" }
+                new D_FieldType { Id = 4, PCode = 4, PIndex = 4, PName = "String", PDisplayName = "حروف" },
+                new D_FieldType { Id = 5, PCode = 5, PIndex = 5, PName = "Boolean", PDisplayName = "دودویی" }
+
                 );
 
             modelBuilder.Entity<D_Operand>().HasData(
@@ -55,7 +58,7 @@ namespace Cheetah_DataAccess.Data
 
             modelBuilder.Entity<D_ParameterType>().HasData(
                 new D_ParameterType { Id = 1, PCode = 1, PIndex = 1, PName = "ProcessVar", PDisplayName = "متغیر فرآیندی" },
-                new D_ParameterType { Id = 2, PCode = 2, PIndex = 2, PName = "ProcessAction", PDisplayName = "اقدام های فرآیندی" },
+                new D_ParameterType { Id = 2, PCode = 2, PIndex = 2, PName = "ProcessAction", PDisplayName = "اقدام‌های فرآیندی" },
                 new D_ParameterType { Id = 3, PCode = 3, PIndex = 3, PName = "UnitType", PDisplayName = "نوع واحد" }
                 );
 
@@ -80,12 +83,12 @@ namespace Cheetah_DataAccess.Data
                 );
 
             modelBuilder.Entity<D_Role>().HasData(
-              new D_Role { Id = 1, PCode = 1, PIndex = 1, PName = "PharmaceuticalDeputy", PDisplayName = "معاونت دارویی", ROL_Independent = true },
-              new D_Role { Id = 2, PCode = 2, PIndex = 2, PName = "FMCGDeputy", PDisplayName = "معاونت غذایی", ROL_Independent = true },
-              new D_Role { Id = 3, PCode = 3, PIndex = 3, PName = "BusinessSpecialist", PDisplayName = "کارشناس بازرگانی", ROL_Independent = true },
-              new D_Role { Id = 4, PCode = 4, PIndex = 4, PName = "SalesSpecialist", PDisplayName = "کارشناس فروش", ROL_Independent = true },
-              new D_Role { Id = 5, PCode = 5, PIndex = 5, PName = "DistributionCenterManager", PDisplayName = "مدیریت مرکز توزیع", ROL_Independent = false }
-              );
+                new D_Role { Id = 1, PCode = 1, PIndex = 1, PName = "PharmaceuticalDeputy", PDisplayName = "معاونت دارویی", ROL_Independent = true },
+                new D_Role { Id = 2, PCode = 2, PIndex = 2, PName = "FMCGDeputy", PDisplayName = "معاونت غذایی", ROL_Independent = true },
+                new D_Role { Id = 3, PCode = 3, PIndex = 3, PName = "BusinessSpecialist", PDisplayName = "کارشناس بازرگانی", ROL_Independent = true },
+                new D_Role { Id = 4, PCode = 4, PIndex = 4, PName = "SalesSpecialist", PDisplayName = "کارشناس فروش", ROL_Independent = true },
+                new D_Role { Id = 5, PCode = 5, PIndex = 5, PName = "DistributionCenterManager", PDisplayName = "مدیریت مرکز توزیع", ROL_Independent = false }
+                );
 
             modelBuilder.Entity<D_Position>().HasData(
                 new D_Position { Id = 1, PCode = 1, PIndex = 1, PName = "PharmaceuticalDeputy", PDisplayName = "معاون دارویی" },
@@ -143,13 +146,13 @@ namespace Cheetah_DataAccess.Data
                 new L_RolePosition { Id = 4, PCode = 4, PIndex = 4, PName = "BusinessSpecialist-BusinessSpecialist", PDisplayName = "کارشناس بازرگانی-کارشناس بازرگانی", FirstId = 3, SecondId = 4 },
                 new L_RolePosition { Id = 5, PCode = 5, PIndex = 5, PName = "SalesSpecialist-SalesSeniorSpecialist", PDisplayName = "کارشناس فروش-کارشناس ارشد فروش", FirstId = 4, SecondId = 5 },
                 new L_RolePosition { Id = 6, PCode = 6, PIndex = 6, PName = "SalesSpecialist-SalesSpecialist", PDisplayName = "کارشناس فروش-کارشناس فروش", FirstId = 4, SecondId = 6 },
-                new L_RolePosition { Id = 7, PCode = 7, PIndex = 7, PName = "DistributionCenterManager-DistributionCenterManager", PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع", FirstId = 4, SecondId = 7 }
+                new L_RolePosition { Id = 7, PCode = 7, PIndex = 7, PName = "DistributionCenterManager-DistributionCenterManager", PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع", FirstId = 5, SecondId = 7 }
                 );
             modelBuilder.Entity<L_UserArea>().HasData(
-                 new L_UserArea { Id = 1, PCode = 1, PIndex = 1, PName = "a.sharifi-DrugSale", PDisplayName = "امین شریفی-فروش دارویی", FirstId = 2, SecondId = 1 },
-                 new L_UserArea { Id = 2, PCode = 2, PIndex = 2, PName = "a.sharifi-FMCGSale", PDisplayName = "امین شریفی-فروش مصرفی", FirstId = 2, SecondId = 2 },
-                 new L_UserArea { Id = 3, PCode = 3, PIndex = 3, PName = "m.sharifi-DrugSale", PDisplayName = "محمد شریفی-فروش دارویی", FirstId = 1, SecondId = 1 },
-                 new L_UserArea { Id = 4, PCode = 4, PIndex = 4, PName = "m.sharifi-FMCGSale", PDisplayName = "محمد شریفی-فروش مصرفی", FirstId = 1, SecondId = 2 }
+                new L_UserArea { Id = 1, PCode = 1, PIndex = 1, PName = "a.sharifi-DrugSale", PDisplayName = "امین شریفی-فروش دارویی", FirstId = 2, SecondId = 1 },
+                new L_UserArea { Id = 2, PCode = 2, PIndex = 2, PName = "a.sharifi-FMCGSale", PDisplayName = "امین شریفی-فروش مصرفی", FirstId = 2, SecondId = 2 },
+                new L_UserArea { Id = 3, PCode = 3, PIndex = 3, PName = "m.sharifi-DrugSale", PDisplayName = "محمد شریفی-فروش دارویی", FirstId = 1, SecondId = 1 },
+                new L_UserArea { Id = 4, PCode = 4, PIndex = 4, PName = "m.sharifi-FMCGSale", PDisplayName = "محمد شریفی-فروش مصرفی", FirstId = 1, SecondId = 2 }
                 );
 
             #endregion
