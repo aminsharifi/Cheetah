@@ -15,13 +15,15 @@
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class D_ParameterType: BaseClass<D_ParameterType>
+    public partial class D_ParameterType : BaseClass<D_ParameterType>
     {
+        public long PT_P_FieldTypeId { get; set; }
         [Column(Order = 100)]
         [Description("نوع فیلد")]
-        public virtual D_FieldType? PT_P_FieldType { get; set; }
+        [ForeignKey("PT_P_FieldTypeId")]
+        public virtual D_FieldType PT_P_FieldType { get; set; }
         [InverseProperty("PL_ParameterType")]
-        public virtual ICollection<D_ParameterList>? PT_ParameterList { get; set; } = new HashSet<D_ParameterList>();    
+        public virtual ICollection<D_ParameterList>? PT_ParameterList { get; set; } = new HashSet<D_ParameterList>();
 
     }
 }

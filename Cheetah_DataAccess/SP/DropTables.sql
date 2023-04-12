@@ -343,3 +343,7 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Entity]') AND type in (N'U'))
 DROP TABLE [Dimentions].[D_Entity]
 GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_EndorsementPattern]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_EndorsementPattern]
+GO

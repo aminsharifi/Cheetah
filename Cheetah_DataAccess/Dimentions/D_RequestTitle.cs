@@ -37,6 +37,13 @@
         [Description("حذف تایید درخواست کننده")]
         [Column(Order = 104)]
         public Boolean? RT_RemoveRequestorApproval { get; set; }
+
+        public long RT_EndorsementPatternId { get; set; }
+        [Description("حذف تایید درخواست کننده")]
+        [Column(Order = 105)]
+        [ForeignKey("RT_EndorsementPatternId")]
+        public virtual D_EndorsementPattern RT_EndorsementPattern { get; set; }
+
         #endregion
 
         #endregion
