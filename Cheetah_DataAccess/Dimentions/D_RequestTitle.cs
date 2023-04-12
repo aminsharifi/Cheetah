@@ -22,25 +22,19 @@
         #region Others
         [Description("نمایش جهت پشتیبانی")]
         [Column(Order = 100)]
-        public Boolean? RT_ShowSupport { get; set; }
-
-        [Description("فرآیند چک لیستی")]
-        [Column(Order = 101)]
-        public Boolean? RT_CheckList { get; set; }
+        public Boolean? RT_ShowSupport { get; set; } = true;
 
         [Description("فرآیند ERP")]
-        [Column(Order = 102)]
-        public Boolean? RT_ERP { get; set; }
-        [Column(Order = 103)]
-        public Boolean? RT_AnotherRequester { get; set; }
+        [Column(Order = 101)]
+        public Boolean? RT_ERP { get; set; } = true;
 
         [Description("حذف تایید درخواست کننده")]
-        [Column(Order = 104)]
-        public Boolean? RT_RemoveRequestorApproval { get; set; }
+        [Column(Order = 102)]
+        public Boolean? RT_RemoveRequestorApproval { get; set; } = true;
 
         public long RT_EndorsementPatternId { get; set; }
-        [Description("حذف تایید درخواست کننده")]
-        [Column(Order = 105)]
+        [Description("الگوی فرآیند")]
+        [Column(Order = 103)]
         [ForeignKey("RT_EndorsementPatternId")]
         public virtual D_EndorsementPattern RT_EndorsementPattern { get; set; }
 
