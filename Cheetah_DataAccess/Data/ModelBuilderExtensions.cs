@@ -19,10 +19,16 @@ namespace Cheetah_DataAccess.Data
                 new D_Area { Id = 4, PCode = 4, PIndex = 4, PName = "SaleAccounting", PDisplayName = "حسابداری فروش" }
                 );
 
+            modelBuilder.Entity<D_EndorsementPattern>().HasData(
+                new D_EndorsementPattern { Id = 1, PCode = 1, PIndex = 1, PName = "Pattern1", PDisplayName = "الگوی یک" },
+                new D_EndorsementPattern { Id = 2, PCode = 2, PIndex = 2, PName = "Pattern2", PDisplayName = "الگوی دو" },
+                new D_EndorsementPattern { Id = 3, PCode = 3, PIndex = 3, PName = "Pattern3", PDisplayName = "الگوی سه" }
+                );
+
             modelBuilder.Entity<D_RequestTitle>().HasData(
-                new D_RequestTitle { Id = 1, PCode = 1, PIndex = 1, PName = "CustomerDefinition", PDisplayName = "تعریف/اصلاح مشتری" },
-                new D_RequestTitle { Id = 2, PCode = 2, PIndex = 2, PName = "PolicyCenter", PDisplayName = "مجوزهای موردی" },
-                new D_RequestTitle { Id = 3, PCode = 3, PIndex = 3, PName = "CustomerCredit", PDisplayName = "اعتباردهی مالی مشتری" }
+                new D_RequestTitle { Id = 1, PCode = 1, PIndex = 1, PName = "CustomerDefinition", PDisplayName = "تعریف/اصلاح مشتری", RT_EndorsementPatternId = 1 },
+                new D_RequestTitle { Id = 2, PCode = 2, PIndex = 2, PName = "PolicyCenter", PDisplayName = "مجوزهای موردی", RT_EndorsementPatternId = 1 },
+                new D_RequestTitle { Id = 3, PCode = 3, PIndex = 3, PName = "CustomerCredit", PDisplayName = "اعتباردهی مالی مشتری", RT_EndorsementPatternId = 1 }
                 );
 
             modelBuilder.Entity<D_ProcessState>().HasData(
@@ -39,12 +45,11 @@ namespace Cheetah_DataAccess.Data
                 );
 
             modelBuilder.Entity<D_FieldType>().HasData(
-                new D_FieldType { Id = 1, PCode = 1, PIndex = 1, PName = "Parameter", PDisplayName = "پارامتریک" },
-                new D_FieldType { Id = 2, PCode = 2, PIndex = 2, PName = "Number", PDisplayName = "عددی" },
+                new D_FieldType { Id = 1, PCode = 1, PIndex = 1, PName = "Parametric", PDisplayName = "پارامتریک" },
+                new D_FieldType { Id = 2, PCode = 2, PIndex = 2, PName = "Numberic", PDisplayName = "عددی" },
                 new D_FieldType { Id = 3, PCode = 3, PIndex = 3, PName = "Date", PDisplayName = "تاریخ" },
                 new D_FieldType { Id = 4, PCode = 4, PIndex = 4, PName = "String", PDisplayName = "حروف" },
                 new D_FieldType { Id = 5, PCode = 5, PIndex = 5, PName = "Boolean", PDisplayName = "دودویی" }
-
                 );
 
             modelBuilder.Entity<D_Operand>().HasData(
@@ -57,24 +62,27 @@ namespace Cheetah_DataAccess.Data
                 );
 
             modelBuilder.Entity<D_ParameterType>().HasData(
-                new D_ParameterType { Id = 1, PCode = 1, PIndex = 1, PName = "ProcessVar", PDisplayName = "متغیر فرآیندی" },
-                new D_ParameterType { Id = 2, PCode = 2, PIndex = 2, PName = "ProcessAction", PDisplayName = "اقدام‌های فرآیندی" },
-                new D_ParameterType { Id = 3, PCode = 3, PIndex = 3, PName = "UnitType", PDisplayName = "نوع واحد" }
+                new D_ParameterType { Id = 1, PCode = 1, PIndex = 1, PName = "NumbericProcessVar", PDisplayName = "متغیرهای عددی", PT_P_FieldTypeId = 2 },
+                new D_ParameterType { Id = 2, PCode = 2, PIndex = 2, PName = "DateProcessVar", PDisplayName = "متغیرهای تاریخی", PT_P_FieldTypeId = 3 },
+                new D_ParameterType { Id = 3, PCode = 3, PIndex = 3, PName = "StringProcessVar", PDisplayName = "متغیرهای حروفی", PT_P_FieldTypeId = 4 },
+                new D_ParameterType { Id = 4, PCode = 4, PIndex = 4, PName = "BooleanProcessVar", PDisplayName = "متغیرهای دودویی", PT_P_FieldTypeId = 5 },
+                new D_ParameterType { Id = 5, PCode = 5, PIndex = 5, PName = "ProcessAction", PDisplayName = "اقدام‌های فرآیندی", PT_P_FieldTypeId = 1 },
+                new D_ParameterType { Id = 6, PCode = 6, PIndex = 6, PName = "UnitType", PDisplayName = "نوع‌های واحد", PT_P_FieldTypeId = 1 }
                 );
 
             modelBuilder.Entity<D_ParameterList>().HasData(
-                new D_ParameterList { Id = 100, PCode = 100, PIndex = 100, PName = "OursShare", PDisplayName = "سهم شرکت", PL_ParameterTypeId = 1 },
-                new D_ParameterList { Id = 101, PCode = 101, PIndex = 101, PName = "OthersShare", PDisplayName = "سهم دیگران", PL_ParameterTypeId = 1 },
-                new D_ParameterList { Id = 102, PCode = 102, PIndex = 102, PName = "Refrigerator", PDisplayName = "مخدر/ یخچالی", PL_ParameterTypeId = 1 },
-                new D_ParameterList { Id = 103, PCode = 103, PIndex = 103, PName = "Price", PDisplayName = "مبلغ", PL_ParameterTypeId = 1 },
+                new D_ParameterList { Id = 100, PCode = 100, PIndex = 100, PName = "OursShare", PDisplayName = "سهم شرکت", PDescription = "عددی", PL_ParameterTypeId = 1 },
+                new D_ParameterList { Id = 101, PCode = 101, PIndex = 101, PName = "OthersShare", PDisplayName = "سهم دیگران", PDescription = "عددی", PL_ParameterTypeId = 1 },
+                new D_ParameterList { Id = 102, PCode = 102, PIndex = 102, PName = "Refrigerator", PDisplayName = "مخدر/ یخچالی", PDescription = "دودویی", PL_ParameterTypeId = 4 },
+                new D_ParameterList { Id = 103, PCode = 103, PIndex = 103, PName = "Price", PDisplayName = "مبلغ", PDescription = "عددی", PL_ParameterTypeId = 1 },
 
-                new D_ParameterList { Id = 200, PCode = 200, PIndex = 200, PName = "Approve", PDisplayName = "تایید", PL_ParameterTypeId = 2 },
-                new D_ParameterList { Id = 201, PCode = 201, PIndex = 201, PName = "Reject", PDisplayName = "عدم تایید", PL_ParameterTypeId = 2 },
-                new D_ParameterList { Id = 202, PCode = 202, PIndex = 202, PName = "Revise", PDisplayName = "بازنگری", PL_ParameterTypeId = 2 },
+                new D_ParameterList { Id = 200, PCode = 200, PIndex = 200, PName = "Approve", PDisplayName = "تایید", PDescription = "پارامتریک", PL_ParameterTypeId = 5 },
+                new D_ParameterList { Id = 201, PCode = 201, PIndex = 201, PName = "Reject", PDisplayName = "عدم تایید", PDescription = "پارامتریک", PL_ParameterTypeId = 5 },
+                new D_ParameterList { Id = 202, PCode = 202, PIndex = 202, PName = "Revise", PDisplayName = "بازنگری", PDescription = "پارامتریک", PL_ParameterTypeId = 5 },
 
-                new D_ParameterList { Id = 301, PCode = 301, PIndex = 301, PName = "Med", PDisplayName = "دارویی", PL_ParameterTypeId = 3 },
-                new D_ParameterList { Id = 302, PCode = 302, PIndex = 302, PName = "FMCG", PDisplayName = "مصرفی", PL_ParameterTypeId = 3 },
-                new D_ParameterList { Id = 303, PCode = 303, PIndex = 303, PName = "General", PDisplayName = "کل", PL_ParameterTypeId = 3 }
+                new D_ParameterList { Id = 301, PCode = 301, PIndex = 301, PName = "Med", PDisplayName = "دارویی", PDescription = "پارامتریک", PL_ParameterTypeId = 6 },
+                new D_ParameterList { Id = 302, PCode = 302, PIndex = 302, PName = "FMCG", PDisplayName = "مصرفی", PDescription = "پارامتریک", PL_ParameterTypeId = 6 },
+                new D_ParameterList { Id = 303, PCode = 303, PIndex = 303, PName = "General", PDisplayName = "کل", PDescription = "پارامتریک", PL_ParameterTypeId = 6 }
                 );
 
             modelBuilder.Entity<D_User>().HasData(
@@ -103,31 +111,33 @@ namespace Cheetah_DataAccess.Data
 
             modelBuilder.Entity<D_Entity>().HasData(
                 new D_Entity { Id = 100, PCode = 100, PIndex = 100, PName = "D_Area", PDisplayName = new StringBuilder().Append("واحدها").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 101, PCode = 101, PIndex = 101, PName = "D_FieldType", PDisplayName = new StringBuilder().Append("نوع فیلد").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 102, PCode = 102, PIndex = 102, PName = "D_Location", PDisplayName = new StringBuilder().Append("موقعیت ها").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 101, PCode = 101, PIndex = 101, PName = "D_FieldType", PDisplayName = new StringBuilder().Append("نوع فیلدها").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 102, PCode = 102, PIndex = 102, PName = "D_Location", PDisplayName = new StringBuilder().Append("موقعیت‌ها").Append($"({TableType.Dimentions})").ToString() },
                 new D_Entity { Id = 103, PCode = 103, PIndex = 103, PName = "D_Operand", PDisplayName = new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString() },
                 new D_Entity { Id = 104, PCode = 104, PIndex = 104, PName = "D_ParameterList", PDisplayName = new StringBuilder().Append("لیست پارامترها").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 105, PCode = 105, PIndex = 105, PName = "D_ParameterType", PDisplayName = new StringBuilder().Append("نوع پارامتر").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 106, PCode = 106, PIndex = 106, PName = "D_Position", PDisplayName = new StringBuilder().Append("سمت ها").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 107, PCode = 107, PIndex = 107, PName = "D_ProcessEndorsement", PDisplayName = new StringBuilder().Append("تاییدات فرآیندی").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 108, PCode = 108, PIndex = 108, PName = "D_ProcessState", PDisplayName = new StringBuilder().Append("وضعیت فرآیند").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 109, PCode = 109, PIndex = 109, PName = "D_RequestTitle", PDisplayName = new StringBuilder().Append("عنوان درخواست").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 110, PCode = 110, PIndex = 110, PName = "D_Role", PDisplayName = new StringBuilder().Append("نقش ها").Append($"({TableType.Dimentions})").ToString() },
-                new D_Entity { Id = 113, PCode = 113, PIndex = 111, PName = "D_User", PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 105, PCode = 105, PIndex = 105, PName = "D_ParameterType", PDisplayName = new StringBuilder().Append("نوع‌های پارامتر").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 106, PCode = 106, PIndex = 106, PName = "D_Position", PDisplayName = new StringBuilder().Append("سمت‌ها").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 107, PCode = 107, PIndex = 107, PName = "D_ProcessEndorsement", PDisplayName = new StringBuilder().Append("تاییدهای فرآیندی").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 108, PCode = 108, PIndex = 108, PName = "D_ProcessState", PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 109, PCode = 109, PIndex = 109, PName = "D_RequestTitle", PDisplayName = new StringBuilder().Append("عنوان درخواست‌ها").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 110, PCode = 110, PIndex = 110, PName = "D_Role", PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 111, PCode = 111, PIndex = 111, PName = "D_User", PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString() },
+                new D_Entity { Id = 112, PCode = 112, PIndex = 112, PName = "D_EndorsementPattern", PDisplayName = new StringBuilder().Append("الگوهای تایید").Append($"({TableType.Dimentions})").ToString() },
 
-                new D_Entity { Id = 200, PCode = 200, PIndex = 200, PName = "F_AllApprove", PDisplayName = new StringBuilder().Append("تاییدها").Append($"({TableType.Facts})").ToString() },
-                new D_Entity { Id = 201, PCode = 201, PIndex = 201, PName = "F_Approve", PDisplayName = new StringBuilder().Append("تایید").Append($"({TableType.Facts})").ToString() },
-                new D_Entity { Id = 202, PCode = 202, PIndex = 202, PName = "F_Attachment", PDisplayName = new StringBuilder().Append("ضمیمه ها").Append($"({TableType.Facts})").ToString() },
+
+                new D_Entity { Id = 200, PCode = 200, PIndex = 200, PName = "F_AllApprove", PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString() },
+                new D_Entity { Id = 201, PCode = 201, PIndex = 201, PName = "F_Approve", PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString() },
+                new D_Entity { Id = 202, PCode = 202, PIndex = 202, PName = "F_Attachment", PDisplayName = new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString() },
                 new D_Entity { Id = 203, PCode = 203, PIndex = 203, PName = "F_Endorsement", PDisplayName = new StringBuilder().Append("اختصاص نقش‌ها").Append($"({TableType.Facts})").ToString() },
                 new D_Entity { Id = 204, PCode = 204, PIndex = 204, PName = "F_ListOfParameter", PDisplayName = new StringBuilder().Append("لیست پارامترها").Append($"({TableType.Facts})").ToString() },
-                new D_Entity { Id = 205, PCode = 205, PIndex = 205, PName = "F_RequestInformation", PDisplayName = new StringBuilder().Append("اطلاعات درخواست ها").Append($"({TableType.Facts})").ToString() },
-                new D_Entity { Id = 206, PCode = 206, PIndex = 206, PName = "F_UserInformation", PDisplayName = new StringBuilder().Append("اطلاعات کاربران").Append($"({TableType.Facts})").ToString() },
+                new D_Entity { Id = 205, PCode = 205, PIndex = 205, PName = "F_RequestInformation", PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString() },
+                new D_Entity { Id = 206, PCode = 206, PIndex = 206, PName = "F_UserInformation", PDisplayName = new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString() },
 
 
                 new D_Entity { Id = 300, PCode = 300, PIndex = 300, PName = "L_RolePosition", PDisplayName = new StringBuilder().Append("نقش-سمت").Append($"({TableType.Links})").ToString() },
-                new D_Entity { Id = 301, PCode = 301, PIndex = 301, PName = "L_UserArea", PDisplayName = new StringBuilder().Append("کاربر-واحدها").Append($"({TableType.Links})").ToString() },
+                new D_Entity { Id = 301, PCode = 301, PIndex = 301, PName = "L_UserArea", PDisplayName = new StringBuilder().Append("کاربر-واحد").Append($"({TableType.Links})").ToString() },
                 new D_Entity { Id = 302, PCode = 302, PIndex = 302, PName = "L_UserLocation", PDisplayName = new StringBuilder().Append("کاربر-موقعیت").Append($"({TableType.Links})").ToString() },
-                new D_Entity { Id = 303, PCode = 303, PIndex = 303, PName = "L_UserRelatedLocation", PDisplayName = new StringBuilder().Append("کاربر-موقعیت‌های مرتبط").Append($"({TableType.Links})").ToString() },
+                new D_Entity { Id = 303, PCode = 303, PIndex = 303, PName = "L_UserRelatedLocation", PDisplayName = new StringBuilder().Append("کاربر-موقعیت مرتبط").Append($"({TableType.Links})").ToString() },
                 new D_Entity { Id = 304, PCode = 304, PIndex = 304, PName = "L_UserPosition", PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString() }
                 );
 

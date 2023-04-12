@@ -19,9 +19,15 @@
         //Passed
 
         #region Simple Prop
+
+        public virtual long? AAP_Current_ApproveId { get; set; }
         [Column(Order = 100)]
+        [ForeignKey("AAP_Current_ApproveId")]
         public virtual F_Approve? AAP_Current_Approve { get; set; }
+
+        public virtual long? AAP_Last_ApproveId { get; set; }
         [Column(Order = 101)]
+        [ForeignKey("AAP_Last_ApproveId")]
         public virtual F_Approve? AAP_Last_Approve { get; set; }
         #endregion
 
