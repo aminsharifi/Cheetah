@@ -1,5 +1,5 @@
-﻿@page "/Dimentions/Create/D_ParameterList/{reference}"
-@page "/Dimentions/Edit/D_ParameterList/{Id:long}/{reference}"
+﻿@page "/Dimentions/Create/D_EndorsementPattern/{reference}"
+@page "/Dimentions/Edit/D_EndorsementPattern/{Id:long}/{reference}"
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
@@ -12,14 +12,19 @@
     <CEditDimentions Record="@Record"
                  Name="@Name" Title="@Title" IsLoading="@IsLoading">
         <RowTemplate>
-            <CInput @bind-LValue="Record.PL_ParameterTypeId"
-                Records="@d_ParameterType"
-                CDescription="نوع پارامتر"
-                Record="@(Record.PL_ParameterType)"
+            <CInput @bind-LValue="Record.PT_P_FieldTypeId"
+                Records="@PT_P_FieldTypes"
+                CDescription="نوع واحد"
+                Record="@(Record.PT_P_FieldType)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
-                CDisplayName="نوع پارامتر"
+                CDisplayName="نوع واحد"
                 CFieldType="@(FieldType.CSelect)"
                 reference="@reference"></CInput>
+
+            <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
+                     class="link-primary my-1">
+                <strong>لیست کاربرانی که این واحد را دارند</strong>
+            </NavLink>
         </RowTemplate>
     </CEditDimentions>
 }
@@ -29,14 +34,14 @@
     public long Id { get; set; } = 0;
 
     [Parameter]
-    public String Name { get; set; } = "D_ParameterList";
+    public String Name { get; set; } = "D_EndorsementPattern";
 
     [Parameter]
     public String? reference { get; set; }
 
-    public D_ParameterList Record { get; set; }
+    public D_ParameterType Record { get; set; }
 
-    public IEnumerable<SimpleClass> d_ParameterType { get; set; }
+    public IEnumerable<SimpleClass> PT_P_FieldTypes { get; set; }
 
     private String Title { get; set; } = "ایجاد";
 
@@ -51,11 +56,15 @@
         }
         if (reference is null || firstRender)
         {
-            reference = _CNavigation.LoadNavigation(Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
+            reference = _CNavigation.LoadNavigation(
+                Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
+
             RowDescription: Record.PDisplayName,
+
             RowId: Record.Id, Reference: reference);
 
             IsLoading = false;
+
             StateHasChanged();
         }
     }
@@ -64,9 +73,8 @@
     {
         if (Id > 0 && e.Value is not null)
         {
-            var _D_ParameterType = Int64.Parse(e.Value.ToString());
-
-            Record.PL_ParameterType = d_ParameterType.First(x => x.Id == _D_ParameterType) as D_ParameterType;
+            var D_FieldTypeId = Int64.Parse(e.Value.ToString());
+            Record.PT_P_FieldType = PT_P_FieldTypes.First(x => x.Id == D_FieldTypeId) as D_FieldType;
         }
     }
 
@@ -74,9 +82,8 @@
     {
         try
         {
-            Record = await simpleClassRepository.Get(Name, Id) as D_ParameterList;
-
-            d_ParameterType = await simpleClassRepository.GetAllByName("D_ParameterType");
+            Record = await simpleClassRepository.Get(Name, Id) as D_ParameterType;
+            PT_P_FieldTypes = await simpleClassRepository.GetAllByName("D_FieldType");
         }
         catch (Exception ex)
         {
