@@ -17,13 +17,25 @@
             Title="@Title" IsLoading="@IsLoading"
             reference="@reference">
         <RowTemplate>
-            <CInput @bind-LValue="Record.FirstId" Records="@FirstClass"
-                CDescription="@(FirstClassRecord.PDisplayName)" Disabled="@(type == SD.First)"
-                CDisplayName="@(FirstClassRecord.PDisplayName)" CFieldType="@(FieldType.CSelect)"></CInput>
+            <CInput @bind-LValue="Record.FirstId"
+                Records="@FirstClass"
+                CDescription="@(FirstClassRecord.PDisplayName)"
+                Disabled="@(type == SD.First)"
+                CDisplayName="@(FirstClassRecord.PDisplayName)"
+                CFieldType="@(FieldType.CSelect)"
+                Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
+                reference="@reference">
+            </CInput>
 
-            <CInput @bind-LValue="Record.SecondId" Records="@SecondClass"
-                CDescription="@(SecondClassRecord.PDisplayName)" Disabled="@(type == SD.Second)"
-                CDisplayName="@(SecondClassRecord.PDisplayName)" CFieldType="@(FieldType.CSelect)"></CInput>
+            <CInput @bind-LValue="Record.SecondId"
+                Records="@SecondClass"
+                CDescription="@(SecondClassRecord.PDisplayName)"
+                Disabled="@(type == SD.Second)"
+                CDisplayName="@(SecondClassRecord.PDisplayName)"
+                CFieldType="@(FieldType.CSelect)"
+                Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
+                reference="@reference">
+            </CInput>
         </RowTemplate>
     </CEditLinks>
 }
@@ -43,7 +55,6 @@
 
     [Parameter]
     public String type { get; set; }
-
 
     public SimpleLinkClass Record { get; set; }
 

@@ -14,7 +14,8 @@
         <RowTemplate>
             <CInput @bind-BValue="Record.ROL_Independent"
                 CDescription="ستاد"
-                CDisplayName="ستاد" CFieldType="@(FieldType.CBool)"></CInput>
+                CDisplayName="ستاد"
+                CFieldType="@(FieldType.CBool)"></CInput>
             <NavLink href="@($"Links/L_RolePosition/{SD.First}/{Record.Id}/{reference}")"
                      class="link-primary my-1">
                 <strong>لیست سمت هایی که این نقش را دارند</strong>

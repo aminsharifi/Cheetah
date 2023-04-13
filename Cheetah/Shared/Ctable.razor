@@ -1,0 +1,22 @@
+﻿<div class="col-12 shadow rounded my-2 table-responsive p-3">
+    <table class="table table-striped table-bordered align-middle caption-top">
+        <caption>
+            @caption
+        </caption>
+        <thead class="text-primary">
+            @thead
+        </thead>
+        <tbody>
+            @tbody
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment caption { get; set; }
+    [Parameter]
+    public RenderFragment thead { get; set; }
+    [Parameter]
+    public RenderFragment tbody { get; set; }
+}

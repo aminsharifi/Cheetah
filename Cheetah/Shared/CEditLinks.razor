@@ -92,17 +92,7 @@
         var SecondDB = await simpleClassRepository.Get(type: SecondName,
         id: Record.SecondId, Tracking: QueryTrackingBehavior.NoTracking);
 
-        Record.PDisplayName = new StringBuilder()
-                  .Append(FirstDB?.PDisplayName ?? String.Empty)
-                  .Append("-")
-                  .Append(SecondDB?.PDisplayName ?? String.Empty)
-                  .ToString();
-
-        Record.PName = new StringBuilder()
-                          .Append(FirstDB?.PName ?? String.Empty)
-                          .Append("-")
-                          .Append(SecondDB?.PName ?? String.Empty)
-                          .ToString();
+        Record = await simpleClassRepository.AddLinkName(Record, FirstDB, SecondDB);
 
         var formIsValid = editContext.Validate();
 

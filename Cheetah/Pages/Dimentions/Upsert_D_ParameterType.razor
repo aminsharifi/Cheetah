@@ -13,10 +13,13 @@
                  Name="@Name" Title="@Title" IsLoading="@IsLoading">
         <RowTemplate>
             <CInput @bind-LValue="Record.PT_P_FieldTypeId"
-                Records="@PT_P_FieldTypes" CDescription="نوع واحد"
+                Records="@PT_P_FieldTypes"
+                CDescription="نوع واحد"
                 Record="@(Record.PT_P_FieldType)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
-                CDisplayName="نوع واحد" CFieldType="@(FieldType.CSelect)"></CInput>
+                CDisplayName="نوع واحد"
+                CFieldType="@(FieldType.CSelect)"
+                reference="@reference"></CInput>
 
             <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
                      class="link-primary my-1">

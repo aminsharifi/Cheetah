@@ -10,17 +10,16 @@
 @if (!IsLoading)
 {
     <CEditDimentions Record="@Record"
-                     Name="@Name" Title="@Title" IsLoading="@IsLoading">
+                 Name="@Name" Title="@Title" IsLoading="@IsLoading">
         <RowTemplate>
             <CInput @bind-LValue="Record.RT_EndorsementPatternId"
-                    Records="@RT_EndorsementPattern" CDescription="الگو"
-                    Record="@(Record.RT_EndorsementPattern)"
-                    SelectedProcessesChanged="@SelectedProcessesChanged"
-                    CDisplayName="نوع واحد" CFieldType="@(FieldType.CSelect)"></CInput>
-            <NavLink href="@($"Links/L_UserArea/{SD.Second}/{Record.Id}/{reference}")"
-                     class="link-primary my-1">
-                <strong>لیست کاربرانی که این واحد را دارند</strong>
-            </NavLink>
+                Records="@RT_EndorsementPattern"
+                CDescription="الگو"
+                reference="@reference"
+                Record="@(Record.RT_EndorsementPattern)"
+                SelectedProcessesChanged="@SelectedProcessesChanged"
+                CDisplayName="نوع الگو"
+                CFieldType="@(FieldType.CSelect)"></CInput>
         </RowTemplate>
     </CEditDimentions>
 }

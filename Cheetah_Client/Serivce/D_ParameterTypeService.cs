@@ -2,6 +2,7 @@
 using Cheetah_Business.Repository.IRepository;
 using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Dimentions;
+using Cheetah_DataAccess.Links;
 using Cheetah_Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -92,7 +93,7 @@ namespace Cheetah_Client.Service
         }
 
 
-        public Task<IEnumerable<KeyValuePair<string, string>>> GetAllTableName(string SchemaName)
+        public Task<Dictionary<string, string>> GetAllTableName(string SchemaName)
         {
             throw new NotImplementedException();
         }
@@ -103,12 +104,12 @@ namespace Cheetah_Client.Service
         }
 
 
-        public Task<SimpleClass> Create(SimpleClass obj_DTO)
+        public Task<SimpleClass> Create(SimpleClass? obj_DTO)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SimpleClass> Update(SimpleClass obj_DTO)
+        public Task<SimpleClass> Update(SimpleClass? obj_DTO)
         {
             throw new NotImplementedException();
         }
@@ -128,6 +129,36 @@ namespace Cheetah_Client.Service
                 var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
                 throw new Exception(errorModel.ErorrMessage);
             }
+        }
+
+        public Task<int> UpdateLink(IEnumerable<SimpleLinkClassDTO> obj_DTO, string type, string sd_Status, long linkID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> AddLink(SimpleLinkClassDTO obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> RemoveLink(SimpleLinkClassDTO obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SimpleClass> GetLast(string type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> UpdateLink(SimpleLinkClassDTO obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+        {
+            throw new NotImplementedException();
         }
     }
 }
