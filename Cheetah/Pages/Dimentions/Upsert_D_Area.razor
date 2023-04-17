@@ -1,16 +1,12 @@
-﻿@page "/Dimentions/Create/D_Area/{reference}"
+﻿@using Cheetah.Shared
+@using Cheetah.Shared.Dimentions
+@inherits CUpsert_GeneralCode
+@page "/Dimentions/Create/D_Area/{reference}"
 @page "/Dimentions/Edit/D_Area/{Id:long}/{reference}"
 
-<CUpsert_D_Area IsInline="@false" Id="@Id" Name="@Name"
-                reference="@reference">
+<CUpsert_D_Area IsInline="@false" Id="@Id" LoadData="true"
+                Name="D_Area" reference="@reference">
 </CUpsert_D_Area>
-@code {
-    [Parameter]
-    public long Id { get; set; } = 0;
-
-    [Parameter]
-    public String Name { get; set; } = "D_Area";
-
-    [Parameter]
-    public String? reference { get; set; }
+@code
+{
 }
