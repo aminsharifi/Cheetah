@@ -21,10 +21,16 @@ namespace Cheetah.Shared
         public String Name { get; set; }
 
         [Parameter]
+        public String Href { get; set; }
+
+        [Parameter]
         public String? reference { get; set; }
 
         [Parameter]
         public Boolean IsInline { get; set; } = false;
+
+        [Parameter]
+        public CrudOperation crudOperation { get; set; }
 
         [Parameter]
         public SimpleClass Record { get; set; }
@@ -54,6 +60,9 @@ namespace Cheetah.Shared
 
         [Parameter]
         public Boolean IsUpdatedLink { get; set; } = false;
+
+        [Parameter]
+        public RenderFragment? HeaderTemplate { get; set; }
 
         [Parameter]
         public RenderFragment? RowTemplate { get; set; }

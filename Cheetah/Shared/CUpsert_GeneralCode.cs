@@ -20,7 +20,6 @@ namespace Cheetah.Shared
                 await _JsRuntime.ToastrError(ex?.InnerException?.Message ?? ex?.Message);
             }
         }
-
         public async Task ExtendedLoadDTO()
         {
             var d_User = await simpleClassRepository.GetAllByName("D_User");

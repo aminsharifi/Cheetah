@@ -1,14 +1,44 @@
 ﻿@using Cheetah.Shared.Dimentions
-@typeparam TEntity
-@inject IJSRuntime _jSRuntime;
-@inject ISimpleClassRepository simpleClassRepository;
-@inject NavigationManager _NavigationManager;
-@inject CNavigation _CNavigation;
+@inherits SharedPage
 
 @if (Records != null && Records.Any())
 {
     <_DeleteConfirmation ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
- 
+    <SharedModal Title="@Title">
+        <HeaderTemplate>
+            <a href="@Href">
+                <span data-bs-dismiss="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                         height="16" fill="currentColor"
+                         class="bi bi-arrows-fullscreen" viewBox="0 0 16 16"
+                         style="margin-left: 10px;">
+                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
+                    </svg>
+                </span>
+            </a>
+        </HeaderTemplate>
+        <RowTemplate>
+            @if (LoadData)
+            {
+                @if (Name == "D_Area")
+                {
+                    <CUpsert_D_Area Name="@Name" IsInline="@true"
+                        ParentCallback="@ParentCallback" Id="@Id"
+                        reference="@reference" LoadData="@LoadData"
+                        Title="@Title">
+                    </CUpsert_D_Area>
+                }
+                else
+                {
+                    <CUpsert_D_General Name="@Name" IsInline="@true"
+                           ParentCallback="@ParentCallback" Id="@Id"
+                           reference="@reference" Title="@Title"
+                           LoadData="@LoadData">
+                    </CUpsert_D_General>
+                }
+            }
+        </RowTemplate>
+    </SharedModal>
     <Ctable>
         <thead>
             <tr class="d-flex">
@@ -19,7 +49,7 @@
                 <th class="col-2" scope="col">نام نمایشی</th>
                 <th class="col-2" scope="col">متن راهنما</th>
                 <th class="col-1" scope="col">غیرفعال</th>
-                @HeaderContent
+                @HeaderTemplate
                 <th class="col-2" scope="col">اقدام</th>
             </tr>
         </thead>
@@ -40,7 +70,7 @@
                                    checked="@(item.DsblRecord)">
                         </div>
                     </td>
-                    @BodyContent
+                    @RowTemplate
                     <td class="col-2">
                         <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr">
                             <button class="btn btn-danger" @onclick="()=>HandleDelete((item as SimpleClass).Id)">
@@ -50,27 +80,15 @@
                                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                                 </svg>
                             </button>
-
-                            @if (type == SD.First || type == SD.Second)
-                            {
-                                <NavLink class="btn btn-primary btn"
-                                         href="@($"Links/Edit/{item.GetType().BaseType.Name}/{type}/{(item as SimpleClass).Id}/{reference}")">
-                                    ویرایش
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                    </svg>
-                                </NavLink>
-                            }
-                            else
-                            {
-                                <NavLink class="btn btn-primary btn"
-                                         href="@($"Dimentions/Edit/{item.GetType().BaseType.Name}/{(item as SimpleClass).Id}/{reference}")">
-                                    ویرایش
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                    </svg>
-                                </NavLink>
-                            }
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"
+                                    style="align-self: center;" onclick="@(()=>{PrepareLink(item.Id, CrudOperation.Update);})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                    <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                </svg>
+                                ویرایش
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -79,48 +97,44 @@
     </Ctable>
 }
 
-@code {
-    [Parameter]
-    public long Id { get; set; } = 0;
-
-    [Parameter]
-    public EventCallback ParentCallback { get; set; }
-
-
-    [Parameter]
-    public IEnumerable<TEntity>? Records { get; set; }
-
-    [Parameter]
-    public String? type { get; set; }
-
-    [Parameter]
-    public String? reference { get; set; }
-
-    [Parameter]
-    public RenderFragment? HeaderContent { get; set; }
-
-    [Parameter]
-    public RenderFragment? BodyContent { get; set; }
-
-    [Parameter]
-    public String Name { get; set; }
-
-    public String CurrentState { get; set; }
-
-    public long DeleteidRole { get; set; }
+@code {     
+    
+    public void PrepareLink(long getId, CrudOperation getCrudOperation)
+    {
+        LoadData = true;
+        Id = getId;
+        if (getCrudOperation == CrudOperation.Create)
+        {
+            Href = $"/Dimentions/Create/{Name}/{reference}";
+            Title = "ایجاد";
+        }
+        else
+        {
+            Title = "ویرایش";
+            if (String.IsNullOrEmpty(type))
+            {
+                Href = $"Dimentions/Edit/{Name}/{Id}/{reference}";
+            }
+            else
+            {
+                Href = $"Links/Edit/{Name}/{type}/{Id}/{reference}";
+            }
+        }
+        StateHasChanged();
+    }
 
     private async Task HandleDelete(long DeletedState)
     {
-        DeleteidRole = DeletedState;
-        await _jSRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+        Id = DeletedState;
+        await _JsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
 
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {
-        if (isConfirmed && DeleteidRole != 0)
+        if (isConfirmed && Id != 0)
         {
-            await simpleClassRepository.delete(Name, DeleteidRole);
-            await _jSRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+            await simpleClassRepository.delete(Name, Id);
+            await _JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
             await ParentCallback.InvokeAsync();
         }
     }

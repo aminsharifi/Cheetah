@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cheetah_Common
+﻿namespace Cheetah_Common
 {
     public static class SD
     {
@@ -41,5 +35,12 @@ namespace Cheetah_Common
         CString,
         CBool,
         CSelect
+    }
+    public enum CrudOperation
+    {
+        Create,
+        Read,
+        Update,
+        Delete
     }
 }
