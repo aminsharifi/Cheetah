@@ -57,10 +57,6 @@ namespace Cheetah.Shared
         [Parameter]
         public Boolean LoadData { get; set; } = false;
 
-
-        [Parameter]
-        public Boolean IsUpdatedLink { get; set; } = false;
-
         [Parameter]
         public RenderFragment? HeaderTemplate { get; set; }
 

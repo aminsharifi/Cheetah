@@ -75,7 +75,7 @@ namespace Cheetah_Common
             if (!string.IsNullOrEmpty(Reference))
                 Deserialize(Reference);
 
-            var PDescription = (RowId > 0) ? $"ردیف '{RowDescription}'" : "ایجاد ردیف";
+            var PDescription = (RowId > 0) ? $"ردیف '{RowDescription}'" :(Address.StartsWith("List/"))? "لیست جدول‌ها" :  "ایجاد ردیف";
 
             if (!RowId.HasValue)
                 PDescription = $"جدول {RowDescription}";

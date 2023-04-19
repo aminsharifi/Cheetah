@@ -7,6 +7,7 @@ namespace Cheetah.Shared
     public class CUpsert_GeneralCode : SharedPage
     {
         #region Methodes
+
         protected async Task LoadDTO()
         {
             try
@@ -20,6 +21,7 @@ namespace Cheetah.Shared
                 await _JsRuntime.ToastrError(ex?.InnerException?.Message ?? ex?.Message);
             }
         }
+
         public async Task ExtendedLoadDTO()
         {
             var d_User = await simpleClassRepository.GetAllByName("D_User");
@@ -77,7 +79,7 @@ namespace Cheetah.Shared
                     Record = await simpleClassRepository.Update(Record);
                 }
 
-                if (IsUpdatedLink && LinkRecords.sd_Status != null)
+                if (LinkRecords.sd_Status != null)
                 {
                     await UpdateLink();
                 }
