@@ -1,13 +1,13 @@
 ﻿@inherits CUpsert_GeneralCode
 
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
-                 Name="D_Area" Id="@Id" reference="@reference"
+                 Name="D_Location" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title="@($"کاربرانی که در واحد {Record?.PDisplayName} هستند")">
+                       Title="@($"کاربرانی که در موقعیت {Record?.PDisplayName} هستند")">
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
@@ -15,20 +15,19 @@
     public override async Task ExtendedLoadDTO()
     {
         var d_User = await simpleClassRepository.GetAllByName("D_User");
-        var l_UserArea = await simpleClassRepository.GetAllLink("L_UserArea", SD.Second, Id);
-
+        var l_UserLocation = await simpleClassRepository.GetAllLink("L_UserLocation", SD.Second, Id);
+        
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = "L_UserArea",
+                linkType = "L_UserLocation",
                 firstType = "D_User",
-                secondType = "D_Area",
+                secondType = "D_Location",
                 fixedId = Id,
                 sd_Status = SD.Second,
                 floatState = d_User.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
                     new Tuple<long, string>(x.Id, x.PDisplayName),
-                    l_UserArea.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                    .ToDictionary(x => x.Key, x => x.Value)
+                    l_UserLocation.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
+                                                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
-
 }

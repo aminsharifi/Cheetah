@@ -1,5 +1,4 @@
-﻿@using Cheetah.Shared.Dimentions
-@inherits SharedPage
+﻿@inherits SharedPage
 
 @if (Records != null && Records.Any())
 {
@@ -20,22 +19,11 @@
         <RowTemplate>
             @if (LoadData)
             {
-                @if (Name == "D_Area")
-                {
-                    <CUpsert_D_Area Name="@Name" IsInline="@true"
-                        ParentCallback="@ParentCallback" Id="@Id"
-                        reference="@reference" LoadData="@LoadData"
-                        Title="@Title">
-                    </CUpsert_D_Area>
-                }
-                else
-                {
-                    <CUpsert_D_General Name="@Name" IsInline="@true"
-                           ParentCallback="@ParentCallback" Id="@Id"
-                           reference="@reference" Title="@Title"
-                           LoadData="@LoadData">
-                    </CUpsert_D_General>
-                }
+                <GeneralComponent Name="@Name" IsInline="true"
+                          ParentCallback="@ParentCallback" Id="@Id"
+                          reference="@reference" LoadData="@LoadData"
+                          Title="@Title">
+                </GeneralComponent>
             }
         </RowTemplate>
     </SharedModal>
@@ -97,8 +85,8 @@
     </Ctable>
 }
 
-@code {     
-    
+@code {
+
     public void PrepareLink(long getId, CrudOperation getCrudOperation)
     {
         LoadData = true;

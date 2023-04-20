@@ -1,13 +1,13 @@
 ﻿@inherits CUpsert_GeneralCode
 
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
-                 Name="D_Area" Id="@Id" reference="@reference"
+                 Name="D_Position" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title="@($"کاربرانی که در واحد {Record?.PDisplayName} هستند")">
+                       Title="@($"کاربرانی که در سمت {Record?.PDisplayName} هستند")">
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
@@ -15,13 +15,13 @@
     public override async Task ExtendedLoadDTO()
     {
         var d_User = await simpleClassRepository.GetAllByName("D_User");
-        var l_UserArea = await simpleClassRepository.GetAllLink("L_UserArea", SD.Second, Id);
+        var l_UserArea = await simpleClassRepository.GetAllLink("L_UserPosition", SD.Second, Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = "L_UserArea",
+                linkType = "L_UserPosition",
                 firstType = "D_User",
-                secondType = "D_Area",
+                secondType = "D_Position",
                 fixedId = Id,
                 sd_Status = SD.Second,
                 floatState = d_User.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
@@ -30,5 +30,4 @@
                                                     .ToDictionary(x => x.Key, x => x.Value)
             };
     }
-
 }

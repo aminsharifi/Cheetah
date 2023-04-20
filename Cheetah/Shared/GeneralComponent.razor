@@ -1,0 +1,92 @@
+﻿@inherits SharedPage
+@if (Name == "D_Area")
+{
+    <CUpsert_D_Area Name="@Name" IsInline="@IsInline"
+                ParentCallback="@ParentCallback" Id="@Id"
+                reference="@reference" LoadData="@LoadData"
+                Title="@Title">
+    </CUpsert_D_Area>
+}
+else if (Name == "D_EndorsementPattern")
+{
+    <CUpsert_D_EndorsementPattern Name="@Name" IsInline="@IsInline"
+                              ParentCallback="@ParentCallback" Id="@Id"
+                              reference="@reference" LoadData="@LoadData"
+                              Title="@Title">
+    </CUpsert_D_EndorsementPattern>
+}
+else if (Name == "D_Location")
+{
+    <CUpsert_D_Location Name="@Name" IsInline="@IsInline"
+                    ParentCallback="@ParentCallback" Id="@Id"
+                    reference="@reference" LoadData="@LoadData"
+                    Title="@Title">
+    </CUpsert_D_Location>
+}
+else if (Name == "D_ParameterList")
+{
+    <CUpsert_D_ParameterList Name="@Name" IsInline="@IsInline"
+                         ParentCallback="@ParentCallback" Id="@Id"
+                         reference="@reference" LoadData="@LoadData"
+                         Title="@Title">
+    </CUpsert_D_ParameterList>
+}
+else if (Name == "D_ParameterType")
+{
+    <CUpsert_D_ParameterType Name="@Name" IsInline="@IsInline"
+                         ParentCallback="@ParentCallback" Id="@Id"
+                         reference="@reference" LoadData="@LoadData"
+                         Title="@Title">
+    </CUpsert_D_ParameterType>
+}
+else if (Name == "D_Position")
+{
+    <CUpsert_D_Position Name="@Name" IsInline="@IsInline"
+                    ParentCallback="@ParentCallback" Id="@Id"
+                    reference="@reference" LoadData="@LoadData"
+                    Title="@Title">
+    </CUpsert_D_Position>
+}
+else if (Name == "D_ProcessEndorsement")
+{
+    <CUpsert_D_ProcessEndorsement Name="@Name" IsInline="@IsInline"
+                              ParentCallback="@ParentCallback" Id="@Id"
+                              reference="@reference" LoadData="@LoadData"
+                              Title="@Title">
+    </CUpsert_D_ProcessEndorsement>
+}
+else if (Name == "D_RequestTitle")
+{
+    <CUpsert_D_RequestTitle Name="@Name" IsInline="@IsInline"
+                        ParentCallback="@ParentCallback" Id="@Id"
+                        reference="@reference" LoadData="@LoadData"
+                        Title="@Title">
+    </CUpsert_D_RequestTitle>
+}
+else if (Name == "D_Role")
+{
+    <CUpsert_D_Role Name="@Name" IsInline="@IsInline"
+                ParentCallback="@ParentCallback" Id="@Id"
+                reference="@reference" LoadData="@LoadData"
+                Title="@Title">
+    </CUpsert_D_Role>
+}
+else if (Name == "D_User")
+{
+    <CUpsert_D_User Name="@Name" IsInline="@IsInline"
+                ParentCallback="@ParentCallback" Id="@Id"
+                reference="@reference" LoadData="@LoadData"
+                Title="@Title">
+    </CUpsert_D_User>
+}
+else
+{
+    <CUpsert_D_General Name="@Name" IsInline="@IsInline"
+                   ParentCallback="@ParentCallback" Id="@Id"
+                   reference="@reference" LoadData="@LoadData"
+                   Title="@Title">
+    </CUpsert_D_General>
+}
+@code {
+
+}
