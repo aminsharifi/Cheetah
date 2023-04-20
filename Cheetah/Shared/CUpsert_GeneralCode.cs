@@ -1,6 +1,4 @@
 ﻿using Cheetah.Helper;
-using Cheetah_Common;
-using Cheetah_DataAccess.Links;
 
 namespace Cheetah.Shared
 {
@@ -22,23 +20,9 @@ namespace Cheetah.Shared
             }
         }
 
-        public async Task ExtendedLoadDTO()
+        public async virtual Task ExtendedLoadDTO()
         {
-            var d_User = await simpleClassRepository.GetAllByName("D_User");
-            var l_UserArea = await simpleClassRepository.GetAllLink("L_UserArea", SD.Second, Id);
-
-            this.LinkRecords = new SimpleLinkClassDTO()
-            {
-                linkType = "L_UserArea",
-                firstType = "D_User",
-                secondType = "D_Area",
-                fixedId = Id,
-                sd_Status = SD.Second,
-                floatState = d_User.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
-                    new Tuple<long, string>(x.Id, x.PDisplayName),
-                    l_UserArea.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                    .ToDictionary(x => x.Key, x => x.Value)
-            };
+         
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
