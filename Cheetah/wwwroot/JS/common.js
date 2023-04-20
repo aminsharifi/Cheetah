@@ -1,15 +1,16 @@
-﻿window.CreateToolTip = () => {
-    tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+﻿window.CreateToolTip = (type) => {
+    //tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    //tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    //$('[data-toggle="popover"]').click(function () {
 
-    $('[data-toggle="popover"]').click(function () {
+    //    setTimeout(function () {
+    //        $('.tooltip').fadeOut('slow');
+    //    }, 5000);
 
-        setTimeout(function () {
-            $('.tooltip').fadeOut('slow');
-        }, 5000);
-
-    });
+    //});
+    $('.CustomTable').bootstrapTable();
 }
+
 window.ShowToastr = (type, message) => {
     toastr.options = {
         "closeButton": false,
@@ -64,10 +65,6 @@ function HideDeleteConfirmationModal() {
 }
 
 
-window.CreateTooltip = () => {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-}
 
 window.CreateNavBar = () => {
     $("#menu-toggle").click(function (e) {

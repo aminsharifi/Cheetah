@@ -48,7 +48,7 @@
                     افزودن
                 </button>
             </div>
-        }
+        }    
     }
 
     @if (!String.IsNullOrEmpty(Name))
@@ -72,7 +72,6 @@
                           type="@type" @ref="listGenericTypeItems">
         </ListGenericTypeItems>
     }
-
 </div>
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
@@ -94,6 +93,7 @@
         if (firstRender)
         {
             await FirstLoadRecords();
+           
         }
         if (reference is null || firstRender)
         {
@@ -107,6 +107,7 @@
             IsLoading = false;
             StateHasChanged();
         }
+        //await _JsRuntime.InvokeVoidAsync("CreateToolTip", "All");
     }
 
     private async Task FirstLoadRecords()
