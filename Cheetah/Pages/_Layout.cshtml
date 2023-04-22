@@ -96,16 +96,10 @@
     <script defer src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
     <script defer src="js/sweetalert2@11.js"></script>
     <script defer src="bpmn-js-11.5.0/dist/bpmn-modeler.development.js"></script>
-    <script defer src="JS/samplebpms.js"></script>
+    <script defer src="js/samplebpms.js"></script>
     <script defer src="codeseven-toastr-2.1.4-7/toastr.min.js"></script>
-    <script defer src="js/chevronprogressbar.js"></script>
-    @*<script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
-    <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/locale/bootstrap-table-fa-IR.js"></script>*@
-    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <!-- MDB -->
-    @*    <script defer type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>*@
-    @*<script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/export/bootstrap-table-export.min.js"></script>*@
+    <script defer src="js/chevronprogressbar.js"></script>   
+    <script defer src="js/jquery.dataTables.1.13.4.min.js"></script>
     <script defer src="JS/common.js"></script>
     <script defer>
         function myTimer() {
@@ -120,25 +114,10 @@
                         info: false,
                         "destroy": true,
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json',
+                            url: 'js/datatables_fa.json',
                         },
                     });
             });
-
-            //$(".CustomTable").removeClass("CustomTable").bootstrapTable();
-            $(".CustomTable").removeClass("CustomTable")
-                .addClass("MyTable").DataTable({
-                    order: [[1, "asc"]],
-                    scrollX: true,
-                    scrollY: 400,
-                    scrollCollapse: true,
-                    paging: false,
-                    info: false,
-                    "destroy": true,
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json',
-                    },
-                });
         }
         try {
             setInterval(myTimer, 100);
