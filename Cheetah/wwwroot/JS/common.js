@@ -1,14 +1,14 @@
 ﻿window.CreateToolTip = (type) => {
-    //tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    //tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    //$('[data-toggle="popover"]').click(function () {
-
-    //    setTimeout(function () {
-    //        $('.tooltip').fadeOut('slow');
-    //    }, 5000);
-
-    //});
-    $('.CustomTable').bootstrapTable();
+    if (type == "Destroy") {
+        $('.MyTable').each(function () {
+            $(this).DataTable().destroy();
+        });
+    }
+    else if (type == "Create") {
+        $('.MyTable').each(function () {
+            $(this).addClass("CustomTable");
+        });
+    }
 }
 
 window.ShowToastr = (type, message) => {

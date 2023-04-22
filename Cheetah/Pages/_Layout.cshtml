@@ -20,10 +20,23 @@
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-js.css" />
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/diagram-js.css" />
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-font/css/bpmn.css" />
-    <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
-    <link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" />
+    <link defer href="css/navbar.css" rel="stylesheet" />
 
-    @*<link defer href="css/navbar.css" rel="stylesheet" />*@
+    <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
+    @*<link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" />*@
+
+
+    <!-- Font Awesome -->
+    @*   <link defer href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet" />*@
+    <!-- Google Fonts -->
+    @* <link defer href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet" />*@
+    <!-- MDB -->
+    @*    <link defer href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css"
+    rel="stylesheet" />*@
+
+    <link defer rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
     <style defer>
         body {
             font-family: 'Vazirmatn RD UI FD';
@@ -48,24 +61,20 @@
             font-size: large
         }
 
-        .table {
-            text-align: center
+        table {
+            text-align-last: center;
+        }
+
+            table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
+                /*padding-right: 0px*/
+            }
+
+        div.dataTables_wrapper {
+            margin: 0 auto;
         }
 
     </style>
-    <script defer src="_framework/blazor.server.js"></script>
-    @*<script src="jquery/3.6.0/jquery.min.js"></script>*@
-    @*<script src="js/popper.min.js"></script>*@
-    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
-    <script defer src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
-    <script defer src="js/sweetalert2@11.js"></script>
-    <script defer src="bpmn-js-11.5.0/dist/bpmn-modeler.development.js"></script>
-    <script defer src="JS/samplebpms.js"></script>
-    <script defer src="codeseven-toastr-2.1.4-7/toastr.min.js"></script>
-    <script defer src="js/chevronprogressbar.js"></script>
-    <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
-    <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/locale/bootstrap-table-fa-IR.js"></script>
-    <script defer src="JS/common.js"></script>
+
 </head>
 <body>
     @RenderBody()
@@ -79,5 +88,65 @@
         <a href="" class="reload">بازنشانی</a>
         <a class="dismiss">🗙</a>
     </div>
+
+    <script defer src="_framework/blazor.server.js"></script>
+    @*<script src="jquery/3.6.0/jquery.min.js"></script>*@
+    @*<script src="js/popper.min.js"></script>*@
+    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+    <script defer src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <script defer src="js/sweetalert2@11.js"></script>
+    <script defer src="bpmn-js-11.5.0/dist/bpmn-modeler.development.js"></script>
+    <script defer src="JS/samplebpms.js"></script>
+    <script defer src="codeseven-toastr-2.1.4-7/toastr.min.js"></script>
+    <script defer src="js/chevronprogressbar.js"></script>
+    @*<script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+    <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/locale/bootstrap-table-fa-IR.js"></script>*@
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- MDB -->
+    @*    <script defer type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>*@
+    @*<script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/export/bootstrap-table-export.min.js"></script>*@
+    <script defer src="JS/common.js"></script>
+    <script defer>
+        function myTimer() {
+            $('.CustomTable').each(function () {
+                $(this).removeClass("CustomTable")
+                    .DataTable({
+                        order: [[1, "asc"]],
+                        scrollX: true,
+                        scrollY: 400,
+                        scrollCollapse: true,
+                        paging: false,
+                        info: false,
+                        "destroy": true,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json',
+                        },
+                    });
+            });
+
+            //$(".CustomTable").removeClass("CustomTable").bootstrapTable();
+            $(".CustomTable").removeClass("CustomTable")
+                .addClass("MyTable").DataTable({
+                    order: [[1, "asc"]],
+                    scrollX: true,
+                    scrollY: 400,
+                    scrollCollapse: true,
+                    paging: false,
+                    info: false,
+                    "destroy": true,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fa.json',
+                    },
+                });
+        }
+        try {
+            setInterval(myTimer, 100);
+        } catch (error) {
+            // Only runs when there is an error/exception
+        } finally {
+            // Code here always runs. Doesn't matter if there was an error or not.
+        }
+    </script>
 </body>
 </html>

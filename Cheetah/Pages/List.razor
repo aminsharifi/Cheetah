@@ -48,7 +48,7 @@
                     افزودن
                 </button>
             </div>
-        }    
+        }
     }
 
     @if (!String.IsNullOrEmpty(Name))
@@ -75,7 +75,6 @@
 </div>
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
-
     private ListGenericTypeItems listGenericTypeItems;
 
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
@@ -83,6 +82,7 @@
         if (e.Value is not null)
         {
             Name = (string)e.Value;
+            //_NavigationManager.NavigateTo($"/List/{Name}", forceLoad: true, replace: true);
             _NavigationManager.NavigateTo($"/List/{Name}");
             await FirstLoadRecords();
         }
@@ -93,7 +93,7 @@
         if (firstRender)
         {
             await FirstLoadRecords();
-           
+
         }
         if (reference is null || firstRender)
         {
@@ -107,7 +107,7 @@
             IsLoading = false;
             StateHasChanged();
         }
-        //await _JsRuntime.InvokeVoidAsync("CreateToolTip", "All");
+
     }
 
     private async Task FirstLoadRecords()
@@ -146,5 +146,6 @@
         IsLoading = true;
         await LoadRecords();
         IsLoading = false;
+        await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Create");
     }
 }
