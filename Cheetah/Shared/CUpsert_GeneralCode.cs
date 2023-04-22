@@ -1,4 +1,5 @@
 ﻿using Cheetah.Helper;
+using Microsoft.JSInterop;
 
 namespace Cheetah.Shared
 {
@@ -13,6 +14,7 @@ namespace Cheetah.Shared
                 Record = await simpleClassRepository.Get(Name, Id);
 
                 await ExtendedLoadDTO();
+
             }
             catch (Exception ex)
             {
@@ -53,7 +55,7 @@ namespace Cheetah.Shared
             try
             {
                 var IsNew = (Record.Id == 0);
-
+                await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
                 if (IsNew)
                 {
                     Record = await simpleClassRepository.Create(Record);
