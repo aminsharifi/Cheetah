@@ -1,7 +1,6 @@
 namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
-    using Cheetah_DataAccess.Facts;
     using Cheetah_DataAccess.Links;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace Cheetah_DataAccess.Dimentions
 
         #region Collection
         public virtual ICollection<L_RolePosition>? ROL_RolePositions { get; set; } = new HashSet<L_RolePosition>();
-        public virtual ICollection<F_Endorsement>? ROL_EndorsementPosition { get; set; } = new HashSet<F_Endorsement>();
+        public virtual ICollection<D_Endorsement>? ROL_EndorsementPosition { get; set; } = new HashSet<D_Endorsement>();
         #endregion
     }
 }

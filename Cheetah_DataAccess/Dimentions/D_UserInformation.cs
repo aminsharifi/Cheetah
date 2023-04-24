@@ -1,4 +1,4 @@
-﻿namespace Cheetah_DataAccess.Facts
+﻿namespace Cheetah_DataAccess.Dimentions
 {
     using Cheetah_DataAccess.Data;
     using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -7,7 +7,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("F_UserInformation", Schema = "Facts")]
+    [Table("D_UserInformation", Schema = "Dimentions")]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -16,7 +16,7 @@
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class F_UserInformation : BaseClass<F_UserInformation>
+    public partial class D_UserInformation : BaseClass<D_UserInformation>
     {
         [StringLength(50)]
         [Column(Order = 100)]

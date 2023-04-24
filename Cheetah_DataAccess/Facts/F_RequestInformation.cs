@@ -55,7 +55,7 @@
         [Column(Order = 111)]
         public virtual D_RequestTitle? RI_RequestTitle { get; set; }
 
-        public virtual ICollection<F_ListOfParameter>? RI_ListOfParameters { get; set; } = new HashSet<F_ListOfParameter>();
+        public virtual ICollection<F_Condition>? RI_ListOfParameters { get; set; } = new HashSet<F_Condition>();
         #endregion
     }
 }

@@ -24,8 +24,7 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<D_RequestTitle> P_RequestTitles { get; set; }
         public virtual DbSet<D_ProcessState> P_ProcessStates { get; set; }
         public virtual DbSet<D_Position> P_PositionOrgs { get; set; }
-        public virtual DbSet<D_EndorsementPattern> D_EndorsementPatterns { get; set; }        
-        public virtual DbSet<D_ProcessEndorsement> D_ProcessEndorsements { get; set; }
+        public virtual DbSet<D_EndorsementPattern> D_EndorsementPatterns { get; set; }                
         public virtual DbSet<D_Entity> D_Entities { get; set; }
         public virtual DbSet<D_Area> D_Areas { get; set; }
         public virtual DbSet<D_Location> D_Locations { get; set; }
@@ -40,7 +39,7 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<F_Approve> F_Approves { get; set; }
         public virtual DbSet<F_Attachment> F_Attachments { get; set; }
         public virtual DbSet<F_AllApprove> F_AllApproves { get; set; }
-        public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
+        public virtual DbSet<D_Endorsement> F_Endorsements { get; set; }
         #endregion
 
         #region Links
