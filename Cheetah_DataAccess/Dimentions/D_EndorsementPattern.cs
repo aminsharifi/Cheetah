@@ -17,8 +17,11 @@
     public partial class D_EndorsementPattern : BaseClass<D_EndorsementPattern>
     {
         #region Relations
-        [InverseProperty("PSE_EndorsementPattern")]
-        public virtual ICollection<D_ProcessEndorsement>? EP_ProcessEndorsement { get; set; } = new HashSet<D_ProcessEndorsement>();
+        [InverseProperty("CD_EndorsementPattern")]
+        public virtual ICollection<F_Condition>? EP_Condition { get; set; } = new HashSet<F_Condition>();
+
+        [InverseProperty("ED_EndorsementPattern")]
+        public virtual ICollection<D_Endorsement>? EP_Endorsement { get; set; } = new HashSet<D_Endorsement>();
         #endregion
     }
 }
