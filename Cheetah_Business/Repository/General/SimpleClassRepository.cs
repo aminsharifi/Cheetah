@@ -85,8 +85,6 @@
 
                     var _SimpleClass = await _db.FindAsync(gtype, id) as SimpleClass;
 
-                    _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-
                     return _SimpleClass;
                 }
             }
@@ -97,11 +95,9 @@
         {
             if (!String.IsNullOrEmpty(type))
             {
-                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
                 var gtype = DatabaseClass.GetDBType(type);
                 var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
                 var Result = await Task.FromResult(aa.ToList());
-                _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
                 return Result;
             }
             return new List<SimpleClass>();
@@ -115,8 +111,8 @@
                 var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleLinkClass>;
 
                 var Result = await Task.FromResult(
-                    aa.Where(x => (x.FirstId == linkID && sd_Status == SD.First) ||
-                    (x.SecondId == linkID && sd_Status == SD.Second)).ToList());
+                    aa.Where(x => (x.FirstId == linkID && sd_Status == nameof(LinkProperty.First)) ||
+                    (x.SecondId == linkID && sd_Status == nameof(LinkProperty.Second))).ToList());
                 return Result;
             }
             _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
@@ -177,7 +173,7 @@
             var simpleLinkClass = new List<SimpleLinkClass>();
 
             var fixedInstance = await Get(
-                type: obj_DTO.sd_Status == SD.First ? obj_DTO.firstType : obj_DTO.secondType,
+                type: obj_DTO.sd_Status == nameof(LinkProperty.First) ? obj_DTO.firstType : obj_DTO.secondType,
                 id: obj_DTO.fixedId, Tracking: QueryTrackingBehavior.NoTracking);
 
             foreach (var link in obj_DTO.floatState.Where(x => x.Value))
@@ -201,7 +197,7 @@
                 secondType = DatabaseClass.GetDBType(obj_DTO.secondType);
 
 
-                if (obj_DTO.sd_Status == SD.First)
+                if (obj_DTO.sd_Status == nameof(LinkProperty.First))
                 {
                     instance.FirstId = obj_DTO.fixedId;
                     instance.SecondId = link.Key.Item1;
@@ -214,10 +210,10 @@
                 }
 
                 var floatedInstance = await Get(
-                type: obj_DTO.sd_Status == SD.First ? obj_DTO.secondType : obj_DTO.firstType,
+                type: obj_DTO.sd_Status == nameof(LinkProperty.First) ? obj_DTO.secondType : obj_DTO.firstType,
                 id: link.Key.Item1, Tracking: QueryTrackingBehavior.NoTracking);
 
-                if (obj_DTO.sd_Status == SD.First)
+                if (obj_DTO.sd_Status == nameof(LinkProperty.First))
                 {
                     instance = await AddLinkName(instance, fixedInstance, floatedInstance);
                 }

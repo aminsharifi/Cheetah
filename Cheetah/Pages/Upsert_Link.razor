@@ -3,6 +3,8 @@
 @using System.Web;
 @using System.Runtime.Serialization.Formatters.Binary;
 @using System.Text;
+@using Cheetah_Common.Data;
+@using Cheetah_DataAccess.Repository;
 
 @inject ISimpleClassRepository simpleClassRepository;
 @inject NavigationManager _NavigationManager;
@@ -20,7 +22,7 @@
             <CInput @bind-LValue="Record.FirstId"
                 Records="@FirstClass"
                 CDescription="@(FirstClassRecord.PDisplayName)"
-                Disabled="@(type == SD.First)"
+                    Disabled="@(type == nameof(LinkProperty.First))"
                 CDisplayName="@(FirstClassRecord.PDisplayName)"
                 CFieldType="@(FieldType.CSelect)"
                 Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
@@ -30,7 +32,7 @@
             <CInput @bind-LValue="Record.SecondId"
                 Records="@SecondClass"
                 CDescription="@(SecondClassRecord.PDisplayName)"
-                Disabled="@(type == SD.Second)"
+                    Disabled="@(type == nameof(LinkProperty.Second))"
                 CDisplayName="@(SecondClassRecord.PDisplayName)"
                 CFieldType="@(FieldType.CSelect)"
                 Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
@@ -92,7 +94,7 @@
         {
             Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
 
-            if (type == SD.First)
+            if (type == nameof(LinkProperty.First))
             {
                 if (Record.FirstId == 0)
                     Record.FirstId = LinkId;

@@ -1,8 +1,8 @@
-﻿using Cheetah_DataAccess.Dimentions;
-using Cheetah_DataAccess.Links;
+﻿using Cheetah_Common;
+using Cheetah_Common.Dimentions;
+using Cheetah_Common.Links;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using static Cheetah_Common.SD;
 
 namespace Cheetah_DataAccess.Data
 {
@@ -12,41 +12,7 @@ namespace Cheetah_DataAccess.Data
         {
             #region Dimentions
 
-            modelBuilder.Entity<D_Area>().HasData(
-                new D_Area
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "DrugSale",
-                    PDisplayName = "فروش دارویی"
-                },
-                new D_Area
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "FMCGSale",
-                    PDisplayName = "فروش مصرفی"
-                },
-                new D_Area
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "PurchaseAccounting",
-                    PDisplayName = "حسابداری خرید"
-                },
-                new D_Area
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "SaleAccounting",
-                    PDisplayName = "حسابداری فروش"
-                }
-                );
-
+            #region D_EndorsementPattern
             modelBuilder.Entity<D_EndorsementPattern>().HasData(
                 new D_EndorsementPattern
                 {
@@ -73,7 +39,9 @@ namespace Cheetah_DataAccess.Data
                     PDisplayName = "الگوی سه"
                 }
                 );
+            #endregion
 
+            #region D_RequestTitle
             modelBuilder.Entity<D_RequestTitle>().HasData(
                 new D_RequestTitle
                 {
@@ -106,7 +74,9 @@ namespace Cheetah_DataAccess.Data
                     RT_EndorsementPatternId = 2
                 }
                 );
+            #endregion
 
+            #region D_ProcessState
             modelBuilder.Entity<D_ProcessState>().HasData(
                 new D_ProcessState
                 {
@@ -141,7 +111,9 @@ namespace Cheetah_DataAccess.Data
                     PDisplayName = "ابطال شده"
                 }
                  );
+            #endregion
 
+            #region D_Location
             modelBuilder.Entity<D_Location>().HasData(
                 new D_Location
                 {
@@ -168,50 +140,9 @@ namespace Cheetah_DataAccess.Data
                     PDisplayName = "اصفهان"
                 }
                 );
+            #endregion
 
-            modelBuilder.Entity<D_FieldType>().HasData(
-                new D_FieldType
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "Parametric",
-                    PDisplayName = "پارامتریک"
-                },
-                new D_FieldType
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "Numberic",
-                    PDisplayName = "عددی"
-                },
-                new D_FieldType
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "Date",
-                    PDisplayName = "تاریخ"
-                },
-                new D_FieldType
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "String",
-                    PDisplayName = "حروف"
-                },
-                new D_FieldType
-                {
-                    Id = 5,
-                    PCode = 5,
-                    PIndex = 5,
-                    PName = "Boolean",
-                    PDisplayName = "دودویی"
-                }
-                );
-
+            #region D_Operand
             modelBuilder.Entity<D_Operand>().HasData(
                 new D_Operand
                 {
@@ -262,67 +193,44 @@ namespace Cheetah_DataAccess.Data
                     PDisplayName = "کوچکتر و مساوی"
                 }
                 );
+            #endregion
 
-            modelBuilder.Entity<D_ParameterType>().HasData(
-                new D_ParameterType
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "NumbericProcessVar",
-                    PDisplayName = "متغیرهای عددی",
-                    PT_P_FieldTypeId = 2
-                },
-                new D_ParameterType
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "DateProcessVar",
-                    PDisplayName = "متغیرهای تاریخی",
-                    PT_P_FieldTypeId = 3
-                },
-                new D_ParameterType
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "StringProcessVar",
-                    PDisplayName = "متغیرهای حروفی",
-                    PT_P_FieldTypeId = 4
-                },
-                new D_ParameterType
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "BooleanProcessVar",
-                    PDisplayName = "متغیرهای دودویی",
-                    PT_P_FieldTypeId = 5
-                },
-                new D_ParameterType
-                {
-                    Id = 5,
-                    PCode = 5,
-                    PIndex = 5,
-                    PName = "ProcessAction",
-                    PDisplayName = "اقدام‌های فرآیندی",
-                    PT_P_FieldTypeId = 1
-                },
-                new D_ParameterType
-                {
-                    Id = 6,
-                    PCode = 6,
-                    PIndex = 6,
-                    PName = "UnitType",
-                    PDisplayName = "نوع‌های واحد",
-                    PT_P_FieldTypeId = 1
-                }
-                );
+            modelBuilder.Entity<D_TagType>().HasData(
+                   new D_TagType
+                   {
+                       Id = 1,
+                       PCode = 1,
+                       PIndex = 1,
+                       PName = "Numberic",
+                       PDisplayName = "عددی"
+                   },
+                   new D_TagType
+                   {
+                       Id = 2,
+                       PCode = 2,
+                       PIndex = 2,
+                       PName = "Boolean",
+                       PDisplayName = "دودویی"
+                   },
+                   new D_TagType
+                   {
+                       Id = 3,
+                       PCode = 3,
+                       PIndex = 3,
+                       PName = "Date",
+                       PDisplayName = "تاریخ"
+                   },
+                   new D_TagType
+                   {
+                       Id = 4,
+                       PCode = 4,
+                       PIndex = 4,
+                       PName = "String",
+                       PDisplayName = "حروف"
+                   });
 
-
-            modelBuilder.Entity<D_ParameterList>().HasData(
-                new D_ParameterList
+            modelBuilder.Entity<D_Tag>().HasData(
+                new D_Tag
                 {
                     Id = 100,
                     PCode = 100,
@@ -330,9 +238,9 @@ namespace Cheetah_DataAccess.Data
                     PName = "OursShare",
                     PDisplayName = "سهم شرکت",
                     PDescription = "عددی",
-                    PL_ParameterTypeId = 1
+                    TG_TagTypeId = 1,
                 },
-                new D_ParameterList
+                new D_Tag
                 {
                     Id = 101,
                     PCode = 101,
@@ -340,19 +248,9 @@ namespace Cheetah_DataAccess.Data
                     PName = "OthersShare",
                     PDisplayName = "سهم دیگران",
                     PDescription = "عددی",
-                    PL_ParameterTypeId = 1
+                    TG_TagTypeId = 1
                 },
-                new D_ParameterList
-                {
-                    Id = 102,
-                    PCode = 102,
-                    PIndex = 102,
-                    PName = "Refrigerator",
-                    PDisplayName = "مخدر/ یخچالی",
-                    PDescription = "دودویی",
-                    PL_ParameterTypeId = 4
-                },
-                new D_ParameterList
+                new D_Tag
                 {
                     Id = 103,
                     PCode = 103,
@@ -360,71 +258,77 @@ namespace Cheetah_DataAccess.Data
                     PName = "Price",
                     PDisplayName = "مبلغ",
                     PDescription = "عددی",
-                    PL_ParameterTypeId = 1
+                    TG_TagTypeId = 1
                 },
-
-
-                new D_ParameterList
+                new D_Tag
                 {
                     Id = 200,
                     PCode = 200,
                     PIndex = 200,
-                    PName = "Approve",
-                    PDisplayName = "تایید",
-                    PDescription = "پارامتریک",
-                    PL_ParameterTypeId = 5
+                    PName = "Refrigerator",
+                    PDisplayName = "مخدر/ یخچالی",
+                    PDescription = "دودویی",
+                    TG_TagTypeId = 2,
                 },
-                new D_ParameterList
+                new D_Tag
                 {
                     Id = 201,
                     PCode = 201,
                     PIndex = 201,
-                    PName = "Reject",
-                    PDisplayName = "عدم تایید",
+                    PName = "Approve",
+                    PDisplayName = "تایید",
                     PDescription = "پارامتریک",
-                    PL_ParameterTypeId = 5
+                    TG_TagTypeId = 2
                 },
-                new D_ParameterList
+                new D_Tag
                 {
                     Id = 202,
                     PCode = 202,
                     PIndex = 202,
+                    PName = "Reject",
+                    PDisplayName = "عدم تایید",
+                    PDescription = "پارامتریک",
+                    TG_TagTypeId = 2
+                },
+                new D_Tag
+                {
+                    Id = 203,
+                    PCode = 203,
+                    PIndex = 203,
                     PName = "Revise",
                     PDisplayName = "بازنگری",
                     PDescription = "پارامتریک",
-                    PL_ParameterTypeId = 5
+                    TG_TagTypeId = 2
                 },
-
-
-                new D_ParameterList
+                new D_Tag
                 {
-                    Id = 301,
-                    PCode = 301,
-                    PIndex = 301,
+                    Id = 204,
+                    PCode = 204,
+                    PIndex = 204,
                     PName = "Med",
                     PDisplayName = "دارویی",
                     PDescription = "پارامتریک",
-                    PL_ParameterTypeId = 6
+                    TG_TagTypeId = 2
                 },
-                new D_ParameterList
+                new D_Tag
                 {
-                    Id = 302,
-                    PCode = 302,
-                    PIndex = 302,
+                    Id = 205,
+                    PCode = 205,
+                    PIndex = 205,
                     PName = "FMCG",
                     PDisplayName = "مصرفی",
                     PDescription = "پارامتریک",
-                    PL_ParameterTypeId = 6
+                    TG_TagTypeId = 2
                 },
-                new D_ParameterList
+                new D_Tag
                 {
-                    Id = 303,
-                    PCode = 303,
-                    PIndex = 303,
+                    Id = 206,
+                    PCode = 206,
+                    PIndex = 206,
                     PName = "General",
                     PDisplayName = "کل",
                     PDescription = "پارامتریک",
-                    PL_ParameterTypeId = 6
+                    TG_TagTypeId = 2
                 }
                 );
 
@@ -569,8 +473,8 @@ namespace Cheetah_DataAccess.Data
                     Id = 101,
                     PCode = 101,
                     PIndex = 101,
-                    PName = "D_FieldType",
-                    PDisplayName = new StringBuilder().Append("نوع فیلدها").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_TagType",
+                    PDisplayName = new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString()
                 },
                 new D_Entity
                 {
@@ -593,79 +497,71 @@ namespace Cheetah_DataAccess.Data
                     Id = 104,
                     PCode = 104,
                     PIndex = 104,
-                    PName = "D_ParameterList",
-                    PDisplayName = new StringBuilder().Append("لیست پارامترها").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_Tag",
+                    PDisplayName = new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString()
                 },
                 new D_Entity
                 {
                     Id = 105,
                     PCode = 105,
                     PIndex = 105,
-                    PName = "D_ParameterType",
-                    PDisplayName = new StringBuilder().Append("نوع‌های پارامتر").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 106,
-                    PCode = 106,
-                    PIndex = 106,
                     PName = "D_Position",
                     PDisplayName = new StringBuilder().Append("سمت‌ها").Append($"({TableType.Dimentions})").ToString()
                 },
 
                 new D_Entity
                 {
+                    Id = 106,
+                    PCode = 106,
+                    PIndex = 106,
+                    PName = "D_ProcessState",
+                    PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString()
+                },
+                new D_Entity
+                {
                     Id = 107,
                     PCode = 107,
                     PIndex = 107,
-                    PName = "D_ProcessState",
-                    PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_RequestTitle",
+                    PDisplayName = new StringBuilder().Append("عنوان درخواست‌ها").Append($"({TableType.Dimentions})").ToString()
                 },
                 new D_Entity
                 {
                     Id = 108,
                     PCode = 108,
                     PIndex = 108,
-                    PName = "D_RequestTitle",
-                    PDisplayName = new StringBuilder().Append("عنوان درخواست‌ها").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_Role",
+                    PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString()
                 },
                 new D_Entity
                 {
                     Id = 109,
                     PCode = 109,
                     PIndex = 109,
-                    PName = "D_Role",
-                    PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_User",
+                    PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString()
                 },
                 new D_Entity
                 {
                     Id = 110,
                     PCode = 110,
                     PIndex = 110,
-                    PName = "D_User",
-                    PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_EndorsementPattern",
+                    PDisplayName = new StringBuilder().Append("الگوهای تایید").Append($"({TableType.Dimentions})").ToString()
                 },
                 new D_Entity
                 {
                     Id = 111,
                     PCode = 111,
                     PIndex = 111,
-                    PName = "D_EndorsementPattern",
-                    PDisplayName = new StringBuilder().Append("الگوهای تایید").Append($"({TableType.Dimentions})").ToString()
+                    PName = "D_Endorsement",
+                    PDisplayName = new StringBuilder().Append("اختصاص نقش‌ها").Append($"({TableType.Facts})").ToString()
                 },
                 new D_Entity
                 {
                     Id = 112,
                     PCode = 112,
                     PIndex = 112,
-                    PName = "D_Endorsement",
-                    PDisplayName = new StringBuilder().Append("اختصاص نقش‌ها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 113,
-                    PCode = 113,
-                    PIndex = 113,
                     PName = "D_UserInformation",
                     PDisplayName = new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString()
                 },
@@ -693,7 +589,14 @@ namespace Cheetah_DataAccess.Data
                     PName = "F_Attachment",
                     PDisplayName = new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString()
                 },
-
+                new D_Entity
+                {
+                    Id = 203,
+                    PCode = 203,
+                    PIndex = 203,
+                    PName = "F_Endorsement",
+                    PDisplayName = new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString()
+                },
                 new D_Entity
                 {
                     Id = 204,
@@ -739,14 +642,6 @@ namespace Cheetah_DataAccess.Data
                     Id = 303,
                     PCode = 303,
                     PIndex = 303,
-                    PName = "L_UserRelatedLocation",
-                    PDisplayName = new StringBuilder().Append("کاربر-موقعیت مرتبط").Append($"({TableType.Links})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 304,
-                    PCode = 304,
-                    PIndex = 304,
                     PName = "L_UserPosition",
                     PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString()
                 }
@@ -848,48 +743,6 @@ namespace Cheetah_DataAccess.Data
                     PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
                     FirstId = 5,
                     SecondId = 7
-                }
-                );
-            modelBuilder.Entity<L_UserArea>().HasData(
-                new L_UserArea
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "a.sharifi-DrugSale",
-                    PDisplayName = "امین شریفی-فروش دارویی",
-                    FirstId = 2,
-                    SecondId = 1
-                },
-                new L_UserArea
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "a.sharifi-FMCGSale",
-                    PDisplayName = "امین شریفی-فروش مصرفی",
-                    FirstId = 2,
-                    SecondId = 2
-                },
-                new L_UserArea
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "m.sharifi-DrugSale",
-                    PDisplayName = "محمد شریفی-فروش دارویی",
-                    FirstId = 1,
-                    SecondId = 1
-                },
-                new L_UserArea
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "m.sharifi-FMCGSale",
-                    PDisplayName = "محمد شریفی-فروش مصرفی",
-                    FirstId = 1,
-                    SecondId = 2
                 }
                 );
 

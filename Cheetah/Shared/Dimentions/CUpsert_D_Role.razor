@@ -19,7 +19,7 @@
     public override async Task ExtendedLoadDTO()
     {
         var AllRecords = await simpleClassRepository.GetAllByName("D_Position");
-        var AllLink = await simpleClassRepository.GetAllLink("L_RolePosition", SD.First, Id);
+        var AllLink = await simpleClassRepository.GetAllLink("L_RolePosition", nameof(LinkProperty.First), Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
@@ -27,7 +27,7 @@
                 firstType = "D_Role",
                 secondType = "D_Position",
                 fixedId = Id,
-                sd_Status = SD.First,
+                sd_Status = nameof(LinkProperty.First),
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
                     new Tuple<long, string>(x.Id, x.PDisplayName),
                     AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))

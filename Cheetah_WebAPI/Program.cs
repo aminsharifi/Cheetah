@@ -1,6 +1,5 @@
-using Cheetah_Business.Repository.IRepository;
-using Cheetah_Business.Repository.IRepository.General;
 using Cheetah_DataAccess.Data;
+using Cheetah_DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,8 +22,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(
      ServiceLifetime.Transient);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-builder.Services.AddScoped<IProcessRepository, ProcessRepository>();
 
 builder.Services.AddTransient(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 

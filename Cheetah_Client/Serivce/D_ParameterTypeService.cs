@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Cheetah_Business.Repository.IRepository;
-using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Dimentions;
-using Cheetah_DataAccess.Links;
-using Cheetah_Models;
+﻿using Cheetah_Common;
+using Cheetah_Common.Data;
+using Cheetah_Common.Dimentions;
+using Cheetah_DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -41,14 +39,14 @@ namespace Cheetah_Client.Service
             }
         }
 
-        public async Task<IEnumerable<D_ParameterType>> GetAll()
+        public async Task<IEnumerable<D_TagType>> GetAll()
         {
             var response = await _httpClient.GetAsync("/D_ParameterType");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<D_ParameterType>>(content);
+                var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<D_TagType>>(content);
                 foreach (var prod in ParameterLists)
                 {
                     //prod.ImageUrl=BaseServerUrl+prod.ImageUrl;
@@ -56,15 +54,15 @@ namespace Cheetah_Client.Service
 
                 return ParameterLists;
             }
-            return new List<D_ParameterType>();
+            return new List<D_TagType>();
         }
 
-        public Task<D_ParameterType> Update(D_ParameterType obj_DTO)
+        public Task<D_TagType> Update(D_TagType obj_DTO)
         {
             throw new NotImplementedException();
         }
 
-        public Task<D_ParameterType> Create(D_ParameterType obj_DTO)
+        public Task<D_TagType> Create(D_TagType obj_DTO)
         {
             throw new NotImplementedException();
         }

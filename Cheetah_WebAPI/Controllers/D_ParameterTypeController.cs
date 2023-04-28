@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using Cheetah_Business.Repository.IRepository;
-using Cheetah_DataAccess.Data;
-using Cheetah_Models;
+using Cheetah_Common;
+using Cheetah_Common.Data;
+using Cheetah_DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace Cheetah_WebAPI.Controllers
 {

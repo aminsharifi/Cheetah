@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\Parameters\" />
-  </ItemGroup>
-
 </Project>
