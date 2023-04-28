@@ -1,6 +1,7 @@
 ﻿@page "/"
-@using Cheetah_DataAccess.Dimentions;
-@using Cheetah_Models;
+@using Cheetah_Common.Data;
+@using Cheetah_Common.Dimentions;
+@using Cheetah_DataAccess.Repository;
 @inject ISimpleClassRepository _IP_ParameterListRepository;
 
 @if (IsProcessing)
@@ -38,7 +39,9 @@ else
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        P_ParameterList = await _IP_ParameterListRepository.GetAllByName("D_ParameterType") as IEnumerable<SimpleClassDTO>;
+        P_ParameterList = await _IP_ParameterListRepository.GetAllByName(nameof(D_Tag)) as IEnumerable
+        <SimpleClassDTO>
+            ;
         IsProcessing = false;
     }
 }

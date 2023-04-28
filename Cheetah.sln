@@ -7,15 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah", "Cheetah\Cheetah.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_WebAPI", "Cheetah_WebAPI\Cheetah_WebAPI.csproj", "{C579A033-D773-4D99-9235-F95D5D43DEBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Business", "Cheetah_Business\Cheetah_Business.csproj", "{158F9AE8-ABF3-4751-9931-5ED86066287A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Common", "Cheetah_Common\Cheetah_Common.csproj", "{3BA701E3-EEC8-4AFC-A88F-63E6DF9E21EA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess", "Cheetah_DataAccess\Cheetah_DataAccess.csproj", "{960836BF-B0FC-4DFC-83A1-0036DB25A542}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Client", "Cheetah_Client\Cheetah_Client.csproj", "{47E3D0B2-0C4C-491E-AA43-52DACA158F75}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Models", "Cheetah_Models\Cheetah_Models.csproj", "{B64B75B6-EA31-4969-8528-78656F5E6CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +27,6 @@ Global
 		{C579A033-D773-4D99-9235-F95D5D43DEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C579A033-D773-4D99-9235-F95D5D43DEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C579A033-D773-4D99-9235-F95D5D43DEBB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{158F9AE8-ABF3-4751-9931-5ED86066287A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{158F9AE8-ABF3-4751-9931-5ED86066287A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{158F9AE8-ABF3-4751-9931-5ED86066287A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{158F9AE8-ABF3-4751-9931-5ED86066287A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BA701E3-EEC8-4AFC-A88F-63E6DF9E21EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BA701E3-EEC8-4AFC-A88F-63E6DF9E21EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA701E3-EEC8-4AFC-A88F-63E6DF9E21EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +39,6 @@ Global
 		{47E3D0B2-0C4C-491E-AA43-52DACA158F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47E3D0B2-0C4C-491E-AA43-52DACA158F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47E3D0B2-0C4C-491E-AA43-52DACA158F75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B64B75B6-EA31-4969-8528-78656F5E6CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B64B75B6-EA31-4969-8528-78656F5E6CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B64B75B6-EA31-4969-8528-78656F5E6CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B64B75B6-EA31-4969-8528-78656F5E6CCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

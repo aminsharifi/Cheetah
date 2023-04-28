@@ -7,11 +7,7 @@ namespace Cheetah_Business.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<D_ParameterList, D_ParameterList>().ReverseMap();
-            CreateMap<D_ParameterType, D_ParameterType>().ReverseMap();
-            CreateMap<D_Position, D_Position>().ReverseMap();
-            CreateMap<D_ProcessState, D_ProcessState>().ReverseMap();
-            CreateMap<D_RequestTitle, D_RequestTitle>().ReverseMap();
+            //CreateMap<D_Tag, D_Tag>().ReverseMap();
         }
     }
 }

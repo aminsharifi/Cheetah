@@ -1,7 +1,6 @@
-﻿using Cheetah_Business.Repository.IRepository;
-using Cheetah_Common;
-using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Links;
+﻿using Cheetah_Common;
+using Cheetah_Common.Data;
+using Cheetah_DataAccess.Repository;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 

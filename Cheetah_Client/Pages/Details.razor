@@ -1,5 +1,6 @@
 ﻿@page "/details/{PL_ParameterTypeID:long}"
-@using Cheetah_DataAccess.Dimentions;
+@using Cheetah_Common.Dimentions;
+@using Cheetah_DataAccess.Repository;
 @inject ISimpleClassRepository _IP_ParameterListRepository;
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
@@ -25,13 +26,13 @@ else
     [Parameter]
     public long PL_ParameterTypeID { get; set; }
 
-    public D_ParameterType p_ParameterListDTO { get; set; } = new();
+    public D_TagType p_ParameterListDTO { get; set; } = new();
     public bool IsProcessing { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        p_ParameterListDTO = await _IP_ParameterListRepository.Get("D_ParameterType", PL_ParameterTypeID) as D_ParameterType;
+        p_ParameterListDTO = await _IP_ParameterListRepository.Get(nameof(D_TagType), PL_ParameterTypeID) as D_TagType;
         IsProcessing = false;
     }
 }
