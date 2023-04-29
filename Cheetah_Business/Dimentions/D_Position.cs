@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Dimentions
 {
-
     [Table(nameof(D_Position), Schema = nameof(TableType.Dimentions))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]

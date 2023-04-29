@@ -89,24 +89,19 @@
                                     {
                                         @if (item.CD_D_Tag?.TG_TagTypeId is not null)
                                         {
-                                            @if (GetFieldType(item.CD_D_Tag?.TG_TagTypeId, 1))
+                                            @if (item.CD_D_Tag?.TG_TagTypeId == 1)
                                             {
                                                 <InputNumber class="col-12" @bind-Value="item.CD_FloatValue"></InputNumber>
                                             }
-                                            else if (GetFieldType(item.CD_D_Tag?.TG_TagTypeId, 2))
+                                            else if (item.CD_D_Tag?.TG_TagTypeId == 2)
                                             {
-                                                <div class="form-check form-switch">
-                                                    <InputCheckbox class="form-check-input" type="checkbox" role="switch"
-                                               @bind-Value="item.CD_BooleanValue"
-                                                                   style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;">
-                                                    </InputCheckbox>
-                                                </div>
+                                                <InputCheckbox class="col-12" @bind-Value="item.CD_BooleanValue"></InputCheckbox>
                                             }
-                                            else if (GetFieldType(item.CD_D_Tag?.TG_TagTypeId, 3))
+                                            else if (item.CD_D_Tag?.TG_TagTypeId == 3)
                                             {
                                                 <InputDate class="col-12" @bind-Value="item.CD_Value"></InputDate>
                                             }
-                                            else if (GetFieldType(item.CD_D_Tag?.TG_TagTypeId, 4))
+                                            else if (item.CD_D_Tag?.TG_TagTypeId == 4)
                                             {
                                                 <InputText class="col-12" @bind-Value="item.CD_Value"></InputText>
 
@@ -215,12 +210,6 @@
 
     public List<SimpleClass> List_D_TagType { get; set; } = new();
 
-
-    public Boolean GetFieldType(long? ParameterTypeId, int Compare)
-    {
-        return ((List_D_Tag.Single(x => x.Id == ParameterTypeId) as D_Tag).TG_TagTypeId == Compare);
-    }
-
     public override async Task ExtendedLoadDTO()
     {
         List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<SimpleClass>;
@@ -273,11 +262,12 @@
         }
         else
         {
-            f_Condition = await simpleClassRepository.GetLast("F_Condition") as F_Condition;
+            f_Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
         }
 
-        (Record as D_EndorsementPattern).EP_Conditions.Add(f_Condition);
+        f_Condition.CD_D_Tag = List_D_Tag.First() as D_Tag;
 
+        (Record as D_EndorsementPattern).EP_Conditions.Add(f_Condition);
     }
     public async Task AddEndorsementPattern()
     {
@@ -292,8 +282,10 @@
         }
         else
         {
-            d_Endorsement = await simpleClassRepository.GetLast("D_Endorsement") as F_Endorsement;
+            d_Endorsement = await simpleClassRepository.GetLast(nameof(F_Endorsement)) as F_Endorsement;
         }
+
+        d_Endorsement.ED_Role = List_D_Role.First() as D_Role;
 
         (Record as D_EndorsementPattern).EP_Endorsements.Add(d_Endorsement);
     }

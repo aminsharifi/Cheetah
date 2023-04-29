@@ -1,13 +1,18 @@
 ﻿window.CreateToolTip = (type) => {
+
     if (type == "Destroy") {
-        $('.MyTable').each(function () {
-            $(this).DataTable().destroy();
-        });
+
+        //$('.MyTable').each(function () {
+        //    $(this).DataTable().destroy();
+        //});
+
     }
     else if (type == "Create") {
-        $('.MyTable').each(function () {
-            $(this).addClass("CustomTable");
-        });
+
+        //$('.MyTable').each(function () {
+        //    $(this).addClass("CustomTable");
+        //});
+
     }
 }
 

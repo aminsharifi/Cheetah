@@ -5,10 +5,10 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-LValue="(Record as D_RequestTitle).RT_EndorsementPatternId"
+        <CInput @bind-LValue="(Record as D_ProcessName).PN_EndorsementPatternId"
                 Records="@ListRecord"
                 CDescription="نوع پارامتر"
-                Record="@((Record as D_RequestTitle).RT_EndorsementPattern)"
+                Record="@((Record as D_ProcessName).PN_EndorsementPattern)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
                 CDisplayName="نوع الگو"
                 CFieldType="@(FieldType.CSelect)"
@@ -29,7 +29,7 @@
         {
             var selectedRecord = Int64.Parse(e.Value.ToString());
 
-            (Record as D_RequestTitle).RT_EndorsementPattern = ListRecord
+            (Record as D_ProcessName).PN_EndorsementPattern = ListRecord
             .First(x => x.Id == selectedRecord) as D_EndorsementPattern;
         }
     }
