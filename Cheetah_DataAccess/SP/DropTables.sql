@@ -60,7 +60,7 @@ GO
 
 /****** Object:  Table [Dimentions].[D_Operand]    Script Date: 4/6/2023 1:12:03 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Facts].[F_Condition]') AND type in (N'U'))
-DROP TABLE [Dimentions].[F_Condition]
+DROP TABLE [Facts].[F_Condition]
 GO
 
 
@@ -299,7 +299,7 @@ GO
 
 
 /****** Object:  Table [Facts].[F_UserInformation]    Script Date: 4/6/2023 1:28:11 PM ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[Dimentions]') AND type in (N'U'))
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_UserInformation]') AND type in (N'U'))
 DROP TABLE [Dimentions].[D_UserInformation]
 GO
 /****** Object:  Table [Dimentions].[D_Entities]    Script Date: 4/6/2023 1:57:51 PM ******/
@@ -363,4 +363,13 @@ GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_EndorsementPattern]') AND type in (N'U'))
 DROP TABLE [Dimentions].[D_EndorsementPattern]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Endorsement]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Endorsement]
+GO
+
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Role]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Role]
 GO

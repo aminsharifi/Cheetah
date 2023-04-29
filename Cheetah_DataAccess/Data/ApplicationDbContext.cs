@@ -1,6 +1,6 @@
-﻿using Cheetah_Common.Dimentions;
-using Cheetah_Common.Facts;
-using Cheetah_Common.Links;
+﻿using Cheetah_Business.Dimentions;
+using Cheetah_Business.Facts;
+using Cheetah_Business.Links;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

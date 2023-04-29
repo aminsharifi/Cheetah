@@ -1,14 +1,13 @@
-﻿namespace Cheetah_DataAccess.Repository
+﻿using AutoMapper;
+using Cheetah_Business;
+using Cheetah_Business.Data;
+using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
+
+namespace Cheetah_DataAccess.Repository
 {
-    using AutoMapper;
-    using Cheetah_Common;
-    using Cheetah_Common.Data;
-    using Cheetah_DataAccess.Data;
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class SimpleClassRepository : ISimpleClassRepository
     {

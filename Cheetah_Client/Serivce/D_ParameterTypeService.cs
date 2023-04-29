@@ -1,7 +1,7 @@
-﻿using Cheetah_Common;
-using Cheetah_Common.Data;
-using Cheetah_Common.Dimentions;
-using Cheetah_DataAccess.Repository;
+﻿using Cheetah_Business;
+using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
+using Cheetah_Business.Repository;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -155,6 +155,56 @@ namespace Cheetah_Client.Service
         }
 
         public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> ISimpleClassRepository.delete(string type, long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<SimpleClass>> ISimpleClassRepository.GetAllByName(string type)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Dictionary<string, string>> ISimpleClassRepository.GetAllTableName(string SchemaName)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<SimpleLinkClass>> ISimpleClassRepository.GetAllLink(string type, string sd_Status, long linkID)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<SimpleClass> ISimpleClassRepository.Get(string type, long? id, QueryTrackingBehavior Tracking)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<SimpleClass> ISimpleClassRepository.GetLast(string type)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<SimpleClass> ISimpleClassRepository.Create(SimpleClass obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<SimpleClass> ISimpleClassRepository.Update(SimpleClass obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<int> ISimpleClassRepository.UpdateLink(SimpleLinkClassDTO obj_DTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<SimpleLinkClass> ISimpleClassRepository.AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
         {
             throw new NotImplementedException();
         }

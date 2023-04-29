@@ -1,6 +1,6 @@
 using Cheetah_Client;
 using Cheetah_Client.Service;
-using Cheetah_DataAccess.Repository;
+using Cheetah_Business.Repository;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

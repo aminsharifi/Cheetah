@@ -1,4 +1,5 @@
-﻿@page "/List"
+﻿@page "/"
+@page "/List"
 @page "/List/{Name}"
 @page "/List/{Name}/{reference}"
 @page "/List/{Name}/{FilterTableName}/{Id:long}/{reference}"
@@ -112,7 +113,7 @@
 
     private async Task FirstLoadRecords()
     {
-        var _D_Entity = await simpleClassRepository.GetAllByName("D_Entity");
+        var _D_Entity = await simpleClassRepository.GetAllByName(nameof(D_Entity));
 
         keyValuePair = _D_Entity.Select(x => new KeyValuePair<String, String>(x.PName, x.PDisplayName)).ToList();
 
