@@ -1,6 +1,6 @@
-﻿using Cheetah_Common;
-using Cheetah_Common.Dimentions;
-using Cheetah_Common.Links;
+﻿using Cheetah_Business;
+using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
@@ -195,556 +195,564 @@ namespace Cheetah_DataAccess.Data
                 );
             #endregion
 
+            #region D_TagType
             modelBuilder.Entity<D_TagType>().HasData(
-                   new D_TagType
-                   {
-                       Id = 1,
-                       PCode = 1,
-                       PIndex = 1,
-                       PName = "Numberic",
-                       PDisplayName = "عددی"
-                   },
-                   new D_TagType
-                   {
-                       Id = 2,
-                       PCode = 2,
-                       PIndex = 2,
-                       PName = "Boolean",
-                       PDisplayName = "دودویی"
-                   },
-                   new D_TagType
-                   {
-                       Id = 3,
-                       PCode = 3,
-                       PIndex = 3,
-                       PName = "Date",
-                       PDisplayName = "تاریخ"
-                   },
-                   new D_TagType
-                   {
-                       Id = 4,
-                       PCode = 4,
-                       PIndex = 4,
-                       PName = "String",
-                       PDisplayName = "حروف"
-                   });
+                            new D_TagType
+                            {
+                                Id = 1,
+                                PCode = 1,
+                                PIndex = 1,
+                                PName = "Numberic",
+                                PDisplayName = "عددی"
+                            },
+                            new D_TagType
+                            {
+                                Id = 2,
+                                PCode = 2,
+                                PIndex = 2,
+                                PName = "Boolean",
+                                PDisplayName = "دودویی"
+                            },
+                            new D_TagType
+                            {
+                                Id = 3,
+                                PCode = 3,
+                                PIndex = 3,
+                                PName = "Date",
+                                PDisplayName = "تاریخ"
+                            },
+                            new D_TagType
+                            {
+                                Id = 4,
+                                PCode = 4,
+                                PIndex = 4,
+                                PName = "String",
+                                PDisplayName = "حروف"
+                            });
+            #endregion
 
+            #region D_Tag
             modelBuilder.Entity<D_Tag>().HasData(
-                new D_Tag
-                {
-                    Id = 100,
-                    PCode = 100,
-                    PIndex = 100,
-                    PName = "OursShare",
-                    PDisplayName = "سهم شرکت",
-                    PDescription = "عددی",
-                    TG_TagTypeId = 1,
-                },
-                new D_Tag
-                {
-                    Id = 101,
-                    PCode = 101,
-                    PIndex = 101,
-                    PName = "OthersShare",
-                    PDisplayName = "سهم دیگران",
-                    PDescription = "عددی",
-                    TG_TagTypeId = 1
-                },
-                new D_Tag
-                {
-                    Id = 103,
-                    PCode = 103,
-                    PIndex = 103,
-                    PName = "Price",
-                    PDisplayName = "مبلغ",
-                    PDescription = "عددی",
-                    TG_TagTypeId = 1
-                },
-                new D_Tag
-                {
-                    Id = 200,
-                    PCode = 200,
-                    PIndex = 200,
-                    PName = "Refrigerator",
-                    PDisplayName = "مخدر/ یخچالی",
-                    PDescription = "دودویی",
-                    TG_TagTypeId = 2,
-                },
-                new D_Tag
-                {
-                    Id = 201,
-                    PCode = 201,
-                    PIndex = 201,
-                    PName = "Approve",
-                    PDisplayName = "تایید",
-                    PDescription = "پارامتریک",
-                    TG_TagTypeId = 2
-                },
-                new D_Tag
-                {
-                    Id = 202,
-                    PCode = 202,
-                    PIndex = 202,
-                    PName = "Reject",
-                    PDisplayName = "عدم تایید",
-                    PDescription = "پارامتریک",
-                    TG_TagTypeId = 2
-                },
-                new D_Tag
-                {
-                    Id = 203,
-                    PCode = 203,
-                    PIndex = 203,
-                    PName = "Revise",
-                    PDisplayName = "بازنگری",
-                    PDescription = "پارامتریک",
-                    TG_TagTypeId = 2
-                },
-                new D_Tag
-                {
-                    Id = 204,
-                    PCode = 204,
-                    PIndex = 204,
-                    PName = "Med",
-                    PDisplayName = "دارویی",
-                    PDescription = "پارامتریک",
-                    TG_TagTypeId = 2
-                },
-                new D_Tag
-                {
-                    Id = 205,
-                    PCode = 205,
-                    PIndex = 205,
-                    PName = "FMCG",
-                    PDisplayName = "مصرفی",
-                    PDescription = "پارامتریک",
-                    TG_TagTypeId = 2
-                },
-                new D_Tag
-                {
-                    Id = 206,
-                    PCode = 206,
-                    PIndex = 206,
-                    PName = "General",
-                    PDisplayName = "کل",
-                    PDescription = "پارامتریک",
-                    TG_TagTypeId = 2
-                }
-                );
+                     new D_Tag
+                     {
+                         Id = 100,
+                         PCode = 100,
+                         PIndex = 100,
+                         PName = "OursShare",
+                         PDisplayName = "سهم شرکت",
+                         PDescription = "عددی",
+                         TG_TagTypeId = 1,
+                     },
+                     new D_Tag
+                     {
+                         Id = 101,
+                         PCode = 101,
+                         PIndex = 101,
+                         PName = "OthersShare",
+                         PDisplayName = "سهم دیگران",
+                         PDescription = "عددی",
+                         TG_TagTypeId = 1
+                     },
+                     new D_Tag
+                     {
+                         Id = 103,
+                         PCode = 103,
+                         PIndex = 103,
+                         PName = "Price",
+                         PDisplayName = "مبلغ",
+                         PDescription = "عددی",
+                         TG_TagTypeId = 1
+                     },
+                     new D_Tag
+                     {
+                         Id = 200,
+                         PCode = 200,
+                         PIndex = 200,
+                         PName = "Refrigerator",
+                         PDisplayName = "مخدر/ یخچالی",
+                         PDescription = "دودویی",
+                         TG_TagTypeId = 2,
+                     },
+                     new D_Tag
+                     {
+                         Id = 201,
+                         PCode = 201,
+                         PIndex = 201,
+                         PName = "Approve",
+                         PDisplayName = "تایید",
+                         PDescription = "پارامتریک",
+                         TG_TagTypeId = 2
+                     },
+                     new D_Tag
+                     {
+                         Id = 202,
+                         PCode = 202,
+                         PIndex = 202,
+                         PName = "Reject",
+                         PDisplayName = "عدم تایید",
+                         PDescription = "پارامتریک",
+                         TG_TagTypeId = 2
+                     },
+                     new D_Tag
+                     {
+                         Id = 203,
+                         PCode = 203,
+                         PIndex = 203,
+                         PName = "Revise",
+                         PDisplayName = "بازنگری",
+                         PDescription = "پارامتریک",
+                         TG_TagTypeId = 2
+                     },
+                     new D_Tag
+                     {
+                         Id = 204,
+                         PCode = 204,
+                         PIndex = 204,
+                         PName = "Med",
+                         PDisplayName = "دارویی",
+                         PDescription = "پارامتریک",
+                         TG_TagTypeId = 2
+                     },
+                     new D_Tag
+                     {
+                         Id = 205,
+                         PCode = 205,
+                         PIndex = 205,
+                         PName = "FMCG",
+                         PDisplayName = "مصرفی",
+                         PDescription = "پارامتریک",
+                         TG_TagTypeId = 2
+                     },
+                     new D_Tag
+                     {
+                         Id = 206,
+                         PCode = 206,
+                         PIndex = 206,
+                         PName = "General",
+                         PDisplayName = "کل",
+                         PDescription = "پارامتریک",
+                         TG_TagTypeId = 2
+                     }
+                     );
+            #endregion
 
+            #region D_User
             modelBuilder.Entity<D_User>().HasData(
-                new D_User
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "m.sharifi",
-                    PDisplayName = "محمد شریفی"
-                },
-                new D_User
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "a.sharifi",
-                    PDisplayName = "امین شریفی"
-                }
-                );
+                           new D_User
+                           {
+                               Id = 1,
+                               PCode = 1,
+                               PIndex = 1,
+                               PName = "m.sharifi",
+                               PDisplayName = "محمد شریفی"
+                           },
+                           new D_User
+                           {
+                               Id = 2,
+                               PCode = 2,
+                               PIndex = 2,
+                               PName = "a.sharifi",
+                               PDisplayName = "امین شریفی"
+                           }
+                           );
+            #endregion
 
+            #region D_Role
             modelBuilder.Entity<D_Role>().HasData(
-                new D_Role
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "PharmaceuticalDeputy",
-                    PDisplayName = "معاونت دارویی",
-                    ROL_Independent = true
-                },
-                new D_Role
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "FMCGDeputy",
-                    PDisplayName = "معاونت غذایی",
-                    ROL_Independent = true
-                },
-                new D_Role
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "BusinessSpecialist",
-                    PDisplayName = "کارشناس بازرگانی",
-                    ROL_Independent = true
-                },
-                new D_Role
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "SalesSpecialist",
-                    PDisplayName = "کارشناس فروش",
-                    ROL_Independent = true
-                },
-                new D_Role
-                {
-                    Id = 5,
-                    PCode = 5,
-                    PIndex = 5,
-                    PName = "DistributionCenterManager",
-                    PDisplayName = "مدیریت مرکز توزیع",
-                    ROL_Independent = false
-                }
-                );
+                      new D_Role
+                      {
+                          Id = 1,
+                          PCode = 1,
+                          PIndex = 1,
+                          PName = "PharmaceuticalDeputy",
+                          PDisplayName = "معاونت دارویی",
+                          ROL_Independent = true
+                      },
+                      new D_Role
+                      {
+                          Id = 2,
+                          PCode = 2,
+                          PIndex = 2,
+                          PName = "FMCGDeputy",
+                          PDisplayName = "معاونت غذایی",
+                          ROL_Independent = true
+                      },
+                      new D_Role
+                      {
+                          Id = 3,
+                          PCode = 3,
+                          PIndex = 3,
+                          PName = "BusinessSpecialist",
+                          PDisplayName = "کارشناس بازرگانی",
+                          ROL_Independent = true
+                      },
+                      new D_Role
+                      {
+                          Id = 4,
+                          PCode = 4,
+                          PIndex = 4,
+                          PName = "SalesSpecialist",
+                          PDisplayName = "کارشناس فروش",
+                          ROL_Independent = true
+                      },
+                      new D_Role
+                      {
+                          Id = 5,
+                          PCode = 5,
+                          PIndex = 5,
+                          PName = "DistributionCenterManager",
+                          PDisplayName = "مدیریت مرکز توزیع",
+                          ROL_Independent = false
+                      }
+                      );
+            #endregion
 
+            #region D_Position
             modelBuilder.Entity<D_Position>().HasData(
-                new D_Position
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "PharmaceuticalDeputy",
-                    PDisplayName = "معاون دارویی"
-                },
-                new D_Position
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "FMCGDeputy",
-                    PDisplayName = "معاون غذایی"
-                },
-                new D_Position
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "BusinessSeniorSpecialist",
-                    PDisplayName = "کارشناس ارشد بازرگانی"
-                },
-                new D_Position
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "BusinessSpecialist",
-                    PDisplayName = "کارشناس بازرگانی"
-                },
-                new D_Position
-                {
-                    Id = 5,
-                    PCode = 5,
-                    PIndex = 5,
-                    PName = "SalesSeniorSpecialist",
-                    PDisplayName = "کارشناس ارشد فروش"
-                },
-                new D_Position
-                {
-                    Id = 6,
-                    PCode = 6,
-                    PIndex = 6,
-                    PName = "SalesSpecialist",
-                    PDisplayName = "کارشناس فروش"
-                },
-                new D_Position
-                {
-                    Id = 7,
-                    PCode = 7,
-                    PIndex = 7,
-                    PName = "DistributionCenterManager",
-                    PDisplayName = "مدیر مرکز توزیع"
-                }
-                );
+                       new D_Position
+                       {
+                           Id = 1,
+                           PCode = 1,
+                           PIndex = 1,
+                           PName = "PharmaceuticalDeputy",
+                           PDisplayName = "معاون دارویی"
+                       },
+                       new D_Position
+                       {
+                           Id = 2,
+                           PCode = 2,
+                           PIndex = 2,
+                           PName = "FMCGDeputy",
+                           PDisplayName = "معاون غذایی"
+                       },
+                       new D_Position
+                       {
+                           Id = 3,
+                           PCode = 3,
+                           PIndex = 3,
+                           PName = "BusinessSeniorSpecialist",
+                           PDisplayName = "کارشناس ارشد بازرگانی"
+                       },
+                       new D_Position
+                       {
+                           Id = 4,
+                           PCode = 4,
+                           PIndex = 4,
+                           PName = "BusinessSpecialist",
+                           PDisplayName = "کارشناس بازرگانی"
+                       },
+                       new D_Position
+                       {
+                           Id = 5,
+                           PCode = 5,
+                           PIndex = 5,
+                           PName = "SalesSeniorSpecialist",
+                           PDisplayName = "کارشناس ارشد فروش"
+                       },
+                       new D_Position
+                       {
+                           Id = 6,
+                           PCode = 6,
+                           PIndex = 6,
+                           PName = "SalesSpecialist",
+                           PDisplayName = "کارشناس فروش"
+                       },
+                       new D_Position
+                       {
+                           Id = 7,
+                           PCode = 7,
+                           PIndex = 7,
+                           PName = "DistributionCenterManager",
+                           PDisplayName = "مدیر مرکز توزیع"
+                       }
+                       );
+            #endregion
 
+            #region D_Entity
+            modelBuilder.Entity<D_Entity>().HasData(                        
+                        new D_Entity
+                        {
+                            Id = 101,
+                            PCode = 101,
+                            PIndex = 101,
+                            PName = "D_TagType",
+                            PDisplayName = new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 102,
+                            PCode = 102,
+                            PIndex = 102,
+                            PName = "D_Location",
+                            PDisplayName = new StringBuilder().Append("موقعیت‌ها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 103,
+                            PCode = 103,
+                            PIndex = 103,
+                            PName = "D_Operand",
+                            PDisplayName = new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 104,
+                            PCode = 104,
+                            PIndex = 104,
+                            PName = "D_Tag",
+                            PDisplayName = new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 105,
+                            PCode = 105,
+                            PIndex = 105,
+                            PName = "D_Position",
+                            PDisplayName = new StringBuilder().Append("سمت‌ها").Append($"({TableType.Dimentions})").ToString()
+                        },
 
-            modelBuilder.Entity<D_Entity>().HasData(
-                new D_Entity
-                {
-                    Id = 100,
-                    PCode = 100,
-                    PIndex = 100,
-                    PName = "D_Area",
-                    PDisplayName = new StringBuilder().Append("واحدها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 101,
-                    PCode = 101,
-                    PIndex = 101,
-                    PName = "D_TagType",
-                    PDisplayName = new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 102,
-                    PCode = 102,
-                    PIndex = 102,
-                    PName = "D_Location",
-                    PDisplayName = new StringBuilder().Append("موقعیت‌ها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 103,
-                    PCode = 103,
-                    PIndex = 103,
-                    PName = "D_Operand",
-                    PDisplayName = new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 104,
-                    PCode = 104,
-                    PIndex = 104,
-                    PName = "D_Tag",
-                    PDisplayName = new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 105,
-                    PCode = 105,
-                    PIndex = 105,
-                    PName = "D_Position",
-                    PDisplayName = new StringBuilder().Append("سمت‌ها").Append($"({TableType.Dimentions})").ToString()
-                },
-
-                new D_Entity
-                {
-                    Id = 106,
-                    PCode = 106,
-                    PIndex = 106,
-                    PName = "D_ProcessState",
-                    PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 107,
-                    PCode = 107,
-                    PIndex = 107,
-                    PName = "D_RequestTitle",
-                    PDisplayName = new StringBuilder().Append("عنوان درخواست‌ها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 108,
-                    PCode = 108,
-                    PIndex = 108,
-                    PName = "D_Role",
-                    PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 109,
-                    PCode = 109,
-                    PIndex = 109,
-                    PName = "D_User",
-                    PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 110,
-                    PCode = 110,
-                    PIndex = 110,
-                    PName = "D_EndorsementPattern",
-                    PDisplayName = new StringBuilder().Append("الگوهای تایید").Append($"({TableType.Dimentions})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 111,
-                    PCode = 111,
-                    PIndex = 111,
-                    PName = "D_Endorsement",
-                    PDisplayName = new StringBuilder().Append("اختصاص نقش‌ها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 112,
-                    PCode = 112,
-                    PIndex = 112,
-                    PName = "D_UserInformation",
-                    PDisplayName = new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 200,
-                    PCode = 200,
-                    PIndex = 200,
-                    PName = "F_AllApprove",
-                    PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 201,
-                    PCode = 201,
-                    PIndex = 201,
-                    PName = "F_Approve",
-                    PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 202,
-                    PCode = 202,
-                    PIndex = 202,
-                    PName = "F_Attachment",
-                    PDisplayName = new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 203,
-                    PCode = 203,
-                    PIndex = 203,
-                    PName = "F_Endorsement",
-                    PDisplayName = new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 204,
-                    PCode = 204,
-                    PIndex = 204,
-                    PName = "F_Condition",
-                    PDisplayName = new StringBuilder().Append("لیست شرط‌ها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 205,
-                    PCode = 205,
-                    PIndex = 205,
-                    PName = "F_RequestInformation",
-                    PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 300,
-                    PCode = 300,
-                    PIndex = 300,
-                    PName = "L_RolePosition",
-                    PDisplayName = new StringBuilder().Append("نقش-سمت").Append($"({TableType.Links})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 301,
-                    PCode = 301,
-                    PIndex = 301,
-                    PName = "L_UserArea",
-                    PDisplayName = new StringBuilder().Append("کاربر-واحد").Append($"({TableType.Links})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 302,
-                    PCode = 302,
-                    PIndex = 302,
-                    PName = "L_UserLocation",
-                    PDisplayName = new StringBuilder().Append("کاربر-موقعیت").Append($"({TableType.Links})").ToString()
-                },
-                new D_Entity
-                {
-                    Id = 303,
-                    PCode = 303,
-                    PIndex = 303,
-                    PName = "L_UserPosition",
-                    PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString()
-                }
-                );
+                        new D_Entity
+                        {
+                            Id = 106,
+                            PCode = 106,
+                            PIndex = 106,
+                            PName = "D_ProcessState",
+                            PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 107,
+                            PCode = 107,
+                            PIndex = 107,
+                            PName = "D_RequestTitle",
+                            PDisplayName = new StringBuilder().Append("عنوان درخواست‌ها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 108,
+                            PCode = 108,
+                            PIndex = 108,
+                            PName = "D_Role",
+                            PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 109,
+                            PCode = 109,
+                            PIndex = 109,
+                            PName = "D_User",
+                            PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 110,
+                            PCode = 110,
+                            PIndex = 110,
+                            PName = "D_EndorsementPattern",
+                            PDisplayName = new StringBuilder().Append("الگوهای تایید").Append($"({TableType.Dimentions})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 111,
+                            PCode = 111,
+                            PIndex = 111,
+                            PName = "D_Endorsement",
+                            PDisplayName = new StringBuilder().Append("اختصاص نقش‌ها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 112,
+                            PCode = 112,
+                            PIndex = 112,
+                            PName = "D_UserInformation",
+                            PDisplayName = new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 200,
+                            PCode = 200,
+                            PIndex = 200,
+                            PName = "F_AllApprove",
+                            PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 201,
+                            PCode = 201,
+                            PIndex = 201,
+                            PName = "F_Approve",
+                            PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 202,
+                            PCode = 202,
+                            PIndex = 202,
+                            PName = "F_Attachment",
+                            PDisplayName = new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 203,
+                            PCode = 203,
+                            PIndex = 203,
+                            PName = "F_Endorsement",
+                            PDisplayName = new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 204,
+                            PCode = 204,
+                            PIndex = 204,
+                            PName = "F_Condition",
+                            PDisplayName = new StringBuilder().Append("لیست شرط‌ها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 205,
+                            PCode = 205,
+                            PIndex = 205,
+                            PName = "F_RequestInformation",
+                            PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 300,
+                            PCode = 300,
+                            PIndex = 300,
+                            PName = "L_RolePosition",
+                            PDisplayName = new StringBuilder().Append("نقش-سمت").Append($"({TableType.Links})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 301,
+                            PCode = 301,
+                            PIndex = 301,
+                            PName = "L_UserArea",
+                            PDisplayName = new StringBuilder().Append("کاربر-واحد").Append($"({TableType.Links})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 302,
+                            PCode = 302,
+                            PIndex = 302,
+                            PName = "L_UserLocation",
+                            PDisplayName = new StringBuilder().Append("کاربر-موقعیت").Append($"({TableType.Links})").ToString()
+                        },
+                        new D_Entity
+                        {
+                            Id = 303,
+                            PCode = 303,
+                            PIndex = 303,
+                            PName = "L_UserPosition",
+                            PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString()
+                        }
+                        );
+            #endregion
 
             #endregion
 
             #region Links
-            modelBuilder.Entity<L_UserLocation>().HasData(
-                new L_UserLocation
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "m.sharifi-Tehran",
-                    PDisplayName = "محمد شریفی-تهران",
-                    FirstId = 1,
-                    SecondId = 1
-                },
-                new L_UserLocation
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "a.sharifi-Fars",
-                    PDisplayName = "امین شریفی-فارس",
-                    FirstId = 2,
-                    SecondId = 2
-                }
-               );
 
+            #region L_UserLocation
+            modelBuilder.Entity<L_UserLocation>().HasData(
+                        new L_UserLocation
+                        {
+                            Id = 1,
+                            PCode = 1,
+                            PIndex = 1,
+                            PName = "m.sharifi-Tehran",
+                            PDisplayName = "محمد شریفی-تهران",
+                            FirstId = 1,
+                            SecondId = 1
+                        },
+                        new L_UserLocation
+                        {
+                            Id = 2,
+                            PCode = 2,
+                            PIndex = 2,
+                            PName = "a.sharifi-Fars",
+                            PDisplayName = "امین شریفی-فارس",
+                            FirstId = 2,
+                            SecondId = 2
+                        }
+                       );
+            #endregion
+
+            #region L_RolePosition
             modelBuilder.Entity<L_RolePosition>().HasData(
-                new L_RolePosition
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "PharmaceuticalDeputy-PharmaceuticalDeputy",
-                    PDisplayName = "معاونت دارویی-معاون دارویی",
-                    FirstId = 1,
-                    SecondId = 1
-                },
-                new L_RolePosition
-                {
-                    Id = 2,
-                    PCode = 2,
-                    PIndex = 2,
-                    PName = "FMCGDeputy-FMCGDeputy",
-                    PDisplayName = "معاونت غذایی-معاون غذایی",
-                    FirstId = 2,
-                    SecondId = 2
-                },
-                new L_RolePosition
-                {
-                    Id = 3,
-                    PCode = 3,
-                    PIndex = 3,
-                    PName = "BusinessSpecialist-BusinessSeniorSpecialist",
-                    PDisplayName = "کارشناس بازرگانی-کارشناس ارشد بازرگانی",
-                    FirstId = 3,
-                    SecondId = 3
-                },
-                new L_RolePosition
-                {
-                    Id = 4,
-                    PCode = 4,
-                    PIndex = 4,
-                    PName = "BusinessSpecialist-BusinessSpecialist",
-                    PDisplayName = "کارشناس بازرگانی-کارشناس بازرگانی",
-                    FirstId = 3,
-                    SecondId = 4
-                },
-                new L_RolePosition
-                {
-                    Id = 5,
-                    PCode = 5,
-                    PIndex = 5,
-                    PName = "SalesSpecialist-SalesSeniorSpecialist",
-                    PDisplayName = "کارشناس فروش-کارشناس ارشد فروش",
-                    FirstId = 4,
-                    SecondId = 5
-                },
-                new L_RolePosition
-                {
-                    Id = 6,
-                    PCode = 6,
-                    PIndex = 6,
-                    PName = "SalesSpecialist-SalesSpecialist",
-                    PDisplayName = "کارشناس فروش-کارشناس فروش",
-                    FirstId = 4,
-                    SecondId = 6
-                },
-                new L_RolePosition
-                {
-                    Id = 7,
-                    PCode = 7,
-                    PIndex = 7,
-                    PName = "DistributionCenterManager-DistributionCenterManager",
-                    PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
-                    FirstId = 5,
-                    SecondId = 7
-                }
-                );
+                          new L_RolePosition
+                          {
+                              Id = 1,
+                              PCode = 1,
+                              PIndex = 1,
+                              PName = "PharmaceuticalDeputy-PharmaceuticalDeputy",
+                              PDisplayName = "معاونت دارویی-معاون دارویی",
+                              FirstId = 1,
+                              SecondId = 1
+                          },
+                          new L_RolePosition
+                          {
+                              Id = 2,
+                              PCode = 2,
+                              PIndex = 2,
+                              PName = "FMCGDeputy-FMCGDeputy",
+                              PDisplayName = "معاونت غذایی-معاون غذایی",
+                              FirstId = 2,
+                              SecondId = 2
+                          },
+                          new L_RolePosition
+                          {
+                              Id = 3,
+                              PCode = 3,
+                              PIndex = 3,
+                              PName = "BusinessSpecialist-BusinessSeniorSpecialist",
+                              PDisplayName = "کارشناس بازرگانی-کارشناس ارشد بازرگانی",
+                              FirstId = 3,
+                              SecondId = 3
+                          },
+                          new L_RolePosition
+                          {
+                              Id = 4,
+                              PCode = 4,
+                              PIndex = 4,
+                              PName = "BusinessSpecialist-BusinessSpecialist",
+                              PDisplayName = "کارشناس بازرگانی-کارشناس بازرگانی",
+                              FirstId = 3,
+                              SecondId = 4
+                          },
+                          new L_RolePosition
+                          {
+                              Id = 5,
+                              PCode = 5,
+                              PIndex = 5,
+                              PName = "SalesSpecialist-SalesSeniorSpecialist",
+                              PDisplayName = "کارشناس فروش-کارشناس ارشد فروش",
+                              FirstId = 4,
+                              SecondId = 5
+                          },
+                          new L_RolePosition
+                          {
+                              Id = 6,
+                              PCode = 6,
+                              PIndex = 6,
+                              PName = "SalesSpecialist-SalesSpecialist",
+                              PDisplayName = "کارشناس فروش-کارشناس فروش",
+                              FirstId = 4,
+                              SecondId = 6
+                          },
+                          new L_RolePosition
+                          {
+                              Id = 7,
+                              PCode = 7,
+                              PIndex = 7,
+                              PName = "DistributionCenterManager-DistributionCenterManager",
+                              PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
+                              FirstId = 5,
+                              SecondId = 7
+                          }
+                          );
+            #endregion
 
             #endregion
         }

@@ -1,4 +1,4 @@
-﻿using Cheetah_Common;
+﻿using Cheetah_Business;
 using System.Collections;
 
 namespace Cheetah_DataAccess.Data
@@ -14,7 +14,7 @@ namespace Cheetah_DataAccess.Data
         public static Type GetDBType(String dBType)
         {
             String schema = GetTableType(dBType).ToString();
-            return Type.GetType("Cheetah_DataAccess." + schema + "." + dBType + ",Cheetah_DataAccess");
+            return Type.GetType("Cheetah_Business." + schema + "." + dBType + ",Cheetah_Business");
         }
         public static IEnumerable InvokeSet(ApplicationDbContext _db, Type gtype)
         {

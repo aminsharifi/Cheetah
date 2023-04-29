@@ -1,5 +1,6 @@
 using Cheetah.Data;
-using Cheetah_Common;
+using Cheetah_Business;
+using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;

@@ -19,13 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Views\" />
     <Folder Include="SP\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah_Common\Cheetah_Common.csproj" />
+    <ProjectReference Include="..\Cheetah_Business\Cheetah_Business.csproj" />
   </ItemGroup>
 
 </Project>
