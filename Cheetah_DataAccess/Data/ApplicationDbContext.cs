@@ -21,7 +21,7 @@ namespace Cheetah_DataAccess.Data
         #region Dimentions
         public virtual DbSet<D_Entity> D_Entities { get; set; }
         public virtual DbSet<D_Tag> D_Tags { get; set; }
-        public virtual DbSet<D_RequestTitle> P_RequestTitles { get; set; }
+        public virtual DbSet<D_ProcessName> P_RequestTitles { get; set; }
         public virtual DbSet<D_ProcessState> P_ProcessStates { get; set; }
         public virtual DbSet<D_Position> P_Positions { get; set; }
         public virtual DbSet<D_EndorsementPattern> D_EndorsementPatterns { get; set; }                

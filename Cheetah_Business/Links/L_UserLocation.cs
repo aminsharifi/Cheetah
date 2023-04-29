@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Links
 {
-
     [Table(nameof(L_UserLocation), Schema = nameof(TableType.Links))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]

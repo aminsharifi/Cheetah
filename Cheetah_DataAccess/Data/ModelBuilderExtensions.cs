@@ -42,8 +42,8 @@ namespace Cheetah_DataAccess.Data
             #endregion
 
             #region D_RequestTitle
-            modelBuilder.Entity<D_RequestTitle>().HasData(
-                new D_RequestTitle
+            modelBuilder.Entity<D_ProcessName>().HasData(
+                new D_ProcessName
                 {
                     Id = 1,
                     PCode = 1,
@@ -51,9 +51,9 @@ namespace Cheetah_DataAccess.Data
                     PName = "CustomerDefinition",
                     PDisplayName = "تعریف/اصلاح مشتری",
                     PDescription = "الگوی یک",
-                    RT_EndorsementPatternId = 1
+                    PN_EndorsementPatternId = 1
                 },
-                new D_RequestTitle
+                new D_ProcessName
                 {
                     Id = 2,
                     PCode = 2,
@@ -61,9 +61,9 @@ namespace Cheetah_DataAccess.Data
                     PName = "PolicyCenter",
                     PDisplayName = "مجوزهای موردی",
                     PDescription = "الگوی دو",
-                    RT_EndorsementPatternId = 2
+                    PN_EndorsementPatternId = 2
                 },
-                new D_RequestTitle
+                new D_ProcessName
                 {
                     Id = 3,
                     PCode = 3,
@@ -71,7 +71,7 @@ namespace Cheetah_DataAccess.Data
                     PName = "CustomerCredit",
                     PDisplayName = "اعتباردهی مالی مشتری",
                     PDescription = "الگوی دو",
-                    RT_EndorsementPatternId = 2
+                    PN_EndorsementPatternId = 2
                 }
                 );
             #endregion
@@ -524,8 +524,8 @@ namespace Cheetah_DataAccess.Data
                             Id = 107,
                             PCode = 107,
                             PIndex = 107,
-                            PName = "D_RequestTitle",
-                            PDisplayName = new StringBuilder().Append("عنوان درخواست‌ها").Append($"({TableType.Dimentions})").ToString()
+                            PName = "D_ProcessName",
+                            PDisplayName = new StringBuilder().Append("نام فرآیند‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
                         {

@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
-
     [Table(nameof(F_RequestInformation), Schema = nameof(TableType.Facts))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
@@ -58,7 +57,7 @@ namespace Cheetah_Business.Facts
         [Description("نام فرآیند")]
         [Column(Order = 111)]
         public long? RI_RequestTitleId { get; set; }
-        public virtual D_RequestTitle? RI_RequestTitle { get; set; }
+        public virtual D_ProcessName? RI_RequestTitle { get; set; }
         #endregion
 
         #region Collection
