@@ -1,10 +1,11 @@
 ﻿using Cheetah_Business.Data;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Dimentions
 {
-    [Table(nameof(D_ProcessName), Schema = nameof(TableType.Dimentions))]
+    [Table(nameof(D_Process), Schema = nameof(TableType.Dimentions))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -13,7 +14,7 @@ namespace Cheetah_Business.Dimentions
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class D_ProcessName : BaseClass<D_ProcessName>
+    public partial class D_Process : BaseClass<D_Process>
     {
         #region Simple Prob
 
@@ -30,17 +31,12 @@ namespace Cheetah_Business.Dimentions
         [Column(Order = 102)]
         public Boolean? PN_RemoveRequestorApproval { get; set; } = true;
 
-        public long PN_EndorsementPatternId { get; set; }
-        [Description("الگوی فرآیند")]
-        [Column(Order = 103)]
-        public virtual D_EndorsementPattern PN_EndorsementPattern { get; set; }
-
         #endregion
 
         #endregion
 
         #region Relations
-
+        public virtual ICollection<L_Process_Strategy>? PSO_Process_Strategies { get; set; } = new HashSet<L_Process_Strategy>();
         #endregion
     }
 }

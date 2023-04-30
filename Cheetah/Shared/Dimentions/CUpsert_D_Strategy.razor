@@ -17,7 +17,7 @@
                     افزودن به لیست شرط ها
                 </button>
             </center>
-            @if ((Record as D_EndorsementPattern).EP_Conditions.Any())
+            @if ((Record as D_Strategy).EP_Conditions.Any())
             {
                 <Ctable>
                     <caption>
@@ -38,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in (Record as D_EndorsementPattern).EP_Conditions)
+                        @foreach (var item in (Record as D_Strategy).EP_Conditions)
                         {
                             <tr style="width:90%">
                                 <td style="width:8%">
@@ -134,7 +134,7 @@
                     افزودن به لیست تاییدها
                 </button>
             </center>
-            @if ((Record as D_EndorsementPattern).EP_Endorsements.Any())
+            @if ((Record as D_Strategy).EP_Endorsements.Any())
             {
                 <Ctable>
                     <caption>
@@ -152,7 +152,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in (Record as D_EndorsementPattern).EP_Endorsements)
+                        @foreach (var item in (Record as D_Strategy).EP_Endorsements)
                         {
                             <tr style="width:90%">
                                 <td style="width:8%">
@@ -198,6 +198,10 @@
                 </Ctable>
             }
         </div>
+        <LinkComponent Records="@LinkRecords"
+                       reference="@reference"
+                       Title="@($"لیست فرآیندهای که مرتبط با استراتژی  {Record?.PDisplayName} هستند")">
+        </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
 @code {
@@ -216,7 +220,24 @@
         List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<SimpleClass>;
         List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<SimpleClass>;
         List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<SimpleClass>;
+
+        AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
+        AllLink = await simpleClassRepository.GetAllLink(nameof(L_Process_Strategy), nameof(LinkProperty.Second), Id);
+
+        this.LinkRecords = new SimpleLinkClassDTO()
+            {
+                linkType = nameof(L_Process_Strategy),
+                firstType = nameof(D_Process),
+                secondType = nameof(D_Strategy),
+                fixedId = Id,
+                sd_Status = nameof(LinkProperty.Second),
+                floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
+                    new Tuple<long, string>(x.Id, x.PDisplayName),
+                    AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
+                                                        .ToDictionary(x => x.Key, x => x.Value)
+            };
     }
+
     private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
@@ -227,6 +248,7 @@
             .First(x => x.Id == _D_OperandId) as D_Operand;
         }
     }
+
     private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
@@ -253,7 +275,7 @@
     {
         var f_Condition = new F_Condition();
 
-        var eP_Conditions = (Record as D_EndorsementPattern).EP_Conditions;
+        var eP_Conditions = (Record as D_Strategy).EP_Conditions;
 
         if (eP_Conditions.Any())
         {
@@ -266,14 +288,16 @@
         }
 
         f_Condition.CD_D_Tag = List_D_Tag.First() as D_Tag;
+        f_Condition.CD_Operand = List_D_Operand.First() as D_Operand;
 
-        (Record as D_EndorsementPattern).EP_Conditions.Add(f_Condition);
+        (Record as D_Strategy).EP_Conditions.Add(f_Condition);
     }
+
     public async Task AddEndorsementPattern()
     {
         var d_Endorsement = new F_Endorsement();
 
-        var eP_Endorsements = (Record as D_EndorsementPattern).EP_Endorsements;
+        var eP_Endorsements = (Record as D_Strategy).EP_Endorsements;
 
         if (eP_Endorsements.Any())
         {
@@ -287,6 +311,6 @@
 
         d_Endorsement.ED_Role = List_D_Role.First() as D_Role;
 
-        (Record as D_EndorsementPattern).EP_Endorsements.Add(d_Endorsement);
+        (Record as D_Strategy).EP_Endorsements.Add(d_Endorsement);
     }
 }

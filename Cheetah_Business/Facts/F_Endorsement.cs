@@ -20,7 +20,13 @@ namespace Cheetah_Business.Facts
         public virtual D_Role? ED_Role { get; set; }
 
         [Column(Order = 101)]
-        public long? ED_EndorsementPatternId { get; set; }
-        public virtual D_EndorsementPattern? ED_EndorsementPattern { get; set; }
+        public long? ED_StrategyId { get; set; }
+        public virtual D_Strategy? ED_Strategy { get; set; }
+
+        public override void SetName()
+        {
+            PDisplayName = ED_Role?.PDisplayName + "-" + ED_Strategy?.PDisplayName;
+            PName = ED_Role?.PName + "-" + ED_Strategy?.PName;
+        }
     }
 }

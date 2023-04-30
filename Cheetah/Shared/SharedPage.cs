@@ -38,6 +38,12 @@ namespace Cheetah.Shared
         public IEnumerable<SimpleClass> Records { get; set; } = new List<SimpleClass>();
 
         [Parameter]
+        public IEnumerable<SimpleClass> AllRecords { get; set; } = new List<SimpleClass>();
+
+        [Parameter]
+        public IEnumerable<SimpleLinkClass> AllLink { get; set; } = new List<SimpleLinkClass>();
+
+        [Parameter]
         public SimpleLinkClassDTO LinkRecords { get; set; } = new();
 
 

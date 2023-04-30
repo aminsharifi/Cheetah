@@ -1,11 +1,10 @@
 ﻿using Cheetah_Business.Data;
-using Cheetah_Business.Facts;
+using Cheetah_Business.Dimentions;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cheetah_Business.Dimentions
+namespace Cheetah_Business.Links
 {
-    [Table(nameof(D_EndorsementPattern), Schema = nameof(TableType.Dimentions))]
+    [Table(nameof(L_Process_Strategy), Schema = nameof(TableType.Links))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -13,13 +12,15 @@ namespace Cheetah_Business.Dimentions
     [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-    [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class D_EndorsementPattern : BaseClass<D_EndorsementPattern>
+    [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
+    [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
+    public partial class L_Process_Strategy : SimpleLinkClass
     {
-        #region Relations
-        public virtual ICollection<F_Condition>? EP_Conditions { get; set; } = new HashSet<F_Condition>();
-
-        public virtual ICollection<F_Endorsement>? EP_Endorsements { get; set; } = new HashSet<F_Endorsement>();
-        #endregion
+        [Column(Order = 100)]
+        [ForeignKey(nameof(FirstId))]
+        public virtual D_Process? UP_Role { get; set; }
+        [Column(Order = 101)]
+        [ForeignKey(nameof(SecondId))]
+        public virtual D_Strategy? UP_Position { get; set; }
     }
 }
