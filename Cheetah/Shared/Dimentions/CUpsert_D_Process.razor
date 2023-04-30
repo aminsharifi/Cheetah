@@ -1,37 +1,38 @@
 ﻿@inherits CUpsert_GeneralCode
 
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
-                 Name="D_Role" Id="@Id" reference="@reference"
+                 Name="D_RequestTitle" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title="@($"لیست سمت هایی که در نقش {Record?.PDisplayName} هستند")">
+                       Title="@($"لیست فرآیندهای که مرتبط با استراتژی  {Record?.PDisplayName} هستند")">
         </LinkComponent>
-        <NavLink href="@($"Dimentions/Edit/F_EndorsementRole/D_Role/{Record.Id}/{reference}")"
-                 class="link-primary my-1">
-            <strong>لیست تخصیص نقش‌های در نظر گرفته شده</strong>
-        </NavLink>
     </RowTemplate>
 </CEditDimentions>
 @code {
+    public IEnumerable<SimpleClass> ListRecord { get; set; }
+
     public override async Task ExtendedLoadDTO()
     {
-        AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Position));
-        AllLink = await simpleClassRepository.GetAllLink(nameof(L_RolePosition), nameof(LinkProperty.First), Id);
+        ListRecord = await simpleClassRepository.GetAllByName(nameof(D_Strategy));
+
+        AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Strategy));
+        AllLink = await simpleClassRepository.GetAllLink(nameof(L_Process_Strategy), nameof(LinkProperty.First), Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = nameof(L_RolePosition),
-                firstType = nameof(D_Role),
-                secondType = nameof(D_Position),
+                linkType = nameof(L_Process_Strategy),
+                firstType = nameof(D_Process),
+                secondType = nameof(D_Strategy),
                 fixedId = Id,
                 sd_Status = nameof(LinkProperty.First),
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
                     new Tuple<long, string>(x.Id, x.PDisplayName),
                     AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
-                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                                .ToDictionary(x => x.Key, x => x.Value)
             };
     }
+
 }

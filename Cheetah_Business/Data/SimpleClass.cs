@@ -58,5 +58,10 @@ namespace Cheetah_Business.Data
         [Description("کد در ERP")]
         [Column(Order = 10)]
         public Int64? PERPCode { get; set; }
+
+        public virtual void SetName()
+        {
+
+        }
     }
 }

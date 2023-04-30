@@ -1,11 +1,11 @@
 ﻿@inherits SharedPage
-@if (Name == nameof(D_EndorsementPattern))
+@if (Name == nameof(D_Strategy))
 {
-    <CUpsert_D_EndorsementPattern Name="@Name" IsInline="@IsInline"
+    <CUpsert_D_Strategy Name="@Name" IsInline="@IsInline"
                               ParentCallback="@ParentCallback" Id="@Id"
                               reference="@reference" LoadData="@LoadData"
                               Title="@Title">
-    </CUpsert_D_EndorsementPattern>
+    </CUpsert_D_Strategy>
 }
 else if (Name == nameof(D_Location))
 {
@@ -31,13 +31,13 @@ else if (Name == nameof(D_Position))
                     Title="@Title">
     </CUpsert_D_Position>
 }
-else if (Name == nameof(D_ProcessName))
+else if (Name == nameof(D_Process))
 {
-    <CUpsert_D_ProcessName Name="@Name" IsInline="@IsInline"
+    <CUpsert_D_Process Name="@Name" IsInline="@IsInline"
                             ParentCallback="@ParentCallback" Id="@Id"
                             reference="@reference" LoadData="@LoadData"
                             Title="@Title">
-    </CUpsert_D_ProcessName>
+    </CUpsert_D_Process>
 }
 else if (Name == nameof(D_Role))
 {

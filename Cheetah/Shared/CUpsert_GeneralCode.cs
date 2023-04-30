@@ -24,7 +24,7 @@ namespace Cheetah.Shared
 
         public async virtual Task ExtendedLoadDTO()
         {
-         
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -32,7 +32,7 @@ namespace Cheetah.Shared
             if (LoadData)
             {
                 Title = (Id > 0) ? "ذخیره" : "ایجاد";
-                await LoadDTO();                
+                await LoadDTO();
                 if (!IsInline)
                 {
                     reference = _CNavigation.LoadNavigation(Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
@@ -55,7 +55,11 @@ namespace Cheetah.Shared
             try
             {
                 var IsNew = (Record.Id == 0);
+
                 await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
+
+                Record.SetName();
+
                 if (IsNew)
                 {
                     Record = await simpleClassRepository.Create(Record);

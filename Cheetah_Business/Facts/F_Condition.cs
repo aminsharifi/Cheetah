@@ -28,7 +28,7 @@ namespace Cheetah_Business.Facts
 
         [Column(Order = 103)]
         public long? CD_EndorsementPatternId { get; set; }
-        public virtual D_EndorsementPattern? CD_EndorsementPattern { get; set; }
+        public virtual D_Strategy? CD_EndorsementPattern { get; set; }
 
         [NotMapped]
         public Boolean CD_BooleanValue
@@ -53,6 +53,12 @@ namespace Cheetah_Business.Facts
             {
                 CD_Value = value.ToString();
             }
+        }
+
+        public override void SetName()
+        {
+            PDisplayName = CD_D_Tag?.PDisplayName + "-" + CD_Operand?.PDisplayName + "-" + CD_Value;
+            PName = CD_D_Tag?.PName + "-" + CD_Operand?.PName + "-" + CD_Value;
         }
     }
 }

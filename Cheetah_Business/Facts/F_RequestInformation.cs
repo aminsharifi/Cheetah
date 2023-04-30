@@ -57,7 +57,7 @@ namespace Cheetah_Business.Facts
         [Description("نام فرآیند")]
         [Column(Order = 111)]
         public long? RI_RequestTitleId { get; set; }
-        public virtual D_ProcessName? RI_RequestTitle { get; set; }
+        public virtual D_Process? RI_RequestTitle { get; set; }
         #endregion
 
         #region Collection

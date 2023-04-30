@@ -110,7 +110,7 @@
                     LinkId = Record.SecondId;
             }
 
-            var _D_Entity = await simpleClassRepository.GetAllByName("D_Entity");
+            var _D_Entity = await simpleClassRepository.GetAllByName(nameof(D_Entity));
 
             var FirstClassName = Record.GetType().GetProperties()[0].PropertyType.Name;
 
@@ -124,7 +124,7 @@
 
             SecondClass = await simpleClassRepository.GetAllByName(SecondClassName);
 
-            Title = Record.Id > 0 ? "ویرایش" : "ایجاد";
+            Title = new UpsertStatus().GetPageTitle(Record.Id).Value;            
         }
         catch (Exception ex)
         {

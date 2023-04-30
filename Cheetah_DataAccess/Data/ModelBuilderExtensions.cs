@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -13,65 +14,59 @@ namespace Cheetah_DataAccess.Data
             #region Dimentions
 
             #region D_EndorsementPattern
-            modelBuilder.Entity<D_EndorsementPattern>().HasData(
-                new D_EndorsementPattern
+            modelBuilder.Entity<D_Strategy>().HasData(
+                new D_Strategy
                 {
                     Id = 1,
                     PCode = 1,
                     PIndex = 1,
-                    PName = "Pattern1",
-                    PDisplayName = "الگوی یک"
+                    PName = "Strategy1",
+                    PDisplayName = "راهبرد یک"
                 },
-                new D_EndorsementPattern
+                new D_Strategy
                 {
                     Id = 2,
                     PCode = 2,
                     PIndex = 2,
-                    PName = "Pattern2",
-                    PDisplayName = "الگوی دو"
+                    PName = "Strategy2",
+                    PDisplayName = "راهبرد دو"
                 },
-                new D_EndorsementPattern
+                new D_Strategy
                 {
                     Id = 3,
                     PCode = 3,
                     PIndex = 3,
-                    PName = "Pattern3",
-                    PDisplayName = "الگوی سه"
+                    PName = "Strategy3",
+                    PDisplayName = "راهبرد سه"
                 }
                 );
             #endregion
 
             #region D_RequestTitle
-            modelBuilder.Entity<D_ProcessName>().HasData(
-                new D_ProcessName
+            modelBuilder.Entity<D_Process>().HasData(
+                new D_Process
                 {
                     Id = 1,
                     PCode = 1,
                     PIndex = 1,
                     PName = "CustomerDefinition",
                     PDisplayName = "تعریف/اصلاح مشتری",
-                    PDescription = "الگوی یک",
-                    PN_EndorsementPatternId = 1
                 },
-                new D_ProcessName
+                new D_Process
                 {
                     Id = 2,
                     PCode = 2,
                     PIndex = 2,
                     PName = "PolicyCenter",
-                    PDisplayName = "مجوزهای موردی",
-                    PDescription = "الگوی دو",
-                    PN_EndorsementPatternId = 2
+                    PDisplayName = "مجوزهای موردی"
                 },
-                new D_ProcessName
+                new D_Process
                 {
                     Id = 3,
                     PCode = 3,
                     PIndex = 3,
                     PName = "CustomerCredit",
-                    PDisplayName = "اعتباردهی مالی مشتری",
-                    PDescription = "الگوی دو",
-                    PN_EndorsementPatternId = 2
+                    PDisplayName = "اعتباردهی مالی مشتری"
                 }
                 );
             #endregion
@@ -469,13 +464,13 @@ namespace Cheetah_DataAccess.Data
             #endregion
 
             #region D_Entity
-            modelBuilder.Entity<D_Entity>().HasData(                        
+            modelBuilder.Entity<D_Entity>().HasData(
                         new D_Entity
                         {
                             Id = 101,
                             PCode = 101,
                             PIndex = 101,
-                            PName = "D_TagType",
+                            PName = nameof(D_TagType),
                             PDisplayName = new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -483,7 +478,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 102,
                             PCode = 102,
                             PIndex = 102,
-                            PName = "D_Location",
+                            PName = nameof(D_Location),
                             PDisplayName = new StringBuilder().Append("موقعیت‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -491,7 +486,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 103,
                             PCode = 103,
                             PIndex = 103,
-                            PName = "D_Operand",
+                            PName = nameof(D_Operand),
                             PDisplayName = new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -499,7 +494,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 104,
                             PCode = 104,
                             PIndex = 104,
-                            PName = "D_Tag",
+                            PName = nameof(D_Tag),
                             PDisplayName = new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -507,16 +502,15 @@ namespace Cheetah_DataAccess.Data
                             Id = 105,
                             PCode = 105,
                             PIndex = 105,
-                            PName = "D_Position",
+                            PName = nameof(D_Position),
                             PDisplayName = new StringBuilder().Append("سمت‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
-
                         new D_Entity
                         {
                             Id = 106,
                             PCode = 106,
                             PIndex = 106,
-                            PName = "D_ProcessState",
+                            PName = nameof(D_ProcessState),
                             PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -524,7 +518,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 107,
                             PCode = 107,
                             PIndex = 107,
-                            PName = "D_ProcessName",
+                            PName = nameof(D_Process),
                             PDisplayName = new StringBuilder().Append("نام فرآیند‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -532,7 +526,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 108,
                             PCode = 108,
                             PIndex = 108,
-                            PName = "D_Role",
+                            PName = nameof(D_Role),
                             PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -540,7 +534,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 109,
                             PCode = 109,
                             PIndex = 109,
-                            PName = "D_User",
+                            PName = nameof(D_User),
                             PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString()
                         },
                         new D_Entity
@@ -548,23 +542,16 @@ namespace Cheetah_DataAccess.Data
                             Id = 110,
                             PCode = 110,
                             PIndex = 110,
-                            PName = "D_EndorsementPattern",
-                            PDisplayName = new StringBuilder().Append("الگوهای تایید").Append($"({TableType.Dimentions})").ToString()
+                            PName = nameof(D_Strategy),
+                            PDisplayName = new StringBuilder().Append("راهبردها").Append($"({TableType.Dimentions})").ToString()
                         },
-                        new D_Entity
-                        {
-                            Id = 111,
-                            PCode = 111,
-                            PIndex = 111,
-                            PName = "D_Endorsement",
-                            PDisplayName = new StringBuilder().Append("اختصاص نقش‌ها").Append($"({TableType.Facts})").ToString()
-                        },
+
                         new D_Entity
                         {
                             Id = 112,
                             PCode = 112,
                             PIndex = 112,
-                            PName = "D_UserInformation",
+                            PName = nameof(D_UserInformation),
                             PDisplayName = new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -572,7 +559,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 200,
                             PCode = 200,
                             PIndex = 200,
-                            PName = "F_AllApprove",
+                            PName = nameof(F_AllApprove),
                             PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -580,7 +567,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 201,
                             PCode = 201,
                             PIndex = 201,
-                            PName = "F_Approve",
+                            PName = nameof(F_Approve),
                             PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -588,7 +575,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 202,
                             PCode = 202,
                             PIndex = 202,
-                            PName = "F_Attachment",
+                            PName = nameof(F_Attachment),
                             PDisplayName = new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -596,7 +583,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 203,
                             PCode = 203,
                             PIndex = 203,
-                            PName = "F_Endorsement",
+                            PName = nameof(F_Endorsement),
                             PDisplayName = new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -604,7 +591,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 204,
                             PCode = 204,
                             PIndex = 204,
-                            PName = "F_Condition",
+                            PName = nameof(F_Condition),
                             PDisplayName = new StringBuilder().Append("لیست شرط‌ها").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -612,7 +599,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 205,
                             PCode = 205,
                             PIndex = 205,
-                            PName = "F_RequestInformation",
+                            PName = nameof(F_RequestInformation),
                             PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString()
                         },
                         new D_Entity
@@ -620,7 +607,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 300,
                             PCode = 300,
                             PIndex = 300,
-                            PName = "L_RolePosition",
+                            PName = nameof(L_RolePosition),
                             PDisplayName = new StringBuilder().Append("نقش-سمت").Append($"({TableType.Links})").ToString()
                         },
                         new D_Entity
@@ -628,15 +615,15 @@ namespace Cheetah_DataAccess.Data
                             Id = 301,
                             PCode = 301,
                             PIndex = 301,
-                            PName = "L_UserArea",
-                            PDisplayName = new StringBuilder().Append("کاربر-واحد").Append($"({TableType.Links})").ToString()
+                            PName = nameof(L_Process_Strategy),
+                            PDisplayName = new StringBuilder().Append("فرآیند-راهبرد").Append($"({TableType.Links})").ToString()
                         },
                         new D_Entity
                         {
                             Id = 302,
                             PCode = 302,
                             PIndex = 302,
-                            PName = "L_UserLocation",
+                            PName = nameof(L_UserLocation),
                             PDisplayName = new StringBuilder().Append("کاربر-موقعیت").Append($"({TableType.Links})").ToString()
                         },
                         new D_Entity
@@ -644,7 +631,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 303,
                             PCode = 303,
                             PIndex = 303,
-                            PName = "L_UserPosition",
+                            PName = nameof(L_UserPosition),
                             PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString()
                         }
                         );
@@ -750,6 +737,51 @@ namespace Cheetah_DataAccess.Data
                               PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
                               FirstId = 5,
                               SecondId = 7
+                          }
+                          );
+            #endregion
+
+            #region L_RolePosition
+            modelBuilder.Entity<L_Process_Strategy>().HasData(
+                          new L_Process_Strategy
+                          {
+                              Id = 1,
+                              PCode = 1,
+                              PIndex = 1,
+                              PName = "Process1-Strategy1",
+                              PDisplayName = "فرآیند1-راهبرد1",
+                              FirstId = 1,
+                              SecondId = 1
+                          },
+                          new L_Process_Strategy
+                          {
+                              Id = 2,
+                              PCode = 2,
+                              PIndex = 2,
+                              PName = "Process2-Strategy2",
+                              PDisplayName = "فرآیند2-راهبرد2",
+                              FirstId = 2,
+                              SecondId = 2
+                          },
+                          new L_Process_Strategy
+                          {
+                              Id = 3,
+                              PCode = 3,
+                              PIndex = 3,
+                              PName = "Process2-Strategy1",
+                              PDisplayName = "فرآیند2-راهبرد1",
+                              FirstId = 2,
+                              SecondId = 1
+                          },
+                          new L_Process_Strategy
+                          {
+                              Id = 4,
+                              PCode = 4,
+                              PIndex = 4,
+                              PName = "Process1-Strategy2",
+                              PDisplayName = "فرآیند1-راهبرد2",
+                              FirstId = 1,
+                              SecondId = 2
                           }
                           );
             #endregion
