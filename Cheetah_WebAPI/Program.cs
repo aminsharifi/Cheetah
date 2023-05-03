@@ -24,7 +24,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddTransient(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
+builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 
 builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
 {

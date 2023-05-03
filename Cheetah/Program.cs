@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddTransient(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
+builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

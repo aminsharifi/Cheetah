@@ -92,8 +92,18 @@ DROP TABLE [Dimentions].[D_UnitType]
 GO
 
 /****** Object:  Table [Dimentions].[D_Role]    Script Date: 4/6/2023 1:15:08 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Facts].[F_Endorsement]') AND type in (N'U'))
+DROP TABLE [Facts].[F_Endorsement]
+GO
+
+/****** Object:  Table [Dimentions].[D_Role]    Script Date: 4/6/2023 1:15:08 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Role]') AND type in (N'U'))
 DROP TABLE [Dimentions].[D_Role]
+GO
+
+/****** Object:  Table [Dimentions].[D_Role]    Script Date: 4/6/2023 1:15:08 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Facts].[F_Scenario]') AND type in (N'U'))
+DROP TABLE [Facts].[F_Scenario]
 GO
 
 /****** Object:  Table [Dimentions].[D_Position]    Script Date: 4/6/2023 1:15:50 PM ******/

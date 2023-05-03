@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Cheetah_Business;
 using Cheetah_Business.Data;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,19 +9,20 @@ namespace Cheetah_WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class D_ParameterTypeController : ControllerBase
+    public class F_ConditionController : ControllerBase
     {
         private readonly ISimpleClassRepository simpleClassRepository;
         private readonly IMapper _mapper;
-        public D_ParameterTypeController(ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
+        public F_ConditionController(ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
         {
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var D_ParameterList = await simpleClassRepository.GetAllByName("D_ParameterList") as IEnumerable<SimpleClass>;
+            var D_ParameterList = await simpleClassRepository.GetAllByName(nameof(F_Condition)) as IEnumerable<SimpleClass>;
             var simpleClassDTO = new List<SimpleClassDTO>();
             foreach (var SimpleClassDTO in D_ParameterList)
             {
@@ -33,6 +35,7 @@ namespace Cheetah_WebAPI.Controllers
             }
             return Ok(simpleClassDTO);
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long? id)
         {
@@ -45,9 +48,9 @@ namespace Cheetah_WebAPI.Controllers
                 });
             }
 
-            var P_ParameterList = await simpleClassRepository.Get("P_ParameterList", id.Value);
+            var _Record = await simpleClassRepository.Get(nameof(F_Condition), id.Value);
 
-            if (P_ParameterList == null)
+            if (_Record == null)
             {
                 return BadRequest(new ErrorModelDTO()
                 {
@@ -56,7 +59,7 @@ namespace Cheetah_WebAPI.Controllers
                 });
             }
 
-            return Ok(P_ParameterList);
+            return Ok(_Record);
         }
     }
 }
