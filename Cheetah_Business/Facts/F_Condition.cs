@@ -16,8 +16,8 @@ namespace Cheetah_Business.Facts
     public partial class F_Condition : BaseClass<F_Condition>
     {
         [Column(Order = 100)]
-        public long? CD_D_TagId { get; set; }
-        public virtual D_Tag? CD_D_Tag { get; set; }
+        public long? CD_TagId { get; set; }
+        public virtual D_Tag? CD_Tag { get; set; }
 
         [Column(Order = 101)]
         public long? CD_OperandId { get; set; }
@@ -27,8 +27,8 @@ namespace Cheetah_Business.Facts
         public String? CD_Value { get; set; }
 
         [Column(Order = 103)]
-        public long? CD_EndorsementPatternId { get; set; }
-        public virtual D_Strategy? CD_EndorsementPattern { get; set; }
+        public long? CD_ScenarioId { get; set; }
+        public virtual F_Scenario? CD_Scenario { get; set; }
 
         [NotMapped]
         public Boolean CD_BooleanValue
@@ -57,8 +57,8 @@ namespace Cheetah_Business.Facts
 
         public override void SetName()
         {
-            PDisplayName = CD_D_Tag?.PDisplayName + "-" + CD_Operand?.PDisplayName + "-" + CD_Value;
-            PName = CD_D_Tag?.PName + "-" + CD_Operand?.PName + "-" + CD_Value;
+            PDisplayName = CD_Scenario?.PDisplayName + "," + CD_Tag?.PDisplayName + "," + CD_Operand?.PDisplayName + "," + CD_Value;
+            PName = CD_Scenario?.PName + "," + CD_Tag?.PName + "," + CD_Operand?.PName + "," + CD_Value;
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230430093045_Clean_Up")]
-    partial class Clean_Up
+    [Migration("20230430140515_Initials")]
+    partial class Initials
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,10 +129,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7609),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2283),
                             DsblRecord = false,
-                            GuidRecord = new Guid("7249e775-e035-4d10-8154-5d24833b1964"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7611),
+                            GuidRecord = new Guid("38349e5f-1302-41f2-8235-81d0b6c79640"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2285),
                             PCode = 101L,
                             PDisplayName = "نوع تگ‌ها(Dimentions)",
                             PIndex = 101L,
@@ -141,10 +141,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 102L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7752),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2460),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e8421b1b-8771-4c65-a758-e091ee49c387"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7755),
+                            GuidRecord = new Guid("3c2341e6-6109-48b9-a1de-b89ea09f1da2"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2462),
                             PCode = 102L,
                             PDisplayName = "موقعیت‌ها(Dimentions)",
                             PIndex = 102L,
@@ -153,10 +153,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 103L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7764),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2473),
                             DsblRecord = false,
-                            GuidRecord = new Guid("d4624cc1-57aa-4305-beff-291482d92acb"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7766),
+                            GuidRecord = new Guid("c743c86c-eb26-4ba3-beac-21777cc4ea8a"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2475),
                             PCode = 103L,
                             PDisplayName = "عملگرها(Dimentions)",
                             PIndex = 103L,
@@ -165,10 +165,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 104L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7773),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2483),
                             DsblRecord = false,
-                            GuidRecord = new Guid("8ea939a6-a26c-4d41-bdd6-3548a07974cd"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7775),
+                            GuidRecord = new Guid("2ba3265d-d918-453c-a5c5-9ab6d8950572"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2485),
                             PCode = 104L,
                             PDisplayName = "تگ‌ها(Dimentions)",
                             PIndex = 104L,
@@ -177,10 +177,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 105L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7782),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2492),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a3bc34f0-07c4-4328-8639-965c2868e7cf"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7784),
+                            GuidRecord = new Guid("6a9541d1-6cc6-42d7-8ae9-ecab540764eb"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2494),
                             PCode = 105L,
                             PDisplayName = "سمت‌ها(Dimentions)",
                             PIndex = 105L,
@@ -189,10 +189,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 106L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7793),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2504),
                             DsblRecord = false,
-                            GuidRecord = new Guid("6e1939bd-73ee-4846-b910-533ea42d14c4"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7795),
+                            GuidRecord = new Guid("ef706d7a-e9c3-4a8a-acec-bf326c204196"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2506),
                             PCode = 106L,
                             PDisplayName = "وضعیت فرآیندها(Dimentions)",
                             PIndex = 106L,
@@ -201,10 +201,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 107L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7811),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2521),
                             DsblRecord = false,
-                            GuidRecord = new Guid("1742a65d-f88f-43f6-b37d-bcd3126332b9"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7813),
+                            GuidRecord = new Guid("643214d4-4d70-4cd4-ae37-24be508aad4e"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2523),
                             PCode = 107L,
                             PDisplayName = "نام فرآیند‌ها(Dimentions)",
                             PIndex = 107L,
@@ -213,10 +213,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 108L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7820),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2531),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f08470f3-c705-4b1d-b615-091ed4f7f665"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7822),
+                            GuidRecord = new Guid("035b3d57-a98e-4919-b132-6ce9a4e9901d"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2532),
                             PCode = 108L,
                             PDisplayName = "نقش‌ها(Dimentions)",
                             PIndex = 108L,
@@ -225,10 +225,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 109L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7829),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2539),
                             DsblRecord = false,
-                            GuidRecord = new Guid("ed70a572-a807-4d20-8b41-a79cd0e750fe"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7831),
+                            GuidRecord = new Guid("05ff3451-554e-49b8-9690-a499f434d3c5"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2541),
                             PCode = 109L,
                             PDisplayName = "کاربران(Dimentions)",
                             PIndex = 109L,
@@ -237,10 +237,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 110L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7837),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2547),
                             DsblRecord = false,
-                            GuidRecord = new Guid("3319ffed-762c-4499-937f-9ecf3d78a80d"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7839),
+                            GuidRecord = new Guid("a0337cf8-acca-4b42-9498-1562cdaf92d1"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2549),
                             PCode = 110L,
                             PDisplayName = "راهبردها(Dimentions)",
                             PIndex = 110L,
@@ -249,10 +249,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 112L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7845),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2557),
                             DsblRecord = false,
-                            GuidRecord = new Guid("5a13abf1-9565-435f-8509-69f859d6ccb7"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7847),
+                            GuidRecord = new Guid("5ee10e1b-87bb-4454-812c-fbe93ca7a6ea"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2558),
                             PCode = 112L,
                             PDisplayName = "اطلاعات کاربرها(Facts)",
                             PIndex = 112L,
@@ -261,10 +261,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 200L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7855),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2567),
                             DsblRecord = false,
-                            GuidRecord = new Guid("753bbd8e-6766-4a12-b763-11e2a1ac2839"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7856),
+                            GuidRecord = new Guid("5437ef6e-a4f6-4199-a4ad-1baa6ebc56e1"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2568),
                             PCode = 200L,
                             PDisplayName = "تمام تاییدها(Facts)",
                             PIndex = 200L,
@@ -273,10 +273,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 201L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7863),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2575),
                             DsblRecord = false,
-                            GuidRecord = new Guid("bde5a9dc-332c-4667-833d-d38f42bb0251"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7865),
+                            GuidRecord = new Guid("1739843b-6c3f-4713-80f5-d3b4f886e76c"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2577),
                             PCode = 201L,
                             PDisplayName = "تاییدهای جاری(Facts)",
                             PIndex = 201L,
@@ -285,10 +285,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 202L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7874),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2586),
                             DsblRecord = false,
-                            GuidRecord = new Guid("ebcef44c-b495-440a-b2cf-6df6a4f6c23c"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7875),
+                            GuidRecord = new Guid("bfaa1b92-0489-4a77-903f-d7614fb58939"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2588),
                             PCode = 202L,
                             PDisplayName = "ضمیمه‌ها(Facts)",
                             PIndex = 202L,
@@ -297,10 +297,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 203L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7883),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2594),
                             DsblRecord = false,
-                            GuidRecord = new Guid("05b034b2-a85d-4ca4-9a30-882c76da8a6c"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7885),
+                            GuidRecord = new Guid("8516f347-5fef-4cc2-aa54-2b5942dfe6b9"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2596),
                             PCode = 203L,
                             PDisplayName = "لیست تخصیص‌ها(Facts)",
                             PIndex = 203L,
@@ -309,10 +309,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 204L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7897),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2610),
                             DsblRecord = false,
-                            GuidRecord = new Guid("9d01376c-3651-4509-ab6c-d3600dad7c78"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7899),
+                            GuidRecord = new Guid("ba4b6cc0-3422-4826-8767-0e0dbaa5b868"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2612),
                             PCode = 204L,
                             PDisplayName = "لیست شرط‌ها(Facts)",
                             PIndex = 204L,
@@ -321,10 +321,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 205L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7905),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2619),
                             DsblRecord = false,
-                            GuidRecord = new Guid("1bec83b9-5af2-4d51-9b56-c0b2d7e47b08"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7907),
+                            GuidRecord = new Guid("fec5399c-81d5-42a8-8b92-ea42e083bd1d"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2620),
                             PCode = 205L,
                             PDisplayName = "اطلاعات درخواست‌ها(Facts)",
                             PIndex = 205L,
@@ -333,10 +333,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 300L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7914),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2627),
                             DsblRecord = false,
-                            GuidRecord = new Guid("c0f03d62-b57b-4431-96ba-28a80314e3bf"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7915),
+                            GuidRecord = new Guid("9330a320-c23a-4d22-9f8b-836b115fa985"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2629),
                             PCode = 300L,
                             PDisplayName = "نقش-سمت(Links)",
                             PIndex = 300L,
@@ -345,10 +345,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 301L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7922),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2635),
                             DsblRecord = false,
-                            GuidRecord = new Guid("4e56839f-589b-4446-943e-08aca86d4196"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7923),
+                            GuidRecord = new Guid("35a2f0e2-f62e-407c-adc5-4464cb770752"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2637),
                             PCode = 301L,
                             PDisplayName = "فرآیند-راهبرد(Links)",
                             PIndex = 301L,
@@ -357,10 +357,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 302L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7931),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2645),
                             DsblRecord = false,
-                            GuidRecord = new Guid("179c974e-f3b1-489d-ad32-005af9f05695"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7933),
+                            GuidRecord = new Guid("be7b14b2-2011-425c-a396-d0a067f65dba"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2647),
                             PCode = 302L,
                             PDisplayName = "کاربر-موقعیت(Links)",
                             PIndex = 302L,
@@ -369,10 +369,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 303L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7939),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2653),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a8e892e3-de25-4edd-8c93-830c22ee8bc2"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7941),
+                            GuidRecord = new Guid("217b94fc-c582-49ae-a30b-5a47df35cdc7"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2655),
                             PCode = 303L,
                             PDisplayName = "کاربر-سمت(Links)",
                             PIndex = 303L,
@@ -481,10 +481,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7130),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1532),
                             DsblRecord = false,
-                            GuidRecord = new Guid("2c0cf95b-f39e-4ad2-907e-d9854ec9ec7b"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7132),
+                            GuidRecord = new Guid("5dba8303-6211-4d05-a819-e02d49c2996d"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1534),
                             PCode = 1L,
                             PDisplayName = "تهران",
                             PIndex = 1L,
@@ -493,10 +493,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7136),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1539),
                             DsblRecord = false,
-                            GuidRecord = new Guid("290275e5-b3a7-44a7-be0e-776110cb9869"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7137),
+                            GuidRecord = new Guid("a91e6653-3f14-4ec8-950d-d3482c9e186d"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1540),
                             PCode = 2L,
                             PDisplayName = "فارس",
                             PIndex = 2L,
@@ -505,10 +505,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7144),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1548),
                             DsblRecord = false,
-                            GuidRecord = new Guid("33beeb40-6b05-4fbf-b974-c671e23f80b2"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7146),
+                            GuidRecord = new Guid("1a6bdaad-3812-4a4b-9b7c-efcbf3b38a9f"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1549),
                             PCode = 3L,
                             PDisplayName = "اصفهان",
                             PIndex = 3L,
@@ -617,10 +617,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7172),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1577),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e7b9335a-822f-40d1-ae3a-b8e907ac4e66"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7174),
+                            GuidRecord = new Guid("6ca46102-0269-4d57-8d88-59322bb902ea"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1579),
                             PCode = 1L,
                             PDisplayName = "مساوی",
                             PIndex = 1L,
@@ -629,10 +629,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7179),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1584),
                             DsblRecord = false,
-                            GuidRecord = new Guid("c0f019e4-097b-403e-b65e-dbc87653e0aa"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7181),
+                            GuidRecord = new Guid("41e08798-403b-44a4-b6a8-b04e2185db24"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1587),
                             PCode = 2L,
                             PDisplayName = "مخالف",
                             PIndex = 2L,
@@ -641,10 +641,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7229),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1853),
                             DsblRecord = false,
-                            GuidRecord = new Guid("eacc9673-b072-47d6-9ab2-49d196a53723"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7232),
+                            GuidRecord = new Guid("7e8f7f65-e920-47e8-95dc-0f7f484cebd5"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1856),
                             PCode = 3L,
                             PDisplayName = "بزگتر از",
                             PIndex = 3L,
@@ -653,10 +653,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7237),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1860),
                             DsblRecord = false,
-                            GuidRecord = new Guid("82fc611e-0d61-401a-a8b8-08c1f25d7f76"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7238),
+                            GuidRecord = new Guid("ef210e7e-1c84-422f-a562-c8e139f51163"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1861),
                             PCode = 4L,
                             PDisplayName = "بزرگتر و مساوی",
                             PIndex = 4L,
@@ -665,10 +665,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7252),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1881),
                             DsblRecord = false,
-                            GuidRecord = new Guid("455e6220-9cf1-4eac-aa3c-a4783cf85d7b"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7254),
+                            GuidRecord = new Guid("b529ad6b-125a-49c2-a10c-223cd9bf86c8"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1882),
                             PCode = 5L,
                             PDisplayName = " کوچکتر از",
                             PIndex = 5L,
@@ -677,10 +677,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7257),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1886),
                             DsblRecord = false,
-                            GuidRecord = new Guid("8190dc88-b262-460f-bec7-611b3a3cf32b"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7259),
+                            GuidRecord = new Guid("615bae8b-b0c0-4c9d-b5cc-8062742c8109"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1888),
                             PCode = 6L,
                             PDisplayName = "کوچکتر و مساوی",
                             PIndex = 6L,
@@ -789,10 +789,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7548),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2216),
                             DsblRecord = false,
-                            GuidRecord = new Guid("d8e542e8-d0c8-4b01-ad53-8e9c246a435a"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7550),
+                            GuidRecord = new Guid("abafbd13-ae08-48e4-8b2e-cf96e06755fc"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2218),
                             PCode = 1L,
                             PDisplayName = "معاون دارویی",
                             PIndex = 1L,
@@ -801,10 +801,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7555),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2222),
                             DsblRecord = false,
-                            GuidRecord = new Guid("66643644-3ac5-45aa-a6c2-70b7f7c8ed86"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7556),
+                            GuidRecord = new Guid("7ce5133d-a9e3-4755-929b-0e9081e0a9d3"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2224),
                             PCode = 2L,
                             PDisplayName = "معاون غذایی",
                             PIndex = 2L,
@@ -813,10 +813,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7561),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2227),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a17b4d86-3333-4c3a-acd2-ccb4873fd3d0"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7562),
+                            GuidRecord = new Guid("8788579a-518c-4b91-8e83-f7a0bbd33e1d"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2229),
                             PCode = 3L,
                             PDisplayName = "کارشناس ارشد بازرگانی",
                             PIndex = 3L,
@@ -825,10 +825,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7566),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2233),
                             DsblRecord = false,
-                            GuidRecord = new Guid("bccd50c8-d911-4f6f-9307-298231dc3c2e"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7568),
+                            GuidRecord = new Guid("5bd91579-9ffd-4c57-aa78-7b00bd74d981"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2234),
                             PCode = 4L,
                             PDisplayName = "کارشناس بازرگانی",
                             PIndex = 4L,
@@ -837,10 +837,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7573),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2240),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f22cfc81-3c7b-4710-8f38-561aabe9c986"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7575),
+                            GuidRecord = new Guid("3131a8ab-b786-49ff-aa57-ce177f856fd4"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2242),
                             PCode = 5L,
                             PDisplayName = "کارشناس ارشد فروش",
                             PIndex = 5L,
@@ -849,10 +849,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7579),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2245),
                             DsblRecord = false,
-                            GuidRecord = new Guid("75bfa9db-c96b-45db-a3c4-c4d2e52a217e"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7580),
+                            GuidRecord = new Guid("becb893e-fe1b-40f4-81d6-79e68ac25fcd"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2247),
                             PCode = 6L,
                             PDisplayName = "کارشناس فروش",
                             PIndex = 6L,
@@ -861,10 +861,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 7L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7584),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2250),
                             DsblRecord = false,
-                            GuidRecord = new Guid("3f7b2dd2-9812-4cf1-89ed-ae295a3fc95d"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7586),
+                            GuidRecord = new Guid("27e2a6de-79c6-43ae-b834-90981c1c77d0"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2252),
                             PCode = 7L,
                             PDisplayName = "مدیر مرکز توزیع",
                             PIndex = 7L,
@@ -985,10 +985,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6986),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1403),
                             DsblRecord = false,
-                            GuidRecord = new Guid("d9bfd27a-2b53-45b3-8dd3-c69a4af99020"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6991),
+                            GuidRecord = new Guid("6b8f14c5-edd5-4623-86b9-86d80b451f31"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1407),
                             PCode = 1L,
                             PDisplayName = "تعریف/اصلاح مشتری",
                             PIndex = 1L,
@@ -1000,10 +1000,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7012),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1424),
                             DsblRecord = false,
-                            GuidRecord = new Guid("48b7ea4f-787a-4567-ad14-67faf45dac9d"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7014),
+                            GuidRecord = new Guid("a362b359-5fb7-4c86-aed0-e32ec4146c96"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1426),
                             PCode = 2L,
                             PDisplayName = "مجوزهای موردی",
                             PIndex = 2L,
@@ -1015,10 +1015,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7025),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1434),
                             DsblRecord = false,
-                            GuidRecord = new Guid("59f9c3eb-2d65-4048-9705-b9e3001c5077"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7027),
+                            GuidRecord = new Guid("d30969a9-b93f-4cbb-8cf2-a8b98637c121"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1435),
                             PCode = 3L,
                             PDisplayName = "اعتباردهی مالی مشتری",
                             PIndex = 3L,
@@ -1130,10 +1130,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7054),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1461),
                             DsblRecord = false,
-                            GuidRecord = new Guid("9a7be939-968c-4297-8b90-9099d942bd14"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7057),
+                            GuidRecord = new Guid("65fe0b12-a528-4f06-bb53-1025f83cf0f1"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1463),
                             PCode = 1L,
                             PDisplayName = "در دست بررسی",
                             PIndex = 1L,
@@ -1142,10 +1142,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7061),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1467),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e5f12e38-08d1-4d8e-89ea-651184855000"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7089),
+                            GuidRecord = new Guid("64c56bbc-2b7b-4dc9-9bba-6dd512813cc3"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1492),
                             PCode = 2L,
                             PDisplayName = "منتظر بازنگری",
                             PIndex = 2L,
@@ -1154,10 +1154,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7093),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1497),
                             DsblRecord = false,
-                            GuidRecord = new Guid("0e500ad9-a953-4795-87e5-1bf94d9ac5ed"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7095),
+                            GuidRecord = new Guid("14d1ed7b-b06b-4ea7-9e20-ce8ffd3fa48e"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1498),
                             PCode = 3L,
                             PDisplayName = "کامل شده",
                             PIndex = 3L,
@@ -1166,10 +1166,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7098),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1502),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e386bc9e-dbfe-4a47-8c27-0c7273eabd6d"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7100),
+                            GuidRecord = new Guid("4d244f82-7e18-40dd-b176-994adb722767"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1504),
                             PCode = 4L,
                             PDisplayName = "ابطال شده",
                             PIndex = 4L,
@@ -1285,10 +1285,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7482),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2151),
                             DsblRecord = false,
-                            GuidRecord = new Guid("70115c42-fed3-4ffa-a4ba-d5a01a4f4763"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7484),
+                            GuidRecord = new Guid("2dcda9fa-f34a-460f-b4cb-b67aba05a3ec"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2153),
                             PCode = 1L,
                             PDisplayName = "معاونت دارویی",
                             PIndex = 1L,
@@ -1298,10 +1298,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7491),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2160),
                             DsblRecord = false,
-                            GuidRecord = new Guid("58ae7606-e3e7-46d8-bc34-2ff126e45ada"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7493),
+                            GuidRecord = new Guid("68be4474-9d20-426f-9218-4ef36dbee5a3"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2162),
                             PCode = 2L,
                             PDisplayName = "معاونت غذایی",
                             PIndex = 2L,
@@ -1311,10 +1311,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7496),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2166),
                             DsblRecord = false,
-                            GuidRecord = new Guid("80e60973-27e0-488a-af2a-35400ce929fd"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7498),
+                            GuidRecord = new Guid("3afa2ef0-a9b8-40bf-be8a-0fb17299f43c"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2168),
                             PCode = 3L,
                             PDisplayName = "کارشناس بازرگانی",
                             PIndex = 3L,
@@ -1324,10 +1324,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7513),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2182),
                             DsblRecord = false,
-                            GuidRecord = new Guid("6915141e-1138-40c2-a7f7-11f0c0dd72a5"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7515),
+                            GuidRecord = new Guid("267ceb4a-8692-4461-8430-9f5beaf6afd2"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2184),
                             PCode = 4L,
                             PDisplayName = "کارشناس فروش",
                             PIndex = 4L,
@@ -1337,10 +1337,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7518),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2188),
                             DsblRecord = false,
-                            GuidRecord = new Guid("37b38021-7434-45fd-9780-631b50032ae6"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7520),
+                            GuidRecord = new Guid("12361ee4-e2f4-42a7-98ce-d8331395bf04"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2190),
                             PCode = 5L,
                             PDisplayName = "مدیریت مرکز توزیع",
                             PIndex = 5L,
@@ -1450,10 +1450,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6628),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1012),
                             DsblRecord = false,
-                            GuidRecord = new Guid("291d0398-9b75-4b02-acf2-5fe68492f32a"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6695),
+                            GuidRecord = new Guid("2a9fe47a-365f-43f5-93bc-ca5e58a39c56"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1080),
                             PCode = 1L,
                             PDisplayName = "راهبرد یک",
                             PIndex = 1L,
@@ -1462,10 +1462,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6749),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1134),
                             DsblRecord = false,
-                            GuidRecord = new Guid("afae6bf4-cf6b-496b-a080-553ad9aa74b1"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6751),
+                            GuidRecord = new Guid("4a224b32-a51f-457b-b3b2-02921dd8bf55"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1137),
                             PCode = 2L,
                             PDisplayName = "راهبرد دو",
                             PIndex = 2L,
@@ -1474,10 +1474,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6756),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1142),
                             DsblRecord = false,
-                            GuidRecord = new Guid("85400b36-b6bd-4b47-b2c7-fbfa89d71075"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(6770),
+                            GuidRecord = new Guid("5276e936-0482-4e5a-8579-65dd609c765b"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1152),
                             PCode = 3L,
                             PDisplayName = "راهبرد سه",
                             PIndex = 3L,
@@ -1592,10 +1592,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 100L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7342),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2012),
                             DsblRecord = false,
-                            GuidRecord = new Guid("61e8e643-f0a8-49ae-85be-bb7e2032f0ee"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7344),
+                            GuidRecord = new Guid("39018793-b9ef-42f0-97ac-77faf8e65f32"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2014),
                             PCode = 100L,
                             PDescription = "عددی",
                             PDisplayName = "سهم شرکت",
@@ -1606,10 +1606,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7352),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2019),
                             DsblRecord = false,
-                            GuidRecord = new Guid("99af643a-f315-4b82-9ad2-8107d1c1edad"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7353),
+                            GuidRecord = new Guid("20a4469b-2f1f-42af-9a52-ca687801d5ed"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2020),
                             PCode = 101L,
                             PDescription = "عددی",
                             PDisplayName = "سهم دیگران",
@@ -1620,10 +1620,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 103L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7357),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2026),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f5d9fa9b-a784-420f-88d7-dfcb2bf730c3"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7359),
+                            GuidRecord = new Guid("36ea4520-fed7-401e-ae26-7069b63ef9f2"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2027),
                             PCode = 103L,
                             PDescription = "عددی",
                             PDisplayName = "مبلغ",
@@ -1634,10 +1634,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 200L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7362),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2031),
                             DsblRecord = false,
-                            GuidRecord = new Guid("ccfe7b49-802f-4b51-983d-ddfe1db0fd11"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7364),
+                            GuidRecord = new Guid("160d2477-f2e0-4e87-affe-9c6888bab153"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2033),
                             PCode = 200L,
                             PDescription = "دودویی",
                             PDisplayName = "مخدر/ یخچالی",
@@ -1648,10 +1648,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 201L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7368),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2037),
                             DsblRecord = false,
-                            GuidRecord = new Guid("7e6381a4-9339-4c05-8fea-5468ee4eff5b"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7369),
+                            GuidRecord = new Guid("d1462c0f-cb0a-434f-89e2-0a22c649e3f0"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2038),
                             PCode = 201L,
                             PDescription = "پارامتریک",
                             PDisplayName = "تایید",
@@ -1662,10 +1662,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 202L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7375),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2044),
                             DsblRecord = false,
-                            GuidRecord = new Guid("6d376906-c116-473c-a4da-d17e37e13f0c"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7377),
+                            GuidRecord = new Guid("56c94e5c-c28d-4708-95ee-4947a83e5254"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2046),
                             PCode = 202L,
                             PDescription = "پارامتریک",
                             PDisplayName = "عدم تایید",
@@ -1676,10 +1676,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 203L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7387),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2056),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e98e8152-e771-436a-87f7-764267e57cf3"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7388),
+                            GuidRecord = new Guid("8d226d74-efa5-490d-8f4d-749de69f6dd6"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2058),
                             PCode = 203L,
                             PDescription = "پارامتریک",
                             PDisplayName = "بازنگری",
@@ -1690,10 +1690,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 204L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7403),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2076),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a5c2b5d8-e665-4b35-a1e8-3868af607713"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7405),
+                            GuidRecord = new Guid("e7585613-4853-45b2-bbfd-ae9f4608f5b3"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2077),
                             PCode = 204L,
                             PDescription = "پارامتریک",
                             PDisplayName = "دارویی",
@@ -1704,10 +1704,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 205L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7408),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2081),
                             DsblRecord = false,
-                            GuidRecord = new Guid("976e2051-d719-4771-bb4e-9e42276242f9"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7410),
+                            GuidRecord = new Guid("80311685-96bd-465c-8dbe-8253212da4da"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2083),
                             PCode = 205L,
                             PDescription = "پارامتریک",
                             PDisplayName = "مصرفی",
@@ -1718,10 +1718,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 206L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7414),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2087),
                             DsblRecord = false,
-                            GuidRecord = new Guid("32412266-2d06-42c5-b292-a5478a3bb9c2"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7415),
+                            GuidRecord = new Guid("c68403a7-87fc-4450-a1ce-dc453dc3234f"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2088),
                             PCode = 206L,
                             PDescription = "پارامتریک",
                             PDisplayName = "کل",
@@ -1832,10 +1832,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7296),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1964),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a6226016-9b40-4c43-8dfb-9948242de8c4"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7298),
+                            GuidRecord = new Guid("cc37f017-fe90-4593-b692-f14956b96edb"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1967),
                             PCode = 1L,
                             PDisplayName = "عددی",
                             PIndex = 1L,
@@ -1844,10 +1844,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7305),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1976),
                             DsblRecord = false,
-                            GuidRecord = new Guid("cd41bfd8-636a-421b-83e4-8ca43c5cb420"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7307),
+                            GuidRecord = new Guid("7654bd43-6ee3-4110-a934-ff4dd6fa076e"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1978),
                             PCode = 2L,
                             PDisplayName = "دودویی",
                             PIndex = 2L,
@@ -1856,10 +1856,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7311),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1981),
                             DsblRecord = false,
-                            GuidRecord = new Guid("0fde8920-87c1-4a15-a7eb-826efdc17cd4"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7312),
+                            GuidRecord = new Guid("005eb50a-967e-4c66-9bf0-65c6798afb22"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1983),
                             PCode = 3L,
                             PDisplayName = "تاریخ",
                             PIndex = 3L,
@@ -1868,10 +1868,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7316),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1986),
                             DsblRecord = false,
-                            GuidRecord = new Guid("ceb22d8e-2672-4b9d-aee4-29ff1848b69d"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7317),
+                            GuidRecord = new Guid("6a6dfe4f-e203-4ae9-8af5-92058d2215c6"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(1988),
                             PCode = 4L,
                             PDisplayName = "حروف",
                             PIndex = 4L,
@@ -2025,10 +2025,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7444),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2117),
                             DsblRecord = false,
-                            GuidRecord = new Guid("24be8b18-cf07-4dd2-8dfd-52c0169a7564"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7447),
+                            GuidRecord = new Guid("2ca39d48-94d5-4c38-abd8-78907d21d88b"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2119),
                             PCode = 1L,
                             PDisplayName = "محمد شریفی",
                             PIndex = 1L,
@@ -2037,10 +2037,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7451),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2124),
                             DsblRecord = false,
-                            GuidRecord = new Guid("c6b7875d-23c6-48b7-adf2-cf2bca5c865a"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(7452),
+                            GuidRecord = new Guid("954efff4-81de-48a3-999e-a9aa4d5db469"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2125),
                             PCode = 2L,
                             PDisplayName = "امین شریفی",
                             PIndex = 2L,
@@ -2564,17 +2564,17 @@ namespace Cheetah_DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("CD_D_TagId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(100);
-
-                    b.Property<long?>("CD_EndorsementPatternId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(103);
-
                     b.Property<long?>("CD_OperandId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(101);
+
+                    b.Property<long?>("CD_StrategyId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(103);
+
+                    b.Property<long?>("CD_TagId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(100);
 
                     b.Property<string>("CD_Value")
                         .HasColumnType("nvarchar(max)")
@@ -2641,11 +2641,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CD_D_TagId");
-
-                    b.HasIndex("CD_EndorsementPatternId");
-
                     b.HasIndex("CD_OperandId");
+
+                    b.HasIndex("CD_StrategyId");
+
+                    b.HasIndex("CD_TagId");
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
@@ -2683,6 +2683,72 @@ namespace Cheetah_DataAccess.Migrations
                         .IsDescending();
 
                     b.ToTable("F_Condition", "Facts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CD_OperandId = 3L,
+                            CD_StrategyId = 1L,
+                            CD_TagId = 100L,
+                            CD_Value = "0",
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2708),
+                            DsblRecord = false,
+                            GuidRecord = new Guid("2f0d3253-15f1-4c9c-a55b-a08fb799d2c6"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2711),
+                            PCode = 1L,
+                            PDisplayName = "راهبرد1,سهم شرکت,بزرگتر از,0",
+                            PIndex = 1L,
+                            PName = "Strategy1,OursShare,>,0"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CD_OperandId = 3L,
+                            CD_StrategyId = 1L,
+                            CD_TagId = 103L,
+                            CD_Value = "1000",
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2720),
+                            DsblRecord = false,
+                            GuidRecord = new Guid("50f2d32c-c7b9-4625-80ea-68b1385ee063"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2722),
+                            PCode = 2L,
+                            PDisplayName = "راهبرد1,مبلغ,بزگتر از,1000",
+                            PIndex = 2L,
+                            PName = "Strategy1,Price,>,1000"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CD_OperandId = 1L,
+                            CD_StrategyId = 2L,
+                            CD_TagId = 100L,
+                            CD_Value = "0",
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2727),
+                            DsblRecord = false,
+                            GuidRecord = new Guid("4097eda2-a42e-44ff-83a9-9301682d0ce3"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2728),
+                            PCode = 3L,
+                            PDisplayName = "راهبرد2,سهم شرکت,مساوی,0",
+                            PIndex = 3L,
+                            PName = "Strategy2,OursShare,=,0"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CD_OperandId = 5L,
+                            CD_StrategyId = 2L,
+                            CD_TagId = 103L,
+                            CD_Value = "1000",
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2733),
+                            DsblRecord = false,
+                            GuidRecord = new Guid("3e86deae-fcf0-47ea-b7ba-334537982065"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2734),
+                            PCode = 4L,
+                            PDisplayName = "راهبرد2,مبلغ,کوچکتر از,1000",
+                            PIndex = 4L,
+                            PName = "Strategy2,Price,<,1000"
+                        });
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
@@ -2703,13 +2769,13 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bit")
                         .HasColumnOrder(9);
 
-                    b.Property<long?>("ED_EndorsementPatternId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(101);
-
                     b.Property<long?>("ED_RoleId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(100);
+
+                    b.Property<long?>("ED_StrategyId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(101);
 
                     b.Property<Guid?>("GuidRecord")
                         .HasColumnType("uniqueidentifier")
@@ -2765,9 +2831,9 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
-                    b.HasIndex("ED_EndorsementPatternId");
-
                     b.HasIndex("ED_RoleId");
+
+                    b.HasIndex("ED_StrategyId");
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
@@ -2793,6 +2859,64 @@ namespace Cheetah_DataAccess.Migrations
                         .IsDescending();
 
                     b.ToTable("F_Endorsement", "Facts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2759),
+                            DsblRecord = false,
+                            ED_RoleId = 1L,
+                            ED_StrategyId = 1L,
+                            GuidRecord = new Guid("6e5a0fc6-1d10-4d11-a6c4-e8793866e8db"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2761),
+                            PCode = 1L,
+                            PDisplayName = "راهبرد یک,معاونت دارویی",
+                            PIndex = 1L,
+                            PName = "Strategy1,PharmaceuticalDeputy"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2766),
+                            DsblRecord = false,
+                            ED_RoleId = 2L,
+                            ED_StrategyId = 1L,
+                            GuidRecord = new Guid("56b04a1c-bec1-4cf9-a758-6d3f9aad2e23"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2768),
+                            PCode = 2L,
+                            PDisplayName = "راهبرد یک,معاونت غذایی",
+                            PIndex = 2L,
+                            PName = "Strategy1,FMCGDeputy"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2775),
+                            DsblRecord = false,
+                            ED_RoleId = 1L,
+                            ED_StrategyId = 2L,
+                            GuidRecord = new Guid("13ff9de9-c97e-4320-9198-4fd77de3179c"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2777),
+                            PCode = 3L,
+                            PDisplayName = "راهبرد دو,معاونت دارویی",
+                            PIndex = 3L,
+                            PName = "Strategy2,PharmaceuticalDeputy"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2781),
+                            DsblRecord = false,
+                            ED_RoleId = 2L,
+                            ED_StrategyId = 2L,
+                            GuidRecord = new Guid("76cc8413-0059-4efd-83c1-40a21e829a18"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2782),
+                            PCode = 4L,
+                            PDisplayName = "راهبرد دو,معاونت غذایی",
+                            PIndex = 4L,
+                            PName = "Strategy2,FMCGDeputy"
+                        });
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_RequestInformation", b =>
@@ -3055,57 +3179,71 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8103),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2908),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("6331899c-46e2-480c-97b2-9855c08476ee"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8105),
+                            GuidRecord = new Guid("544853f0-42ee-48c2-a1fd-af0b13678d6f"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2910),
                             PCode = 1L,
-                            PDisplayName = "فرآیند1-راهبرد1",
+                            PDisplayName = "تعریف/اصلاح مشتری-راهبرد سه",
                             PIndex = 1L,
-                            PName = "Process1-Strategy1",
-                            SecondId = 1L
+                            PName = "CustomerDefinition-Strategy3",
+                            SecondId = 3L
                         },
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8109),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2915),
                             DsblRecord = false,
-                            FirstId = 2L,
-                            GuidRecord = new Guid("b92504b8-8edc-44ee-9282-41df17fe3884"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8110),
+                            FirstId = 1L,
+                            GuidRecord = new Guid("b61a2102-7995-47a3-8d67-f5887cd852c7"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2916),
                             PCode = 2L,
-                            PDisplayName = "فرآیند2-راهبرد2",
+                            PDisplayName = "تعریف/اصلاح مشتری-راهبرد یک",
                             PIndex = 2L,
-                            PName = "Process2-Strategy2",
-                            SecondId = 2L
+                            PName = "CustomerDefinition-Strategy1",
+                            SecondId = 1L
                         },
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8114),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2921),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("3d63a396-5c29-4e2a-bd33-29b94d8b1069"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8115),
+                            GuidRecord = new Guid("46f57212-8bf5-42bf-81bc-b9d6e36df50e"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2922),
                             PCode = 3L,
-                            PDisplayName = "فرآیند2-راهبرد1",
+                            PDisplayName = "مجوزهای موردی-راهبرد یک",
                             PIndex = 3L,
-                            PName = "Process2-Strategy1",
+                            PName = "PolicyCenter-Strategy1",
                             SecondId = 1L
                         },
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8119),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2930),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("17d5940f-3a11-454e-9543-dfd8763c3cf9"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8120),
+                            GuidRecord = new Guid("f6ba93df-c764-44a8-8a38-412db3b393b5"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2931),
                             PCode = 4L,
-                            PDisplayName = "فرآیند1-راهبرد2",
+                            PDisplayName = "تعریف/اصلاح مشتری-راهبرد دو",
                             PIndex = 4L,
-                            PName = "Process1-Strategy2",
+                            PName = "PolicyCenter-Strategy2",
+                            SecondId = 2L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2936),
+                            DsblRecord = false,
+                            FirstId = 2L,
+                            GuidRecord = new Guid("c8d74fe1-0faa-4137-925c-a6c9be50fd88"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2937),
+                            PCode = 5L,
+                            PDisplayName = "مجوزهای موردی-راهبرد دو",
+                            PIndex = 5L,
+                            PName = "CustomerDefinition-Strategy2",
                             SecondId = 2L
                         });
                 });
@@ -3218,11 +3356,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8034),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2837),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("5c714f01-18a9-43fb-8a6e-50ec076bdb0f"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8035),
+                            GuidRecord = new Guid("3806431e-c3d2-4a23-9c21-25adf6184110"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2839),
                             PCode = 1L,
                             PDisplayName = "معاونت دارویی-معاون دارویی",
                             PIndex = 1L,
@@ -3232,11 +3370,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8040),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2843),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("47e83962-2a3b-4ee0-b4ac-c0dd5575368f"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8041),
+                            GuidRecord = new Guid("11ed2870-81fa-437c-8bf8-2bd42439e306"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2845),
                             PCode = 2L,
                             PDisplayName = "معاونت غذایی-معاون غذایی",
                             PIndex = 2L,
@@ -3246,11 +3384,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8045),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2848),
                             DsblRecord = false,
                             FirstId = 3L,
-                            GuidRecord = new Guid("bf1abe36-8d6f-4940-80b5-92b2fe61be62"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8046),
+                            GuidRecord = new Guid("6b060b70-805a-400e-b488-e4470c2c73dd"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2850),
                             PCode = 3L,
                             PDisplayName = "کارشناس بازرگانی-کارشناس ارشد بازرگانی",
                             PIndex = 3L,
@@ -3260,11 +3398,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8050),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2853),
                             DsblRecord = false,
                             FirstId = 3L,
-                            GuidRecord = new Guid("08491315-220d-4515-ad6b-6a3afc4fc07d"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8051),
+                            GuidRecord = new Guid("71c88325-a832-409a-bd1f-20ba5ce7b3cf"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2855),
                             PCode = 4L,
                             PDisplayName = "کارشناس بازرگانی-کارشناس بازرگانی",
                             PIndex = 4L,
@@ -3274,11 +3412,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8055),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2859),
                             DsblRecord = false,
                             FirstId = 4L,
-                            GuidRecord = new Guid("80265e98-d5fd-436a-a56e-6c21a7d7064f"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8057),
+                            GuidRecord = new Guid("7cd64e72-81da-4e30-8696-130db462db37"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2861),
                             PCode = 5L,
                             PDisplayName = "کارشناس فروش-کارشناس ارشد فروش",
                             PIndex = 5L,
@@ -3288,11 +3426,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8060),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2864),
                             DsblRecord = false,
                             FirstId = 4L,
-                            GuidRecord = new Guid("b3145bb6-c21a-46b8-abde-b2d75e4b4a27"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8062),
+                            GuidRecord = new Guid("c6c1097b-556b-4286-ad4c-4c54bbeb0811"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2866),
                             PCode = 6L,
                             PDisplayName = "کارشناس فروش-کارشناس فروش",
                             PIndex = 6L,
@@ -3302,11 +3440,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 7L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8068),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2872),
                             DsblRecord = false,
                             FirstId = 5L,
-                            GuidRecord = new Guid("30f933f5-d0f1-4fae-a869-55b42575d3a0"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8069),
+                            GuidRecord = new Guid("63800b08-3fd9-4900-af30-6624f0ff2af5"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2873),
                             PCode = 7L,
                             PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
                             PIndex = 7L,
@@ -3423,11 +3561,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8000),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2807),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("acd8cb5d-4b17-47ef-987d-26c1ae658457"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8002),
+                            GuidRecord = new Guid("aad59292-b672-4ad1-b22c-1c0a8180ad31"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2809),
                             PCode = 1L,
                             PDisplayName = "محمد شریفی-تهران",
                             PIndex = 1L,
@@ -3437,11 +3575,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8008),
+                            CreateTimeRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2814),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("82f70abc-7640-4971-9777-ca16c141d2bc"),
-                            LastUpdatedRecord = new DateTime(2023, 4, 30, 14, 0, 44, 651, DateTimeKind.Local).AddTicks(8010),
+                            GuidRecord = new Guid("a47a16c0-b402-4167-8c9c-ac348bb3247d"),
+                            LastUpdatedRecord = new DateTime(2023, 4, 30, 18, 35, 15, 352, DateTimeKind.Local).AddTicks(2815),
                             PCode = 2L,
                             PDisplayName = "امین شریفی-فارس",
                             PIndex = 2L,
@@ -3960,17 +4098,17 @@ namespace Cheetah_DataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Condition", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Tag", "CD_D_Tag")
-                        .WithMany()
-                        .HasForeignKey("CD_D_TagId");
-
-                    b.HasOne("Cheetah_Business.Dimentions.D_Strategy", "CD_EndorsementPattern")
-                        .WithMany("EP_Conditions")
-                        .HasForeignKey("CD_EndorsementPatternId");
-
                     b.HasOne("Cheetah_Business.Dimentions.D_Operand", "CD_Operand")
                         .WithMany()
                         .HasForeignKey("CD_OperandId");
+
+                    b.HasOne("Cheetah_Business.Dimentions.D_Strategy", "CD_Strategy")
+                        .WithMany("EP_Conditions")
+                        .HasForeignKey("CD_StrategyId");
+
+                    b.HasOne("Cheetah_Business.Dimentions.D_Tag", "CD_Tag")
+                        .WithMany()
+                        .HasForeignKey("CD_TagId");
 
                     b.HasOne("Cheetah_Business.Dimentions.D_User", null)
                         .WithMany("User_Conditions")
@@ -3984,32 +4122,32 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("CD_D_Tag");
-
-                    b.Navigation("CD_EndorsementPattern");
-
                     b.Navigation("CD_Operand");
+
+                    b.Navigation("CD_Strategy");
+
+                    b.Navigation("CD_Tag");
 
                     b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Strategy", "ED_EndorsementPattern")
-                        .WithMany("EP_Endorsements")
-                        .HasForeignKey("ED_EndorsementPatternId");
-
                     b.HasOne("Cheetah_Business.Dimentions.D_Role", "ED_Role")
                         .WithMany("ROL_EndorsementPosition")
                         .HasForeignKey("ED_RoleId");
+
+                    b.HasOne("Cheetah_Business.Dimentions.D_Strategy", "ED_Strategy")
+                        .WithMany("EP_Endorsements")
+                        .HasForeignKey("ED_StrategyId");
 
                     b.HasOne("Cheetah_Business.Facts.F_Endorsement", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("ED_EndorsementPattern");
-
                     b.Navigation("ED_Role");
+
+                    b.Navigation("ED_Strategy");
 
                     b.Navigation("ParentId");
                 });

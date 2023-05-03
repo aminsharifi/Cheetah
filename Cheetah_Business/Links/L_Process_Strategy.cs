@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Facts;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Links
@@ -21,6 +22,6 @@ namespace Cheetah_Business.Links
         public virtual D_Process? UP_Role { get; set; }
         [Column(Order = 101)]
         [ForeignKey(nameof(SecondId))]
-        public virtual D_Strategy? UP_Position { get; set; }
+        public virtual F_Scenario? UP_Position { get; set; }
     }
 }

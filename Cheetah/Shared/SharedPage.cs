@@ -71,7 +71,7 @@ namespace Cheetah.Shared
         [Parameter]
         public EventCallback ParentCallback { get; set; }
 
-        public IEnumerable<KeyValuePair<string, string>> keyValuePair { get; set; } = new List<KeyValuePair<string, string>>();
+        public Dictionary<string, string> keyValuePair { get; set; } = new Dictionary<string, string>();
 
 
         #endregion

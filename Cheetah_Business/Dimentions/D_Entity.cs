@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cheetah_Business.Dimentions
@@ -15,6 +16,8 @@ namespace Cheetah_Business.Dimentions
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class D_Entity : BaseClass<D_Entity>
     {
-
+        [Column(Order = 100)]
+        [DefaultValue(true)]
+        public Boolean Display { get; set; }
     }
 }
