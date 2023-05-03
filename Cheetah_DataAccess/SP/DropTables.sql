@@ -41,6 +41,16 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Facts].[F_E
 DROP TABLE [Facts].[F_EndorsementPosition]
 GO
 
+
+/****** Object:  Table [Facts].[F_EndorsementPosition]    Script Date: 4/6/2023 1:07:58 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Links].[L_UserPosition]') AND type in (N'U'))
+DROP TABLE [Links].[L_UserPosition]
+GO
+/****** Object:  Table [Facts].[F_EndorsementPosition]    Script Date: 4/6/2023 1:07:58 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Links].[L_Process_Strategy]') AND type in (N'U'))
+DROP TABLE [Links].[L_Process_Strategy]
+GO
+
 /****** Object:  Table [Facts].[F_Attachment]    Script Date: 4/6/2023 1:08:14 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Facts].[F_Attachment]') AND type in (N'U'))
 DROP TABLE [Facts].[F_Attachment]
@@ -272,8 +282,28 @@ GO
 
 
 /****** Object:  Table [Dimentions].[D_RequestTitle]    Script Date: 4/6/2023 1:32:44 PM ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_RequestTitle]') AND type in (N'U'))
-DROP TABLE [Dimentions].[D_RequestTitle]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Process]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Process]
+GO
+
+
+
+
+/****** Object:  Table [Dimentions].[D_RequestTitle]    Script Date: 4/6/2023 1:32:44 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Tag]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Tag]
+GO
+
+
+
+/****** Object:  Table [Dimentions].[D_RequestTitle]    Script Date: 4/6/2023 1:32:44 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[F_Endorsement]') AND type in (N'U'))
+DROP TABLE [Facts].[F_Endorsement]
+GO
+
+/****** Object:  Table [Dimentions].[D_RequestTitle]    Script Date: 4/6/2023 1:32:44 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_TagType]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_TagType]
 GO
 
 /****** Object:  Table [Dimentions].[D_SubRequestTitle]    Script Date: 4/6/2023 1:32:12 PM ******/
@@ -302,6 +332,20 @@ GO
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_UserInformation]') AND type in (N'U'))
 DROP TABLE [Dimentions].[D_UserInformation]
 GO
+
+
+/****** Object:  Table [Facts].[F_UserInformation]    Script Date: 4/6/2023 1:28:11 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Strategy]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Strategy]
+GO
+
+
+
+/****** Object:  Table [Facts].[F_UserInformation]    Script Date: 4/6/2023 1:28:11 PM ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Process]') AND type in (N'U'))
+DROP TABLE [Dimentions].[D_Process]
+GO
+
 /****** Object:  Table [Dimentions].[D_Entities]    Script Date: 4/6/2023 1:57:51 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Dimentions].[D_Entities]') AND type in (N'U'))
 DROP TABLE [Dimentions].[D_Entities]

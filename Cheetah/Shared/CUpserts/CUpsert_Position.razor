@@ -14,20 +14,20 @@
 @code {
     public override async Task ExtendedLoadDTO()
     {
-        var d_User = await simpleClassRepository.GetAllByName("D_User");
-        var l_UserArea = await simpleClassRepository.GetAllLink("L_UserPosition", nameof(LinkProperty.Second), Id);
+        var d_User = await simpleClassRepository.GetAllByName(nameof(D_User));
+        var l_UserArea = await simpleClassRepository.GetAllLink(nameof(L_UserPosition), nameof(LinkProperty.Second), Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = "L_UserPosition",
-                firstType = "D_User",
-                secondType = "D_Position",
+                linkType = nameof(L_UserPosition),
+                firstType = nameof(D_User),
+                secondType = nameof(D_Position),
                 fixedId = Id,
                 sd_Status = nameof(LinkProperty.Second),
                 floatState = d_User.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
                     new Tuple<long, string>(x.Id, x.PDisplayName),
                     l_UserArea.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                    .ToDictionary(x => x.Key, x => x.Value)
+                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 }
