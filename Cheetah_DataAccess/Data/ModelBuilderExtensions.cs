@@ -531,7 +531,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 200,
                             PCode = 200,
                             PIndex = 200,
-                            PName = nameof(F_AllApprove),
+                            PName = nameof(F_AllReview),
                             PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString(),
                             Display = false
                         },
@@ -540,7 +540,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 201,
                             PCode = 201,
                             PIndex = 201,
-                            PName = nameof(F_Approve),
+                            PName = nameof(F_Review),
                             PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString(),
                             Display = false
                         },

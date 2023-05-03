@@ -96,7 +96,7 @@ namespace Cheetah_DataAccess.Repository
             {
                 var gtype = DatabaseClass.GetDBType(type);
                 var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
-                var Result = await Task.FromResult(aa.ToList());
+                var Result = await Task.FromResult(aa.ToList());                
                 return Result;
             }
             return new List<SimpleClass>();
@@ -153,6 +153,7 @@ namespace Cheetah_DataAccess.Repository
         {
             _db.Update(obj_DTO);
             await _db.SaveChangesAsync();
+            _db.ChangeTracker.Clear();
             return obj_DTO;
         }
 

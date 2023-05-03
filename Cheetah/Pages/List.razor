@@ -76,6 +76,7 @@
 </div>
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
+
     private ListGenericTypeItems listGenericTypeItems;
 
     private async Task SelectedProcessesChanged(ChangeEventArgs e)
@@ -108,7 +109,6 @@
             IsLoading = false;
             StateHasChanged();
         }
-
     }
 
     private async Task FirstLoadRecords()
@@ -139,6 +139,7 @@
         try
         {
             LoadData = false;
+
             Records = await simpleClassRepository.GetAllByName(Name);
 
             if (!String.IsNullOrEmpty(FilterTableName))

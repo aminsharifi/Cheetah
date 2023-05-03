@@ -45,7 +45,7 @@ namespace Cheetah_Business.Facts
 
         [Column(Order = 109)]
         public long? RI_AllApproveId { get; set; }
-        public virtual F_AllApprove? RI_AllApprove { get; set; }
+        public virtual F_AllReview? RI_AllApprove { get; set; }
         #endregion
 
         #region Enitty
@@ -56,8 +56,8 @@ namespace Cheetah_Business.Facts
 
         [Description("نام فرآیند")]
         [Column(Order = 111)]
-        public long? RI_RequestTitleId { get; set; }
-        public virtual D_Process? RI_RequestTitle { get; set; }
+        public long? RI_ProcessId { get; set; }
+        public virtual D_Process? RI_Process{ get; set; }
         #endregion
 
         #region Collection

@@ -35,8 +35,8 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
         public virtual DbSet<F_Condition> F_Conditions { get; set; }
         public virtual DbSet<F_RequestInformation> F_RequestInformations { get; set; }
-        public virtual DbSet<F_AllApprove> F_AllApproves { get; set; }
-        public virtual DbSet<F_Approve> F_Approves { get; set; }
+        public virtual DbSet<F_AllReview> F_AllApproves { get; set; }
+        public virtual DbSet<F_Review> F_Approves { get; set; }
         public virtual DbSet<F_Attachment> F_Attachments { get; set; }
         
         #endregion

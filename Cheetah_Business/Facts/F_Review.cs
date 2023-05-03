@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
-    [Table(nameof(F_Approve), Schema = nameof(TableType.Facts))]
+    [Table(nameof(F_Review), Schema = nameof(TableType.Facts))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -14,7 +14,7 @@ namespace Cheetah_Business.Facts
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class F_Approve : BaseClass<F_Approve>
+    public partial class F_Review : BaseClass<F_Review>
     {
         [Column(Order = 100)]
         [Description("بررسی کننده")]
@@ -26,12 +26,12 @@ namespace Cheetah_Business.Facts
         public virtual F_Endorsement? APV_Endorsement { get; set; }
 
         [Column(Order = 102)]
-        public long? APV_NeedApproveId { get; set; }
-        public virtual F_AllApprove? APV_NeedApprove { get; set; }
+        public long? APV_NeedReviewId { get; set; }
+        public virtual F_AllReview? APV_NeedReview { get; set; }
 
         [Column(Order = 103)]
-        public long? APV_ApproveId { get; set; }
-        public virtual F_AllApprove? APV_Approve { get; set; }
+        public long? APV_ReviewId { get; set; }
+        public virtual F_AllReview? APV_Review { get; set; }
 
         [Description("ضمیمه")]
         public virtual ICollection<F_Attachment>? APV_Attachments { get; set; } = new HashSet<F_Attachment>();

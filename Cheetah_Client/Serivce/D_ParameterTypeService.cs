@@ -114,7 +114,7 @@ namespace Cheetah_Client.Service
 
         public async Task<SimpleClass> Get(string type, long? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
         {
-            var response = await _httpClient.GetAsync($"/D_ParameterType/{id}");
+            var response = await _httpClient.GetAsync($"/{type} /{id}");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -179,10 +179,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        Task<SimpleClass> ISimpleClassRepository.Get(string type, long? id, QueryTrackingBehavior Tracking)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         Task<SimpleClass> ISimpleClassRepository.GetLast(string type)
         {

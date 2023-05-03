@@ -1,6 +1,6 @@
 ﻿@inherits CUpsert_GeneralCode
 
-@if (Record != null)
+@if (Record != null && !IsLoading)
 {
     @if (!IsInline)
     {
