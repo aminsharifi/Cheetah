@@ -26,10 +26,21 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 
+
+builder.Services.AddGraphQLServer()
+    .AddMutationType<Mutation>()
+    .AddQueryType<Query>()
+    .AddProjections()
+    .AddFiltering()
+    .AddSorting();
+
+//https://www.c-sharpcorner.com/article/graphql-introduction-and-product-application-using-net-core-7/
+
 builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
 {
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,10 +54,12 @@ app.UseHttpsRedirection();
 
 app.UseCors("Cheetah");
 
-app.UseRouting();
+//app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGraphQL("/graphql");
 
 app.Run();

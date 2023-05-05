@@ -1,0 +1,44 @@
+﻿{
+	"UserName": "sharifi.m",
+	"State": "Running",
+	"Cases": [
+		{
+			"Process": "PolicyCenter",
+			"BPMSId": 9876523,
+			"ERPId": 1245487,
+			"ReviewID": 565985,
+			"RecieveDate": "2000-01-01 09:45",
+			"Creator": "BPMS",
+			"Requestor": "sharifi.m",
+			"Subject": "Policy Center",
+			"LastReview": {
+				"Index": 3,
+				"Id": 654464,
+				"UserInCharge": "sharifi.m",
+				"Status": "Approve",
+				"Comment": "I approve it",
+				"RecieveDate": "2000-01-01 09:45",
+				"SentDate": "2000-01-02 10:45"
+			}
+		},
+		{
+			"Process": "PolicyCenter",
+			"BPMSId": 9876523,
+			"ERPId": 1245487,
+			"ReviewID": 565985,
+			"RecieveDate": "2000-01-01 09:45",
+			"Creator": "BPMS",			
+			"Requestor": "sharifi.m",
+			"Subject": "Policy Center",
+			"LastReview": {
+				"Index": 3,
+				"Id": 654464,
+				"UserInCharge": "sharifi.m",
+				"Status": "Approve",
+				"Comment": "I approve it",
+				"RecieveDate": "2000-01-01 09:45",
+				"SentDate": "2000-01-02 10:45"
+			}
+		}
+	]
+}

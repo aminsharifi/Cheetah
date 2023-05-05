@@ -6,6 +6,9 @@ namespace Cheetah_Business.Data
 {
     public abstract class SimpleClass
     {
+        [NotMapped]
+        public String? TableName { get; set; }
+
         [Key]
         [Description("شناسه")]
         [Column(Order = 0)]
