@@ -21,10 +21,9 @@ namespace Cheetah_DataAccess.Data
         #region Dimentions
         public virtual DbSet<D_Entity> D_Entities { get; set; }
         public virtual DbSet<D_Tag> D_Tags { get; set; }
-        public virtual DbSet<D_Process> P_RequestTitles { get; set; }
-        public virtual DbSet<D_ProcessState> P_ProcessStates { get; set; }
-        public virtual DbSet<D_Position> P_Positions { get; set; }
-        public virtual DbSet<F_Scenario> D_EndorsementPatterns { get; set; }                
+        public virtual DbSet<D_Process> D_Processes { get; set; }
+        public virtual DbSet<D_ProcessState> D_ProcessStates { get; set; }
+        public virtual DbSet<D_Position> D_Positions { get; set; }                     
         public virtual DbSet<D_Location> D_Locations { get; set; }
         public virtual DbSet<D_Role> D_Roles { get; set; }
         public virtual DbSet<D_User> D_Users { get; set; }
@@ -35,10 +34,11 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
         public virtual DbSet<F_Condition> F_Conditions { get; set; }
         public virtual DbSet<F_RequestInformation> F_RequestInformations { get; set; }
-        public virtual DbSet<F_AllReview> F_AllApproves { get; set; }
-        public virtual DbSet<F_Review> F_Approves { get; set; }
+        public virtual DbSet<F_AllReview> F_AllReviews { get; set; }
+        public virtual DbSet<F_Review> F_Reviews { get; set; }
         public virtual DbSet<F_Attachment> F_Attachments { get; set; }
-        
+        public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
+
         #endregion
 
         #region Links

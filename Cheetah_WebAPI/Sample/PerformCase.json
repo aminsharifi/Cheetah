@@ -1,0 +1,26 @@
+﻿{
+	"Process": "PolicyCenter",
+	"Creator": "BPMS",
+	"Requestor": "sharifi.m",
+	"Subject": "Policy Center",
+	"ERPID": 123,
+	"BPMSID": 123,
+	"ReviewID": 565985,
+	"Review": {		
+		"UserInCharge": "sharifi.m",
+		"Status": "Approve",
+		"Comment": "I approve it"
+	},
+	"Condition": [
+		{
+			"Tag": "OursShare",
+			"Operand": "=",
+			"Value": "30"
+		},
+		{
+			"Tag": "FMCG",
+			"Operand": "=",
+			"Value": "True"
+		}
+	]
+}

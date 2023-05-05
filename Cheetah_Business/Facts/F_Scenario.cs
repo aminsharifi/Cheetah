@@ -18,10 +18,13 @@ namespace Cheetah_Business.Facts
     {
         #region Relations
 
+        [UseSorting]
         public virtual ICollection<F_Condition>? EP_Conditions { get; set; } = new HashSet<F_Condition>();
 
+        [UseSorting]
         public virtual ICollection<F_Endorsement>? EP_Endorsements { get; set; } = new HashSet<F_Endorsement>();
 
+        [UseSorting]
         public virtual ICollection<L_Process_Strategy>? EP_Process_Strategies { get; set; } = new HashSet<L_Process_Strategy>();
 
         #endregion

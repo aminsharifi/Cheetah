@@ -1,0 +1,66 @@
+﻿{
+	"UserName": "sharifi.m",
+	"State": "Running",
+	"Process": "PolicyCenter",
+	"BPMSId": 9876523,
+	"ERPId": 1245487,
+	"Performers": {
+		"Role": {
+			"Name": "Role1"
+		},
+		"Possitions": [
+			{
+				"Name": "Possition1"
+			},
+			{
+				"Name": "Possition2"
+			}
+		],
+		"Users": [
+			{
+				"Name": "User1"
+			},
+			{
+				"Name": "User2"
+			}
+		]
+	},
+	"Endorsments": [
+		{
+			"Index": 1,
+			"Id": 25849,
+			"RoleName": "Role1",
+			"PossitionsName": "Possition1",
+			"Status": "Approve",
+			"UserName": "User1"
+		},
+		{
+			"Index": 2,
+			"Id": 98741,
+			"RoleName": "Role2",
+			"PossitionsName": "Possition2",
+			"Status": "Approve",
+			"UserName": "User2"
+		}
+	],
+	"Reviews": [
+		{
+			"Index": 1,
+			"Id": 654464,
+			"UserInCharge": "sharifi.m",
+			"Status": "Approve",
+			"Comment": "I approve it",
+			"RecieveDate": "2000-01-01 09:45",
+			"SentDate": "2000-01-02 10:45"
+		},
+		{
+			"Index": 2,
+			"ReviewId": 98562,
+			"UserInCharge": "sharifi.ma",
+			"Status": "Approve",
+			"Comment": "I Reject it",
+			"RecieveDate": "2000-01-01 09:45",
+			"SentDate": "2000-01-02 10:45"
+		}
+	]
+}
