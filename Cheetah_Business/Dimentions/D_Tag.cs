@@ -18,7 +18,7 @@ namespace Cheetah_Business.Dimentions
 
         #region Entity
         [Column(Order = 100)]
-        public long TG_TagTypeId { get; set; }
+        public long? TG_TagTypeId { get; set; }
         public virtual D_TagType TG_TagType { get; set; }
 
         #endregion

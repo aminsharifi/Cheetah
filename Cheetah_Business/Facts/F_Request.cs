@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
-    [Table(nameof(F_RequestInformation), Schema = nameof(TableType.Facts))]
+    [Table(nameof(F_Request), Schema = nameof(TableType.Facts))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -14,7 +14,7 @@ namespace Cheetah_Business.Facts
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class F_RequestInformation : BaseClass<F_RequestInformation>
+    public partial class F_Request : BaseClass<F_Request>
     {
         #region Simple Prob
         [Column(Order = 100)]
@@ -43,12 +43,14 @@ namespace Cheetah_Business.Facts
         public long? RI_CreatorId { get; set; }
         public virtual D_User? RI_Creator { get; set; }
 
-        [Column(Order = 109)]
-        public long? RI_AllApproveId { get; set; }
-        public virtual F_AllReview? RI_AllApprove { get; set; }
         #endregion
 
         #region Enitty
+
+        [Column(Order = 109)]
+        public long? RI_AllReviewId { get; set; }
+        public virtual F_AllReview? RI_AllReview { get; set; }
+
         [Description("وضعیت فرآیند")]
         [Column(Order = 110)]
         public long? RI_ProcessStateId { get; set; }

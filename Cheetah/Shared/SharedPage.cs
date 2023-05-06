@@ -11,7 +11,7 @@ namespace Cheetah.Shared
         #region Parameters
 
         [Parameter]
-        public long Id { get; set; } = 0;
+        public long? Id { get; set; } = 0;
 
         [Parameter]
         public long? LinkId { get; set; } = 0;

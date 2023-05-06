@@ -240,10 +240,10 @@
                 secondType = nameof(F_Scenario),
                 fixedId = Id,
                 sd_Status = nameof(LinkProperty.Second),
-                floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long, string>, Boolean>(
-                    new Tuple<long, string>(x.Id, x.PDisplayName),
+                floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+                    new Tuple<long?, string>(x.Id, x.PDisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                            .ToDictionary(x => x.Key, x => x.Value)
+                    .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 

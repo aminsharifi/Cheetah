@@ -13,7 +13,7 @@ namespace Cheetah_DataAccess.Data
         {
             #region Dimentions
 
-            #region D_RequestTitle
+            #region D_Process
             modelBuilder.Entity<D_Process>().HasData(
                 new D_Process
                 {
@@ -576,7 +576,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 205,
                             PCode = 205,
                             PIndex = 205,
-                            PName = nameof(F_RequestInformation),
+                            PName = nameof(F_Request),
                             PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString(),
                             Display = true
                         },

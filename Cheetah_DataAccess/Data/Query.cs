@@ -100,9 +100,9 @@ namespace Cheetah_DataAccess.Data
         [UseProjection]
         [UseFiltering]
         [UseSorting]
-        public IQueryable<F_RequestInformation> f_RequestInformations([Service] ApplicationDbContext context)
+        public IQueryable<F_Request> f_Requests([Service] ApplicationDbContext context)
         {
-            return context.F_RequestInformations;
+            return context.F_Requests;
         }
         [UseProjection]
         [UseFiltering]

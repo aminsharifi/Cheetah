@@ -1,6 +1,7 @@
 ﻿using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -85,7 +86,7 @@ namespace Cheetah_Client.Service
             return null;
         }
 
-        public Task<int> delete(string type, long id)
+        public Task<int> delete(string type, long? id)
         {
             throw new NotImplementedException();
         }
@@ -96,7 +97,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SimpleLinkClass>> GetAllLink(string type, string sd_Status, long linkID)
+        public Task<IEnumerable<SimpleLinkClass>> GetAllLink(string type, string sd_Status, long? linkID)
         {
             throw new NotImplementedException();
         }
@@ -129,7 +130,7 @@ namespace Cheetah_Client.Service
             }
         }
 
-        public Task<int> UpdateLink(IEnumerable<SimpleLinkClassDTO> obj_DTO, string type, string sd_Status, long linkID)
+        public Task<int> UpdateLink(IEnumerable<SimpleLinkClassDTO> obj_DTO, string type, string sd_Status, long? linkID)
         {
             throw new NotImplementedException();
         }
@@ -159,7 +160,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        Task<int> ISimpleClassRepository.delete(string type, long id)
+        Task<int> ISimpleClassRepository.delete(string type, long? id)
         {
             throw new NotImplementedException();
         }
@@ -174,7 +175,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<SimpleLinkClass>> ISimpleClassRepository.GetAllLink(string type, string sd_Status, long linkID)
+        Task<IEnumerable<SimpleLinkClass>> ISimpleClassRepository.GetAllLink(string type, string sd_Status, long? linkID)
         {
             throw new NotImplementedException();
         }
@@ -202,6 +203,11 @@ namespace Cheetah_Client.Service
         }
 
         Task<SimpleLinkClass> ISimpleClassRepository.AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<F_Request> PerformRequestAsync(F_Request request)
         {
             throw new NotImplementedException();
         }

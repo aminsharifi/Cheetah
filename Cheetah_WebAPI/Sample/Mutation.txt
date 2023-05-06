@@ -1,0 +1,7 @@
+mutation($tableName:String!,$pName: String!,$pDisplayName:String!)
+{
+  addTable(tableName: $tableName, pName:$pName,pDisplayName:$pDisplayName ) {
+    pName
+    pDisplayName
+  }
+}

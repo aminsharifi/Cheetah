@@ -87,7 +87,7 @@
 
 @code {
 
-    public void PrepareLink(long getId, CrudOperation getCrudOperation)
+    public void PrepareLink(long? getId, CrudOperation getCrudOperation)
     {
         LoadData = true;
         Id = getId;
@@ -112,7 +112,7 @@
         StateHasChanged();
     }
 
-    private async Task HandleDelete(long DeletedState)
+    private async Task HandleDelete(long? DeletedState)
     {
         Id = DeletedState;
         await _JsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
