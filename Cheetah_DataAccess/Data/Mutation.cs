@@ -1,4 +1,4 @@
-﻿using Cheetah_Business.Data;
+﻿using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using HotChocolate;
 
@@ -6,15 +6,13 @@ namespace Cheetah_DataAccess.Data
 {
     public class Mutation
     {
-        public async Task<SimpleClass> AddTableAsync(
-            [Service] ISimpleClassRepository iSimpleClassRepository,
-            String TableName, String PName, String PDisplayName)
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public async Task<F_Request> PerformRequestAsync(
+            [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
         {
-            var d_Entity = await iSimpleClassRepository.Get(TableName, 0);
-            d_Entity.PName = PName;
-            d_Entity.PDisplayName = PDisplayName;
-
-            return await iSimpleClassRepository.Create(d_Entity);
+            return await iSimpleClassRepository.PerformRequestAsync(request);
         }
     }
 }

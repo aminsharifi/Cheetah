@@ -7,10 +7,10 @@ namespace Cheetah_Business.Data
     {
         [Column(Order = 50)]
         [Required]
-        public Int64 FirstId { get; set; }
+        public Int64? FirstId { get; set; }
 
         [Column(Order = 51)]
         [Required]
-        public Int64 SecondId { get; set; }
+        public Int64? SecondId { get; set; }
     }
 }

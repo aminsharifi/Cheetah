@@ -33,7 +33,7 @@ namespace Cheetah_DataAccess.Data
         #region Facts
         public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
         public virtual DbSet<F_Condition> F_Conditions { get; set; }
-        public virtual DbSet<F_RequestInformation> F_RequestInformations { get; set; }
+        public virtual DbSet<F_Request> F_Requests { get; set; }
         public virtual DbSet<F_AllReview> F_AllReviews { get; set; }
         public virtual DbSet<F_Review> F_Reviews { get; set; }
         public virtual DbSet<F_Attachment> F_Attachments { get; set; }

@@ -19,19 +19,20 @@ namespace Cheetah_Business.Facts
         #region Simple Prop
 
         [Column(Order = 100)]
-        public virtual long? AAP_Current_ReviewId { get; set; }
-        public virtual F_Review? AAP_Current_Review { get; set; }
+        public virtual long? AR_Current_ReviewId { get; set; }
+        public virtual F_Review? AR_Current_Review { get; set; }
 
         [Column(Order = 101)]        
-        public virtual long? AAP_Last_ReviewId { get; set; }
-        public virtual F_Review? AAP_Last_Review { get; set; }
+        public virtual long? AR_Last_ReviewId { get; set; }
+        public virtual F_Review? AR_Last_Review { get; set; }
         #endregion
 
         #region Collection
         [InverseProperty(nameof(F_Review.APV_NeedReview))]
-        public virtual ICollection<F_Review>? AAP_NeedReviews { get; set; } = new HashSet<F_Review>();
+        public virtual ICollection<F_Review>? AR_NeedReviews { get; set; } = new HashSet<F_Review>();
+
         [InverseProperty(nameof(F_Review.APV_Review))]
-        public virtual ICollection<F_Review>? AAP_Reviews { get; set; } = new HashSet<F_Review>();
+        public virtual ICollection<F_Review>? AR_Reviews { get; set; } = new HashSet<F_Review>();
         #endregion
     }
 }

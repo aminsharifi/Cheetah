@@ -31,7 +31,7 @@ namespace Cheetah_Business
     }
     public struct UpsertStatus
     {
-        public KeyValuePair<CrudOperation, String> GetPageTitle(long id)
+        public KeyValuePair<CrudOperation, String> GetPageTitle(long? id)
         {
             if (id == 0)
             {

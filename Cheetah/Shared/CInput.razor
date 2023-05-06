@@ -144,9 +144,11 @@
     public EventCallback<long?> NLValueChanged { get; set; }
 
 
-    private long _Lvalue;
     [Parameter]
-    public long LValue
+    public EventCallback<long?> LValueChanged { get; set; }
+    private long? _Lvalue;
+    [Parameter]
+    public long? LValue
     {
         get => _Lvalue;
         set
@@ -156,9 +158,6 @@
             LValueChanged.InvokeAsync(value);
         }
     }
-    [Parameter]
-    public EventCallback<long> LValueChanged { get; set; }
-
 
     private Boolean _Bvalue;
     [Parameter]

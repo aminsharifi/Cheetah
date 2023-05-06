@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using HotChocolate;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,29 +7,29 @@ namespace Cheetah_Business.Data
 {
     public abstract class SimpleClass
     {
-        [NotMapped]
-        public String? TableName { get; set; }
-
         [Key]
         [Description("شناسه")]
         [Column(Order = 0)]
-        public Int64 Id { get; set; }
+        [DefaultValue(0)]
+        public Int64? Id { get; set; }
 
         [Description("کد")]
         [Required(ErrorMessage = "کد اجباری است")]
         [Column(Order = 1)]
-        public Int64 PCode { get; set; }
+        [DefaultValue(0)]
+        public Int64? PCode { get; set; }
 
         [Description("اندیس مرتب‌سازی")]
+        [Required(ErrorMessage = "اندیس سورت اجباری است")]      
         [Column(Order = 2)]
-        [Required(ErrorMessage = "اندیس سورت اجباری است")]
+        [DefaultValue(0)]
         public Int64? PIndex { get; set; }
 
 
         [StringLength(512)]
         [Description("نام")]
-        [Column(Order = 3)]
         [Required(ErrorMessage = "نام اجباری است")]
+        [Column(Order = 3)]
         public String? PName { get; set; }
 
         [StringLength(512)]
@@ -36,7 +37,6 @@ namespace Cheetah_Business.Data
         [Required(ErrorMessage = "نام نمایشی اجباری است")]
         [Column(Order = 4)]
         public String? PDisplayName { get; set; }
-
 
         [StringLength(512)]
         [Description("توضیحات")]
