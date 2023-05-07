@@ -14,19 +14,18 @@ namespace Cheetah_DataAccess.Repository
     {
         protected ApplicationDbContext _db;
         protected IMapper _mapper;
+
         public SimpleClassRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
         }
-
-        public async Task<int> AddLink(SimpleLinkClassDTO obj_DTO)
+        public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
         {
             await _db.AddAsync(obj_DTO);
 
             return 1;
         }
-
         public async Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
         {
             simpleLinkClass.PDisplayName = new StringBuilder()
@@ -42,40 +41,43 @@ namespace Cheetah_DataAccess.Repository
                               .ToString();
             return simpleLinkClass;
         }
-
         public async Task<F_Request> PerformRequestAsync(F_Request request)
         {
+            F_Request GeneralRequest = request;
             try
             {
+
                 #region Create
 
-                if (request.Id is null || request.Id == 0)
+                if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
                 {
                     #region Initials
                     var temp_Request = await GetLast(nameof(F_Request)) as F_Request;
-                    request.Id = null;
-                    request.PCode = temp_Request.PCode;
-                    request.PIndex = temp_Request.PIndex;
+                    GeneralRequest.Id = null;
+                    GeneralRequest.PCode = temp_Request.PCode;
+                    GeneralRequest.PIndex = temp_Request.PIndex;
+                    GeneralRequest.PName = nameof(F_Request) + "-" + temp_Request.PCode;
+                    GeneralRequest.PDisplayName = nameof(F_Request) + "-" + temp_Request.PCode;
                     #endregion
 
                     #region f_AllReview
 
                     var f_AllReview = await GetLast(nameof(F_AllReview)) as F_AllReview;
 
-                    request.RI_AllReview.Id = null;
-                    request.RI_AllReview.PName =
-                        request.RI_AllReview.PDisplayName =
+                    GeneralRequest.RI_AllReview.Id = null;
+                    GeneralRequest.RI_AllReview.PName =
+                        GeneralRequest.RI_AllReview.PDisplayName =
                         f_AllReview.PCode.Value.ToString();
 
-                    request.RI_AllReview.PCode = f_AllReview.PCode;
-                    request.RI_AllReview.PIndex = f_AllReview.PIndex;
+                    GeneralRequest.RI_AllReview.PCode = f_AllReview.PCode;
+                    GeneralRequest.RI_AllReview.PIndex = f_AllReview.PIndex;
 
                     #endregion
 
                 }
                 else
                 {
-                    request = _db.F_Requests.Update(request);
+                    GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
                 }
 
                 #endregion
@@ -83,38 +85,52 @@ namespace Cheetah_DataAccess.Repository
                 #region Current_Review
 
                 var f_Review = await GetLast(nameof(F_Review)) as F_Review;
-                request.RI_AllReview.AR_Current_Review.Id = null;
-                request.RI_AllReview.AR_Current_Review.PCode = f_Review.PCode;
-                request.RI_AllReview.AR_Current_Review.PIndex = f_Review.PIndex;
+
+                GeneralRequest.RI_AllReview.AR_Current_Review.Id = f_Review.Id;
+                GeneralRequest.RI_AllReview.AR_Current_Review.PCode = f_Review.PCode;
+                GeneralRequest.RI_AllReview.AR_Current_Review.PIndex = f_Review.PIndex;
+                GeneralRequest.RI_AllReview.AR_Current_Review.PName = GeneralRequest.PName + "-" + f_Review.PCode;
+                GeneralRequest.RI_AllReview.AR_Current_Review.PDisplayName = request.RI_AllReview.AR_Current_Review.PDisplayName;
+                GeneralRequest.RI_AllReview.AR_Current_Review.APV_TagId = request.RI_AllReview.AR_Current_Review.APV_TagId;
+                GeneralRequest.RI_AllReview.AR_Current_Review.APV_UserInChargeId = request.RI_AllReview.AR_Current_Review.APV_UserInChargeId;
+                GeneralRequest.RI_AllReview.AR_Current_Review.APV_EndorsementId = request.RI_AllReview.AR_Current_Review.APV_EndorsementId;
 
                 #endregion
-                if (request.Id is null || request.Id == 0)
+                if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
                 {
-                    var tmp = await _db.AddAsync(request);
-                    request = tmp.Entity;
+                    var tmp = await _db.AddAsync(GeneralRequest);
+                    GeneralRequest = tmp.Entity;
                 }
                 else
                 {
-                    //_db.F_Requests.Update(request);
+                    var tmp = _db.Update(GeneralRequest);
+                    GeneralRequest = tmp.Entity;
                 }
+
                 await _db.SaveChangesAsync();
-                request.RI_AllReview.AR_Current_Review.APV_ReviewId = request.RI_AllReview.Id;
+                GeneralRequest.RI_AllReview.AR_Current_Review.APV_AllReviewId = GeneralRequest.RI_AllReview.Id;
                 await _db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 throw;
             }
-            return request;
-        }
 
+            var ret_Requests = await _db.F_Requests.Where(x => x.Id == GeneralRequest.Id)
+                .Include(x => x.RI_AllReview.AR_Current_Review.APV_Tag)
+                .Include(x => x.RI_AllReview.AR_Current_Review.APV_UserInCharge)
+                .Include(x => x.RI_AllReview.AR_Current_Review.APV_Endorsement)
+                .FirstAsync();
+
+            return ret_Requests;
+        }
         public async Task<SimpleClass> Create(SimpleClass obj_DTO)
         {
             await _db.AddAsync(obj_DTO);
             await _db.SaveChangesAsync();
             return obj_DTO;
         }
-        public async Task<int> delete(string type, long? id)
+        public async Task<Int32> delete(string type, Int64? id)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -130,7 +146,7 @@ namespace Cheetah_DataAccess.Repository
             }
             return -1;
         }
-        public async Task<SimpleClass> Get(string type, long? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
+        public async Task<SimpleClass> Get(string type, Int64? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -167,7 +183,7 @@ namespace Cheetah_DataAccess.Repository
             }
             return new List<SimpleClass>();
         }
-        public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, string sd_Status, long? linkID)
+        public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, string sd_Status, Int64? linkID)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -206,7 +222,7 @@ namespace Cheetah_DataAccess.Repository
             instance.PIndex = aa.Any() ? aa.Max(x => x.PIndex) + 1 : 1;
             return instance;
         }
-        public async Task<int> RemoveLink(SimpleLinkClassDTO obj_DTO)
+        public async Task<Int32> RemoveLink(SimpleLinkClassDTO obj_DTO)
         {
             _db.Remove(obj_DTO);
 
@@ -219,7 +235,7 @@ namespace Cheetah_DataAccess.Repository
             _db.ChangeTracker.Clear();
             return obj_DTO;
         }
-        public async Task<int> UpdateLink(SimpleLinkClassDTO obj_DTO)
+        public async Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO)
         {
             var gtype = DatabaseClass.GetDBType(obj_DTO.linkType);
 

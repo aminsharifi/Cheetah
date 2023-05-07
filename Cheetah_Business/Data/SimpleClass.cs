@@ -29,12 +29,14 @@ namespace Cheetah_Business.Data
         [StringLength(512)]
         [Description("نام")]
         [Required(ErrorMessage = "نام اجباری است")]
+        [DefaultValue("")]
         [Column(Order = 3)]
         public String? PName { get; set; }
 
         [StringLength(512)]
         [Description("نام نمایشی")]
         [Required(ErrorMessage = "نام نمایشی اجباری است")]
+        [DefaultValue("")]
         [Column(Order = 4)]
         public String? PDisplayName { get; set; }
 

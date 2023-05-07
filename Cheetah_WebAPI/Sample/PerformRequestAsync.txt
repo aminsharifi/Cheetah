@@ -1,0 +1,45 @@
+Operation =>
+mutation($f_Request:F_RequestInput!)
+{
+  performRequest (request:$f_Request)
+  {
+    id
+    ri_AllReview {
+     ar_Reviews
+     {        
+        pDisplayName
+        apv_Tag {
+          pName
+          pDisplayName
+        }
+        apv_UserInCharge {
+          pName
+          pDisplayName
+        }
+        apv_Endorsement {
+          ed_Role {
+            pName
+            pDisplayName
+            rol_Independent
+          }
+        }
+     }      
+    }
+  }
+}
+Variable =>
+{
+  "f_Request":
+  {
+      "ri_AllReview":
+      {
+        "ar_Current_Review":
+        {
+          "pDisplayName" : "درخواست مورد تایید است",
+          "apv_TagId": 201,
+          "apv_UserInChargeId": 1,
+          "apv_EndorsementId":1
+        }
+      }
+  }
+}
