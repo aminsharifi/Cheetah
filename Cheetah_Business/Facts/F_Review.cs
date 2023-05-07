@@ -30,8 +30,13 @@ namespace Cheetah_Business.Facts
         public virtual F_AllReview? APV_NeedReview { get; set; }
 
         [Column(Order = 103)]
-        public long? APV_ReviewId { get; set; }
-        public virtual F_AllReview? APV_Review { get; set; }
+        public long? APV_AllReviewId { get; set; }
+        public virtual F_AllReview? APV_AllReview { get; set; }
+
+        [Column(Order = 104)]
+        public long? APV_TagId { get; set; }
+        public virtual D_Tag? APV_Tag { get; set; }
+        
 
         [Description("ضمیمه")]
         public virtual ICollection<F_Attachment>? APV_Attachments { get; set; } = new HashSet<F_Attachment>();

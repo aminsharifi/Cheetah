@@ -14,24 +14,18 @@ namespace Cheetah_Business.Facts
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class F_AllReview : BaseClass<F_AllReview>
     {
-        //Passed
-
         #region Simple Prop
 
         [Column(Order = 100)]
         public virtual long? AR_Current_ReviewId { get; set; }
         public virtual F_Review? AR_Current_Review { get; set; }
-
-        [Column(Order = 101)]        
-        public virtual long? AR_Last_ReviewId { get; set; }
-        public virtual F_Review? AR_Last_Review { get; set; }
         #endregion
 
         #region Collection
         [InverseProperty(nameof(F_Review.APV_NeedReview))]
         public virtual ICollection<F_Review>? AR_NeedReviews { get; set; } = new HashSet<F_Review>();
 
-        [InverseProperty(nameof(F_Review.APV_Review))]
+        [InverseProperty(nameof(F_Review.APV_AllReview))]
         public virtual ICollection<F_Review>? AR_Reviews { get; set; } = new HashSet<F_Review>();
         #endregion
     }
