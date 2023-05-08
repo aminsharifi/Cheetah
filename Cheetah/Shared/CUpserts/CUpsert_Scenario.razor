@@ -231,11 +231,11 @@
         List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<SimpleClass>;
 
         AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
-        AllLink = await simpleClassRepository.GetAllLink(nameof(L_Process_Strategy), nameof(LinkProperty.Second), Id);
+        AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = nameof(L_Process_Strategy),
+                linkType = nameof(L_ProcessScenario),
                 firstType = nameof(D_Process),
                 secondType = nameof(F_Scenario),
                 fixedId = Id,

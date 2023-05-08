@@ -21,22 +21,22 @@ namespace Cheetah_Business.Dimentions
         #region Others
         [Description("نمایش جهت پشتیبانی")]
         [Column(Order = 100)]
-        public Boolean? PN_ShowSupport { get; set; } = true;
+        public Boolean? PC_ShowSupport { get; set; } = true;
 
         [Description("فرآیند ERP")]
         [Column(Order = 101)]
-        public Boolean? PN_ERP { get; set; } = true;
+        public Boolean? PC_ERP { get; set; } = true;
 
         [Description("حذف تایید درخواست کننده")]
         [Column(Order = 102)]
-        public Boolean? PN_RemoveRequestorApproval { get; set; } = true;
+        public Boolean? PC_RemoveRequestorApproval { get; set; } = true;
 
         #endregion
 
         #endregion
 
         #region Relations
-        public virtual ICollection<L_Process_Strategy>? PSO_Process_Strategies { get; set; } = new HashSet<L_Process_Strategy>();
+        public virtual ICollection<L_ProcessScenario>? PC_ProcessScenario { get; set; } = new HashSet<L_ProcessScenario>();
         #endregion
     }
 }

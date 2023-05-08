@@ -2,9 +2,12 @@
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Facts;
+using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -44,33 +47,40 @@ namespace Cheetah_DataAccess.Repository
         public async Task<F_Request> PerformRequestAsync(F_Request request)
         {
             F_Request GeneralRequest = request;
+
             try
             {
+                if (!String.IsNullOrEmpty(request.RI_Creator.PName))
+                {
+                    var RI_Creator = await _db.D_Users.SingleAsync(x => x.PName == request.RI_Creator.PName);
+                    GeneralRequest.RI_CreatorId = RI_Creator.Id;
+                    GeneralRequest.RI_Creator = RI_Creator;
+                }
+                if (!String.IsNullOrEmpty(request.RI_Requestor.PName))
+                {
+                    var RI_Requestor = await _db.D_Users.SingleAsync(x => x.PName == request.RI_Requestor.PName);
+                    GeneralRequest.RI_RequestorId = RI_Requestor.Id;
+                    GeneralRequest.RI_Requestor = RI_Requestor;
+                }
+                if (!String.IsNullOrEmpty(request.RI_Process.PName))
+                {
+                    var RI_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RI_Process.PName);
+                    GeneralRequest.RI_ProcessId = RI_Process.Id;
+                    GeneralRequest.RI_Process = RI_Process;
+                }
 
                 #region Create
 
                 if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
                 {
                     #region Initials
+
                     var temp_Request = await GetLast(nameof(F_Request)) as F_Request;
                     GeneralRequest.Id = null;
                     GeneralRequest.PCode = temp_Request.PCode;
                     GeneralRequest.PIndex = temp_Request.PIndex;
                     GeneralRequest.PName = nameof(F_Request) + "-" + temp_Request.PCode;
                     GeneralRequest.PDisplayName = nameof(F_Request) + "-" + temp_Request.PCode;
-                    #endregion
-
-                    #region f_AllReview
-
-                    var f_AllReview = await GetLast(nameof(F_AllReview)) as F_AllReview;
-
-                    GeneralRequest.RI_AllReview.Id = null;
-                    GeneralRequest.RI_AllReview.PName =
-                        GeneralRequest.RI_AllReview.PDisplayName =
-                        f_AllReview.PCode.Value.ToString();
-
-                    GeneralRequest.RI_AllReview.PCode = f_AllReview.PCode;
-                    GeneralRequest.RI_AllReview.PIndex = f_AllReview.PIndex;
 
                     #endregion
 
@@ -82,20 +92,139 @@ namespace Cheetah_DataAccess.Repository
 
                 #endregion
 
-                #region Current_Review
+                #region Conditions
 
-                var f_Review = await GetLast(nameof(F_Review)) as F_Review;
+                var f_Condition = await GetLast(nameof(F_Condition)) as F_Condition;
 
-                GeneralRequest.RI_AllReview.AR_Current_Review.Id = f_Review.Id;
-                GeneralRequest.RI_AllReview.AR_Current_Review.PCode = f_Review.PCode;
-                GeneralRequest.RI_AllReview.AR_Current_Review.PIndex = f_Review.PIndex;
-                GeneralRequest.RI_AllReview.AR_Current_Review.PName = GeneralRequest.PName + "-" + f_Review.PCode;
-                GeneralRequest.RI_AllReview.AR_Current_Review.PDisplayName = request.RI_AllReview.AR_Current_Review.PDisplayName;
-                GeneralRequest.RI_AllReview.AR_Current_Review.APV_TagId = request.RI_AllReview.AR_Current_Review.APV_TagId;
-                GeneralRequest.RI_AllReview.AR_Current_Review.APV_UserInChargeId = request.RI_AllReview.AR_Current_Review.APV_UserInChargeId;
-                GeneralRequest.RI_AllReview.AR_Current_Review.APV_EndorsementId = request.RI_AllReview.AR_Current_Review.APV_EndorsementId;
+                foreach (var item in GeneralRequest.RI_Conditions)
+                {
+                    if (item.Id is null || item.Id == 0)
+                    {
+                        item.Id = null;
+                        item.PCode = f_Condition.PCode++;
+                        item.PIndex = f_Condition.PIndex++;
+                        item.PDisplayName = item.PName = GeneralRequest.PCode.ToString() + "-" + f_Condition.PCode.ToString();
+                    }
+                    else
+                    {
+                        var ri_Conditions = GeneralRequest.RI_Conditions.Single(x => x.Id == item.Id);
+                        ri_Conditions.CD_TagId = item.CD_TagId;
+                        ri_Conditions.CD_OperandId = item.CD_OperandId;
+                        ri_Conditions.CD_Value = item.CD_Value;
+                    }
+                    if (!String.IsNullOrEmpty(item.CD_Tag?.PName))
+                    {
+                        var CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
+                        item.CD_TagId = CD_Tag.Id;
+                        item.CD_Tag = CD_Tag;
+                    }
+                    var CD_Operand = await _db.D_Operands.SingleAsync(x => x.Id == 1);
+                    item.CD_OperandId = CD_Operand.Id;
+                    item.CD_Operand = CD_Operand;
+                }
 
                 #endregion
+
+                F_Scenario SelectedScenario = null;
+
+                var pc_ProcessScenario = GeneralRequest.RI_Process.PC_ProcessScenario.ToList<L_ProcessScenario>();
+
+                foreach (var ProcessScenario in pc_ProcessScenario)
+                {
+                    var ConditionOccur = true;
+
+                    foreach (var Condition in ProcessScenario.PS_Scenario.EP_Conditions)
+                    {
+                        if (!GeneralRequest.RI_Conditions.Any(x => x.CD_Tag.PName == Condition.CD_Tag.PName))
+                        {
+                            var Scenario_Value = float.Parse(Condition.CD_Value);
+                            var Current_Value = float.Parse(GeneralRequest.RI_Conditions
+                                .Single(x => x.CD_Tag.PName == Condition.CD_Tag.PName).CD_Value);
+                            var Operand_Name = Condition.CD_Operand.PName;
+
+                            if (
+                                (Operand_Name == ">" && Current_Value < Scenario_Value)
+                                || (Operand_Name == ">=" && Current_Value <= Scenario_Value)
+                                || (Operand_Name == "<" && Current_Value > Scenario_Value)
+                                || (Operand_Name == "<=" && Current_Value >= Scenario_Value)
+                                || (Operand_Name == "=" && Current_Value != Scenario_Value)
+                                || (Operand_Name == "!=" && Current_Value == Scenario_Value)
+                                )
+                            {
+                                ConditionOccur = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (ConditionOccur)
+                    {
+                        SelectedScenario = ProcessScenario.PS_Scenario;
+                        break;
+                    }
+                }
+
+
+
+
+                if (GeneralRequest.RI_AllReview.AR_Current_Review is not null)
+                {
+
+                    #region AllReview
+
+                    if (GeneralRequest.RI_AllReview.Id == 0 || GeneralRequest.RI_AllReview.Id is null)
+                    {
+                        var f_AllReview = await GetLast(nameof(F_AllReview)) as F_AllReview;
+
+                        GeneralRequest.RI_AllReview.Id = null;
+                        GeneralRequest.RI_AllReview.PName =
+                            GeneralRequest.RI_AllReview.PDisplayName =
+                            f_AllReview.PCode.Value.ToString();
+
+                        GeneralRequest.RI_AllReview.PCode = f_AllReview.PCode;
+                        GeneralRequest.RI_AllReview.PIndex = f_AllReview.PIndex;
+                    }
+
+                    #endregion
+
+                    #region Current_Review
+
+                    var f_Review = await GetLast(nameof(F_Review)) as F_Review;
+
+                    GeneralRequest.RI_AllReview.AR_Current_Review.Id = f_Review.Id;
+                    GeneralRequest.RI_AllReview.AR_Current_Review.PCode = f_Review.PCode;
+                    GeneralRequest.RI_AllReview.AR_Current_Review.PIndex = f_Review.PIndex;
+                    GeneralRequest.RI_AllReview.AR_Current_Review.PName = GeneralRequest.PName + "-" + f_Review.PCode;
+                    GeneralRequest.RI_AllReview.AR_Current_Review.PDisplayName = request.RI_AllReview.AR_Current_Review.PDisplayName;
+
+                    if (!String.IsNullOrEmpty(request.RI_AllReview.AR_Current_Review.APV_Tag.PName))
+                    {
+                        var APV_Tag = await _db.D_Tags.SingleAsync(x => x.PName == request.RI_AllReview.AR_Current_Review.APV_Tag.PName);
+                        GeneralRequest.RI_AllReview.AR_Current_Review.APV_TagId = APV_Tag.Id;
+                        GeneralRequest.RI_AllReview.AR_Current_Review.APV_Tag = APV_Tag;
+                    }
+
+                    if (!String.IsNullOrEmpty(request.RI_AllReview.AR_Current_Review.APV_UserInCharge.PName))
+                    {
+                        var APV_UserInCharge = await _db.D_Users
+                            .SingleAsync(x => x.PName == request.RI_AllReview.AR_Current_Review.APV_UserInCharge.PName);
+
+                        GeneralRequest.RI_AllReview.AR_Current_Review.APV_UserInChargeId = APV_UserInCharge.Id;
+                        GeneralRequest.RI_AllReview.AR_Current_Review.APV_UserInCharge = APV_UserInCharge;
+                    }
+
+                    if (!String.IsNullOrEmpty(request.RI_AllReview.AR_Current_Review.APV_Endorsement?.PName))
+                    {
+                        var APV_Endorsement = await _db.F_Endorsements
+                            .SingleAsync(x => x.PName == request.RI_AllReview.AR_Current_Review.APV_Endorsement.PName);
+
+                        GeneralRequest.RI_AllReview.AR_Current_Review.APV_EndorsementId = APV_Endorsement.Id;
+                        GeneralRequest.RI_AllReview.AR_Current_Review.APV_Endorsement = APV_Endorsement;
+                    }
+
+
+                    #endregion
+                }
+
                 if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
                 {
                     var tmp = await _db.AddAsync(GeneralRequest);
@@ -108,7 +237,9 @@ namespace Cheetah_DataAccess.Repository
                 }
 
                 await _db.SaveChangesAsync();
+
                 GeneralRequest.RI_AllReview.AR_Current_Review.APV_AllReviewId = GeneralRequest.RI_AllReview.Id;
+
                 await _db.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -116,11 +247,9 @@ namespace Cheetah_DataAccess.Repository
                 throw;
             }
 
-            var ret_Requests = await _db.F_Requests.Where(x => x.Id == GeneralRequest.Id)
-                .Include(x => x.RI_AllReview.AR_Current_Review.APV_Tag)
-                .Include(x => x.RI_AllReview.AR_Current_Review.APV_UserInCharge)
-                .Include(x => x.RI_AllReview.AR_Current_Review.APV_Endorsement)
-                .FirstAsync();
+            var ret_Requests = await _db.F_Requests
+                .Include(x => x.RI_ProcessState)
+                .SingleAsync(x => x.Id == GeneralRequest.Id); ;
 
             return ret_Requests;
         }
