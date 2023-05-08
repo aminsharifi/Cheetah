@@ -603,7 +603,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 301,
                             PCode = 301,
                             PIndex = 301,
-                            PName = nameof(L_Process_Strategy),
+                            PName = nameof(L_ProcessScenario),
                             PDisplayName = new StringBuilder().Append("فرآیند-سناریو").Append($"({TableType.Links})").ToString(),
                             Display = false
                         },
@@ -877,8 +877,8 @@ namespace Cheetah_DataAccess.Data
             #endregion
 
             #region L_RolePosition
-            modelBuilder.Entity<L_Process_Strategy>().HasData(
-                          new L_Process_Strategy
+            modelBuilder.Entity<L_ProcessScenario>().HasData(
+                          new L_ProcessScenario
                           {
                               Id = 1,
                               PCode = 1,
@@ -888,7 +888,7 @@ namespace Cheetah_DataAccess.Data
                               FirstId = 1,
                               SecondId = 3
                           },
-                          new L_Process_Strategy
+                          new L_ProcessScenario
                           {
                               Id = 2,
                               PCode = 2,
@@ -898,7 +898,7 @@ namespace Cheetah_DataAccess.Data
                               FirstId = 1,
                               SecondId = 1
                           },
-                          new L_Process_Strategy
+                          new L_ProcessScenario
                           {
                               Id = 3,
                               PCode = 3,
@@ -908,7 +908,7 @@ namespace Cheetah_DataAccess.Data
                               FirstId = 2,
                               SecondId = 1
                           },
-                          new L_Process_Strategy
+                          new L_ProcessScenario
                           {
                               Id = 4,
                               PCode = 4,
@@ -918,7 +918,7 @@ namespace Cheetah_DataAccess.Data
                               FirstId = 1,
                               SecondId = 2
                           },
-                           new L_Process_Strategy
+                           new L_ProcessScenario
                            {
                                Id = 5,
                                PCode = 5,

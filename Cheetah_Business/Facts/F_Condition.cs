@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using HotChocolate;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
@@ -24,25 +25,28 @@ namespace Cheetah_Business.Facts
         public virtual D_Operand? CD_Operand { get; set; }
 
         [Column(Order = 102)]
-        public String? CD_Value { get; set; }
+        public String CD_Value { get; set; }
 
         [Column(Order = 103)]
         public long? CD_ScenarioId { get; set; }
         public virtual F_Scenario? CD_Scenario { get; set; }
 
         [NotMapped]
+        [GraphQLIgnore]
         public Boolean CD_BooleanValue
         {
             get
             {
-                return (CD_Value == "1") ? true : false;
+                return (CD_Value == "1");
             }
             set
             {
                 CD_Value = (value == true) ? "1" : "0";
             }
         }
+
         [NotMapped]
+        [GraphQLIgnore]
         public float CD_FloatValue
         {
             get

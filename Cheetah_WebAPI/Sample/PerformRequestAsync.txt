@@ -1,44 +1,96 @@
 Operation =>
+
 mutation($f_Request:F_RequestInput!)
 {
   performRequest (request:$f_Request)
   {
     id
+    ri_ERPID
+    ri_ProcessState        
+    {
+      pDisplayName
+    }
+    ri_Creator
+    {
+      pDisplayName
+    }
+    ri_Requestor {
+      pDisplayName
+    }
+    ri_Process {
+      pDisplayName
+    }
+    ri_Conditions
+    {
+      cd_Tag {        
+        pDisplayName
+      }
+      cd_Value 
+    }  
     ri_AllReview {
      ar_Reviews
-     {        
-        pDisplayName
-        apv_Tag {
-          pName
-          pDisplayName
-        }
-        apv_UserInCharge {
-          pName
-          pDisplayName
-        }
-        apv_Endorsement {
-          ed_Role {
+     {      
+        apv_Endorsement
+        {
+          ed_Role
+          {
             pName
             pDisplayName
             rol_Independent
           }
         }
+        apv_Tag {          
+          pDisplayName
+        }
+        apv_UserInCharge {      
+          pDisplayName
+        }
+        pDisplayName
      }      
     }
   }
 }
+
+
 Variable =>
+
 {
   "f_Request":
   {
-      "ri_AllReview":
+    "ri_ERPID":103,
+    "ri_Process":
+    {
+      "pName": "CustomerDefinition"
+    },
+    "ri_Creator":
+    {
+        "pName": "m.sharifi"
+    },
+    "ri_Requestor":
+    {
+        "pName": "a.sharifi"
+    },
+    "ri_Conditions":
+      {
+          "cd_Tag": 
+        {
+          "pName": "OursShare"
+        },
+        "cd_Value":"100"
+      },
+    "ri_AllReview":
       {
         "ar_Current_Review":
         {
-          "pDisplayName" : "درخواست مورد تایید است",
-          "apv_TagId": 201,
-          "apv_UserInChargeId": 1,
-          "apv_EndorsementId":1
+          "apv_Tag": 
+          {
+            "pName": "Approve"
+          },
+          "apv_UserInCharge":
+          {
+            "pName": "m.sharifi"
+          },
+          "pDisplayName" : "درخواست مورد تایید است"
         }
       }
   }
