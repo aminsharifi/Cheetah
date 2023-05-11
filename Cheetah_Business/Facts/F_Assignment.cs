@@ -1,9 +1,11 @@
 ﻿using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
-    [Table(nameof(F_AllReview), Schema = nameof(TableType.Facts))]
+    [Table(nameof(F_Assignment), Schema = nameof(TableType.Facts))]
     [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
     [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
     [Index(nameof(PName), IsUnique = true, AllDescending = true)]
@@ -12,21 +14,15 @@ namespace Cheetah_Business.Facts
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-    public partial class F_AllReview : BaseClass<F_AllReview>
+    public partial class F_Assignment : BaseClass<F_Assignment>
     {
-        #region Simple Prop
 
-        [Column(Order = 100)]
-        public virtual long? AR_Current_ReviewId { get; set; }
-        public virtual F_Review? AR_Current_Review { get; set; }
-        #endregion
+        [Column(Order = 101)]
+        public long? PRM_EndorsementId { get; set; }
+        public virtual F_Endorsement? PRM_Endorsement { get; set; }
 
-        #region Collection
-        [InverseProperty(nameof(F_Review.APV_NeedReview))]
-        public virtual ICollection<F_Review>? AR_NeedReviews { get; set; } = new HashSet<F_Review>();
-
-        [InverseProperty(nameof(F_Review.APV_AllReview))]
-        public virtual ICollection<F_Review>? AR_Reviews { get; set; } = new HashSet<F_Review>();
-        #endregion
+        [Column(Order = 103)]
+        [Description("نامزدهای تایید")]
+        public virtual List<D_User>? PRM_CondidateUsers { get; set; }
     }
 }

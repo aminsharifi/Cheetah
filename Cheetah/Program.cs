@@ -3,10 +3,14 @@ using Cheetah_Business;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Repository;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddTransient<DbInitialiser>();
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -19,6 +23,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
           .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
            ServiceLifetime.Transient);
 
+
+
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -29,6 +35,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<CNavigation>();
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+
+var services = scope.ServiceProvider;
+
+var initialiser = services.GetRequiredService<DbInitialiser>();
+
+initialiser.Run();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
