@@ -107,9 +107,9 @@ namespace Cheetah_DataAccess.Data
         [UseProjection]
         [UseFiltering]
         [UseSorting]
-        public IQueryable<F_AllReview> f_AllReviews([Service] ApplicationDbContext context)
+        public IQueryable<F_Assignment> f_Assignments([Service] ApplicationDbContext context)
         {
-            return context.F_AllReviews;
+            return context.F_Assignments;
         }
         [UseProjection]
         [UseFiltering]

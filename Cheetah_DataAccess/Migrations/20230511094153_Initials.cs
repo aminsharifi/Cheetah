@@ -200,9 +200,9 @@ namespace Cheetah_DataAccess.Migrations
                     DsblRecord = table.Column<bool>(type: "bit", nullable: false),
                     PERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Parent_Id = table.Column<long>(type: "bigint", nullable: true),
-                    PN_ShowSupport = table.Column<bool>(type: "bit", nullable: true),
-                    PN_ERP = table.Column<bool>(type: "bit", nullable: true),
-                    PN_RemoveRequestorApproval = table.Column<bool>(type: "bit", nullable: true)
+                    PC_ShowSupport = table.Column<bool>(type: "bit", nullable: true),
+                    PC_ERP = table.Column<bool>(type: "bit", nullable: true),
+                    PC_RemoveRequestorApproval = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -543,7 +543,7 @@ namespace Cheetah_DataAccess.Migrations
                     DsblRecord = table.Column<bool>(type: "bit", nullable: false),
                     PERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Parent_Id = table.Column<long>(type: "bigint", nullable: true),
-                    TG_TagTypeId = table.Column<long>(type: "bigint", nullable: false)
+                    TG_TagTypeId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -553,70 +553,12 @@ namespace Cheetah_DataAccess.Migrations
                         column: x => x.TG_TagTypeId,
                         principalSchema: "Dimentions",
                         principalTable: "D_TagType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_D_Tag_D_Tag_Parent_Id",
                         column: x => x.Parent_Id,
                         principalSchema: "Dimentions",
                         principalTable: "D_Tag",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "D_User",
-                schema: "Dimentions",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PCode = table.Column<long>(type: "bigint", nullable: false),
-                    PIndex = table.Column<long>(type: "bigint", nullable: false),
-                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DsblRecord = table.Column<bool>(type: "bit", nullable: false),
-                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
-                    Parent_Id = table.Column<long>(type: "bigint", nullable: true),
-                    User_Domain = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    User_EnabledForAssignation = table.Column<bool>(type: "bit", nullable: true),
-                    User_DelegateEnabled = table.Column<bool>(type: "bit", nullable: true),
-                    User_CreatedCasesSkipAssigRules = table.Column<bool>(type: "bit", nullable: true),
-                    User_IDPersonel = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    User_LDAPDescription = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    User_BossUserId = table.Column<long>(type: "bigint", nullable: true),
-                    User_DelegateId = table.Column<long>(type: "bigint", nullable: true),
-                    User_UserInformationId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_D_User", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_D_User_D_UserInformation_User_UserInformationId",
-                        column: x => x.User_UserInformationId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_UserInformation",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_D_User_D_User_Parent_Id",
-                        column: x => x.Parent_Id,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_D_User_D_User_User_BossUserId",
-                        column: x => x.User_BossUserId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_D_User_D_User_User_DelegateId",
-                        column: x => x.User_DelegateId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_User",
                         principalColumn: "Id");
                 });
 
@@ -665,7 +607,7 @@ namespace Cheetah_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "L_Process_Strategy",
+                name: "L_ProcessScenario",
                 schema: "Links",
                 columns: table => new
                 {
@@ -686,21 +628,79 @@ namespace Cheetah_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_L_Process_Strategy", x => x.Id);
+                    table.PrimaryKey("PK_L_ProcessScenario", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_L_Process_Strategy_D_Process_FirstId",
+                        name: "FK_L_ProcessScenario_D_Process_FirstId",
                         column: x => x.FirstId,
                         principalSchema: "Dimentions",
                         principalTable: "D_Process",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_L_Process_Strategy_F_Scenario_SecondId",
+                        name: "FK_L_ProcessScenario_F_Scenario_SecondId",
                         column: x => x.SecondId,
                         principalSchema: "Facts",
                         principalTable: "F_Scenario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "D_User",
+                schema: "Dimentions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PCode = table.Column<long>(type: "bigint", nullable: false),
+                    PIndex = table.Column<long>(type: "bigint", nullable: false),
+                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DsblRecord = table.Column<bool>(type: "bit", nullable: false),
+                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
+                    Parent_Id = table.Column<long>(type: "bigint", nullable: true),
+                    User_Domain = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    User_EnabledForAssignation = table.Column<bool>(type: "bit", nullable: true),
+                    User_DelegateEnabled = table.Column<bool>(type: "bit", nullable: true),
+                    User_CreatedCasesSkipAssigRules = table.Column<bool>(type: "bit", nullable: true),
+                    User_IDPersonel = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    User_LDAPDescription = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    User_BossUserId = table.Column<long>(type: "bigint", nullable: true),
+                    User_DelegateId = table.Column<long>(type: "bigint", nullable: true),
+                    User_UserInformationId = table.Column<long>(type: "bigint", nullable: true),
+                    F_AssignmentId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_D_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_D_User_D_UserInformation_User_UserInformationId",
+                        column: x => x.User_UserInformationId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_UserInformation",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_D_User_D_User_Parent_Id",
+                        column: x => x.Parent_Id,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_D_User_D_User_User_BossUserId",
+                        column: x => x.User_BossUserId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_D_User_D_User_User_DelegateId",
+                        column: x => x.User_DelegateId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -782,7 +782,7 @@ namespace Cheetah_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "F_AllApprove",
+                name: "F_Assignment",
                 schema: "Facts",
                 columns: table => new
                 {
@@ -799,146 +799,23 @@ namespace Cheetah_DataAccess.Migrations
                     DsblRecord = table.Column<bool>(type: "bit", nullable: false),
                     PERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Parent_Id = table.Column<long>(type: "bigint", nullable: true),
-                    AAP_Current_ApproveId = table.Column<long>(type: "bigint", nullable: true),
-                    AAP_Last_ApproveId = table.Column<long>(type: "bigint", nullable: true)
+                    PRM_EndorsementId = table.Column<long>(type: "bigint", nullable: true),
+                    F_RequestId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_F_AllApprove", x => x.Id);
+                    table.PrimaryKey("PK_F_Assignment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_F_AllApprove_F_AllApprove_Parent_Id",
+                        name: "FK_F_Assignment_F_Assignment_Parent_Id",
                         column: x => x.Parent_Id,
                         principalSchema: "Facts",
-                        principalTable: "F_AllApprove",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "F_Approve",
-                schema: "Facts",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PCode = table.Column<long>(type: "bigint", nullable: false),
-                    PIndex = table.Column<long>(type: "bigint", nullable: false),
-                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DsblRecord = table.Column<bool>(type: "bit", nullable: false),
-                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
-                    Parent_Id = table.Column<long>(type: "bigint", nullable: true),
-                    APV_UserInChargeId = table.Column<long>(type: "bigint", nullable: true),
-                    APV_EndorsementId = table.Column<long>(type: "bigint", nullable: true),
-                    APV_NeedApproveId = table.Column<long>(type: "bigint", nullable: true),
-                    APV_ApproveId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_F_Approve", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_F_Approve_D_User_APV_UserInChargeId",
-                        column: x => x.APV_UserInChargeId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_User",
+                        principalTable: "F_Assignment",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_F_Approve_F_AllApprove_APV_ApproveId",
-                        column: x => x.APV_ApproveId,
-                        principalSchema: "Facts",
-                        principalTable: "F_AllApprove",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_Approve_F_AllApprove_APV_NeedApproveId",
-                        column: x => x.APV_NeedApproveId,
-                        principalSchema: "Facts",
-                        principalTable: "F_AllApprove",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_Approve_F_Approve_Parent_Id",
-                        column: x => x.Parent_Id,
-                        principalSchema: "Facts",
-                        principalTable: "F_Approve",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_Approve_F_Endorsement_APV_EndorsementId",
-                        column: x => x.APV_EndorsementId,
+                        name: "FK_F_Assignment_F_Endorsement_PRM_EndorsementId",
+                        column: x => x.PRM_EndorsementId,
                         principalSchema: "Facts",
                         principalTable: "F_Endorsement",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "F_RequestInformation",
-                schema: "Facts",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PCode = table.Column<long>(type: "bigint", nullable: false),
-                    PIndex = table.Column<long>(type: "bigint", nullable: false),
-                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DsblRecord = table.Column<bool>(type: "bit", nullable: false),
-                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
-                    Parent_Id = table.Column<long>(type: "bigint", nullable: true),
-                    RI_ERPID = table.Column<long>(type: "bigint", nullable: true),
-                    RI_IsCancelled = table.Column<bool>(type: "bit", nullable: true),
-                    IsTest = table.Column<bool>(type: "bit", nullable: true),
-                    RI_PE_Level = table.Column<byte>(type: "tinyint", nullable: true),
-                    RI_RequestDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RI_RequestFinishDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RI_RequestorId = table.Column<long>(type: "bigint", nullable: true),
-                    RI_CreatorId = table.Column<long>(type: "bigint", nullable: true),
-                    RI_AllApproveId = table.Column<long>(type: "bigint", nullable: true),
-                    RI_ProcessStateId = table.Column<long>(type: "bigint", nullable: true),
-                    RI_RequestTitleId = table.Column<long>(type: "bigint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_F_RequestInformation", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_F_RequestInformation_D_ProcessState_RI_ProcessStateId",
-                        column: x => x.RI_ProcessStateId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_ProcessState",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_RequestInformation_D_Process_RI_RequestTitleId",
-                        column: x => x.RI_RequestTitleId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_Process",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_RequestInformation_D_User_RI_CreatorId",
-                        column: x => x.RI_CreatorId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_RequestInformation_D_User_RI_RequestorId",
-                        column: x => x.RI_RequestorId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_RequestInformation_F_AllApprove_RI_AllApproveId",
-                        column: x => x.RI_AllApproveId,
-                        principalSchema: "Facts",
-                        principalTable: "F_AllApprove",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_F_RequestInformation_F_RequestInformation_Parent_Id",
-                        column: x => x.Parent_Id,
-                        principalSchema: "Facts",
-                        principalTable: "F_RequestInformation",
                         principalColumn: "Id");
                 });
 
@@ -962,17 +839,11 @@ namespace Cheetah_DataAccess.Migrations
                     Parent_Id = table.Column<long>(type: "bigint", nullable: true),
                     ATC_Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ATC_Data = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    F_ApproveId = table.Column<long>(type: "bigint", nullable: true)
+                    F_ReviewId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_F_Attachment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_F_Attachment_F_Approve_F_ApproveId",
-                        column: x => x.F_ApproveId,
-                        principalSchema: "Facts",
-                        principalTable: "F_Approve",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_F_Attachment_F_Attachment_Parent_Id",
                         column: x => x.Parent_Id,
@@ -1001,10 +872,10 @@ namespace Cheetah_DataAccess.Migrations
                     Parent_Id = table.Column<long>(type: "bigint", nullable: true),
                     CD_TagId = table.Column<long>(type: "bigint", nullable: true),
                     CD_OperandId = table.Column<long>(type: "bigint", nullable: true),
-                    CD_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CD_Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CD_ScenarioId = table.Column<long>(type: "bigint", nullable: true),
                     D_UserId = table.Column<long>(type: "bigint", nullable: true),
-                    F_RequestInformationId = table.Column<long>(type: "bigint", nullable: true)
+                    F_RequestId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1034,16 +905,130 @@ namespace Cheetah_DataAccess.Migrations
                         principalTable: "F_Condition",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_F_Condition_F_RequestInformation_F_RequestInformationId",
-                        column: x => x.F_RequestInformationId,
-                        principalSchema: "Facts",
-                        principalTable: "F_RequestInformation",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_F_Condition_F_Scenario_CD_ScenarioId",
                         column: x => x.CD_ScenarioId,
                         principalSchema: "Facts",
                         principalTable: "F_Scenario",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "F_Request",
+                schema: "Facts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PCode = table.Column<long>(type: "bigint", nullable: false),
+                    PIndex = table.Column<long>(type: "bigint", nullable: false),
+                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DsblRecord = table.Column<bool>(type: "bit", nullable: false),
+                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
+                    Parent_Id = table.Column<long>(type: "bigint", nullable: true),
+                    RQT_ERPID = table.Column<long>(type: "bigint", nullable: true),
+                    RQT_IsTest = table.Column<bool>(type: "bit", nullable: true),
+                    RQT_RequestDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RQT_RequestorId = table.Column<long>(type: "bigint", nullable: true),
+                    RQT_CreatorId = table.Column<long>(type: "bigint", nullable: true),
+                    RQT_ProcessStateId = table.Column<long>(type: "bigint", nullable: true),
+                    RQT_ProcessId = table.Column<long>(type: "bigint", nullable: true),
+                    RQT_Current_ReviewId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_F_Request", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_F_Request_D_ProcessState_RQT_ProcessStateId",
+                        column: x => x.RQT_ProcessStateId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_ProcessState",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Request_D_Process_RQT_ProcessId",
+                        column: x => x.RQT_ProcessId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_Process",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Request_D_User_RQT_CreatorId",
+                        column: x => x.RQT_CreatorId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Request_D_User_RQT_RequestorId",
+                        column: x => x.RQT_RequestorId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Request_F_Request_Parent_Id",
+                        column: x => x.Parent_Id,
+                        principalSchema: "Facts",
+                        principalTable: "F_Request",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "F_Review",
+                schema: "Facts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PCode = table.Column<long>(type: "bigint", nullable: false),
+                    PIndex = table.Column<long>(type: "bigint", nullable: false),
+                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DsblRecord = table.Column<bool>(type: "bit", nullable: false),
+                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
+                    Parent_Id = table.Column<long>(type: "bigint", nullable: true),
+                    APV_PerformerId = table.Column<long>(type: "bigint", nullable: true),
+                    APV_AssignmentId = table.Column<long>(type: "bigint", nullable: true),
+                    APV_RequestId = table.Column<long>(type: "bigint", nullable: true),
+                    APV_TagId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_F_Review", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_F_Review_D_Tag_APV_TagId",
+                        column: x => x.APV_TagId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_Tag",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Review_D_User_APV_PerformerId",
+                        column: x => x.APV_PerformerId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Review_F_Assignment_APV_AssignmentId",
+                        column: x => x.APV_AssignmentId,
+                        principalSchema: "Facts",
+                        principalTable: "F_Assignment",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Review_F_Request_APV_RequestId",
+                        column: x => x.APV_RequestId,
+                        principalSchema: "Facts",
+                        principalTable: "F_Request",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_F_Review_F_Review_Parent_Id",
+                        column: x => x.Parent_Id,
+                        principalSchema: "Facts",
+                        principalTable: "F_Review",
                         principalColumn: "Id");
                 });
 
@@ -1053,27 +1038,27 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "Display", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 101L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2696), false, false, new Guid("796d43d2-a6c5-478b-9e9a-207e3ee42700"), 101L, null, "نوع تگ‌ها(Dimentions)", null, 101L, "D_TagType", null },
-                    { 102L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2811), true, false, new Guid("8e0749cc-6a10-4b52-99b7-12ccd1fb6cd5"), 102L, null, "موقعیت‌ها(Dimentions)", null, 102L, "D_Location", null },
-                    { 103L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2825), false, false, new Guid("cd694a99-8ab8-4c92-82af-7c489442ffb9"), 103L, null, "عملگرها(Dimentions)", null, 103L, "D_Operand", null },
-                    { 104L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3002), true, false, new Guid("4425a82b-5ed4-4106-8e00-ab0c9e34c3ec"), 104L, null, "تگ‌ها(Dimentions)", null, 104L, "D_Tag", null },
-                    { 105L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3022), true, false, new Guid("d9db2d5c-8edb-47e1-8411-b41642e6e9d5"), 105L, null, "سمت‌ها(Dimentions)", null, 105L, "D_Position", null },
-                    { 106L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3040), false, false, new Guid("c3483c99-0f42-490d-96ed-9ebc5f020cb9"), 106L, null, "وضعیت فرآیندها(Dimentions)", null, 106L, "D_ProcessState", null },
-                    { 107L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3055), true, false, new Guid("b1dde37e-a066-4369-9bbc-dc371e4b9ba9"), 107L, null, "فرآیند‌ها(Dimentions)", null, 107L, "D_Process", null },
-                    { 108L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3067), true, false, new Guid("692a6d1c-99dd-4d7f-b9ea-4886947b09cc"), 108L, null, "نقش‌ها(Dimentions)", null, 108L, "D_Role", null },
-                    { 109L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3084), true, false, new Guid("9c365199-0068-4a5b-9a4d-ed5f6d831f55"), 109L, null, "کاربران(Dimentions)", null, 109L, "D_User", null },
-                    { 112L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3097), false, false, new Guid("0bac833b-c626-48d0-9a10-57b202814f6d"), 112L, null, "اطلاعات کاربرها(Facts)", null, 112L, "D_UserInformation", null },
-                    { 200L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3110), false, false, new Guid("a66b2faf-55fd-41b3-8372-46aeb4b6d689"), 200L, null, "تمام تاییدها(Facts)", null, 200L, "F_AllApprove", null },
-                    { 201L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3123), false, false, new Guid("44204c2f-6a42-417b-b1b8-1fa5fd8702bb"), 201L, null, "تاییدهای جاری(Facts)", null, 201L, "F_Approve", null },
-                    { 202L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3136), false, false, new Guid("8ceb5e63-2f5a-47ad-8fff-e945a0c98d48"), 202L, null, "ضمیمه‌ها(Facts)", null, 202L, "F_Attachment", null },
-                    { 203L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3153), false, false, new Guid("4353a5df-0fb3-40df-8fad-41748f355e8b"), 203L, null, "لیست تخصیص‌ها(Facts)", null, 203L, "F_Endorsement", null },
-                    { 204L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3167), false, false, new Guid("9d2e148a-221b-4e90-ab4c-71125bf0888a"), 204L, null, "لیست شرط‌ها(Facts)", null, 204L, "F_Condition", null },
-                    { 205L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3203), true, false, new Guid("ca98b4cb-3974-406a-94e8-b9109eb2fe8b"), 205L, null, "اطلاعات درخواست‌ها(Facts)", null, 205L, "F_RequestInformation", null },
-                    { 206L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3218), true, false, new Guid("daa2cace-cb74-4fda-a433-307a77c72cf1"), 206L, null, "سناریوها(Facts)", null, 206L, "F_Scenario", null },
-                    { 300L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3230), false, false, new Guid("1481aca5-903c-497f-8f1a-6889e23fd1ec"), 300L, null, "نقش-سمت(Links)", null, 300L, "L_RolePosition", null },
-                    { 301L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3243), false, false, new Guid("1c81c16a-a52d-4b83-ad69-0f592c508f3e"), 301L, null, "فرآیند-سناریو(Links)", null, 301L, "L_Process_Strategy", null },
-                    { 302L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3310), false, false, new Guid("fd07abcf-6160-4e39-bcad-e3a4e4cd5254"), 302L, null, "کاربر-موقعیت(Links)", null, 302L, "L_UserLocation", null },
-                    { 303L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3325), false, false, new Guid("8011e2ad-7452-4fa5-966e-8e2d4a1dab66"), 303L, null, "کاربر-سمت(Links)", null, 303L, "L_UserPosition", null }
+                    { 101L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2726), false, false, new Guid("4d07ebdb-7c5e-4c30-a142-c3de6d548815"), 101L, null, "نوع تگ‌ها(Dimentions)", null, 101L, "D_TagType", null },
+                    { 102L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2819), true, false, new Guid("b77fecc3-0ef0-4da7-91bb-c84e5bb0c477"), 102L, null, "موقعیت‌ها(Dimentions)", null, 102L, "D_Location", null },
+                    { 103L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2834), false, false, new Guid("06f25aa7-d84a-42c2-b87f-8998e50b29ba"), 103L, null, "عملگرها(Dimentions)", null, 103L, "D_Operand", null },
+                    { 104L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2846), true, false, new Guid("f71719ec-34bc-48d0-834b-82973b8afaae"), 104L, null, "تگ‌ها(Dimentions)", null, 104L, "D_Tag", null },
+                    { 105L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2860), true, false, new Guid("ce44a515-cced-403b-b124-4c8835f08af3"), 105L, null, "سمت‌ها(Dimentions)", null, 105L, "D_Position", null },
+                    { 106L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2873), false, false, new Guid("4693e620-4b59-4d2d-8c61-9666bf9d1bff"), 106L, null, "وضعیت فرآیندها(Dimentions)", null, 106L, "D_ProcessState", null },
+                    { 107L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2932), true, false, new Guid("1a2c52f5-b4fa-4a8d-8d5c-59b36b2d5e36"), 107L, null, "فرآیند‌ها(Dimentions)", null, 107L, "D_Process", null },
+                    { 108L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2948), true, false, new Guid("69739f09-4612-4427-b106-a6886e7a79aa"), 108L, null, "نقش‌ها(Dimentions)", null, 108L, "D_Role", null },
+                    { 109L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2961), true, false, new Guid("d7b87088-fb85-4050-bd83-0027547bd172"), 109L, null, "کاربران(Dimentions)", null, 109L, "D_User", null },
+                    { 112L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2976), false, false, new Guid("fc6aef37-249a-48d2-b4e2-09f23b1cc3c1"), 112L, null, "اطلاعات کاربرها(Facts)", null, 112L, "D_UserInformation", null },
+                    { 200L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2990), false, false, new Guid("0f125e87-d940-4bca-956f-0beb8a2ed6de"), 200L, null, "تمام تاییدها(Facts)", null, 200L, "F_Assignment", null },
+                    { 201L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3002), false, false, new Guid("2904b5cd-9e20-46ec-b309-e1633a88a770"), 201L, null, "تاییدهای جاری(Facts)", null, 201L, "F_Review", null },
+                    { 202L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3017), false, false, new Guid("b8545897-a30b-46e4-a49c-8b8972d42d9a"), 202L, null, "ضمیمه‌ها(Facts)", null, 202L, "F_Attachment", null },
+                    { 203L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3029), false, false, new Guid("06dcec2c-ae39-4d65-b5d6-a00d827f6c57"), 203L, null, "لیست تخصیص‌ها(Facts)", null, 203L, "F_Endorsement", null },
+                    { 204L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3042), false, false, new Guid("b913c8a9-c5f6-466b-8255-0039f14301e0"), 204L, null, "لیست شرط‌ها(Facts)", null, 204L, "F_Condition", null },
+                    { 205L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3062), true, false, new Guid("a708536d-40c5-4170-ab7a-43645a1f5cc1"), 205L, null, "اطلاعات درخواست‌ها(Facts)", null, 205L, "F_Request", null },
+                    { 206L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3077), true, false, new Guid("43ab99d9-e26e-4879-8523-ed82fe1aaa88"), 206L, null, "سناریوها(Facts)", null, 206L, "F_Scenario", null },
+                    { 300L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3093), false, false, new Guid("c3cafa99-5b27-4e7a-8963-ff98b76c9262"), 300L, null, "نقش-سمت(Links)", null, 300L, "L_RolePosition", null },
+                    { 301L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3110), false, false, new Guid("136bedc0-7eb1-43a7-bb97-cbe8a8ce1087"), 301L, null, "فرآیند-سناریو(Links)", null, 301L, "L_ProcessScenario", null },
+                    { 302L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3123), false, false, new Guid("3abf3289-53d1-477e-8ed9-27a8c5ab455c"), 302L, null, "کاربر-موقعیت(Links)", null, 302L, "L_UserLocation", null },
+                    { 303L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3136), false, false, new Guid("cc3c9870-a708-4f56-b1b6-a9b13a771022"), 303L, null, "کاربر-سمت(Links)", null, 303L, "L_UserPosition", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1082,9 +1067,9 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(465), false, new Guid("86d5e2c2-6741-489d-8f06-1caa619da61c"), 1L, null, "تهران", null, 1L, "Tehran", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(798), false, new Guid("4e222d8e-3f00-475c-8152-84675a3cb1ed"), 2L, null, "فارس", null, 2L, "Fars", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(827), false, new Guid("1f31a0a2-b848-4446-820e-1ed19f7a3e2d"), 3L, null, "اصفهان", null, 3L, "Esfahan", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1865), false, new Guid("1a8b8867-b879-470f-bbbc-9429edf7478f"), 1L, null, "تهران", null, 1L, "Tehran", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1906), false, new Guid("9d1aef62-0437-43a6-8d3b-ebd0a9c666a1"), 2L, null, "فارس", null, 2L, "Fars", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1914), false, new Guid("f3841012-f375-40bc-be6c-fc73559a03f3"), 3L, null, "اصفهان", null, 3L, "Esfahan", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1093,12 +1078,12 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(885), false, new Guid("9a1e4eba-cd3e-4c6c-ba07-abc327e7d855"), 1L, null, "مساوی", null, 1L, "=", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(895), false, new Guid("b52dd977-4733-49e4-9171-7a327562aa44"), 2L, null, "مخالف", null, 2L, "!=", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(903), false, new Guid("c631595a-8ca7-4b83-b330-d23da55bc3d4"), 3L, null, "بزگتر از", null, 3L, ">", null },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(914), false, new Guid("a53ce2a5-76b4-435c-b0df-7469fa5bfff0"), 4L, null, "بزرگتر و مساوی", null, 4L, ">=", null },
-                    { 5L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(921), false, new Guid("b40586d1-2b6f-4724-9df6-bbb61a5846e6"), 5L, null, " کوچکتر از", null, 5L, "<", null },
-                    { 6L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1010), false, new Guid("fd6ef983-6cca-4459-8181-a3df36ee83cb"), 6L, null, "کوچکتر و مساوی", null, 6L, "<=", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1956), false, new Guid("b427c394-751d-4847-8c8d-2bca5f8ead15"), 1L, null, "مساوی", null, 1L, "=", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1966), false, new Guid("b846ce48-257b-4b86-b4d0-182b8071ffad"), 2L, null, "مخالف", null, 2L, "!=", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1974), false, new Guid("0fb2e0a8-4353-445b-b311-8e36f00bd0cc"), 3L, null, "بزگتر از", null, 3L, ">", null },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1993), false, new Guid("574df660-11ad-47aa-a6e3-616ae6e35fec"), 4L, null, "بزرگتر و مساوی", null, 4L, ">=", null },
+                    { 5L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2001), false, new Guid("d730194f-ebcd-495c-85b8-540c84383670"), 5L, null, " کوچکتر از", null, 5L, "<", null },
+                    { 6L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2179), false, new Guid("9ae75209-6667-4f6f-8918-1099124113dc"), 6L, null, "کوچکتر و مساوی", null, 6L, "<=", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1107,24 +1092,24 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2581), false, new Guid("dec4a094-f1ac-4b57-92e3-b3c5cd0330e4"), 1L, null, "معاون دارویی", null, 1L, "PharmaceuticalDeputy", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2594), false, new Guid("1ee89c58-6013-4463-ab17-122b37109021"), 2L, null, "معاون غذایی", null, 2L, "FMCGDeputy", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2603), false, new Guid("11f12b17-e3c7-4840-87e3-75aedf4a3c37"), 3L, null, "کارشناس ارشد بازرگانی", null, 3L, "BusinessSeniorSpecialist", null },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2612), false, new Guid("75fc82c7-1e5c-4310-a4ae-d8231a54ad34"), 4L, null, "کارشناس بازرگانی", null, 4L, "BusinessSpecialist", null },
-                    { 5L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2625), false, new Guid("d220b3c3-cca4-4e74-adc0-570d08517170"), 5L, null, "کارشناس ارشد فروش", null, 5L, "SalesSeniorSpecialist", null },
-                    { 6L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2632), false, new Guid("25ce8533-62d4-4ce4-ac19-74bd75b4b34d"), 6L, null, "کارشناس فروش", null, 6L, "SalesSpecialist", null },
-                    { 7L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2641), false, new Guid("94871c5d-e8c7-4c8d-bdd2-439a47a001b8"), 7L, null, "مدیر مرکز توزیع", null, 7L, "DistributionCenterManager", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2639), false, new Guid("f6037c7b-70f1-4e8b-9f19-f8f6be4e861c"), 1L, null, "معاون دارویی", null, 1L, "PharmaceuticalDeputy", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2648), false, new Guid("514a4b2d-a6be-49cc-9c7e-62d6dd25ae7e"), 2L, null, "معاون غذایی", null, 2L, "FMCGDeputy", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2656), false, new Guid("e1d740b3-b20a-4e56-acbd-84c570e9639d"), 3L, null, "کارشناس ارشد بازرگانی", null, 3L, "BusinessSeniorSpecialist", null },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2664), false, new Guid("d6b165eb-6ae1-4571-ad9a-4fc446c24f34"), 4L, null, "کارشناس بازرگانی", null, 4L, "BusinessSpecialist", null },
+                    { 5L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2672), false, new Guid("e0b58de2-45f0-468f-901b-0321b628e566"), 5L, null, "کارشناس ارشد فروش", null, 5L, "SalesSeniorSpecialist", null },
+                    { 6L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2680), false, new Guid("ac507e71-8d8f-4d35-b78d-47ec6a2b3a75"), 6L, null, "کارشناس فروش", null, 6L, "SalesSpecialist", null },
+                    { 7L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2690), false, new Guid("a7a532ea-aaa6-4344-94c1-8358119edfb7"), 7L, null, "مدیر مرکز توزیع", null, 7L, "DistributionCenterManager", null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Process",
-                columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PN_ERP", "PN_RemoveRequestorApproval", "PN_ShowSupport", "PName", "Parent_Id" },
+                columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PC_ERP", "PC_RemoveRequestorApproval", "PC_ShowSupport", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 963, DateTimeKind.Local).AddTicks(8151), false, new Guid("a946cc7e-75fd-4cba-b876-5c0469ec6bf0"), 1L, null, "تعریف/اصلاح مشتری", null, 1L, true, true, true, "CustomerDefinition", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 963, DateTimeKind.Local).AddTicks(8324), false, new Guid("681935c1-7d53-4f30-b37b-7aaca25cf823"), 2L, null, "مجوزهای موردی", null, 2L, true, true, true, "PolicyCenter", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 963, DateTimeKind.Local).AddTicks(8337), false, new Guid("ba40f28f-3a7f-489f-8461-64d80b55bc59"), 3L, null, "اعتباردهی مالی مشتری", null, 3L, true, true, true, "CustomerCredit", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1023), false, new Guid("79f4bf7c-0cf2-4048-a8d3-2ec1ba495aa8"), true, true, true, 1L, null, "تعریف/اصلاح مشتری", null, 1L, "CustomerDefinition", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1176), false, new Guid("bad74d1a-0951-4d79-b62a-f84007e3012d"), true, true, true, 2L, null, "مجوزهای موردی", null, 2L, "PolicyCenter", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1185), false, new Guid("1f3d0e12-778c-49bc-ac65-e1280fb9fd61"), true, true, true, 3L, null, "اعتباردهی مالی مشتری", null, 3L, "CustomerCredit", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1133,10 +1118,10 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(175), false, new Guid("44fe53c4-04c0-4846-b101-7e527cabbf0a"), 1L, null, "در دست بررسی", null, 1L, "Ongoing", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(329), false, new Guid("dc2dcd5c-ffba-41ab-943a-a25fb5c5b21c"), 2L, null, "منتظر بازنگری", null, 2L, "Editing", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(369), false, new Guid("168d0148-395a-4b8b-8dcf-d60136cc7122"), 3L, null, "کامل شده", null, 3L, "Completed", null },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(376), false, new Guid("57cf76a3-250c-4490-8228-11a4bd72d0ac"), 4L, null, "ابطال شده", null, 4L, "Aborted", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1693), false, new Guid("47e4a47f-5b17-4bbc-9223-2cf9d08826b9"), 1L, null, "در دست بررسی", null, 1L, "Ongoing", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1770), false, new Guid("d02437c2-14bb-4404-8ea8-1c3dbe1dead5"), 2L, null, "منتظر بازنگری", null, 2L, "Editing", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1806), false, new Guid("2e4f35ef-b151-485d-bc95-2fca120103c7"), 3L, null, "کامل شده", null, 3L, "Completed", null },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(1815), false, new Guid("fceede66-3a3b-4099-8443-d652ae669e4c"), 4L, null, "ابطال شده", null, 4L, "Aborted", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1145,11 +1130,11 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "ROL_Independent" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2441), false, new Guid("c28c0111-c0a3-4965-b29f-e04858c34118"), 1L, null, "معاونت دارویی", null, 1L, "PharmaceuticalDeputy", null, true },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2474), false, new Guid("0ce93aa6-67b5-4dc2-8a43-6a66d901447f"), 2L, null, "معاونت غذایی", null, 2L, "FMCGDeputy", null, true },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2487), false, new Guid("afb6efa1-feb2-4a7b-adfe-6fafdb8cafba"), 3L, null, "کارشناس بازرگانی", null, 3L, "BusinessSpecialist", null, true },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2496), false, new Guid("6c50f1fd-bc53-4ccb-9709-8c129a3756d3"), 4L, null, "کارشناس فروش", null, 4L, "SalesSpecialist", null, true },
-                    { 5L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2505), false, new Guid("d7cf4fe7-2c9c-4993-aec0-e17911a13a5e"), 5L, null, "مدیریت مرکز توزیع", null, 5L, "DistributionCenterManager", null, false }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2515), false, new Guid("16c82243-d20e-4bb8-b121-8c844f313b03"), 1L, null, "معاونت دارویی", null, 1L, "PharmaceuticalDeputy", null, true },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2526), false, new Guid("fb89b3f8-80fd-46b1-af77-4e9997916ac6"), 2L, null, "معاونت غذایی", null, 2L, "FMCGDeputy", null, true },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2535), false, new Guid("39801a5d-f61d-4758-a789-23712eabcbab"), 3L, null, "کارشناس بازرگانی", null, 3L, "BusinessSpecialist", null, true },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2587), false, new Guid("5c170c62-204f-4982-b890-ca8f0afd0865"), 4L, null, "کارشناس فروش", null, 4L, "SalesSpecialist", null, true },
+                    { 5L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2596), false, new Guid("0690a48e-9719-4004-bc01-e9ba3a3adf49"), 5L, null, "مدیریت مرکز توزیع", null, 5L, "DistributionCenterManager", null, false }
                 });
 
             migrationBuilder.InsertData(
@@ -1158,20 +1143,20 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1083), false, new Guid("5310982d-f454-4a83-819b-508a37927427"), 1L, null, "عددی", null, 1L, "Numberic", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1098), false, new Guid("0304811d-2e95-455d-a8d3-122003f2be20"), 2L, null, "دودویی", null, 2L, "Boolean", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1107), false, new Guid("972328e3-2a5c-4a38-9dbe-0ef7a5978a8e"), 3L, null, "تاریخ", null, 3L, "Date", null },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1114), false, new Guid("51d06804-6ea6-4011-8bc2-b590501de357"), 4L, null, "حروف", null, 4L, "String", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2257), false, new Guid("fea4be2b-7cfd-4715-abfe-6b93fe94089e"), 1L, null, "عددی", null, 1L, "Numberic", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2266), false, new Guid("59b76f40-370a-4521-9fe7-21f689837114"), 2L, null, "دودویی", null, 2L, "Boolean", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2274), false, new Guid("ca718f26-cd09-4ef1-8b84-b80defbb0ee7"), 3L, null, "تاریخ", null, 3L, "Date", null },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2282), false, new Guid("ef93a9de-bda4-43ae-85b7-46140155f678"), 4L, null, "حروف", null, 4L, "String", null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_User",
-                columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "User_BossUserId", "User_CreatedCasesSkipAssigRules", "User_DelegateEnabled", "User_DelegateId", "User_Domain", "User_EnabledForAssignation", "User_IDPersonel", "User_LDAPDescription", "User_UserInformationId" },
+                columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "F_AssignmentId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "User_BossUserId", "User_CreatedCasesSkipAssigRules", "User_DelegateEnabled", "User_DelegateId", "User_Domain", "User_EnabledForAssignation", "User_IDPersonel", "User_LDAPDescription", "User_UserInformationId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1375), false, new Guid("8dbaf1c2-c677-4a6d-9a9f-c6b1a3183ec6"), 1L, null, "محمد شریفی", null, 1L, "m.sharifi", null, null, null, null, null, null, null, null, null, null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(2013), false, new Guid("fe701e55-e715-417f-8f51-9145f4cd2879"), 2L, null, "امین شریفی", null, 2L, "a.sharifi", null, null, null, null, null, null, null, null, null, null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2466), false, null, new Guid("f4e39519-171d-495f-b0b9-4cd8efd638e6"), 1L, null, "محمد شریفی", null, 1L, "m.sharifi", null, null, null, null, null, null, null, null, null, null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2476), false, null, new Guid("9b76213c-ef53-4263-9a3d-fca4d1bd9fec"), 2L, null, "امین شریفی", null, 2L, "a.sharifi", null, null, null, null, null, null, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1180,9 +1165,9 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3403), false, new Guid("da4f7cc0-4469-40f7-bdc3-2bdda153a9c7"), 1L, null, "سناریو دارویی", null, 1L, "Med_Scenario", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3413), false, new Guid("07f525bf-c0ca-4c51-a3e6-e93905c4d483"), 2L, null, "سناریو مصرفی", null, 2L, "FMCG_Scenario", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3421), false, new Guid("b34e17bf-6fd3-4fca-88bc-86b12c060c54"), 3L, null, "سناریو ستاد", null, 3L, "Head_Scenario3", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3239), false, new Guid("5cbe03f5-c9e0-4f34-a48a-b9b2501bbf67"), 1L, null, "سناریو دارویی", null, 1L, "Med_Scenario", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3251), false, new Guid("4165266a-fa88-4b37-b0f4-a20379c27330"), 2L, null, "سناریو مصرفی", null, 2L, "FMCG_Scenario", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3259), false, new Guid("cc00acaf-3dd2-4bc5-9e3d-1516e4383023"), 3L, null, "سناریو ستاد", null, 3L, "Head_Scenario3", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1191,16 +1176,16 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "TG_TagTypeId" },
                 values: new object[,]
                 {
-                    { 100L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1154), false, new Guid("664bcaa4-9644-41ca-8890-86f75fb4d2ae"), 100L, "عددی", "سهم شرکت", null, 100L, "OursShare", null, 1L },
-                    { 101L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1165), false, new Guid("56ad3583-f695-4ab8-985e-6dd41f96ea7b"), 101L, "عددی", "سهم دیگران", null, 101L, "OthersShare", null, 1L },
-                    { 103L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1174), false, new Guid("342ed24d-7b41-427e-bd4a-e149212f59a5"), 103L, "عددی", "مبلغ", null, 103L, "Price", null, 1L },
-                    { 200L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1183), false, new Guid("c00e50f0-89f0-4554-9c75-f94ea79128fd"), 200L, "دودویی", "مخدر/ یخچالی", null, 200L, "Refrigerator", null, 2L },
-                    { 201L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1191), false, new Guid("cb7e4d20-4835-400c-800e-a5dd3a9f5ccf"), 201L, "پارامتریک", "تایید", null, 201L, "Approve", null, 2L },
-                    { 202L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1201), false, new Guid("3d12537d-58bc-4a53-a6e7-e7bdfcd5e167"), 202L, "پارامتریک", "عدم تایید", null, 202L, "Reject", null, 2L },
-                    { 203L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1208), false, new Guid("ea3d53ff-8260-4dee-ab1e-fc9ca3dd04c7"), 203L, "پارامتریک", "بازنگری", null, 203L, "Revise", null, 2L },
-                    { 204L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1216), false, new Guid("78c778dc-6e8e-4f76-a53c-d1bba462d26a"), 204L, "پارامتریک", "دارویی", null, 204L, "Med", null, 2L },
-                    { 205L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1227), false, new Guid("a30862a4-bccd-429d-bf56-79744a2a35d3"), 205L, "پارامتریک", "مصرفی", null, 205L, "FMCG", null, 2L },
-                    { 206L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(1236), false, new Guid("25f5f79c-bcfc-44d5-b6ef-0f4844609356"), 206L, "پارامتریک", "کل", null, 206L, "General", null, 2L }
+                    { 100L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2317), false, new Guid("671da4bd-b6d3-4e22-af22-37d67bf3b972"), 100L, "عددی", "سهم شرکت", null, 100L, "OursShare", null, 1L },
+                    { 101L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2332), false, new Guid("eb2ffa2b-17e8-41ba-a53a-bc0793c958d1"), 101L, "عددی", "سهم دیگران", null, 101L, "OthersShare", null, 1L },
+                    { 103L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2341), false, new Guid("2fdcc5f3-adf5-441d-b2d0-380b38988bb3"), 103L, "عددی", "مبلغ", null, 103L, "Price", null, 1L },
+                    { 200L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2349), false, new Guid("c2afc5f5-6843-4172-8ae2-17491d71270d"), 200L, "دودویی", "مخدر/ یخچالی", null, 200L, "Refrigerator", null, 2L },
+                    { 201L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2357), false, new Guid("232269b5-adeb-4890-9402-ab23ee7019de"), 201L, "پارامتریک", "تایید", null, 201L, "Approve", null, 2L },
+                    { 202L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2366), false, new Guid("d8849b93-4884-41a5-9b81-7cc40caac99a"), 202L, "پارامتریک", "عدم تایید", null, 202L, "Reject", null, 2L },
+                    { 203L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2375), false, new Guid("3316ceec-7549-469d-be5e-629e2c1481eb"), 203L, "پارامتریک", "بازنگری", null, 203L, "Revise", null, 2L },
+                    { 204L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2383), false, new Guid("64896519-f27a-4842-85b8-f1ef56e6d845"), 204L, "پارامتریک", "دارویی", null, 204L, "Med", null, 2L },
+                    { 205L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2391), false, new Guid("d88646ed-2758-4284-864c-b1e1b841389f"), 205L, "پارامتریک", "مصرفی", null, 205L, "FMCG", null, 2L },
+                    { 206L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(2402), false, new Guid("a97af61c-508d-43cc-b169-b44a45fcee3c"), 206L, "پارامتریک", "کل", null, 206L, "General", null, 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -1209,23 +1194,23 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "ED_RoleId", "ED_ScenarioId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3557), false, 5L, 1L, new Guid("273a90ef-fbc4-4642-b055-b7f0dbe8f039"), 1L, null, "سناریو دارویی,مدیریت مرکز توزیع", null, 1L, "Med_Scenario,DistributionCenterManager", null },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3568), false, 2L, 1L, new Guid("338b9498-52b9-4c75-bbca-628444ed320f"), 2L, null, "سناریو دارویی,معاونت دارویی", null, 2L, "Med_Scenario,PharmaceuticalDeputy", null },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3581), false, 1L, 2L, new Guid("24f92583-6122-4885-94ba-85c10ea5dac5"), 3L, null, "راهبرد دو,معاونت دارویی", null, 3L, "Strategy2,PharmaceuticalDeputy", null },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3593), false, 2L, 2L, new Guid("27b44769-95f4-46f8-a8ee-89c69a1b3bdc"), 4L, null, "راهبرد دو,معاونت غذایی", null, 4L, "Strategy2,FMCGDeputy", null }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3740), false, 5L, 1L, new Guid("8adc7398-d449-4381-83b5-bd4df5dde9d5"), 1L, null, "سناریو دارویی,مدیریت مرکز توزیع", null, 1L, "Med_Scenario,DistributionCenterManager", null },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3751), false, 2L, 1L, new Guid("fbfb1f59-1feb-4a00-8f52-ea60cf9f9094"), 2L, null, "سناریو دارویی,معاونت دارویی", null, 2L, "Med_Scenario,PharmaceuticalDeputy", null },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3761), false, 1L, 2L, new Guid("045eccb1-8ec5-4162-a0d2-98dfb65a6ddd"), 3L, null, "راهبرد دو,معاونت دارویی", null, 3L, "Strategy2,PharmaceuticalDeputy", null },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3770), false, 2L, 2L, new Guid("7fbd6a26-becc-4d1b-b0db-032d2722ceca"), 4L, null, "راهبرد دو,معاونت غذایی", null, 4L, "Strategy2,FMCGDeputy", null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(4002), false, 1L, new Guid("83ebafbe-27f0-4e0e-a16b-55baaf6092cb"), 1L, null, "تعریف/اصلاح مشتری-راهبرد سه", null, 1L, "CustomerDefinition-Strategy3", 3L },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(4062), false, 1L, new Guid("f06227ec-a9b8-4230-adbc-77684b3cacdc"), 2L, null, "تعریف/اصلاح مشتری-راهبرد یک", null, 2L, "CustomerDefinition-Strategy1", 1L },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(4087), false, 2L, new Guid("302a52d1-d8cb-4d9a-800f-d7adac4c3247"), 3L, null, "مجوزهای موردی-راهبرد یک", null, 3L, "PolicyCenter-Strategy1", 1L },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(4114), false, 1L, new Guid("16be4f68-1f5b-4484-81d5-2b54e3a93bc5"), 4L, null, "تعریف/اصلاح مشتری-راهبرد دو", null, 4L, "PolicyCenter-Strategy2", 2L },
-                    { 5L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(4142), false, 2L, new Guid("eba58679-7318-4bb6-8ee5-53ad8e6e8e72"), 5L, null, "مجوزهای موردی-راهبرد دو", null, 5L, "CustomerDefinition-Strategy2", 2L }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4514), false, 1L, new Guid("d0a5b906-9537-41de-9432-a22f272e2414"), 1L, null, "تعریف/اصلاح مشتری-راهبرد سه", null, 1L, "CustomerDefinition-Strategy3", 3L },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4558), false, 1L, new Guid("5093bdd5-0c41-464e-a16a-08d539dcde68"), 2L, null, "تعریف/اصلاح مشتری-راهبرد یک", null, 2L, "CustomerDefinition-Strategy1", 1L },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4574), false, 2L, new Guid("a993e057-272d-4ef4-a0e5-86f59e2cd418"), 3L, null, "مجوزهای موردی-راهبرد یک", null, 3L, "PolicyCenter-Strategy1", 1L },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4619), false, 1L, new Guid("787247f2-0ded-4dbd-851a-6d897391f3be"), 4L, null, "تعریف/اصلاح مشتری-راهبرد دو", null, 4L, "PolicyCenter-Strategy2", 2L },
+                    { 5L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4636), false, 2L, new Guid("8e44ca8c-4f86-4aeb-a5cc-b8d64927d74b"), 5L, null, "مجوزهای موردی-راهبرد دو", null, 5L, "CustomerDefinition-Strategy2", 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -1234,13 +1219,13 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3745), false, 1L, new Guid("62f6eb78-23c2-49b9-bc77-0a8959fb1743"), 1L, null, "معاونت دارویی-معاون دارویی", null, 1L, "PharmaceuticalDeputy-PharmaceuticalDeputy", 1L },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3781), false, 2L, new Guid("885afee4-44a3-4018-a741-9ef05c502784"), 2L, null, "معاونت غذایی-معاون غذایی", null, 2L, "FMCGDeputy-FMCGDeputy", 2L },
-                    { 3L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3795), false, 3L, new Guid("a4a70f74-8916-4c45-8309-f8e6c4e57a91"), 3L, null, "کارشناس بازرگانی-کارشناس ارشد بازرگانی", null, 3L, "BusinessSpecialist-BusinessSeniorSpecialist", 3L },
-                    { 4L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3801), false, 3L, new Guid("363bc84b-a59f-4d74-bc3c-3180c94efb7b"), 4L, null, "کارشناس بازرگانی-کارشناس بازرگانی", null, 4L, "BusinessSpecialist-BusinessSpecialist", 4L },
-                    { 5L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3807), false, 4L, new Guid("513f65a8-6f45-4bd3-ae22-90d4755b3abf"), 5L, null, "کارشناس فروش-کارشناس ارشد فروش", null, 5L, "SalesSpecialist-SalesSeniorSpecialist", 5L },
-                    { 6L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3813), false, 4L, new Guid("7030afed-b2b5-4217-a764-092a47c51574"), 6L, null, "کارشناس فروش-کارشناس فروش", null, 6L, "SalesSpecialist-SalesSpecialist", 6L },
-                    { 7L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3825), false, 5L, new Guid("ec96eb31-ce90-4026-8691-6c2765dd8c5e"), 7L, null, "مدیریت مرکز توزیع-مدیر مرکز توزیع", null, 7L, "DistributionCenterManager-DistributionCenterManager", 7L }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3863), false, 1L, new Guid("f3d0aa1b-5b54-47cd-9cfe-51c971331957"), 1L, null, "معاونت دارویی-معاون دارویی", null, 1L, "PharmaceuticalDeputy-PharmaceuticalDeputy", 1L },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3872), false, 2L, new Guid("434f11a6-5320-449c-b20c-f837e0c96551"), 2L, null, "معاونت غذایی-معاون غذایی", null, 2L, "FMCGDeputy-FMCGDeputy", 2L },
+                    { 3L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3881), false, 3L, new Guid("a0609717-8a7e-40e5-b611-394bb1cae88c"), 3L, null, "کارشناس بازرگانی-کارشناس ارشد بازرگانی", null, 3L, "BusinessSpecialist-BusinessSeniorSpecialist", 3L },
+                    { 4L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3892), false, 3L, new Guid("11170b6a-a091-47af-bb70-777163cbc5ce"), 4L, null, "کارشناس بازرگانی-کارشناس بازرگانی", null, 4L, "BusinessSpecialist-BusinessSpecialist", 4L },
+                    { 5L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3900), false, 4L, new Guid("8de5a3e3-6cb4-43e0-82aa-cd7613b9f11d"), 5L, null, "کارشناس فروش-کارشناس ارشد فروش", null, 5L, "SalesSpecialist-SalesSeniorSpecialist", 5L },
+                    { 6L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4192), false, 4L, new Guid("04f4c6f7-0ced-4ed6-855d-630b35f53402"), 6L, null, "کارشناس فروش-کارشناس فروش", null, 6L, "SalesSpecialist-SalesSpecialist", 6L },
+                    { 7L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(4234), false, 5L, new Guid("1f920de8-fe86-4cac-bc9d-8b2712f14b2b"), 7L, null, "مدیریت مرکز توزیع-مدیر مرکز توزیع", null, 7L, "DistributionCenterManager-DistributionCenterManager", 7L }
                 });
 
             migrationBuilder.InsertData(
@@ -1249,21 +1234,21 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3639), false, 1L, new Guid("ed050296-3f90-4bd5-a5e1-978097c5f1a3"), 1L, null, "محمد شریفی-تهران", null, 1L, "m.sharifi-Tehran", 1L },
-                    { 2L, new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3652), false, 2L, new Guid("e91bbc03-2c25-4d2a-b987-c4d8002c0926"), 2L, null, "امین شریفی-فارس", null, 2L, "a.sharifi-Fars", 2L }
+                    { 1L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3820), false, 1L, new Guid("919b9f89-6911-412a-91b9-39fb68889b23"), 1L, null, "محمد شریفی-تهران", null, 1L, "m.sharifi-Tehran", 1L },
+                    { 2L, new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3831), false, 2L, new Guid("c778fe5e-abfb-4350-ac14-3a25c05410fb"), 2L, null, "امین شریفی-فارس", null, 2L, "a.sharifi-Fars", 2L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Facts",
                 table: "F_Condition",
-                columns: new[] { "Id", "CD_OperandId", "CD_ScenarioId", "CD_TagId", "CD_Value", "CreateTimeRecord", "D_UserId", "DsblRecord", "F_RequestInformationId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
+                columns: new[] { "Id", "CD_OperandId", "CD_ScenarioId", "CD_TagId", "CD_Value", "CreateTimeRecord", "D_UserId", "DsblRecord", "F_RequestId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, 3L, 1L, 100L, "0", new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3463), null, false, null, new Guid("8ef70bb2-7a6b-43d6-86be-ce1d3048b6c4"), 1L, null, "سناریو دارویی,سهم شرکت,بزگتر از,0", null, 1L, "Med_Scenario,OursShare,>,0", null },
-                    { 2L, 1L, 1L, 204L, "1", new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3480), null, false, null, new Guid("176bca4c-a514-46b5-83d0-4ab639d79869"), 2L, null, "سناریو دارویی,دارویی,مساوی,1", null, 2L, "Med_Scenario,Med,=,1", null },
-                    { 3L, 3L, 2L, 100L, "0", new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3492), null, false, null, new Guid("d8e41a94-6f54-4aef-bc0e-0177b6a30141"), 3L, null, "سناریو مصرفی,سهم شرکت,بزگتر از,0", null, 3L, "FMCG_Scenario,OursShare,>,0", null },
-                    { 4L, 1L, 2L, 205L, "1", new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3501), null, false, null, new Guid("6b9af8c5-cf0d-4cfb-acf6-0d3394fe34ee"), 4L, null, "سناریو مصرفی,مصرفی,مساوی,1", null, 4L, "FMCG_Scenario,FMCG,=,1", null },
-                    { 5L, 3L, 3L, 103L, "0", new DateTime(2023, 5, 3, 16, 11, 3, 965, DateTimeKind.Local).AddTicks(3511), null, false, null, new Guid("bcd21793-7c54-4818-80bb-551624c55d29"), 5L, null, "سناریو ستاد,مبلغ,بزگتر از,0", null, 5L, "Head_Scenario,Price,>,0", null }
+                    { 1L, 3L, 1L, 100L, "0", new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3594), null, false, null, new Guid("4d4d8f39-b644-42de-9eed-6408d29fc43a"), 1L, null, "سناریو دارویی,سهم شرکت,بزگتر از,0", null, 1L, "Med_Scenario,OursShare,>,0", null },
+                    { 2L, 1L, 1L, 204L, "1", new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3638), null, false, null, new Guid("2b97e4d2-b97f-4857-851d-6532cd560c3c"), 2L, null, "سناریو دارویی,دارویی,مساوی,1", null, 2L, "Med_Scenario,Med,=,1", null },
+                    { 3L, 3L, 2L, 100L, "0", new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3648), null, false, null, new Guid("991f9ca9-167d-47b7-9ed8-5ad5984338c2"), 3L, null, "سناریو مصرفی,سهم شرکت,بزگتر از,0", null, 3L, "FMCG_Scenario,OursShare,>,0", null },
+                    { 4L, 1L, 2L, 205L, "1", new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3657), null, false, null, new Guid("92f5a6c7-89b7-4129-9970-a00927d54e59"), 4L, null, "سناریو مصرفی,مصرفی,مساوی,1", null, 4L, "FMCG_Scenario,FMCG,=,1", null },
+                    { 5L, 3L, 3L, 103L, "0", new DateTime(2023, 5, 11, 14, 11, 52, 664, DateTimeKind.Local).AddTicks(3665), null, false, null, new Guid("62cc6e8b-8222-45ad-a28c-ee662e5da2e4"), 5L, null, "سناریو ستاد,مبلغ,بزگتر از,0", null, 5L, "Head_Scenario,Price,>,0", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1902,6 +1887,12 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_D_User_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User",
+                column: "F_AssignmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_D_User_LastUpdatedRecord",
                 schema: "Dimentions",
                 table: "D_User",
@@ -2030,166 +2021,79 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_AAP_Current_ApproveId",
+                name: "IX_F_Assignment_CreateTimeRecord",
                 schema: "Facts",
-                table: "F_AllApprove",
-                column: "AAP_Current_ApproveId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_AAP_Last_ApproveId",
-                schema: "Facts",
-                table: "F_AllApprove",
-                column: "AAP_Last_ApproveId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_CreateTimeRecord",
-                schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "CreateTimeRecord",
                 unique: true,
                 descending: new bool[0],
                 filter: "[CreateTimeRecord] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_DsblRecord",
+                name: "IX_F_Assignment_DsblRecord",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "DsblRecord",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_LastUpdatedRecord",
+                name: "IX_F_Assignment_F_RequestId",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
+                column: "F_RequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Assignment_LastUpdatedRecord",
+                schema: "Facts",
+                table: "F_Assignment",
                 column: "LastUpdatedRecord",
                 unique: true,
                 descending: new bool[0],
                 filter: "[LastUpdatedRecord] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_Parent_Id",
+                name: "IX_F_Assignment_Parent_Id",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "Parent_Id",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_PCode",
+                name: "IX_F_Assignment_PCode",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "PCode",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_PERPCode",
+                name: "IX_F_Assignment_PERPCode",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "PERPCode",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_PIndex",
+                name: "IX_F_Assignment_PIndex",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "PIndex",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_AllApprove_PName",
+                name: "IX_F_Assignment_PName",
                 schema: "Facts",
-                table: "F_AllApprove",
+                table: "F_Assignment",
                 column: "PName",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_APV_ApproveId",
+                name: "IX_F_Assignment_PRM_EndorsementId",
                 schema: "Facts",
-                table: "F_Approve",
-                column: "APV_ApproveId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_APV_EndorsementId",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "APV_EndorsementId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_APV_NeedApproveId",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "APV_NeedApproveId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_APV_UserInChargeId",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "APV_UserInChargeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_CreateTimeRecord",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "CreateTimeRecord",
-                unique: true,
-                descending: new bool[0],
-                filter: "[CreateTimeRecord] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_DsblRecord",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "DsblRecord",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_LastUpdatedRecord",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "LastUpdatedRecord",
-                unique: true,
-                descending: new bool[0],
-                filter: "[LastUpdatedRecord] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_Parent_Id",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "Parent_Id",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_PCode",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "PCode",
-                unique: true,
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_PERPCode",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "PERPCode",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_PIndex",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "PIndex",
-                unique: true,
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Approve_PName",
-                schema: "Facts",
-                table: "F_Approve",
-                column: "PName",
-                unique: true,
-                descending: new bool[0]);
+                table: "F_Assignment",
+                column: "PRM_EndorsementId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_Attachment_CreateTimeRecord",
@@ -2208,10 +2112,10 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_Attachment_F_ApproveId",
+                name: "IX_F_Attachment_F_ReviewId",
                 schema: "Facts",
                 table: "F_Attachment",
-                column: "F_ApproveId");
+                column: "F_ReviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_Attachment_LastUpdatedRecord",
@@ -2301,10 +2205,10 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_Condition_F_RequestInformationId",
+                name: "IX_F_Condition_F_RequestId",
                 schema: "Facts",
                 table: "F_Condition",
-                column: "F_RequestInformationId");
+                column: "F_RequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_Condition_LastUpdatedRecord",
@@ -2429,97 +2333,184 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_CreateTimeRecord",
+                name: "IX_F_Request_CreateTimeRecord",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "CreateTimeRecord",
                 unique: true,
                 descending: new bool[0],
                 filter: "[CreateTimeRecord] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_DsblRecord",
+                name: "IX_F_Request_DsblRecord",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "DsblRecord",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_LastUpdatedRecord",
+                name: "IX_F_Request_LastUpdatedRecord",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "LastUpdatedRecord",
                 unique: true,
                 descending: new bool[0],
                 filter: "[LastUpdatedRecord] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_Parent_Id",
+                name: "IX_F_Request_Parent_Id",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "Parent_Id",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_PCode",
+                name: "IX_F_Request_PCode",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "PCode",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_PERPCode",
+                name: "IX_F_Request_PERPCode",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "PERPCode",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_PIndex",
+                name: "IX_F_Request_PIndex",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "PIndex",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_PName",
+                name: "IX_F_Request_PName",
                 schema: "Facts",
-                table: "F_RequestInformation",
+                table: "F_Request",
                 column: "PName",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_RI_AllApproveId",
+                name: "IX_F_Request_RQT_CreatorId",
                 schema: "Facts",
-                table: "F_RequestInformation",
-                column: "RI_AllApproveId");
+                table: "F_Request",
+                column: "RQT_CreatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_RI_CreatorId",
+                name: "IX_F_Request_RQT_Current_ReviewId",
                 schema: "Facts",
-                table: "F_RequestInformation",
-                column: "RI_CreatorId");
+                table: "F_Request",
+                column: "RQT_Current_ReviewId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_RI_ProcessStateId",
+                name: "IX_F_Request_RQT_ProcessId",
                 schema: "Facts",
-                table: "F_RequestInformation",
-                column: "RI_ProcessStateId");
+                table: "F_Request",
+                column: "RQT_ProcessId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_RI_RequestorId",
+                name: "IX_F_Request_RQT_ProcessStateId",
                 schema: "Facts",
-                table: "F_RequestInformation",
-                column: "RI_RequestorId");
+                table: "F_Request",
+                column: "RQT_ProcessStateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_RequestInformation_RI_RequestTitleId",
+                name: "IX_F_Request_RQT_RequestorId",
                 schema: "Facts",
-                table: "F_RequestInformation",
-                column: "RI_RequestTitleId");
+                table: "F_Request",
+                column: "RQT_RequestorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_APV_AssignmentId",
+                schema: "Facts",
+                table: "F_Review",
+                column: "APV_AssignmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_APV_PerformerId",
+                schema: "Facts",
+                table: "F_Review",
+                column: "APV_PerformerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_APV_RequestId",
+                schema: "Facts",
+                table: "F_Review",
+                column: "APV_RequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_APV_TagId",
+                schema: "Facts",
+                table: "F_Review",
+                column: "APV_TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_CreateTimeRecord",
+                schema: "Facts",
+                table: "F_Review",
+                column: "CreateTimeRecord",
+                unique: true,
+                descending: new bool[0],
+                filter: "[CreateTimeRecord] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_DsblRecord",
+                schema: "Facts",
+                table: "F_Review",
+                column: "DsblRecord",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_LastUpdatedRecord",
+                schema: "Facts",
+                table: "F_Review",
+                column: "LastUpdatedRecord",
+                unique: true,
+                descending: new bool[0],
+                filter: "[LastUpdatedRecord] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_Parent_Id",
+                schema: "Facts",
+                table: "F_Review",
+                column: "Parent_Id",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_PCode",
+                schema: "Facts",
+                table: "F_Review",
+                column: "PCode",
+                unique: true,
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_PERPCode",
+                schema: "Facts",
+                table: "F_Review",
+                column: "PERPCode",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_PIndex",
+                schema: "Facts",
+                table: "F_Review",
+                column: "PIndex",
+                unique: true,
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_PName",
+                schema: "Facts",
+                table: "F_Review",
+                column: "PName",
+                unique: true,
+                descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_Scenario_CreateTimeRecord",
@@ -2585,72 +2576,72 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_CreateTimeRecord",
+                name: "IX_L_ProcessScenario_CreateTimeRecord",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "CreateTimeRecord",
                 unique: true,
                 descending: new bool[0],
                 filter: "[CreateTimeRecord] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_DsblRecord",
+                name: "IX_L_ProcessScenario_DsblRecord",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "DsblRecord",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_FirstId",
+                name: "IX_L_ProcessScenario_FirstId",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "FirstId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_LastUpdatedRecord",
+                name: "IX_L_ProcessScenario_LastUpdatedRecord",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "LastUpdatedRecord",
                 unique: true,
                 descending: new bool[0],
                 filter: "[LastUpdatedRecord] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_PCode",
+                name: "IX_L_ProcessScenario_PCode",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "PCode",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_PERPCode",
+                name: "IX_L_ProcessScenario_PERPCode",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "PERPCode",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_PIndex",
+                name: "IX_L_ProcessScenario_PIndex",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "PIndex",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_PName",
+                name: "IX_L_ProcessScenario_PName",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "PName",
                 unique: true,
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_Process_Strategy_SecondId",
+                name: "IX_L_ProcessScenario_SecondId",
                 schema: "Links",
-                table: "L_Process_Strategy",
+                table: "L_ProcessScenario",
                 column: "SecondId",
                 descending: new bool[0]);
 
@@ -2865,21 +2856,48 @@ namespace Cheetah_DataAccess.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_F_AllApprove_F_Approve_AAP_Current_ApproveId",
-                schema: "Facts",
-                table: "F_AllApprove",
-                column: "AAP_Current_ApproveId",
+                name: "FK_D_User_F_Assignment_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User",
+                column: "F_AssignmentId",
                 principalSchema: "Facts",
-                principalTable: "F_Approve",
+                principalTable: "F_Assignment",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_F_AllApprove_F_Approve_AAP_Last_ApproveId",
+                name: "FK_F_Assignment_F_Request_F_RequestId",
                 schema: "Facts",
-                table: "F_AllApprove",
-                column: "AAP_Last_ApproveId",
+                table: "F_Assignment",
+                column: "F_RequestId",
                 principalSchema: "Facts",
-                principalTable: "F_Approve",
+                principalTable: "F_Request",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_F_Attachment_F_Review_F_ReviewId",
+                schema: "Facts",
+                table: "F_Attachment",
+                column: "F_ReviewId",
+                principalSchema: "Facts",
+                principalTable: "F_Review",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_F_Condition_F_Request_F_RequestId",
+                schema: "Facts",
+                table: "F_Condition",
+                column: "F_RequestId",
+                principalSchema: "Facts",
+                principalTable: "F_Request",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_F_Request_F_Review_RQT_Current_ReviewId",
+                schema: "Facts",
+                table: "F_Request",
+                column: "RQT_Current_ReviewId",
+                principalSchema: "Facts",
+                principalTable: "F_Review",
                 principalColumn: "Id");
         }
 
@@ -2887,19 +2905,29 @@ namespace Cheetah_DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_D_Tag_D_TagType_TG_TagTypeId",
+                schema: "Dimentions",
+                table: "D_Tag");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_D_User_D_UserInformation_User_UserInformationId",
                 schema: "Dimentions",
                 table: "D_User");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_F_AllApprove_F_Approve_AAP_Current_ApproveId",
-                schema: "Facts",
-                table: "F_AllApprove");
+                name: "FK_D_User_F_Assignment_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_F_AllApprove_F_Approve_AAP_Last_ApproveId",
+                name: "FK_F_Review_F_Assignment_APV_AssignmentId",
                 schema: "Facts",
-                table: "F_AllApprove");
+                table: "F_Review");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Review_F_Request_APV_RequestId",
+                schema: "Facts",
+                table: "F_Review");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -2929,7 +2957,7 @@ namespace Cheetah_DataAccess.Migrations
                 schema: "Facts");
 
             migrationBuilder.DropTable(
-                name: "L_Process_Strategy",
+                name: "L_ProcessScenario",
                 schema: "Links");
 
             migrationBuilder.DropTable(
@@ -2955,14 +2983,6 @@ namespace Cheetah_DataAccess.Migrations
                 schema: "Dimentions");
 
             migrationBuilder.DropTable(
-                name: "D_Tag",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
-                name: "F_RequestInformation",
-                schema: "Facts");
-
-            migrationBuilder.DropTable(
                 name: "D_Location",
                 schema: "Dimentions");
 
@@ -2975,27 +2995,11 @@ namespace Cheetah_DataAccess.Migrations
                 schema: "Dimentions");
 
             migrationBuilder.DropTable(
-                name: "D_ProcessState",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
-                name: "D_Process",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
                 name: "D_UserInformation",
                 schema: "Dimentions");
 
             migrationBuilder.DropTable(
-                name: "F_Approve",
-                schema: "Facts");
-
-            migrationBuilder.DropTable(
-                name: "D_User",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
-                name: "F_AllApprove",
+                name: "F_Assignment",
                 schema: "Facts");
 
             migrationBuilder.DropTable(
@@ -3009,6 +3013,30 @@ namespace Cheetah_DataAccess.Migrations
             migrationBuilder.DropTable(
                 name: "F_Scenario",
                 schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "F_Request",
+                schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "D_ProcessState",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "D_Process",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "F_Review",
+                schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "D_Tag",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "D_User",
+                schema: "Dimentions");
         }
     }
 }

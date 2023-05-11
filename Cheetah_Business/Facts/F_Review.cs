@@ -18,20 +18,18 @@ namespace Cheetah_Business.Facts
     {
         [Column(Order = 100)]
         [Description("بررسی کننده")]
-        public long? APV_UserInChargeId { get; set; }
-        public virtual D_User? APV_UserInCharge { get; set; }
+        public long? APV_PerformerId { get; set; }
+        public virtual D_User? APV_Performer { get; set; }
 
         [Column(Order = 101)]
-        public long? APV_EndorsementId { get; set; }
-        public virtual F_Endorsement? APV_Endorsement { get; set; }
+        public long? APV_AssignmentId { get; set; }
+        public virtual F_Assignment? APV_Assignment { get; set; }
+
 
         [Column(Order = 102)]
-        public long? APV_NeedReviewId { get; set; }
-        public virtual F_AllReview? APV_NeedReview { get; set; }
+        public long? APV_RequestId { get; set; }
+        public virtual F_Request? APV_Request { get; set; }
 
-        [Column(Order = 103)]
-        public long? APV_AllReviewId { get; set; }
-        public virtual F_AllReview? APV_AllReview { get; set; }
 
         [Column(Order = 104)]
         public long? APV_TagId { get; set; }

@@ -531,7 +531,7 @@ namespace Cheetah_DataAccess.Data
                             Id = 200,
                             PCode = 200,
                             PIndex = 200,
-                            PName = nameof(F_AllReview),
+                            PName = nameof(F_Assignment),
                             PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString(),
                             Display = false
                         },

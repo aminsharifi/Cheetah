@@ -1,97 +1,90 @@
 Operation =>
-
 mutation($f_Request:F_RequestInput!)
 {
   performRequest (request:$f_Request)
   {
     id
-    ri_ERPID
-    ri_ProcessState        
+    rqt_ERPID
+    rqt_ProcessState        
     {
       pDisplayName
     }
-    ri_Creator
+    rqt_Creator
     {
       pDisplayName
     }
-    ri_Requestor {
+    rqt_Requestor {
       pDisplayName
     }
-    ri_Process {
+    rqt_Process {
       pDisplayName
     }
-    ri_Conditions
+    rqt_Conditions
     {
       cd_Tag {        
         pDisplayName
       }
       cd_Value 
-    }  
-    ri_AllReview {
-     ar_Reviews
-     {      
-        apv_Endorsement
-        {
-          ed_Role
-          {
-            pName
+    }
+     rqt_Reviews
+     {
+      apv_Assignment {
+        prm_Endorsement {
+          ed_Role {
             pDisplayName
-            rol_Independent
           }
         }
-        apv_Tag {          
+      }
+      apv_Tag
+      {          
           pDisplayName
-        }
-        apv_UserInCharge {      
+      }     
+      apv_Performer 
+      {      
           pDisplayName
-        }
-        pDisplayName
+      }
      }      
     }
   }
-}
-
+  
+  
 
 Variable =>
-
 {
   "f_Request":
   {
-    "ri_ERPID":103,
-    "ri_Process":
+    "rqt_ERPID":103,
+    "rqt_Process":
     {
       "pName": "CustomerDefinition"
     },
-    "ri_Creator":
+    "rqt_Creator":
     {
         "pName": "m.sharifi"
     },
-    "ri_Requestor":
+    "rqt_Requestor":
     {
         "pName": "a.sharifi"
     },
-    "ri_Conditions":
+    "rqt_Conditions":
       {
           "cd_Tag": 
         {
-          "pName": "OursShare"
+          "pName": "Price"
         },
         "cd_Value":"100"
       },
-    "ri_AllReview":
-      {
-        "ar_Current_Review":
+      "rqt_Current_Review":
         {
           "apv_Tag": 
           {
             "pName": "Approve"
           },
-          "apv_UserInCharge":
+          "apv_Performer":
           {
             "pName": "m.sharifi"
           },
           "pDisplayName" : "درخواست مورد تایید است"
-        }
-      }
+        }      
   }
 }

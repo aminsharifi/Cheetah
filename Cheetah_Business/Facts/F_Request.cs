@@ -18,48 +18,53 @@ namespace Cheetah_Business.Facts
     {
         #region Simple Prob
         [Column(Order = 100)]
-        public Int64? RI_ERPID { get; set; }
+        public Int64? RQT_ERPID { get; set; }
 
         [Column(Order = 102)]
-        public Boolean? IsTest { get; set; } = false;
+        public Boolean? RQT_IsTest { get; set; } = false;
         #endregion
 
         #region DateTimes
         [Column(Order = 104)]
-        public DateTime? RI_RequestDate { get; set; } = DateTime.Now;
+        public DateTime? RQT_RequestDate { get; set; } = DateTime.Now;
         #endregion
 
         #region S_User
         [Column(Order = 106)]
-        public long? RI_RequestorId { get; set; }
-        public virtual D_User? RI_Requestor { get; set; }
+        public long? RQT_RequestorId { get; set; }
+        public virtual D_User? RQT_Requestor { get; set; }
 
         [Column(Order = 107)]
-        public long? RI_CreatorId { get; set; }
-        public virtual D_User? RI_Creator { get; set; }
+        public long? RQT_CreatorId { get; set; }
+        public virtual D_User? RQT_Creator { get; set; }
 
         #endregion
 
-        #region Enitty
-
-        [Column(Order = 109)]
-        public long? RI_AllReviewId { get; set; }
-        public virtual F_AllReview? RI_AllReview { get; set; }
+        #region Enitty       
 
         [Description("وضعیت فرآیند")]
         [Column(Order = 110)]
         [DefaultValue(1)]
-        public long? RI_ProcessStateId { get; set; }
-        public virtual D_ProcessState? RI_ProcessState { get; set; }
+        public long? RQT_ProcessStateId { get; set; }
+        public virtual D_ProcessState? RQT_ProcessState { get; set; }
 
         [Description("نام فرآیند")]
         [Column(Order = 111)]
-        public long? RI_ProcessId { get; set; }
-        public virtual D_Process? RI_Process{ get; set; }
+        public long? RQT_ProcessId { get; set; }
+        public virtual D_Process? RQT_Process { get; set; }
+
+        [Column(Order = 112)]
+        public long? RQT_Current_ReviewId { get; set; }
+        [ForeignKey(nameof(RQT_Current_ReviewId))]
+        public virtual F_Review? RQT_Current_Review { get; set; }
         #endregion
 
         #region Collection
-        public virtual ICollection<F_Condition>? RI_Conditions { get; set; } = new HashSet<F_Condition>();
+        public virtual ICollection<F_Condition>? RQT_Conditions { get; set; } = new HashSet<F_Condition>();
+        public virtual ICollection<F_Assignment>? RQT_Assignments { get; set; } = new HashSet<F_Assignment>();
+
+        [InverseProperty(nameof(F_Review.APV_Request))]
+        public virtual ICollection<F_Review>? RQT_Reviews { get; set; } = new HashSet<F_Review>();
         #endregion
     }
 }

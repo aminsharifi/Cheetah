@@ -25,7 +25,7 @@ namespace Cheetah_Business.Facts
         public virtual ICollection<F_Endorsement>? EP_Endorsements { get; set; } = new HashSet<F_Endorsement>();
 
         [UseSorting]
-        public virtual ICollection<L_ProcessScenario>? EP_Process_Strategies { get; set; } = new HashSet<L_ProcessScenario>();
+        public virtual ICollection<L_ProcessScenario>? EP_ProcessScenarios { get; set; } = new HashSet<L_ProcessScenario>();
 
         #endregion
 
