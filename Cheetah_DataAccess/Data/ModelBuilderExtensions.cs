@@ -634,30 +634,31 @@ namespace Cheetah_DataAccess.Data
 
             #region F_Scenario
             modelBuilder.Entity<F_Scenario>().HasData(
-                new F_Scenario
-                {
-                    Id = 1,
-                    PCode = 1,
-                    PIndex = 1,
-                    PName = "Med_Scenario",
-                    PDisplayName = "سناریو دارویی"
-                },
+                 new F_Scenario
+                 {
+                     Id = 1,
+                     PCode = 1,
+                     PIndex = 1,
+                     PName = "Head_Scenario3",
+                     PDisplayName = "سناریو ستاد"
+                 },
                 new F_Scenario
                 {
                     Id = 2,
                     PCode = 2,
                     PIndex = 2,
-                    PName = "FMCG_Scenario",
-                    PDisplayName = "سناریو مصرفی"
+                    PName = "Med_Scenario",
+                    PDisplayName = "سناریو دارویی"
                 },
                 new F_Scenario
                 {
                     Id = 3,
                     PCode = 3,
                     PIndex = 3,
-                    PName = "Head_Scenario3",
-                    PDisplayName = "سناریو ستاد"
+                    PName = "FMCG_Scenario",
+                    PDisplayName = "سناریو مصرفی"
                 }
+
                 );
             #endregion
 
@@ -686,7 +687,8 @@ namespace Cheetah_DataAccess.Data
                     CD_TagId = 204,
                     CD_OperandId = 1,
                     CD_Value = "1",
-                    CD_ScenarioId = 1
+                    CD_ScenarioId = 1,
+                    CD_EndorsementId = 2
                 },
                 new F_Condition
                 {
@@ -755,7 +757,7 @@ namespace Cheetah_DataAccess.Data
                     PCode = 3,
                     PIndex = 3,
                     PName = "Strategy2,PharmaceuticalDeputy",
-                    PDisplayName = "راهبرد دو,معاونت دارویی",
+                    PDisplayName = "سناریو دو,معاونت دارویی",
                     ED_RoleId = 1,
                     ED_ScenarioId = 2
                 },
@@ -765,7 +767,7 @@ namespace Cheetah_DataAccess.Data
                     PCode = 4,
                     PIndex = 4,
                     PName = "Strategy2,FMCGDeputy",
-                    PDisplayName = "راهبرد دو,معاونت غذایی",
+                    PDisplayName = "سناریو دو,معاونت غذایی",
                     ED_RoleId = 2,
                     ED_ScenarioId = 2
                 }
@@ -884,7 +886,7 @@ namespace Cheetah_DataAccess.Data
                               PCode = 1,
                               PIndex = 1,
                               PName = "CustomerDefinition-Strategy3",
-                              PDisplayName = "تعریف/اصلاح مشتری-راهبرد سه",
+                              PDisplayName = "تعریف/اصلاح مشتری-سناریو سه",
                               FirstId = 1,
                               SecondId = 3
                           },
@@ -894,7 +896,7 @@ namespace Cheetah_DataAccess.Data
                               PCode = 2,
                               PIndex = 2,
                               PName = "CustomerDefinition-Strategy1",
-                              PDisplayName = "تعریف/اصلاح مشتری-راهبرد یک",
+                              PDisplayName = "تعریف/اصلاح مشتری-سناریو یک",
                               FirstId = 1,
                               SecondId = 1
                           },
@@ -904,7 +906,7 @@ namespace Cheetah_DataAccess.Data
                               PCode = 3,
                               PIndex = 3,
                               PName = "PolicyCenter-Strategy1",
-                              PDisplayName = "مجوزهای موردی-راهبرد یک",
+                              PDisplayName = "مجوزهای موردی-سناریو یک",
                               FirstId = 2,
                               SecondId = 1
                           },
@@ -914,7 +916,7 @@ namespace Cheetah_DataAccess.Data
                               PCode = 4,
                               PIndex = 4,
                               PName = "PolicyCenter-Strategy2",
-                              PDisplayName = "تعریف/اصلاح مشتری-راهبرد دو",
+                              PDisplayName = "تعریف/اصلاح مشتری-سناریو دو",
                               FirstId = 1,
                               SecondId = 2
                           },
@@ -924,7 +926,7 @@ namespace Cheetah_DataAccess.Data
                                PCode = 5,
                                PIndex = 5,
                                PName = "CustomerDefinition-Strategy2",
-                               PDisplayName = "مجوزهای موردی-راهبرد دو",
+                               PDisplayName = "مجوزهای موردی-سناریو دو",
                                FirstId = 2,
                                SecondId = 2
                            }
