@@ -11,9 +11,13 @@ namespace Cheetah_DataAccess.Data
             _context = context;
         }
 
-        public void Run()
+        public async Task<bool> Run()
         {
-            _context.Database.Migrate();
+            await _context.Database.EnsureDeletedAsync();
+
+            await _context.Database.MigrateAsync();
+
+            return true;
         }
     }
 }

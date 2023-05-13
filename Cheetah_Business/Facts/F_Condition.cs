@@ -31,6 +31,10 @@ namespace Cheetah_Business.Facts
         public long? CD_ScenarioId { get; set; }
         public virtual F_Scenario? CD_Scenario { get; set; }
 
+        [Column(Order = 104)]
+        public long? CD_EndorsementId { get; set; }
+        public virtual F_Endorsement? CD_Endorsement { get; set; }
+
         [NotMapped]
         [GraphQLIgnore]
         public Boolean CD_BooleanValue

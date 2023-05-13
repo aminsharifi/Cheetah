@@ -23,6 +23,8 @@ namespace Cheetah_Business.Facts
         public long? ED_ScenarioId { get; set; }
         public virtual F_Scenario? ED_Scenario { get; set; }
 
+        public virtual ICollection<F_Condition>? ED_Conditions { get; set; } = new HashSet<F_Condition>();
+
         public override void SetName()
         {
             PDisplayName = ED_Scenario?.PDisplayName + "," + ED_Role?.PDisplayName;
