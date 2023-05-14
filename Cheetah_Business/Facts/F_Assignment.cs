@@ -16,10 +16,14 @@ namespace Cheetah_Business.Facts
     [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class F_Assignment : BaseClass<F_Assignment>
     {
-
         [Column(Order = 101)]
         public long? PRM_EndorsementId { get; set; }
         public virtual F_Endorsement? PRM_Endorsement { get; set; }
+
+        [Column(Order = 102)]
+        public long? PRM_ReviewId { get; set; }
+        [ForeignKey(nameof(PRM_ReviewId))]
+        public virtual F_Review? PRM_Review { get; set; }
 
         [Column(Order = 103)]
         [Description("نامزدهای تایید")]

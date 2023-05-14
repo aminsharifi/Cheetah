@@ -53,11 +53,11 @@
         else if (CFieldType == FieldType.CBool)
         {
             <div class="form-check form-switch">
-                <InputCheckbox @attributes=CapturedAttributes
-                               class="form-check-input" type="checkbox" role="switch"
-                           @bind-Value="BValue"
-                               style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
-                </InputCheckbox>
+                <input type="checkbox" 
+                    @attributes=CapturedAttributes
+                    class="form-check-input" role="switch"
+                    value="@BValue" style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
+                </input>
             </div>
         }
         else if (CFieldType == FieldType.CSelect)
@@ -159,9 +159,9 @@
         }
     }
 
-    private Boolean _Bvalue;
+    private Boolean? _Bvalue;
     [Parameter]
-    public Boolean BValue
+    public Boolean? BValue
     {
         get => _Bvalue;
         set
@@ -172,7 +172,7 @@
         }
     }
     [Parameter]
-    public EventCallback<Boolean> BValueChanged { get; set; }
+    public EventCallback<Boolean?> BValueChanged { get; set; }
 
     //[Parameter]
     //public Expression<Func<object>> MessageValue { get; set; }

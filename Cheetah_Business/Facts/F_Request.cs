@@ -5,15 +5,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
-    [Table(nameof(F_Request), Schema = nameof(TableType.Facts))]
-    [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
-    [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
-    [Index(nameof(PName), IsUnique = true, AllDescending = true)]
+    [Table(nameof(F_Request), Schema = nameof(TableType.Facts))]   
     [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-    [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class F_Request : BaseClass<F_Request>
     {
         #region Simple Prob

@@ -6,6 +6,7 @@ using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -48,91 +49,43 @@ namespace Cheetah_DataAccess.Repository
 
             try
             {
-                if (!String.IsNullOrEmpty(request.RQT_Creator.PName))
-                {
-                    var RI_Creator = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Creator.PName);
-                    GeneralRequest.RQT_CreatorId = RI_Creator.Id;
-                    GeneralRequest.RQT_Creator = RI_Creator;
-                }
-                if (!String.IsNullOrEmpty(request.RQT_Requestor.PName))
-                {
-                    var RI_Requestor = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Requestor.PName);
-                    GeneralRequest.RQT_RequestorId = RI_Requestor.Id;
-                    GeneralRequest.RQT_Requestor = RI_Requestor;
-                }
-                if (!String.IsNullOrEmpty(request.RQT_Process.PName))
-                {
-                    var RI_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
-                    GeneralRequest.RQT_ProcessId = RI_Process.Id;
-                    GeneralRequest.RQT_Process = RI_Process;
-                }
+                GeneralRequest.RQT_Creator = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Creator.PName);
 
-                #region Create
+                GeneralRequest.RQT_Requestor = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Requestor.PName);
 
-                if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
-                {
-                    #region Initials
+                GeneralRequest.RQT_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
 
-                    var temp_Request = await GetLast(nameof(F_Request)) as F_Request;
+                if (GeneralRequest.Id == 0)
                     GeneralRequest.Id = null;
-                    GeneralRequest.PCode = temp_Request.PCode;
-                    GeneralRequest.PIndex = temp_Request.PIndex;
-                    GeneralRequest.PName = nameof(F_Request) + "-" + temp_Request.PCode;
-                    GeneralRequest.PDisplayName = nameof(F_Request) + "-" + temp_Request.PCode;
-
-                    #endregion
-
-                }
                 else
-                {
                     GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
-                }
 
-                #endregion
-
-                #region Conditions
-
-                var f_Condition = await GetLast(nameof(F_Condition)) as F_Condition;
+                await _db.F_Conditions
+                    .Where(x => x.CD_RequestId == GeneralRequest.Id)
+                    .ExecuteUpdateAsync(x => x.SetProperty(p => p.DsblRecord, false));
 
                 foreach (var item in GeneralRequest.RQT_Conditions)
                 {
-                    if (item.Id is null || item.Id == 0)
-                    {
-                        item.Id = null;
-                        item.PCode = f_Condition.PCode++;
-                        item.PIndex = f_Condition.PIndex++;
-                        item.PDisplayName = item.PName = GeneralRequest.PCode.ToString() + "-" + f_Condition.PCode.ToString();
-                    }
-                    else
-                    {
-                        var ri_Conditions = GeneralRequest.RQT_Conditions.Single(x => x.Id == item.Id);
-                        ri_Conditions.CD_TagId = item.CD_TagId;
-                        ri_Conditions.CD_OperandId = item.CD_OperandId;
-                        ri_Conditions.CD_Value = item.CD_Value;
-                    }
-                    if (!String.IsNullOrEmpty(item.CD_Tag?.PName))
-                    {
-                        var CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
-                        item.CD_TagId = CD_Tag.Id;
-                        item.CD_Tag = CD_Tag;
-                    }
-                    var CD_Operand = await _db.D_Operands.SingleAsync(x => x.Id == 1);
-                    item.CD_OperandId = CD_Operand.Id;
-                    item.CD_Operand = CD_Operand;
+                    item.Id = null;
+                    item.CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
                 }
 
-                #endregion
+                var pc_ProcessScenario = GeneralRequest.RQT_Process.PC_ProcessScenario.ToList();
 
-
-                var pc_ProcessScenario = GeneralRequest.RQT_Process.PC_ProcessScenario.ToList<L_ProcessScenario>();
+                F_Scenario SelectedScenario = null;
 
                 foreach (var ProcessScenario in pc_ProcessScenario)
                 {
-                    F_Scenario SelectedScenario = null;
-                    var ConditionOccur = true;
+                    var ConditionOccur = 0;
 
-                    foreach (var Condition in ProcessScenario.PS_Scenario.EP_Conditions)
+                    var EP_Conditions = ProcessScenario.PS_Scenario.EP_Conditions.ToList();
+
+                    var cnt_con = EP_Conditions.Count;
+
+                    for (int i = 0; i < cnt_con; i++)
                     {
+                        var Condition = EP_Conditions[i];
+
                         if (GeneralRequest.RQT_Conditions.Any(x => x.CD_Tag.PName == Condition.CD_Tag.PName))
                         {
                             var Scenario_Value = float.Parse(Condition.CD_Value);
@@ -142,70 +95,55 @@ namespace Cheetah_DataAccess.Repository
                             var Operand_Name = Condition.CD_Operand.PName;
 
                             if (
-                                   (Operand_Name == ">" && Current_Value <= Scenario_Value)
-                                || (Operand_Name == ">=" && Current_Value < Scenario_Value)
-                                || (Operand_Name == "<" && Current_Value >= Scenario_Value)
-                                || (Operand_Name == "<=" && Current_Value > Scenario_Value)
-                                || (Operand_Name == "=" && Current_Value != Scenario_Value)
-                                || (Operand_Name == "!=" && Current_Value == Scenario_Value)
+                                   (Operand_Name == ">" && Current_Value > Scenario_Value)
+                                || (Operand_Name == ">=" && Current_Value >= Scenario_Value)
+                                || (Operand_Name == "<" && Current_Value < Scenario_Value)
+                                || (Operand_Name == "<=" && Current_Value <= Scenario_Value)
+                                || (Operand_Name == "=" && Current_Value == Scenario_Value)
+                                || (Operand_Name == "!=" && Current_Value != Scenario_Value)
                                 )
                             {
-                                ConditionOccur = false;
-                                break;
+                                ConditionOccur++;
                             }
                         }
-                        else
-                        {
-                            ConditionOccur = false;
-                            break;
-                        }
                     }
-                    if (ConditionOccur)
+
+                    if (ConditionOccur == EP_Conditions.Count)
                     {
                         SelectedScenario = ProcessScenario.PS_Scenario;
-
-                        if (GeneralRequest.RQT_Current_Review is not null)
-                        {
-                            #region Current_Review
-
-                            var f_Review = await GetLast(nameof(F_Review)) as F_Review;
-
-                            GeneralRequest.RQT_Current_Review.Id = f_Review.Id;
-                            GeneralRequest.RQT_Current_Review.PCode = f_Review.PCode;
-                            GeneralRequest.RQT_Current_Review.PIndex = f_Review.PIndex;
-                            GeneralRequest.RQT_Current_Review.PName = GeneralRequest.PName + "-" + f_Review.PCode;
-
-                            if (!String.IsNullOrEmpty(request.RQT_Current_Review.APV_Tag.PName))
-                            {
-                                var APV_Tag = await _db.D_Tags.SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
-                                GeneralRequest.RQT_Current_Review.APV_TagId = APV_Tag.Id;
-                                GeneralRequest.RQT_Current_Review.APV_Tag = APV_Tag;
-                            }
-
-                            if (!String.IsNullOrEmpty(request.RQT_Current_Review.APV_Performer.PName))
-                            {
-                                var APV_Performer = await _db.D_Users
-                                    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
-
-                                GeneralRequest.RQT_Current_Review.APV_PerformerId = APV_Performer.Id;
-                                GeneralRequest.RQT_Current_Review.APV_Performer = APV_Performer;
-                            }
-
-
-
-
-                            GeneralRequest.RQT_Current_Review.APV_Assignment.PRM_Endorsement = SelectedScenario.EP_Endorsements.First();
-
-
-
-
-
-
-
-                            #endregion
-                        }
                     }
                 }
+
+                //ok
+
+                if (GeneralRequest.RQT_Assignments is null)
+                {
+                    GeneralRequest.RQT_Assignments = new HashSet<F_Assignment>();
+
+                    foreach (var item in SelectedScenario.EP_Endorsements)
+                    {
+                        var new_Assignment = new F_Assignment()
+                        {
+                            PRM_Endorsement = item
+                        };
+
+                        GeneralRequest.RQT_Assignments.Add(new_Assignment);
+                    }
+                }
+
+                if (request.RQT_Current_Review is not null)
+                {
+                    GeneralRequest.RQT_Current_Review.Id = null;
+
+                    GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
+                        .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
+
+                    GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
+                        .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
+
+                    //GeneralRequest.RQT_Current_Review.APV_Assignment.PRM_Endorsement = SelectedScenario.EP_Endorsements.First();
+                }
+
                 if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
                 {
                     var tmp = await _db.AddAsync(GeneralRequest);
@@ -234,6 +172,7 @@ namespace Cheetah_DataAccess.Repository
 
             return ret_Requests;
         }
+
         public async Task<SimpleClass> Create(SimpleClass obj_DTO)
         {
             await _db.AddAsync(obj_DTO);
