@@ -116,10 +116,9 @@
                                             </td>
                                             <td style="width:8%">
                                                 <div class="form-check form-switch">
-                                                    <InputCheckbox class="form-check-input" type="checkbox" role="switch"
-                                                       @bind-Value="item.DsblRecord"
-                                                                   style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;">
-                                                    </InputCheckbox>
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                           value="@(item.DsblRecord)"
+                                                           style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -242,8 +241,8 @@
                                                                         </td>
                                                                         <td style="width:16%">
                                                                             <InputSelect class="col-12"
-                                                                                @bind-Value="item.CD_TagId" style="direction:rtl"
-                                                                                @oninput="(e => SelectedParameterListChanged(e,item))">
+                                                                     @bind-Value="item.CD_TagId" style="direction:rtl"
+                                                                     @oninput="(e => SelectedParameterListChanged(e,item))">
                                                                                 @if (item.CD_TagId < 1)
                                                                                 {
                                                                                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
@@ -258,8 +257,8 @@
                                                                         </td>
                                                                         <td style="width:16%">
                                                                             <InputSelect class="col-12"
-                                                                                 @bind-Value="item.CD_OperandId" style="direction:rtl"
-                                                                                 @oninput="(e => SelectedOperandChanged(e,item))">
+                                                                     @bind-Value="item.CD_OperandId" style="direction:rtl"
+                                                                     @oninput="(e => SelectedOperandChanged(e,item))">
                                                                                 @if (item.CD_TagId < 1)
                                                                                 {
                                                                                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
@@ -299,10 +298,9 @@
                                                                         </td>
                                                                         <td style="width:8%">
                                                                             <div class="form-check form-switch">
-                                                                                <InputCheckbox class="form-check-input" type="checkbox" role="switch"
-                                                                           @bind-Value="item.DsblRecord"
-                                                                                               style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;">
-                                                                                </InputCheckbox>
+                                                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                                                       value="@(item.DsblRecord)"
+                                                                                       style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;" />
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -314,10 +312,9 @@
                                             </td>
                                             <td style="width:8%">
                                                 <div class="form-check form-switch">
-                                                    <InputCheckbox class="form-check-input" type="checkbox" role="switch"
-                                                       @bind-Value="item.DsblRecord"
-                                                                   style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;">
-                                                    </InputCheckbox>
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                           value="item.DsblRecord"
+                                                           style="width:3rem;height: 1rem;border-radius: revert;margin-top: 0px;" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -365,7 +362,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.PDisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 

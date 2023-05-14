@@ -670,8 +670,8 @@ namespace Cheetah_DataAccess.Data
                     Id = 1,
                     PCode = 1,
                     PIndex = 1,
-                    PName = "Med_Scenario,OursShare,>,0",
-                    PDisplayName = "سناریو دارویی,سهم شرکت,بزگتر از,0",
+                    PName = "Head_Scenario,OursShare,>,0",
+                    PDisplayName = "سناریو ستاد,سهم شرکت,بزگتر از,0",
                     CD_TagId = 100,
                     CD_OperandId = 3,
                     CD_Value = "0",
@@ -687,16 +687,15 @@ namespace Cheetah_DataAccess.Data
                     CD_TagId = 204,
                     CD_OperandId = 1,
                     CD_Value = "1",
-                    CD_ScenarioId = 1,
-                    CD_EndorsementId = 2
+                    CD_ScenarioId = 2
                 },
                 new F_Condition
                 {
                     Id = 3,
                     PCode = 3,
                     PIndex = 3,
-                    PName = "FMCG_Scenario,OursShare,>,0",
-                    PDisplayName = "سناریو مصرفی,سهم شرکت,بزگتر از,0",
+                    PName = "Med_Scenario,OursShare,>,0",
+                    PDisplayName = "سناریو دارویی,سهم شرکت,بزگتر از,0",
                     CD_TagId = 100,
                     CD_OperandId = 3,
                     CD_Value = "0",
@@ -712,15 +711,15 @@ namespace Cheetah_DataAccess.Data
                     CD_TagId = 205,
                     CD_OperandId = 1,
                     CD_Value = "1",
-                    CD_ScenarioId = 2
+                    CD_ScenarioId = 3
                 },
                 new F_Condition
                 {
                     Id = 5,
                     PCode = 5,
                     PIndex = 5,
-                    PName = "Head_Scenario,Price,>,0",
-                    PDisplayName = "سناریو ستاد,مبلغ,بزگتر از,0",
+                    PName = "FMCG_Scenario,Price,>,0",
+                    PDisplayName = "سناریو مصرفی,مبلغ,بزگتر از,0",
                     CD_TagId = 103,
                     CD_OperandId = 3,
                     CD_Value = "0",

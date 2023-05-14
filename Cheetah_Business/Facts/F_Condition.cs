@@ -6,14 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
     [Table(nameof(F_Condition), Schema = nameof(TableType.Facts))]
-    [Index(nameof(PCode), IsUnique = true, AllDescending = true)]
-    [Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
-    [Index(nameof(PName), IsUnique = true, AllDescending = true)]
     [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
     [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-    [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
     public partial class F_Condition : BaseClass<F_Condition>
     {
         [Column(Order = 100)]
@@ -34,6 +30,10 @@ namespace Cheetah_Business.Facts
         [Column(Order = 104)]
         public long? CD_EndorsementId { get; set; }
         public virtual F_Endorsement? CD_Endorsement { get; set; }
+
+        [Column(Order = 105)]
+        public long? CD_RequestId { get; set; }
+        public virtual F_Request? CD_Request { get; set; }
 
         [NotMapped]
         [GraphQLIgnore]

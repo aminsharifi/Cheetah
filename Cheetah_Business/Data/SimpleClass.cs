@@ -14,13 +14,11 @@ namespace Cheetah_Business.Data
         public Int64? Id { get; set; }
 
         [Description("کد")]
-        [Required(ErrorMessage = "کد اجباری است")]
         [Column(Order = 1)]
         [DefaultValue(0)]
         public Int64? PCode { get; set; }
 
         [Description("اندیس مرتب‌سازی")]
-        [Required(ErrorMessage = "اندیس سورت اجباری است")]      
         [Column(Order = 2)]
         [DefaultValue(0)]
         public Int64? PIndex { get; set; }
@@ -28,14 +26,12 @@ namespace Cheetah_Business.Data
 
         [StringLength(512)]
         [Description("نام")]
-        [Required(ErrorMessage = "نام اجباری است")]
         [DefaultValue("")]
         [Column(Order = 3)]
         public String? PName { get; set; }
 
         [StringLength(512)]
         [Description("نام نمایشی")]
-        [Required(ErrorMessage = "نام نمایشی اجباری است")]
         [DefaultValue("")]
         [Column(Order = 4)]
         public String? PDisplayName { get; set; }
@@ -55,10 +51,11 @@ namespace Cheetah_Business.Data
 
         [Column(Order = 8)]
         public Guid? GuidRecord { get; set; } = Guid.NewGuid();
+
         [DefaultValue(false)]
         [Column(Order = 9)]
         [Description("غیرفعال")]
-        public bool DsblRecord { get; set; } = false;
+        public bool? DsblRecord { get; set; }
 
         [Description("کد در ERP")]
         [Column(Order = 10)]
