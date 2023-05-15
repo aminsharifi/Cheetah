@@ -674,7 +674,8 @@ namespace Cheetah_DataAccess.Data
                     CD_TagId = 100,
                     CD_OperandId = 3,
                     CD_Value = "0",
-                    CD_ScenarioId = 1
+                    CD_ScenarioId = 1,
+                    CD_EndorsementId = 2
                 },
                 new F_Condition
                 {
@@ -735,19 +736,19 @@ namespace Cheetah_DataAccess.Data
                     PCode = 1,
                     PIndex = 1,
                     PName = "Med_Scenario,DistributionCenterManager",
-                    PDisplayName = "سناریو دارویی,مدیریت مرکز توزیع",
+                    PDisplayName = "سناریو سه,مدیریت مرکز توزیع",
                     ED_RoleId = 5,
-                    ED_ScenarioId = 1
+                    ED_ScenarioId = 3
                 },
                 new F_Endorsement
                 {
                     Id = 2,
                     PCode = 2,
                     PIndex = 2,
-                    PName = "Med_Scenario,PharmaceuticalDeputy",
-                    PDisplayName = "سناریو دارویی,معاونت دارویی",
+                    PName = "Strategy3,FMCGDeputy",
+                    PDisplayName = "سناریو سه,معاونت غذایی",
                     ED_RoleId = 2,
-                    ED_ScenarioId = 1
+                    ED_ScenarioId = 3
                 },
                 new F_Endorsement
                 {
@@ -764,10 +765,10 @@ namespace Cheetah_DataAccess.Data
                     Id = 4,
                     PCode = 4,
                     PIndex = 4,
-                    PName = "Strategy3,FMCGDeputy",
-                    PDisplayName = "سناریو سه,معاونت غذایی",
+                    PName = "Med_Scenario,PharmaceuticalDeputy",
+                    PDisplayName = "سناریو دارویی,معاونت دارویی",
                     ED_RoleId = 2,
-                    ED_ScenarioId = 3
+                    ED_ScenarioId = 1
                 }
                 );
             #endregion
@@ -941,9 +942,9 @@ namespace Cheetah_DataAccess.Data
                         PCode = 1,
                         PIndex = 1,
                         PName = "m.sharifi-PharmaceuticalDeputy",
-                        PDisplayName = "محمد شریفی-معاون دارویی",
+                        PDisplayName = "محمد شریفی-مدیر مرکز",
                         FirstId = 1,
-                        SecondId = 1
+                        SecondId = 7
                     },
                     new L_UserPosition
                     {

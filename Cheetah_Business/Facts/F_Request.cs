@@ -53,6 +53,12 @@ namespace Cheetah_Business.Facts
         public long? RQT_Current_ReviewId { get; set; }
         [ForeignKey(nameof(RQT_Current_ReviewId))]
         public virtual F_Review? RQT_Current_Review { get; set; }
+
+        [Column(Order = 113)]
+        public long? RQT_SelectedScenarioId { get; set; }
+        [ForeignKey(nameof(RQT_SelectedScenarioId))]
+        public virtual F_Scenario? RQT_SelectedScenario { get; set; }
+        
         #endregion
 
         #region Collection

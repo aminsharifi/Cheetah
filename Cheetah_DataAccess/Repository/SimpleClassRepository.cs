@@ -6,7 +6,6 @@ using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -43,11 +42,44 @@ namespace Cheetah_DataAccess.Repository
                               .ToString();
             return simpleLinkClass;
         }
+
+        public Boolean CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
+        {
+            var cnt_con = Expected_Conditions.Count();
+
+            var ConditionOccur = 0;
+
+            for (int i = 0; i < cnt_con; i++)
+            {
+                var Condition = Expected_Conditions.ToArray()[i];
+
+                if (Actual_Conditions.Any(x => x.CD_Tag.PName == Condition.CD_Tag.PName))
+                {
+                    var Scenario_Value = float.Parse(Condition.CD_Value);
+                    var Current_Value = float.Parse(Actual_Conditions
+                        .Single(x => x.CD_Tag.PName == Condition.CD_Tag.PName).CD_Value);
+
+                    var Operand_Name = Condition.CD_Operand.PName;
+
+                    if (
+                           (Operand_Name == ">" && Current_Value > Scenario_Value)
+                        || (Operand_Name == ">=" && Current_Value >= Scenario_Value)
+                        || (Operand_Name == "<" && Current_Value < Scenario_Value)
+                        || (Operand_Name == "<=" && Current_Value <= Scenario_Value)
+                        || (Operand_Name == "=" && Current_Value == Scenario_Value)
+                        || (Operand_Name == "!=" && Current_Value != Scenario_Value)
+                        )
+                    {
+                        ConditionOccur++;
+                    }
+                }
+            }
+            return (ConditionOccur == cnt_con);
+        }
+
         public async Task<F_Request> PerformRequestAsync(F_Request request)
         {
             F_Request GeneralRequest = request;
-
-            F_Scenario SelectedScenario = new F_Scenario();
 
             CrudOperation crudOperation = (GeneralRequest.Id > 0) ? CrudOperation.Update : CrudOperation.Create;
 
@@ -74,45 +106,19 @@ namespace Cheetah_DataAccess.Repository
                     item.CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
                 }
 
-                var pc_ProcessScenario = GeneralRequest.RQT_Process.PC_ProcessScenario.ToList();
+                var pc_ProcessScenario = GeneralRequest.RQT_Process?.PC_ProcessScenario;
 
                 foreach (var ProcessScenario in pc_ProcessScenario)
                 {
-                    var ConditionOccur = 0;
+                    var Actual_Conditions = GeneralRequest.RQT_Conditions.ToList();
 
-                    var EP_Conditions = ProcessScenario.PS_Scenario.EP_Conditions.ToList();
+                    var Expected_Conditions = ProcessScenario.PS_Scenario.EP_Conditions.ToList();
 
-                    var cnt_con = EP_Conditions.Count;
-
-                    for (int i = 0; i < cnt_con; i++)
+                    if (CompareCondition(Actual_Conditions, Expected_Conditions))
                     {
-                        var Condition = EP_Conditions[i];
+                        GeneralRequest.RQT_SelectedScenario = ProcessScenario.PS_Scenario;
 
-                        if (GeneralRequest.RQT_Conditions.Any(x => x.CD_Tag.PName == Condition.CD_Tag.PName))
-                        {
-                            var Scenario_Value = float.Parse(Condition.CD_Value);
-                            var Current_Value = float.Parse(GeneralRequest.RQT_Conditions
-                                .Single(x => x.CD_Tag.PName == Condition.CD_Tag.PName).CD_Value);
-
-                            var Operand_Name = Condition.CD_Operand.PName;
-
-                            if (
-                                   (Operand_Name == ">" && Current_Value > Scenario_Value)
-                                || (Operand_Name == ">=" && Current_Value >= Scenario_Value)
-                                || (Operand_Name == "<" && Current_Value < Scenario_Value)
-                                || (Operand_Name == "<=" && Current_Value <= Scenario_Value)
-                                || (Operand_Name == "=" && Current_Value == Scenario_Value)
-                                || (Operand_Name == "!=" && Current_Value != Scenario_Value)
-                                )
-                            {
-                                ConditionOccur++;
-                            }
-                        }
-                    }
-
-                    if (ConditionOccur == EP_Conditions.Count)
-                    {
-                        SelectedScenario = ProcessScenario.PS_Scenario;
+                        break;
                     }
                 }
 
@@ -120,19 +126,24 @@ namespace Cheetah_DataAccess.Repository
                 {
                     GeneralRequest.RQT_Assignments = new HashSet<F_Assignment>();
 
-                    foreach (var item in SelectedScenario.EP_Endorsements)
+                    var EP_Endorsements = GeneralRequest.RQT_SelectedScenario?.EP_Endorsements;
+
+                    foreach (var item in EP_Endorsements)
                     {
-                        var Positions = _db.L_RolePositions.Where(x => x.FirstId == item.ED_RoleId).Select(x => x.SecondId).ToList();
-
-                        var Users = _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId).ToList();
-
-                        var new_Assignment = new F_Assignment()
+                        if (CompareCondition(GeneralRequest.RQT_Conditions, item.ED_Conditions))
                         {
-                            PRM_Endorsement = item,
-                            PRM_CondidateUsers = _db.D_Users.Where(x => Users.Contains(x.Id)).ToList()
-                        };
+                            var Positions = _db.L_RolePositions.Where(x => x.FirstId == item.ED_RoleId).Select(x => x.SecondId);
 
-                        GeneralRequest.RQT_Assignments.Add(new_Assignment);
+                            var Users = _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId);
+
+                            var new_Assignment = new F_Assignment()
+                            {
+                                PRM_Endorsement = item,
+                                PRM_CondidateUsers = _db.D_Users.Where(x => Users.Contains(x.Id)).ToList()
+                            };
+
+                            GeneralRequest.RQT_Assignments.Add(new_Assignment);
+                        }
                     }
                 }
 
