@@ -1,52 +1,45 @@
 Operation =>
+
 mutation($f_Request:F_RequestInput!)
 {
   performRequest (request:$f_Request)
   {
     id
-    rqt_ERPID
     rqt_ProcessState        
     {
       pDisplayName
     }
-    rqt_Creator
+    rqt_SelectedScenario
     {
       pDisplayName
     }
-    rqt_Requestor {
-      pDisplayName
-    }
-    rqt_Process {
-      pDisplayName
-    }
-    rqt_Conditions
+    rqt_Assignments
     {
-      cd_Tag {        
-        pDisplayName
-      }
-      cd_Value 
-    }
-     rqt_Reviews
-     {
-      apv_Assignment {
-        prm_Endorsement {
-          ed_Role {
+      prm_Endorsement
+      {
+        pIndex
+        ed_Role
+        {
+          pDisplayName
+        }
+        ed_Conditions
+        {
+          cd_Tag {
             pDisplayName
           }
+          cd_Operand {
+            pDisplayName
+          }
+          cd_Value
         }
       }
-      apv_Tag
-      {          
-          pDisplayName
-      }     
-      apv_Performer 
-      {      
-          pDisplayName
+      prm_CondidateUsers
+      {
+        pDisplayName
       }
-     }      
-    }
+    }    
   }
-  
+}  
   
 
 Variable =>
@@ -67,24 +60,21 @@ Variable =>
         "pName": "a.sharifi"
     },
     "rqt_Conditions":
+    [
       {
-          "cd_Tag": 
+        "cd_Tag": 
         {
           "pName": "Price"
         },
         "cd_Value":"100"
       },
-      "rqt_Current_Review":
+          {
+        "cd_Tag": 
         {
-          "apv_Tag": 
-          {
-            "pName": "Approve"
-          },
-          "apv_Performer":
-          {
-            "pName": "m.sharifi"
-          },
-          "pDisplayName" : "درخواست مورد تایید است"
-        }      
+          "pName": "FMCG"
+        },
+        "cd_Value":"1"
+      }
+    ]
   }
 }

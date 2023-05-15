@@ -1046,27 +1046,27 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "Display", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 101L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4337), false, null, new Guid("225f325e-251e-4870-95d3-ddf1c9f03b91"), 101L, null, "نوع تگ‌ها(Dimentions)", null, 101L, "D_TagType", null },
-                    { 102L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4403), true, null, new Guid("1cf878de-6c6b-4765-99c9-43d57138cfd2"), 102L, null, "موقعیت‌ها(Dimentions)", null, 102L, "D_Location", null },
-                    { 103L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4410), false, null, new Guid("843bce16-b1d2-4b7a-8f36-abab43656c1e"), 103L, null, "عملگرها(Dimentions)", null, 103L, "D_Operand", null },
-                    { 104L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4419), true, null, new Guid("756b7b1d-603e-4bad-9dc5-82af9e165dfb"), 104L, null, "تگ‌ها(Dimentions)", null, 104L, "D_Tag", null },
-                    { 105L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4427), true, null, new Guid("e9025d14-40ef-4742-899c-b9fea6c1dd93"), 105L, null, "سمت‌ها(Dimentions)", null, 105L, "D_Position", null },
-                    { 106L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4439), false, null, new Guid("522b8f7e-f073-48d8-9863-0dc31db9390c"), 106L, null, "وضعیت فرآیندها(Dimentions)", null, 106L, "D_ProcessState", null },
-                    { 107L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4446), true, null, new Guid("91e8566b-722d-4b8f-aab1-24045b848fbe"), 107L, null, "فرآیند‌ها(Dimentions)", null, 107L, "D_Process", null },
-                    { 108L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4484), true, null, new Guid("a0f95a0c-ff39-438a-b87c-c8a91ad332b5"), 108L, null, "نقش‌ها(Dimentions)", null, 108L, "D_Role", null },
-                    { 109L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4497), true, null, new Guid("3d6cbbe5-e022-40e9-a7ce-d717b34638bd"), 109L, null, "کاربران(Dimentions)", null, 109L, "D_User", null },
-                    { 112L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4505), false, null, new Guid("2691e329-3903-4f03-aea8-678bd4bd8831"), 112L, null, "اطلاعات کاربرها(Facts)", null, 112L, "D_UserInformation", null },
-                    { 200L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4513), false, null, new Guid("080a8acd-4b78-4e4d-bf07-7f1912c23b0a"), 200L, null, "تمام تاییدها(Facts)", null, 200L, "F_Assignment", null },
-                    { 201L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4521), false, null, new Guid("824e2c27-eb03-46ad-89b1-c323c866a847"), 201L, null, "تاییدهای جاری(Facts)", null, 201L, "F_Review", null },
-                    { 202L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4528), false, null, new Guid("832051a8-5aca-4aed-8884-48c3679c8ac8"), 202L, null, "ضمیمه‌ها(Facts)", null, 202L, "F_Attachment", null },
-                    { 203L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4536), false, null, new Guid("fdfcf70a-6ae2-455b-b0f0-fea99bb3edf6"), 203L, null, "لیست تخصیص‌ها(Facts)", null, 203L, "F_Endorsement", null },
-                    { 204L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4545), false, null, new Guid("3f824fd1-97fd-4b0e-9f27-4377ee8f73c8"), 204L, null, "لیست شرط‌ها(Facts)", null, 204L, "F_Condition", null },
-                    { 205L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4553), true, null, new Guid("827f1663-93c2-436f-8dc2-56d8ad6f516d"), 205L, null, "اطلاعات درخواست‌ها(Facts)", null, 205L, "F_Request", null },
-                    { 206L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4562), true, null, new Guid("fe21ffc6-c241-4c8f-bb0f-868edb5067e9"), 206L, null, "سناریوها(Facts)", null, 206L, "F_Scenario", null },
-                    { 300L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4570), false, null, new Guid("6272a6fb-2766-45f9-9829-b7163d3bad82"), 300L, null, "نقش-سمت(Links)", null, 300L, "L_RolePosition", null },
-                    { 301L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4577), false, null, new Guid("2bd0b6b3-f08b-4e94-8029-1d2b1d7f7979"), 301L, null, "فرآیند-سناریو(Links)", null, 301L, "L_ProcessScenario", null },
-                    { 302L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4585), false, null, new Guid("36c46f7b-bbbb-4388-a2ce-a3aa2984f843"), 302L, null, "کاربر-موقعیت(Links)", null, 302L, "L_UserLocation", null },
-                    { 303L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4597), false, null, new Guid("48982855-b452-456b-9619-4a5b6cb885e0"), 303L, null, "کاربر-سمت(Links)", null, 303L, "L_UserPosition", null }
+                    { 101L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6188), false, null, new Guid("3b59f7d0-cde4-4cb0-9c1d-027a977570cd"), 101L, null, "نوع تگ‌ها(Dimentions)", null, 101L, "D_TagType", null },
+                    { 102L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6321), true, null, new Guid("79b24bc8-de8d-422e-8147-dd1fbc5001bb"), 102L, null, "موقعیت‌ها(Dimentions)", null, 102L, "D_Location", null },
+                    { 103L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6353), false, null, new Guid("2f4cafd3-50b5-4979-8d29-5c1e13aeaa02"), 103L, null, "عملگرها(Dimentions)", null, 103L, "D_Operand", null },
+                    { 104L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6383), true, null, new Guid("ce265fb6-bd43-4de2-a245-de61f8a1db95"), 104L, null, "تگ‌ها(Dimentions)", null, 104L, "D_Tag", null },
+                    { 105L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6411), true, null, new Guid("661ee745-cb35-4d6f-8e9b-a407665fba4b"), 105L, null, "سمت‌ها(Dimentions)", null, 105L, "D_Position", null },
+                    { 106L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6439), false, null, new Guid("bc6b58d5-c334-49a6-b3ee-a4e0710644a3"), 106L, null, "وضعیت فرآیندها(Dimentions)", null, 106L, "D_ProcessState", null },
+                    { 107L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6465), true, null, new Guid("7e0a1220-584a-49ba-9098-f2042b418a31"), 107L, null, "فرآیند‌ها(Dimentions)", null, 107L, "D_Process", null },
+                    { 108L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6498), true, null, new Guid("be160b12-422d-4db5-b434-bfd9eeed76f3"), 108L, null, "نقش‌ها(Dimentions)", null, 108L, "D_Role", null },
+                    { 109L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6527), true, null, new Guid("80655e08-1633-4923-bfe4-10ed69cb7518"), 109L, null, "کاربران(Dimentions)", null, 109L, "D_User", null },
+                    { 112L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6556), false, null, new Guid("c70a3e07-e27b-4937-8106-df722f5b0e0c"), 112L, null, "اطلاعات کاربرها(Facts)", null, 112L, "D_UserInformation", null },
+                    { 200L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6582), false, null, new Guid("e4ce0794-c390-4fda-868f-58cda1046938"), 200L, null, "تمام تاییدها(Facts)", null, 200L, "F_Assignment", null },
+                    { 201L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6608), false, null, new Guid("922671a6-7164-4946-bdcb-35f0be77b971"), 201L, null, "تاییدهای جاری(Facts)", null, 201L, "F_Review", null },
+                    { 202L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6694), false, null, new Guid("aa66fb85-d35d-429b-b052-c4accc58ad15"), 202L, null, "ضمیمه‌ها(Facts)", null, 202L, "F_Attachment", null },
+                    { 203L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6726), false, null, new Guid("964b1d71-bbee-4340-837f-e1ad6e5a63ab"), 203L, null, "لیست تخصیص‌ها(Facts)", null, 203L, "F_Endorsement", null },
+                    { 204L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6752), false, null, new Guid("d05bb213-10d5-4b74-815d-34bd22740fcb"), 204L, null, "لیست شرط‌ها(Facts)", null, 204L, "F_Condition", null },
+                    { 205L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6799), true, null, new Guid("5ec67ef2-4fee-4af4-afcb-85a98ee11d54"), 205L, null, "اطلاعات درخواست‌ها(Facts)", null, 205L, "F_Request", null },
+                    { 206L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6826), true, null, new Guid("b6f1f74f-4978-4432-b621-46fe88804bd1"), 206L, null, "سناریوها(Facts)", null, 206L, "F_Scenario", null },
+                    { 300L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6840), false, null, new Guid("8e5e3fe1-8464-4efd-a0ff-0c9c7af97276"), 300L, null, "نقش-سمت(Links)", null, 300L, "L_RolePosition", null },
+                    { 301L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6863), false, null, new Guid("862debad-2fad-4c35-8c08-8e4d452eb756"), 301L, null, "فرآیند-سناریو(Links)", null, 301L, "L_ProcessScenario", null },
+                    { 302L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6916), false, null, new Guid("360bab42-c72a-46c3-88b4-6368e31e18dd"), 302L, null, "کاربر-موقعیت(Links)", null, 302L, "L_UserLocation", null },
+                    { 303L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6929), false, null, new Guid("8cc287d6-b80b-45c0-be2b-f170c7c26c80"), 303L, null, "کاربر-سمت(Links)", null, 303L, "L_UserPosition", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1075,9 +1075,9 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3844), null, new Guid("637d8587-bd0f-4b25-aa66-533be78a492b"), 1L, null, "تهران", null, 1L, "Tehran", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3850), null, new Guid("15e1cf14-11cf-437c-8a2c-1219789957ec"), 2L, null, "فارس", null, 2L, "Fars", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3856), null, new Guid("a21a7bc2-160d-4843-995e-3c6c020a18ea"), 3L, null, "اصفهان", null, 3L, "Esfahan", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4698), null, new Guid("40e0bb1d-ef94-4743-9a9d-435935daa030"), 1L, null, "تهران", null, 1L, "Tehran", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4738), null, new Guid("3f586ea6-480c-44ac-b025-3d910e715d5b"), 2L, null, "فارس", null, 2L, "Fars", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4745), null, new Guid("d9e0524e-5344-457b-961f-6ff5937dfbe0"), 3L, null, "اصفهان", null, 3L, "Esfahan", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1086,12 +1086,12 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3885), null, new Guid("958fbfb5-470e-4e17-830b-4c9349a70309"), 1L, null, "مساوی", null, 1L, "=", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3890), null, new Guid("63a1b23c-5ade-4cd0-affa-c28383fd2b15"), 2L, null, "مخالف", null, 2L, "!=", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3898), null, new Guid("5bac58cb-98b4-40be-9c65-9e2075abea28"), 3L, null, "بزگتر از", null, 3L, ">", null },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3903), null, new Guid("a7c95803-e923-4b61-8422-abe07802b6b6"), 4L, null, "بزرگتر و مساوی", null, 4L, ">=", null },
-                    { 5L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3907), null, new Guid("5200ad79-6d03-455c-b323-2b31cc8ea497"), 5L, null, " کوچکتر از", null, 5L, "<", null },
-                    { 6L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3999), null, new Guid("29cc0c4b-b9b8-4ff4-82d5-6a7099e6d633"), 6L, null, "کوچکتر و مساوی", null, 6L, "<=", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4794), null, new Guid("50093f36-c642-4353-9236-26ea006dbdec"), 1L, null, "مساوی", null, 1L, "=", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4808), null, new Guid("c4387f75-7528-46a4-a247-3d638ed54f4c"), 2L, null, "مخالف", null, 2L, "!=", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4815), null, new Guid("ae547a46-f69b-4aec-b569-00ee6fa19b3f"), 3L, null, "بزگتر از", null, 3L, ">", null },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4826), null, new Guid("a626b854-1b19-4ed5-b617-58dcfbf3d927"), 4L, null, "بزرگتر و مساوی", null, 4L, ">=", null },
+                    { 5L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4834), null, new Guid("8b32cd07-e553-4510-a31a-fb8e816a77e2"), 5L, null, " کوچکتر از", null, 5L, "<", null },
+                    { 6L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4912), null, new Guid("c07fc018-3240-43ba-830a-46fb997a2ade"), 6L, null, "کوچکتر و مساوی", null, 6L, "<=", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1100,13 +1100,13 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4274), null, new Guid("c74fe3b4-db9b-40f1-88ef-0b4561d155dd"), 1L, null, "معاون دارویی", null, 1L, "PharmaceuticalDeputy", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4280), null, new Guid("5327f566-7793-4f13-9176-e08dd50a469b"), 2L, null, "معاون غذایی", null, 2L, "FMCGDeputy", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4284), null, new Guid("58c173ad-ce67-4d6d-b5e8-2c7c85730fd6"), 3L, null, "کارشناس ارشد بازرگانی", null, 3L, "BusinessSeniorSpecialist", null },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4289), null, new Guid("9bbd903a-c223-4a4c-b276-6a0a570ffb41"), 4L, null, "کارشناس بازرگانی", null, 4L, "BusinessSpecialist", null },
-                    { 5L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4294), null, new Guid("cf1a7cd3-c927-4acf-b73c-fd5ec495ab67"), 5L, null, "کارشناس ارشد فروش", null, 5L, "SalesSeniorSpecialist", null },
-                    { 6L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4299), null, new Guid("3ac2e1ba-fce0-4e8b-82cc-406f1d2d1955"), 6L, null, "کارشناس فروش", null, 6L, "SalesSpecialist", null },
-                    { 7L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4305), null, new Guid("06597bbe-6f0f-4c66-8c09-7df9e6bcde27"), 7L, null, "مدیر مرکز توزیع", null, 7L, "DistributionCenterManager", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5912), null, new Guid("0856a1c4-3ce2-4472-8ea2-0cf191856c07"), 1L, null, "معاون دارویی", null, 1L, "PharmaceuticalDeputy", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5936), null, new Guid("f363418b-ac69-44be-9b46-33650ecd7048"), 2L, null, "معاون غذایی", null, 2L, "FMCGDeputy", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5954), null, new Guid("dc2185b4-ce40-44ba-8ae8-d18be7e5f372"), 3L, null, "کارشناس ارشد بازرگانی", null, 3L, "BusinessSeniorSpecialist", null },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5973), null, new Guid("5a62e9d2-5bb9-4cdc-b591-91e155bf71b3"), 4L, null, "کارشناس بازرگانی", null, 4L, "BusinessSpecialist", null },
+                    { 5L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5992), null, new Guid("e36a1ca8-448c-410c-a895-21a8613a5d6e"), 5L, null, "کارشناس ارشد فروش", null, 5L, "SalesSeniorSpecialist", null },
+                    { 6L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6084), null, new Guid("c41e3780-62b8-4811-9099-fb93f4cef645"), 6L, null, "کارشناس فروش", null, 6L, "SalesSpecialist", null },
+                    { 7L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6110), null, new Guid("fbc8e783-a902-4453-9f5e-4f94fd265cb2"), 7L, null, "مدیر مرکز توزیع", null, 7L, "DistributionCenterManager", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1115,9 +1115,9 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PC_ERP", "PC_RemoveRequestorApproval", "PC_ShowSupport", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3354), null, new Guid("8800a710-95b6-4da0-ad10-b5d4a7254ee4"), true, true, true, 1L, null, "تعریف/اصلاح مشتری", null, 1L, "CustomerDefinition", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3468), null, new Guid("945bf077-1d22-45f8-a9ce-2dc663f23467"), true, true, true, 2L, null, "مجوزهای موردی", null, 2L, "PolicyCenter", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3473), null, new Guid("fba40dc9-8578-45f9-97a7-8cedf1eddd96"), true, true, true, 3L, null, "اعتباردهی مالی مشتری", null, 3L, "CustomerCredit", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(3490), null, new Guid("69f433f0-8d78-4e92-93b2-d83f97573498"), true, true, true, 1L, null, "تعریف/اصلاح مشتری", null, 1L, "CustomerDefinition", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(3973), null, new Guid("29561279-2fca-44a5-8f36-dc4767ca9e2f"), true, true, true, 2L, null, "مجوزهای موردی", null, 2L, "PolicyCenter", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4001), null, new Guid("f320aa90-8294-438a-ab62-4a49c17eb234"), true, true, true, 3L, null, "اعتباردهی مالی مشتری", null, 3L, "CustomerCredit", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1126,10 +1126,10 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3780), null, new Guid("3fa3d738-ced1-4deb-a91e-a78fccba4dd6"), 1L, null, "در دست بررسی", null, 1L, "Ongoing", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3800), null, new Guid("5f9e5129-4bca-4128-b02e-d118d4669378"), 2L, null, "منتظر بازنگری", null, 2L, "Editing", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3805), null, new Guid("e8db2308-43f3-4914-829d-9fd21b99a916"), 3L, null, "کامل شده", null, 3L, "Completed", null },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(3809), null, new Guid("ded95a47-9a4a-434b-8f18-47bea07d1f4e"), 4L, null, "ابطال شده", null, 4L, "Aborted", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4601), null, new Guid("0e31e7c9-a592-47f3-80f1-f11e83c1c907"), 1L, null, "در دست بررسی", null, 1L, "Ongoing", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4616), null, new Guid("bea42770-79dc-4466-a452-8ac7dafcdb9e"), 2L, null, "منتظر بازنگری", null, 2L, "Editing", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4639), null, new Guid("162df79f-6d65-46ba-9612-240108a22ed4"), 3L, null, "کامل شده", null, 3L, "Completed", null },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4652), null, new Guid("75e3dfb3-55eb-4fdf-a53b-a874f531d58a"), 4L, null, "ابطال شده", null, 4L, "Aborted", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1138,11 +1138,11 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "ROL_Independent" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4194), null, new Guid("db17e397-f01c-4c35-9fac-a0b32bf40704"), 1L, null, "معاونت دارویی", null, 1L, "PharmaceuticalDeputy", null, true },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4200), null, new Guid("9e0a62d7-218a-48b1-aba5-1821bb3c3639"), 2L, null, "معاونت غذایی", null, 2L, "FMCGDeputy", null, true },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4205), null, new Guid("fcced740-e14f-4c4d-a6d9-b965ca31122a"), 3L, null, "کارشناس بازرگانی", null, 3L, "BusinessSpecialist", null, true },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4237), null, new Guid("2390bb56-893c-4aa4-9758-18202b842bee"), 4L, null, "کارشناس فروش", null, 4L, "SalesSpecialist", null, true },
-                    { 5L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4246), null, new Guid("d023f25b-9324-4403-a21c-2364a8b4db80"), 5L, null, "مدیریت مرکز توزیع", null, 5L, "DistributionCenterManager", null, false }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5748), null, new Guid("f6624740-cf31-4876-8303-ad303ec99554"), 1L, null, "معاونت دارویی", null, 1L, "PharmaceuticalDeputy", null, true },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5771), null, new Guid("89b485ef-efce-4858-b5bb-c384fcdc933c"), 2L, null, "معاونت غذایی", null, 2L, "FMCGDeputy", null, true },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5790), null, new Guid("d068fa02-9d8e-415a-adce-b9ae1897dac5"), 3L, null, "کارشناس بازرگانی", null, 3L, "BusinessSpecialist", null, true },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5815), null, new Guid("2c9cb090-3635-48fd-aa16-10308a64ee46"), 4L, null, "کارشناس فروش", null, 4L, "SalesSpecialist", null, true },
+                    { 5L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5833), null, new Guid("08ee8521-0344-4592-abbc-57114ba778ac"), 5L, null, "مدیریت مرکز توزیع", null, 5L, "DistributionCenterManager", null, false }
                 });
 
             migrationBuilder.InsertData(
@@ -1151,10 +1151,10 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4043), null, new Guid("94b56019-81ff-4b29-ba06-fc7405431570"), 1L, null, "عددی", null, 1L, "Numberic", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4049), null, new Guid("6bd07c58-1cea-43c1-99bf-d9a8b66a28b3"), 2L, null, "دودویی", null, 2L, "Boolean", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4054), null, new Guid("0a9b23bd-8d77-45a5-ac80-a74ec9d6ebf0"), 3L, null, "تاریخ", null, 3L, "Date", null },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4060), null, new Guid("3baa4ee6-7b84-428f-8ff2-a666828ea29d"), 4L, null, "حروف", null, 4L, "String", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4981), null, new Guid("337e2512-cd7a-41ad-9d30-8499d8450da2"), 1L, null, "عددی", null, 1L, "Numberic", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4992), null, new Guid("e81c7626-994f-424e-9fd8-8df42eaed858"), 2L, null, "دودویی", null, 2L, "Boolean", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5000), null, new Guid("32632fca-7aff-43a0-b3ca-681996c4f150"), 3L, null, "تاریخ", null, 3L, "Date", null },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5014), null, new Guid("908d9637-2d50-45ed-b056-9d41e6bbfedc"), 4L, null, "حروف", null, 4L, "String", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1163,8 +1163,8 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "F_AssignmentId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "User_BossUserId", "User_CreatedCasesSkipAssigRules", "User_DelegateEnabled", "User_DelegateId", "User_Domain", "User_EnabledForAssignation", "User_IDPersonel", "User_LDAPDescription", "User_UserInformationId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4160), null, null, new Guid("753cc48f-580e-41ba-bd91-d5ca3928e710"), 1L, null, "محمد شریفی", null, 1L, "m.sharifi", null, null, null, null, null, null, null, null, null, null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4166), null, null, new Guid("c4587440-a093-4ba1-a2c6-7d1094f166f7"), 2L, null, "امین شریفی", null, 2L, "a.sharifi", null, null, null, null, null, null, null, null, null, null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5596), null, null, new Guid("90ee8094-1bba-43aa-adfc-5d97551a3ec6"), 1L, null, "محمد شریفی", null, 1L, "m.sharifi", null, null, null, null, null, null, null, null, null, null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5641), null, null, new Guid("ab109b7a-4d9a-499e-823d-4d2ddf71bdcb"), 2L, null, "امین شریفی", null, 2L, "a.sharifi", null, null, null, null, null, null, null, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -1173,9 +1173,9 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4665), null, new Guid("c5091d81-f3a8-4196-8afe-c41120172f3e"), 1L, null, "سناریو ستاد", null, 1L, "Head_Scenario3", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4676), null, new Guid("645b1876-ea9a-431b-ab01-5653976f88f1"), 2L, null, "سناریو دارویی", null, 2L, "Med_Scenario", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4682), null, new Guid("fbf88567-5b35-443f-b19a-d0b2212d4edf"), 3L, null, "سناریو مصرفی", null, 3L, "FMCG_Scenario", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7008), null, new Guid("50547ae5-3051-4cf7-99a2-03141b9b48a2"), 1L, null, "سناریو ستاد", null, 1L, "Head_Scenario3", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7017), null, new Guid("63b131dc-4c7d-40f8-8a0c-729edd80af07"), 2L, null, "سناریو دارویی", null, 2L, "Med_Scenario", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7026), null, new Guid("246da790-d60c-425e-a1ae-868f12124d37"), 3L, null, "سناریو مصرفی", null, 3L, "FMCG_Scenario", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1184,16 +1184,16 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id", "TG_TagTypeId" },
                 values: new object[,]
                 {
-                    { 100L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4083), null, new Guid("6b248940-a7eb-4f8c-b18d-cb04925c0881"), 100L, "عددی", "سهم شرکت", null, 100L, "OursShare", null, 1L },
-                    { 101L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4088), null, new Guid("9564b685-ee68-4e84-81b8-8f8c6d28fd07"), 101L, "عددی", "سهم دیگران", null, 101L, "OthersShare", null, 1L },
-                    { 103L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4094), null, new Guid("19f88cfe-0839-417d-bca5-7e0029ca2337"), 103L, "عددی", "مبلغ", null, 103L, "Price", null, 1L },
-                    { 200L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4099), null, new Guid("14cf511d-71e7-49a5-ad69-3b8ef7d635ea"), 200L, "دودویی", "مخدر/ یخچالی", null, 200L, "Refrigerator", null, 2L },
-                    { 201L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4104), null, new Guid("91362dc2-dbba-44c5-b8ac-3808fe3f62e6"), 201L, "پارامتریک", "تایید", null, 201L, "Approve", null, 2L },
-                    { 202L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4109), null, new Guid("fb43be81-46c2-4183-b3d7-86212f540984"), 202L, "پارامتریک", "عدم تایید", null, 202L, "Reject", null, 2L },
-                    { 203L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4114), null, new Guid("ce38a65b-6fd7-47f7-a691-d6a7db03c983"), 203L, "پارامتریک", "بازنگری", null, 203L, "Revise", null, 2L },
-                    { 204L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4120), null, new Guid("4722c6d7-66ab-4f35-b51a-6c3a9db83775"), 204L, "پارامتریک", "دارویی", null, 204L, "Med", null, 2L },
-                    { 205L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4127), null, new Guid("d36f0183-ff42-4e81-b2e1-8cf7ac0c106a"), 205L, "پارامتریک", "مصرفی", null, 205L, "FMCG", null, 2L },
-                    { 206L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4132), null, new Guid("0fde4180-6bab-4ff8-bc2f-d73dd47057aa"), 206L, "پارامتریک", "کل", null, 206L, "General", null, 2L }
+                    { 100L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5122), null, new Guid("e0dcdb81-129d-402d-b2a4-efc94617fa7f"), 100L, "عددی", "سهم شرکت", null, 100L, "OursShare", null, 1L },
+                    { 101L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5144), null, new Guid("2aae1d74-7e5e-49cb-840a-bfdaa7f33923"), 101L, "عددی", "سهم دیگران", null, 101L, "OthersShare", null, 1L },
+                    { 103L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5163), null, new Guid("ab402757-d110-49a2-9c08-a7b5dd6ee69b"), 103L, "عددی", "مبلغ", null, 103L, "Price", null, 1L },
+                    { 200L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5194), null, new Guid("d9bd2cca-f396-4308-b07c-d75cae582014"), 200L, "دودویی", "مخدر/ یخچالی", null, 200L, "Refrigerator", null, 2L },
+                    { 201L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5278), null, new Guid("9fb14742-9678-42bf-97b3-7cb50d22a858"), 201L, "پارامتریک", "تایید", null, 201L, "Approve", null, 2L },
+                    { 202L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5326), null, new Guid("8b74e356-220c-45d9-8963-88ad797abf17"), 202L, "پارامتریک", "عدم تایید", null, 202L, "Reject", null, 2L },
+                    { 203L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5349), null, new Guid("e04403a2-d583-45d9-b6c2-3bb6c5c5bd32"), 203L, "پارامتریک", "بازنگری", null, 203L, "Revise", null, 2L },
+                    { 204L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5361), null, new Guid("351acec3-e233-4aba-b4fd-57e825669958"), 204L, "پارامتریک", "دارویی", null, 204L, "Med", null, 2L },
+                    { 205L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5370), null, new Guid("6441c84f-9853-41aa-adb1-6588be4249a6"), 205L, "پارامتریک", "مصرفی", null, 205L, "FMCG", null, 2L },
+                    { 206L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5416), null, new Guid("43163b5a-a054-4a95-a933-3388feaff115"), 206L, "پارامتریک", "کل", null, 206L, "General", null, 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -1202,10 +1202,10 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "ED_RoleId", "ED_ScenarioId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4765), null, 5L, 1L, new Guid("0ac981f0-0dfb-4710-b78f-b570297775e0"), 1L, null, "سناریو دارویی,مدیریت مرکز توزیع", null, 1L, "Med_Scenario,DistributionCenterManager", null },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4773), null, 2L, 1L, new Guid("c4cd2cb7-4ff5-498e-b938-2639941c0406"), 2L, null, "سناریو دارویی,معاونت دارویی", null, 2L, "Med_Scenario,PharmaceuticalDeputy", null },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4778), null, 1L, 2L, new Guid("e50695cf-f387-4f97-9408-5d39edb702a5"), 3L, null, "سناریو دو,معاونت دارویی", null, 3L, "Strategy2,PharmaceuticalDeputy", null },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4786), null, 2L, 2L, new Guid("39c7281a-d519-4fac-b668-53e779a9cf2a"), 4L, null, "سناریو دو,معاونت غذایی", null, 4L, "Strategy2,FMCGDeputy", null }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7158), null, 5L, 3L, new Guid("a8886dd2-222f-43ef-a838-9c32eeab9ac6"), 1L, null, "سناریو سه,مدیریت مرکز توزیع", null, 1L, "Med_Scenario,DistributionCenterManager", null },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7167), null, 2L, 3L, new Guid("dfe2194b-710a-4664-b5ac-efbdfc0f35ce"), 2L, null, "سناریو سه,معاونت غذایی", null, 2L, "Strategy3,FMCGDeputy", null },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7178), null, 1L, 2L, new Guid("69ccdb28-7d34-4f70-9073-76a43d0bb6c7"), 3L, null, "سناریو دو,معاونت دارویی", null, 3L, "Strategy2,PharmaceuticalDeputy", null },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7187), null, 2L, 1L, new Guid("a0aaefe6-f084-4ead-b976-48ee03ae99d0"), 4L, null, "سناریو دارویی,معاونت دارویی", null, 4L, "Med_Scenario,PharmaceuticalDeputy", null }
                 });
 
             migrationBuilder.InsertData(
@@ -1214,11 +1214,11 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4941), null, 1L, new Guid("4c4f1776-1be1-419e-9979-264a3aa65b9f"), 1L, null, "تعریف/اصلاح مشتری-سناریو سه", null, 1L, "CustomerDefinition-Strategy3", 3L },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4947), null, 1L, new Guid("b8e1e736-bfa3-40b2-9845-1dcbb7639348"), 2L, null, "تعریف/اصلاح مشتری-سناریو یک", null, 2L, "CustomerDefinition-Strategy1", 1L },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4952), null, 2L, new Guid("ef9c4726-33a7-4f23-9108-870ba5f45aa4"), 3L, null, "مجوزهای موردی-سناریو یک", null, 3L, "PolicyCenter-Strategy1", 1L },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4957), null, 1L, new Guid("a506721d-4066-4169-a83e-a712cc047887"), 4L, null, "تعریف/اصلاح مشتری-سناریو دو", null, 4L, "PolicyCenter-Strategy2", 2L },
-                    { 5L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4961), null, 2L, new Guid("3050f8a0-7deb-4697-b94a-859bb69c4489"), 5L, null, "مجوزهای موردی-سناریو دو", null, 5L, "CustomerDefinition-Strategy2", 2L }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7344), null, 1L, new Guid("0f8fd643-dab2-4d57-8f17-1ed881be1d37"), 1L, null, "تعریف/اصلاح مشتری-سناریو سه", null, 1L, "CustomerDefinition-Strategy3", 3L },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7351), null, 1L, new Guid("2c14632a-3a01-4701-a95f-6a4e56dc73ef"), 2L, null, "تعریف/اصلاح مشتری-سناریو یک", null, 2L, "CustomerDefinition-Strategy1", 1L },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7357), null, 2L, new Guid("1f94bfef-1f07-4403-bf52-e7aa320241e8"), 3L, null, "مجوزهای موردی-سناریو یک", null, 3L, "PolicyCenter-Strategy1", 1L },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7362), null, 1L, new Guid("d154cede-e42a-4f78-882b-a6cd1cc2cf41"), 4L, null, "تعریف/اصلاح مشتری-سناریو دو", null, 4L, "PolicyCenter-Strategy2", 2L },
+                    { 5L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7368), null, 2L, new Guid("9b1a34a9-3657-497c-80d4-caf9701b9e7d"), 5L, null, "مجوزهای موردی-سناریو دو", null, 5L, "CustomerDefinition-Strategy2", 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -1227,13 +1227,13 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4846), null, 1L, new Guid("820cfd3a-5d4d-4705-b5b8-72acfde7c071"), 1L, null, "معاونت دارویی-معاون دارویی", null, 1L, "PharmaceuticalDeputy-PharmaceuticalDeputy", 1L },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4852), null, 2L, new Guid("874dc1c5-98df-4207-97a3-5c3d5e795f02"), 2L, null, "معاونت غذایی-معاون غذایی", null, 2L, "FMCGDeputy-FMCGDeputy", 2L },
-                    { 3L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4857), null, 3L, new Guid("11d42488-ce06-43d5-8c85-8930ad9d3b6e"), 3L, null, "کارشناس بازرگانی-کارشناس ارشد بازرگانی", null, 3L, "BusinessSpecialist-BusinessSeniorSpecialist", 3L },
-                    { 4L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4862), null, 3L, new Guid("687c9a4a-0052-4c93-9a57-acc28c31572f"), 4L, null, "کارشناس بازرگانی-کارشناس بازرگانی", null, 4L, "BusinessSpecialist-BusinessSpecialist", 4L },
-                    { 5L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4868), null, 4L, new Guid("3fda2126-e735-4f6b-b064-3981784cff11"), 5L, null, "کارشناس فروش-کارشناس ارشد فروش", null, 5L, "SalesSpecialist-SalesSeniorSpecialist", 5L },
-                    { 6L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4903), null, 4L, new Guid("0106a48b-81e1-4b15-8444-42af47682beb"), 6L, null, "کارشناس فروش-کارشناس فروش", null, 6L, "SalesSpecialist-SalesSpecialist", 6L },
-                    { 7L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4911), null, 5L, new Guid("f51f3245-94de-46ba-995a-48218d0c1904"), 7L, null, "مدیریت مرکز توزیع-مدیر مرکز توزیع", null, 7L, "DistributionCenterManager-DistributionCenterManager", 7L }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7256), null, 1L, new Guid("74caad86-f3fd-4b6a-a271-d607e0d03c8a"), 1L, null, "معاونت دارویی-معاون دارویی", null, 1L, "PharmaceuticalDeputy-PharmaceuticalDeputy", 1L },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7263), null, 2L, new Guid("008a215a-c47b-471b-878b-d76cb0b6024e"), 2L, null, "معاونت غذایی-معاون غذایی", null, 2L, "FMCGDeputy-FMCGDeputy", 2L },
+                    { 3L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7270), null, 3L, new Guid("1c818d07-deea-4b55-98ee-bebb64c3cf15"), 3L, null, "کارشناس بازرگانی-کارشناس ارشد بازرگانی", null, 3L, "BusinessSpecialist-BusinessSeniorSpecialist", 3L },
+                    { 4L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7277), null, 3L, new Guid("c9800da6-a673-4f0f-9f26-fcf8bab42897"), 4L, null, "کارشناس بازرگانی-کارشناس بازرگانی", null, 4L, "BusinessSpecialist-BusinessSpecialist", 4L },
+                    { 5L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7285), null, 4L, new Guid("19009af8-3a17-49ba-a49d-b1b04b48d9d0"), 5L, null, "کارشناس فروش-کارشناس ارشد فروش", null, 5L, "SalesSpecialist-SalesSeniorSpecialist", 5L },
+                    { 6L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7290), null, 4L, new Guid("eb6adb67-8f7a-4c54-925c-ed32113daa41"), 6L, null, "کارشناس فروش-کارشناس فروش", null, 6L, "SalesSpecialist-SalesSpecialist", 6L },
+                    { 7L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7296), null, 5L, new Guid("77a59c2e-06e4-4dbb-b11a-ec5f6b44a1de"), 7L, null, "مدیریت مرکز توزیع-مدیر مرکز توزیع", null, 7L, "DistributionCenterManager-DistributionCenterManager", 7L }
                 });
 
             migrationBuilder.InsertData(
@@ -1242,8 +1242,18 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4817), null, 1L, new Guid("376560a9-96fc-4331-9b69-40664112a6e5"), 1L, null, "محمد شریفی-تهران", null, 1L, "m.sharifi-Tehran", 1L },
-                    { 2L, new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4824), null, 2L, new Guid("aed4d5e8-b1d5-41d0-8e90-32dc9cecfafc"), 2L, null, "امین شریفی-فارس", null, 2L, "a.sharifi-Fars", 2L }
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7217), null, 1L, new Guid("7a9df488-8a68-4699-94d2-dbf60c57bd27"), 1L, null, "محمد شریفی-تهران", null, 1L, "m.sharifi-Tehran", 1L },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7226), null, 2L, new Guid("25666d68-7860-4264-9e8a-b304fe03a071"), 2L, null, "امین شریفی-فارس", null, 2L, "a.sharifi-Fars", 2L }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Links",
+                table: "L_UserPosition",
+                columns: new[] { "Id", "CreateTimeRecord", "DsblRecord", "FirstId", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "SecondId" },
+                values: new object[,]
+                {
+                    { 1L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7395), null, 1L, new Guid("924283ab-3b7a-457c-a8ec-19daf160cec5"), 1L, null, "محمد شریفی-مدیر مرکز", null, 1L, "m.sharifi-PharmaceuticalDeputy", 7L },
+                    { 2L, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7403), null, 2L, new Guid("5eb53960-4377-41b8-b211-fe5e7349b1c8"), 2L, null, "امین شریفی-معاون غذایی", null, 2L, "a.sharifi-FMCGDeputy", 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -1252,11 +1262,11 @@ namespace Cheetah_DataAccess.Migrations
                 columns: new[] { "Id", "CD_EndorsementId", "CD_OperandId", "CD_RequestId", "CD_ScenarioId", "CD_TagId", "CD_Value", "CreateTimeRecord", "D_UserId", "DsblRecord", "GuidRecord", "PCode", "PDescription", "PDisplayName", "PERPCode", "PIndex", "PName", "Parent_Id" },
                 values: new object[,]
                 {
-                    { 1L, null, 3L, null, 1L, 100L, "0", new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4712), null, null, new Guid("b2ee4175-175b-4350-80a4-824e9fd85c2c"), 1L, null, "سناریو ستاد,سهم شرکت,بزگتر از,0", null, 1L, "Head_Scenario,OursShare,>,0", null },
-                    { 2L, null, 1L, null, 2L, 204L, "1", new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4721), null, null, new Guid("44450d9d-9749-453e-a003-06b8123625cb"), 2L, null, "سناریو دارویی,دارویی,مساوی,1", null, 2L, "Med_Scenario,Med,=,1", null },
-                    { 3L, null, 3L, null, 2L, 100L, "0", new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4727), null, null, new Guid("d544d10a-60d7-49fb-a018-7a7f3250a32e"), 3L, null, "سناریو دارویی,سهم شرکت,بزگتر از,0", null, 3L, "Med_Scenario,OursShare,>,0", null },
-                    { 4L, null, 1L, null, 3L, 205L, "1", new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4734), null, null, new Guid("30fcfc61-6e32-4bc3-a8ca-71c5e8084f7f"), 4L, null, "سناریو مصرفی,مصرفی,مساوی,1", null, 4L, "FMCG_Scenario,FMCG,=,1", null },
-                    { 5L, null, 3L, null, 3L, 103L, "0", new DateTime(2023, 5, 14, 20, 11, 11, 543, DateTimeKind.Local).AddTicks(4739), null, null, new Guid("bbfcf93f-8ee7-4519-85f6-1d19f31c8d36"), 5L, null, "سناریو مصرفی,مبلغ,بزگتر از,0", null, 5L, "FMCG_Scenario,Price,>,0", null }
+                    { 1L, null, 3L, null, 1L, 100L, "0", new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7054), null, null, new Guid("05aa5017-0e9f-4336-8615-ccb359660491"), 1L, null, "سناریو ستاد,سهم شرکت,بزگتر از,0", null, 1L, "Head_Scenario,OursShare,>,0", null },
+                    { 2L, null, 1L, null, 2L, 204L, "1", new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7065), null, null, new Guid("1ab252e0-c28c-426d-88e5-c63bc76c54c2"), 2L, null, "سناریو دارویی,دارویی,مساوی,1", null, 2L, "Med_Scenario,Med,=,1", null },
+                    { 3L, null, 3L, null, 2L, 100L, "0", new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7108), null, null, new Guid("360142b8-9401-43fe-b1b6-d1b7ed623752"), 3L, null, "سناریو دارویی,سهم شرکت,بزگتر از,0", null, 3L, "Med_Scenario,OursShare,>,0", null },
+                    { 4L, null, 1L, null, 3L, 205L, "1", new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7116), null, null, new Guid("681885ca-690e-44a6-914d-425ee77530e6"), 4L, null, "سناریو مصرفی,مصرفی,مساوی,1", null, 4L, "FMCG_Scenario,FMCG,=,1", null },
+                    { 5L, null, 3L, null, 3L, 103L, "0", new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7122), null, null, new Guid("dcc070f3-d01e-4bb3-8ba8-1679f128355c"), 5L, null, "سناریو مصرفی,مبلغ,بزگتر از,0", null, 5L, "FMCG_Scenario,Price,>,0", null }
                 });
 
             migrationBuilder.CreateIndex(
