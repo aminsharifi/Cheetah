@@ -634,14 +634,14 @@ namespace Cheetah_DataAccess.Data
 
             #region F_Scenario
             modelBuilder.Entity<F_Scenario>().HasData(
-                 new F_Scenario
-                 {
-                     Id = 1,
-                     PCode = 1,
-                     PIndex = 1,
-                     PName = "Head_Scenario3",
-                     PDisplayName = "سناریو ستاد"
-                 },
+                new F_Scenario
+                {
+                    Id = 1,
+                    PCode = 1,
+                    PIndex = 1,
+                    PName = "Head_Scenario3",
+                    PDisplayName = "سناریو ستاد"
+                },
                 new F_Scenario
                 {
                     Id = 2,
@@ -658,7 +658,6 @@ namespace Cheetah_DataAccess.Data
                     PName = "FMCG_Scenario",
                     PDisplayName = "سناریو مصرفی"
                 }
-
                 );
             #endregion
 
@@ -765,10 +764,10 @@ namespace Cheetah_DataAccess.Data
                     Id = 4,
                     PCode = 4,
                     PIndex = 4,
-                    PName = "Strategy2,FMCGDeputy",
-                    PDisplayName = "سناریو دو,معاونت غذایی",
+                    PName = "Strategy3,FMCGDeputy",
+                    PDisplayName = "سناریو سه,معاونت غذایی",
                     ED_RoleId = 2,
-                    ED_ScenarioId = 2
+                    ED_ScenarioId = 3
                 }
                 );
             #endregion
@@ -877,7 +876,7 @@ namespace Cheetah_DataAccess.Data
                           );
             #endregion
 
-            #region L_RolePosition
+            #region L_ProcessScenario
             modelBuilder.Entity<L_ProcessScenario>().HasData(
                           new L_ProcessScenario
                           {
@@ -930,6 +929,33 @@ namespace Cheetah_DataAccess.Data
                                SecondId = 2
                            }
                           );
+            #endregion
+
+            #region L_UserPosition
+
+            modelBuilder.Entity<L_UserPosition>().HasData
+                (
+                    new L_UserPosition
+                    {
+                        Id = 1,
+                        PCode = 1,
+                        PIndex = 1,
+                        PName = "m.sharifi-PharmaceuticalDeputy",
+                        PDisplayName = "محمد شریفی-معاون دارویی",
+                        FirstId = 1,
+                        SecondId = 1
+                    },
+                    new L_UserPosition
+                    {
+                        Id = 2,
+                        PCode = 2,
+                        PIndex = 2,
+                        PName = "a.sharifi-FMCGDeputy",
+                        PDisplayName = "امین شریفی-معاون غذایی",
+                        FirstId = 2,
+                        SecondId = 2
+                    }
+                );
             #endregion
 
             #endregion
