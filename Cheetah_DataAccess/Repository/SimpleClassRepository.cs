@@ -47,6 +47,10 @@ namespace Cheetah_DataAccess.Repository
         {
             F_Request GeneralRequest = request;
 
+            F_Scenario SelectedScenario = new F_Scenario();
+
+            CrudOperation crudOperation = (GeneralRequest.Id > 0) ? CrudOperation.Update : CrudOperation.Create;
+
             try
             {
                 GeneralRequest.RQT_Creator = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Creator.PName);
@@ -55,7 +59,7 @@ namespace Cheetah_DataAccess.Repository
 
                 GeneralRequest.RQT_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
 
-                if (GeneralRequest.Id == 0)
+                if (crudOperation == CrudOperation.Create)
                     GeneralRequest.Id = null;
                 else
                     GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
@@ -71,8 +75,6 @@ namespace Cheetah_DataAccess.Repository
                 }
 
                 var pc_ProcessScenario = GeneralRequest.RQT_Process.PC_ProcessScenario.ToList();
-
-                F_Scenario SelectedScenario = null;
 
                 foreach (var ProcessScenario in pc_ProcessScenario)
                 {
@@ -114,24 +116,27 @@ namespace Cheetah_DataAccess.Repository
                     }
                 }
 
-                //ok
-
                 if (GeneralRequest.RQT_Assignments is null)
                 {
                     GeneralRequest.RQT_Assignments = new HashSet<F_Assignment>();
 
                     foreach (var item in SelectedScenario.EP_Endorsements)
                     {
+                        var Positions = _db.L_RolePositions.Where(x => x.FirstId == item.ED_RoleId).Select(x => x.SecondId).ToList();
+
+                        var Users = _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId).ToList();
+
                         var new_Assignment = new F_Assignment()
                         {
-                            PRM_Endorsement = item
+                            PRM_Endorsement = item,
+                            PRM_CondidateUsers = _db.D_Users.Where(x => Users.Contains(x.Id)).ToList()
                         };
 
                         GeneralRequest.RQT_Assignments.Add(new_Assignment);
                     }
                 }
 
-                if (request.RQT_Current_Review is not null)
+                if (crudOperation == CrudOperation.Update)
                 {
                     GeneralRequest.RQT_Current_Review.Id = null;
 
@@ -144,7 +149,7 @@ namespace Cheetah_DataAccess.Repository
                     //GeneralRequest.RQT_Current_Review.APV_Assignment.PRM_Endorsement = SelectedScenario.EP_Endorsements.First();
                 }
 
-                if (GeneralRequest.Id is null || GeneralRequest.Id == 0)
+                if (crudOperation == CrudOperation.Create)
                 {
                     var tmp = await _db.AddAsync(GeneralRequest);
                     GeneralRequest = tmp.Entity;
@@ -157,7 +162,8 @@ namespace Cheetah_DataAccess.Repository
 
                 await _db.SaveChangesAsync();
 
-                GeneralRequest.RQT_Current_Review.APV_RequestId = GeneralRequest.Id;
+                if (crudOperation == CrudOperation.Update)
+                    GeneralRequest.RQT_Current_Review.APV_RequestId = GeneralRequest.Id;
 
                 await _db.SaveChangesAsync();
             }
@@ -168,7 +174,7 @@ namespace Cheetah_DataAccess.Repository
 
             var ret_Requests = await _db.F_Requests
                 .Include(x => x.RQT_ProcessState)
-                .SingleAsync(x => x.Id == GeneralRequest.Id); ;
+                .SingleAsync(x => x.Id == GeneralRequest.Id);
 
             return ret_Requests;
         }
