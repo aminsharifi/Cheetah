@@ -48,6 +48,7 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<L_RolePosition> L_RolePositions { get; set; }
         public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
         public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
+        public virtual DbSet<L_UserAssignment> L_UserAssignments { get; set; }
         #endregion
 
     }

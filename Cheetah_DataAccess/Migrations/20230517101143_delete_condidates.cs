@@ -6,18 +6,87 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cheetah_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_F_Condition : Migration
+    public partial class delete_condidates : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_D_User_F_Assignment_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Assignment_F_Review_PRM_ReviewId",
+                schema: "Facts",
+                table: "F_Assignment");
+
+            migrationBuilder.DropIndex(
+                name: "IX_F_Review_APV_AssignmentId",
+                schema: "Facts",
+                table: "F_Review");
+
+            migrationBuilder.DropIndex(
+                name: "IX_F_Assignment_PRM_ReviewId",
+                schema: "Facts",
+                table: "F_Assignment");
+
+            migrationBuilder.DropIndex(
+                name: "IX_D_User_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User");
+
+            migrationBuilder.DropColumn(
+                name: "F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User");
+
+            migrationBuilder.CreateTable(
+                name: "L_UserAssignment",
+                schema: "Links",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PCode = table.Column<long>(type: "bigint", nullable: true),
+                    PIndex = table.Column<long>(type: "bigint", nullable: true),
+                    PName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    PDisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    PDescription = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    CreateTimeRecord = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastUpdatedRecord = table.Column<DateTime>(type: "datetime2", rowVersion: true, nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DsblRecord = table.Column<bool>(type: "bit", nullable: true),
+                    PERPCode = table.Column<long>(type: "bigint", nullable: true),
+                    FirstId = table.Column<long>(type: "bigint", nullable: false),
+                    SecondId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_L_UserAssignment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_L_UserAssignment_D_User_FirstId",
+                        column: x => x.FirstId,
+                        principalSchema: "Dimentions",
+                        principalTable: "D_User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_L_UserAssignment_F_Assignment_SecondId",
+                        column: x => x.SecondId,
+                        principalSchema: "Facts",
+                        principalTable: "F_Assignment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
                 table: "D_Entity",
                 keyColumn: "Id",
                 keyValue: 101L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4822), new Guid("0184faae-42e4-49fd-bf26-b8b14e3b4a38") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9543), new Guid("340bb41d-8660-4fc5-beb8-57d30e533407") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -25,7 +94,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 102L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4872), new Guid("7ed5e893-611b-49a8-9db5-6b4fb8193cb2") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9699), new Guid("d6745d2f-7a25-4121-bdeb-98a64fc48de9") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -33,7 +102,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 103L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4880), new Guid("6b091146-a3b9-4248-b32e-85ae91b8ba66") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9724), new Guid("dc5065fb-32f5-419e-b48b-ccb2e305919b") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -41,7 +110,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 104L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4889), new Guid("2c4b416d-81f1-45e0-a797-dd9e38dffe75") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9734), new Guid("2c7463d5-1df2-4552-9c8e-c28a1e63d39a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -49,7 +118,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 105L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4897), new Guid("689c53bd-662f-4eeb-8246-2762db7de059") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9743), new Guid("0ec09bd4-aad0-4957-a777-d909e02b4cbd") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -57,7 +126,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 106L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4905), new Guid("b733d130-0637-4a0e-9427-ff17f36f95e0") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9952), new Guid("15505db4-2762-4e10-a2b8-73cc03bdd611") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -65,7 +134,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 107L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4915), new Guid("9f96078d-de82-4901-b50a-f39446badd48") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9961), new Guid("f64bca87-28c2-4990-8f1d-075dd2a947a5") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -73,7 +142,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 108L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4925), new Guid("4dce9810-4ad7-4e37-8785-a68c3db30a4f") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9971), new Guid("5b26d318-2efe-4a23-a1ff-224227cac25e") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -81,7 +150,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 109L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4934), new Guid("a7a7774f-c2a9-42cc-be27-31fe12a1b532") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9979), new Guid("ea3540b6-1f58-45a0-86c2-6395682bc0ad") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -89,7 +158,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 112L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4942), new Guid("d15f6777-4e7b-4591-b1cc-c3a32dda8ce8") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9988), new Guid("fc2b2fed-b615-4b5b-9708-8b467709ed39") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -97,7 +166,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 200L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4979), new Guid("7c4e2f69-4f59-47b4-a1f6-445c7b70446b") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9996), new Guid("b7b05d3d-d578-4f21-b4ae-dc284e89f2ee") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -105,7 +174,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 201L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4988), new Guid("313b2826-4c17-470d-8482-63a84ec15eb7") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(7), new Guid("9d6631f5-a735-465b-9d7f-6a4223cb3e71") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -113,7 +182,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 202L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4997), new Guid("88e406e4-86dd-46f8-8b0f-0a80c6d1653b") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(15), new Guid("0ddb95b8-5d9b-4817-9fdd-7a116ea044a2") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -121,7 +190,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 203L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5005), new Guid("750459ba-cb4d-4931-8ffe-a70344f7c4f4") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(24), new Guid("0a5b5a70-c41a-48ae-bbc5-dcf68094dd9a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -129,7 +198,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 204L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5013), new Guid("29175cad-b35e-4c53-a5ef-cdb5ef9aac14") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(32), new Guid("44f02015-b565-4c56-8ed0-25525cd57d83") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -137,7 +206,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 205L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5029), new Guid("ea427bf5-2669-4b47-bc52-f767b417105a") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(41), new Guid("b2563cf6-d51c-4ad7-86cc-e74dc5039903") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -145,7 +214,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 206L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5038), new Guid("5214685b-ba59-425e-99d7-7ccdfa9c1d21") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(50), new Guid("e703d569-47ce-4d5f-96c8-5a03b41e81bb") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -153,7 +222,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 300L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5045), new Guid("a66f2cda-8209-4f66-88b8-91b9fd2dd032") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(73), new Guid("af77b81e-3baa-4806-99cb-dcda0c8cb71a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -161,7 +230,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 301L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5054), new Guid("9ea3c0a7-5b35-41d3-9680-c0868233a329") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(82), new Guid("12297d03-2239-4485-a7e2-3a39acf349c7") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -169,7 +238,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 302L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5063), new Guid("b886fb08-5574-42fc-9417-00cece2439b3") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(93), new Guid("f75ee6c6-6afd-4380-bcc7-e8101cc73683") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -177,7 +246,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 303L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5070), new Guid("53e9be66-ebed-4b99-825c-7bf3e9770382") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(101), new Guid("e0f28276-4f02-46b6-a962-3bc2ccbdd0e1") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -185,7 +254,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4203), new Guid("d436d6c3-be2f-43bb-bad7-fef1f982fd0d") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9171), new Guid("224bc97c-7939-4758-ab4f-df3eeeee1574") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -193,7 +262,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4232), new Guid("b73759ae-ab57-4a24-a072-09991f277648") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9186), new Guid("d6610b67-3286-42cb-a911-46ca55386b44") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -201,7 +270,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4237), new Guid("d7e37c7d-706a-44ed-ae8c-8ade0a6c4be4") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9191), new Guid("6230f6d2-7ca8-4f61-84c8-bec156d0c695") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -209,7 +278,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4265), new Guid("a64bd45d-176a-4e55-8ac9-28872c2f503c") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9216), new Guid("32317caf-9e6e-48dd-8172-fb769acbb4a0") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -217,7 +286,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4274), new Guid("373fe6f6-cff8-4a74-b4d5-3d34d8b9b7ff") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9222), new Guid("ba500f37-f464-44dc-ab44-2c4dd13c2e69") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -225,7 +294,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4279), new Guid("c1dbe579-b01e-4aa0-8c94-4b2e8ac10762") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9226), new Guid("5d491f9e-1e7a-46a4-8e98-4d61328c3332") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -233,7 +302,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4284), new Guid("1b283f96-815a-489e-aebd-2e17e76c6ae8") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9231), new Guid("a570c4e6-9719-4f0f-91ca-3e997475dab6") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -241,7 +310,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4289), new Guid("acc74b6a-0617-47bc-94fc-98c28f52f2f8") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9236), new Guid("aa5d0936-4bd4-4471-a3db-887df0cf20a7") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -249,7 +318,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4377), new Guid("d1f4aa3f-ab51-4b99-beba-d1e645fe9817") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9243), new Guid("70425704-aa6b-4d81-97f0-b211ddf62614") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -257,7 +326,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4688), new Guid("fb1c07e1-5195-4646-ae81-a3cd548782df") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9484), new Guid("fc563e7c-0c2c-42c0-b794-df16684c6a11") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -265,7 +334,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4757), new Guid("9fb921e5-2548-4f1a-8e3b-7e61509db76d") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9490), new Guid("5ced93ef-3734-43c7-9db9-aa2bcdea4ef5") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -273,7 +342,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4763), new Guid("1646e387-a3bd-4740-8f6f-15a0aea42893") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9496), new Guid("ed20d510-d613-43ec-a56c-34fb51e07053") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -281,7 +350,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4768), new Guid("aff98783-c151-4b0e-8857-ab498dda03b4") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9501), new Guid("5f676e16-cc50-4669-8839-06964e3746c5") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -289,7 +358,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4773), new Guid("6dd94ac7-394e-48de-8a52-ec1bcc99b1a4") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9506), new Guid("d74b3441-4b8d-4ccb-b17d-7183a9d43887") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -297,7 +366,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4778), new Guid("5fd437e5-d0e4-4fe5-8fa9-c64c2ef97c62") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9511), new Guid("348aedb3-8fdb-4cf8-b292-afc7ede04c70") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -305,7 +374,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4787), new Guid("2c6d35bf-deb0-498c-9ef8-98d55f81d545") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9516), new Guid("4fe8c23c-efff-4767-abb7-326f613f6145") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -313,7 +382,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(3693), new Guid("89ba5902-eb92-4ceb-8330-e8522000d6a8") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(8738), new Guid("dfe7ed00-e5ff-4680-a3cd-af373ade1e85") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -321,7 +390,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(3809), new Guid("6b45e81e-b9b2-410a-afe5-e4f5ff47e2ae") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(8846), new Guid("0ead6b37-9274-45b5-a453-163c82f7ac7b") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -329,7 +398,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(3815), new Guid("c64f8c05-eab9-4e89-a659-6353f0fe9ad9") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(8852), new Guid("e3c49255-6ae2-45a6-84c1-56bafa08c021") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -337,7 +406,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4143), new Guid("280ad962-f626-41bf-a690-b54b4c77de09") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9105), new Guid("8a042d20-3f67-4ea3-9e3c-ee9493638bee") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -345,7 +414,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4152), new Guid("d5a91214-5a2a-4560-b0ff-a3e158368981") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9112), new Guid("9f2e23c5-4038-4ffb-8bfe-7bf9b79a7f6a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -353,7 +422,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4162), new Guid("addeeb7b-be08-4fee-826c-470b83ab110f") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9118), new Guid("d99295dd-6015-4406-9457-3ac3af2f51e1") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -361,7 +430,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4168), new Guid("d9c414cb-6bd4-4bda-800a-7b9921370e6c") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9123), new Guid("7b05f2fc-e840-49f5-9e45-3c314adf7dda") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -369,7 +438,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4636), new Guid("83c1746e-e8ce-4de3-8030-e0c6f4c2c6ac") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9436), new Guid("286dde8c-145c-4f33-9f65-a7c9f51f0d02") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -377,7 +446,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4644), new Guid("19b8968b-ecd6-46fe-9999-330d6e8929cc") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9442), new Guid("04ee8744-8364-4e05-aa3a-786071683cdc") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -385,7 +454,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4650), new Guid("bf83b0a5-d6ee-43e9-b82f-8b0582065589") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9449), new Guid("6db64eab-4e5c-426b-a6a5-67b6232e9cf2") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -393,7 +462,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4657), new Guid("eee78c6b-d35d-4269-8c39-0044457f59d5") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9453), new Guid("77b04aae-b7f2-4c39-b949-5437b802496c") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -401,7 +470,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4662), new Guid("ddefa40f-c094-47ff-a61d-6cd6d9fc976e") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9459), new Guid("d821c918-fc5c-48f0-b4dc-0d10ba12b78d") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -409,7 +478,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 100L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4511), new Guid("61772d47-db47-499e-9881-4b5ba035a456") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9316), new Guid("dbd26723-4161-40ef-8038-e1bc28cf91ae") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -417,7 +486,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 101L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4519), new Guid("f33ec48f-1477-40fb-b3e2-156cdb01a255") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9321), new Guid("f16d4589-16aa-4d40-adc5-d759c9065678") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -425,7 +494,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 103L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4524), new Guid("1fb62636-1e3c-4d48-9112-e6ac5455c1db") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9326), new Guid("afc430f0-ca64-400f-9c48-87e00c4a9f9b") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -433,7 +502,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 200L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4529), new Guid("a8612dde-b396-4d5b-b48c-fd7bd6ede861") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9333), new Guid("b10d5f72-bbf2-4c85-b117-5b6ca02360bc") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -441,7 +510,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 201L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4535), new Guid("988aceaa-cb01-4422-85a6-020fd8623960") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9338), new Guid("673f3c34-9cf8-49f8-92e7-99a803c4798b") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -449,7 +518,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 202L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4542), new Guid("feea0e00-daf9-434e-bc94-4deca84cd149") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9343), new Guid("46abebc8-c99f-4c24-9acd-3855a75195ca") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -457,7 +526,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 203L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4547), new Guid("41f30718-5dd9-47c5-9adc-6ab4699abff9") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9350), new Guid("246e0295-90d2-43cd-8c7a-679effe80fd2") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -465,7 +534,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 204L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4555), new Guid("4831f352-3e5e-4bbc-ab94-4901ba99e612") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9355), new Guid("ce6eab60-05fe-4100-914f-2753b4323191") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -473,7 +542,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 205L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4560), new Guid("31fa7286-f705-41fb-8189-3d206ffdc211") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9360), new Guid("c628ceca-7eb4-4ae9-88da-5cf6df181b35") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -481,7 +550,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 206L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4565), new Guid("30771f0b-b56a-4589-854e-7b9a7fc3a40d") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9365), new Guid("35f53640-4fa5-4544-9815-0e322fb6fd25") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -489,7 +558,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4426), new Guid("f7f04cb4-d658-4032-878b-016f0f5602d1") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9277), new Guid("8716c345-f2e0-4b82-b9d3-224fff6c0575") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -497,7 +566,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4432), new Guid("03c97b0c-e6ed-4354-a185-956b36b47d19") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9283), new Guid("e95f7c05-5e3d-4e4d-ae02-17a5d9a95e2e") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -505,7 +574,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4437), new Guid("36d25310-dddc-4daa-a8f3-d04549fd079b") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9287), new Guid("a66bfe33-2fc6-4202-94ce-d13aba62e679") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -513,7 +582,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4445), new Guid("1e575555-04b6-4b47-b639-10a452ced037") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9292), new Guid("8cc2913e-665c-4e14-9e74-2f0204d37fa7") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -521,7 +590,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4606), new Guid("a3dfc817-d038-47bc-8f7d-162f5f48a0b0") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9395), new Guid("cec5d728-2521-42e3-894d-2af6bf4c6d55") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -529,15 +598,15 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(4612), new Guid("0bbf2e9e-bd07-4972-8f8a-eeaf1f66621f") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 206, DateTimeKind.Local).AddTicks(9414), new Guid("fe70954f-5687-49f8-b7b9-83d80616ecbb") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
                 table: "F_Condition",
                 keyColumn: "Id",
                 keyValue: 1L,
-                columns: new[] { "CD_EndorsementId", "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { 2L, new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5177), new Guid("94fe85c2-28d4-4284-b9ee-0ae47ceab598") });
+                columns: new[] { "CreateTimeRecord", "GuidRecord" },
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(221), new Guid("438915c2-7a59-444c-a196-97b6d0800529") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -545,7 +614,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5191), new Guid("35f46d1a-f83c-4d4e-8143-a6e958a3a585") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(231), new Guid("04d85de4-8aee-4393-9dd2-2776a75fea3d") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -553,7 +622,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5197), new Guid("36060f35-ec2e-4a4a-a7cd-af6ac47af7cc") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(238), new Guid("fb6a71f1-48e3-4fab-95f9-16d315866735") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -561,7 +630,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5202), new Guid("6d5ac8f9-3805-4d46-be4d-7fbc8f082ffc") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(245), new Guid("f68e96d5-84b4-4f6e-8f59-55a043977edf") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -569,7 +638,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5208), new Guid("8cd18628-5094-4168-b306-ad634accd3f7") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(251), new Guid("7a479107-fb69-4008-af27-e32229dfc94b") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -577,7 +646,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5233), new Guid("ecfd422e-6f5b-405b-9b58-c6c3fe036976") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(276), new Guid("1678c4db-4712-40f4-b9ba-73bb5af63f41") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -585,7 +654,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5241), new Guid("56ada24e-5cbb-4af1-a19c-86e3ac823984") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(284), new Guid("41bb6e43-8c84-4bee-bb67-2943ddb6a36d") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -593,7 +662,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5249), new Guid("b02b1a0d-8b54-46e8-972b-bb804cae481a") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(297), new Guid("07073b84-2da2-4b34-90ec-0d04e70e1de8") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -601,7 +670,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5256), new Guid("a6f49e5d-3f18-4531-a4dd-15beb460d5ad") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(306), new Guid("ac682558-0819-420e-83bf-2c20eb33fa4c") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -609,7 +678,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5110), new Guid("7b7fdddb-5bf8-4cb1-a30a-519bdec955c5") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(182), new Guid("b616b0cd-0a01-48c2-a110-02d91a6bd8a0") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -617,7 +686,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5116), new Guid("56bd2446-bdd9-40d5-9486-070854ce59d1") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(189), new Guid("3fc9c67f-aca3-4db2-ac69-3fcfbcccedc9") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -625,7 +694,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5151), new Guid("c2c89a9d-71d3-483e-a584-4df765323619") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(194), new Guid("8c260d26-e710-4ed4-ad37-b6a30d24e9ff") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -633,7 +702,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5395), new Guid("8fd6aff1-938a-4d57-ba45-93c8c550e7f7") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(430), new Guid("042d8c37-6719-4457-86d3-8fe70f2e8703") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -641,7 +710,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5401), new Guid("d8dcf998-8e4b-4f14-89f8-30d2555b51ca") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(438), new Guid("4f959080-163d-4645-88e2-e6da4db7dbf1") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -649,7 +718,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5407), new Guid("fe2e2b5a-cb0c-4add-9814-3d19f834d246") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(442), new Guid("b752c7d6-ed97-48e2-8923-dda6ae32c808") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -657,7 +726,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5413), new Guid("56d19d9e-a13b-45a9-836e-c555326f0fa9") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(447), new Guid("5113ccbc-c38f-4a1a-8332-480f1d116267") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -665,7 +734,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5446), new Guid("dcbd2b74-44a9-42fd-b242-ca490c9ba2fa") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(452), new Guid("f4514a6a-3fe1-4c6b-b075-7e69f04647f5") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -673,7 +742,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5318), new Guid("bfebde53-7e5c-4b5d-963d-d6ceec67ef67") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(367), new Guid("b6ba4e7d-0c42-44fd-8c76-269d54f0eede") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -681,7 +750,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5323), new Guid("4e804728-d133-4b2d-a55b-7dcccd85b23c") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(373), new Guid("4b6df5c5-a6d5-4c9b-8592-8167b69c3cfb") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -689,7 +758,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5329), new Guid("65ab7378-9777-4e2c-8b51-646becfd58c8") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(378), new Guid("a8543314-bec6-4e82-80ba-d2035a45e26b") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -697,7 +766,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5334), new Guid("70d170e5-08fe-442e-8033-5d469e11fc97") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(382), new Guid("26647a60-400a-420f-b0e4-15f522b1b75d") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -705,7 +774,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5345), new Guid("31f9a62a-5671-4b44-991b-fe61a582d5b8") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(389), new Guid("a814c069-f35f-4cb8-97bc-b96b16646387") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -713,7 +782,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5351), new Guid("3c21d3df-b380-4de1-9538-96b6ffc5c476") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(394), new Guid("e0386d43-9d8c-4959-af78-744de0938f07") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -721,7 +790,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5356), new Guid("3cd2fda9-3170-4d0a-a0a9-72d4a23dda94") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(399), new Guid("d622c065-57bc-4ebc-bd72-6a4246c2db07") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -729,7 +798,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5287), new Guid("1e0fd6f0-58c1-41c3-9487-c87fa3f002cd") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(335), new Guid("82d1c9aa-4bc7-42ab-89da-cbb0ef4b4a07") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -737,7 +806,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5294), new Guid("695b3fc0-7eb8-468e-8e8f-4700ece4ebea") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(342), new Guid("d95e8273-b480-4d6e-85f9-0919689269a4") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -745,7 +814,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5476), new Guid("0a86aff3-aeeb-4dc6-95ec-889bc3051e43") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(474), new Guid("79c2779c-fce8-4b77-a5df-fd1f6a3cc346") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -753,19 +822,116 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 15, 37, 41, 94, DateTimeKind.Local).AddTicks(5482), new Guid("8684363d-6896-40aa-a5f2-10b76803f932") });
+                values: new object[] { new DateTime(2023, 5, 17, 14, 41, 42, 207, DateTimeKind.Local).AddTicks(480), new Guid("e4649dd7-ae6c-450a-8195-2f6ed4250f89") });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_APV_AssignmentId",
+                schema: "Facts",
+                table: "F_Review",
+                column: "APV_AssignmentId",
+                unique: true,
+                filter: "[APV_AssignmentId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_CreateTimeRecord",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "CreateTimeRecord",
+                unique: true,
+                descending: new bool[0],
+                filter: "[CreateTimeRecord] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_DsblRecord",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "DsblRecord",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_FirstId",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "FirstId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_LastUpdatedRecord",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "LastUpdatedRecord",
+                unique: true,
+                descending: new bool[0],
+                filter: "[LastUpdatedRecord] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_PCode",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "PCode",
+                unique: true,
+                descending: new bool[0],
+                filter: "[PCode] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_PERPCode",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "PERPCode",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_PIndex",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "PIndex",
+                unique: true,
+                descending: new bool[0],
+                filter: "[PIndex] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_PName",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "PName",
+                unique: true,
+                descending: new bool[0],
+                filter: "[PName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserAssignment_SecondId",
+                schema: "Links",
+                table: "L_UserAssignment",
+                column: "SecondId",
+                descending: new bool[0]);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "L_UserAssignment",
+                schema: "Links");
+
+            migrationBuilder.DropIndex(
+                name: "IX_F_Review_APV_AssignmentId",
+                schema: "Facts",
+                table: "F_Review");
+
+            migrationBuilder.AddColumn<long>(
+                name: "F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User",
+                type: "bigint",
+                nullable: true);
+
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
                 table: "D_Entity",
                 keyColumn: "Id",
                 keyValue: 101L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6188), new Guid("3b59f7d0-cde4-4cb0-9c1d-027a977570cd") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4700), new Guid("6f541730-e5e9-4bb9-a297-76a08db5ea0a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -773,7 +939,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 102L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6321), new Guid("79b24bc8-de8d-422e-8147-dd1fbc5001bb") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4767), new Guid("9a2ed79e-9527-49ee-bcc2-b80af7916200") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -781,7 +947,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 103L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6353), new Guid("2f4cafd3-50b5-4979-8d29-5c1e13aeaa02") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4781), new Guid("6e955044-2b4e-4537-ba8e-a7cf8734c713") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -789,7 +955,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 104L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6383), new Guid("ce265fb6-bd43-4de2-a245-de61f8a1db95") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4797), new Guid("fdd002c1-b2cf-4f00-9ee9-f6dbdd05f5a0") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -797,7 +963,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 105L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6411), new Guid("661ee745-cb35-4d6f-8e9b-a407665fba4b") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4897), new Guid("081c33a1-ccff-48a0-b00b-042054e26a88") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -805,7 +971,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 106L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6439), new Guid("bc6b58d5-c334-49a6-b3ee-a4e0710644a3") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4917), new Guid("c869500f-f88a-479f-9bc2-b41eec76346b") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -813,7 +979,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 107L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6465), new Guid("7e0a1220-584a-49ba-9098-f2042b418a31") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4930), new Guid("59afddb0-e0e5-41e7-b0d9-5f801d3e0537") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -821,7 +987,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 108L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6498), new Guid("be160b12-422d-4db5-b434-bfd9eeed76f3") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4943), new Guid("4eff096a-690a-4f24-9b10-e8481928366f") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -829,7 +995,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 109L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6527), new Guid("80655e08-1633-4923-bfe4-10ed69cb7518") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4955), new Guid("2f03defe-a320-4b1d-b710-745f00420855") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -837,7 +1003,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 112L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6556), new Guid("c70a3e07-e27b-4937-8106-df722f5b0e0c") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4970), new Guid("b659f356-53c1-4c0b-b877-6d825c1d142a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -845,7 +1011,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 200L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6582), new Guid("e4ce0794-c390-4fda-868f-58cda1046938") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4983), new Guid("62939f2b-5223-4e3b-b14d-f8a69fcde681") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -853,7 +1019,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 201L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6608), new Guid("922671a6-7164-4946-bdcb-35f0be77b971") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5001), new Guid("7d53ce0c-f0be-4dab-bde5-1ad22b1c5013") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -861,7 +1027,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 202L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6694), new Guid("aa66fb85-d35d-429b-b052-c4accc58ad15") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5012), new Guid("d57ffdc0-cf62-485e-9cb5-a31576954ee6") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -869,7 +1035,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 203L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6726), new Guid("964b1d71-bbee-4340-837f-e1ad6e5a63ab") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5025), new Guid("eda901db-f780-484c-bdeb-005f40c6bba0") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -877,7 +1043,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 204L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6752), new Guid("d05bb213-10d5-4b74-815d-34bd22740fcb") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5037), new Guid("631c2378-d0fb-482e-9a01-db98a072a445") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -885,7 +1051,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 205L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6799), new Guid("5ec67ef2-4fee-4af4-afcb-85a98ee11d54") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5058), new Guid("04a02718-f88d-4b52-ae97-7956ddbcd76f") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -893,7 +1059,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 206L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6826), new Guid("b6f1f74f-4978-4432-b621-46fe88804bd1") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5071), new Guid("2200ea08-7630-46e5-a45c-805525c5ce52") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -901,7 +1067,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 300L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6840), new Guid("8e5e3fe1-8464-4efd-a0ff-0c9c7af97276") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5084), new Guid("2f0cf5b4-de3e-4427-914f-2f19c2ea1bdc") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -909,7 +1075,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 301L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6863), new Guid("862debad-2fad-4c35-8c08-8e4d452eb756") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5096), new Guid("c454998b-1c0f-49cc-87cd-0b8b4df101a6") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -917,7 +1083,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 302L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6916), new Guid("360bab42-c72a-46c3-88b4-6368e31e18dd") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5148), new Guid("1c5cb345-4364-4bee-9147-62c0ed811fc7") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -925,7 +1091,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 303L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6929), new Guid("8cc287d6-b80b-45c0-be2b-f170c7c26c80") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5167), new Guid("3195fc0a-e600-46c4-b009-819f857487f5") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -933,7 +1099,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4698), new Guid("40e0bb1d-ef94-4743-9a9d-435935daa030") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3884), new Guid("f68a3307-3b88-4802-8305-f2505c1f0687") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -941,7 +1107,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4738), new Guid("3f586ea6-480c-44ac-b025-3d910e715d5b") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3922), new Guid("b56076a9-2e75-4a50-ba23-1ca3fcc36889") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -949,7 +1115,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4745), new Guid("d9e0524e-5344-457b-961f-6ff5937dfbe0") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3930), new Guid("f09eb99e-0f73-47ff-b162-1fd30681bb12") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -957,7 +1123,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4794), new Guid("50093f36-c642-4353-9236-26ea006dbdec") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4028), new Guid("348a5e16-27ce-4eef-b52c-1fcbf4d7dc9a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -965,7 +1131,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4808), new Guid("c4387f75-7528-46a4-a247-3d638ed54f4c") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4039), new Guid("779d4d55-3432-42a0-afb8-e6752622da6d") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -973,7 +1139,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4815), new Guid("ae547a46-f69b-4aec-b569-00ee6fa19b3f") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4048), new Guid("a8b0381d-f3f5-4735-8899-7f6afbf5cfb1") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -981,7 +1147,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4826), new Guid("a626b854-1b19-4ed5-b617-58dcfbf3d927") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4062), new Guid("dc8d6053-808b-4aed-bf52-03d01e3cf8fe") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -989,7 +1155,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4834), new Guid("8b32cd07-e553-4510-a31a-fb8e816a77e2") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4070), new Guid("079ee751-6e38-4951-b027-01c807df7813") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -997,7 +1163,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4912), new Guid("c07fc018-3240-43ba-830a-46fb997a2ade") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4141), new Guid("2e3863a8-28b7-4aec-b594-6a47e4b8fccd") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1005,7 +1171,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5912), new Guid("0856a1c4-3ce2-4472-8ea2-0cf191856c07") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4603), new Guid("3469a256-fa8b-45a3-b375-de9452f4c569") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1013,7 +1179,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5936), new Guid("f363418b-ac69-44be-9b46-33650ecd7048") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4614), new Guid("5415fbd3-a33f-48f0-b789-8e890227f1d0") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1021,7 +1187,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5954), new Guid("dc2185b4-ce40-44ba-8ae8-d18be7e5f372") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4625), new Guid("2e50b7d4-aa18-42cd-9722-52fc8f3331e1") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1029,7 +1195,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5973), new Guid("5a62e9d2-5bb9-4cdc-b591-91e155bf71b3") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4633), new Guid("e16d394c-b879-43fb-ad99-ce977961b402") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1037,7 +1203,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5992), new Guid("e36a1ca8-448c-410c-a895-21a8613a5d6e") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4643), new Guid("5ce2fb58-6190-42cb-a8da-772a047fe14e") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1045,7 +1211,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6084), new Guid("c41e3780-62b8-4811-9099-fb93f4cef645") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4651), new Guid("340e2a7c-fa23-4cd9-83ed-9e9724bcf23f") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1053,7 +1219,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(6110), new Guid("fbc8e783-a902-4453-9f5e-4f94fd265cb2") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4659), new Guid("d1ef36f7-49c0-4d4c-b211-6dc96990b07d") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1061,7 +1227,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(3490), new Guid("69f433f0-8d78-4e92-93b2-d83f97573498") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3190), new Guid("1c250876-7391-40d5-a397-31005c9daf08") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1069,7 +1235,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(3973), new Guid("29561279-2fca-44a5-8f36-dc4767ca9e2f") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3329), new Guid("596062f0-71fd-4c35-b00c-0eeb8617aab7") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1077,7 +1243,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4001), new Guid("f320aa90-8294-438a-ab62-4a49c17eb234") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3339), new Guid("76097811-7ec9-4815-91cf-1611753047ee") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1085,7 +1251,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4601), new Guid("0e31e7c9-a592-47f3-80f1-f11e83c1c907") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3773), new Guid("f087cdba-36a1-430a-9430-7224597b6abf") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1093,7 +1259,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4616), new Guid("bea42770-79dc-4466-a452-8ac7dafcdb9e") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3789), new Guid("e48e9d1d-0a71-4f28-a4e5-ef59c084682e") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1101,7 +1267,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4639), new Guid("162df79f-6d65-46ba-9612-240108a22ed4") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3811), new Guid("decb3e8a-30e9-40bf-8b64-7870ad29bbcb") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1109,7 +1275,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4652), new Guid("75e3dfb3-55eb-4fdf-a53b-a874f531d58a") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(3819), new Guid("48d33df7-20ed-4b2a-b562-e1c34ce3b775") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1117,7 +1283,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5748), new Guid("f6624740-cf31-4876-8303-ad303ec99554") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4530), new Guid("baa7cfe2-859e-49eb-80f7-2ebe399370ee") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1125,7 +1291,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5771), new Guid("89b485ef-efce-4858-b5bb-c384fcdc933c") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4542), new Guid("832eb17f-2907-4e84-98f6-aaeba80aef55") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1133,7 +1299,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5790), new Guid("d068fa02-9d8e-415a-adce-b9ae1897dac5") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4551), new Guid("5d84d5d0-ffd4-4cb8-acda-973e1675c68d") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1141,7 +1307,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5815), new Guid("2c9cb090-3635-48fd-aa16-10308a64ee46") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4559), new Guid("f6091525-1336-4038-865d-29e80216ec3e") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1149,7 +1315,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5833), new Guid("08ee8521-0344-4592-abbc-57114ba778ac") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4567), new Guid("c21e564f-03df-475e-804c-c55ea6db32df") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1157,7 +1323,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 100L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5122), new Guid("e0dcdb81-129d-402d-b2a4-efc94617fa7f") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4259), new Guid("06f50370-a840-43c0-8b38-e329f310fdc1") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1165,7 +1331,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 101L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5144), new Guid("2aae1d74-7e5e-49cb-840a-bfdaa7f33923") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4269), new Guid("eab959b6-a861-4b80-b5e6-ba4f1f150014") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1173,7 +1339,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 103L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5163), new Guid("ab402757-d110-49a2-9c08-a7b5dd6ee69b") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4278), new Guid("addd2d07-c988-4b35-accf-af19207049b4") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1181,7 +1347,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 200L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5194), new Guid("d9bd2cca-f396-4308-b07c-d75cae582014") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4291), new Guid("6bbd680b-8bd0-4e95-9fed-d0c476d907ee") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1189,7 +1355,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 201L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5278), new Guid("9fb14742-9678-42bf-97b3-7cb50d22a858") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4304), new Guid("75f4034f-dfc4-483a-a81a-85a6761047fc") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1197,7 +1363,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 202L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5326), new Guid("8b74e356-220c-45d9-8963-88ad797abf17") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4313), new Guid("f62360cb-b4db-494b-bc9d-59f46740bf64") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1205,7 +1371,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 203L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5349), new Guid("e04403a2-d583-45d9-b6c2-3bb6c5c5bd32") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4322), new Guid("71c1120d-9012-44c1-8031-8836ae476806") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1213,7 +1379,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 204L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5361), new Guid("351acec3-e233-4aba-b4fd-57e825669958") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4330), new Guid("6d260619-4efb-4366-9fb6-351f74c4d8bc") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1221,7 +1387,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 205L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5370), new Guid("6441c84f-9853-41aa-adb1-6588be4249a6") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4340), new Guid("3755f3b5-3e5b-46cb-aa30-d844be0fcd11") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1229,7 +1395,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 206L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5416), new Guid("43163b5a-a054-4a95-a933-3388feaff115") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4349), new Guid("8ca20c22-55af-4a27-b896-8be0b22e2805") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1237,7 +1403,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4981), new Guid("337e2512-cd7a-41ad-9d30-8499d8450da2") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4200), new Guid("91c09e7d-4fb6-4945-b4e1-a0cd96063cc5") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1245,7 +1411,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(4992), new Guid("e81c7626-994f-424e-9fd8-8df42eaed858") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4210), new Guid("6e36fd2d-7cf5-4528-bd09-340033b2cd8a") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1253,7 +1419,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5000), new Guid("32632fca-7aff-43a0-b3ca-681996c4f150") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4217), new Guid("ba10db8e-1440-4143-98e2-48cc8e183d15") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
@@ -1261,31 +1427,31 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5014), new Guid("908d9637-2d50-45ed-b056-9d41e6bbfedc") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4225), new Guid("2925afae-e1ac-421a-a857-3ea4aff15e27") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
                 table: "D_User",
                 keyColumn: "Id",
                 keyValue: 1L,
-                columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5596), new Guid("90ee8094-1bba-43aa-adfc-5d97551a3ec6") });
+                columns: new[] { "CreateTimeRecord", "F_AssignmentId", "GuidRecord" },
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4405), null, new Guid("8b6d2b8e-77ba-4195-bd50-c4b2fcc42c62") });
 
             migrationBuilder.UpdateData(
                 schema: "Dimentions",
                 table: "D_User",
                 keyColumn: "Id",
                 keyValue: 2L,
-                columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(5641), new Guid("ab109b7a-4d9a-499e-823d-4d2ddf71bdcb") });
+                columns: new[] { "CreateTimeRecord", "F_AssignmentId", "GuidRecord" },
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(4418), null, new Guid("4a6740e6-5cb3-483f-bdce-a385c1fd4d94") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
                 table: "F_Condition",
                 keyColumn: "Id",
                 keyValue: 1L,
-                columns: new[] { "CD_EndorsementId", "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { null, new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7054), new Guid("05aa5017-0e9f-4336-8615-ccb359660491") });
+                columns: new[] { "CreateTimeRecord", "GuidRecord" },
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5288), new Guid("177bd54d-ec9d-4034-ba45-50bc19d690c2") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1293,7 +1459,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7065), new Guid("1ab252e0-c28c-426d-88e5-c63bc76c54c2") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5301), new Guid("43d96bb8-3885-4b30-8507-227136167afa") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1301,7 +1467,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7108), new Guid("360142b8-9401-43fe-b1b6-d1b7ed623752") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5310), new Guid("21cc1ac7-2a97-4716-9698-b6ecc16e0899") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1309,7 +1475,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7116), new Guid("681885ca-690e-44a6-914d-425ee77530e6") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5322), new Guid("3a63ca2d-e782-4f5b-a1aa-ff0e619ee562") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1317,7 +1483,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7122), new Guid("dcc070f3-d01e-4bb3-8ba8-1679f128355c") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5331), new Guid("2ff36702-ff30-4559-83d9-144bef48eaae") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1325,7 +1491,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7158), new Guid("a8886dd2-222f-43ef-a838-9c32eeab9ac6") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5370), new Guid("311d1027-0550-4acc-be42-c31887b97a8d") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1333,7 +1499,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7167), new Guid("dfe2194b-710a-4664-b5ac-efbdfc0f35ce") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5383), new Guid("0366b21d-81c9-4f95-ae45-a14aede4d8d3") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1341,7 +1507,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7178), new Guid("69ccdb28-7d34-4f70-9073-76a43d0bb6c7") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5392), new Guid("2667affc-eb14-4bb6-a8e6-dcb72180e65c") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1349,7 +1515,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7187), new Guid("a0aaefe6-f084-4ead-b976-48ee03ae99d0") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5411), new Guid("65b399d0-9dd9-4f7a-8329-bb45ef52bc73") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1357,7 +1523,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7008), new Guid("50547ae5-3051-4cf7-99a2-03141b9b48a2") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5232), new Guid("9779193b-752e-4382-8037-a2c6c013923e") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1365,7 +1531,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7017), new Guid("63b131dc-4c7d-40f8-8a0c-729edd80af07") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5243), new Guid("9caac6cd-ba50-4a4c-ac81-226e5928aada") });
 
             migrationBuilder.UpdateData(
                 schema: "Facts",
@@ -1373,7 +1539,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7026), new Guid("246da790-d60c-425e-a1ae-868f12124d37") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5252), new Guid("d61d4863-f452-4f50-bfb8-bacc11f32ec5") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1381,7 +1547,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7344), new Guid("0f8fd643-dab2-4d57-8f17-1ed881be1d37") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5733), new Guid("0d434d09-915e-431e-be2f-1ecc7968dc6e") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1389,7 +1555,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7351), new Guid("2c14632a-3a01-4701-a95f-6a4e56dc73ef") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5746), new Guid("3017e7ea-86ef-4ca7-88b4-5fcaf4dc17f7") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1397,7 +1563,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7357), new Guid("1f94bfef-1f07-4403-bf52-e7aa320241e8") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5756), new Guid("18a9b074-93fa-42af-b239-32a3666b3fc6") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1405,7 +1571,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7362), new Guid("d154cede-e42a-4f78-882b-a6cd1cc2cf41") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5765), new Guid("085278ca-ff97-4aef-abbd-109cfea7d09b") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1413,7 +1579,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7368), new Guid("9b1a34a9-3657-497c-80d4-caf9701b9e7d") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5773), new Guid("3da0f6e7-1af2-4aea-a336-f349145d8aac") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1421,7 +1587,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7256), new Guid("74caad86-f3fd-4b6a-a271-d607e0d03c8a") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5617), new Guid("520a43e3-811c-4baf-9679-ac8fc4e08437") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1429,7 +1595,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7263), new Guid("008a215a-c47b-471b-878b-d76cb0b6024e") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5630), new Guid("aa48ca9d-f6d0-4651-ac5f-3038ae837db3") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1437,7 +1603,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 3L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7270), new Guid("1c818d07-deea-4b55-98ee-bebb64c3cf15") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5641), new Guid("1de90d60-f956-4c62-8c7d-5d90fa51d3f1") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1445,7 +1611,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 4L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7277), new Guid("c9800da6-a673-4f0f-9f26-fcf8bab42897") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5650), new Guid("90857bd9-9d33-4479-9d38-a4359a407449") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1453,7 +1619,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 5L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7285), new Guid("19009af8-3a17-49ba-a49d-b1b04b48d9d0") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5658), new Guid("a7f69fa7-9786-481c-9e5d-8dadd031ccc4") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1461,7 +1627,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 6L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7290), new Guid("eb6adb67-8f7a-4c54-925c-ed32113daa41") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5666), new Guid("7251776d-4675-4a43-a7a8-c1568b773390") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1469,7 +1635,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 7L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7296), new Guid("77a59c2e-06e4-4dbb-b11a-ec5f6b44a1de") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5675), new Guid("0eed8bd6-fe7a-46a8-ae56-4129d6b2dd6c") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1477,7 +1643,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7217), new Guid("7a9df488-8a68-4699-94d2-dbf60c57bd27") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5520), new Guid("fe356d88-2a5c-4a53-9e4e-2131c9ca619a") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1485,7 +1651,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7226), new Guid("25666d68-7860-4264-9e8a-b304fe03a071") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5570), new Guid("061e6a24-1bae-4893-91b5-0c43b30bb0ea") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1493,7 +1659,7 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7395), new Guid("924283ab-3b7a-457c-a8ec-19daf160cec5") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5807), new Guid("253feeb0-ac50-42da-8d6a-2fabe2bd9b79") });
 
             migrationBuilder.UpdateData(
                 schema: "Links",
@@ -1501,7 +1667,43 @@ namespace Cheetah_DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 2L,
                 columns: new[] { "CreateTimeRecord", "GuidRecord" },
-                values: new object[] { new DateTime(2023, 5, 15, 14, 7, 28, 931, DateTimeKind.Local).AddTicks(7403), new Guid("5eb53960-4377-41b8-b211-fe5e7349b1c8") });
+                values: new object[] { new DateTime(2023, 5, 15, 18, 27, 53, 355, DateTimeKind.Local).AddTicks(5817), new Guid("e6df4da3-7807-40aa-ab30-9d067d5410c0") });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Review_APV_AssignmentId",
+                schema: "Facts",
+                table: "F_Review",
+                column: "APV_AssignmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Assignment_PRM_ReviewId",
+                schema: "Facts",
+                table: "F_Assignment",
+                column: "PRM_ReviewId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_D_User_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User",
+                column: "F_AssignmentId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_D_User_F_Assignment_F_AssignmentId",
+                schema: "Dimentions",
+                table: "D_User",
+                column: "F_AssignmentId",
+                principalSchema: "Facts",
+                principalTable: "F_Assignment",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_F_Assignment_F_Review_PRM_ReviewId",
+                schema: "Facts",
+                table: "F_Assignment",
+                column: "PRM_ReviewId",
+                principalSchema: "Facts",
+                principalTable: "F_Review",
+                principalColumn: "Id");
         }
     }
 }

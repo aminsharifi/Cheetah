@@ -8,6 +8,7 @@ namespace Cheetah_DataAccess.Data
     public class Query
     {
         #region Dimentions
+
         [UseProjection]
         [UseFiltering]
         [UseSorting]
@@ -130,6 +131,14 @@ namespace Cheetah_DataAccess.Data
         #endregion
 
         #region Links
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
+        public IQueryable<L_UserAssignment> l_UserAssignments([Service] ApplicationDbContext context)
+        {
+            return context.L_UserAssignments;
+        }
+
         [UseProjection]
         [UseFiltering]
         [UseSorting]

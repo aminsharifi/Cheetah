@@ -51,18 +51,21 @@ namespace Cheetah_Business.Facts
 
         [Column(Order = 112)]
         public long? RQT_Current_ReviewId { get; set; }
-        [ForeignKey(nameof(RQT_Current_ReviewId))]
         public virtual F_Review? RQT_Current_Review { get; set; }
 
         [Column(Order = 113)]
         public long? RQT_SelectedScenarioId { get; set; }
-        [ForeignKey(nameof(RQT_SelectedScenarioId))]
         public virtual F_Scenario? RQT_SelectedScenario { get; set; }
-        
+
+        [Column(Order = 114)]
+        public long? RQT_CurrentAssignmentId { get; set; }
+        public virtual F_Assignment? RQT_CurrentAssignment { get; set; }
         #endregion
 
         #region Collection
         public virtual ICollection<F_Condition>? RQT_Conditions { get; set; } = new HashSet<F_Condition>();
+
+        [InverseProperty(nameof(F_Assignment.PRM_Request))]
         public virtual ICollection<F_Assignment>? RQT_Assignments { get; set; } = new HashSet<F_Assignment>();
 
         [InverseProperty(nameof(F_Review.APV_Request))]

@@ -29,6 +29,7 @@ namespace Cheetah_Business
         Update,
         Delete
     }
+
     public struct UpsertStatus
     {
         public KeyValuePair<CrudOperation, String> GetPageTitle(long? id)

@@ -6,6 +6,7 @@ using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -42,7 +43,6 @@ namespace Cheetah_DataAccess.Repository
                               .ToString();
             return simpleLinkClass;
         }
-
         public Boolean CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
         {
             var cnt_con = Expected_Conditions.Count();
@@ -92,13 +92,17 @@ namespace Cheetah_DataAccess.Repository
                 GeneralRequest.RQT_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
 
                 if (crudOperation == CrudOperation.Create)
+                {
                     GeneralRequest.Id = null;
+                }
                 else
+                {
                     GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
 
-                await _db.F_Conditions
-                    .Where(x => x.CD_RequestId == GeneralRequest.Id)
-                    .ExecuteUpdateAsync(x => x.SetProperty(p => p.DsblRecord, false));
+                    await _db.F_Conditions
+                        .Where(x => x.CD_RequestId == GeneralRequest.Id)
+                        .ExecuteUpdateAsync(x => x.SetProperty(p => p.DsblRecord, false));
+                }
 
                 foreach (var item in GeneralRequest.RQT_Conditions)
                 {
@@ -128,21 +132,41 @@ namespace Cheetah_DataAccess.Repository
 
                     var EP_Endorsements = GeneralRequest.RQT_SelectedScenario?.EP_Endorsements;
 
+                    var UserLocations = GeneralRequest.RQT_Requestor.User_UserLocations.Select(x => x.SecondId);
+
                     foreach (var item in EP_Endorsements)
                     {
                         if (CompareCondition(GeneralRequest.RQT_Conditions, item.ED_Conditions))
-                        {
+                        {                            
                             var Positions = _db.L_RolePositions.Where(x => x.FirstId == item.ED_RoleId).Select(x => x.SecondId);
 
                             var Users = _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId);
 
+                            var D_Users = _db.D_Users.Where(x => Users.Contains(x.Id));
+
+
+                            foreach (var D_User in D_Users)
+                            {
+                                var aaa = D_User.User_UserLocations.Where(x => (item.ED_Role.ROL_Independent && UserLocations.Contains(x.Id)) || true);
+                            }
+
+
                             var new_Assignment = new F_Assignment()
                             {
-                                PRM_Endorsement = item,
-                                PRM_CondidateUsers = _db.D_Users.Where(x => Users.Contains(x.Id)).ToList()
+                                PRM_Endorsement = item
+                                //,PRM_CondidateUsers = _db.D_Users.Where(x => Users.Contains(x.Id)).ToList()
                             };
-
+                            
                             GeneralRequest.RQT_Assignments.Add(new_Assignment);
+
+                            await D_Users.ForEachAsync(x =>
+                                  _db.L_UserAssignments.Add(
+                                      new L_UserAssignment()
+                                      {
+                                          UA_User = x,
+                                          UA_Assignment = new_Assignment
+                                      }
+                                      ));
                         }
                     }
                 }
@@ -156,8 +180,6 @@ namespace Cheetah_DataAccess.Repository
 
                     GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
                         .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
-
-                    //GeneralRequest.RQT_Current_Review.APV_Assignment.PRM_Endorsement = SelectedScenario.EP_Endorsements.First();
                 }
 
                 if (crudOperation == CrudOperation.Create)
@@ -171,10 +193,13 @@ namespace Cheetah_DataAccess.Repository
                     GeneralRequest = tmp.Entity;
                 }
 
+                if (crudOperation == CrudOperation.Update)
+                    GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
+
                 await _db.SaveChangesAsync();
 
-                if (crudOperation == CrudOperation.Update)
-                    GeneralRequest.RQT_Current_Review.APV_RequestId = GeneralRequest.Id;
+                GeneralRequest.RQT_CurrentAssignment = GeneralRequest.RQT_Assignments
+                    .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve")).First();
 
                 await _db.SaveChangesAsync();
             }
