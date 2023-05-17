@@ -1,0 +1,12 @@
+{
+  f_Requests(where: {rqt_CurrentAssignment:{prm_CondidateUsers:{any:true}}})
+  {
+   rqt_CurrentAssignment{
+     prm_CondidateUsers
+     {
+      pName
+      pDisplayName
+     }
+   }
+  }
+}

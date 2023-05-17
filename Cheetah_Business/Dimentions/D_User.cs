@@ -63,7 +63,8 @@ namespace Cheetah_Business.Dimentions
         [Column(Order = 110)]
         public long? User_UserInformationId { get; set; }
         public virtual D_UserInformation? User_UserInformation { get; set; }
-        #endregion        
+        #endregion              
+
         #endregion
 
         #region Collection

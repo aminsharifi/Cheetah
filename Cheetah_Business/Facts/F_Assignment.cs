@@ -22,11 +22,12 @@ namespace Cheetah_Business.Facts
 
         [Column(Order = 102)]
         public long? PRM_ReviewId { get; set; }
-        [ForeignKey(nameof(PRM_ReviewId))]
         public virtual F_Review? PRM_Review { get; set; }
 
         [Column(Order = 103)]
-        [Description("نامزدهای تایید")]
-        public virtual List<D_User>? PRM_CondidateUsers { get; set; }
+        public long? PRM_RequestId { get; set; }
+        [ForeignKey(nameof(PRM_RequestId))]
+        public virtual F_Request? PRM_Request { get; set; }
+
     }
 }
