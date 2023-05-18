@@ -68,13 +68,15 @@ namespace Cheetah_Business.Dimentions
         #endregion
 
         #region Collection
+        public virtual ICollection<F_Condition>? User_Conditions { get; set; } = new HashSet<F_Condition>();
 
         [Description("موقعیت")]
         public virtual ICollection<L_UserLocation>? User_UserLocations { get; set; } = new HashSet<L_UserLocation>();
 
         public virtual ICollection<L_UserPosition>? User_UserPositions { get; set; } = new HashSet<L_UserPosition>();
 
-        public virtual ICollection<F_Condition>? User_Conditions { get; set; } = new HashSet<F_Condition>();
+        public virtual ICollection<L_UserAssignment>? User_UserAssignments { get; set; } = new HashSet<L_UserAssignment>();
+        
         #endregion
 
         #endregion

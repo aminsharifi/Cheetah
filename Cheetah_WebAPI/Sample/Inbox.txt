@@ -1,12 +1,14 @@
 {
-  f_Requests(where: {rqt_CurrentAssignment:{prm_CondidateUsers:{any:true}}})
-  {
-   rqt_CurrentAssignment{
-     prm_CondidateUsers
-     {
-      pName
-      pDisplayName
-     }
-   }
+ d_Users(where: {pName:{eq:"m.sharifi"}})
+ {
+  pDisplayName
+  pName
+  user_UserAssignments
+  {    
+    secondId
+    ua_Assignment {
+     prm_RequestId
+    }
   }
+ }
 }
