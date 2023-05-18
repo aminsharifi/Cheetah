@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Cheetah_Business;
 using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -15,6 +15,7 @@ namespace Cheetah_DataAccess.Repository
     public class SimpleClassRepository : ISimpleClassRepository
     {
         protected ApplicationDbContext _db;
+
         protected IMapper _mapper;
 
         public SimpleClassRepository(ApplicationDbContext db, IMapper mapper)
@@ -76,7 +77,15 @@ namespace Cheetah_DataAccess.Repository
             }
             return (ConditionOccur == cnt_con);
         }
+        public async Task<F_Request> SetCurrentAssignment(F_Request GeneralRequest)
+        {
+            GeneralRequest.RQT_CurrentAssignment = GeneralRequest.RQT_Assignments
+                       .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve")).First();
 
+            await _db.SaveChangesAsync();
+
+            return GeneralRequest;
+        }
         public async Task<F_Request> PerformRequestAsync(F_Request request)
         {
             F_Request GeneralRequest = request;
@@ -130,78 +139,84 @@ namespace Cheetah_DataAccess.Repository
                 {
                     GeneralRequest.RQT_Assignments = new HashSet<F_Assignment>();
 
-                    var EP_Endorsements = GeneralRequest.RQT_SelectedScenario?.EP_Endorsements;
+                    var eP_Endorsements = GeneralRequest.RQT_SelectedScenario?.EP_Endorsements.ToList();
 
-                    var UserLocations = GeneralRequest.RQT_Requestor.User_UserLocations.Select(x => x.SecondId);
+                    var userLocations = GeneralRequest.RQT_Requestor.User_UserLocations.Select(x => x.SecondId).ToList();
 
-                    foreach (var item in EP_Endorsements)
+                    foreach (var eP_Endorsement in eP_Endorsements)
                     {
-                        if (CompareCondition(GeneralRequest.RQT_Conditions, item.ED_Conditions))
-                        {                            
-                            var Positions = _db.L_RolePositions.Where(x => x.FirstId == item.ED_RoleId).Select(x => x.SecondId);
+                        if (CompareCondition(GeneralRequest.RQT_Conditions, eP_Endorsement.ED_Conditions))
+                        {
+                            var Positions = await _db.L_RolePositions.Where(x => x.FirstId == eP_Endorsement.ED_RoleId).Select(x => x.SecondId).ToListAsync();
 
-                            var Users = _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId);
+                            var Users = await _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId).ToListAsync();
 
-                            var D_Users = _db.D_Users.Where(x => Users.Contains(x.Id));
+                            var D_Users = await _db.D_Users.Where(x => Users.Contains(x.Id)).ToListAsync();
 
+                            var Added_Users = new List<D_User>();
 
                             foreach (var D_User in D_Users)
                             {
-                                var aaa = D_User.User_UserLocations.Where(x => (item.ED_Role.ROL_Independent && UserLocations.Contains(x.Id)) || true);
+                                if (D_User.User_UserLocations.Any(
+                                    x => (!eP_Endorsement.ED_Role.ROL_Independent && userLocations.Contains(x.Id)) || eP_Endorsement.ED_Role.ROL_Independent))
+                                {
+                                    Added_Users.Add(D_User);
+                                }
                             }
-
-
                             var new_Assignment = new F_Assignment()
                             {
-                                PRM_Endorsement = item
-                                //,PRM_CondidateUsers = _db.D_Users.Where(x => Users.Contains(x.Id)).ToList()
+                                PRM_Endorsement = eP_Endorsement
                             };
-                            
-                            GeneralRequest.RQT_Assignments.Add(new_Assignment);
 
-                            await D_Users.ForEachAsync(x =>
-                                  _db.L_UserAssignments.Add(
+                            if (Added_Users.Count == 0)
+                                throw new ArgumentNullException("There are'nt any users for this role");
+
+                            foreach (var Added_User in Added_Users)
+                            {
+                                await _db.L_UserAssignments.AddAsync(
                                       new L_UserAssignment()
                                       {
-                                          UA_User = x,
+                                          UA_User = Added_User,
                                           UA_Assignment = new_Assignment
-                                      }
-                                      ));
+
+                                      });
+                            }
+
+                            await _db.F_Assignments.AddAsync(new_Assignment);
+
+                            GeneralRequest.RQT_Assignments.Add(new_Assignment);
                         }
                     }
+
+                    if (crudOperation == CrudOperation.Update)
+                    {
+                        GeneralRequest.RQT_Current_Review.Id = null;
+
+                        GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
+                            .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
+
+                        GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
+                            .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
+                    }
+
+                    if (crudOperation == CrudOperation.Create)
+                    {
+                        var tmp = await _db.AddAsync(GeneralRequest);
+                        GeneralRequest = tmp.Entity;
+                    }
+                    else
+                    {
+                        var tmp = _db.Update(GeneralRequest);
+                        GeneralRequest = tmp.Entity;
+                    }
+
+                    if (crudOperation == CrudOperation.Update)
+                        GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
+
+                    await _db.SaveChangesAsync();
+
+                    await SetCurrentAssignment(GeneralRequest);
                 }
-
-                if (crudOperation == CrudOperation.Update)
-                {
-                    GeneralRequest.RQT_Current_Review.Id = null;
-
-                    GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
-                        .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
-
-                    GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
-                        .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
-                }
-
-                if (crudOperation == CrudOperation.Create)
-                {
-                    var tmp = await _db.AddAsync(GeneralRequest);
-                    GeneralRequest = tmp.Entity;
-                }
-                else
-                {
-                    var tmp = _db.Update(GeneralRequest);
-                    GeneralRequest = tmp.Entity;
-                }
-
-                if (crudOperation == CrudOperation.Update)
-                    GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
-
-                await _db.SaveChangesAsync();
-
-                GeneralRequest.RQT_CurrentAssignment = GeneralRequest.RQT_Assignments
-                    .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve")).First();
-
-                await _db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -214,14 +229,13 @@ namespace Cheetah_DataAccess.Repository
 
             return ret_Requests;
         }
-
         public async Task<SimpleClass> Create(SimpleClass obj_DTO)
         {
             await _db.AddAsync(obj_DTO);
             await _db.SaveChangesAsync();
             return obj_DTO;
         }
-        public async Task<Int32> delete(string type, Int64? id)
+        public async Task<Int32> delete(String type, Int64? id)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -237,7 +251,7 @@ namespace Cheetah_DataAccess.Repository
             }
             return -1;
         }
-        public async Task<SimpleClass> Get(string type, Int64? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
+        public async Task<SimpleClass> Get(String type, Int64? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -263,7 +277,7 @@ namespace Cheetah_DataAccess.Repository
             return null;
 
         }
-        public async Task<IEnumerable<SimpleClass>> GetAllByName(string type)
+        public async Task<IEnumerable<SimpleClass>> GetAllByName(String type)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -274,7 +288,7 @@ namespace Cheetah_DataAccess.Repository
             }
             return new List<SimpleClass>();
         }
-        public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, string sd_Status, Int64? linkID)
+        public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, String sd_Status, Int64? linkID)
         {
             if (!String.IsNullOrEmpty(type))
             {
@@ -290,7 +304,7 @@ namespace Cheetah_DataAccess.Repository
             _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
             return new List<SimpleLinkClass>();
         }
-        public async Task<Dictionary<string, string>> GetAllTableName(string SchemaName)
+        public async Task<Dictionary<String, String>> GetAllTableName(String SchemaName)
         {
             if (!String.IsNullOrEmpty(SchemaName))
             {
@@ -304,7 +318,7 @@ namespace Cheetah_DataAccess.Repository
             }
             return new Dictionary<string, string>();
         }
-        public async Task<SimpleClass> GetLast(string type)
+        public async Task<SimpleClass> GetLast(String type)
         {
             var gtype = DatabaseClass.GetDBType(type);
             var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;

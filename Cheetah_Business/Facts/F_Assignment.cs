@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,6 +29,8 @@ namespace Cheetah_Business.Facts
         public long? PRM_RequestId { get; set; }
         [ForeignKey(nameof(PRM_RequestId))]
         public virtual F_Request? PRM_Request { get; set; }
+
+        public virtual ICollection<L_UserAssignment>? PRM_UserAssignments { get; set; } = new HashSet<L_UserAssignment>();
 
     }
 }
