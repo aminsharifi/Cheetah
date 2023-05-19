@@ -3,7 +3,9 @@
 <PageTitle>کارهای معوق</PageTitle>
 
 @using Cheetah.Data
+@using Cheetah_Business.Repository;
 @inject WeatherForecastService ForecastService
+@inject ISimpleClassRepository simpleClassRepository;
 <div dir="rtl">
     <h1>کارهای معوق</h1>
 
@@ -46,5 +48,12 @@
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        var List_D_User = (await simpleClassRepository.GetAllByName(nameof(D_User)) as List<D_User>)
+        .Where(x=>x.PName=="m.sharifi")
+        .Where(x=>x.PCode == 1);
+        foreach (var user in List_D_User)
+        {
+            
+        }
     }
 }
