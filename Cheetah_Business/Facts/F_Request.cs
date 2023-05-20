@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts
 {
-    [Table(nameof(F_Request), Schema = nameof(TableType.Facts))]   
+    [Table(nameof(F_Request), Schema = nameof(TableType.Facts))]
     [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
     [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
@@ -18,6 +18,7 @@ namespace Cheetah_Business.Facts
 
         [Column(Order = 102)]
         public Boolean? RQT_IsTest { get; set; } = false;
+
         #endregion
 
         #region S_User
