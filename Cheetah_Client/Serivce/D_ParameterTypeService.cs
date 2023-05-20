@@ -211,5 +211,10 @@ namespace Cheetah_Client.Service
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Facts;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 namespace Cheetah_Business.Repository
 {
@@ -16,5 +17,6 @@ namespace Cheetah_Business.Repository
         public Task<SimpleClass> Update(SimpleClass obj_DTO);
         public Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO);
         public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass);
+        public Task<IEnumerable<CartableDTO>> Inbox (CartableDTO cartableDTO);
     }
 }
