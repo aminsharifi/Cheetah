@@ -1,0 +1,20 @@
+﻿query
+{
+  f_Requests(where: {id: {eq:58}})
+  {
+    id    
+    rqt_Conditions
+    {
+       cd_Tag
+       {
+        pDisplayName
+       }
+       cd_Operand
+       {
+        pDisplayName
+       }
+       cd_Value
+    }
+    pName
+  }
+}

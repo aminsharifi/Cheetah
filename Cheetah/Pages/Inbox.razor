@@ -6,12 +6,13 @@
 @using Cheetah_Business.Repository;
 @inject WeatherForecastService ForecastService
 @inject ISimpleClassRepository simpleClassRepository;
+
 <div dir="rtl">
     <h1>کارهای معوق</h1>
 
     <p>در این فرم کارهای معوق را مشاهده میکنید.</p>
 
-    @if (forecasts == null)
+    @if (cartableDTOList == null)
     {
         <p><em>Loading...</em></p>
     }
@@ -20,14 +21,15 @@
         <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
                     AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5"
                     AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
-                    Data="@forecasts" TItem="WeatherForecast" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+                    Data="@cartableDTOList" TItem="CartableDTO" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
             <Columns>
-                <RadzenDataGridColumn TItem="WeatherForecast" Property="RadNumber" Title="شماره رهگیری" Frozen="true" Width="160px" />
-                <RadzenDataGridColumn TItem="WeatherForecast" Property="CreateDate" Title="تاریخ" Width="160px" />
-                <RadzenDataGridColumn TItem="WeatherForecast" Property="Creator" Title="درخواست کننده" Width="200px" />
-                <RadzenDataGridColumn TItem="WeatherForecast" Property="ProcessName" Title="نام فرآیند" Width="120px" />
-                <RadzenDataGridColumn TItem="WeatherForecast" Property="TaskName" Title="نام فرم" Width="160px" />
-                <RadzenDataGridColumn TItem="WeatherForecast" Property="Summary" Title="خلاصه درخواست" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="RadNumber" Title="رهگیری" Frozen="true" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="PCreateDate" Title="تاریخ ایجاد" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="PRecieveDate" Title="تاریخ دریافت" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="Requestor" Title="درخواست کننده" Width="200px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="ProcessName" Title="نام فرآیند" Width="120px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="TaskName" Title="نام فرم" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="Summary" Title="خلاصه درخواست" Width="160px" />
             </Columns>
         </RadzenDataGrid>
         <hr />
@@ -37,23 +39,17 @@
 </div>
 @code {
 
-    protected string GetPersianDate(DateTime date)
-    {
-        PersianCalendar p = new PersianCalendar();
-        return p.GetYear(date) + "/" + p.GetMonth(date) + "/" + p.GetDayOfMonth(date);
-    }
 
-    private IEnumerable<WeatherForecast>? forecasts;
+
+    private IEnumerable<CartableDTO>? cartableDTOList;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-        var List_D_User = (await simpleClassRepository.GetAllByName(nameof(D_User)) as List<D_User>)
-        .Where(x=>x.PName=="m.sharifi")
-        .Where(x=>x.PCode == 1);
-        foreach (var user in List_D_User)
-        {
-            
-        }
+        //forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+
+        var cartableDTO = new CartableDTO("a.sharifi");
+
+        cartableDTOList = await simpleClassRepository.Inbox(cartableDTO);
+
     }
 }

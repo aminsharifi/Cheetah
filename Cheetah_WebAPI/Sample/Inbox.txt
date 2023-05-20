@@ -1,13 +1,31 @@
 {
- d_Users(where: {pName:{eq:"m.sharifi"}})
- {
+ d_Users(where: {pName:{eq:"a.sharifi"}})
+ {  
   pDisplayName
   pName
+  user_UserPositions
+  {
+    up_Position {
+      pso_RolePositions
+      {
+        up_Role {
+          pDisplayName
+        }
+      }
+    }
+  }
+  user_UserLocations
+  {
+    ul_Location {
+      pDisplayName
+      pName
+    }
+  }
   user_UserAssignments
-  {    
-    secondId
+  {
     ua_Assignment {
-     prm_RequestId
+      id
+      prm_RequestId
     }
   }
  }

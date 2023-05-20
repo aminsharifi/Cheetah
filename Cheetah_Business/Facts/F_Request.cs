@@ -20,11 +20,6 @@ namespace Cheetah_Business.Facts
         public Boolean? RQT_IsTest { get; set; } = false;
         #endregion
 
-        #region DateTimes
-        [Column(Order = 104)]
-        public DateTime? RQT_RequestDate { get; set; } = DateTime.Now;
-        #endregion
-
         #region S_User
         [Column(Order = 106)]
         public long? RQT_RequestorId { get; set; }

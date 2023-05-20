@@ -7,6 +7,7 @@ using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -15,9 +16,7 @@ namespace Cheetah_DataAccess.Repository
     public class SimpleClassRepository : ISimpleClassRepository
     {
         protected ApplicationDbContext _db;
-
         protected IMapper _mapper;
-
         public SimpleClassRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
@@ -99,6 +98,8 @@ namespace Cheetah_DataAccess.Repository
                 GeneralRequest.RQT_Requestor = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Requestor.PName);
 
                 GeneralRequest.RQT_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
+
+                GeneralRequest.CreateTimeRecord = DateTime.Now;
 
                 if (crudOperation == CrudOperation.Create)
                 {
@@ -411,6 +412,24 @@ namespace Cheetah_DataAccess.Repository
             await _db.AddRangeAsync(simpleLinkClass);
 
             return await _db.SaveChangesAsync();
+        }
+        public async Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
+        {
+            var username = cartableDTO.Username;
+
+            return _db.L_UserAssignments.Where(x => x.UA_User.PName == username)
+                .Select(x =>
+                new CartableDTO()
+                {
+                    ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+                    RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+                    Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+                    TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+                    CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+                    RecieveDate = x.UA_Assignment.CreateTimeRecord,
+                    Summary = String.Empty
+                }
+                ).AsEnumerable();
         }
     }
 }

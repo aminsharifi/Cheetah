@@ -13,9 +13,9 @@ namespace Cheetah_DataAccess.Data
 
         public async Task<bool> Run()
         {
-            await _context.Database.EnsureDeletedAsync();
+            //await _context.Database.EnsureDeletedAsync();
 
-            await _context.Database.MigrateAsync();
+            //await _context.Database.MigrateAsync();
 
             return true;
         }

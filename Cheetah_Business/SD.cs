@@ -1,7 +1,22 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System.Globalization;
 
 namespace Cheetah_Business
 {
+    public class CPersianClass
+    {
+        public string GetPersianDate(DateTime? date)
+        {
+            if (date.HasValue)
+            {
+                PersianCalendar p = new PersianCalendar();
+                var CDate = p.GetYear(date.Value) + "/" + p.GetMonth(date.Value) + "/" + p.GetDayOfMonth(date.Value);
+                var CTime = date.Value.ToString("HH:MM");
+                return CDate + CTime;
+            }
+            else
+                return String.Empty;
+        }
+    }
     public enum LinkProperty
     {
         First,
