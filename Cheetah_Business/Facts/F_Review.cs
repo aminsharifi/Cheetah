@@ -26,7 +26,6 @@ namespace Cheetah_Business.Facts
         [ForeignKey(nameof(APV_AssignmentId))]
         public virtual F_Assignment? APV_Assignment { get; set; }
 
-
         [Column(Order = 102)]
         public long? APV_RequestId { get; set; }
         public virtual F_Request? APV_Request { get; set; }

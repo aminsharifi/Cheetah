@@ -1,6 +1,5 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Facts;
-using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 namespace Cheetah_Business.Repository
 {
@@ -14,9 +13,11 @@ namespace Cheetah_Business.Repository
         public Task<SimpleClass> GetLast(string type);
         public Task<SimpleClass> Create(SimpleClass obj_DTO);
         public Task<F_Request> PerformRequestAsync(F_Request request);
+        public Task<F_Request> CreateRequestAsync(F_Request request);
         public Task<SimpleClass> Update(SimpleClass obj_DTO);
         public Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO);
         public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass);
         public Task<IEnumerable<CartableDTO>> Inbox (CartableDTO cartableDTO);
+        public Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO);
     }
 }

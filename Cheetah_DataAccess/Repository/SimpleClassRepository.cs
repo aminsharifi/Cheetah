@@ -7,7 +7,6 @@ using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Text;
 
 namespace Cheetah_DataAccess.Repository
@@ -78,18 +77,21 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<F_Request> SetCurrentAssignment(F_Request GeneralRequest)
         {
-            GeneralRequest.RQT_CurrentAssignment = GeneralRequest.RQT_Assignments
-                       .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve")).First();
+            var RQT_Assignment = GeneralRequest.RQT_Assignments
+                       .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve"));
+
+            if (RQT_Assignment.Any())
+                GeneralRequest.RQT_CurrentAssignment = RQT_Assignment.First();
+            else
+                GeneralRequest.RQT_ProcessStateId = 3;
 
             await _db.SaveChangesAsync();
 
             return GeneralRequest;
         }
-        public async Task<F_Request> PerformRequestAsync(F_Request request)
+        public async Task<F_Request> CreateRequestAsync(F_Request request)
         {
             F_Request GeneralRequest = request;
-
-            CrudOperation crudOperation = (GeneralRequest.Id > 0) ? CrudOperation.Update : CrudOperation.Create;
 
             try
             {
@@ -101,18 +103,8 @@ namespace Cheetah_DataAccess.Repository
 
                 GeneralRequest.CreateTimeRecord = DateTime.Now;
 
-                if (crudOperation == CrudOperation.Create)
-                {
-                    GeneralRequest.Id = null;
-                }
-                else
-                {
-                    GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
+                GeneralRequest.Id = null;
 
-                    await _db.F_Conditions
-                        .Where(x => x.CD_RequestId == GeneralRequest.Id)
-                        .ExecuteUpdateAsync(x => x.SetProperty(p => p.DsblRecord, false));
-                }
 
                 foreach (var item in GeneralRequest.RQT_Conditions)
                 {
@@ -189,35 +181,55 @@ namespace Cheetah_DataAccess.Repository
                         }
                     }
 
-                    if (crudOperation == CrudOperation.Update)
-                    {
-                        GeneralRequest.RQT_Current_Review.Id = null;
+                    var tmp = await _db.AddAsync(GeneralRequest);
 
-                        GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
-                            .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
-
-                        GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
-                            .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
-                    }
-
-                    if (crudOperation == CrudOperation.Create)
-                    {
-                        var tmp = await _db.AddAsync(GeneralRequest);
-                        GeneralRequest = tmp.Entity;
-                    }
-                    else
-                    {
-                        var tmp = _db.Update(GeneralRequest);
-                        GeneralRequest = tmp.Entity;
-                    }
-
-                    if (crudOperation == CrudOperation.Update)
-                        GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
+                    GeneralRequest = tmp.Entity;
 
                     await _db.SaveChangesAsync();
 
                     await SetCurrentAssignment(GeneralRequest);
                 }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            var ret_Requests = await _db.F_Requests
+                .Include(x => x.RQT_ProcessState)
+                .SingleAsync(x => x.Id == GeneralRequest.Id);
+
+            return ret_Requests;
+        }
+        public async Task<F_Request> PerformRequestAsync(F_Request request)
+        {
+            var GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
+
+            if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
+                throw new ArgumentNullException("Id is incorrect");
+
+            try
+            {
+                GeneralRequest.RQT_Current_Review = new F_Review();
+
+                GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
+                    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
+
+                GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
+                    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
+
+                GeneralRequest.RQT_Current_Review.APV_Assignment = GeneralRequest.RQT_CurrentAssignment;
+
+                var tmp = _db.Update(GeneralRequest);
+
+                GeneralRequest = tmp.Entity;
+
+                await _db.SaveChangesAsync();
+
+                GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
+
+                await SetCurrentAssignment(GeneralRequest);
+
             }
             catch (Exception ex)
             {
@@ -417,7 +429,9 @@ namespace Cheetah_DataAccess.Repository
         {
             var username = cartableDTO.Username;
 
-            return _db.L_UserAssignments.Where(x => x.UA_User.PName == username)
+            return _db.L_UserAssignments
+                .Where(x => x.UA_User.PName == username
+                && x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment)
                 .Select(x =>
                 new CartableDTO()
                 {
@@ -427,7 +441,28 @@ namespace Cheetah_DataAccess.Repository
                     TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
                     CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
                     RecieveDate = x.UA_Assignment.CreateTimeRecord,
-                    Summary = String.Empty
+                    Summary = x.UA_Assignment.PRM_Request.PDisplayName
+                }
+                ).AsEnumerable();
+        }
+
+        public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
+        {
+            var username = cartableDTO.Username;
+
+            return _db.L_UserAssignments
+                .Where(x => x.UA_User.PName == username
+                && x.UA_Assignment.PRM_Review.APV_Tag != null)
+                .Select(x =>
+                new CartableDTO()
+                {
+                    ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+                    RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+                    Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+                    TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+                    CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+                    RecieveDate = x.UA_Assignment.CreateTimeRecord,
+                    Summary = x.UA_Assignment.PRM_Request.PDisplayName
                 }
                 ).AsEnumerable();
         }

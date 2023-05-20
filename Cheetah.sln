@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess", "Cheet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Client", "Cheetah_Client\Cheetah_Client.csproj", "{47E3D0B2-0C4C-491E-AA43-52DACA158F75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah_Business", "Cheetah_Business\Cheetah_Business.csproj", "{228EF986-C3C5-4504-90DA-23F2F5AA40C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Business", "Cheetah_Business\Cheetah_Business.csproj", "{228EF986-C3C5-4504-90DA-23F2F5AA40C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
