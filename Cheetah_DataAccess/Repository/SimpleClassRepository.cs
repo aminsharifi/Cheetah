@@ -445,7 +445,6 @@ namespace Cheetah_DataAccess.Repository
                 }
                 ).AsEnumerable();
         }
-
         public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
         {
             var username = cartableDTO.Username;
