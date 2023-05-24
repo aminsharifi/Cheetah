@@ -4,11 +4,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Cheetah_DataAccess" Version="1.0.2" />
     <PackageReference Include="FluentAssertions" Version="6.11.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.5" />
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.0.5" />
@@ -18,6 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.5" />
+    <PackageReference Include="Microsoft.NET.Build.Containers" Version="7.0.302" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
   </ItemGroup>
@@ -25,10 +28,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Sample\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
