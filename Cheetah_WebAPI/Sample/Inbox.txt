@@ -9,7 +9,7 @@
       pso_RolePositions
       {
         up_Role {
-          pDisplayName
+          pDisplayName 
         }
       }
     }
