@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Client", "Cheetah_C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Business", "Cheetah_Business\Cheetah_Business.csproj", "{228EF986-C3C5-4504-90DA-23F2F5AA40C3}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1517E082-E09F-4CE1-B3F3-3319DF396D05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{228EF986-C3C5-4504-90DA-23F2F5AA40C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{228EF986-C3C5-4504-90DA-23F2F5AA40C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{228EF986-C3C5-4504-90DA-23F2F5AA40C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1517E082-E09F-4CE1-B3F3-3319DF396D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1517E082-E09F-4CE1-B3F3-3319DF396D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1517E082-E09F-4CE1-B3F3-3319DF396D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1517E082-E09F-4CE1-B3F3-3319DF396D05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
