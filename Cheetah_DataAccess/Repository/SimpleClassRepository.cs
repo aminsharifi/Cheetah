@@ -95,6 +95,8 @@ namespace Cheetah_DataAccess.Repository
 
             try
             {
+                var v_Users = await _db.V_UserPositions.ToListAsync();
+
                 GeneralRequest.RQT_Creator = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Creator.PName);
 
                 GeneralRequest.RQT_Requestor = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Requestor.PName);
