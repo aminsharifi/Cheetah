@@ -26,7 +26,8 @@ namespace Cheetah_Business
     {
         Dimentions,
         Links,
-        Facts
+        Facts,
+        Virtuals
     }
     public enum FieldType
     {
