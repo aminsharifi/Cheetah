@@ -1,6 +1,7 @@
 ﻿using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
+using Cheetah_Business.Virtuals;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ namespace Cheetah_DataAccess.Data
         {
 
         }
-        /*
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //base.Database.EnsureDeleted();
@@ -21,7 +22,7 @@ namespace Cheetah_DataAccess.Data
             base.OnModelCreating(builder);
             builder.Seed();
         }
-        */
+        
         #region Dimentions
         public virtual DbSet<D_Entity> D_Entities { get; set; }
         public virtual DbSet<D_Tag> D_Tags { get; set; }
@@ -52,5 +53,10 @@ namespace Cheetah_DataAccess.Data
         public virtual DbSet<L_UserAssignment> L_UserAssignments { get; set; }
         #endregion
 
+        #region Virtuals
+        public virtual DbSet<V_Position> V_Positions { get; set; }
+        public virtual DbSet<V_User> V_Users { get; set; }
+        public virtual DbSet<V_UserPosition> V_UserPositions { get; set; }
+        #endregion
     }
 }
