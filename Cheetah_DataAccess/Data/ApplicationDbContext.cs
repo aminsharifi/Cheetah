@@ -15,7 +15,7 @@ namespace Cheetah_DataAccess.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //base.Database.EnsureDeleted();
-            //base.Database.EnsureCreated();
+            base.Database.EnsureCreated();
 
             base.OnModelCreating(builder);
             //builder.Seed();
