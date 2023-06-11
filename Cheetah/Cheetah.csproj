@@ -12,7 +12,6 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="BootstrapBlazor" Version="7.7.1" />
-    <PackageReference Include="Cheetah_DataAccess" Version="1.0.2" />
     <PackageReference Include="jquery.datatables" Version="1.10.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
@@ -33,6 +32,10 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
     <Folder Include="wwwroot\imeges\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
