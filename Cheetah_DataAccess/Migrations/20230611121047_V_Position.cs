@@ -11,16 +11,17 @@ namespace Cheetah_DataAccess.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@" IF Not EXISTS (SELECT name FROM sys.schemas WHERE name = N'Virtuals')
+            migrationBuilder.Sql(@"
+                                    IF Not EXISTS (SELECT name FROM sys.schemas WHERE name = N'Virtuals')
                                     EXEC('CREATE SCHEMA Virtuals')
                                     go
                                     DROP VIEW IF EXISTS [Virtuals].[V_Position];
                                     go
                                     CREATE VIEW [Virtuals].[V_Position]
                                     AS
-	                                SELECT 
-	                                oj.Id as PERPCode, NULL as PName, oj.Title as PDisplayName
-	                                FROM [192.168.10.66].[Alborz].access.OrganizationJob oj");
+	                                SELECT cast(oj.Id as bigint) PERPCode, N'' as PName, oj.Title as PDisplayName
+                                    FROM [192.168.10.66].[Alborz].access.OrganizationJob oj
+                                    ");
         }
 
         /// <inheritdoc />

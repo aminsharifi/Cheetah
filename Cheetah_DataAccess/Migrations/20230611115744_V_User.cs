@@ -11,7 +11,8 @@ namespace Cheetah_DataAccess.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@" IF Not EXISTS (SELECT name FROM sys.schemas WHERE name = N'Virtuals')
+            migrationBuilder.Sql(@"
+                                    IF Not EXISTS (SELECT name FROM sys.schemas WHERE name = N'Virtuals')
                                     EXEC('CREATE SCHEMA Virtuals')
                                     go
                                     DROP VIEW IF EXISTS [Virtuals].[V_User];
@@ -19,8 +20,8 @@ namespace Cheetah_DataAccess.Migrations
                                     CREATE VIEW [Virtuals].[V_User]
                                     AS
                                     SELECT 
-                                    Users.Id as PERPCode, Users.UserName PName, (FirstName + N' '+ LastName) PDisplayName,
-                                    (
+                                    CAST(Users.Id AS bigint) as PERPCode, Users.UserName PName, (FirstName + N' '+ LastName) PDisplayName,
+                                    CAST((
                                     SELECT top(1)
                                     Pur.UserId
                                     FROM
@@ -28,15 +29,16 @@ namespace Cheetah_DataAccess.Migrations
                                     left join [192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid =  cp.id	
                                     left join [192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
                                     where Pur.EndDate > getdate() and UR.UserId = Users.Id
-                                    ) User_BossUserId,
-                                    (
+                                    ) as bigint) User_BossUserId,
+                                    CAST((
                                     select top(1) iif(max(Dsbl_UR.EndDate) < getdate(), 1,0) 
                                     from [192.168.10.66].[Alborz].[access].[UserResponsibility] Dsbl_UR
                                     where Dsbl_UR.UserId = Users.Id
-                                    ) DsblRecord
+                                    ) as bit) DsblRecord
                                     FROM [192.168.10.66].[Alborz].[dbo].[UserProfile]
                                     left join [192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
-                                    where FirstName is not null");
+                                    where FirstName is not null
+                                    ");
         }
 
         /// <inheritdoc />
