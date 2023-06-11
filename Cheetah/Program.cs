@@ -17,10 +17,24 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddBootstrapBlazor();
 
-builder.Services.AddDbContext<ApplicationDbContext>(
-    b => b.UseLazyLoadingProxies()
-          .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
-           ServiceLifetime.Transient);
+var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+
+if (DomainName == "alborz.net")
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(
+        b => b.UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahAlborzConnection")),
+        ServiceLifetime.Transient
+        );
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(
+        b => b.UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
+        ServiceLifetime.Transient
+        );
+}
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -3,7 +3,7 @@ using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args); 
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -17,10 +17,25 @@ builder.Services.AddControllersWithViews()
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 
-builder.Services.AddDbContext<ApplicationDbContext>(
-    b => b.UseLazyLoadingProxies()
-          .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
-     ServiceLifetime.Transient);
+var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+
+if (DomainName == "alborz.net")
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(
+        b => b.UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahAlborzConnection")),
+        ServiceLifetime.Transient
+        );
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(
+        b => b.UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
+        ServiceLifetime.Transient
+        );
+}
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
