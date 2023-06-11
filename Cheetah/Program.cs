@@ -19,6 +19,7 @@ builder.Services.AddBootstrapBlazor();
 
 var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
+
 if (DomainName == "alborz.net")
 {
     builder.Services.AddDbContext<ApplicationDbContext>(
@@ -35,6 +36,7 @@ else
         ServiceLifetime.Transient
         );
 }
+
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();

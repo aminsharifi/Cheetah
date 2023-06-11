@@ -12,15 +12,16 @@ namespace Cheetah_DataAccess.Data
         {
 
         }
+        /*
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //base.Database.EnsureDeleted();
-            base.Database.EnsureCreated();
+            //base.Database.EnsureCreated();
 
             base.OnModelCreating(builder);
-            //builder.Seed();
+            builder.Seed();
         }
-
+        */
         #region Dimentions
         public virtual DbSet<D_Entity> D_Entities { get; set; }
         public virtual DbSet<D_Tag> D_Tags { get; set; }
