@@ -18,7 +18,7 @@ namespace Cheetah_DataAccess.Data
             //base.Database.EnsureCreated();
 
             base.OnModelCreating(builder);
-            builder.Seed();
+            //builder.Seed();
         }
 
         #region Dimentions
