@@ -50,10 +50,6 @@ namespace Cheetah_Business.Dimentions
         #region Entity   
 
         #region S_User
-        [Column(Order = 108)]
-        public long? User_BossUserId { get; set; }
-        [ForeignKey(nameof(User_BossUserId))]
-        public virtual D_User? User_BossUser { get; set; }
 
         [Column(Order = 109)]
         public long? User_DelegateId { get; set; }

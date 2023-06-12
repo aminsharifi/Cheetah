@@ -44,7 +44,7 @@ namespace Cheetah_Business.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 6)]
         public DateTime? CreateTimeRecord { get; set; } = DateTime.Now;
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+
         [Column(Order = 7)]
         [ConcurrencyCheck]
         public DateTime? LastUpdatedRecord { get; set; } = DateTime.Now;
