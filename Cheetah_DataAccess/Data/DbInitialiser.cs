@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace Cheetah_DataAccess.Data;
 
-namespace Cheetah_DataAccess.Data
-{
-    public class DbInitialiser
+public class DbInitialiser
     {
         private readonly ApplicationDbContext _context;
 
@@ -20,4 +18,3 @@ namespace Cheetah_DataAccess.Data
             return true;
         }
     }
-}

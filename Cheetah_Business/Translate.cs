@@ -1,6 +1,5 @@
-﻿namespace Cheetah_Business
+﻿namespace Cheetah_Business;
+
+public class Translate
 {
-    public class Translate
-    {
-    }
 }

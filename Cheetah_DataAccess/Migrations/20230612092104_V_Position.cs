@@ -19,7 +19,7 @@ namespace Cheetah_DataAccess.Migrations
                                     go
                                     CREATE VIEW [Virtuals].[V_Position]
                                     AS
-	                                SELECT cast(oj.Id as bigint) PERPCode, N'' as PName, oj.Title as PDisplayName
+	                                SELECT cast(oj.Id as bigint) PERPCode, cast(oj.Id as nvarchar(512)) as PName, oj.Title as PDisplayName
                                     FROM [192.168.10.66].[Alborz].access.OrganizationJob oj
                                     ");
         }
