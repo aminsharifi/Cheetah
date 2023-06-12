@@ -188,7 +188,8 @@ public class SimpleClassRepository : ISimpleClassRepository
             {
                 PERPCode = v_Position.PERPCode,
                 PName = v_Position.PName,
-                PDisplayName = v_Position.PDisplayName
+                PDisplayName = v_Position.PDisplayName,
+                LastUpdatedRecord = DateTime.Now
             };
 
             await _db.D_Positions.AddAsync(d_Position);
@@ -220,6 +221,42 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         try
         {
+            //await SyncUser();
+            var d_Users = await _db.D_Users.ToListAsync();
+            var d_Positions = await _db.D_Positions.ToListAsync();
+            var v_UserPositions = await _db.V_UserPositions.ToListAsync();
+
+            foreach (var item in v_UserPositions)
+            {
+                var users = d_Users.Where(x => x.PERPCode == item.FirstId);
+                var positions = d_Positions.Where(x => x.PERPCode == item.SecondId);
+                if (!users.Any())
+                {
+                    var aa = 12;
+                }
+                if (!positions.Any())
+                {
+                    var aa = 12;
+                }
+                var user = users.Single();
+                var position = positions.Single();
+
+                var l_UserPosition = new L_UserPosition()
+                {
+                    FirstId = user.Id,
+                    SecondId = position.Id,
+                    PName = user.PName + "-" + position.PName,
+                    PDisplayName = user.PDisplayName + "-" + position.PDisplayName,
+                    DsblRecord = item.DsblRecord,
+                    LastUpdatedRecord = DateTime.Now
+                };
+                await _db.L_UserPositions.AddAsync(l_UserPosition);
+            }
+
+            await _db.SaveChangesAsync();
+
+
+
             GeneralRequest.RQT_Creator = await GetUser(request.RQT_Creator.PName);
 
             GeneralRequest.RQT_Requestor = await GetUser(request.RQT_Requestor.PName);

@@ -26,10 +26,10 @@ namespace Cheetah_DataAccess.Migrations
                                     PUsers.UserName
                                     FROM
                                     [192.168.10.66].[Alborz].[access].[UserResponsibility] UR	
-                                    left join [192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid =  cp.id	
-                                    left join [192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
-                                    left join [192.168.10.66].[Alborz].[dbo].[Users] PUsers on Pur.UserId = PUsers.Id
-                                    where Pur.EndDate > getdate() and UR.UserId = Users.Id
+                                    inner join [192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid =  cp.id	
+                                    inner join [192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
+                                    inner join [192.168.10.66].[Alborz].[dbo].[Users] PUsers on Pur.UserId = PUsers.Id
+                                    inner Pur.EndDate > getdate() and UR.UserId = Users.Id
                                     )
                                     User_BossName,
                                     CAST((
@@ -38,7 +38,7 @@ namespace Cheetah_DataAccess.Migrations
                                     where Dsbl_UR.UserId = Users.Id
                                     ) as bit) DsblRecord
                                     FROM [192.168.10.66].[Alborz].[dbo].[UserProfile]
-                                    left join [192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
+                                    inner join [192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
                                     where FirstName is not null
                                     ");
         }
