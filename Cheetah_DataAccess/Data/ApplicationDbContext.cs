@@ -20,7 +20,7 @@ namespace Cheetah_DataAccess.Data
             //base.Database.EnsureCreated();
 
             base.OnModelCreating(builder);
-            builder.Seed();
+            //builder.Seed();
         }
         
         #region Dimentions
@@ -54,9 +54,11 @@ namespace Cheetah_DataAccess.Data
         #endregion
 
         #region Virtuals
+        
         public virtual DbSet<V_Position> V_Positions { get; set; }
         public virtual DbSet<V_User> V_Users { get; set; }
         public virtual DbSet<V_UserPosition> V_UserPositions { get; set; }
+        
         #endregion
     }
 }

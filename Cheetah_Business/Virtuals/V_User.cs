@@ -27,8 +27,9 @@ namespace Cheetah_Business.Virtuals
         [Column(Order = 103)]
         public String? PDisplayName { get; set; }
 
+        [StringLength(512)]
         [Column(Order = 104)]
-        public Int64? User_BossUserId  { get; set; }
+        public String? User_BossName { get; set; }
 
         [Column(Order = 105)]
         public Boolean? DsblRecord { get; set; }

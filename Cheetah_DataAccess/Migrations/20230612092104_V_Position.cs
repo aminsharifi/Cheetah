@@ -25,7 +25,7 @@ namespace Cheetah_DataAccess.Migrations
         }
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder) 
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
         }
     }

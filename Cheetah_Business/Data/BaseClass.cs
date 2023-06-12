@@ -8,9 +8,9 @@ namespace Cheetah_Business.Data
         public long? Parent_Id { get; set; }
         [ForeignKey("Parent_Id")]
         [Column(Order = 51)]
-        public virtual I? ParentId { get; set; }
+        public virtual I? Parent { get; set; }
 
-        [InverseProperty("ParentId")]
+        [InverseProperty("Parent")]
         public virtual ICollection<I>? Childs { get; set; } = new HashSet<I>();
 
     }

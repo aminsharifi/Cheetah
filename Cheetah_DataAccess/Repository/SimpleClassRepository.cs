@@ -89,17 +89,92 @@ namespace Cheetah_DataAccess.Repository
 
             return GeneralRequest;
         }
+        public async Task<D_User> SyncUser(String PName)
+        {
+            var Cheetah_User = _db.D_Users.Where(x => x.PName == PName);
+
+            var ERP_User = _db.V_Users.Where(x => x.PName == PName);
+
+            D_User SelectedUser = new D_User();
+
+            if (! await Cheetah_User.AnyAsync())
+            {
+                var v_Creator = await ERP_User.SingleAsync();
+
+                var D_Creator = new D_User()
+                {
+                    PERPCode = v_Creator.PERPCode,
+                    PName = v_Creator.PName,
+                    PDisplayName = v_Creator.PDisplayName,
+                    DsblRecord = v_Creator.DsblRecord,
+                    LastUpdatedRecord = DateTime.Now
+                };
+
+                if (!String.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
+                {
+                    D_Creator.Parent = await SyncUser(v_Creator.User_BossName);
+                }
+
+                await _db.D_Users.AddAsync(D_Creator);
+
+                SelectedUser = D_Creator;
+
+                await _db.SaveChangesAsync();
+            }
+            else
+            {
+                var D_Creator = await Cheetah_User.SingleAsync();
+
+                if (D_Creator.LastUpdatedRecord < DateTime.Now.AddMinutes(-10))
+                {
+                    var v_Creator = await ERP_User.SingleAsync();
+
+                    var changed = false;
+
+                    if (D_Creator.PDisplayName != v_Creator.PDisplayName)
+                    {
+                        D_Creator.PDisplayName = v_Creator.PDisplayName;
+                        changed = true;
+                    }
+
+                    if (D_Creator.DsblRecord != v_Creator.DsblRecord)
+                    {
+                        D_Creator.DsblRecord = v_Creator.DsblRecord;
+                        changed = true;
+                    }
+
+                    if (!String.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
+                    {
+                        if (D_Creator.Parent is null || D_Creator.Parent?.PName != v_Creator.User_BossName)
+                        {
+                            D_Creator.Parent = await SyncUser(v_Creator.User_BossName);
+
+                            changed = true;
+                        }
+                    }
+
+                    D_Creator.LastUpdatedRecord = DateTime.Now;
+
+                    if (changed)
+                    {
+                        await _db.SaveChangesAsync();
+                    }
+                }
+                SelectedUser = D_Creator;
+            }
+
+            return SelectedUser;
+        }
         public async Task<F_Request> CreateRequestAsync(F_Request request)
         {
             F_Request GeneralRequest = request;
 
             try
             {
-                var v_Users = await _db.V_UserPositions.ToListAsync();
 
-                GeneralRequest.RQT_Creator = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Creator.PName);
+                GeneralRequest.RQT_Creator = await SyncUser(request.RQT_Creator.PName);
 
-                GeneralRequest.RQT_Requestor = await _db.D_Users.SingleAsync(x => x.PName == request.RQT_Requestor.PName);
+                GeneralRequest.RQT_Requestor = await SyncUser(request.RQT_Requestor.PName);
 
                 GeneralRequest.RQT_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
 

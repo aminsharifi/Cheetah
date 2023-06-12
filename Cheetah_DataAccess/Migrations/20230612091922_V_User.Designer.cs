@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230612091922_V_User")]
+    partial class V_User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -985,6 +988,10 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(50);
 
+                    b.Property<long?>("User_BossUserId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(108);
+
                     b.Property<bool?>("User_CreatedCasesSkipAssigRules")
                         .HasColumnType("bit")
                         .HasColumnOrder(105);
@@ -1055,6 +1062,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
+
+                    b.HasIndex("User_BossUserId");
 
                     b.HasIndex("User_DelegateId");
 
@@ -2550,98 +2559,6 @@ namespace Cheetah_DataAccess.Migrations
                     b.ToTable("L_UserPosition", "Links");
                 });
 
-            modelBuilder.Entity("Cheetah_Business.Virtuals.V_Position", b =>
-                {
-                    b.Property<long?>("PERPCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(101);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
-
-                    b.Property<string>("PDisplayName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnOrder(103);
-
-                    b.Property<string>("PName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnOrder(102);
-
-                    b.HasKey("PERPCode");
-
-                    b.ToTable("V_Position", "Virtuals");
-                });
-
-            modelBuilder.Entity("Cheetah_Business.Virtuals.V_User", b =>
-                {
-                    b.Property<long?>("PERPCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(101);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(105);
-
-                    b.Property<string>("PDisplayName")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnOrder(103);
-
-                    b.Property<string>("PName")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnOrder(102);
-
-                    b.Property<string>("User_BossName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(104);
-
-                    b.HasKey("PERPCode");
-
-                    b.ToTable("V_User", "Virtuals");
-                });
-
-            modelBuilder.Entity("Cheetah_Business.Virtuals.V_UserPosition", b =>
-                {
-                    b.Property<long?>("PERPCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(1);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
-
-                    b.Property<bool?>("DsblRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(103);
-
-                    b.Property<long?>("FirstId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
-
-                    b.Property<long?>("SecondId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(51);
-
-                    b.HasKey("PERPCode");
-
-                    b.HasIndex("DsblRecord")
-                        .IsDescending();
-
-                    b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("SecondId")
-                        .IsDescending();
-
-                    b.ToTable("V_UserPosition", "Virtuals");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -2846,70 +2763,70 @@ namespace Cheetah_DataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Entity", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Entity", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Entity", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Location", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Location", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Location", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Operand", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Operand", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Operand", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Position", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Position", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Position", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Process", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Process", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Process", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_ProcessState", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_ProcessState", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_ProcessState", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Role", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Role", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Role", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Tag", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Tag", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Tag", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
@@ -2917,25 +2834,29 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("TG_TagTypeId");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
 
                     b.Navigation("TG_TagType");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_TagType", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_TagType", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_TagType", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_User", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_User", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_User", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
+
+                    b.HasOne("Cheetah_Business.Dimentions.D_User", "User_BossUser")
+                        .WithMany()
+                        .HasForeignKey("User_BossUserId");
 
                     b.HasOne("Cheetah_Business.Dimentions.D_User", "User_Delegate")
                         .WithMany()
@@ -2945,7 +2866,9 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("User_UserInformationId");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
+
+                    b.Navigation("User_BossUser");
 
                     b.Navigation("User_Delegate");
 
@@ -2954,11 +2877,11 @@ namespace Cheetah_DataAccess.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_UserInformation", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_UserInformation", "Parent")
+                    b.HasOne("Cheetah_Business.Dimentions.D_UserInformation", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Assignment", b =>
@@ -2971,7 +2894,7 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany("RQT_Assignments")
                         .HasForeignKey("PRM_RequestId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_Assignment", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Assignment", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
@@ -2979,7 +2902,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Navigation("PRM_Request");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Attachment", b =>
@@ -2988,11 +2911,11 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany("APV_Attachments")
                         .HasForeignKey("F_ReviewId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_Attachment", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Attachment", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Condition", b =>
@@ -3021,7 +2944,7 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany("User_Conditions")
                         .HasForeignKey("D_UserId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_Condition", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Condition", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
@@ -3035,7 +2958,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Navigation("CD_Tag");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
@@ -3048,7 +2971,7 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany("EP_Endorsements")
                         .HasForeignKey("ED_ScenarioId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
@@ -3056,12 +2979,12 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Navigation("ED_Scenario");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Request", b =>
                 {
-                    b.HasOne("Cheetah_Business.Facts.F_Request", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Request", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
@@ -3093,7 +3016,7 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("RQT_SelectedScenarioId");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
 
                     b.Navigation("RQT_Creator");
 
@@ -3128,7 +3051,7 @@ namespace Cheetah_DataAccess.Migrations
                         .WithMany()
                         .HasForeignKey("APV_TagId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_Review", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Review", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
@@ -3140,16 +3063,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Navigation("APV_Tag");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Scenario", b =>
                 {
-                    b.HasOne("Cheetah_Business.Facts.F_Scenario", "Parent")
+                    b.HasOne("Cheetah_Business.Facts.F_Scenario", "ParentId")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.Navigation("Parent");
+                    b.Navigation("ParentId");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Links.L_ProcessScenario", b =>
@@ -3220,21 +3143,6 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasOne("Cheetah_Business.Dimentions.D_Position", "UP_Position")
                         .WithMany("PSO_UserPositions")
-                        .HasForeignKey("SecondId");
-
-                    b.Navigation("UP_Position");
-
-                    b.Navigation("UP_User");
-                });
-
-            modelBuilder.Entity("Cheetah_Business.Virtuals.V_UserPosition", b =>
-                {
-                    b.HasOne("Cheetah_Business.Virtuals.V_User", "UP_User")
-                        .WithMany()
-                        .HasForeignKey("FirstId");
-
-                    b.HasOne("Cheetah_Business.Virtuals.V_Position", "UP_Position")
-                        .WithMany()
                         .HasForeignKey("SecondId");
 
                     b.Navigation("UP_Position");

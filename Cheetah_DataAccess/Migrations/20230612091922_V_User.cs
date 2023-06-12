@@ -21,15 +21,17 @@ namespace Cheetah_DataAccess.Migrations
                                     AS
                                     SELECT 
                                     CAST(Users.Id AS bigint) as PERPCode, Users.UserName PName, (FirstName + N' '+ LastName) PDisplayName,
-                                    CAST((
+                                    (
                                     SELECT top(1)
-                                    Pur.UserId
+                                    PUsers.UserName
                                     FROM
                                     [192.168.10.66].[Alborz].[access].[UserResponsibility] UR	
                                     left join [192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid =  cp.id	
                                     left join [192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
+                                    left join [192.168.10.66].[Alborz].[dbo].[Users] PUsers on Pur.UserId = PUsers.Id
                                     where Pur.EndDate > getdate() and UR.UserId = Users.Id
-                                    ) as bigint) User_BossUserId,
+                                    )
+                                    User_BossName,
                                     CAST((
                                     select top(1) iif(max(Dsbl_UR.EndDate) < getdate(), 1,0) 
                                     from [192.168.10.66].[Alborz].[access].[UserResponsibility] Dsbl_UR
