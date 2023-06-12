@@ -1,6 +1,5 @@
-﻿namespace Cheetah_Business.Data
+﻿namespace Cheetah_Business.Data;
+
+public class SimpleClassDTO : SimpleClass
 {
-    public class SimpleClassDTO : SimpleClass
-    {
-    }
 }
