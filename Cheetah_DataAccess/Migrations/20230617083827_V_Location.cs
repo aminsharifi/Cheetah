@@ -19,7 +19,8 @@ namespace Cheetah_DataAccess.Migrations
                     go
                     CREATE VIEW [Virtuals].[V_Location]
                     AS
-	                SELECT cast([Id] as bigint) PERPCode, cast([Id] as nvarchar(512)) as PName, [Name] as PDisplayName
+	                SELECT cast([Id] as bigint) PERPCode, cast([Id] as nvarchar(512)) as PName, 
+                    [Name] as PDisplayName
                     FROM [192.168.10.66].[Alborz].[Bizagi].[Branch]
                     "
                 );

@@ -20,9 +20,9 @@ namespace Cheetah_DataAccess.Migrations
             go
             CREATE VIEW [Virtuals].[V_UserLocation]
             AS
-            SELECT 
+            SELECT distinct
             cast((cast(UserId as varchar(50)) + cast(BranchId as varchar(50))) as bigint) as PERPCode,
-            cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, 0  DsblRecord
+            cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) DsblRecord
             FROM [192.168.10.66].[Alborz].[access].[GetUserBranchs_evw]
           "
           );
