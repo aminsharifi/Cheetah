@@ -256,48 +256,96 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return true;
     }
+    public async Task<Boolean> Sync_UserPosition()
+    {
+        var d_Users = await _db.D_Users.ToListAsync();
+        var d_Positions = await _db.D_Positions.ToListAsync();
+        var v_UserPositions = await _db.V_UserPositions.ToListAsync();
+
+        foreach (var item in v_UserPositions)
+        {
+            var users = d_Users.Where(x => x.PERPCode == item.FirstId);
+            var positions = d_Positions.Where(x => x.PERPCode == item.SecondId);
+            if (!users.Any())
+            {
+                var aa = 12;
+            }
+            if (!positions.Any())
+            {
+                var aa = 12;
+            }
+            var user = users.Single();
+            var position = positions.Single();
+
+            var l_UserPosition = new L_UserPosition()
+            {
+                FirstId = user.Id,
+                SecondId = position.Id,
+                PName = user.PName + "-" + position.PName,
+                PDisplayName = user.PDisplayName + "-" + position.PDisplayName,
+                DsblRecord = item.DsblRecord,
+                LastUpdatedRecord = DateTime.Now
+            };
+            await _db.L_UserPositions.AddAsync(l_UserPosition);
+        }
+
+        await _db.SaveChangesAsync();
+
+        return true;
+    }
+    public async Task<Boolean> Sync_UserLocation()
+    {
+        var d_Users = await _db.D_Users.ToListAsync();
+        var d_Locations = await _db.D_Locations.ToListAsync();
+        var v_UserLocations = await _db.V_UserLocations
+            //.Where(x=>x.UL_User.PName == "ah.naeimi")
+            .ToListAsync();
+
+        foreach (var item in v_UserLocations)
+        {
+            var d_User = d_Users.Where(x => x.PERPCode == item.FirstId);
+            var d_Location = d_Locations.Where(x => x.PERPCode == item.SecondId);
+
+            var MustAdd = true;
+
+            if (!d_User.Any())
+            {
+                MustAdd = false;
+            }
+            if (!d_Location.Any())
+            {
+                MustAdd = false;
+            }
+
+            if (MustAdd)
+            {
+                var user = d_User.Single();
+
+                var location = d_Location.Single();
+
+                var l_UserLocation = new L_UserLocation()
+                {
+                    FirstId = user.Id,
+                    SecondId = location.Id,
+                    PName = user.PName + "-" + location.PName,
+                    PDisplayName = user.PDisplayName + "-" + location.PDisplayName,
+                    DsblRecord = item.DsblRecord,
+                    LastUpdatedRecord = DateTime.Now
+                };
+                await _db.L_UserLocations.AddAsync(l_UserLocation); 
+            }
+        }
+
+        await _db.SaveChangesAsync();
+
+        return true;
+    }
     public async Task<F_Request> CreateRequestAsync(F_Request request)
     {
         F_Request GeneralRequest = request;
 
         try
         {
-            await SyncLocation();
-            var d_Users = await _db.D_Users.ToListAsync();
-            var d_Positions = await _db.D_Positions.ToListAsync();
-            var v_UserPositions = await _db.V_UserPositions.ToListAsync();
-
-            foreach (var item in v_UserPositions)
-            {
-                var users = d_Users.Where(x => x.PERPCode == item.FirstId);
-                var positions = d_Positions.Where(x => x.PERPCode == item.SecondId);
-                if (!users.Any())
-                {
-                    var aa = 12;
-                }
-                if (!positions.Any())
-                {
-                    var aa = 12;
-                }
-                var user = users.Single();
-                var position = positions.Single();
-
-                var l_UserPosition = new L_UserPosition()
-                {
-                    FirstId = user.Id,
-                    SecondId = position.Id,
-                    PName = user.PName + "-" + position.PName,
-                    PDisplayName = user.PDisplayName + "-" + position.PDisplayName,
-                    DsblRecord = item.DsblRecord,
-                    LastUpdatedRecord = DateTime.Now
-                };
-                await _db.L_UserPositions.AddAsync(l_UserPosition);
-            }
-
-            await _db.SaveChangesAsync();
-
-
-
             GeneralRequest.RQT_Creator = await GetUser(request.RQT_Creator.PName);
 
             GeneralRequest.RQT_Requestor = await GetUser(request.RQT_Requestor.PName);
