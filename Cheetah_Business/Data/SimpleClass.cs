@@ -13,11 +13,6 @@ public abstract class SimpleClass
     [DefaultValue(0)]
     public Int64? Id { get; set; }
 
-    [Description("کد")]
-    [Column(Order = 1)]
-    [DefaultValue(0)]
-    public Int64? PCode { get; set; }
-
     [Description("اندیس مرتب‌سازی")]
     [Column(Order = 2)]
     [DefaultValue(0)]

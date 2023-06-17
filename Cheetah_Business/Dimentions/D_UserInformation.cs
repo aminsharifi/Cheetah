@@ -5,8 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Dimentions;
 
 [Table(nameof(D_UserInformation), Schema = nameof(TableType.Dimentions))]
-[Index(nameof(PCode), IsUnique = true, AllDescending = true)]
-[Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
 [Index(nameof(PName), IsUnique = true, AllDescending = true)]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]

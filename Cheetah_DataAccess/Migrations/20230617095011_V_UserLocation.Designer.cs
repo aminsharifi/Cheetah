@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230617095011_V_UserLocation")]
+    partial class V_UserLocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,6 +113,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -201,6 +209,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -294,6 +307,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -385,6 +403,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -490,6 +513,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -581,6 +609,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -677,6 +710,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -777,6 +815,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -870,6 +913,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -997,6 +1045,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -1159,6 +1212,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -1262,6 +1320,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -1372,6 +1435,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -1597,6 +1665,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -1847,6 +1920,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -1938,6 +2016,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -2038,6 +2121,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -2136,6 +2224,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()
@@ -2236,6 +2329,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -2335,6 +2433,11 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
+
                     b.HasIndex("PName")
                         .IsUnique()
                         .IsDescending()
@@ -2433,6 +2536,11 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
+
+                    b.HasIndex("PIndex")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[PIndex] IS NOT NULL");
 
                     b.HasIndex("PName")
                         .IsUnique()

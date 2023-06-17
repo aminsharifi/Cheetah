@@ -58,6 +58,7 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<V_Position> V_Positions { get; set; }
     public virtual DbSet<V_User> V_Users { get; set; }
     public virtual DbSet<V_UserPosition> V_UserPositions { get; set; }
-
+    public virtual DbSet<V_Location> V_Locations { get; set; }
+    public virtual DbSet<V_UserLocation> V_UserLocations { get; set; }    
     #endregion
 }
