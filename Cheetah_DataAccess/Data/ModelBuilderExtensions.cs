@@ -18,7 +18,6 @@ public static class ModelBuilderExtensions
             new D_Process
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "CustomerDefinition",
                 PDisplayName = "تعریف/اصلاح مشتری",
@@ -26,7 +25,6 @@ public static class ModelBuilderExtensions
             new D_Process
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "PolicyCenter",
                 PDisplayName = "مجوزهای موردی"
@@ -34,7 +32,6 @@ public static class ModelBuilderExtensions
             new D_Process
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = "CustomerCredit",
                 PDisplayName = "اعتباردهی مالی مشتری"
@@ -47,7 +44,6 @@ public static class ModelBuilderExtensions
             new D_ProcessState
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "Ongoing",
                 PDisplayName = "در دست بررسی"
@@ -55,7 +51,6 @@ public static class ModelBuilderExtensions
             new D_ProcessState
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "Editing",
                 PDisplayName = "منتظر بازنگری"
@@ -63,7 +58,6 @@ public static class ModelBuilderExtensions
             new D_ProcessState
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = "Completed",
                 PDisplayName = "کامل شده"
@@ -71,7 +65,6 @@ public static class ModelBuilderExtensions
             new D_ProcessState
             {
                 Id = 4,
-                PCode = 4,
                 PIndex = 4,
                 PName = "Aborted",
                 PDisplayName = "ابطال شده"
@@ -84,7 +77,6 @@ public static class ModelBuilderExtensions
             new D_Location
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "Tehran",
                 PDisplayName = "تهران"
@@ -92,7 +84,6 @@ public static class ModelBuilderExtensions
             new D_Location
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "Fars",
                 PDisplayName = "فارس"
@@ -100,7 +91,6 @@ public static class ModelBuilderExtensions
             new D_Location
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = "Esfahan",
                 PDisplayName = "اصفهان"
@@ -113,7 +103,6 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "=",
                 PDisplayName = "مساوی"
@@ -121,7 +110,6 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "!=",
                 PDisplayName = "مخالف"
@@ -129,7 +117,6 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = ">",
                 PDisplayName = "بزگتر از"
@@ -137,7 +124,6 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 4,
-                PCode = 4,
                 PIndex = 4,
                 PName = ">=",
                 PDisplayName = "بزرگتر و مساوی"
@@ -145,7 +131,6 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 5,
-                PCode = 5,
                 PIndex = 5,
                 PName = "<",
                 PDisplayName = " کوچکتر از"
@@ -153,7 +138,6 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 6,
-                PCode = 6,
                 PIndex = 6,
                 PName = "<=",
                 PDisplayName = "کوچکتر و مساوی"
@@ -163,38 +147,35 @@ public static class ModelBuilderExtensions
 
         #region D_TagType
         modelBuilder.Entity<D_TagType>().HasData(
-                        new D_TagType
-                        {
-                            Id = 1,
-                            PCode = 1,
-                            PIndex = 1,
-                            PName = "Numberic",
-                            PDisplayName = "عددی"
-                        },
-                        new D_TagType
-                        {
-                            Id = 2,
-                            PCode = 2,
-                            PIndex = 2,
-                            PName = "Boolean",
-                            PDisplayName = "دودویی"
-                        },
-                        new D_TagType
-                        {
-                            Id = 3,
-                            PCode = 3,
-                            PIndex = 3,
-                            PName = "Date",
-                            PDisplayName = "تاریخ"
-                        },
-                        new D_TagType
-                        {
-                            Id = 4,
-                            PCode = 4,
-                            PIndex = 4,
-                            PName = "String",
-                            PDisplayName = "حروف"
-                        });
+            new D_TagType
+            {
+                Id = 1,
+                PIndex = 1,
+                PName = "Numberic",
+                PDisplayName = "عددی"
+            },
+            new D_TagType
+            {
+                Id = 2,
+                PIndex = 2,
+                PName = "Boolean",
+                PDisplayName = "دودویی"
+            },
+            new D_TagType
+            {
+                Id = 3,
+                PIndex = 3,
+                PName = "Date",
+                PDisplayName = "تاریخ"
+            },
+            new D_TagType
+            {
+                Id = 4,
+                PIndex = 4,
+                PName = "String",
+                PDisplayName = "حروف"
+            }
+                        );
         #endregion
 
         #region D_Tag
@@ -202,7 +183,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 100,
-                     PCode = 100,
                      PIndex = 100,
                      PName = "OursShare",
                      PDisplayName = "سهم شرکت",
@@ -212,7 +192,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 101,
-                     PCode = 101,
                      PIndex = 101,
                      PName = "OthersShare",
                      PDisplayName = "سهم دیگران",
@@ -222,7 +201,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 103,
-                     PCode = 103,
                      PIndex = 103,
                      PName = "Price",
                      PDisplayName = "مبلغ",
@@ -232,7 +210,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 200,
-                     PCode = 200,
                      PIndex = 200,
                      PName = "Refrigerator",
                      PDisplayName = "مخدر/ یخچالی",
@@ -242,7 +219,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 201,
-                     PCode = 201,
                      PIndex = 201,
                      PName = "Approve",
                      PDisplayName = "تایید",
@@ -252,7 +228,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 202,
-                     PCode = 202,
                      PIndex = 202,
                      PName = "Reject",
                      PDisplayName = "عدم تایید",
@@ -262,7 +237,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 203,
-                     PCode = 203,
                      PIndex = 203,
                      PName = "Revise",
                      PDisplayName = "بازنگری",
@@ -272,7 +246,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 204,
-                     PCode = 204,
                      PIndex = 204,
                      PName = "Med",
                      PDisplayName = "دارویی",
@@ -282,7 +255,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 205,
-                     PCode = 205,
                      PIndex = 205,
                      PName = "FMCG",
                      PDisplayName = "مصرفی",
@@ -292,7 +264,6 @@ public static class ModelBuilderExtensions
                  new D_Tag
                  {
                      Id = 206,
-                     PCode = 206,
                      PIndex = 206,
                      PName = "General",
                      PDisplayName = "کل",
@@ -304,23 +275,21 @@ public static class ModelBuilderExtensions
 
         #region D_User
         modelBuilder.Entity<D_User>().HasData(
-                       new D_User
-                       {
-                           Id = 1,
-                           PCode = 1,
-                           PIndex = 1,
-                           PName = "m.sharifi",
-                           PDisplayName = "محمد شریفی"
-                       },
-                       new D_User
-                       {
-                           Id = 2,
-                           PCode = 2,
-                           PIndex = 2,
-                           PName = "a.sharifi",
-                           PDisplayName = "امین شریفی"
-                       }
-                       );
+                new D_User
+                {
+                    Id = 1,
+                    PIndex = 1,
+                    PName = "m.sharifi",
+                    PDisplayName = "محمد شریفی"
+                },
+                new D_User
+                {
+                    Id = 2,
+                    PIndex = 2,
+                    PName = "a.sharifi",
+                    PDisplayName = "امین شریفی"
+                }
+                );
         #endregion
 
         #region D_Role
@@ -328,7 +297,6 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 1,
-                      PCode = 1,
                       PIndex = 1,
                       PName = "PharmaceuticalDeputy",
                       PDisplayName = "معاونت دارویی",
@@ -337,7 +305,6 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 2,
-                      PCode = 2,
                       PIndex = 2,
                       PName = "FMCGDeputy",
                       PDisplayName = "معاونت غذایی",
@@ -346,7 +313,6 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 3,
-                      PCode = 3,
                       PIndex = 3,
                       PName = "BusinessSpecialist",
                       PDisplayName = "کارشناس بازرگانی",
@@ -355,7 +321,6 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 4,
-                      PCode = 4,
                       PIndex = 4,
                       PName = "SalesSpecialist",
                       PDisplayName = "کارشناس فروش",
@@ -364,7 +329,6 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 5,
-                      PCode = 5,
                       PIndex = 5,
                       PName = "DistributionCenterManager",
                       PDisplayName = "مدیریت مرکز توزیع",
@@ -378,7 +342,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 1,
-                       PCode = 1,
                        PIndex = 1,
                        PName = "PharmaceuticalDeputy",
                        PDisplayName = "معاون دارویی"
@@ -386,7 +349,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 2,
-                       PCode = 2,
                        PIndex = 2,
                        PName = "FMCGDeputy",
                        PDisplayName = "معاون غذایی"
@@ -394,7 +356,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 3,
-                       PCode = 3,
                        PIndex = 3,
                        PName = "BusinessSeniorSpecialist",
                        PDisplayName = "کارشناس ارشد بازرگانی"
@@ -402,7 +363,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 4,
-                       PCode = 4,
                        PIndex = 4,
                        PName = "BusinessSpecialist",
                        PDisplayName = "کارشناس بازرگانی"
@@ -410,7 +370,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 5,
-                       PCode = 5,
                        PIndex = 5,
                        PName = "SalesSeniorSpecialist",
                        PDisplayName = "کارشناس ارشد فروش"
@@ -418,7 +377,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 6,
-                       PCode = 6,
                        PIndex = 6,
                        PName = "SalesSpecialist",
                        PDisplayName = "کارشناس فروش"
@@ -426,7 +384,6 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 7,
-                       PCode = 7,
                        PIndex = 7,
                        PName = "DistributionCenterManager",
                        PDisplayName = "مدیر مرکز توزیع"
@@ -439,7 +396,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 101,
-                        PCode = 101,
                         PIndex = 101,
                         PName = nameof(D_TagType),
                         PDisplayName = new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString(),
@@ -448,7 +404,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 102,
-                        PCode = 102,
                         PIndex = 102,
                         PName = nameof(D_Location),
                         PDisplayName = new StringBuilder().Append("موقعیت‌ها").Append($"({TableType.Dimentions})").ToString(),
@@ -457,7 +412,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 103,
-                        PCode = 103,
                         PIndex = 103,
                         PName = nameof(D_Operand),
                         PDisplayName = new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString(),
@@ -466,7 +420,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 104,
-                        PCode = 104,
                         PIndex = 104,
                         PName = nameof(D_Tag),
                         PDisplayName = new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString(),
@@ -475,7 +428,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 105,
-                        PCode = 105,
                         PIndex = 105,
                         PName = nameof(D_Position),
                         PDisplayName = new StringBuilder().Append("سمت‌ها").Append($"({TableType.Dimentions})").ToString(),
@@ -484,7 +436,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 106,
-                        PCode = 106,
                         PIndex = 106,
                         PName = nameof(D_ProcessState),
                         PDisplayName = new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString(),
@@ -493,7 +444,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 107,
-                        PCode = 107,
                         PIndex = 107,
                         PName = nameof(D_Process),
                         PDisplayName = new StringBuilder().Append("فرآیند‌ها").Append($"({TableType.Dimentions})").ToString(),
@@ -502,7 +452,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 108,
-                        PCode = 108,
                         PIndex = 108,
                         PName = nameof(D_Role),
                         PDisplayName = new StringBuilder().Append("نقش‌ها").Append($"({TableType.Dimentions})").ToString(),
@@ -511,7 +460,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 109,
-                        PCode = 109,
                         PIndex = 109,
                         PName = nameof(D_User),
                         PDisplayName = new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString(),
@@ -520,7 +468,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 112,
-                        PCode = 112,
                         PIndex = 112,
                         PName = nameof(D_UserInformation),
                         PDisplayName = new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString(),
@@ -529,7 +476,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 200,
-                        PCode = 200,
                         PIndex = 200,
                         PName = nameof(F_Assignment),
                         PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString(),
@@ -538,7 +484,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 201,
-                        PCode = 201,
                         PIndex = 201,
                         PName = nameof(F_Review),
                         PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString(),
@@ -547,7 +492,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 202,
-                        PCode = 202,
                         PIndex = 202,
                         PName = nameof(F_Attachment),
                         PDisplayName = new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString(),
@@ -556,7 +500,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 203,
-                        PCode = 203,
                         PIndex = 203,
                         PName = nameof(F_Endorsement),
                         PDisplayName = new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString(),
@@ -565,7 +508,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 204,
-                        PCode = 204,
                         PIndex = 204,
                         PName = nameof(F_Condition),
                         PDisplayName = new StringBuilder().Append("لیست شرط‌ها").Append($"({TableType.Facts})").ToString(),
@@ -574,7 +516,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 205,
-                        PCode = 205,
                         PIndex = 205,
                         PName = nameof(F_Request),
                         PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString(),
@@ -583,7 +524,6 @@ public static class ModelBuilderExtensions
                      new D_Entity
                      {
                          Id = 206,
-                         PCode = 206,
                          PIndex = 206,
                          PName = nameof(F_Scenario),
                          PDisplayName = new StringBuilder().Append("سناریوها").Append($"({TableType.Facts})").ToString(),
@@ -592,7 +532,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 300,
-                        PCode = 300,
                         PIndex = 300,
                         PName = nameof(L_RolePosition),
                         PDisplayName = new StringBuilder().Append("نقش-سمت").Append($"({TableType.Links})").ToString(),
@@ -601,7 +540,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 301,
-                        PCode = 301,
                         PIndex = 301,
                         PName = nameof(L_ProcessScenario),
                         PDisplayName = new StringBuilder().Append("فرآیند-سناریو").Append($"({TableType.Links})").ToString(),
@@ -610,7 +548,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 302,
-                        PCode = 302,
                         PIndex = 302,
                         PName = nameof(L_UserLocation),
                         PDisplayName = new StringBuilder().Append("کاربر-موقعیت").Append($"({TableType.Links})").ToString(),
@@ -619,7 +556,6 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 303,
-                        PCode = 303,
                         PIndex = 303,
                         PName = nameof(L_UserPosition),
                         PDisplayName = new StringBuilder().Append("کاربر-سمت").Append($"({TableType.Links})").ToString(),
@@ -637,7 +573,6 @@ public static class ModelBuilderExtensions
             new F_Scenario
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "Head_Scenario3",
                 PDisplayName = "سناریو ستاد"
@@ -645,7 +580,6 @@ public static class ModelBuilderExtensions
             new F_Scenario
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "Med_Scenario",
                 PDisplayName = "سناریو دارویی"
@@ -653,7 +587,6 @@ public static class ModelBuilderExtensions
             new F_Scenario
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = "FMCG_Scenario",
                 PDisplayName = "سناریو مصرفی"
@@ -667,7 +600,6 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "Head_Scenario,OursShare,>,0",
                 PDisplayName = "سناریو ستاد,سهم شرکت,بزگتر از,0",
@@ -680,7 +612,6 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "Med_Scenario,Med,=,1",
                 PDisplayName = "سناریو دارویی,دارویی,مساوی,1",
@@ -692,7 +623,6 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = "Med_Scenario,OursShare,>,0",
                 PDisplayName = "سناریو دارویی,سهم شرکت,بزگتر از,0",
@@ -704,7 +634,6 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 4,
-                PCode = 4,
                 PIndex = 4,
                 PName = "FMCG_Scenario,FMCG,=,1",
                 PDisplayName = "سناریو مصرفی,مصرفی,مساوی,1",
@@ -716,7 +645,6 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 5,
-                PCode = 5,
                 PIndex = 5,
                 PName = "FMCG_Scenario,Price,>,0",
                 PDisplayName = "سناریو مصرفی,مبلغ,بزگتر از,0",
@@ -733,7 +661,6 @@ public static class ModelBuilderExtensions
             new F_Endorsement
             {
                 Id = 1,
-                PCode = 1,
                 PIndex = 1,
                 PName = "Med_Scenario,DistributionCenterManager",
                 PDisplayName = "سناریو سه,مدیریت مرکز توزیع",
@@ -743,7 +670,6 @@ public static class ModelBuilderExtensions
             new F_Endorsement
             {
                 Id = 2,
-                PCode = 2,
                 PIndex = 2,
                 PName = "Strategy3,FMCGDeputy",
                 PDisplayName = "سناریو سه,معاونت غذایی",
@@ -753,7 +679,6 @@ public static class ModelBuilderExtensions
             new F_Endorsement
             {
                 Id = 3,
-                PCode = 3,
                 PIndex = 3,
                 PName = "Strategy2,PharmaceuticalDeputy",
                 PDisplayName = "سناریو دو,معاونت دارویی",
@@ -763,7 +688,6 @@ public static class ModelBuilderExtensions
             new F_Endorsement
             {
                 Id = 4,
-                PCode = 4,
                 PIndex = 4,
                 PName = "Med_Scenario,PharmaceuticalDeputy",
                 PDisplayName = "سناریو دارویی,معاونت دارویی",
@@ -782,7 +706,6 @@ public static class ModelBuilderExtensions
                     new L_UserLocation
                     {
                         Id = 1,
-                        PCode = 1,
                         PIndex = 1,
                         PName = "m.sharifi-Tehran",
                         PDisplayName = "محمد شریفی-تهران",
@@ -792,7 +715,6 @@ public static class ModelBuilderExtensions
                     new L_UserLocation
                     {
                         Id = 2,
-                        PCode = 2,
                         PIndex = 2,
                         PName = "a.sharifi-Fars",
                         PDisplayName = "امین شریفی-فارس",
@@ -802,7 +724,6 @@ public static class ModelBuilderExtensions
                     new L_UserLocation
                     {
                         Id = 3,
-                        PCode = 3,
                         PIndex = 3,
                         PName = "m.sharifi-Fars",
                         PDisplayName = "محمد شریفی-فارس",
@@ -812,7 +733,6 @@ public static class ModelBuilderExtensions
                      new L_UserLocation
                      {
                          Id = 4,
-                         PCode = 4,
                          PIndex = 4,
                          PName = "a.sharifi-Tehran",
                          PDisplayName = "امین شریفی-تهران",
@@ -827,7 +747,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 1,
-                          PCode = 1,
                           PIndex = 1,
                           PName = "PharmaceuticalDeputy-PharmaceuticalDeputy",
                           PDisplayName = "معاونت دارویی-معاون دارویی",
@@ -837,7 +756,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 2,
-                          PCode = 2,
                           PIndex = 2,
                           PName = "FMCGDeputy-FMCGDeputy",
                           PDisplayName = "معاونت غذایی-معاون غذایی",
@@ -847,7 +765,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 3,
-                          PCode = 3,
                           PIndex = 3,
                           PName = "BusinessSpecialist-BusinessSeniorSpecialist",
                           PDisplayName = "کارشناس بازرگانی-کارشناس ارشد بازرگانی",
@@ -857,7 +774,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 4,
-                          PCode = 4,
                           PIndex = 4,
                           PName = "BusinessSpecialist-BusinessSpecialist",
                           PDisplayName = "کارشناس بازرگانی-کارشناس بازرگانی",
@@ -867,7 +783,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 5,
-                          PCode = 5,
                           PIndex = 5,
                           PName = "SalesSpecialist-SalesSeniorSpecialist",
                           PDisplayName = "کارشناس فروش-کارشناس ارشد فروش",
@@ -877,7 +792,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 6,
-                          PCode = 6,
                           PIndex = 6,
                           PName = "SalesSpecialist-SalesSpecialist",
                           PDisplayName = "کارشناس فروش-کارشناس فروش",
@@ -887,7 +801,6 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 7,
-                          PCode = 7,
                           PIndex = 7,
                           PName = "DistributionCenterManager-DistributionCenterManager",
                           PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
@@ -902,7 +815,6 @@ public static class ModelBuilderExtensions
                       new L_ProcessScenario
                       {
                           Id = 1,
-                          PCode = 1,
                           PIndex = 1,
                           PName = "CustomerDefinition-Strategy3",
                           PDisplayName = "تعریف/اصلاح مشتری-سناریو سه",
@@ -912,7 +824,6 @@ public static class ModelBuilderExtensions
                       new L_ProcessScenario
                       {
                           Id = 2,
-                          PCode = 2,
                           PIndex = 2,
                           PName = "CustomerDefinition-Strategy1",
                           PDisplayName = "تعریف/اصلاح مشتری-سناریو یک",
@@ -922,7 +833,6 @@ public static class ModelBuilderExtensions
                       new L_ProcessScenario
                       {
                           Id = 3,
-                          PCode = 3,
                           PIndex = 3,
                           PName = "PolicyCenter-Strategy1",
                           PDisplayName = "مجوزهای موردی-سناریو یک",
@@ -932,7 +842,6 @@ public static class ModelBuilderExtensions
                       new L_ProcessScenario
                       {
                           Id = 4,
-                          PCode = 4,
                           PIndex = 4,
                           PName = "PolicyCenter-Strategy2",
                           PDisplayName = "تعریف/اصلاح مشتری-سناریو دو",
@@ -942,7 +851,6 @@ public static class ModelBuilderExtensions
                        new L_ProcessScenario
                        {
                            Id = 5,
-                           PCode = 5,
                            PIndex = 5,
                            PName = "CustomerDefinition-Strategy2",
                            PDisplayName = "مجوزهای موردی-سناریو دو",
@@ -959,7 +867,6 @@ public static class ModelBuilderExtensions
                 new L_UserPosition
                 {
                     Id = 1,
-                    PCode = 1,
                     PIndex = 1,
                     PName = "m.sharifi-PharmaceuticalDeputy",
                     PDisplayName = "محمد شریفی-مدیر مرکز",
@@ -969,7 +876,6 @@ public static class ModelBuilderExtensions
                 new L_UserPosition
                 {
                     Id = 2,
-                    PCode = 2,
                     PIndex = 2,
                     PName = "a.sharifi-FMCGDeputy",
                     PDisplayName = "امین شریفی-معاون غذایی",

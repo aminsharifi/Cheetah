@@ -6,8 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
 
 [Table(nameof(F_Scenario), Schema = nameof(TableType.Facts))]
-[Index(nameof(PCode), IsUnique = true, AllDescending = true)]
-[Index(nameof(PIndex), IsUnique = true, AllDescending = true)]
 [Index(nameof(PName), IsUnique = true, AllDescending = true)]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]

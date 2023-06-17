@@ -5,6 +5,7 @@ using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
+using Cheetah_Business.Virtuals;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -215,13 +216,53 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return true;
     }
+    public async Task<D_Location> GetLocation(String PName)
+    {
+        var V_Locations = _db.V_Locations.Where(x => x.PName == PName);
+        var D_Locations = _db.D_Locations.Where(x => x.PName == PName);
+        var V_Location = await V_Locations.SingleAsync();
+        var d_Location = new D_Location();
+
+        if (!await D_Locations.AnyAsync())
+        {
+            d_Location = new D_Location()
+            {
+                PERPCode = V_Location.PERPCode,
+                PName = V_Location.PName,
+                PDisplayName = V_Location.PDisplayName,
+                LastUpdatedRecord = DateTime.Now
+            };
+
+            await _db.D_Locations.AddAsync(d_Location);
+        }
+        else
+        {
+            d_Location = await D_Locations.SingleAsync();
+            d_Location.PName = V_Location.PName;
+            d_Location.PDisplayName = V_Location.PDisplayName;
+        }
+        await _db.SaveChangesAsync();
+
+        return d_Location;
+    }
+    public async Task<Boolean> SyncLocation()
+    {
+        var v_Locations = await _db.V_Locations.ToListAsync();
+
+        foreach (var item in v_Locations)
+        {
+            await GetLocation(item.PName);
+        }
+
+        return true;
+    }
     public async Task<F_Request> CreateRequestAsync(F_Request request)
     {
         F_Request GeneralRequest = request;
 
         try
         {
-            //await SyncUser();
+            await SyncLocation();
             var d_Users = await _db.D_Users.ToListAsync();
             var d_Positions = await _db.D_Positions.ToListAsync();
             var v_UserPositions = await _db.V_UserPositions.ToListAsync();
@@ -498,7 +539,6 @@ public class SimpleClassRepository : ISimpleClassRepository
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
         var instance = (SimpleClass)Activator.CreateInstance(gtype);
-        instance.PCode = aa.Any() ? aa.Max(x => x.PCode) + 1 : 1;
         instance.PIndex = aa.Any() ? aa.Max(x => x.PIndex) + 1 : 1;
         return instance;
     }
@@ -540,7 +580,6 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             if (simpleLinkClass.Any())
             {
-                instance.PCode = simpleLinkClass.Last().PCode + 1;
                 instance.PIndex = simpleLinkClass.Last().PIndex + 1;
             }
             else
