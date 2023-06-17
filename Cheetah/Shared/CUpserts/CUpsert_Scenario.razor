@@ -380,7 +380,9 @@
     {
         var Condition = new F_Condition();
 
-        var Conditions = (cObject.GetType() == typeof(F_Scenario)) ? (cObject as F_Scenario).EP_Conditions
+        var baseType = cObject.GetType().BaseType;
+
+        ICollection<F_Condition> Conditions = (baseType == typeof(F_Scenario)) ? (cObject as F_Scenario).EP_Conditions
         : (cObject as F_Endorsement).ED_Conditions;
 
         if (Conditions.Any())
@@ -395,7 +397,7 @@
         Condition.CD_Tag = List_D_Tag.First() as D_Tag;
         Condition.CD_Operand = List_D_Operand.First() as D_Operand;
 
-        if (cObject.GetType() == typeof(F_Scenario))
+        if (baseType == typeof(F_Scenario))
         {
             (cObject as F_Scenario).EP_Conditions.Add(Condition);
         }

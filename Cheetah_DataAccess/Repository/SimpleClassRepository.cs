@@ -422,7 +422,6 @@ public class SimpleClassRepository : ISimpleClassRepository
                                   {
                                       UA_User = Added_User,
                                       UA_Assignment = new_Assignment
-
                                   });
                         }
 
