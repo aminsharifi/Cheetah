@@ -699,7 +699,7 @@ public class SimpleClassRepository : ISimpleClassRepository
     {
         var username = cartableDTO.Username;
 
-        return _db.L_UserAssignments
+        var Inbox = _db.L_UserAssignments
             .Where(x => x.UA_User.PName == username
             && x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment)
             .Select(x =>
@@ -714,6 +714,8 @@ public class SimpleClassRepository : ISimpleClassRepository
                 Summary = x.UA_Assignment.PRM_Request.PDisplayName
             }
             ).AsEnumerable();
+
+        return Inbox;
     }
     public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
     {
