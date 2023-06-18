@@ -10,8 +10,8 @@ public class CPersianClass
         {
             PersianCalendar p = new PersianCalendar();
             var CDate = p.GetYear(date.Value) + "/" + p.GetMonth(date.Value) + "/" + p.GetDayOfMonth(date.Value);
-            var CTime = date.Value.ToString("HH:MM");
-            return CDate + CTime;
+            var CTime = date.Value.ToString("HH:mm");
+            return CTime + " " + CDate;
         }
         else
             return String.Empty;

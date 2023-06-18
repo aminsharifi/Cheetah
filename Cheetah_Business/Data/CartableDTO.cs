@@ -9,12 +9,12 @@ public class CartableDTO
     public DateTime? CreateDate { get; set; }
     public String? PCreateDate
     {
-        get { return cPersianClass.GetPersianDate(CreateDate); }
+        get { return cPersianClass.GetPersianDate(this.CreateDate); }
     }
     public DateTime? RecieveDate { get; set; }
     public String? PRecieveDate
     {
-        get { return cPersianClass.GetPersianDate(RecieveDate); }
+        get { return cPersianClass.GetPersianDate(this.RecieveDate); }
     }
     public String? ProcessName { get; set; }
     public String? TaskName { get; set; }
