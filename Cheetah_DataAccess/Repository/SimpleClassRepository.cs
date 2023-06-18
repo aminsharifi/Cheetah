@@ -332,7 +332,7 @@ public class SimpleClassRepository : ISimpleClassRepository
                     DsblRecord = item.DsblRecord,
                     LastUpdatedRecord = DateTime.Now
                 };
-                await _db.L_UserLocations.AddAsync(l_UserLocation); 
+                await _db.L_UserLocations.AddAsync(l_UserLocation);
             }
         }
 
@@ -356,24 +356,36 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             GeneralRequest.Id = null;
 
-            foreach (var item in GeneralRequest.RQT_Conditions)
+            if (GeneralRequest.RQT_Conditions is not null)
             {
-                item.Id = null;
-                item.CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
+                foreach (var item in GeneralRequest.RQT_Conditions)
+                {
+                    item.Id = null;
+                    item.CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
+                }
             }
 
             var pc_ProcessScenario = GeneralRequest.RQT_Process?.PC_ProcessScenario;
 
             foreach (var ProcessScenario in pc_ProcessScenario)
             {
-                var Actual_Conditions = GeneralRequest.RQT_Conditions.ToList();
+                var ConditionOccures = false;
 
-                var Expected_Conditions = ProcessScenario.PS_Scenario.EP_Conditions.ToList();
+                if (GeneralRequest.RQT_Conditions is null)
+                {
+                    ConditionOccures = true;
+                }
+                else
+                {
+                    var Actual_Conditions = GeneralRequest.RQT_Conditions.ToList();
 
-                if (CompareCondition(Actual_Conditions, Expected_Conditions))
+                    var Expected_Conditions = ProcessScenario.PS_Scenario.EP_Conditions.ToList();
+
+                    ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
+                }
+                if (ConditionOccures)
                 {
                     GeneralRequest.RQT_SelectedScenario = ProcessScenario.PS_Scenario;
-
                     break;
                 }
             }
@@ -384,8 +396,6 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                 var eP_Endorsements = GeneralRequest.RQT_SelectedScenario?.EP_Endorsements.ToList();
 
-                var userLocations = GeneralRequest.RQT_Requestor.User_UserLocations.Select(x => x.SecondId).ToList();
-
                 foreach (var eP_Endorsement in eP_Endorsements)
                 {
                     if (CompareCondition(GeneralRequest.RQT_Conditions, eP_Endorsement.ED_Conditions))
@@ -394,15 +404,27 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                         var Users = await _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId).ToListAsync();
 
-
                         var D_Users = await _db.D_Users.Where(x => Users.Contains(x.Id)).ToListAsync();
 
                         var Added_Users = new List<D_User>();
 
                         foreach (var D_User in D_Users)
                         {
-                            if (D_User.User_UserLocations.Any(
-                                x => (!eP_Endorsement.ED_Role.ROL_Independent && userLocations.Contains(x.Id)) || eP_Endorsement.ED_Role.ROL_Independent))
+                            var UserOccur = false;
+                            if (eP_Endorsement.ED_Role.ROL_Independent)
+                            {
+                                UserOccur = true;
+                            }
+                            else
+                            {
+                                var userLocations = GeneralRequest.RQT_Requestor.User_UserLocations.Select(x => x.SecondId).ToList();
+
+                                if (D_User.User_UserLocations.Any(x => userLocations.Contains(x.SecondId)))
+                                {
+                                    UserOccur = true;
+                                }
+                            }
+                            if (UserOccur)
                             {
                                 Added_Users.Add(D_User);
                             }
