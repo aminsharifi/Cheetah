@@ -13,13 +13,18 @@ namespace Cheetah_DataAccess
 
     public class IdentityService : IIdentityService
     {
+        public String AccessToken { get; set; }
+        public IdentityService()
+        {
+
+        }
         public async Task<string> Authenticate(string email, string password)
         {
             //Your custom logic here (e.g. database query)
             //Mocked for a sake of simplicity
             var roles = new List<string>();
-            
-            if (email.Contains("Cheetah"))
+
+            if (email.Contains("cheetah"))
             {
                 roles.Add("Admin");
             }
@@ -50,10 +55,13 @@ namespace Cheetah_DataAccess
 
             throw new AuthenticationException();
         }
+
         private string GenerateAccessToken(string email, string userId, string[] roles)
         {
+            //var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MohammadAmin Sharifi"));
+
             var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("123987"));
+                Encoding.UTF8.GetBytes("7D-EKQ99jzXE5cdByhOk_P-Ko_Z-yMoTFVUCe8H6GRk"));
 
             var claims = new List<Claim>
             {
@@ -72,8 +80,8 @@ namespace Cheetah_DataAccess
                 claims,
                 expires: DateTime.Now.AddDays(90),
                 signingCredentials: signingCredentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            AccessToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return AccessToken;
         }
     }
 }
