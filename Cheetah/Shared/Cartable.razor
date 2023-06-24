@@ -41,7 +41,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var cartableDTO = new CartableDTO(Username);
+        var cartableDTO = new CartableDTO();
+
+        cartableDTO.Username = Username;
+
         if (Inbox)
             cartableDTOList = await simpleClassRepository.Inbox(cartableDTO);
         else
