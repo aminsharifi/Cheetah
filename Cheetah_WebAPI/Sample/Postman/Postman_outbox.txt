@@ -1,0 +1,6 @@
+query {
+    outbox(where: {username: {eq: "R.Rodbarani"}}) {
+        username
+        radNumber
+    }
+}

@@ -1,0 +1,59 @@
+mutation CreateRequest {
+    createRequest(request: 
+    {
+    rqt_ERPID:0,
+    rqt_Process:
+    {
+     pName: "CarPerformanceCalculation"
+    },
+    rqt_Creator:
+    {
+     pName: "sm.tabatabaei"
+    },
+    rqt_Requestor:
+    {
+     pName: "sh.najmie"
+    }
+  }
+    )
+{
+     id
+    rqt_ProcessState
+    {
+      pDisplayName
+    }
+    rqt_SelectedScenario
+    {
+      pDisplayName
+    }
+    rqt_Assignments
+    {     
+      prm_Endorsement
+      {        
+        id
+        pIndex
+        ed_Role
+        {
+          pDisplayName
+        }
+        ed_Conditions
+        {
+          cd_Tag {
+            pDisplayName
+          }
+          cd_Operand {
+            pDisplayName
+          }
+          cd_Value
+        }
+      }
+       prm_UserAssignments
+      {
+        ua_User {
+          pName
+          pDisplayName
+        }
+      }
+    }    
+    }
+}

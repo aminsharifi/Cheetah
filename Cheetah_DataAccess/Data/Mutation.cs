@@ -20,6 +20,9 @@ public class Mutation
     //    return email;
     //}
 
+
+
+    #region GetTokenAsync
     [UseProjection]
     [UseFiltering]
     [UseSorting]
@@ -35,23 +38,31 @@ public class Mutation
 
         return MyIdentityService;
     }
+    #endregion
 
+    #region PerformRequestAsync
     [UseProjection]
     [UseFiltering]
     [UseSorting]
     [Authorize]
     public async Task<F_Request> PerformRequestAsync(
-        [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
+           [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
     {
         return await iSimpleClassRepository.PerformRequestAsync(request);
     }
+    #endregion
+
+    #region CreateRequestAsync
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    [Authorize]
+    //[Authorize]
     public async Task<F_Request> CreateRequestAsync(
         [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
     {
         return await iSimpleClassRepository.CreateRequestAsync(request);
     }
+    #endregion
+
+   
 }
