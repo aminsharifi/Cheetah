@@ -79,20 +79,18 @@ public class Query
 
     #region Facts
 
-
-    #region InboxAsync
+    #region workItemAsync
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    //[Authorize]
-    public IQueryable<CartableDTO> inbox(
-       [Service] ApplicationDbContext context)
+    public IQueryable<CartableDTO> workItem(
+        [Service] ApplicationDbContext context)
     {
-        var l_UserAssignments = context.L_UserAssignments
-            .Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment)
+        var Outbox = context.L_UserAssignments
             .Select(x =>
             new CartableDTO()
             {
+                Tag = x.UA_Assignment.PRM_Review.APV_Tag,
                 Username = x.UA_User.PName,
                 ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
                 RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
@@ -103,8 +101,23 @@ public class Query
                 Summary = x.UA_Assignment.PRM_Request.PDisplayName
             }
             );
+        return Outbox;
+    }
+    #endregion
 
-        return l_UserAssignments;
+    #region InboxAsync
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    //[Authorize]
+    public IQueryable<CartableDTO> inbox(
+       [Service] ApplicationDbContext context)
+    {
+        //.Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment)
+
+        var inbox = workItem(context).Where(x => x.Tag == null);
+
+        return inbox;
 
     }
     #endregion
@@ -116,22 +129,7 @@ public class Query
     public IQueryable<CartableDTO> outbox(
         [Service] ApplicationDbContext context)
     {
-        var Outbox = context.L_UserAssignments
-            .Where(x => 
-            x.UA_Assignment.PRM_Review.APV_Tag != null)
-            .Select(x =>
-            new CartableDTO()
-            {
-                Username = x.UA_User.PName,
-                ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
-                RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
-                Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
-                TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
-                CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
-                RecieveDate = x.UA_Assignment.CreateTimeRecord,
-                Summary = x.UA_Assignment.PRM_Request.PDisplayName
-            }
-            );
+        var Outbox = workItem(context).Where(x => x.Tag != null);
         return Outbox;
     }
     #endregion
