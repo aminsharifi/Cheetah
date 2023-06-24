@@ -1,0 +1,6 @@
+query {
+    inbox(where: {username: {eq: "R.Rodbarani"}}) {
+        username
+        radNumber
+    }
+}

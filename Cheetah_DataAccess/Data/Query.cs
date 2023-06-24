@@ -1,7 +1,10 @@
-﻿using Cheetah_Business.Dimentions;
+﻿using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
+using Cheetah_Business.Repository;
 using HotChocolate;
+using System.Linq;
 
 namespace Cheetah_DataAccess.Data;
 
@@ -75,6 +78,64 @@ public class Query
     #endregion
 
     #region Facts
+
+
+    #region InboxAsync
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    //[Authorize]
+    public IQueryable<CartableDTO> inbox(
+       [Service] ApplicationDbContext context)
+    {
+        var l_UserAssignments = context.L_UserAssignments
+            .Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment)
+            .Select(x =>
+            new CartableDTO()
+            {
+                Username = x.UA_User.PName,
+                ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+                RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+                Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+                TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+                CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+                RecieveDate = x.UA_Assignment.CreateTimeRecord,
+                Summary = x.UA_Assignment.PRM_Request.PDisplayName
+            }
+            );
+
+        return l_UserAssignments;
+
+    }
+    #endregion
+
+    #region OutboxAsync
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    public IQueryable<CartableDTO> outbox(
+        [Service] ApplicationDbContext context)
+    {
+        var Outbox = context.L_UserAssignments
+            .Where(x => 
+            x.UA_Assignment.PRM_Review.APV_Tag != null)
+            .Select(x =>
+            new CartableDTO()
+            {
+                Username = x.UA_User.PName,
+                ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+                RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+                Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+                TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+                CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+                RecieveDate = x.UA_Assignment.CreateTimeRecord,
+                Summary = x.UA_Assignment.PRM_Request.PDisplayName
+            }
+            );
+        return Outbox;
+    }
+    #endregion
+
 
     [UseProjection]
     [UseFiltering]

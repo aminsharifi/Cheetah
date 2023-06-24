@@ -1,0 +1,68 @@
+﻿Operation =>
+mutation($f_Request:F_RequestInput!)
+{
+  performRequest (request:$f_Request)
+  { 
+    id
+    rqt_ProcessState
+    {
+      pDisplayName
+    }
+    rqt_SelectedScenario
+    {
+      pDisplayName
+    }
+    rqt_Assignments
+    {     
+      prm_Endorsement
+      {        
+        id
+        pIndex
+        ed_Role
+        {
+          pDisplayName
+        }
+        ed_Conditions
+        {
+          cd_Tag {
+            pDisplayName
+          }
+          cd_Operand {
+            pDisplayName
+          }
+          cd_Value
+        }
+      }
+       prm_UserAssignments
+      {
+        ua_User {
+          pName
+          pDisplayName
+        }
+      }
+    }    
+  }
+}  
+/////////////////////////////////////////
+Variable =>
+{
+  "f_Request":
+  {
+    "id": 10003,
+    "rqt_Current_Review":
+    {
+      "apv_Performer":
+      {
+        "pName": "a.sharifi"
+      },
+      "apv_Tag":
+      {
+        "pName": "Approve"
+      },
+      "apv_Assignment":
+      {
+        "id": 10005
+      }
+    }
+  }
+}
