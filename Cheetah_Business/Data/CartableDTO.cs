@@ -1,8 +1,11 @@
-﻿namespace Cheetah_Business.Data;
+﻿using Cheetah_Business.Dimentions;
+
+namespace Cheetah_Business.Data;
 
 public class CartableDTO
 {
     private CPersianClass? cPersianClass = new CPersianClass();
+    public virtual D_Tag? Tag { get; set; }
     public String? Username { get; set; }
     public String? Requestor { get; set; }
     public String? RadNumber { get; set; }

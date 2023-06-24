@@ -1,6 +1,24 @@
 query {
-    inbox(where: {username: {eq: "R.Rodbarani"}}) {
-        username
-        radNumber
+    l_UserAssignments(       
+      where: {and:{ua_User:{pName: {eq: "R.Rodbarani"}}, ua_Assignment:{prm_Review:{apv_Tag:{pName:{eq:null}}}}}}
+      )
+    {
+     ua_Assignment {
+      createTimeRecord
+      prm_Endorsement {
+        pDisplayName
+        pName
+      }
+       prm_Request {
+        createTimeRecord
+        id
+        rqt_Requestor {
+          pDisplayName
+        }        
+         rqt_Process {
+           pDisplayName
+         }
+       }
+     }
     }
 }
