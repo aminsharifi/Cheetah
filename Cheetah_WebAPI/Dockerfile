@@ -7,11 +7,11 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cheetah_WebAPI/Cheetah_WebAPI.csproj", "Cheetah_WebAPI/"]
-COPY ["Cheetah_DataAccess/Cheetah_DataAccess.csproj", "Cheetah_DataAccess/"]
-COPY ["Cheetah_Business/Cheetah_Business.csproj", "Cheetah_Business/"]
-RUN dotnet restore "Cheetah_WebAPI/Cheetah_WebAPI.csproj"
 COPY . .
+COPY ["Cheetah_WebAPI.csproj", "Cheetah_WebAPI/"]
+COPY ["../Cheetah_DataAccess/Cheetah_DataAccess.csproj", "Cheetah_DataAccess/"]
+COPY ["../Cheetah_Business/Cheetah_Business.csproj", "Cheetah_Business/"]
+RUN dotnet restore "Cheetah_WebAPI.csproj"
 WORKDIR "/src/Cheetah_WebAPI"
 RUN dotnet build "Cheetah_WebAPI.csproj" -c Release -o /app/build
 
