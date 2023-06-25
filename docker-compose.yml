@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  cheetah_webapi:
-    image: ${DOCKER_REGISTRY-}cheetahwebapi
-    build:
-      context: .
-      dockerfile: Cheetah_WebAPI/Dockerfile
