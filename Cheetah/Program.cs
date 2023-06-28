@@ -23,10 +23,13 @@ var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
 if (provider is "Npgsql")
 {
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql"),
-        x => x.MigrationsAssembly("NpgsqlMigrations")),
+        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql")
+        //,x => x.MigrationsAssembly("NpgsqlMigrations")
+        ),
         ServiceLifetime.Transient
         );
 }

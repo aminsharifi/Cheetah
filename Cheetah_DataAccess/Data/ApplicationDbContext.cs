@@ -20,7 +20,7 @@ public partial class ApplicationDbContext : IdentityDbContext
         //base.Database.EnsureCreated();
 
         base.OnModelCreating(builder);
-        //builder.Seed();
+        builder.Seed();
     }
 
     #region Dimentions
