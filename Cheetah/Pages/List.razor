@@ -119,7 +119,7 @@
 
         foreach (D_Entity item in _D_Entity)
         {
-            if (item.Display)
+            if (item.Display is true)
             {
                 keyValuePair.Add(item.PName, item.PDisplayName);
             }

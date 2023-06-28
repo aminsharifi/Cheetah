@@ -16,5 +16,5 @@ public partial class D_Entity : BaseClass<D_Entity>
 {
     [Column(Order = 100)]
     [DefaultValue(true)]
-    public Boolean Display { get; set; }
+    public bool? Display { get; set; }
 }

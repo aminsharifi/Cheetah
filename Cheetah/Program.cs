@@ -17,14 +17,16 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddBootstrapBlazor();
 
-var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+//var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
+var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
-if (DomainName == "alborz.net")
+if (provider is "Npgsql")
 {
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
-        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahAlborzConnection")),
+        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql"),
+        x => x.MigrationsAssembly("NpgsqlMigrations")),
         ServiceLifetime.Transient
         );
 }
@@ -32,7 +34,8 @@ else
 {
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
-        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
+        .UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"),
+        x => x.MigrationsAssembly("SQLServerMigrations")),
         ServiceLifetime.Transient
         );
 }

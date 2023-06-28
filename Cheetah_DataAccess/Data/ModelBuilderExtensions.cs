@@ -407,7 +407,7 @@ public static class ModelBuilderExtensions
                         PIndex = 102,
                         PName = nameof(D_Location),
                         PDisplayName = new StringBuilder().Append("موقعیت‌ها").Append($"({TableType.Dimentions})").ToString(),
-                        Display = true
+                        Display = false
                     },
                     new D_Entity
                     {
@@ -423,7 +423,7 @@ public static class ModelBuilderExtensions
                         PIndex = 104,
                         PName = nameof(D_Tag),
                         PDisplayName = new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString(),
-                        Display = true
+                        Display = false
                     },
                     new D_Entity
                     {
