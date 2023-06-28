@@ -26,11 +26,14 @@ builder.Services.AddControllersWithViews()
 
 var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
-if (DomainName == "alborz.net")
+var provider = builder.Configuration.GetValue("Provider", "Npgsql");
+
+if (provider is "Npgsql")
 {
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
-        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahAlborzConnection")),
+        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql"),
+        x => x.MigrationsAssembly("NpgsqlMigrations")),
         ServiceLifetime.Transient
         );
 }
@@ -38,11 +41,11 @@ else
 {
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
-        .UseSqlServer(builder.Configuration.GetConnectionString("CheetahConnection")),
+        .UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"),
+        x => x.MigrationsAssembly("SQLServerMigrations")),
         ServiceLifetime.Transient
         );
 }
-
 
 /**/
 
