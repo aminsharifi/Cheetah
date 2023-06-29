@@ -2,14 +2,12 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 806
+EXPOSE 1988
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY . .
 COPY ["Cheetah_WebAPI/Cheetah_WebAPI.csproj", "Cheetah_WebAPI/"]
-COPY ["Cheetah_DataAccess/Cheetah_DataAccess.csproj", "Cheetah_DataAccess/"]
-COPY ["Cheetah_Business/Cheetah_Business.csproj", "Cheetah_Business/"]
 RUN dotnet restore "Cheetah_WebAPI/Cheetah_WebAPI.csproj"
 WORKDIR "/src/Cheetah_WebAPI"
 RUN dotnet build "Cheetah_WebAPI.csproj" -c Release -o /app/build
