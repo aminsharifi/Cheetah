@@ -32,6 +32,8 @@ jobs:
         include:
           - dockerfile: ./src/Dockerfile
             image: ghcr.io/${{ github.actor }}/cheetah
+          - dockerfile: ./src/Dockerfile
+            image: ghcr.io/${{ github.actor }}/webAPI
     permissions:
       contents: read
       packages: write
