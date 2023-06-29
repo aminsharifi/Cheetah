@@ -30,6 +30,10 @@ BPMS, ASP.net Core, Entity Framework Core, Blazor, GRAPHQL, Swagger, WASM, Javas
 
 ![Swagger](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/Swagger.png)
 
+![Postgres](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/Postgres.png)
+
+![SQL_Sever](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/SQL_Sever.png)
+
 ## Contributing
 
 Contributions are always welcome!
