@@ -26,6 +26,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./src/Cheetah/Dockerfile
+            image: ghcr.io/aminsharifi/cheetah
+          - dockerfile: ./src/Cheetah_WebAPI/Dockerfile
+            image: ghcr.io/aminsharifi/cheetah/cheetah_WebAPI
     permissions:
       contents: read
       packages: write
