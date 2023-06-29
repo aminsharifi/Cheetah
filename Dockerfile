@@ -7,7 +7,6 @@ EXPOSE 1988
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY . .
-COPY ["Cheetah_WebAPI/Cheetah_WebAPI.csproj", "Cheetah_WebAPI/"]
 RUN dotnet restore "Cheetah_WebAPI/Cheetah_WebAPI.csproj"
 WORKDIR "/src/Cheetah_WebAPI"
 RUN dotnet build "Cheetah_WebAPI.csproj" -c Release -o /app/build
