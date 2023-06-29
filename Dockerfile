@@ -9,6 +9,7 @@ COPY . .
 RUN dotnet restore "Cheetah_WebAPI/Cheetah_WebAPI.csproj"
 WORKDIR "/src/Cheetah_WebAPI"
 RUN dotnet build "Cheetah_WebAPI.csproj" -c Release -o /app/build
+FROM build AS publish
 RUN dotnet build "Cheetah_WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 WORKDIR /app
 COPY --from=publish /app/publish .
