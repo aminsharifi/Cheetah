@@ -25,6 +25,13 @@
         "ASPNETCORE_URLS": "https://localhost:7169;http://localhost:5232"
       },
       "distributionName": ""
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true,
+      "useSSL": true
     }
   },
   "iisSettings": {
