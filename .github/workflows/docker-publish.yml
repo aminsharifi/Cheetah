@@ -30,10 +30,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./src/Dockerfile
+          - dockerfile: ./src/Cheetah/Dockerfile
             image: ghcr.io/${{ github.actor }}/cheetah
-          - dockerfile: ./src/Dockerfile
-            image: ghcr.io/${{ github.actor }}/webAPI
+          - dockerfile: ./src/Cheetah_WebAPI/Dockerfile
+            image: ghcr.io/${{ github.actor }}/cheetah/webAPI
     permissions:
       contents: read
       packages: write
