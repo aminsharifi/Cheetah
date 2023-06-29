@@ -31,7 +31,9 @@ jobs:
       matrix:
         include:
           - dockerfile: ./Cheetah/Dockerfile
-            image: ghcr.io/${{ github.actor }}/cheetah
+            image: ghcr.io/${{ github.actor }}/portal
+          - dockerfile: ./Cheetah_WebAPI/Dockerfile
+            image: ghcr.io/${{ github.actor }}/api
     permissions:
       contents: read
       packages: write
