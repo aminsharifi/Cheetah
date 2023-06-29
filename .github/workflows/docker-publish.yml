@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./src/cheetah
+          - dockerfile: ./src
             image: ghcr.io/${{ github.actor }}/cheetah
     permissions:
       contents: read
