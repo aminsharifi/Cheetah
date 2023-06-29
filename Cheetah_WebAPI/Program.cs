@@ -30,10 +30,13 @@ var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
 if (provider is "Npgsql")
 {
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
-        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql"),
-        x => x.MigrationsAssembly("NpgsqlMigrations")),
+        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql")
+        , x => x.MigrationsAssembly("Cheetah_DataAccess_Npgsql")
+        ),
         ServiceLifetime.Transient
         );
 }
@@ -42,11 +45,10 @@ else
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
         .UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"),
-        x => x.MigrationsAssembly("SQLServerMigrations")),
+        x => x.MigrationsAssembly("Cheetah_DataAccess_SqlServer")),
         ServiceLifetime.Transient
         );
 }
-
 /**/
 
 

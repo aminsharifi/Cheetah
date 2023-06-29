@@ -3,12 +3,12 @@ using System;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Cheetah_DataAccess.Migrations
+namespace Cheetah_DataAccess_SqlServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -17,13 +17,13 @@ namespace Cheetah_DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
+                .HasAnnotation("ProductVersion", "7.0.8")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Entity", b =>
                 {
@@ -32,38 +32,38 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("Display")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(100);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -76,7 +76,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -87,21 +87,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -112,11 +115,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3419),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(138),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("56f0cc29-72f7-40c8-8b24-9df665051a54"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3424),
+                            GuidRecord = new Guid("c5442beb-9f94-4681-9bb3-1a1a82dea3f5"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(142),
                             PDisplayName = "نوع تگ‌ها(Dimentions)",
                             PIndex = 101L,
                             PName = "D_TagType"
@@ -124,11 +127,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 102L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3535),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(225),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("e3e3638f-2ff1-4310-a767-c68445d66da5"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3540),
+                            GuidRecord = new Guid("3a38ea9e-51a8-4990-ad9b-da5a43515b01"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(227),
                             PDisplayName = "موقعیت‌ها(Dimentions)",
                             PIndex = 102L,
                             PName = "D_Location"
@@ -136,11 +139,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 103L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3562),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(238),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("cd6bc4fe-22c9-4ea9-b2bb-0f37ce32d41c"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3567),
+                            GuidRecord = new Guid("df12b8e5-f2b7-4dfa-b086-8724908440e9"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(240),
                             PDisplayName = "عملگرها(Dimentions)",
                             PIndex = 103L,
                             PName = "D_Operand"
@@ -148,11 +151,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 104L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3583),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(255),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("cd2ed379-5a45-4c07-8da7-2660e1b9bd31"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3589),
+                            GuidRecord = new Guid("0722573c-1c04-459e-a21a-0a44a51138c5"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(258),
                             PDisplayName = "تگ‌ها(Dimentions)",
                             PIndex = 104L,
                             PName = "D_Tag"
@@ -160,11 +163,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 105L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3607),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(270),
                             Display = true,
                             DsblRecord = false,
-                            GuidRecord = new Guid("db8f5a38-4544-491e-b876-2118fcaa0a29"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3612),
+                            GuidRecord = new Guid("4dac6bd2-2727-4801-8dd9-428043b06e97"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(273),
                             PDisplayName = "سمت‌ها(Dimentions)",
                             PIndex = 105L,
                             PName = "D_Position"
@@ -172,11 +175,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 106L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3629),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(285),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("cff83396-6f0a-488f-8c2e-173d96df3229"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3633),
+                            GuidRecord = new Guid("55f6e867-ece5-4096-826d-6f8b96f25a84"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(288),
                             PDisplayName = "وضعیت فرآیندها(Dimentions)",
                             PIndex = 106L,
                             PName = "D_ProcessState"
@@ -184,11 +187,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 107L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3687),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(316),
                             Display = true,
                             DsblRecord = false,
-                            GuidRecord = new Guid("03a9cf99-0359-4a26-a7b8-667eddf0639f"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3691),
+                            GuidRecord = new Guid("08180064-576e-46f9-aa80-c3bc1d53c606"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(319),
                             PDisplayName = "فرآیند‌ها(Dimentions)",
                             PIndex = 107L,
                             PName = "D_Process"
@@ -196,11 +199,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 108L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3709),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(329),
                             Display = true,
                             DsblRecord = false,
-                            GuidRecord = new Guid("0a521834-9b4d-429c-b4b2-d800d7a2cca8"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3714),
+                            GuidRecord = new Guid("2ee58e82-56ae-4a68-8702-741548658d6a"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(331),
                             PDisplayName = "نقش‌ها(Dimentions)",
                             PIndex = 108L,
                             PName = "D_Role"
@@ -208,11 +211,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 109L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3805),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(342),
                             Display = true,
                             DsblRecord = false,
-                            GuidRecord = new Guid("e31e3ada-1674-4d08-8f45-27d0d8b2aecb"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3811),
+                            GuidRecord = new Guid("e6e79c84-2469-4ccb-8cbb-f60efa38fae9"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(344),
                             PDisplayName = "کاربران(Dimentions)",
                             PIndex = 109L,
                             PName = "D_User"
@@ -220,11 +223,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 112L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3843),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(357),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("ff49eb8d-fa11-4c4c-b1ba-2c956e2718a3"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3848),
+                            GuidRecord = new Guid("3a5647bf-9124-4552-980f-425b3e3db61c"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(359),
                             PDisplayName = "اطلاعات کاربرها(Facts)",
                             PIndex = 112L,
                             PName = "D_UserInformation"
@@ -232,11 +235,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 200L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3866),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(370),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("495f5f21-9c9a-4daa-be38-9ea594febf68"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3871),
+                            GuidRecord = new Guid("be13cdce-467b-4bb9-94c6-f905210934ed"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(372),
                             PDisplayName = "تمام تاییدها(Facts)",
                             PIndex = 200L,
                             PName = "F_Assignment"
@@ -244,11 +247,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 201L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3887),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(386),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("98df2eb7-13e6-450d-ab85-2911c931f920"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3892),
+                            GuidRecord = new Guid("29aba381-b847-4955-b42b-3686895d4026"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(388),
                             PDisplayName = "تاییدهای جاری(Facts)",
                             PIndex = 201L,
                             PName = "F_Review"
@@ -256,11 +259,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 202L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3908),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(401),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("2b873548-08b8-49c9-90f4-174625e177a0"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3913),
+                            GuidRecord = new Guid("cc7f2b06-f23e-4d6f-9201-2ee7c83c2531"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(403),
                             PDisplayName = "ضمیمه‌ها(Facts)",
                             PIndex = 202L,
                             PName = "F_Attachment"
@@ -268,11 +271,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 203L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3928),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(413),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("e5b53f80-32da-45a8-812b-c682b7fe6ab3"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3933),
+                            GuidRecord = new Guid("9d9f3b07-1e4a-4b92-8b28-c878f8434b94"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(416),
                             PDisplayName = "لیست تخصیص‌ها(Facts)",
                             PIndex = 203L,
                             PName = "F_Endorsement"
@@ -280,11 +283,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 204L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3954),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(426),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("61b154ec-6d89-49e1-9ef1-d11873009089"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3959),
+                            GuidRecord = new Guid("b0fcc9a3-e8b0-4d1a-a7fe-c48a8d2c530a"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(428),
                             PDisplayName = "لیست شرط‌ها(Facts)",
                             PIndex = 204L,
                             PName = "F_Condition"
@@ -292,11 +295,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 205L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3998),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(494),
                             Display = true,
                             DsblRecord = false,
-                            GuidRecord = new Guid("97452e5a-d2f1-42f8-90b0-e886d43d2318"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4003),
+                            GuidRecord = new Guid("f8ef7607-3233-43ed-a944-49ab7ea77c31"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(497),
                             PDisplayName = "اطلاعات درخواست‌ها(Facts)",
                             PIndex = 205L,
                             PName = "F_Request"
@@ -304,11 +307,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 206L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4023),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(510),
                             Display = true,
                             DsblRecord = false,
-                            GuidRecord = new Guid("1f69f15f-6941-40c2-82d2-e74558005f37"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4027),
+                            GuidRecord = new Guid("c8267e92-25b8-4c16-bffd-e8097ca86e6e"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(512),
                             PDisplayName = "سناریوها(Facts)",
                             PIndex = 206L,
                             PName = "F_Scenario"
@@ -316,11 +319,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 300L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4041),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(523),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("09e89731-4167-4610-940a-11fb1510c861"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4045),
+                            GuidRecord = new Guid("c25cfad9-b19c-4668-b34e-2c630dceab0f"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(526),
                             PDisplayName = "نقش-سمت(Links)",
                             PIndex = 300L,
                             PName = "L_RolePosition"
@@ -328,11 +331,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 301L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4060),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(536),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("2227e3db-0e61-4dde-bf5c-0d905ee10e4b"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4065),
+                            GuidRecord = new Guid("722436ca-fc0d-4b2d-9c12-189fb89ba9d8"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(538),
                             PDisplayName = "فرآیند-سناریو(Links)",
                             PIndex = 301L,
                             PName = "L_ProcessScenario"
@@ -340,11 +343,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 302L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4081),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(553),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("48d56f8c-79b5-4468-acb8-2661d6312fd8"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4084),
+                            GuidRecord = new Guid("608754e1-30c6-448f-a6a9-11c3014f87ea"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(556),
                             PDisplayName = "کاربر-موقعیت(Links)",
                             PIndex = 302L,
                             PName = "L_UserLocation"
@@ -352,11 +355,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 303L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4102),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(565),
                             Display = false,
                             DsblRecord = false,
-                            GuidRecord = new Guid("68e17e20-ffb5-4146-80aa-34101ed37f24"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4105),
+                            GuidRecord = new Guid("07c2a996-74e9-4b99-99f3-ef24a600c895"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(568),
                             PDisplayName = "کاربر-سمت(Links)",
                             PIndex = 303L,
                             PName = "L_UserPosition"
@@ -370,34 +373,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -410,7 +413,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -421,21 +424,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -446,10 +452,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2253),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9349),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f6adcfd0-1876-48eb-bb9b-ea530a5dcedd"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2288),
+                            GuidRecord = new Guid("faebd74c-1513-4bf4-a6a8-bc16ae22c135"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9380),
                             PDisplayName = "تهران",
                             PIndex = 1L,
                             PName = "Tehran"
@@ -457,10 +463,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2298),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9387),
                             DsblRecord = false,
-                            GuidRecord = new Guid("c2e32ba6-f5ad-4771-8d46-906b0c27c015"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2302),
+                            GuidRecord = new Guid("08b1f6f3-257f-4f10-87a0-58530728a973"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9390),
                             PDisplayName = "فارس",
                             PIndex = 2L,
                             PName = "Fars"
@@ -468,10 +474,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2310),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9395),
                             DsblRecord = false,
-                            GuidRecord = new Guid("16c46d34-267c-4cbc-999a-e526f08411f2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2314),
+                            GuidRecord = new Guid("56273319-de43-49fa-87ec-914d7fe6c2c8"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9398),
                             PDisplayName = "اصفهان",
                             PIndex = 3L,
                             PName = "Esfahan"
@@ -485,34 +491,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -525,7 +531,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -536,21 +542,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -561,10 +570,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2373),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9436),
                             DsblRecord = false,
-                            GuidRecord = new Guid("5ca602a5-d716-47c3-bcef-387a25895ce3"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2379),
+                            GuidRecord = new Guid("00f23459-851d-46ae-9565-d1eab39d2954"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9439),
                             PDisplayName = "مساوی",
                             PIndex = 1L,
                             PName = "="
@@ -572,10 +581,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2389),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9445),
                             DsblRecord = false,
-                            GuidRecord = new Guid("fa76a028-b53e-403e-b44a-2b6151eeb999"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2393),
+                            GuidRecord = new Guid("2390afe1-d919-49f3-a671-cca6294aec24"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9447),
                             PDisplayName = "مخالف",
                             PIndex = 2L,
                             PName = "!="
@@ -583,10 +592,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2402),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9453),
                             DsblRecord = false,
-                            GuidRecord = new Guid("8afc40fb-08e8-452f-aed1-60bafa79b0b2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2406),
+                            GuidRecord = new Guid("a11564da-072f-4fab-9831-5866d47565e2"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9455),
                             PDisplayName = "بزگتر از",
                             PIndex = 3L,
                             PName = ">"
@@ -594,10 +603,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2416),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9460),
                             DsblRecord = false,
-                            GuidRecord = new Guid("2fdda993-1ec8-43af-ba91-94a1c5d01406"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2421),
+                            GuidRecord = new Guid("c86a2b21-9cf7-4d4b-89c2-46c871b7cdf7"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9463),
                             PDisplayName = "بزرگتر و مساوی",
                             PIndex = 4L,
                             PName = ">="
@@ -605,10 +614,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2430),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9468),
                             DsblRecord = false,
-                            GuidRecord = new Guid("04141ac7-9e81-4c2d-aa63-d5a57f6a1d07"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2448),
+                            GuidRecord = new Guid("529bfa18-a6fa-413a-bca9-5fd4190f2b73"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9478),
                             PDisplayName = " کوچکتر از",
                             PIndex = 5L,
                             PName = "<"
@@ -616,10 +625,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2523),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9546),
                             DsblRecord = false,
-                            GuidRecord = new Guid("7ece58ff-774c-4cc6-bda1-ea3f0469da45"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2529),
+                            GuidRecord = new Guid("4f682fdb-36fb-421a-b8d8-3bb2d3d39628"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9549),
                             PDisplayName = "کوچکتر و مساوی",
                             PIndex = 6L,
                             PName = "<="
@@ -633,34 +642,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -673,7 +682,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -684,21 +693,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -709,10 +721,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3277),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local),
                             DsblRecord = false,
-                            GuidRecord = new Guid("235e87e0-d224-4b0e-81a2-50ab51e001ec"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3282),
+                            GuidRecord = new Guid("191ae578-a56d-4240-849e-964478117b97"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(3),
                             PDisplayName = "معاون دارویی",
                             PIndex = 1L,
                             PName = "PharmaceuticalDeputy"
@@ -720,10 +732,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3292),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(9),
                             DsblRecord = false,
-                            GuidRecord = new Guid("7150086d-d8e7-4f6b-88ea-b265088bdd6f"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3297),
+                            GuidRecord = new Guid("63c46d0a-5607-411b-9dc9-18be45ce3295"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(12),
                             PDisplayName = "معاون غذایی",
                             PIndex = 2L,
                             PName = "FMCGDeputy"
@@ -731,10 +743,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3306),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(20),
                             DsblRecord = false,
-                            GuidRecord = new Guid("46596afe-18dd-4f88-8a12-be706395166f"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3311),
+                            GuidRecord = new Guid("5e92c5d3-cafe-4ef7-ae52-f6567953e87f"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(23),
                             PDisplayName = "کارشناس ارشد بازرگانی",
                             PIndex = 3L,
                             PName = "BusinessSeniorSpecialist"
@@ -742,10 +754,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3320),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(28),
                             DsblRecord = false,
-                            GuidRecord = new Guid("d4961298-e5f8-4fa9-bccb-59837b519a0b"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3325),
+                            GuidRecord = new Guid("4a97c032-97ab-43b2-a09e-5087f16b043a"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(31),
                             PDisplayName = "کارشناس بازرگانی",
                             PIndex = 4L,
                             PName = "BusinessSpecialist"
@@ -753,10 +765,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3334),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(40),
                             DsblRecord = false,
-                            GuidRecord = new Guid("82bb2f40-b9eb-4f94-974c-271165e8a4e2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3339),
+                            GuidRecord = new Guid("7202b4d1-b58d-45f4-af43-c6e1b732b4c3"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(42),
                             PDisplayName = "کارشناس ارشد فروش",
                             PIndex = 5L,
                             PName = "SalesSeniorSpecialist"
@@ -764,10 +776,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3354),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(48),
                             DsblRecord = false,
-                            GuidRecord = new Guid("4e24f833-eeb1-45a9-bc07-ca17c7b8e596"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3358),
+                            GuidRecord = new Guid("92c6bfae-5ec0-4582-a73b-ce0b785d0d80"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(50),
                             PDisplayName = "کارشناس فروش",
                             PIndex = 6L,
                             PName = "SalesSpecialist"
@@ -775,10 +787,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 7L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3368),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(55),
                             DsblRecord = false,
-                            GuidRecord = new Guid("4b999fb7-2890-49d5-9328-81f8781eb5a2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3373),
+                            GuidRecord = new Guid("b98c366a-6e9c-41fa-be90-1794e9bf7cb8"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(58),
                             PDisplayName = "مدیر مرکز توزیع",
                             PIndex = 7L,
                             PName = "DistributionCenterManager"
@@ -792,46 +804,46 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<bool?>("PC_ERP")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(101);
 
                     b.Property<bool?>("PC_RemoveRequestorApproval")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(102);
 
                     b.Property<bool?>("PC_ShowSupport")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(100);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -844,7 +856,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -855,21 +867,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -880,10 +895,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(1192),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(8292),
                             DsblRecord = false,
-                            GuidRecord = new Guid("c58b2d18-b5f7-41d7-aa19-908f6fc55bc9"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(1314),
+                            GuidRecord = new Guid("77992f82-ef6d-48f2-8303-bfeb2a44ddaa"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(8384),
                             PC_ERP = true,
                             PC_RemoveRequestorApproval = true,
                             PC_ShowSupport = true,
@@ -894,10 +909,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(1411),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(8447),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e7cac075-e246-4b99-bf6b-71ab17939536"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(1418),
+                            GuidRecord = new Guid("38061fdf-9c54-440b-990e-75a2fe1ea39e"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(8450),
                             PC_ERP = true,
                             PC_RemoveRequestorApproval = true,
                             PC_ShowSupport = true,
@@ -908,10 +923,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(1453),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(8456),
                             DsblRecord = false,
-                            GuidRecord = new Guid("3b2ae5f2-9666-4291-8543-ec796c358481"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(1486),
+                            GuidRecord = new Guid("e840fd0c-791c-4df5-9a03-54520d917f22"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(8480),
                             PC_ERP = true,
                             PC_RemoveRequestorApproval = true,
                             PC_ShowSupport = true,
@@ -928,34 +943,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -968,7 +983,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -979,21 +994,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -1004,10 +1022,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2117),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9247),
                             DsblRecord = false,
-                            GuidRecord = new Guid("867f1728-c917-48fa-8400-13a4b4419810"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2130),
+                            GuidRecord = new Guid("56797386-ea26-418a-8505-5f6e10ec3eb9"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9254),
                             PDisplayName = "در دست بررسی",
                             PIndex = 1L,
                             PName = "Ongoing"
@@ -1015,10 +1033,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2144),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9263),
                             DsblRecord = false,
-                            GuidRecord = new Guid("fc94a9c3-f41c-47e4-bb5e-add111f88a1d"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2148),
+                            GuidRecord = new Guid("c320ce7b-8e85-4034-bcc3-0e72a2eb05a7"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9265),
                             PDisplayName = "منتظر بازنگری",
                             PIndex = 2L,
                             PName = "Editing"
@@ -1026,10 +1044,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2172),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9282),
                             DsblRecord = false,
-                            GuidRecord = new Guid("87ef4697-9407-4600-b3cc-35f90c67cccb"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2177),
+                            GuidRecord = new Guid("e48cbaac-53f9-4d51-9136-2b5c3b8f818a"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9285),
                             PDisplayName = "کامل شده",
                             PIndex = 3L,
                             PName = "Completed"
@@ -1037,10 +1055,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2186),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9290),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a6192051-14e0-4f05-ac0e-4e4d64f25797"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2191),
+                            GuidRecord = new Guid("466d1d61-22a5-473a-8521-a899ebbfb10f"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9293),
                             PDisplayName = "ابطال شده",
                             PIndex = 4L,
                             PName = "Aborted"
@@ -1054,34 +1072,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1094,7 +1112,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -1102,28 +1120,31 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<bool>("ROL_Independent")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(100);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -1137,10 +1158,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3084),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9941),
                             DsblRecord = false,
-                            GuidRecord = new Guid("3ffb8a40-4996-452d-9694-205cc67b9193"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3089),
+                            GuidRecord = new Guid("0382053f-623b-4777-9d5d-2a5ff4d019e6"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9943),
                             PDisplayName = "معاونت دارویی",
                             PIndex = 1L,
                             PName = "PharmaceuticalDeputy",
@@ -1149,10 +1170,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3098),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9950),
                             DsblRecord = false,
-                            GuidRecord = new Guid("0f9ed14b-23a6-41f9-abd3-066b704caab6"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3104),
+                            GuidRecord = new Guid("fb6d97ae-95ef-4a32-91f3-dad7d4eed009"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9953),
                             PDisplayName = "معاونت غذایی",
                             PIndex = 2L,
                             PName = "FMCGDeputy",
@@ -1161,10 +1182,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3120),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9958),
                             DsblRecord = false,
-                            GuidRecord = new Guid("99a21bb8-1fb7-42c5-bf63-f6f56fd96cf2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3124),
+                            GuidRecord = new Guid("ef310d5e-e862-4be1-9240-d90d55508e5b"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9960),
                             PDisplayName = "کارشناس بازرگانی",
                             PIndex = 3L,
                             PName = "BusinessSpecialist",
@@ -1173,10 +1194,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3133),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9966),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f0b5efc6-f24f-4771-89c4-332d81e53ddc"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3138),
+                            GuidRecord = new Guid("37e40a00-87bf-4856-bef4-3ad8a91e2bf9"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9968),
                             PDisplayName = "کارشناس فروش",
                             PIndex = 4L,
                             PName = "SalesSpecialist",
@@ -1185,10 +1206,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3217),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9974),
                             DsblRecord = false,
-                            GuidRecord = new Guid("768fa5a1-f46a-4ad1-8a3e-5052ae25fe72"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3223),
+                            GuidRecord = new Guid("aa155948-092b-46ef-8705-7b6d3ec9eb8b"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9976),
                             PDisplayName = "مدیریت مرکز توزیع",
                             PIndex = 5L,
                             PName = "DistributionCenterManager",
@@ -1203,34 +1224,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1243,7 +1264,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -1258,21 +1279,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -1285,10 +1309,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 100L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2808),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9660),
                             DsblRecord = false,
-                            GuidRecord = new Guid("970dcbf5-26a4-4625-acac-739f21c69fb2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2813),
+                            GuidRecord = new Guid("84444808-3818-4e58-843d-cd47ece7f2ca"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9664),
                             PDescription = "عددی",
                             PDisplayName = "سهم شرکت",
                             PIndex = 100L,
@@ -1298,10 +1322,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2824),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9671),
                             DsblRecord = false,
-                            GuidRecord = new Guid("b54e9fbb-3cce-48a4-a3d9-8eafd9d08a56"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2829),
+                            GuidRecord = new Guid("d2243931-34db-46b8-8077-0d32c26cd793"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9673),
                             PDescription = "عددی",
                             PDisplayName = "سهم دیگران",
                             PIndex = 101L,
@@ -1311,10 +1335,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 103L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2838),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9679),
                             DsblRecord = false,
-                            GuidRecord = new Guid("61e22070-50a5-4304-b039-a9f55aeec3e8"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2842),
+                            GuidRecord = new Guid("6a3a72e7-77fa-4ed6-81f0-e5f571be1a4c"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9682),
                             PDescription = "عددی",
                             PDisplayName = "مبلغ",
                             PIndex = 103L,
@@ -1324,10 +1348,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 200L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2851),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9691),
                             DsblRecord = false,
-                            GuidRecord = new Guid("ca3f4567-9c60-4013-8b44-92edaa553303"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2856),
+                            GuidRecord = new Guid("4d8cbc2f-35c5-4bd6-b88c-e91c7f8ace3d"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9694),
                             PDescription = "دودویی",
                             PDisplayName = "مخدر/ یخچالی",
                             PIndex = 200L,
@@ -1337,10 +1361,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 201L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2868),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9699),
                             DsblRecord = false,
-                            GuidRecord = new Guid("d45ca872-5196-4d9f-ba77-463da821c7d5"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2873),
+                            GuidRecord = new Guid("e3271940-7e32-4743-990a-393cb62946db"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9702),
                             PDescription = "پارامتریک",
                             PDisplayName = "تایید",
                             PIndex = 201L,
@@ -1350,10 +1374,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 202L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2882),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9707),
                             DsblRecord = false,
-                            GuidRecord = new Guid("db85b969-0ea8-4322-b4e3-bf082a640abf"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2887),
+                            GuidRecord = new Guid("2a719afb-dd5a-48bb-8464-2c27749f6dfb"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9709),
                             PDescription = "پارامتریک",
                             PDisplayName = "عدم تایید",
                             PIndex = 202L,
@@ -1363,10 +1387,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 203L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2903),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9715),
                             DsblRecord = false,
-                            GuidRecord = new Guid("19934b48-64b9-46fd-952f-8391f68e1b88"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2907),
+                            GuidRecord = new Guid("4d49c2be-823b-40ba-b9df-9de091d3faa2"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9717),
                             PDescription = "پارامتریک",
                             PDisplayName = "بازنگری",
                             PIndex = 203L,
@@ -1376,10 +1400,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 204L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2916),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9723),
                             DsblRecord = false,
-                            GuidRecord = new Guid("69b09965-a3e2-478a-bd4d-58f693b16652"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2921),
+                            GuidRecord = new Guid("31dfada4-aacc-446f-8fde-1bba9aca2f7c"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9725),
                             PDescription = "پارامتریک",
                             PDisplayName = "دارویی",
                             PIndex = 204L,
@@ -1389,10 +1413,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 205L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2929),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9816),
                             DsblRecord = false,
-                            GuidRecord = new Guid("1e6c8bf4-7cfb-41ee-a4c3-5b67893e4356"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2934),
+                            GuidRecord = new Guid("f4334e75-fa65-49de-a906-a9a50cbd7338"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9820),
                             PDescription = "پارامتریک",
                             PDisplayName = "مصرفی",
                             PIndex = 205L,
@@ -1402,10 +1426,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 206L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2943),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9830),
                             DsblRecord = false,
-                            GuidRecord = new Guid("a1b41318-4bef-426a-8825-365a946871da"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2948),
+                            GuidRecord = new Guid("96f78477-c7bc-4991-80d3-3ea3f7114d60"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9832),
                             PDescription = "پارامتریک",
                             PDisplayName = "کل",
                             PIndex = 206L,
@@ -1421,34 +1445,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1461,7 +1485,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -1472,21 +1496,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -1497,10 +1524,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2702),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9602),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f21a37f1-24f5-46ba-960a-750719a48fe2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2709),
+                            GuidRecord = new Guid("83099107-786b-4366-9172-6e9a08d29072"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9606),
                             PDisplayName = "عددی",
                             PIndex = 1L,
                             PName = "Numberic"
@@ -1508,10 +1535,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2718),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9612),
                             DsblRecord = false,
-                            GuidRecord = new Guid("bc78fff8-3af5-4097-895c-0f1413b6985b"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2722),
+                            GuidRecord = new Guid("566d9eeb-2fa3-44a4-9d92-bb7cbc6d515f"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9614),
                             PDisplayName = "دودویی",
                             PIndex = 2L,
                             PName = "Boolean"
@@ -1519,10 +1546,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2736),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9619),
                             DsblRecord = false,
-                            GuidRecord = new Guid("64d4784d-24a8-46a2-864e-161d5f694cf5"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2741),
+                            GuidRecord = new Guid("6ce641a6-d1f2-4816-8c50-5abb65c18d7d"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9622),
                             PDisplayName = "تاریخ",
                             PIndex = 3L,
                             PName = "Date"
@@ -1530,10 +1557,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2749),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9628),
                             DsblRecord = false,
-                            GuidRecord = new Guid("5b05007b-0262-41cc-9b1b-3f965de6b5c0"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(2754),
+                            GuidRecord = new Guid("6d36498f-3a3d-43b1-b585-4dfb6fe41c84"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9631),
                             PDisplayName = "حروف",
                             PIndex = 4L,
                             PName = "String"
@@ -1547,34 +1574,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1587,7 +1614,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -1595,11 +1622,11 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<bool?>("User_CreatedCasesSkipAssigRules")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(105);
 
                     b.Property<bool?>("User_DelegateEnabled")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(104);
 
                     b.Property<long?>("User_DelegateId")
@@ -1608,21 +1635,21 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("User_Domain")
                         .HasMaxLength(25)
-                        .HasColumnType("character varying(25)")
+                        .HasColumnType("nvarchar(25)")
                         .HasColumnOrder(102);
 
                     b.Property<bool?>("User_EnabledForAssignation")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(103);
 
                     b.Property<string>("User_IDPersonel")
                         .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
+                        .HasColumnType("nvarchar(10)")
                         .HasColumnOrder(106);
 
                     b.Property<string>("User_LDAPDescription")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnOrder(107);
 
                     b.Property<long?>("User_UserInformationId")
@@ -1633,21 +1660,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -1662,10 +1692,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3019),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9897),
                             DsblRecord = false,
-                            GuidRecord = new Guid("e3342b21-a73a-433f-8cb1-a4bbe941fb1b"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3025),
+                            GuidRecord = new Guid("2ffab0ae-3130-4e37-a65f-108b32150195"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9900),
                             PDisplayName = "محمد شریفی",
                             PIndex = 1L,
                             PName = "m.sharifi"
@@ -1673,10 +1703,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3036),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9911),
                             DsblRecord = false,
-                            GuidRecord = new Guid("3ce58079-34dd-40bc-a270-dd2a0707e439"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(3041),
+                            GuidRecord = new Guid("2148c9c9-ba66-42e4-964d-41ac3e2f35af"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 232, DateTimeKind.Local).AddTicks(9913),
                             PDisplayName = "امین شریفی",
                             PIndex = 2L,
                             PName = "a.sharifi"
@@ -1690,34 +1720,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1730,7 +1760,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -1739,88 +1769,91 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("UI_Address")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(112);
 
                     b.Property<DateTime?>("UI_Birthdate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(110);
 
                     b.Property<string>("UI_ContactCell")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnOrder(107);
 
                     b.Property<string>("UI_ContactEmail")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(105);
 
                     b.Property<string>("UI_ContactMessenger")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(106);
 
                     b.Property<string>("UI_FirstName")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(100);
 
                     b.Property<string>("UI_InternalPhone")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(111);
 
                     b.Property<string>("UI_LastName")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(101);
 
                     b.Property<string>("UI_NationalCode")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnOrder(109);
 
                     b.Property<bool?>("UI_NotifByCell")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(104);
 
                     b.Property<bool?>("UI_NotifByEmail")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(102);
 
                     b.Property<bool?>("UI_NotifByMessenger")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(103);
 
                     b.Property<string>("UI_RegistrationNumber")
                         .HasMaxLength(215)
-                        .HasColumnType("character varying(215)")
+                        .HasColumnType("nvarchar(215)")
                         .HasColumnOrder(113);
 
                     b.Property<byte[]>("UI_UserPicture")
-                        .HasColumnType("bytea")
+                        .HasColumnType("varbinary(max)")
                         .HasColumnOrder(108);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -1835,34 +1868,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1875,7 +1908,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("PRM_EndorsementId")
@@ -1898,21 +1931,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("PRM_EndorsementId");
 
@@ -1931,46 +1967,46 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<byte[]>("ATC_Data")
-                        .HasColumnType("bytea")
+                        .HasColumnType("varbinary(max)")
                         .HasColumnOrder(101);
 
                     b.Property<string>("ATC_Name")
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnOrder(100);
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("F_ReviewId")
                         .HasColumnType("bigint");
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -1983,7 +2019,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -1994,7 +2030,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -2003,14 +2040,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -2025,7 +2064,7 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<long?>("CD_EndorsementId")
                         .HasColumnType("bigint")
@@ -2049,38 +2088,38 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("CD_Value")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(102);
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<long?>("D_UserId")
                         .HasColumnType("bigint");
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2093,7 +2132,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -2114,7 +2153,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("D_UserId");
 
@@ -2123,7 +2163,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
@@ -2141,10 +2182,10 @@ namespace Cheetah_DataAccess.Migrations
                             CD_ScenarioId = 1L,
                             CD_TagId = 100L,
                             CD_Value = "0",
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5501),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(668),
                             DsblRecord = false,
-                            GuidRecord = new Guid("67ffbaad-a5f0-4989-8031-8b0beee686df"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5508),
+                            GuidRecord = new Guid("deebb1b3-cc9b-46de-af77-8be79b6e1f54"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(671),
                             PDisplayName = "سناریو ستاد,سهم شرکت,بزگتر از,0",
                             PIndex = 1L,
                             PName = "Head_Scenario,OursShare,>,0"
@@ -2156,10 +2197,10 @@ namespace Cheetah_DataAccess.Migrations
                             CD_ScenarioId = 2L,
                             CD_TagId = 204L,
                             CD_Value = "1",
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5522),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(681),
                             DsblRecord = false,
-                            GuidRecord = new Guid("96dbc6d7-d093-4cf9-9ef6-c96e4ae86df4"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5525),
+                            GuidRecord = new Guid("a97b9c2a-861c-4fd4-93cb-1602e0e5ae30"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(683),
                             PDisplayName = "سناریو دارویی,دارویی,مساوی,1",
                             PIndex = 2L,
                             PName = "Med_Scenario,Med,=,1"
@@ -2171,10 +2212,10 @@ namespace Cheetah_DataAccess.Migrations
                             CD_ScenarioId = 2L,
                             CD_TagId = 100L,
                             CD_Value = "0",
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5542),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(690),
                             DsblRecord = false,
-                            GuidRecord = new Guid("4e89dd0c-e74e-4add-b7c5-a3c00f14a0cd"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5546),
+                            GuidRecord = new Guid("f8884711-2090-4533-a04b-e05e4cb9b909"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(692),
                             PDisplayName = "سناریو دارویی,سهم شرکت,بزگتر از,0",
                             PIndex = 3L,
                             PName = "Med_Scenario,OursShare,>,0"
@@ -2186,10 +2227,10 @@ namespace Cheetah_DataAccess.Migrations
                             CD_ScenarioId = 3L,
                             CD_TagId = 205L,
                             CD_Value = "1",
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5555),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(705),
                             DsblRecord = false,
-                            GuidRecord = new Guid("7334453a-4322-4ec8-991d-5ba8162fdeb9"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5559),
+                            GuidRecord = new Guid("7b7e665c-af45-46aa-8868-c1fd9adee890"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(707),
                             PDisplayName = "سناریو مصرفی,مصرفی,مساوی,1",
                             PIndex = 4L,
                             PName = "FMCG_Scenario,FMCG,=,1"
@@ -2201,10 +2242,10 @@ namespace Cheetah_DataAccess.Migrations
                             CD_ScenarioId = 3L,
                             CD_TagId = 103L,
                             CD_Value = "0",
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5569),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(714),
                             DsblRecord = false,
-                            GuidRecord = new Guid("4d149846-bd7a-49fe-ad59-45569044c14c"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5573),
+                            GuidRecord = new Guid("0e94e5fa-803d-4684-9bea-d66df8bcfe0d"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(716),
                             PDisplayName = "سناریو مصرفی,مبلغ,بزگتر از,0",
                             PIndex = 5L,
                             PName = "FMCG_Scenario,Price,>,0"
@@ -2218,15 +2259,15 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("ED_RoleId")
@@ -2238,22 +2279,22 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(101);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2266,7 +2307,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -2277,7 +2318,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -2288,14 +2330,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -2306,12 +2350,12 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5633),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(752),
                             DsblRecord = false,
                             ED_RoleId = 5L,
                             ED_ScenarioId = 3L,
-                            GuidRecord = new Guid("65b04ba2-97c5-4d3f-87f9-18770b0df145"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5639),
+                            GuidRecord = new Guid("65113256-808f-44b9-9302-d3037e83bb5c"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(755),
                             PDisplayName = "سناریو سه,مدیریت مرکز توزیع",
                             PIndex = 1L,
                             PName = "Med_Scenario,DistributionCenterManager"
@@ -2319,12 +2363,12 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5661),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1147),
                             DsblRecord = false,
                             ED_RoleId = 2L,
                             ED_ScenarioId = 3L,
-                            GuidRecord = new Guid("74a8160f-bc17-4676-a55f-4f55d4d48653"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5666),
+                            GuidRecord = new Guid("7cd7bf3f-458f-4fc9-96ac-b9e6ec9d4171"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1183),
                             PDisplayName = "سناریو سه,معاونت غذایی",
                             PIndex = 2L,
                             PName = "Strategy3,FMCGDeputy"
@@ -2332,12 +2376,12 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5677),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1226),
                             DsblRecord = false,
                             ED_RoleId = 1L,
                             ED_ScenarioId = 2L,
-                            GuidRecord = new Guid("77b090eb-5ab3-4ac7-b416-752255444cde"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5682),
+                            GuidRecord = new Guid("eef19eee-7d87-4e6a-8b4a-1420dfe5a9d6"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1230),
                             PDisplayName = "سناریو دو,معاونت دارویی",
                             PIndex = 3L,
                             PName = "Strategy2,PharmaceuticalDeputy"
@@ -2345,12 +2389,12 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5694),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1239),
                             DsblRecord = false,
                             ED_RoleId = 2L,
                             ED_ScenarioId = 1L,
-                            GuidRecord = new Guid("2004fe23-2ed2-4452-a9af-ab022175a037"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5698),
+                            GuidRecord = new Guid("380f07e1-5072-46e3-94bf-3d397552c274"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1243),
                             PDisplayName = "سناریو دارویی,معاونت دارویی",
                             PIndex = 4L,
                             PName = "Med_Scenario,PharmaceuticalDeputy"
@@ -2364,34 +2408,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2404,7 +2448,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -2428,7 +2472,7 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(100);
 
                     b.Property<bool?>("RQT_IsTest")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(102);
 
                     b.Property<long?>("RQT_ProcessId")
@@ -2451,14 +2495,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
@@ -2489,7 +2535,7 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<long?>("APV_AssignmentId")
                         .HasColumnType("bigint")
@@ -2509,30 +2555,30 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2545,7 +2591,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -2555,7 +2601,8 @@ namespace Cheetah_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("APV_AssignmentId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[APV_AssignmentId] IS NOT NULL");
 
                     b.HasIndex("APV_PerformerId");
 
@@ -2565,21 +2612,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -2594,34 +2644,34 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2634,7 +2684,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("Parent_Id")
@@ -2645,21 +2695,24 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("Parent_Id")
                         .IsDescending();
@@ -2670,10 +2723,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4195),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(621),
                             DsblRecord = false,
-                            GuidRecord = new Guid("9a428ab2-ebbe-4e89-ba4e-30268224e88b"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4200),
+                            GuidRecord = new Guid("bad92484-1ba4-4e7e-9e18-28c62a951b52"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(624),
                             PDisplayName = "سناریو ستاد",
                             PIndex = 1L,
                             PName = "Head_Scenario3"
@@ -2681,10 +2734,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(4322),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(631),
                             DsblRecord = false,
-                            GuidRecord = new Guid("2cd9b636-af22-4617-bbb9-0f86757688d9"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5300),
+                            GuidRecord = new Guid("32e2747b-aa53-4bc0-91f7-deacf03a53d9"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(633),
                             PDisplayName = "سناریو دارویی",
                             PIndex = 2L,
                             PName = "Med_Scenario"
@@ -2692,10 +2745,10 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5357),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(638),
                             DsblRecord = false,
-                            GuidRecord = new Guid("f97651da-6bf5-4d39-9a7c-cfe9c3a87ba0"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5363),
+                            GuidRecord = new Guid("157f92e2-e8cb-4df2-96ba-1366bf4ff2c5"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(641),
                             PDisplayName = "سناریو مصرفی",
                             PIndex = 3L,
                             PName = "FMCG_Scenario"
@@ -2709,15 +2762,15 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("FirstId")
@@ -2725,22 +2778,22 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2753,7 +2806,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SecondId")
@@ -2764,7 +2817,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -2774,14 +2828,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("SecondId")
                         .IsDescending();
@@ -2792,11 +2848,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6028),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1922),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("e7de464e-254c-4a9b-9cd6-2b33a30280b8"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6034),
+                            GuidRecord = new Guid("a3eee8c3-0f6f-4fc7-bcff-e2ee3e523098"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1931),
                             PDisplayName = "تعریف/اصلاح مشتری-سناریو سه",
                             PIndex = 1L,
                             PName = "CustomerDefinition-Strategy3",
@@ -2805,11 +2861,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6260),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1943),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("550777f6-f3f8-40b7-9b31-fa3b8eb9c9b2"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6267),
+                            GuidRecord = new Guid("fc0db104-4627-4e26-824f-f815a5dd13ac"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1950),
                             PDisplayName = "تعریف/اصلاح مشتری-سناریو یک",
                             PIndex = 2L,
                             PName = "CustomerDefinition-Strategy1",
@@ -2818,11 +2874,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6284),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1985),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("84980cc9-2da3-4931-9c46-26526bd07a3c"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6289),
+                            GuidRecord = new Guid("abb96cca-cd3c-4ba7-8a7d-b8e0fea5ba33"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2002),
                             PDisplayName = "مجوزهای موردی-سناریو یک",
                             PIndex = 3L,
                             PName = "PolicyCenter-Strategy1",
@@ -2831,11 +2887,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6299),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2014),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("2fcc9de4-5349-4e7a-a49d-2e80b0cba903"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6303),
+                            GuidRecord = new Guid("ee59c1c7-3675-4577-b9c7-87b636e509f3"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2018),
                             PDisplayName = "تعریف/اصلاح مشتری-سناریو دو",
                             PIndex = 4L,
                             PName = "PolicyCenter-Strategy2",
@@ -2844,11 +2900,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6312),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2026),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("15540f27-8dcc-4722-9b75-cbf9d1e3b93d"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6317),
+                            GuidRecord = new Guid("c92ae589-bace-4734-9dc8-30627857eb7c"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2029),
                             PDisplayName = "مجوزهای موردی-سناریو دو",
                             PIndex = 5L,
                             PName = "CustomerDefinition-Strategy2",
@@ -2863,15 +2919,15 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("FirstId")
@@ -2879,22 +2935,22 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -2907,7 +2963,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SecondId")
@@ -2918,7 +2974,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -2928,14 +2985,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("SecondId")
                         .IsDescending();
@@ -2946,11 +3005,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5846),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1616),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("c8a94a9d-a9bd-463d-a12f-3bb43b1ee1ef"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5851),
+                            GuidRecord = new Guid("99188038-1e65-46b0-8e1d-277f533fcfd0"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1622),
                             PDisplayName = "معاونت دارویی-معاون دارویی",
                             PIndex = 1L,
                             PName = "PharmaceuticalDeputy-PharmaceuticalDeputy",
@@ -2959,11 +3018,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5867),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1632),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("d55a2025-9bb6-416e-b091-abb52e6048de"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5871),
+                            GuidRecord = new Guid("ac8b21db-f349-4391-af42-f03d504802b7"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1636),
                             PDisplayName = "معاونت غذایی-معاون غذایی",
                             PIndex = 2L,
                             PName = "FMCGDeputy-FMCGDeputy",
@@ -2972,11 +3031,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5880),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1645),
                             DsblRecord = false,
                             FirstId = 3L,
-                            GuidRecord = new Guid("e14c9300-2c16-4c7a-9669-e77855988d3c"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5884),
+                            GuidRecord = new Guid("200b238d-3b47-4f9f-8e35-51bc481f6140"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1650),
                             PDisplayName = "کارشناس بازرگانی-کارشناس ارشد بازرگانی",
                             PIndex = 3L,
                             PName = "BusinessSpecialist-BusinessSeniorSpecialist",
@@ -2985,11 +3044,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5894),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1658),
                             DsblRecord = false,
                             FirstId = 3L,
-                            GuidRecord = new Guid("0e9b89d5-0df7-4d48-aa46-d431edd5b311"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5899),
+                            GuidRecord = new Guid("ada7644d-30a0-457f-968a-3b5112c54b23"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1662),
                             PDisplayName = "کارشناس بازرگانی-کارشناس بازرگانی",
                             PIndex = 4L,
                             PName = "BusinessSpecialist-BusinessSpecialist",
@@ -2998,11 +3057,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5908),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1670),
                             DsblRecord = false,
                             FirstId = 4L,
-                            GuidRecord = new Guid("c0e5269b-e49c-4190-8257-5f9dfacee0ed"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5913),
+                            GuidRecord = new Guid("e1cdc3d7-17d7-4ce8-8bd2-82146dab6452"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1674),
                             PDisplayName = "کارشناس فروش-کارشناس ارشد فروش",
                             PIndex = 5L,
                             PName = "SalesSpecialist-SalesSeniorSpecialist",
@@ -3011,11 +3070,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5922),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1682),
                             DsblRecord = false,
                             FirstId = 4L,
-                            GuidRecord = new Guid("ea42d06a-a56a-4fc3-9b2e-14b32052355c"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5927),
+                            GuidRecord = new Guid("0f61a07b-8050-46b2-bbe3-f3c8a336c2b4"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1685),
                             PDisplayName = "کارشناس فروش-کارشناس فروش",
                             PIndex = 6L,
                             PName = "SalesSpecialist-SalesSpecialist",
@@ -3024,11 +3083,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 7L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5936),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1732),
                             DsblRecord = false,
                             FirstId = 5L,
-                            GuidRecord = new Guid("9ea2ae0c-f6e7-4ebb-a0a6-b0e28faa1ac1"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5940),
+                            GuidRecord = new Guid("884dbb5a-bad8-4aeb-83b8-2c1ef42bdfc6"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1749),
                             PDisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
                             PIndex = 7L,
                             PName = "DistributionCenterManager-DistributionCenterManager",
@@ -3043,15 +3102,15 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("FirstId")
@@ -3059,22 +3118,22 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -3087,7 +3146,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SecondId")
@@ -3098,7 +3157,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -3108,14 +3168,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("SecondId")
                         .IsDescending();
@@ -3130,15 +3192,15 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("FirstId")
@@ -3146,22 +3208,22 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -3174,7 +3236,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SecondId")
@@ -3185,7 +3247,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -3195,14 +3258,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("SecondId")
                         .IsDescending();
@@ -3213,11 +3278,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5757),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1487),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("8d45d5c0-fc8a-427c-a022-46fc6bdbdc13"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5762),
+                            GuidRecord = new Guid("4186bfa9-6304-4656-8629-f81e7f6f6ef1"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1494),
                             PDisplayName = "محمد شریفی-تهران",
                             PIndex = 1L,
                             PName = "m.sharifi-Tehran",
@@ -3226,11 +3291,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5776),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1510),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("4a9ca60c-e411-4c56-bb70-477f8fccb506"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5780),
+                            GuidRecord = new Guid("749f9751-975d-4175-8bab-d318739c2318"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1513),
                             PDisplayName = "امین شریفی-فارس",
                             PIndex = 2L,
                             PName = "a.sharifi-Fars",
@@ -3239,11 +3304,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5789),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1532),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("8a49f42f-314c-4899-9494-390aa85cd5db"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5794),
+                            GuidRecord = new Guid("032cfe80-f51a-48a7-9e69-36dd99402a0e"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1536),
                             PDisplayName = "محمد شریفی-فارس",
                             PIndex = 3L,
                             PName = "m.sharifi-Fars",
@@ -3252,11 +3317,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5803),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1554),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("378ceead-1d86-4112-befa-f918df049355"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(5807),
+                            GuidRecord = new Guid("8ae44eb8-db18-4612-9507-632626c50884"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(1559),
                             PDisplayName = "امین شریفی-تهران",
                             PIndex = 4L,
                             PName = "a.sharifi-Tehran",
@@ -3271,15 +3336,15 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(6);
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(9);
 
                     b.Property<long?>("FirstId")
@@ -3287,22 +3352,22 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnOrder(50);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uuid")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
 
                     b.Property<DateTime?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
                     b.Property<string>("PDescription")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(5);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("PERPCode")
@@ -3315,7 +3380,7 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.Property<string>("PName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SecondId")
@@ -3326,7 +3391,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
 
                     b.HasIndex("DsblRecord")
                         .IsDescending();
@@ -3336,14 +3402,16 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
 
                     b.HasIndex("PERPCode")
                         .IsDescending();
 
                     b.HasIndex("PName")
                         .IsUnique()
-                        .IsDescending();
+                        .IsDescending()
+                        .HasFilter("[PName] IS NOT NULL");
 
                     b.HasIndex("SecondId")
                         .IsDescending();
@@ -3354,11 +3422,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6371),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2138),
                             DsblRecord = false,
                             FirstId = 1L,
-                            GuidRecord = new Guid("9bc14f0c-0758-4e50-a54c-0bb5f28c63f4"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6377),
+                            GuidRecord = new Guid("8a66f3c1-0121-4b08-afb4-6f529d202267"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2145),
                             PDisplayName = "محمد شریفی-مدیر مرکز",
                             PIndex = 1L,
                             PName = "m.sharifi-PharmaceuticalDeputy",
@@ -3367,11 +3435,11 @@ namespace Cheetah_DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6386),
+                            CreateTimeRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2166),
                             DsblRecord = false,
                             FirstId = 2L,
-                            GuidRecord = new Guid("84f4a13c-404b-4f73-af61-d33ccdb9dbf7"),
-                            LastUpdatedRecord = new DateTime(2023, 6, 28, 23, 36, 21, 900, DateTimeKind.Local).AddTicks(6391),
+                            GuidRecord = new Guid("c688da53-6b81-42e4-98d4-278326c5168a"),
+                            LastUpdatedRecord = new DateTime(2023, 6, 29, 11, 46, 11, 233, DateTimeKind.Local).AddTicks(2170),
                             PDisplayName = "امین شریفی-معاون غذایی",
                             PIndex = 2L,
                             PName = "a.sharifi-FMCGDeputy",
@@ -3386,16 +3454,16 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(101);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("PERPCode"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("nvarchar(256)")
                         .HasColumnOrder(103);
 
                     b.Property<string>("PName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("nvarchar(256)")
                         .HasColumnOrder(102);
 
                     b.HasKey("PERPCode");
@@ -3410,16 +3478,16 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(101);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("PERPCode"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("nvarchar(256)")
                         .HasColumnOrder(103);
 
                     b.Property<string>("PName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("nvarchar(256)")
                         .HasColumnOrder(102);
 
                     b.HasKey("PERPCode");
@@ -3434,25 +3502,25 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(101);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("PERPCode"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(105);
 
                     b.Property<string>("PDisplayName")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
+                        .HasColumnType("nvarchar(128)")
                         .HasColumnOrder(103);
 
                     b.Property<string>("PName")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
+                        .HasColumnType("nvarchar(128)")
                         .HasColumnOrder(102);
 
                     b.Property<string>("User_BossName")
                         .HasMaxLength(512)
-                        .HasColumnType("character varying(512)")
+                        .HasColumnType("nvarchar(512)")
                         .HasColumnOrder(104);
 
                     b.HasKey("PERPCode");
@@ -3467,10 +3535,10 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(1);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("PERPCode"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(103);
 
                     b.Property<long?>("FirstId")
@@ -3502,10 +3570,10 @@ namespace Cheetah_DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(1);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("PERPCode"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("PERPCode"));
 
                     b.Property<bool?>("DsblRecord")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnOrder(103);
 
                     b.Property<long?>("FirstId")
@@ -3533,25 +3601,26 @@ namespace Cheetah_DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -3560,19 +3629,19 @@ namespace Cheetah_DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -3584,54 +3653,54 @@ namespace Cheetah_DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -3640,7 +3709,8 @@ namespace Cheetah_DataAccess.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -3649,19 +3719,19 @@ namespace Cheetah_DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -3674,18 +3744,18 @@ namespace Cheetah_DataAccess.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -3697,10 +3767,10 @@ namespace Cheetah_DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -3712,18 +3782,18 @@ namespace Cheetah_DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
