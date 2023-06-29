@@ -26,6 +26,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./src/Dockerfile
+            image: ghcr.io/${{ github.actor }}/cheetah
     permissions:
       contents: read
       packages: write
