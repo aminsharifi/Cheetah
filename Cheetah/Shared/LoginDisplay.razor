@@ -1,6 +1,14 @@
-﻿@*<a href="../Areas/Identity/Pages/Account/Register.cshtml"></a>*@
-<a href="Identity/Account/Register">ثبت‌نام</a>
-<a href="Identity/Account/Login">ورود</a>
+﻿<AuthorizeView>
+    <Authorized>
+        @context.User.Identity.Name خوش آمدید
+        <a href="Identity/Account/Logout">خروج</a>
+
+    </Authorized>
+    <NotAuthorized>
+        <a href="Identity/Account/Register">ثبت‌نام</a>
+        <a href="Identity/Account/Login">ورود</a>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
 
