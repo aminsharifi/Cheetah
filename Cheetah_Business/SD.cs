@@ -17,6 +17,11 @@ public class CPersianClass
             return String.Empty;
     }
 }
+public enum RoleProperty
+{
+    Admin,
+    User
+}
 public enum LinkProperty
 {
     First,

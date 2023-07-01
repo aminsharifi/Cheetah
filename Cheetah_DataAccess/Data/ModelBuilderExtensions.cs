@@ -2,6 +2,7 @@
 using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
@@ -9,8 +10,9 @@ namespace Cheetah_DataAccess.Data;
 
 public static class ModelBuilderExtensions
 {
-    public static void Seed(this ModelBuilder modelBuilder)
+    public static async void Seed(this ModelBuilder modelBuilder)
     {
+   
         #region Dimentions
 
         #region D_Process

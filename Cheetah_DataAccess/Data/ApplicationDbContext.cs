@@ -1,7 +1,9 @@
-﻿using Cheetah_Business.Dimentions;
+﻿using Cheetah_Business;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
 using Cheetah_Business.Virtuals;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +11,21 @@ namespace Cheetah_DataAccess.Data;
 
 public partial class ApplicationDbContext : IdentityDbContext
 {
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+        //    private readonly RoleManager<IdentityRole> _roleManager;
+        //_roleManager = roleManager;
 
+        //    if (! _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin)).GetAwaiter().GetResult())
+        //    {
+        //        _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
+        //    }
+
+        //    if (!_roleManager.RoleExistsAsync(nameof(RoleProperty.User)).GetAwaiter().GetResult())
+        //    {
+        //        _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
+        //    }
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -21,6 +35,7 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         base.OnModelCreating(builder);
         builder.Seed();
+
     }
 
     #region Dimentions
@@ -59,6 +74,7 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<V_User> V_Users { get; set; }
     public virtual DbSet<V_UserPosition> V_UserPositions { get; set; }
     public virtual DbSet<V_Location> V_Locations { get; set; }
-    public virtual DbSet<V_UserLocation> V_UserLocations { get; set; }    
+    public virtual DbSet<V_UserLocation> V_UserLocations { get; set; }
     #endregion
+    public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 }

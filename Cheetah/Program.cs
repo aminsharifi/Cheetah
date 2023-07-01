@@ -1,4 +1,5 @@
 using Cheetah.Data;
+using Cheetah.Services;
 using Cheetah_Business;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -44,10 +45,17 @@ else
 }
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
+//builder.Services.AddDefaultIdentity<ApplicationUser>()
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddDefaultTokenProviders().AddDefaultUI()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
 builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
+
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -77,8 +85,23 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+SeedDatabase();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.MapBlazorHub();
 
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
