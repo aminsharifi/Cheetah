@@ -34,6 +34,8 @@ jobs:
             image: ghcr.io/${{ github.actor }}/portal
           - dockerfile: ./Cheetah_WebAPI/Dockerfile
             image: ghcr.io/${{ github.actor }}/api
+          - dockerfile: ./Cheetah_GrpcService/Dockerfile
+            image: ghcr.io/${{ github.actor }}/GrpcService
     permissions:
       contents: read
       packages: write
