@@ -1,4 +1,4 @@
-using Cheetah_Business.Repository; 
+using Cheetah_Business.Repository;
 using Cheetah_DataAccess;
 using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Repository;
@@ -15,9 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
@@ -49,15 +47,13 @@ else
         ServiceLifetime.Transient
         );
 }
-/**/
-
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var apiSettingsSection = builder.Configuration.GetSection("APISettings");
 builder.Services.Configure<APISettings>(apiSettingsSection);
- 
+
 var apiSettings = apiSettingsSection.Get<APISettings>();
 var key = Encoding.ASCII.GetBytes(apiSettings.SecretKey);
 
@@ -90,6 +86,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
 
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddGraphQLServer()
     .AddMutationType<Mutation>()
     .AddQueryType<Query>()
@@ -99,8 +97,6 @@ builder.Services.AddGraphQLServer()
     .AddSorting()
     .BindRuntimeType<char, StringType>();
 
-//https://www.c-sharpcorner.com/article/graphql-introduction-and-product-application-using-net-core-7/
-
 builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
 {
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
@@ -108,12 +104,24 @@ builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.   
-//if (app.Environment.IsDevelopment())
-//{
-//app.UseSwagger();
-//app.UseSwaggerUI();
-//}
+//Configure the HTTP request pipeline.   
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    //app.UseSwagger(options =>
+    //{
+    //    options.SerializeAsV2 = true;
+    //});
+
+    //app.UseSwaggerUI(options =>
+    //{
+    //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    //    options.RoutePrefix = string.Empty;
+    //});
+
+}
 
 app.UseHttpsRedirection();
 

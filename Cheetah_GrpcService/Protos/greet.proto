@@ -4,6 +4,33 @@ option csharp_namespace = "Cheetah_GrpcService";
 
 package greet;
 
+
+// The greeting service definition.
+service Request {
+  // Sends a greeting
+  rpc CreateRequest (InputRequest) returns (OutputRequest);
+  rpc PerformRequest (InputRequest) returns (OutputRequest);  
+}
+
+message InputRequest
+{
+     string RQT_Creator_PName = 1;
+     string RQT_Requestor_PName = 2;
+     string RQT_Process_PName = 3;
+     int64  PERPCode = 4;
+}
+
+message OutputRequest
+{
+    int64 Id = 1;
+    repeated UserAssignment UserAssignments = 2;
+}
+
+message UserAssignment
+{
+    string UA_User_PName = 1;
+}
+
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
@@ -11,11 +38,13 @@ service Greeter {
 }
 
 // The request message containing the user's name.
-message HelloRequest {
+message HelloRequest
+{
   string name = 1;
 }
 
 // The response message containing the greetings.
-message HelloReply {
+message HelloReply
+{
   string message = 1;
 }

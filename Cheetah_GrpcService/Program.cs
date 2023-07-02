@@ -1,17 +1,45 @@
+using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
+using Cheetah_DataAccess.Repository;
 using Cheetah_GrpcService.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
-// Add services to the container.
+if (provider is "Npgsql")
+{
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+    builder.Services.AddDbContext<ApplicationDbContext>(
+        b => b.UseLazyLoadingProxies()
+        .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql")
+        , x => x.MigrationsAssembly("Cheetah_DataAccess_Npgsql")
+        ),
+        ServiceLifetime.Transient
+        );
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(
+        b => b.UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"),
+        x => x.MigrationsAssembly("Cheetah_DataAccess_SqlServer")),
+        ServiceLifetime.Transient
+        );
+}
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
+
 builder.Services.AddGrpc();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.MapGrpcService<RequestService>();
 
 app.Run();
