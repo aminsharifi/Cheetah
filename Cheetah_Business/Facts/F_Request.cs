@@ -12,15 +12,6 @@ namespace Cheetah_Business.Facts;
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
 public partial class F_Request : BaseClass<F_Request>
 {
-    #region Simple Prob
-    [Column(Order = 100)]
-    public Int64? RQT_ERPID { get; set; }
-
-    [Column(Order = 102)]
-    public Boolean? RQT_IsTest { get; set; } = false;
-
-    #endregion
-
     #region S_User
     [Column(Order = 106)]
     public long? RQT_RequestorId { get; set; }

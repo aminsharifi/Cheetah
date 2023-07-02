@@ -371,7 +371,7 @@ public class SimpleClassRepository : ISimpleClassRepository
             {
                 var ConditionOccures = false;
 
-                if (GeneralRequest.RQT_Conditions is null)
+                if (GeneralRequest.RQT_Conditions is null || GeneralRequest.RQT_Conditions.Count() == 0)
                 {
                     ConditionOccures = true;
                 }
@@ -390,7 +390,7 @@ public class SimpleClassRepository : ISimpleClassRepository
                 }
             }
 
-            if (GeneralRequest.RQT_Assignments is null)
+            if (GeneralRequest.RQT_Assignments is null || GeneralRequest.RQT_Assignments.Count() == 0)
             {
                 GeneralRequest.RQT_Assignments = new HashSet<F_Assignment>();
 
