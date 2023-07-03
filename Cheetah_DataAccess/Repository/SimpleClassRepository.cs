@@ -350,7 +350,8 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             GeneralRequest.RQT_Requestor = await GetUser(request.RQT_Requestor.PName);
 
-            GeneralRequest.RQT_Process = await _db.D_Processes.SingleAsync(x => x.PName == request.RQT_Process.PName);
+            GeneralRequest.RQT_Process = await _db.D_Processes
+                .SingleAsync(x => x.PName == request.RQT_Process.PName);
 
             GeneralRequest.CreateTimeRecord = DateTime.Now;
 

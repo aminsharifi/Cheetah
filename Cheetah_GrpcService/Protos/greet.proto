@@ -8,22 +8,22 @@ package greet;
 // The greeting service definition.
 service Request {
   // Sends a greeting
-  rpc CreateRequest (InputRequest) returns (OutputRequest);
-  rpc PerformRequest (InputRequest) returns (OutputRequest);  
+  rpc CreateRequest (GRPC_F_Request) returns (GRPC_F_Request);
+  rpc PerformRequest (GRPC_F_Request) returns (GRPC_F_Request);  
 }
 
-message InputRequest
+message GRPC_F_Request
 {
-     string RQT_Creator_PName = 1;
-     string RQT_Requestor_PName = 2;
-     string RQT_Process_PName = 3;
-     int64  PERPCode = 4;
-}
-
-message OutputRequest
-{
-    int64 Id = 1;
-    repeated UserAssignment UserAssignments = 2;
+     int64  Id = 1;
+     int64  PERPCode = 2;
+     string RQT_Creator_PName = 3;
+     string RQT_Requestor_PName = 4;
+     string RQT_Process_PName = 5;
+     string Tag_Name = 6;
+     string Performer = 7;
+     string Assignment_Id = 8;
+     repeated UserAssignment CurrentAssignments = 9;
+     repeated UserAssignment AllAssignments = 10;
 }
 
 message UserAssignment
