@@ -40,7 +40,7 @@ namespace Cheetah_GrpcService.Services
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;
         }
-        public override Task<OutputRequest> CreateRequest(InputRequest request, ServerCallContext context)
+        public override Task<GRPC_F_Request> CreateRequest(GRPC_F_Request request, ServerCallContext context)
         {
             var f_Request = new Cheetah_Business.Facts.F_Request();
 
@@ -49,24 +49,26 @@ namespace Cheetah_GrpcService.Services
             f_Request.RQT_Process = new D_Process() { PName = request.RQTProcessPName };
             f_Request.PERPCode = request.PERPCode;
 
-            var CreatedRequest = simpleClassRepository.CreateRequestAsync(f_Request)
+            f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            var outputRequest = new OutputRequest()
-            {
-                Id = CreatedRequest.Id.Value
-            };
-            outputRequest.UserAssignments.AddRange(CreatedRequest.RQT_CurrentAssignment.PRM_UserAssignments.Select(x => new UserAssignment() { UAUserPName = x.UA_User.PName }));
+            request.Id = f_Request.Id.Value;
 
-            return Task.FromResult(outputRequest);
+            request.CurrentAssignments.AddRange(f_Request.RQT_CurrentAssignment.PRM_UserAssignments
+                .Select(x => new UserAssignment() { UAUserPName = x.UA_User.PName }));
+
+            request.AllAssignments.AddRange(f_Request.RQT_Assignments
+                .SelectMany(p => p.PRM_UserAssignments, (parent, child) => new UserAssignment() {
+                    UAUserPName = child.UA_User.PName }));
+
+            return Task.FromResult(request);
         }
-
-        public override Task<OutputRequest> PerformRequest(InputRequest request, ServerCallContext context)
+        public override Task<GRPC_F_Request> PerformRequest(GRPC_F_Request request, ServerCallContext context)
         {
             var tb1 = simpleClassRepository.GetAllTableName(nameof(Cheetah_Business.Dimentions))
                 .GetAwaiter().GetResult();
 
-            var helloReply = new OutputRequest()
+            var helloReply = new GRPC_F_Request()
             {
                 //Message = tb1.First().Value + " " + request.Name
             };

@@ -1,6 +1,4 @@
-﻿using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
-using Cheetah_Business.Facts;
+﻿using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using HotChocolate;
 using HotChocolate.Authorization;
@@ -20,8 +18,6 @@ public class Mutation
     //    return email;
     //}
 
-
-
     #region GetTokenAsync
     [UseProjection]
     [UseFiltering]
@@ -40,6 +36,18 @@ public class Mutation
     }
     #endregion
 
+    #region CreateRequestAsync
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    [Authorize]
+    public async Task<F_Request> CreateRequestAsync(
+        [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
+    {
+        return await iSimpleClassRepository.CreateRequestAsync(request);
+    }
+    #endregion
+
     #region PerformRequestAsync
     [UseProjection]
     [UseFiltering]
@@ -52,17 +60,4 @@ public class Mutation
     }
     #endregion
 
-    #region CreateRequestAsync
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    //[Authorize]
-    public async Task<F_Request> CreateRequestAsync(
-        [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
-    {
-        return await iSimpleClassRepository.CreateRequestAsync(request);
-    }
-    #endregion
-
-   
 }
