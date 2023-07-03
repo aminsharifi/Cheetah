@@ -1,5 +1,6 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_Business.Virtuals;
 using Cheetah_GrpcService;
@@ -57,13 +58,45 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.Id = f_Request.Id.Value;
 
-            output_Request.CurrentAssignments.AddRange(f_Request.RQT_CurrentAssignment.PRM_UserAssignments
-                .Select(x => new GRPC_UserAssignment() { UAUserPName = x.UA_User.PName }));
+            output_Request.ProcessState = "در جریان";
+
+            output_Request.CurrentAssignments.AddRange(
+                f_Request.RQT_CurrentAssignment.PRM_UserAssignments
+                .Select(x => new GRPC_UserAssignment()
+                {
+                    Endorsement =
+                    new GRPC_BaseClass()
+                    {
+                        Id = x.UA_Assignment.PRM_Endorsement.PIndex.Value,
+                        PName = x.UA_Assignment.PRM_Endorsement.PName,
+                        PDisplayName = x.UA_Assignment.PRM_Endorsement.PDisplayName
+                    },
+                    UserAssignment =
+                    new GRPC_BaseClass()
+                    {
+                        Id = x.Id.Value,
+                        PName = x.UA_User.PName
+                    }
+                }));
 
             output_Request.AllAssignments.AddRange(f_Request.RQT_Assignments
-                .SelectMany(p => p.PRM_UserAssignments, (parent, child) => new GRPC_UserAssignment()
+                .SelectMany(p => p.PRM_UserAssignments,
+                (parent, child) => new GRPC_UserAssignment()
                 {
-                    UAUserPName = child.UA_User.PName
+                    UserAssignment =
+                    new GRPC_BaseClass()
+                    {
+                        Id = child.Id.Value,
+                        PName = child.UA_User.PName
+                    },
+
+                    Endorsement =
+                    new GRPC_BaseClass()
+                    {
+                        Id = parent.PRM_Endorsement.PIndex.Value,
+                        PName = parent.PRM_Endorsement.PName,
+                        PDisplayName = parent.PRM_Endorsement.PDisplayName
+                    }
                 }));
 
             return Task.FromResult(output_Request);
