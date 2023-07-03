@@ -35,33 +35,33 @@ message Create_Input_Request
      string RQT_Creator_PName = 2;
      string RQT_Requestor_PName = 3;
      string RQT_Process_PName = 4;
-     repeated GRPC_Tag RQT_Conditions = 5;
+     repeated GRPC_BaseClass RQT_Conditions = 5;
 }
 
 message Perform_Input_Request
 {
      int64  Id = 1;
-     string Assignment_Id = 2;
-     string Tag_Name = 3;
-     string Performer = 4;
+     GRPC_BaseClass Condition = 2;
+     GRPC_UserAssignment CurrentAssignment = 3;
 }
 
 message Output_Request
 {
     int64  Id = 1;
-    string Assignment_Id = 2;
-    string ProcessState = 3;
-    repeated GRPC_UserAssignment CurrentAssignments = 4;
-    repeated GRPC_UserAssignment AllAssignments = 5;
-}
-
-message GRPC_Tag
-{
-    string Tag_Name = 1;
-    string Tag_Value = 2;
+    string ProcessState = 2;
+    repeated GRPC_UserAssignment CurrentAssignments = 3;
+    repeated GRPC_UserAssignment AllAssignments = 4;
 }
 
 message GRPC_UserAssignment
 {
-    string UA_User_PName = 1;
+    GRPC_BaseClass UserAssignment = 1;
+    GRPC_BaseClass Endorsement = 2;
+}
+
+message GRPC_BaseClass
+{
+    int64 Id = 1;
+    string PName = 2;
+    string PDisplayName = 3;    
 }
