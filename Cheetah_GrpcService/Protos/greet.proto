@@ -4,33 +4,6 @@ option csharp_namespace = "Cheetah_GrpcService";
 
 package greet;
 
-
-// The greeting service definition.
-service Request {
-  // Sends a greeting
-  rpc CreateRequest (GRPC_F_Request) returns (GRPC_F_Request);
-  rpc PerformRequest (GRPC_F_Request) returns (GRPC_F_Request);  
-}
-
-message GRPC_F_Request
-{
-     int64  Id = 1;
-     int64  PERPCode = 2;
-     string RQT_Creator_PName = 3;
-     string RQT_Requestor_PName = 4;
-     string RQT_Process_PName = 5;
-     string Tag_Name = 6;
-     string Performer = 7;
-     string Assignment_Id = 8;
-     repeated UserAssignment CurrentAssignments = 9;
-     repeated UserAssignment AllAssignments = 10;
-}
-
-message UserAssignment
-{
-    string UA_User_PName = 1;
-}
-
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
@@ -47,4 +20,48 @@ message HelloRequest
 message HelloReply
 {
   string message = 1;
+}
+
+
+// The greeting service definition.
+service Request {
+  // Sends a greeting
+  rpc CreateRequest (Create_Input_Request) returns (Output_Request);
+  rpc PerformRequest (Perform_Input_Request) returns (Output_Request);  
+}
+message Create_Input_Request
+{
+     int64  PERPCode = 1;
+     string RQT_Creator_PName = 2;
+     string RQT_Requestor_PName = 3;
+     string RQT_Process_PName = 4;
+     repeated GRPC_Tag RQT_Conditions = 5;
+}
+
+message Perform_Input_Request
+{
+     int64  Id = 1;
+     string Assignment_Id = 2;
+     string Tag_Name = 3;
+     string Performer = 4;
+}
+
+message Output_Request
+{
+    int64  Id = 1;
+    string Assignment_Id = 2;
+    string ProcessState = 3;
+    repeated GRPC_UserAssignment CurrentAssignments = 4;
+    repeated GRPC_UserAssignment AllAssignments = 5;
+}
+
+message GRPC_Tag
+{
+    string Tag_Name = 1;
+    string Tag_Value = 2;
+}
+
+message GRPC_UserAssignment
+{
+    string UA_User_PName = 1;
 }

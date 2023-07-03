@@ -29,6 +29,7 @@ namespace Cheetah_GrpcService.Services
             return Task.FromResult(helloReply);
         }
     }
+
     public class RequestService : Request.RequestBase
     {
         private readonly ILogger<GreeterService> _logger;
@@ -40,7 +41,7 @@ namespace Cheetah_GrpcService.Services
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;
         }
-        public override Task<GRPC_F_Request> CreateRequest(GRPC_F_Request request, ServerCallContext context)
+        public override Task<Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new Cheetah_Business.Facts.F_Request();
 
@@ -52,23 +53,27 @@ namespace Cheetah_GrpcService.Services
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            request.Id = f_Request.Id.Value;
+            var output_Request = new Output_Request();
 
-            request.CurrentAssignments.AddRange(f_Request.RQT_CurrentAssignment.PRM_UserAssignments
-                .Select(x => new UserAssignment() { UAUserPName = x.UA_User.PName }));
+            output_Request.Id = f_Request.Id.Value;
 
-            request.AllAssignments.AddRange(f_Request.RQT_Assignments
-                .SelectMany(p => p.PRM_UserAssignments, (parent, child) => new UserAssignment() {
-                    UAUserPName = child.UA_User.PName }));
+            output_Request.CurrentAssignments.AddRange(f_Request.RQT_CurrentAssignment.PRM_UserAssignments
+                .Select(x => new GRPC_UserAssignment() { UAUserPName = x.UA_User.PName }));
 
-            return Task.FromResult(request);
+            output_Request.AllAssignments.AddRange(f_Request.RQT_Assignments
+                .SelectMany(p => p.PRM_UserAssignments, (parent, child) => new GRPC_UserAssignment()
+                {
+                    UAUserPName = child.UA_User.PName
+                }));
+
+            return Task.FromResult(output_Request);
         }
-        public override Task<GRPC_F_Request> PerformRequest(GRPC_F_Request request, ServerCallContext context)
+        public override Task<Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
             var tb1 = simpleClassRepository.GetAllTableName(nameof(Cheetah_Business.Dimentions))
                 .GetAwaiter().GetResult();
 
-            var helloReply = new GRPC_F_Request()
+            var helloReply = new Output_Request()
             {
                 //Message = tb1.First().Value + " " + request.Name
             };
