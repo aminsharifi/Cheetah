@@ -39,48 +39,50 @@ namespace Cheetah_GrpcService.Services
         private readonly ISimpleClassRepository simpleClassRepository;
         private readonly IMapper _mapper;
         protected ApplicationDbContext _db;
-        public RequestService(
-            ILogger<GreeterService> logger,
+        public RequestService(ILogger<GreeterService> logger,
             ApplicationDbContext db,
-            ISimpleClassRepository iP_ParameterListRepository,
-            IMapper mapper)
+            ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
         {
             _logger = logger;
             _db = db;
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;
         }
-        public override Task<Create_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
+
+        public override Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Request();
 
-            f_Request.RQT_Creator = new D_User() { PName = request.RQTCreatorPName };
-            f_Request.RQT_Requestor = new D_User() { PName = request.RQTRequestorPName };
-            f_Request.RQT_Process = new D_Process() { PName = request.RQTProcessPName };
+            f_Request.RQT_Creator = new D_User() { PName = request.CreatorPName };
+            f_Request.RQT_Requestor = new D_User() { PName = request.RequestorPName };
+            f_Request.RQT_Process = new D_Process() { PName = request.ProcessPName };
             f_Request.PERPCode = request.PERPCode;
 
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            var output_Request = new Create_Output_Request();
+            var output_Request = new Brief_Output_Request();
+
+            output_Request.ProcessState = f_Request.RQT_ProcessState.PName;
 
             output_Request.Id = f_Request.Id.Value;
 
             return Task.FromResult(output_Request);
         }
-        public override Task<Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
+        public override Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var tb1 = simpleClassRepository.GetAllTableName(nameof(Cheetah_Business.Dimentions))
+            var f_Request = new F_Request();
+
+            f_Request = simpleClassRepository.PerformRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            var helloReply = new Output_Request()
-            {
-                //Message = tb1.First().Value + " " + request.Name
-            };
+            var output_Request = new Brief_Output_Request();
 
-            return Task.FromResult(helloReply);
+            output_Request.Id = f_Request.Id.Value;
+
+            return Task.FromResult(output_Request);
         }
-        public override Task<Output_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
+        public override Task<DetailOutput_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Request();
 
@@ -95,7 +97,7 @@ namespace Cheetah_GrpcService.Services
             f_Request = simpleClassRepository.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            var output_Request = new Output_Request();
+            var output_Request = new DetailOutput_Request();
 
             output_Request.Id = f_Request.Id.Value;
 
@@ -163,15 +165,15 @@ namespace Cheetah_GrpcService.Services
                     {
                         CreateDate = ((DateTimeOffset)x.CreateDate).ToUnixTimeSeconds(),
                         PCreateDate = x.PCreateDate,
-                        DTag = new GRPC_BaseClass()
+                        DTag = (x.Tag is not null) ? new GRPC_BaseClass()
                         {
                             Id = x.Tag.Id.Value,
                             PName = x.Tag.PName,
                             PDisplayName = x.Tag.PDisplayName
-                        },
+                        } : new GRPC_BaseClass(),
                         RecieveDate = ((DateTimeOffset)x.RecieveDate).ToUnixTimeSeconds(),
                         PRecieveDate = x.PRecieveDate,
-                        Summary = x.Summary,
+                        Summary = x.Summary ?? String.Empty,
                         ProcessName = x.ProcessName,
                         RadNumber = x.RadNumber,
                         Requestor = x.Requestor,

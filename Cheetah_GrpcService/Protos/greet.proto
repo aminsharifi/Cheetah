@@ -29,9 +29,9 @@ message HelloReply
 // The greeting service definition.
 service Request {
   // Sends a greeting
-  rpc CreateRequest (Create_Input_Request) returns (Create_Output_Request);
-  rpc PerformRequest (Perform_Input_Request) returns (Output_Request);
-  rpc GetCase (GetCase_Input_Request) returns (Output_Request);
+  rpc CreateRequest (Create_Input_Request) returns (Brief_Output_Request);
+  rpc PerformRequest (Perform_Input_Request) returns (Brief_Output_Request);
+  rpc GetCase (GetCase_Input_Request) returns (DetailOutput_Request);
   rpc Inbox (PageCartable) returns (PageCartable);
   rpc Outbox (PageCartable) returns (PageCartable);
 }
@@ -57,9 +57,10 @@ message RecordCartable
     string Summary = 10;
 }
 
-message Create_Output_Request
+message Brief_Output_Request
 {
     int64  Id = 1;
+    string ProcessState = 2;
 }
 message GetCase_Input_Request
 {
@@ -72,20 +73,20 @@ message Create_Input_Request
 {
      
      int64  PERPCode = 1;
-     string RQT_Creator_PName = 2;
-     string RQT_Requestor_PName = 3;
-     string RQT_Process_PName = 4;
-     repeated GRPC_BaseClass RQT_Conditions = 5;
+     string Creator_PName = 2;
+     string Requestor_PName = 3;
+     string Process_PName = 4;
+     repeated GRPC_BaseClass Conditions = 5;
 }
 
 message Perform_Input_Request
 {
      int64  Id = 1;
-     GRPC_BaseClass Condition = 2;
+     repeated GRPC_BaseClass Conditions = 2;
      GRPC_UserAssignment CurrentAssignment = 3;
 }
 
-message Output_Request
+message DetailOutput_Request
 {
     int64  Id = 1;
     int64  PERPCode = 2;
