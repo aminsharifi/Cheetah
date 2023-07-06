@@ -17,6 +17,11 @@ public class CPersianClass
             return String.Empty;
     }
 }
+public enum CartableProperty
+{
+    Inbox,
+    Outbox
+}
 public enum RoleProperty
 {
     Admin,

@@ -14,6 +14,7 @@ public interface ISimpleClassRepository
     public Task<SimpleClass> Create(SimpleClass obj_DTO);
     public Task<F_Request> PerformRequestAsync(F_Request request);
     public Task<F_Request> CreateRequestAsync(F_Request request);
+    public Task<F_Request> GetCaseAsync(F_Request request);
     public Task<SimpleClass> Update(SimpleClass obj_DTO);
     public Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO);
     public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass);

@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Content Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentAssertions" Version="6.11.0" />
@@ -32,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Sample\" />
   </ItemGroup>
 

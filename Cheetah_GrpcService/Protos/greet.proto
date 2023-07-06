@@ -1,5 +1,8 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
+
 option csharp_namespace = "Cheetah_GrpcService";
 
 package greet;
@@ -26,11 +29,48 @@ message HelloReply
 // The greeting service definition.
 service Request {
   // Sends a greeting
-  rpc CreateRequest (Create_Input_Request) returns (Output_Request);
-  rpc PerformRequest (Perform_Input_Request) returns (Output_Request);  
+  rpc CreateRequest (Create_Input_Request) returns (Create_Output_Request);
+  rpc PerformRequest (Perform_Input_Request) returns (Output_Request);
+  rpc GetCase (GetCase_Input_Request) returns (Output_Request);
+  rpc Inbox (PageCartable) returns (PageCartable);
+  rpc Outbox (PageCartable) returns (PageCartable);
 }
+
+message PageCartable
+{
+    int32 PageNo = 1;
+    string Username = 2;
+    repeated RecordCartable RecordCartables = 3;
+}
+
+message RecordCartable
+{    
+    GRPC_BaseClass D_Tag = 1;  
+    string Requestor  = 2;
+    string RadNumber  = 3;
+    int64 CreateDate  = 4;
+    string PCreateDate = 5;
+    int64 RecieveDate = 6;
+    string PRecieveDate = 7;
+    string ProcessName = 8;
+    string TaskName = 9;
+    string Summary = 10;
+}
+
+message Create_Output_Request
+{
+    int64  Id = 1;
+}
+message GetCase_Input_Request
+{
+     int64  Id = 1;
+     int64  PERPCode = 2;
+     string ProcessName = 3;
+}
+
 message Create_Input_Request
 {
+     
      int64  PERPCode = 1;
      string RQT_Creator_PName = 2;
      string RQT_Requestor_PName = 3;
@@ -48,9 +88,11 @@ message Perform_Input_Request
 message Output_Request
 {
     int64  Id = 1;
-    string ProcessState = 2;
-    repeated GRPC_UserAssignment CurrentAssignments = 3;
-    repeated GRPC_UserAssignment AllAssignments = 4;
+    int64  PERPCode = 2;
+    string ProcessName = 3;
+    string ProcessState = 4;
+    repeated GRPC_UserAssignment CurrentAssignments = 5;
+    repeated GRPC_UserAssignment AllAssignments = 6;
 }
 
 message GRPC_UserAssignment
