@@ -698,47 +698,56 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return await _db.SaveChangesAsync();
     }
-    public async Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
-    {
-        var username = cartableDTO.Username;
 
-        var Inbox = _db.L_UserAssignments
-            .Where(x => x.UA_User.PName == username
-            && x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment)
-            .Select(x =>
-            new CartableDTO()
-            {
-                ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
-                RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
-                Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
-                TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
-                CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
-                RecieveDate = x.UA_Assignment.CreateTimeRecord,
-                Summary = x.UA_Assignment.PRM_Request.PDisplayName
-            }
-            ).AsEnumerable();
+    public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
+        IQueryable<L_UserAssignment> l_UserAssignments)
+    {
+        if (!String.IsNullOrEmpty(cartableDTO.Username))
+        {
+            var username = cartableDTO.Username;
+            l_UserAssignments = l_UserAssignments.Where(x => x.UA_User.PName == username);
+        }
+
+        if (!String.IsNullOrEmpty(cartableDTO.ProcessName))
+        {
+            var processName = cartableDTO.ProcessName;
+            l_UserAssignments = l_UserAssignments
+                .Where(x => x.UA_Assignment.PRM_Request.RQT_Process.PName == processName);
+        }
+        var Inbox = l_UserAssignments
+        .Select(x =>
+        new CartableDTO()
+        {
+            ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+            RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+            Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+            TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+            CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+            RecieveDate = x.UA_Assignment.CreateTimeRecord,
+            Summary = x.UA_Assignment.PRM_Request.PDisplayName
+        }
+        );
 
         return Inbox;
     }
+
+    public async Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
+    {
+        var l_UserAssignments = _db.L_UserAssignments
+            .Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment);
+
+        var inbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
+
+        return inbox;
+    }
     public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
     {
-        var username = cartableDTO.Username;
+        var l_UserAssignments = _db.L_UserAssignments
+            .Where(x => x.UA_Assignment.PRM_Review.APV_Tag != null);
 
-        return _db.L_UserAssignments
-            .Where(x => x.UA_User.PName == username
-            && x.UA_Assignment.PRM_Review.APV_Tag != null)
-            .Select(x =>
-            new CartableDTO()
-            {
-                ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
-                RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
-                Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
-                TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
-                CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
-                RecieveDate = x.UA_Assignment.CreateTimeRecord,
-                Summary = x.UA_Assignment.PRM_Request.PDisplayName
-            }
-            ).AsEnumerable();
+        var outbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
+
+        return outbox;
     }
     public async Task<F_Request> GetCaseAsync(F_Request request)
     {
