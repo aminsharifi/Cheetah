@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using Cheetah_Business;
+using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
-using Cheetah_Business.Links;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
-using Cheetah_Business.Virtuals;
-using Cheetah_GrpcService;
+using Cheetah_DataAccess.Data;
 using Grpc.Core;
 
 namespace Cheetah_GrpcService.Services
@@ -13,6 +14,7 @@ namespace Cheetah_GrpcService.Services
         private readonly ILogger<GreeterService> _logger;
         private readonly ISimpleClassRepository simpleClassRepository;
         private readonly IMapper _mapper;
+
         public GreeterService(ILogger<GreeterService> logger, ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
         {
             _logger = logger;
@@ -36,15 +38,21 @@ namespace Cheetah_GrpcService.Services
         private readonly ILogger<GreeterService> _logger;
         private readonly ISimpleClassRepository simpleClassRepository;
         private readonly IMapper _mapper;
-        public RequestService(ILogger<GreeterService> logger, ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
+        protected ApplicationDbContext _db;
+        public RequestService(
+            ILogger<GreeterService> logger,
+            ApplicationDbContext db,
+            ISimpleClassRepository iP_ParameterListRepository,
+            IMapper mapper)
         {
             _logger = logger;
+            _db = db;
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;
         }
-        public override Task<Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
+        public override Task<Create_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
-            var f_Request = new Cheetah_Business.Facts.F_Request();
+            var f_Request = new F_Request();
 
             f_Request.RQT_Creator = new D_User() { PName = request.RQTCreatorPName };
             f_Request.RQT_Requestor = new D_User() { PName = request.RQTRequestorPName };
@@ -54,11 +62,48 @@ namespace Cheetah_GrpcService.Services
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
 
+            var output_Request = new Create_Output_Request();
+
+            output_Request.Id = f_Request.Id.Value;
+
+            return Task.FromResult(output_Request);
+        }
+        public override Task<Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
+        {
+            var tb1 = simpleClassRepository.GetAllTableName(nameof(Cheetah_Business.Dimentions))
+                .GetAwaiter().GetResult();
+
+            var helloReply = new Output_Request()
+            {
+                //Message = tb1.First().Value + " " + request.Name
+            };
+
+            return Task.FromResult(helloReply);
+        }
+        public override Task<Output_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
+        {
+            var f_Request = new F_Request();
+
+            f_Request.Id = request.Id;
+
+            if (request.PERPCode > 0)
+                f_Request.PERPCode = request.PERPCode;
+
+            if (!String.IsNullOrEmpty(request.ProcessName))
+                f_Request.RQT_Process = _db.D_Processes.Single(x => x.PName == request.ProcessName);
+
+            f_Request = simpleClassRepository.GetCaseAsync(f_Request)
+                .GetAwaiter().GetResult();
+
             var output_Request = new Output_Request();
 
             output_Request.Id = f_Request.Id.Value;
 
-            output_Request.ProcessState = "در جریان";
+            output_Request.ProcessName = f_Request.RQT_Process.PName;
+
+            output_Request.PERPCode = f_Request.PERPCode.Value;
+
+            output_Request.ProcessState = f_Request.RQT_ProcessState.PName;
 
             output_Request.CurrentAssignments.AddRange(
                 f_Request.RQT_CurrentAssignment.PRM_UserAssignments
@@ -101,17 +146,49 @@ namespace Cheetah_GrpcService.Services
 
             return Task.FromResult(output_Request);
         }
-        public override Task<Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
+        public Task<PageCartable> Cartable(PageCartable request, CartableProperty cartableProperty)
         {
-            var tb1 = simpleClassRepository.GetAllTableName(nameof(Cheetah_Business.Dimentions))
-                .GetAwaiter().GetResult();
-
-            var helloReply = new Output_Request()
+            var cartableDTO = new CartableDTO()
             {
-                //Message = tb1.First().Value + " " + request.Name
+                Username = request.Username
             };
 
-            return Task.FromResult(helloReply);
+            var OutputRequest = (cartableProperty == CartableProperty.Inbox) ?
+                simpleClassRepository.Inbox(cartableDTO).GetAwaiter().GetResult() :
+                simpleClassRepository.Outbox(cartableDTO).GetAwaiter().GetResult();
+
+            request.RecordCartables.AddRange(
+                OutputRequest.Select(
+                    x => new RecordCartable()
+                    {
+                        CreateDate = ((DateTimeOffset)x.CreateDate).ToUnixTimeSeconds(),
+                        PCreateDate = x.PCreateDate,
+                        DTag = new GRPC_BaseClass()
+                        {
+                            Id = x.Tag.Id.Value,
+                            PName = x.Tag.PName,
+                            PDisplayName = x.Tag.PDisplayName
+                        },
+                        RecieveDate = ((DateTimeOffset)x.RecieveDate).ToUnixTimeSeconds(),
+                        PRecieveDate = x.PRecieveDate,
+                        Summary = x.Summary,
+                        ProcessName = x.ProcessName,
+                        RadNumber = x.RadNumber,
+                        Requestor = x.Requestor,
+                        TaskName = x.TaskName
+                    }
+                    )
+                );
+
+            return Task.FromResult(request);
+        }
+        public override Task<PageCartable> Inbox(PageCartable request, ServerCallContext context)
+        {
+            return Cartable(request, CartableProperty.Inbox);
+        }
+        public override Task<PageCartable> Outbox(PageCartable request, ServerCallContext context)
+        {
+            return Cartable(request, CartableProperty.Outbox);
         }
     }
 }

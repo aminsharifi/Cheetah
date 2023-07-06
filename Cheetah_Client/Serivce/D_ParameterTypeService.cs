@@ -226,5 +226,10 @@ namespace Cheetah_Client.Service
         {
             throw new NotImplementedException();
         }
+
+        public Task<F_Request> GetCaseAsync(F_Request request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

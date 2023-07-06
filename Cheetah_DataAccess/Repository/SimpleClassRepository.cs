@@ -357,6 +357,8 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             GeneralRequest.Id = null;
 
+            GeneralRequest.RQT_ProcessStateId = 1;
+
             if (GeneralRequest.RQT_Conditions is not null)
             {
                 foreach (var item in GeneralRequest.RQT_Conditions)
@@ -737,5 +739,22 @@ public class SimpleClassRepository : ISimpleClassRepository
                 Summary = x.UA_Assignment.PRM_Request.PDisplayName
             }
             ).AsEnumerable();
+    }
+    public async Task<F_Request> GetCaseAsync(F_Request request)
+    {
+        F_Request GeneralRequest = await _db.F_Requests
+            .Include(x => x.RQT_Creator)
+            .Include(x => x.RQT_Requestor)
+            .Include(x => x.RQT_Process)
+            .Include(x => x.RQT_SelectedScenario)
+            .Include(x => x.RQT_Conditions)
+            .Include(x => x.RQT_ProcessState)
+            .Include(x => x.RQT_Assignments)
+            .Include(x => x.RQT_CurrentAssignment)
+            .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
+            (x.RQT_Process.PName == request.RQT_Process.PName &&
+            x.PERPCode == request.PERPCode));
+
+        return GeneralRequest;
     }
 }
