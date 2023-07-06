@@ -40,7 +40,8 @@ message PageCartable
 {
     int32 PageNo = 1;
     string Username = 2;
-    repeated RecordCartable RecordCartables = 3;
+    string ProcessName = 3;
+    repeated RecordCartable RecordCartables = 4;
 }
 
 message RecordCartable

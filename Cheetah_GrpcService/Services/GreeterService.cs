@@ -152,7 +152,8 @@ namespace Cheetah_GrpcService.Services
         {
             var cartableDTO = new CartableDTO()
             {
-                Username = request.Username
+                Username = request.Username,
+                ProcessName = request.ProcessName
             };
 
             var OutputRequest = (cartableProperty == CartableProperty.Inbox) ?
