@@ -46,7 +46,7 @@ message PageCartable
 
 message RecordCartable
 {    
-    GRPC_BaseClass D_Tag = 1;  
+    GRPC_BaseClass D_Tag = 1;
     string Requestor  = 2;
     string RadNumber  = 3;
     int64 CreateDate  = 4;
@@ -61,7 +61,7 @@ message RecordCartable
 message Brief_Output_Request
 {
     int64  Id = 1;
-    string ProcessState = 2;
+    GRPC_BaseClass ProcessState = 2;
 }
 message GetCase_Input_Request
 {
@@ -92,7 +92,7 @@ message DetailOutput_Request
     int64  Id = 1;
     int64  PERPCode = 2;
     string ProcessName = 3;
-    string ProcessState = 4;
+    GRPC_BaseClass ProcessState = 4;
     repeated GRPC_UserAssignment CurrentAssignments = 5;
     repeated GRPC_UserAssignment AllAssignments = 6;
 }

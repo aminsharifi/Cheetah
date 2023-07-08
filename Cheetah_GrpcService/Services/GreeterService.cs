@@ -53,9 +53,9 @@ namespace Cheetah_GrpcService.Services
         {
             var f_Request = new F_Request();
 
-            f_Request.RQT_Creator = new D_User() { PName = request.CreatorPName };
-            f_Request.RQT_Requestor = new D_User() { PName = request.RequestorPName };
-            f_Request.RQT_Process = new D_Process() { PName = request.ProcessPName };
+            f_Request.RQT_Creator = new() { PName = request.CreatorPName };
+            f_Request.RQT_Requestor = new() { PName = request.RequestorPName };
+            f_Request.RQT_Process = new() { PName = request.ProcessPName };
             f_Request.PERPCode = request.PERPCode;
 
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
@@ -63,7 +63,13 @@ namespace Cheetah_GrpcService.Services
 
             var output_Request = new Brief_Output_Request();
 
-            output_Request.ProcessState = f_Request.RQT_ProcessState.PName;
+            output_Request.ProcessState =
+                new()
+                {
+                    Id = f_Request.RQT_ProcessState.Id.Value,
+                    PName = f_Request.RQT_ProcessState.PName,
+                    PDisplayName = f_Request.RQT_ProcessState.PDisplayName
+                };
 
             output_Request.Id = f_Request.Id.Value;
 
@@ -84,7 +90,7 @@ namespace Cheetah_GrpcService.Services
         }
         public override Task<DetailOutput_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
         {
-            var f_Request = new F_Request();
+            F_Request f_Request = new();
 
             f_Request.Id = request.Id;
 
@@ -97,7 +103,7 @@ namespace Cheetah_GrpcService.Services
             f_Request = simpleClassRepository.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            var output_Request = new DetailOutput_Request();
+            DetailOutput_Request output_Request = new();
 
             output_Request.Id = f_Request.Id.Value;
 
@@ -105,21 +111,27 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.PERPCode = f_Request.PERPCode.Value;
 
-            output_Request.ProcessState = f_Request.RQT_ProcessState.PName;
+            output_Request.ProcessState =
+                new()
+                {
+                    Id = f_Request.RQT_ProcessState.Id.Value,
+                    PName = f_Request.RQT_ProcessState.PName,
+                    PDisplayName = f_Request.RQT_ProcessState.PDisplayName
+                };
 
             output_Request.CurrentAssignments.AddRange(
                 f_Request.RQT_CurrentAssignment.PRM_UserAssignments
                 .Select(x => new GRPC_UserAssignment()
                 {
                     Endorsement =
-                    new GRPC_BaseClass()
+                    new()
                     {
                         Id = x.UA_Assignment.PRM_Endorsement.PIndex.Value,
                         PName = x.UA_Assignment.PRM_Endorsement.PName,
                         PDisplayName = x.UA_Assignment.PRM_Endorsement.PDisplayName
                     },
                     UserAssignment =
-                    new GRPC_BaseClass()
+                    new()
                     {
                         Id = x.Id.Value,
                         PName = x.UA_User.PName
@@ -131,14 +143,15 @@ namespace Cheetah_GrpcService.Services
                 (parent, child) => new GRPC_UserAssignment()
                 {
                     UserAssignment =
-                    new GRPC_BaseClass()
+                    new()
                     {
                         Id = child.Id.Value,
-                        PName = child.UA_User.PName
+                        PName = child.UA_User.PName,
+                        PDisplayName = child.UA_User.PDisplayName
                     },
 
                     Endorsement =
-                    new GRPC_BaseClass()
+                    new()
                     {
                         Id = parent.PRM_Endorsement.PIndex.Value,
                         PName = parent.PRM_Endorsement.PName,
@@ -166,12 +179,12 @@ namespace Cheetah_GrpcService.Services
                     {
                         CreateDate = ((DateTimeOffset)x.CreateDate).ToUnixTimeSeconds(),
                         PCreateDate = x.PCreateDate,
-                        DTag = (x.Tag is not null) ? new GRPC_BaseClass()
+                        DTag = (x.Tag is not null) ? new()
                         {
                             Id = x.Tag.Id.Value,
                             PName = x.Tag.PName,
                             PDisplayName = x.Tag.PDisplayName
-                        } : new GRPC_BaseClass(),
+                        } : new(),
                         RecieveDate = ((DateTimeOffset)x.RecieveDate).ToUnixTimeSeconds(),
                         PRecieveDate = x.PRecieveDate,
                         Summary = x.Summary ?? String.Empty,
