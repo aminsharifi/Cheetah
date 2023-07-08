@@ -82,9 +82,8 @@ message Create_Input_Request
 
 message Perform_Input_Request
 {
-     int64  Id = 1;
-     repeated GRPC_BaseClass Conditions = 2;
-     GRPC_UserAssignment CurrentAssignment = 3;
+     int64  AssignmentId = 1;
+     string Tag_Name = 2;
 }
 
 message DetailOutput_Request
@@ -93,14 +92,14 @@ message DetailOutput_Request
     int64  PERPCode = 2;
     string ProcessName = 3;
     GRPC_BaseClass ProcessState = 4;
-    repeated GRPC_UserAssignment CurrentAssignments = 5;
+    GRPC_UserAssignment CurrentAssignments = 5;
     repeated GRPC_UserAssignment AllAssignments = 6;
 }
 
 message GRPC_UserAssignment
 {
-    GRPC_BaseClass UserAssignment = 1;
     GRPC_BaseClass Endorsement = 2;
+    repeated GRPC_BaseClass UserAssignments = 1;
 }
 
 message GRPC_BaseClass

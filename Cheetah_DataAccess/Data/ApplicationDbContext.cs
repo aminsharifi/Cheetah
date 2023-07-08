@@ -32,10 +32,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     {
         //base.Database.EnsureDeleted();
         //base.Database.EnsureCreated();
-
         base.OnModelCreating(builder);
         builder.Seed();
-
     }
 
     #region Dimentions
@@ -55,7 +53,6 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<F_Condition> F_Conditions { get; set; }
     public virtual DbSet<F_Request> F_Requests { get; set; }
     public virtual DbSet<F_Assignment> F_Assignments { get; set; }
-    public virtual DbSet<F_Review> F_Reviews { get; set; }
     public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
 
@@ -65,7 +62,6 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<L_RolePosition> L_RolePositions { get; set; }
     public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
     public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
-    public virtual DbSet<L_UserAssignment> L_UserAssignments { get; set; }
     #endregion
 
     #region Virtuals

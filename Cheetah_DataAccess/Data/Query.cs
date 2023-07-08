@@ -86,22 +86,24 @@ public class Query
     public IQueryable<CartableDTO> workItem(
         [Service] ApplicationDbContext context)
     {
-        var Outbox = context.L_UserAssignments
-            .Select(x =>
-            new CartableDTO()
-            {
-                Tag = x.UA_Assignment.PRM_Review.APV_Tag,
-                Username = x.UA_User.PName,
-                ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
-                RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
-                Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
-                TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
-                CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
-                RecieveDate = x.UA_Assignment.CreateTimeRecord,
-                Summary = x.UA_Assignment.PRM_Request.PDisplayName
-            }
-            );
-        return Outbox;
+        //var Outbox = context.L_UserAssignments
+        //    .Select(x =>
+        //    new CartableDTO()
+        //    {
+        //        Tag = x.UA_Assignment.PRM_Review.APV_Tag,
+        //        Username = x.UA_User.PName,
+        //        ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+        //        RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+        //        Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+        //        TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+        //        CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+        //        RecieveDate = x.UA_Assignment.CreateTimeRecord,
+        //        Summary = x.UA_Assignment.PRM_Request.PDisplayName
+        //    }
+        //    );
+
+
+        return null;
     }
     #endregion
 
@@ -171,13 +173,7 @@ public class Query
     {
         return context.F_Assignments;
     }
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    public IQueryable<F_Review> f_Reviews([Service] ApplicationDbContext context)
-    {
-        return context.F_Reviews;
-    }
+  
     [UseProjection]
     [UseFiltering]
     [UseSorting]
@@ -190,14 +186,7 @@ public class Query
     #endregion
 
     #region Links
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    public IQueryable<L_UserAssignment> l_UserAssignments([Service] ApplicationDbContext context)
-    {
-        return context.L_UserAssignments;
-    }
-
+  
     [UseProjection]
     [UseFiltering]
     [UseSorting]

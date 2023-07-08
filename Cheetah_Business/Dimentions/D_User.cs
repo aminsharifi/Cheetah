@@ -69,8 +69,6 @@ public partial class D_User : BaseClass<D_User>
 
     public virtual ICollection<L_UserPosition>? User_UserPositions { get; set; } = new HashSet<L_UserPosition>();
 
-    public virtual ICollection<L_UserAssignment>? User_UserAssignments { get; set; } = new HashSet<L_UserAssignment>();
-
     #endregion
 
     #endregion

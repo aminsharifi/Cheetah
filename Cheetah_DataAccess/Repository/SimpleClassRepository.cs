@@ -20,6 +20,106 @@ public class SimpleClassRepository : ISimpleClassRepository
     {
         _db = db;
         _mapper = mapper;
+        CreateViews();
+    }
+    private void CreateViews()
+    {
+        #region V_Location
+        string V_Location_Cmd = @"
+                            if exists(select 1 from sys.views where name = 'V_Location' and type = 'v')
+                            DROP VIEW[Virtuals].[V_Location]
+                            go
+                            CREATE VIEW[Virtuals].[V_Location]
+                            AS
+                            SELECT cast([Id] as bigint) PERPCode, cast([Id] as nvarchar(512)) as PName, [Name] as PDisplayName
+                            FROM[192.168.10.66].[Alborz].[Bizagi].[Branch]
+                         ";
+        _db.Database.ExecuteSql($"{V_Location_Cmd}");
+        #endregion
+
+        #region V_Position
+        var V_Position_Cmd = @"
+        if exists(select 1 from sys.views where name = 'V_Position' and type = 'v')
+        DROP VIEW[Virtuals].[V_Position]
+        go
+        CREATE VIEW[Virtuals].[V_Position]
+        AS
+        SELECT cast(oj.Id as bigint) PERPCode, cast(oj.Id as nvarchar(512)) as PName, oj.Title as PDisplayName
+        FROM[192.168.10.66].[Alborz].access.OrganizationJob oj
+        ";
+        _db.Database.ExecuteSql($"{V_Position_Cmd}");
+        #endregion
+
+        #region V_User
+        var V_User_Cmd = @"
+        if exists(select 1 from sys.views where name = 'V_User' and type = 'v')
+        DROP VIEW[Virtuals].[V_User]
+        go
+        CREATE VIEW[Virtuals].[V_User]
+        AS
+        SELECT
+        CAST(Users.Id AS bigint) as PERPCode, Users.UserName PName, (FirstName + N' ' + LastName) PDisplayName,
+        (
+        SELECT top(1)
+        PUsers.UserName
+        FROM
+        [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
+        left join[192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid = cp.id
+        left join[192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
+        left join[192.168.10.66].[Alborz].[dbo].[Users] PUsers on Pur.UserId = PUsers.Id
+        where Pur.EndDate > getdate() and UR.UserId = Users.Id
+        )
+        User_BossName,
+        CAST((
+        select top(1) iif(max(Dsbl_UR.EndDate) < getdate(), 1, 0)
+        from[192.168.10.66].[Alborz].[access].[UserResponsibility] Dsbl_UR
+        where Dsbl_UR.UserId = Users.Id
+        ) as bit) DsblRecord
+        FROM[192.168.10.66].[Alborz].[dbo].[UserProfile]
+        left join[192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
+        where FirstName is not null
+        ";
+        _db.Database.ExecuteSql($"{V_User_Cmd}");
+        #endregion
+
+        #region V_UserLocation
+        var V_UserLocation_Cmd = @"
+        if exists(select 1 from sys.views where name = 'V_UserLocation' and type = 'v')
+        DROP VIEW[Virtuals].[V_UserLocation]
+        go
+        CREATE VIEW[Virtuals].[V_UserLocation]
+        AS
+        SELECT distinct
+        cast((cast(UserId as varchar(50)) + cast(BranchId as varchar(50))) as bigint) as PERPCode,
+        cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) DsblRecord
+        FROM[192.168.10.66].[Alborz].[access].[GetUserBranchs_evw]
+        ";
+        _db.Database.ExecuteSql($"{V_UserLocation_Cmd}");
+        #endregion
+
+        #region V_UserPosition
+        var V_UserPosition_Cmd = @"
+        if exists(select 1 from sys.views where name = 'V_UserPosition' and type = 'v')
+        DROP VIEW[Virtuals].[V_UserPosition]
+        go
+        CREATE VIEW[Virtuals].[V_UserPosition]
+        AS
+        SELECT distinct
+        cast((cast(Users.Id as varchar(50)) + cast(oj.Id as varchar(50))) as bigint) as PERPCode,
+        cast(Users.Id as bigint) FirstId, cast(oj.Id as bigint) as SecondId,
+        cast(iif(UR.EndDate < getdate(), 1, 0) as bit)  DsblRecord
+        FROM
+        [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
+        inner join[192.168.10.66].[Alborz].[dbo].[Users] on UR.UserId = Users.Id
+        inner join[192.168.10.66].[Alborz].[dbo].[UserProfile] on UserProfile.UserId = Users.Id
+        inner join[192.168.10.66].[Alborz].[access].[ChartPosition] cp on UR.positionid = cp.id
+        inner join[192.168.10.66].[Alborz].access.ChartPost on ChartPost.Id = cp.PostId
+        inner join[192.168.10.66].[Alborz].access.OrganizationJob oj on oj.Id = ChartPost.JobId
+        where UR.EndDate > getdate() and UserProfile.FirstName is not null and UR.isenabled = 1
+        ";
+        _db.Database.ExecuteSql($"{V_UserLocation_Cmd}");
+        #endregion
+
     }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
     {
@@ -77,15 +177,15 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<F_Request> SetCurrentAssignment(F_Request GeneralRequest)
     {
-        var RQT_Assignment = GeneralRequest.RQT_Assignments
-                   .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve"));
+        //var RQT_Assignment = GeneralRequest.RQT_Assignments
+        //           .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve"));
 
-        if (RQT_Assignment.Any())
-            GeneralRequest.RQT_CurrentAssignment = RQT_Assignment.First();
-        else
-            GeneralRequest.RQT_ProcessStateId = 3;
+        //if (RQT_Assignment.Any())
+        //    GeneralRequest.RQT_CurrentAssignment = RQT_Assignment.First();
+        //else
+        //    GeneralRequest.RQT_ProcessStateId = 3;
 
-        await _db.SaveChangesAsync();
+        //await _db.SaveChangesAsync();
 
         return GeneralRequest;
     }
@@ -442,12 +542,12 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                         foreach (var Added_User in Added_Users)
                         {
-                            await _db.L_UserAssignments.AddAsync(
-                                  new L_UserAssignment()
-                                  {
-                                      UA_User = Added_User,
-                                      UA_Assignment = new_Assignment
-                                  });
+                            //await _db.L_UserAssignments.AddAsync(
+                            //      new L_UserAssignment()
+                            //      {
+                            //          UA_User = Added_User,
+                            //          UA_Assignment = new_Assignment
+                            //      });
                         }
 
                         await _db.F_Assignments.AddAsync(new_Assignment);
@@ -480,20 +580,20 @@ public class SimpleClassRepository : ISimpleClassRepository
     {
         var GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
 
-        if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
-            throw new ArgumentNullException("Id is incorrect");
+        //if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
+        //    throw new ArgumentNullException("Id is incorrect");
 
         try
         {
-            GeneralRequest.RQT_Current_Review = new F_Review();
+            //GeneralRequest.RQT_Current_Review = new F_Review();
 
-            GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
-                .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
+            //GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
+            //    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
 
-            GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
-                .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
+            //GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
+            //    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
 
-            GeneralRequest.RQT_Current_Review.APV_Assignment = GeneralRequest.RQT_CurrentAssignment;
+            //GeneralRequest.RQT_Current_Review.APV_Assignment = GeneralRequest.RQT_CurrentAssignment;
 
             var tmp = _db.Update(GeneralRequest);
 
@@ -501,7 +601,7 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             await _db.SaveChangesAsync();
 
-            GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
+            //GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
 
             await SetCurrentAssignment(GeneralRequest);
 
@@ -699,55 +799,55 @@ public class SimpleClassRepository : ISimpleClassRepository
         return await _db.SaveChangesAsync();
     }
 
-    public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
-        IQueryable<L_UserAssignment> l_UserAssignments)
-    {
-        if (!String.IsNullOrEmpty(cartableDTO.Username))
-        {
-            var username = cartableDTO.Username;
-            l_UserAssignments = l_UserAssignments.Where(x => x.UA_User.PName == username);
-        }
+    //public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
+    //    IQueryable<L_UserAssignment> l_UserAssignments)
+    //{
+    //    if (!String.IsNullOrEmpty(cartableDTO.Username))
+    //    {
+    //        var username = cartableDTO.Username;
+    //        l_UserAssignments = l_UserAssignments.Where(x => x.UA_User.PName == username);
+    //    }
 
-        if (!String.IsNullOrEmpty(cartableDTO.ProcessName))
-        {
-            var processName = cartableDTO.ProcessName;
-            l_UserAssignments = l_UserAssignments
-                .Where(x => x.UA_Assignment.PRM_Request.RQT_Process.PName == processName);
-        }
-        var Inbox = l_UserAssignments
-        .Select(x =>
-        new CartableDTO()
-        {
-            ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
-            RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
-            Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
-            TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
-            CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
-            RecieveDate = x.UA_Assignment.CreateTimeRecord,
-            Summary = x.UA_Assignment.PRM_Request.PDisplayName
-        }
-        );
+    //    if (!String.IsNullOrEmpty(cartableDTO.ProcessName))
+    //    {
+    //        var processName = cartableDTO.ProcessName;
+    //        l_UserAssignments = l_UserAssignments
+    //            .Where(x => x.UA_Assignment.PRM_Request.RQT_Process.PName == processName);
+    //    }
+    //    var Inbox = l_UserAssignments
+    //    .Select(x =>
+    //    new CartableDTO()
+    //    {
+    //        ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
+    //        RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
+    //        Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
+    //        TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
+    //        CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
+    //        RecieveDate = x.UA_Assignment.CreateTimeRecord,
+    //        Summary = x.UA_Assignment.PRM_Request.PDisplayName
+    //    }
+    //    );
 
-        return Inbox;
-    }
+    //    return Inbox;
+    //}
 
     public async Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
     {
-        var l_UserAssignments = _db.L_UserAssignments
-            .Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment);
+        //var l_UserAssignments = _db.L_UserAssignments
+        //    .Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment);
 
-        var inbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
+        //var inbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
 
-        return inbox;
+        return Enumerable.Empty<CartableDTO>();
     }
     public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
     {
-        var l_UserAssignments = _db.L_UserAssignments
-            .Where(x => x.UA_Assignment.PRM_Review.APV_Tag != null);
+        //var l_UserAssignments = _db.L_UserAssignments
+        //    .Where(x => x.UA_Assignment.PRM_Review.APV_Tag != null);
 
-        var outbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
+        //var outbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
 
-        return outbox;
+        return Enumerable.Empty<CartableDTO>();
     }
     public async Task<F_Request> GetCaseAsync(F_Request request)
     {
