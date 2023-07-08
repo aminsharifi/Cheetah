@@ -36,10 +36,6 @@ public partial class F_Request : BaseClass<F_Request>
     public long? RQT_ProcessId { get; set; }
     public virtual D_Process? RQT_Process { get; set; }
 
-    [Column(Order = 112)]
-    public long? RQT_Current_ReviewId { get; set; }
-    public virtual F_Review? RQT_Current_Review { get; set; }
-
     [Column(Order = 113)]
     public long? RQT_SelectedScenarioId { get; set; }
     public virtual F_Scenario? RQT_SelectedScenario { get; set; }
@@ -55,7 +51,5 @@ public partial class F_Request : BaseClass<F_Request>
     [InverseProperty(nameof(F_Assignment.PRM_Request))]
     public virtual ICollection<F_Assignment>? RQT_Assignments { get; set; } = new HashSet<F_Assignment>();
 
-    [InverseProperty(nameof(F_Review.APV_Request))]
-    public virtual ICollection<F_Review>? RQT_Reviews { get; set; } = new HashSet<F_Review>();
     #endregion
 }

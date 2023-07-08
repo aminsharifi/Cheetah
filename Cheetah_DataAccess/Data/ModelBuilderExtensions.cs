@@ -12,7 +12,6 @@ public static class ModelBuilderExtensions
 {
     public static async void Seed(this ModelBuilder modelBuilder)
     {
-   
         #region Dimentions
 
         #region D_Process
@@ -481,14 +480,6 @@ public static class ModelBuilderExtensions
                         PIndex = 200,
                         PName = nameof(F_Assignment),
                         PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString(),
-                        Display = false
-                    },
-                    new D_Entity
-                    {
-                        Id = 201,
-                        PIndex = 201,
-                        PName = nameof(F_Review),
-                        PDisplayName = new StringBuilder().Append("تاییدهای جاری").Append($"({TableType.Facts})").ToString(),
                         Display = false
                     },
                     new D_Entity

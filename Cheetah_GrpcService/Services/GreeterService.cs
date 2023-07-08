@@ -79,8 +79,12 @@ namespace Cheetah_GrpcService.Services
         {
             var f_Request = new F_Request();
 
+            f_Request.Id = request.AssignmentId;
+
+            //if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
+
             f_Request = simpleClassRepository.PerformRequestAsync(f_Request)
-                .GetAwaiter().GetResult();
+            .GetAwaiter().GetResult();
 
             var output_Request = new Brief_Output_Request();
 
@@ -119,45 +123,54 @@ namespace Cheetah_GrpcService.Services
                     PDisplayName = f_Request.RQT_ProcessState.PDisplayName
                 };
 
-            output_Request.CurrentAssignments.AddRange(
-                f_Request.RQT_CurrentAssignment.PRM_UserAssignments
-                .Select(x => new GRPC_UserAssignment()
-                {
-                    Endorsement =
-                    new()
-                    {
-                        Id = x.UA_Assignment.PRM_Endorsement.PIndex.Value,
-                        PName = x.UA_Assignment.PRM_Endorsement.PName,
-                        PDisplayName = x.UA_Assignment.PRM_Endorsement.PDisplayName
-                    },
-                    UserAssignment =
-                    new()
-                    {
-                        Id = x.Id.Value,
-                        PName = x.UA_User.PName
-                    }
-                }));
+            output_Request.CurrentAssignments = new GRPC_UserAssignment();
+            output_Request.CurrentAssignments.Endorsement = new()
+            {
+                Id = f_Request.RQT_CurrentAssignment.PRM_Endorsement.Id.Value,
+                PName = f_Request.RQT_CurrentAssignment.PRM_Endorsement.PName,
+                PDisplayName = f_Request.RQT_CurrentAssignment.PRM_Endorsement.PDisplayName
+            };
 
-            output_Request.AllAssignments.AddRange(f_Request.RQT_Assignments
-                .SelectMany(p => p.PRM_UserAssignments,
-                (parent, child) => new GRPC_UserAssignment()
-                {
-                    UserAssignment =
-                    new()
-                    {
-                        Id = child.Id.Value,
-                        PName = child.UA_User.PName,
-                        PDisplayName = child.UA_User.PDisplayName
-                    },
+            //output_Request.CurrentAssignments.UserAssignments.AddRange
+            //    (
+            //        f_Request.RQT_CurrentAssignment.PRM_UserAssignments
+            //        .Select(x => new GRPC_BaseClass()
+            //        {
+            //            Id = x.Id.Value,
+            //            PName = x.UA_User.PName
+            //        }
+            //        )
+            //    );
 
-                    Endorsement =
-                    new()
-                    {
-                        Id = parent.PRM_Endorsement.PIndex.Value,
-                        PName = parent.PRM_Endorsement.PName,
-                        PDisplayName = parent.PRM_Endorsement.PDisplayName
-                    }
-                }));
+
+            var assignments = f_Request.RQT_Assignments.ToList();
+
+            output_Request.AllAssignments.AddRange(assignments
+            .Select(p => new GRPC_UserAssignment()
+            {
+                Endorsement =
+                new()
+                {
+                    Id = p.PRM_Endorsement.Id.Value,
+                    PName = p.PRM_Endorsement.PName,
+                    PDisplayName = p.PRM_Endorsement.PDisplayName
+                }
+
+            }));
+
+            //output_Request.AllAssignments.ToList()
+            //    .ForEach(x =>
+            //    x.UserAssignments.AddRange(
+            //        assignments.First(y => y.PRM_EndorsementId == x.Endorsement.Id).PRM_UserAssignments
+            //        .Select(z =>
+            //            new GRPC_BaseClass()
+            //            {
+            //                Id = z.Id.Value,
+            //                PName = z.UA_User.PName,
+            //                PDisplayName = z.UA_User.PDisplayName
+            //            }
+            //        )
+            //    ));
 
             return Task.FromResult(output_Request);
         }

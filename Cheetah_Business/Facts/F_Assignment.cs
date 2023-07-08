@@ -1,4 +1,5 @@
 ﻿using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,14 +19,13 @@ public partial class F_Assignment : BaseClass<F_Assignment>
     public virtual F_Endorsement? PRM_Endorsement { get; set; }
 
     [Column(Order = 102)]
-    public long? PRM_ReviewId { get; set; }
-    public virtual F_Review? PRM_Review { get; set; }
+    public virtual D_User? PRM_User { get; set; }
 
     [Column(Order = 103)]
     public long? PRM_RequestId { get; set; }
     [ForeignKey(nameof(PRM_RequestId))]
     public virtual F_Request? PRM_Request { get; set; }
 
-    public virtual ICollection<L_UserAssignment>? PRM_UserAssignments { get; set; } = new HashSet<L_UserAssignment>();
-
+    [Column(Order = 104)]
+    public virtual D_Tag? PRM_Tag { get; set; }
 }
