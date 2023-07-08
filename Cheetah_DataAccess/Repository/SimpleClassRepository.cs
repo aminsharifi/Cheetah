@@ -25,36 +25,44 @@ public class SimpleClassRepository : ISimpleClassRepository
     private void CreateViews()
     {
         #region V_Location
-        string V_Location_Cmd = @"
-                            if exists(select 1 from sys.views where name = 'V_Location' and type = 'v')
-                            DROP VIEW[Virtuals].[V_Location]
-                            go
-                            CREATE VIEW[Virtuals].[V_Location]
+        string V_Location_Cmd1 = @"
+                            if exists(select 1 from sys.views where name = 'V_Location')
+                            DROP VIEW[Virtuals].[V_Location]";
+        _db.Database.ExecuteSqlRaw(V_Location_Cmd1);
+        string V_Location_Cmd2 = @"                            
+                            CREATE VIEW [Virtuals].[V_Location]
                             AS
-                            SELECT cast([Id] as bigint) PERPCode, cast([Id] as nvarchar(512)) as PName, [Name] as PDisplayName
-                            FROM[192.168.10.66].[Alborz].[Bizagi].[Branch]
-                         ";
-        _db.Database.ExecuteSql($"{V_Location_Cmd}");
+                            SELECT cast([Id] as bigint) PERPCode, cast([Id]
+                            as nvarchar(512)) as PName, [Name] as PDisplayName
+                            FROM [192.168.10.66].[Alborz].[Bizagi].[Branch]
+                            ";
+        _db.Database.ExecuteSqlRaw(V_Location_Cmd2);
         #endregion
 
         #region V_Position
-        var V_Position_Cmd = @"
-        if exists(select 1 from sys.views where name = 'V_Position' and type = 'v')
+        var V_Position_Cmd1 = @"
+        if exists(select 1 from sys.views where name = 'V_Position')
         DROP VIEW[Virtuals].[V_Position]
-        go
+        ";
+        _db.Database.ExecuteSqlRaw(V_Position_Cmd1);
+
+        var V_Position_Cmd2 = @"
         CREATE VIEW[Virtuals].[V_Position]
         AS
         SELECT cast(oj.Id as bigint) PERPCode, cast(oj.Id as nvarchar(512)) as PName, oj.Title as PDisplayName
         FROM[192.168.10.66].[Alborz].access.OrganizationJob oj
         ";
-        _db.Database.ExecuteSql($"{V_Position_Cmd}");
+        _db.Database.ExecuteSqlRaw(V_Position_Cmd2);
         #endregion
 
         #region V_User
-        var V_User_Cmd = @"
-        if exists(select 1 from sys.views where name = 'V_User' and type = 'v')
+        var V_User_Cmd1 = @"
+        if exists(select 1 from sys.views where name = 'V_User')
         DROP VIEW[Virtuals].[V_User]
-        go
+        ";
+        _db.Database.ExecuteSqlRaw(V_User_Cmd1);
+
+        var V_User_Cmd2 = @"       
         CREATE VIEW[Virtuals].[V_User]
         AS
         SELECT
@@ -79,29 +87,33 @@ public class SimpleClassRepository : ISimpleClassRepository
         left join[192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
         where FirstName is not null
         ";
-        _db.Database.ExecuteSql($"{V_User_Cmd}");
+        _db.Database.ExecuteSqlRaw(V_User_Cmd2);
         #endregion
 
         #region V_UserLocation
-        var V_UserLocation_Cmd = @"
-        if exists(select 1 from sys.views where name = 'V_UserLocation' and type = 'v')
+        var V_UserLocation_Cmd1 = @"
+        if exists(select 1 from sys.views where name = 'V_UserLocation')
         DROP VIEW[Virtuals].[V_UserLocation]
-        go
-        CREATE VIEW[Virtuals].[V_UserLocation]
+        ";
+        _db.Database.ExecuteSqlRaw(V_UserLocation_Cmd1);
+        var V_UserLocation_Cmd2 = @"
+        CREATE VIEW [Virtuals].[V_UserLocation]
         AS
         SELECT distinct
         cast((cast(UserId as varchar(50)) + cast(BranchId as varchar(50))) as bigint) as PERPCode,
         cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) DsblRecord
         FROM[192.168.10.66].[Alborz].[access].[GetUserBranchs_evw]
         ";
-        _db.Database.ExecuteSql($"{V_UserLocation_Cmd}");
+        _db.Database.ExecuteSqlRaw(V_UserLocation_Cmd2);
         #endregion
 
         #region V_UserPosition
-        var V_UserPosition_Cmd = @"
-        if exists(select 1 from sys.views where name = 'V_UserPosition' and type = 'v')
-        DROP VIEW[Virtuals].[V_UserPosition]
-        go
+        var V_UserPosition_Cmd1 = @"
+        if exists(select 1 from sys.views where name = 'V_UserPosition')
+        DROP VIEW[Virtuals].[V_UserPosition]     
+        ";
+        _db.Database.ExecuteSqlRaw(V_UserLocation_Cmd1);
+        var V_UserPosition_Cmd2 = @"
         CREATE VIEW[Virtuals].[V_UserPosition]
         AS
         SELECT distinct
@@ -117,7 +129,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         inner join[192.168.10.66].[Alborz].access.OrganizationJob oj on oj.Id = ChartPost.JobId
         where UR.EndDate > getdate() and UserProfile.FirstName is not null and UR.isenabled = 1
         ";
-        _db.Database.ExecuteSql($"{V_UserLocation_Cmd}");
+        _db.Database.ExecuteSqlRaw(V_UserPosition_Cmd2);
         #endregion
 
     }
