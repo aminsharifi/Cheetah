@@ -32,9 +32,21 @@ service Request {
   rpc CreateRequest (Create_Input_Request) returns (Brief_Output_Request);
   rpc PerformRequest (Perform_Input_Request) returns (Brief_Output_Request);
   rpc GetCase (GetCase_Input_Request) returns (DetailOutput_Request);
+  rpc Sync(InputSync) returns (OutputSync);
   rpc Inbox (PageCartable) returns (PageCartable);
   rpc Outbox (PageCartable) returns (PageCartable);
 }
+
+message InputSync
+{    
+    string TableName = 1;
+}
+
+message OutputSync
+{    
+    repeated GRPC_BaseClass SyncTable = 1;
+}
+
 
 message PageCartable
 {

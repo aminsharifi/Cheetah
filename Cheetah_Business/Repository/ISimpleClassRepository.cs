@@ -12,6 +12,7 @@ public interface ISimpleClassRepository
     public Task<SimpleClass> Get(string type, Int64? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll);
     public Task<SimpleClass> GetLast(string type);
     public Task<SimpleClass> Create(SimpleClass obj_DTO);
+    public Task<Int32> Sync(String TableName);
     public Task<F_Case> PerformRequestAsync(F_Case request);
     public Task<F_Case> CreateRequestAsync(F_Case request);
     public Task<F_Case> GetCaseAsync(F_Case request);

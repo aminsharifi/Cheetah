@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -37,7 +38,7 @@ public class SimpleClassRepository : ISimpleClassRepository
     private void CreateViews()
     {
         #region V_UserLocation
-        
+
         RemoveView("V_UserLocation");
 
         var V_UserLocation_Cmd2 = @"
@@ -134,7 +135,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         _db.Database.ExecuteSqlRaw(V_User_Cmd2);
         #endregion
 
-     
+
 
     }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
@@ -299,7 +300,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         var v_Position = await V_Positions.SingleAsync();
         var d_Position = new D_Position();
 
-        if (!await V_Positions.AnyAsync())
+        if (!await D_Positions.AnyAsync())
         {
             d_Position = new D_Position()
             {
@@ -382,27 +383,39 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             var users = d_Users.Where(x => x.ERPCode == item.FirstId);
             var positions = d_Positions.Where(x => x.ERPCode == item.SecondId);
+
+            var MustAdd = true;
+
             if (!users.Any())
             {
-                var aa = 12;
+                MustAdd = false;
             }
+
             if (!positions.Any())
             {
-                var aa = 12;
+                MustAdd = false;
             }
-            var user = users.Single();
-            var position = positions.Single();
-
-            var l_UserPosition = new L_UserPosition()
+            if (MustAdd)
             {
-                FirstId = user.Id,
-                SecondId = position.Id,
-                Name = user.Name + "-" + position.Name,
-                DisplayName = user.DisplayName + "-" + position.DisplayName,
-                DsblRecord = item.DsblRecord,
-                LastUpdatedRecord = DateTime.Now
-            };
-            await _db.L_UserPositions.AddAsync(l_UserPosition);
+                var user = users.Single();
+                var position = positions.Single();
+
+                MustAdd = !await _db.L_UserPositions.AnyAsync(x => x.FirstId == user.Id && x.SecondId == position.Id);
+
+                if (MustAdd)
+                {
+                    var l_UserPosition = new L_UserPosition()
+                    {
+                        FirstId = user.Id,
+                        SecondId = position.Id,
+                        Name = user.Name + "-" + position.Name,
+                        DisplayName = user.DisplayName + "-" + position.DisplayName,
+                        DsblRecord = item.DsblRecord,
+                        LastUpdatedRecord = DateTime.Now
+                    };
+                    await _db.L_UserPositions.AddAsync(l_UserPosition);
+                }
+            }
         }
 
         await _db.SaveChangesAsync();
@@ -414,7 +427,6 @@ public class SimpleClassRepository : ISimpleClassRepository
         var d_Users = await _db.D_Users.ToListAsync();
         var d_Locations = await _db.D_Locations.ToListAsync();
         var v_UserLocations = await _db.V_UserLocations
-            //.Where(x=>x.UL_User.PName == "ah.naeimi")
             .ToListAsync();
 
         foreach (var item in v_UserLocations)
@@ -439,16 +451,21 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                 var location = d_Location.Single();
 
-                var l_UserLocation = new L_UserLocation()
+                MustAdd = !await _db.L_UserLocations.AnyAsync(x => x.FirstId == user.Id && x.SecondId == location.Id);
+
+                if (MustAdd)
                 {
-                    FirstId = user.Id,
-                    SecondId = location.Id,
-                    Name = user.Name + "-" + location.Name,
-                    DisplayName = user.DisplayName + "-" + location.DisplayName,
-                    DsblRecord = item.DsblRecord,
-                    LastUpdatedRecord = DateTime.Now
-                };
-                await _db.L_UserLocations.AddAsync(l_UserLocation);
+                    var l_UserLocation = new L_UserLocation()
+                    {
+                        FirstId = user.Id,
+                        SecondId = location.Id,
+                        Name = user.Name + "-" + location.Name,
+                        DisplayName = user.DisplayName + "-" + location.DisplayName,
+                        DsblRecord = item.DsblRecord,
+                        LastUpdatedRecord = DateTime.Now
+                    };
+                    await _db.L_UserLocations.AddAsync(l_UserLocation);
+                }
             }
         }
 
@@ -880,5 +897,35 @@ public class SimpleClassRepository : ISimpleClassRepository
             x.ERPCode == request.ERPCode));
 
         return GeneralRequest;
+    }
+    public async Task<int> Sync(String TableName)
+    {
+        switch (TableName)
+        {
+            case "User":
+                await SyncUser();
+                break;
+            case "Location":
+                await SyncLocation();
+                break;
+            case "Position":
+                await SyncPosition();
+                break;
+            case "UserLocation":
+                await Sync_UserLocation();
+                break;
+            case "UserPosition":
+                await Sync_UserPosition();
+                break;
+            default:
+                await SyncUser();
+                await SyncLocation();
+                await SyncPosition();
+                await Sync_UserLocation();
+                await Sync_UserPosition();
+                break;
+        }
+
+        return 1;
     }
 }
