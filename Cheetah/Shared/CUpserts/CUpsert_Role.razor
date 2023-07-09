@@ -8,11 +8,7 @@
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
                        Title="@($"لیست سمت هایی که در نقش {Record?.DisplayName} هستند")">
-        </LinkComponent>
-        <NavLink href="@($"Dimentions/Edit/F_EndorsementRole/D_Role/{Record.Id}/{reference}")"
-                 class="link-primary my-1">
-            <strong>لیست تخصیص نقش‌های در نظر گرفته شده</strong>
-        </NavLink>
+        </LinkComponent>      
     </RowTemplate>
 </CEditDimentions>
 @code {
