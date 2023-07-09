@@ -7,7 +7,7 @@
     <RowTemplate>
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title="@($"کاربرانی که در سمت {Record?.PDisplayName} هستند")">
+                       Title="@($"کاربرانی که در سمت {Record?.DisplayName} هستند")">
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
@@ -25,7 +25,7 @@
                 fixedId = Id,
                 sd_Status = nameof(LinkProperty.Second),
                 floatState = d_User.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
-                    new Tuple<long?, string>(x.Id, x.PDisplayName),
+                    new Tuple<long?, string>(x.Id, x.DisplayName),
                     l_UserArea.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
                         .ToDictionary(x => x.Key, x => x.Value)
             };

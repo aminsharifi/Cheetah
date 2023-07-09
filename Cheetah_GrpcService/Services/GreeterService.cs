@@ -53,10 +53,10 @@ namespace Cheetah_GrpcService.Services
         {
             var f_Request = new F_Case();
 
-            f_Request.Creator = new() { PName = request.CreatorPName };
-            f_Request.Requestor = new() { PName = request.RequestorPName };
-            f_Request.Process = new() { PName = request.ProcessPName };
-            f_Request.PERPCode = request.PERPCode;
+            f_Request.Creator = new() { Name = request.CreatorPName };
+            f_Request.Requestor = new() { Name = request.RequestorPName };
+            f_Request.Process = new() { Name = request.ProcessPName };
+            f_Request.ERPCode = request.PERPCode;
 
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
@@ -67,8 +67,8 @@ namespace Cheetah_GrpcService.Services
                 new()
                 {
                     Id = f_Request.ProcessState.Id.Value,
-                    PName = f_Request.ProcessState.PName,
-                    PDisplayName = f_Request.ProcessState.PDisplayName
+                    PName = f_Request.ProcessState.Name,
+                    PDisplayName = f_Request.ProcessState.DisplayName
                 };
 
             output_Request.Id = f_Request.Id.Value;
@@ -99,10 +99,10 @@ namespace Cheetah_GrpcService.Services
             f_Request.Id = request.Id;
 
             if (request.PERPCode > 0)
-                f_Request.PERPCode = request.PERPCode;
+                f_Request.ERPCode = request.PERPCode;
 
             if (!String.IsNullOrEmpty(request.ProcessName))
-                f_Request.Process = _db.D_Processes.Single(x => x.PName == request.ProcessName);
+                f_Request.Process = _db.D_Processes.Single(x => x.Name == request.ProcessName);
 
             f_Request = simpleClassRepository.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
@@ -111,16 +111,16 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.Id = f_Request.Id.Value;
 
-            output_Request.ProcessName = f_Request.Process.PName;
+            output_Request.ProcessName = f_Request.Process.Name;
 
-            output_Request.PERPCode = f_Request.PERPCode.Value;
+            output_Request.PERPCode = f_Request.ERPCode.Value;
 
             output_Request.ProcessState =
                 new()
                 {
                     Id = f_Request.ProcessState.Id.Value,
-                    PName = f_Request.ProcessState.PName,
-                    PDisplayName = f_Request.ProcessState.PDisplayName
+                    PName = f_Request.ProcessState.Name,
+                    PDisplayName = f_Request.ProcessState.DisplayName
                 };
 
             output_Request.CurrentAssignments = new GRPC_UserAssignment();
@@ -152,8 +152,8 @@ namespace Cheetah_GrpcService.Services
                 new()
                 {
                     Id = p.Endorsement.Id.Value,
-                    PName = p.Endorsement.PName,
-                    PDisplayName = p.Endorsement.PDisplayName
+                    PName = p.Endorsement.Name,
+                    PDisplayName = p.Endorsement.DisplayName
                 }
 
             }));
@@ -195,8 +195,8 @@ namespace Cheetah_GrpcService.Services
                         DTag = (x.Tag is not null) ? new()
                         {
                             Id = x.Tag.Id.Value,
-                            PName = x.Tag.PName,
-                            PDisplayName = x.Tag.PDisplayName
+                            PName = x.Tag.Name,
+                            PDisplayName = x.Tag.DisplayName
                         } : new(),
                         RecieveDate = ((DateTimeOffset)x.RecieveDate).ToUnixTimeSeconds(),
                         PRecieveDate = x.PRecieveDate,

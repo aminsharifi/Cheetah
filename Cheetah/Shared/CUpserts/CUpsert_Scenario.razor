@@ -51,7 +51,7 @@
                                                 </span>
                                             </td>
                                             <td style="width:8%">
-                                                <InputNumber class="col-12" @bind-Value="item.PIndex"></InputNumber>
+                                                <InputNumber class="col-12" @bind-Value="item.Index"></InputNumber>
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
@@ -64,7 +64,7 @@
                                                     @foreach (var list_D_ParameterList in List_D_Tag)
                                                     {
                                                         <option value="@list_D_ParameterList.Id">
-                                                            @list_D_ParameterList.PDisplayName (@list_D_ParameterList.PName)
+                                                            @list_D_ParameterList.DisplayName (@list_D_ParameterList.Name)
                                                         </option>
                                                     }
                                                 </InputSelect>
@@ -80,7 +80,7 @@
                                                     @foreach (var list_D_Operand in List_D_Operand)
                                                     {
                                                         <option value="@list_D_Operand.Id">
-                                                            @list_D_Operand.PDisplayName
+                                                            @list_D_Operand.DisplayName
                                                         </option>
                                                     }
                                                 </InputSelect>
@@ -165,7 +165,7 @@
                                                 </span>
                                             </td>
                                             <td style="width:8%">
-                                                <InputNumber class="col-12" @bind-Value="item.PIndex"></InputNumber>
+                                                <InputNumber class="col-12" @bind-Value="item.Index"></InputNumber>
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
@@ -178,7 +178,7 @@
                                                     @foreach (var list_D_Role in List_D_Role)
                                                     {
                                                         <option value="@list_D_Role.Id">
-                                                            @list_D_Role.PDisplayName (@list_D_Role.PName)
+                                                            @list_D_Role.DisplayName (@list_D_Role.Name)
                                                         </option>
                                                     }
                                                 </InputSelect>
@@ -225,7 +225,7 @@
                                                                             </span>
                                                                         </td>
                                                                         <td style="width:8%">
-                                                                            <InputNumber class="col-12" @bind-Value="item.PIndex"></InputNumber>
+                                                                            <InputNumber class="col-12" @bind-Value="item.Index"></InputNumber>
                                                                         </td>
                                                                         <td style="width:16%">
                                                                             <InputSelect class="col-12"
@@ -238,7 +238,7 @@
                                                                                 @foreach (var list_D_ParameterList in List_D_Tag)
                                                                                 {
                                                                                     <option value="@list_D_ParameterList.Id">
-                                                                                        @list_D_ParameterList.PDisplayName (@list_D_ParameterList.PName)
+                                                                                        @list_D_ParameterList.DisplayName (@list_D_ParameterList.Name)
                                                                                     </option>
                                                                                 }
                                                                             </InputSelect>
@@ -254,7 +254,7 @@
                                                                                 @foreach (var list_D_Operand in List_D_Operand)
                                                                                 {
                                                                                     <option value="@list_D_Operand.Id">
-                                                                                        @list_D_Operand.PDisplayName
+                                                                                        @list_D_Operand.DisplayName
                                                                                     </option>
                                                                                 }
                                                                             </InputSelect>
@@ -314,7 +314,7 @@
                 </div>
                 <LinkComponent Records="@LinkRecords"
                            reference="@reference"
-                           Title="@($"لیست فرآیندهای که مرتبط با استراتژی  {Record?.PDisplayName} هستند")">
+                           Title="@($"لیست فرآیندهای که مرتبط با استراتژی  {Record?.DisplayName} هستند")">
                 </LinkComponent>
             }
         </div>
@@ -348,7 +348,7 @@
                 fixedId = Id,
                 sd_Status = nameof(LinkProperty.Second),
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
-                    new Tuple<long?, string>(x.Id, x.PDisplayName),
+                    new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
                                                 .ToDictionary(x => x.Key, x => x.Value)
             };
@@ -387,7 +387,7 @@
 
         if (Conditions.Any())
         {
-            Condition.PIndex = Conditions.Max(x => x.PIndex) + 1;
+            Condition.Index = Conditions.Max(x => x.Index) + 1;
         }
         else
         {
@@ -415,7 +415,7 @@
 
         if (eP_Endorsements.Any())
         {
-            d_Endorsement.PIndex = eP_Endorsements.Max(x => x.PIndex) + 1;
+            d_Endorsement.Index = eP_Endorsements.Max(x => x.Index) + 1;
         }
         else
         {

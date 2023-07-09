@@ -57,7 +57,7 @@
         {
             <div class="shadow rounded p-3 form-group my-2 col-sm-12 col-md-6">
                 <div class="input-group d-flex justify-content-end" style="direction:ltr">
-                    <span class="form-control"> @(keyValuePair.Where(x => x.Key == FilterTableName).Single().Value + ":" + Record.PDisplayName)</span>
+                    <span class="form-control"> @(keyValuePair.Where(x => x.Key == FilterTableName).Single().Value + ":" + Record.DisplayName)</span>
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
                               lang="fa" dir="rtl">فیلتر</span>
@@ -120,7 +120,7 @@
         {
             if (item.Display is true)
             {
-                keyValuePair.Add(item.PName, item.PDisplayName);
+                keyValuePair.Add(item.Name, item.DisplayName);
             }
         }
 

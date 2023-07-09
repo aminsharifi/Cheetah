@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
 
 [Table(nameof(F_Endorsement), Schema = nameof(TableType.Facts))]
-[Index(nameof(PName), IsUnique = true, AllDescending = true)]
+[Index(nameof(Name), IsUnique = true, AllDescending = true)]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
+[Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
 [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
 public partial class F_Endorsement : BaseClass<F_Endorsement>
@@ -25,7 +25,7 @@ public partial class F_Endorsement : BaseClass<F_Endorsement>
 
     public override void SetName()
     {
-        PDisplayName = Scenario?.PDisplayName + "," + Role?.PDisplayName;
-        PName = Scenario?.PName + "," + Role?.PName;
+        DisplayName = Scenario?.DisplayName + "," + Role?.DisplayName;
+        Name = Scenario?.Name + "," + Role?.Name;
     }
 }

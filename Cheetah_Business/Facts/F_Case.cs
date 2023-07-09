@@ -8,7 +8,7 @@ namespace Cheetah_Business.Facts;
 [Table(nameof(F_Case), Schema = nameof(TableType.Facts))]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
+[Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
 public partial class F_Case : BaseClass<F_Case>
 {

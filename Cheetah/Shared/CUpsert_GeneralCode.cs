@@ -36,7 +36,7 @@ namespace Cheetah.Shared
                 if (!IsInline)
                 {
                     reference = _CNavigation.LoadNavigation(Address: $"Dimentions/{((Id > 0) ? "Edit" : "Create")}/{Name}/{((Id > 0) ? Id : String.Empty)}",
-                    RowDescription: Record.PDisplayName,
+                    RowDescription: Record.DisplayName,
                     RowId: Record.Id, Reference: reference);
                 }
                 LoadData = false;
@@ -77,7 +77,7 @@ namespace Cheetah.Shared
                 if (IsNew)
                     await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
                 else
-                    await _JsRuntime.ToastrSuccess($"ردیف {Record.PDisplayName} با موفقیت ذخیره شد");
+                    await _JsRuntime.ToastrSuccess($"ردیف {Record.DisplayName} با موفقیت ذخیره شد");
 
                 if (!IsInline)
                 {
