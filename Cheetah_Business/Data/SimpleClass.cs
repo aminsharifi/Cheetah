@@ -16,25 +16,25 @@ public abstract class SimpleClass
     [Description("اندیس مرتب‌سازی")]
     [Column(Order = 2)]
     [DefaultValue(0)]
-    public Int64? PIndex { get; set; }
+    public Int64? Index { get; set; }
 
 
     [StringLength(512)]
     [Description("نام")]
     [DefaultValue("")]
     [Column(Order = 3)]
-    public String? PName { get; set; }
+    public String? Name { get; set; }
 
     [StringLength(512)]
     [Description("نام نمایشی")]
     [DefaultValue("")]
     [Column(Order = 4)]
-    public String? PDisplayName { get; set; }
+    public String? DisplayName { get; set; }
 
     [StringLength(512)]
     [Description("توضیحات")]
     [Column(Order = 5)]
-    public String? PDescription { get; set; }
+    public String? Description { get; set; }
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column(Order = 6)]
@@ -54,7 +54,7 @@ public abstract class SimpleClass
 
     [Description("کد در ERP")]
     [Column(Order = 10)]
-    public Int64? PERPCode { get; set; }
+    public Int64? ERPCode { get; set; }
 
     public virtual void SetName()
     {

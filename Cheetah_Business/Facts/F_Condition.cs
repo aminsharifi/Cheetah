@@ -8,7 +8,7 @@ namespace Cheetah_Business.Facts;
 [Table(nameof(F_Condition), Schema = nameof(TableType.Facts))]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
+[Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
 public partial class F_Condition : BaseClass<F_Condition>
 {
@@ -65,7 +65,7 @@ public partial class F_Condition : BaseClass<F_Condition>
 
     public override void SetName()
     {
-        PDisplayName = Scenario?.PDisplayName + "," + Tag?.PDisplayName + "," + Operand?.PDisplayName + "," + Value;
-        PName = Scenario?.PName + "," + Tag?.PName + "," + Operand?.PName + "," + Value;
+        DisplayName = Scenario?.DisplayName + "," + Tag?.DisplayName + "," + Operand?.DisplayName + "," + Value;
+        Name = Scenario?.Name + "," + Tag?.Name + "," + Operand?.Name + "," + Value;
     }
 }

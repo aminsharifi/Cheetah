@@ -145,16 +145,16 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
     {
-        simpleLinkClass.PDisplayName = new StringBuilder()
-                 .Append(firstClass?.PDisplayName ?? String.Empty)
+        simpleLinkClass.DisplayName = new StringBuilder()
+                 .Append(firstClass?.DisplayName ?? String.Empty)
                  .Append("-")
-                 .Append(SecondClass?.PDisplayName ?? String.Empty)
+                 .Append(SecondClass?.DisplayName ?? String.Empty)
                  .ToString();
 
-        simpleLinkClass.PName = new StringBuilder()
-                          .Append(firstClass?.PName ?? String.Empty)
+        simpleLinkClass.Name = new StringBuilder()
+                          .Append(firstClass?.Name ?? String.Empty)
                           .Append("-")
-                          .Append(SecondClass?.PName ?? String.Empty)
+                          .Append(SecondClass?.Name ?? String.Empty)
                           .ToString();
         return simpleLinkClass;
     }
@@ -168,13 +168,13 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             var Condition = Expected_Conditions.ToArray()[i];
 
-            if (Actual_Conditions.Any(x => x.Tag.PName == Condition.Tag.PName))
+            if (Actual_Conditions.Any(x => x.Tag.Name == Condition.Tag.Name))
             {
                 var Scenario_Value = float.Parse(Condition.Value);
                 var Current_Value = float.Parse(Actual_Conditions
-                    .Single(x => x.Tag.PName == Condition.Tag.PName).Value);
+                    .Single(x => x.Tag.Name == Condition.Tag.Name).Value);
 
-                var Operand_Name = Condition.Operand.PName;
+                var Operand_Name = Condition.Operand.Name;
 
                 if (
                        (Operand_Name == ">" && Current_Value > Scenario_Value)
@@ -207,7 +207,7 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<D_User> GetUser(String PName)
     {
-        var Cheetah_User = _db.D_Users.Where(x => x.PName == PName);
+        var Cheetah_User = _db.D_Users.Where(x => x.Name == PName);
 
         var ERP_User = _db.V_Users.Where(x => x.PName == PName);
 
@@ -219,9 +219,9 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             var D_Creator = new D_User()
             {
-                PERPCode = v_Creator.PERPCode,
-                PName = v_Creator.PName,
-                PDisplayName = v_Creator.PDisplayName,
+                ERPCode = v_Creator.PERPCode,
+                Name = v_Creator.PName,
+                DisplayName = v_Creator.PDisplayName,
                 DsblRecord = v_Creator.DsblRecord,
                 LastUpdatedRecord = DateTime.Now
             };
@@ -247,9 +247,9 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                 var changed = false;
 
-                if (D_Creator.PDisplayName != v_Creator.PDisplayName)
+                if (D_Creator.DisplayName != v_Creator.PDisplayName)
                 {
-                    D_Creator.PDisplayName = v_Creator.PDisplayName;
+                    D_Creator.DisplayName = v_Creator.PDisplayName;
                     changed = true;
                 }
 
@@ -261,7 +261,7 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                 if (!String.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
                 {
-                    if (D_Creator.Parent is null || D_Creator.Parent?.PName != v_Creator.User_BossName)
+                    if (D_Creator.Parent is null || D_Creator.Parent?.Name != v_Creator.User_BossName)
                     {
                         D_Creator.Parent = await GetUser(v_Creator.User_BossName);
 
@@ -295,7 +295,7 @@ public class SimpleClassRepository : ISimpleClassRepository
     public async Task<D_Position> GetPosition(String PName)
     {
         var V_Positions = _db.V_Positions.Where(x => x.PName == PName);
-        var D_Positions = _db.D_Positions.Where(x => x.PName == PName);
+        var D_Positions = _db.D_Positions.Where(x => x.Name == PName);
         var v_Position = await V_Positions.SingleAsync();
         var d_Position = new D_Position();
 
@@ -303,9 +303,9 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             d_Position = new D_Position()
             {
-                PERPCode = v_Position.PERPCode,
-                PName = v_Position.PName,
-                PDisplayName = v_Position.PDisplayName,
+                ERPCode = v_Position.PERPCode,
+                Name = v_Position.PName,
+                DisplayName = v_Position.PDisplayName,
                 LastUpdatedRecord = DateTime.Now
             };
 
@@ -314,8 +314,8 @@ public class SimpleClassRepository : ISimpleClassRepository
         else
         {
             d_Position = await D_Positions.SingleAsync();
-            d_Position.PName = v_Position.PName;
-            d_Position.PDisplayName = v_Position.PDisplayName;
+            d_Position.Name = v_Position.PName;
+            d_Position.DisplayName = v_Position.PDisplayName;
         }
         await _db.SaveChangesAsync();
 
@@ -335,7 +335,7 @@ public class SimpleClassRepository : ISimpleClassRepository
     public async Task<D_Location> GetLocation(String PName)
     {
         var V_Locations = _db.V_Locations.Where(x => x.PName == PName);
-        var D_Locations = _db.D_Locations.Where(x => x.PName == PName);
+        var D_Locations = _db.D_Locations.Where(x => x.Name == PName);
         var V_Location = await V_Locations.SingleAsync();
         var d_Location = new D_Location();
 
@@ -343,9 +343,9 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             d_Location = new D_Location()
             {
-                PERPCode = V_Location.PERPCode,
-                PName = V_Location.PName,
-                PDisplayName = V_Location.PDisplayName,
+                ERPCode = V_Location.PERPCode,
+                Name = V_Location.PName,
+                DisplayName = V_Location.PDisplayName,
                 LastUpdatedRecord = DateTime.Now
             };
 
@@ -354,8 +354,8 @@ public class SimpleClassRepository : ISimpleClassRepository
         else
         {
             d_Location = await D_Locations.SingleAsync();
-            d_Location.PName = V_Location.PName;
-            d_Location.PDisplayName = V_Location.PDisplayName;
+            d_Location.Name = V_Location.PName;
+            d_Location.DisplayName = V_Location.PDisplayName;
         }
         await _db.SaveChangesAsync();
 
@@ -380,8 +380,8 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         foreach (var item in v_UserPositions)
         {
-            var users = d_Users.Where(x => x.PERPCode == item.FirstId);
-            var positions = d_Positions.Where(x => x.PERPCode == item.SecondId);
+            var users = d_Users.Where(x => x.ERPCode == item.FirstId);
+            var positions = d_Positions.Where(x => x.ERPCode == item.SecondId);
             if (!users.Any())
             {
                 var aa = 12;
@@ -397,8 +397,8 @@ public class SimpleClassRepository : ISimpleClassRepository
             {
                 FirstId = user.Id,
                 SecondId = position.Id,
-                PName = user.PName + "-" + position.PName,
-                PDisplayName = user.PDisplayName + "-" + position.PDisplayName,
+                Name = user.Name + "-" + position.Name,
+                DisplayName = user.DisplayName + "-" + position.DisplayName,
                 DsblRecord = item.DsblRecord,
                 LastUpdatedRecord = DateTime.Now
             };
@@ -419,8 +419,8 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         foreach (var item in v_UserLocations)
         {
-            var d_User = d_Users.Where(x => x.PERPCode == item.FirstId);
-            var d_Location = d_Locations.Where(x => x.PERPCode == item.SecondId);
+            var d_User = d_Users.Where(x => x.ERPCode == item.FirstId);
+            var d_Location = d_Locations.Where(x => x.ERPCode == item.SecondId);
 
             var MustAdd = true;
 
@@ -443,8 +443,8 @@ public class SimpleClassRepository : ISimpleClassRepository
                 {
                     FirstId = user.Id,
                     SecondId = location.Id,
-                    PName = user.PName + "-" + location.PName,
-                    PDisplayName = user.PDisplayName + "-" + location.PDisplayName,
+                    Name = user.Name + "-" + location.Name,
+                    DisplayName = user.DisplayName + "-" + location.DisplayName,
                     DsblRecord = item.DsblRecord,
                     LastUpdatedRecord = DateTime.Now
                 };
@@ -462,12 +462,12 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         try
         {
-            GeneralRequest.Creator = await GetUser(request.Creator.PName);
+            GeneralRequest.Creator = await GetUser(request.Creator.Name);
 
-            GeneralRequest.Requestor = await GetUser(request.Requestor.PName);
+            GeneralRequest.Requestor = await GetUser(request.Requestor.Name);
 
             GeneralRequest.Process = await _db.D_Processes
-                .SingleAsync(x => x.PName == request.Process.PName);
+                .SingleAsync(x => x.Name == request.Process.Name);
 
             GeneralRequest.CreateTimeRecord = DateTime.Now;
 
@@ -480,7 +480,7 @@ public class SimpleClassRepository : ISimpleClassRepository
                 foreach (var item in GeneralRequest.Conditions)
                 {
                     item.Id = null;
-                    item.Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.Tag.PName);
+                    item.Tag = await _db.D_Tags.SingleAsync(x => x.Name == item.Tag.Name);
                 }
             }
 
@@ -727,7 +727,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
         var instance = (SimpleClass)Activator.CreateInstance(gtype);
-        instance.PIndex = aa.Any() ? aa.Max(x => x.PIndex) + 1 : 1;
+        instance.Index = aa.Any() ? aa.Max(x => x.Index) + 1 : 1;
         return instance;
     }
     public async Task<Int32> RemoveLink(SimpleLinkClassDTO obj_DTO)
@@ -768,7 +768,7 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             if (simpleLinkClass.Any())
             {
-                instance.PIndex = simpleLinkClass.Last().PIndex + 1;
+                instance.Index = simpleLinkClass.Last().Index + 1;
             }
             else
             {
@@ -876,8 +876,8 @@ public class SimpleClassRepository : ISimpleClassRepository
             .Include(x => x.ProcessState)
             .Include(x => x.WorkItems)
             .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
-            (x.Process.PName == request.Process.PName &&
-            x.PERPCode == request.PERPCode));
+            (x.Process.Name == request.Process.Name &&
+            x.ERPCode == request.ERPCode));
 
         return GeneralRequest;
     }

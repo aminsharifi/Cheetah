@@ -15,16 +15,16 @@
 @if (!IsLoading)
 {
     <CEditLinks Record="@Record" type="@type" LinkId="@LinkId"
-            Id="@Id" Name="@Name" FirstName="@(FirstClassRecord.PName)"
-            SecondName="@(SecondClassRecord.PName)"
+            Id="@Id" Name="@Name" FirstName="@(FirstClassRecord.Name)"
+            SecondName="@(SecondClassRecord.Name)"
             Title="@Title" IsLoading="@IsLoading"
             reference="@reference">
         <RowTemplate>
             <CInput @bind-LValue="Record.FirstId"
                 Records="@FirstClass"
-                CDescription="@(FirstClassRecord.PDisplayName)"
+                CDescription="@(FirstClassRecord.DisplayName)"
                     Disabled="@(type == nameof(LinkProperty.First))"
-                CDisplayName="@(FirstClassRecord.PDisplayName)"
+                CDisplayName="@(FirstClassRecord.DisplayName)"
                 CFieldType="@(FieldType.CSelect)"
                 Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
                 reference="@reference">
@@ -32,9 +32,9 @@
 
             <CInput @bind-LValue="Record.SecondId"
                 Records="@SecondClass"
-                CDescription="@(SecondClassRecord.PDisplayName)"
+                CDescription="@(SecondClassRecord.DisplayName)"
                     Disabled="@(type == nameof(LinkProperty.Second))"
-                CDisplayName="@(SecondClassRecord.PDisplayName)"
+                CDisplayName="@(SecondClassRecord.DisplayName)"
                 CFieldType="@(FieldType.CSelect)"
                 Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
                 reference="@reference">
@@ -82,7 +82,7 @@
         if (reference is null || firstRender)
         {
             reference = _CNavigation.LoadNavigation(Address: $"Links/{((Id > 0) ? "Edit" : "Create")}/{Name}/{type}/{((Id > 0) ? Id : LinkId)}",
-            RowDescription: Record.PDisplayName, RowId: Record.Id, Reference: reference);
+            RowDescription: Record.DisplayName, RowId: Record.Id, Reference: reference);
 
             IsLoading = false;
             StateHasChanged();
@@ -116,9 +116,9 @@
 
             var SecondClassName = Record.GetType().GetProperties()[1].PropertyType.Name;
 
-            FirstClassRecord = _D_Entity.Where(x => x.PName == FirstClassName).Single();
+            FirstClassRecord = _D_Entity.Where(x => x.Name == FirstClassName).Single();
 
-            SecondClassRecord = _D_Entity.Where(x => x.PName == SecondClassName).Single();
+            SecondClassRecord = _D_Entity.Where(x => x.Name == SecondClassName).Single();
 
             FirstClass = await simpleClassRepository.GetAllByName(FirstClassName);
 

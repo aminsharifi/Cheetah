@@ -29,8 +29,8 @@ namespace Cheetah_WebAPI.Controllers
                 simpleClassDTO.Add(new SimpleClassDTO()
                 {
                     Id = SimpleClassDTO.Id,
-                    PName = SimpleClassDTO.PName,
-                    PDescription = SimpleClassDTO.PDescription
+                    Name = SimpleClassDTO.Name,
+                    Description = SimpleClassDTO.Description
                 });
             }
             return Ok(simpleClassDTO);
