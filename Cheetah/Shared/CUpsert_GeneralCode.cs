@@ -54,7 +54,7 @@ namespace Cheetah.Shared
         {
             try
             {
-                var IsNew = (Record.Id == 0);
+                var IsNew = (Record.Id == 0 || Record.Id is null);
 
                 await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
 
@@ -63,6 +63,7 @@ namespace Cheetah.Shared
                 if (IsNew)
                 {
                     Record = await simpleClassRepository.Create(Record);
+                    LinkRecords.fixedId = Record.Id;
                 }
                 else
                 {
