@@ -36,15 +36,4 @@ public partial class V_User
 
     #endregion
 
-    #region Relations
-
-    #region Entity
-
-    #endregion
-
-    #region Collection
-
-    #endregion
-
-    #endregion
 }

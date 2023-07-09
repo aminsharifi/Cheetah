@@ -51,8 +51,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     #region Facts
     public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
     public virtual DbSet<F_Condition> F_Conditions { get; set; }
-    public virtual DbSet<F_Request> F_Requests { get; set; }
-    public virtual DbSet<F_Assignment> F_Assignments { get; set; }
+    public virtual DbSet<F_Case> F_Cases { get; set; }
+    public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
     public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
 

@@ -20,11 +20,11 @@ public partial class F_Attachment : BaseClass<F_Attachment>
     [Description("نام ضمیمه")]
     [StringLength(255)]
     [Column(Order = 100)]
-    public String? ATC_Name { get; set; }
+    public String? Name { get; set; }
 
     [Description("ضمیمه")]
     [Column(Order = 101)]
-    public byte[]? ATC_Data { get; set; }
+    public byte[]? Data { get; set; }
     #endregion
 
 }

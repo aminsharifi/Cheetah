@@ -13,59 +13,59 @@ namespace Cheetah_Business.Facts;
 public partial class F_Condition : BaseClass<F_Condition>
 {
     [Column(Order = 100)]
-    public long? CD_TagId { get; set; }
-    public virtual D_Tag? CD_Tag { get; set; }
+    public long? TagId { get; set; }
+    public virtual D_Tag? Tag { get; set; }
 
     [Column(Order = 101)]
-    public long? CD_OperandId { get; set; }
-    public virtual D_Operand? CD_Operand { get; set; }
+    public long? OperandId { get; set; }
+    public virtual D_Operand? Operand { get; set; }
 
     [Column(Order = 102)]
-    public String CD_Value { get; set; }
+    public String Value { get; set; }
 
     [Column(Order = 103)]
-    public long? CD_ScenarioId { get; set; }
-    public virtual F_Scenario? CD_Scenario { get; set; }
+    public long? ScenarioId { get; set; }
+    public virtual F_Scenario? Scenario { get; set; }
 
     [Column(Order = 104)]
-    public long? CD_EndorsementId { get; set; }
-    public virtual F_Endorsement? CD_Endorsement { get; set; }
+    public long? EndorsementId { get; set; }
+    public virtual F_Endorsement? Endorsement { get; set; }
 
     [Column(Order = 105)]
-    public long? CD_RequestId { get; set; }
-    public virtual F_Request? CD_Request { get; set; }
+    public long? CaseId { get; set; }
+    public virtual F_Case? Case { get; set; }
 
     [NotMapped]
     [GraphQLIgnore]
-    public Boolean CD_BooleanValue
+    public Boolean BooleanValue
     {
         get
         {
-            return (CD_Value == "1");
+            return (Value == "1");
         }
         set
         {
-            CD_Value = (value == true) ? "1" : "0";
+            Value = (value == true) ? "1" : "0";
         }
     }
 
     [NotMapped]
     [GraphQLIgnore]
-    public float CD_FloatValue
+    public float FloatValue
     {
         get
         {
-            return float.Parse(CD_Value ??= "0");
+            return float.Parse(Value ??= "0");
         }
         set
         {
-            CD_Value = value.ToString();
+            Value = value.ToString();
         }
     }
 
     public override void SetName()
     {
-        PDisplayName = CD_Scenario?.PDisplayName + "," + CD_Tag?.PDisplayName + "," + CD_Operand?.PDisplayName + "," + CD_Value;
-        PName = CD_Scenario?.PName + "," + CD_Tag?.PName + "," + CD_Operand?.PName + "," + CD_Value;
+        PDisplayName = Scenario?.PDisplayName + "," + Tag?.PDisplayName + "," + Operand?.PDisplayName + "," + Value;
+        PName = Scenario?.PName + "," + Tag?.PName + "," + Operand?.PName + "," + Value;
     }
 }

@@ -162,16 +162,16 @@ public class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<F_Request> f_Requests([Service] ApplicationDbContext context)
+    public IQueryable<F_Case> f_Requests([Service] ApplicationDbContext context)
     {
-        return context.F_Requests;
+        return context.F_Cases;
     }
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<F_Assignment> f_Assignments([Service] ApplicationDbContext context)
+    public IQueryable<F_WorkItem> f_WorkItems([Service] ApplicationDbContext context)
     {
-        return context.F_Assignments;
+        return context.F_WorkItems;
     }
   
     [UseProjection]

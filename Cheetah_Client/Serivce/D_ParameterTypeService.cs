@@ -207,7 +207,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public Task<F_Request> PerformRequestAsync(F_Request request)
+        public Task<F_Case> PerformRequestAsync(F_Case request)
         {
             throw new NotImplementedException();
         }
@@ -217,7 +217,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public Task<F_Request> CreateRequestAsync(F_Request request)
+        public Task<F_Case> CreateRequestAsync(F_Case request)
         {
             throw new NotImplementedException();
         }
@@ -227,7 +227,7 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public Task<F_Request> GetCaseAsync(F_Request request)
+        public Task<F_Case> GetCaseAsync(F_Case request)
         {
             throw new NotImplementedException();
         }

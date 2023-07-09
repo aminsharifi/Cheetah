@@ -51,11 +51,11 @@ namespace Cheetah_GrpcService.Services
 
         public override Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
-            var f_Request = new F_Request();
+            var f_Request = new F_Case();
 
-            f_Request.RQT_Creator = new() { PName = request.CreatorPName };
-            f_Request.RQT_Requestor = new() { PName = request.RequestorPName };
-            f_Request.RQT_Process = new() { PName = request.ProcessPName };
+            f_Request.Creator = new() { PName = request.CreatorPName };
+            f_Request.Requestor = new() { PName = request.RequestorPName };
+            f_Request.Process = new() { PName = request.ProcessPName };
             f_Request.PERPCode = request.PERPCode;
 
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
@@ -66,9 +66,9 @@ namespace Cheetah_GrpcService.Services
             output_Request.ProcessState =
                 new()
                 {
-                    Id = f_Request.RQT_ProcessState.Id.Value,
-                    PName = f_Request.RQT_ProcessState.PName,
-                    PDisplayName = f_Request.RQT_ProcessState.PDisplayName
+                    Id = f_Request.ProcessState.Id.Value,
+                    PName = f_Request.ProcessState.PName,
+                    PDisplayName = f_Request.ProcessState.PDisplayName
                 };
 
             output_Request.Id = f_Request.Id.Value;
@@ -77,7 +77,7 @@ namespace Cheetah_GrpcService.Services
         }
         public override Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var f_Request = new F_Request();
+            var f_Request = new F_Case();
 
             f_Request.Id = request.AssignmentId;
 
@@ -94,7 +94,7 @@ namespace Cheetah_GrpcService.Services
         }
         public override Task<DetailOutput_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
         {
-            F_Request f_Request = new();
+            F_Case f_Request = new();
 
             f_Request.Id = request.Id;
 
@@ -102,7 +102,7 @@ namespace Cheetah_GrpcService.Services
                 f_Request.PERPCode = request.PERPCode;
 
             if (!String.IsNullOrEmpty(request.ProcessName))
-                f_Request.RQT_Process = _db.D_Processes.Single(x => x.PName == request.ProcessName);
+                f_Request.Process = _db.D_Processes.Single(x => x.PName == request.ProcessName);
 
             f_Request = simpleClassRepository.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
@@ -111,25 +111,25 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.Id = f_Request.Id.Value;
 
-            output_Request.ProcessName = f_Request.RQT_Process.PName;
+            output_Request.ProcessName = f_Request.Process.PName;
 
             output_Request.PERPCode = f_Request.PERPCode.Value;
 
             output_Request.ProcessState =
                 new()
                 {
-                    Id = f_Request.RQT_ProcessState.Id.Value,
-                    PName = f_Request.RQT_ProcessState.PName,
-                    PDisplayName = f_Request.RQT_ProcessState.PDisplayName
+                    Id = f_Request.ProcessState.Id.Value,
+                    PName = f_Request.ProcessState.PName,
+                    PDisplayName = f_Request.ProcessState.PDisplayName
                 };
 
             output_Request.CurrentAssignments = new GRPC_UserAssignment();
-            output_Request.CurrentAssignments.Endorsement = new()
-            {
-                Id = f_Request.RQT_CurrentAssignment.PRM_Endorsement.Id.Value,
-                PName = f_Request.RQT_CurrentAssignment.PRM_Endorsement.PName,
-                PDisplayName = f_Request.RQT_CurrentAssignment.PRM_Endorsement.PDisplayName
-            };
+            //output_Request.CurrentAssignments.Endorsement = new()
+            //{
+            //    Id = f_Request.CAS_CurrentAssignment.PRM_Endorsement.Id.Value,
+            //    PName = f_Request.CAS_CurrentAssignment.PRM_Endorsement.PName,
+            //    PDisplayName = f_Request.RQT_CurrentAssignment.PRM_Endorsement.PDisplayName
+            //};
 
             //output_Request.CurrentAssignments.UserAssignments.AddRange
             //    (
@@ -143,7 +143,7 @@ namespace Cheetah_GrpcService.Services
             //    );
 
 
-            var assignments = f_Request.RQT_Assignments.ToList();
+            var assignments = f_Request.WorkItems.ToList();
 
             output_Request.AllAssignments.AddRange(assignments
             .Select(p => new GRPC_UserAssignment()
@@ -151,9 +151,9 @@ namespace Cheetah_GrpcService.Services
                 Endorsement =
                 new()
                 {
-                    Id = p.PRM_Endorsement.Id.Value,
-                    PName = p.PRM_Endorsement.PName,
-                    PDisplayName = p.PRM_Endorsement.PDisplayName
+                    Id = p.Endorsement.Id.Value,
+                    PName = p.Endorsement.PName,
+                    PDisplayName = p.Endorsement.PDisplayName
                 }
 
             }));

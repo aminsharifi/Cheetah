@@ -17,9 +17,9 @@ public partial class L_ProcessScenario : SimpleLinkClass
 {
     [Column(Order = 100)]
     [ForeignKey(nameof(FirstId))]
-    public virtual D_Process? PS_Process { get; set; }
+    public virtual D_Process? Process { get; set; }
 
     [Column(Order = 101)]
     [ForeignKey(nameof(SecondId))]
-    public virtual F_Scenario? PS_Scenario { get; set; }
+    public virtual F_Scenario? Scenario { get; set; }
 }

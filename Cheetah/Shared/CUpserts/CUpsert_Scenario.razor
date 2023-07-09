@@ -22,7 +22,7 @@
                         </button>
                     </center>
                     <div class="row">
-                        @if ((Record as F_Scenario).EP_Conditions.Any())
+                        @if ((Record as F_Scenario).Conditions.Any())
                         {
                             <Ctable>
                                 <caption>
@@ -42,7 +42,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in (Record as F_Scenario).EP_Conditions)
+                                    @foreach (var item in (Record as F_Scenario).Conditions)
                                     {
                                         <tr style="width:90%">
                                             <td style="width:8%">
@@ -55,9 +55,9 @@
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
-                                                 @bind-Value="item.CD_TagId" style="direction:rtl"
+                                                 @bind-Value="item.TagId" style="direction:rtl"
                                                  @oninput="(e => SelectedParameterListChanged(e,item))">
-                                                    @if (item.CD_TagId < 1)
+                                                    @if (item.TagId < 1)
                                                     {
                                                         <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                                                     }
@@ -71,9 +71,9 @@
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
-                                                 @bind-Value="item.CD_OperandId" style="direction:rtl"
+                                                 @bind-Value="item.OperandId" style="direction:rtl"
                                                  @oninput="(e => SelectedOperandChanged(e,item))">
-                                                    @if (item.CD_TagId < 1)
+                                                    @if (item.TagId < 1)
                                                     {
                                                         <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                                                     }
@@ -86,25 +86,25 @@
                                                 </InputSelect>
                                             </td>
                                             <td style="width:16%">
-                                                @if (item.CD_Tag is not null)
+                                                @if (item.Tag is not null)
                                                 {
-                                                    @if (item.CD_Tag?.TG_TagTypeId is not null)
+                                                    @if (item.Tag?.TagTypeId is not null)
                                                     {
-                                                        @if (item.CD_Tag?.TG_TagTypeId == 1)
+                                                        @if (item.Tag?.TagTypeId == 1)
                                                         {
-                                                            <InputNumber class="col-12" @bind-Value="item.CD_FloatValue"></InputNumber>
+                                                            <InputNumber class="col-12" @bind-Value="item.FloatValue"></InputNumber>
                                                         }
-                                                        else if (item.CD_Tag?.TG_TagTypeId == 2)
+                                                        else if (item.Tag?.TagTypeId == 2)
                                                         {
-                                                            <InputCheckbox class="col-12" @bind-Value="item.CD_BooleanValue"></InputCheckbox>
+                                                            <InputCheckbox class="col-12" @bind-Value="item.BooleanValue"></InputCheckbox>
                                                         }
-                                                        else if (item.CD_Tag?.TG_TagTypeId == 3)
+                                                        else if (item.Tag?.TagTypeId == 3)
                                                         {
-                                                            <InputDate class="col-12" @bind-Value="item.CD_Value"></InputDate>
+                                                            <InputDate class="col-12" @bind-Value="item.Value"></InputDate>
                                                         }
-                                                        else if (item.CD_Tag?.TG_TagTypeId == 4)
+                                                        else if (item.Tag?.TagTypeId == 4)
                                                         {
-                                                            <InputText class="col-12" @bind-Value="item.CD_Value"></InputText>
+                                                            <InputText class="col-12" @bind-Value="item.Value"></InputText>
 
                                                         }
                                                     }
@@ -136,7 +136,7 @@
                         </button>
                     </center>
                     <div class="row">
-                        @if ((Record as F_Scenario).EP_Endorsements.Any())
+                        @if ((Record as F_Scenario).Endorsements.Any())
                         {
                             <Ctable>
                                 <caption>
@@ -154,7 +154,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in (Record as F_Scenario).EP_Endorsements)
+                                    @foreach (var item in (Record as F_Scenario).Endorsements)
                                     {
                                         <tr style="width:90%">
                                             <td style="width:8%">
@@ -169,9 +169,9 @@
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
-                                                 @bind-Value="item.ED_RoleId" style="direction:rtl"
+                                                 @bind-Value="item.RoleId" style="direction:rtl"
                                                  @oninput="(e => SelectedEndorsementChanged(e,item))">
-                                                    @if (item.ED_RoleId < 1)
+                                                    @if (item.RoleId < 1)
                                                     {
                                                         <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                                                     }
@@ -196,7 +196,7 @@
                                                     </button>
                                                 </center>
                                                 <div class="row">
-                                                    @if (item.ED_Conditions.Any())
+                                                    @if (item.Conditions.Any())
                                                     {
                                                         <Ctable>
                                                             <caption>
@@ -216,7 +216,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach (var item in item.ED_Conditions)
+                                                                @foreach (var item in item.Conditions)
                                                                 {
                                                                     <tr style="width:90%">
                                                                         <td style="width:8%">
@@ -229,9 +229,9 @@
                                                                         </td>
                                                                         <td style="width:16%">
                                                                             <InputSelect class="col-12"
-                                                                     @bind-Value="item.CD_TagId" style="direction:rtl"
+                                                                     @bind-Value="item.TagId" style="direction:rtl"
                                                                      @oninput="(e => SelectedParameterListChanged(e,item))">
-                                                                                @if (item.CD_TagId < 1)
+                                                                                @if (item.TagId < 1)
                                                                                 {
                                                                                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                                                                                 }
@@ -245,9 +245,9 @@
                                                                         </td>
                                                                         <td style="width:16%">
                                                                             <InputSelect class="col-12"
-                                                                     @bind-Value="item.CD_OperandId" style="direction:rtl"
+                                                                     @bind-Value="item.OperandId" style="direction:rtl"
                                                                      @oninput="(e => SelectedOperandChanged(e,item))">
-                                                                                @if (item.CD_TagId < 1)
+                                                                                @if (item.TagId < 1)
                                                                                 {
                                                                                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                                                                                 }
@@ -260,25 +260,25 @@
                                                                             </InputSelect>
                                                                         </td>
                                                                         <td style="width:16%">
-                                                                            @if (item.CD_Tag is not null)
+                                                                            @if (item.Tag is not null)
                                                                             {
-                                                                                @if (item.CD_Tag?.TG_TagTypeId is not null)
+                                                                                @if (item.Tag?.TagTypeId is not null)
                                                                                 {
-                                                                                    @if (item.CD_Tag?.TG_TagTypeId == 1)
+                                                                                    @if (item.Tag?.TagTypeId == 1)
                                                                                     {
-                                                                                        <InputNumber class="col-12" @bind-Value="item.CD_FloatValue"></InputNumber>
+                                                                                        <InputNumber class="col-12" @bind-Value="item.FloatValue"></InputNumber>
                                                                                     }
-                                                                                    else if (item.CD_Tag?.TG_TagTypeId == 2)
+                                                                                    else if (item.Tag?.TagTypeId == 2)
                                                                                     {
-                                                                                        <InputCheckbox class="col-12" @bind-Value="item.CD_BooleanValue"></InputCheckbox>
+                                                                                        <InputCheckbox class="col-12" @bind-Value="item.BooleanValue"></InputCheckbox>
                                                                                     }
-                                                                                    else if (item.CD_Tag?.TG_TagTypeId == 3)
+                                                                                    else if (item.Tag?.TagTypeId == 3)
                                                                                     {
-                                                                                        <InputDate class="col-12" @bind-Value="item.CD_Value"></InputDate>
+                                                                                        <InputDate class="col-12" @bind-Value="item.Value"></InputDate>
                                                                                     }
-                                                                                    else if (item.CD_Tag?.TG_TagTypeId == 4)
+                                                                                    else if (item.Tag?.TagTypeId == 4)
                                                                                     {
-                                                                                        <InputText class="col-12" @bind-Value="item.CD_Value"></InputText>
+                                                                                        <InputText class="col-12" @bind-Value="item.Value"></InputText>
 
                                                                                     }
                                                                                 }
@@ -360,7 +360,7 @@
         {
             var _D_OperandId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.CD_Operand = List_D_Operand
+            f_Condition.Operand = List_D_Operand
             .First(x => x.Id == _D_OperandId) as D_Operand;
         }
     }
@@ -371,7 +371,7 @@
         {
             var _D_ParameterListId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.CD_Tag = List_D_Tag
+            f_Condition.Tag = List_D_Tag
             .First(x => x.Id == _D_ParameterListId) as D_Tag;
         }
     }
@@ -382,8 +382,8 @@
 
         var baseType = cObject.GetType().BaseType;
 
-        ICollection<F_Condition> Conditions = (baseType == typeof(F_Scenario)) ? (cObject as F_Scenario).EP_Conditions
-        : (cObject as F_Endorsement).ED_Conditions;
+        ICollection<F_Condition> Conditions = (baseType == typeof(F_Scenario)) ? (cObject as F_Scenario).Conditions
+        : (cObject as F_Endorsement).Conditions;
 
         if (Conditions.Any())
         {
@@ -394,16 +394,16 @@
             Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
         }
 
-        Condition.CD_Tag = List_D_Tag.First() as D_Tag;
-        Condition.CD_Operand = List_D_Operand.First() as D_Operand;
+        Condition.Tag = List_D_Tag.First() as D_Tag;
+        Condition.Operand = List_D_Operand.First() as D_Operand;
 
         if (baseType == typeof(F_Scenario))
         {
-            (cObject as F_Scenario).EP_Conditions.Add(Condition);
+            (cObject as F_Scenario).Conditions.Add(Condition);
         }
         else
         {
-            (cObject as F_Endorsement).ED_Conditions.Add(Condition);
+            (cObject as F_Endorsement).Conditions.Add(Condition);
         }
     }
 
@@ -411,7 +411,7 @@
     {
         var d_Endorsement = new F_Endorsement();
 
-        var eP_Endorsements = (Record as F_Scenario).EP_Endorsements;
+        var eP_Endorsements = (Record as F_Scenario).Endorsements;
 
         if (eP_Endorsements.Any())
         {
@@ -422,9 +422,9 @@
             d_Endorsement = await simpleClassRepository.GetLast(nameof(F_Endorsement)) as F_Endorsement;
         }
 
-        d_Endorsement.ED_Role = List_D_Role.First() as D_Role;
+        d_Endorsement.Role = List_D_Role.First() as D_Role;
 
-        (Record as F_Scenario).EP_Endorsements.Add(d_Endorsement);
+        (Record as F_Scenario).Endorsements.Add(d_Endorsement);
     }
 
     private async Task SelectedEndorsementChanged(ChangeEventArgs e, F_Endorsement d_Endorsement)
@@ -433,7 +433,7 @@
         {
             var _D_Role = Int64.Parse(e.Value.ToString());
 
-            d_Endorsement.ED_Role = List_D_Role
+            d_Endorsement.Role = List_D_Role
             .First(x => x.Id == _D_Role) as D_Role;
         }
     }

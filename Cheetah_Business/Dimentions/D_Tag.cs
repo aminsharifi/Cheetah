@@ -16,8 +16,8 @@ public partial class D_Tag : BaseClass<D_Tag>
 
     #region Entity
     [Column(Order = 100)]
-    public long? TG_TagTypeId { get; set; }
-    public virtual D_TagType? TG_TagType { get; set; }
+    public long? TagTypeId { get; set; }
+    public virtual D_TagType? TagType { get; set; }
 
     #endregion
 

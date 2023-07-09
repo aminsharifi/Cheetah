@@ -12,16 +12,16 @@ namespace Cheetah_Business.Dimentions;
 [Index(nameof(PERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
 [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-[Index(nameof(ROL_Independent), IsUnique = false, AllDescending = true)]
+[Index(nameof(Independent), IsUnique = false, AllDescending = true)]
 public partial class D_Role : BaseClass<D_Role>
 {
 
     [Column(Order = 100)]
-    public Boolean ROL_Independent { get; set; } = false;
+    public Boolean Independent { get; set; } = false;
 
     #region Collection
-    public virtual ICollection<L_RolePosition>? ROL_RolePositions { get; set; } = new HashSet<L_RolePosition>();
+    public virtual ICollection<L_RolePosition>? RolePositions { get; set; } = new HashSet<L_RolePosition>();
 
-    public virtual ICollection<F_Endorsement>? ROL_EndorsementPosition { get; set; } = new HashSet<F_Endorsement>();
+    public virtual ICollection<F_Endorsement>? EndorsementPosition { get; set; } = new HashSet<F_Endorsement>();
     #endregion
 }

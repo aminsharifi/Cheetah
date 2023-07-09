@@ -15,44 +15,44 @@ public partial class D_UserInformation : BaseClass<D_UserInformation>
 {
     [StringLength(50)]
     [Column(Order = 100)]
-    public string? UI_FirstName { get; set; }
+    public string? FirstName { get; set; }
 
     [StringLength(50)]
     [Column(Order = 101)]
-    public string? UI_LastName { get; set; }
+    public string? LastName { get; set; }
     [Column(Order = 102)]
-    public bool? UI_NotifByEmail { get; set; }
+    public bool? NotifByEmail { get; set; }
     [Column(Order = 103)]
-    public bool? UI_NotifByMessenger { get; set; }
+    public bool? NotifByMessenger { get; set; }
     [Column(Order = 104)]
-    public bool? UI_NotifByCell { get; set; }
+    public bool? NotifByCell { get; set; }
 
     [StringLength(100)]
     [Column(Order = 105)]
-    public string? UI_ContactEmail { get; set; }
+    public string? ContactEmail { get; set; }
 
     [StringLength(100)]
     [Column(Order = 106)]
-    public string? UI_ContactMessenger { get; set; }
+    public string? ContactMessenger { get; set; }
 
     [StringLength(20)]
     [Column(Order = 107)]
-    public string? UI_ContactCell { get; set; }
+    public string? ContactCell { get; set; }
     [Column(Order = 108)]
-    public byte[]? UI_UserPicture { get; set; }
+    public byte[]? UserPicture { get; set; }
     [StringLength(20)]
     [Column(Order = 109)]
-    public string? UI_NationalCode { get; set; }
+    public string? NationalCode { get; set; }
     [Column(Order = 110)]
-    public DateTime? UI_Birthdate { get; set; }
+    public DateTime? Birthdate { get; set; }
 
     [StringLength(50)]
     [Column(Order = 111)]
-    public string? UI_InternalPhone { get; set; }
+    public string? InternalPhone { get; set; }
     [StringLength(512)]
     [Column(Order = 112)]
-    public string? UI_Address { get; set; }
+    public string? Address { get; set; }
     [StringLength(215)]
     [Column(Order = 113)]
-    public string? UI_RegistrationNumber { get; set; }
+    public string? RegistrationNumber { get; set; }
 }

@@ -14,7 +14,7 @@ namespace Cheetah_Business.Dimentions;
 public partial class D_Location : BaseClass<D_Location>
 {
     #region Simple Prop
-    public virtual ICollection<L_UserLocation>? Loc_UserLocations { get; set; } = new HashSet<L_UserLocation>();
+
     #endregion
 
     #region Relations
@@ -24,7 +24,7 @@ public partial class D_Location : BaseClass<D_Location>
     #endregion
 
     #region Collections
-
+    public virtual ICollection<L_UserLocation>? UserLocations { get; set; } = new HashSet<L_UserLocation>();
     #endregion
 
     #endregion

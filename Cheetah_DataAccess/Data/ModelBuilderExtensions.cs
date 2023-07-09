@@ -188,7 +188,7 @@ public static class ModelBuilderExtensions
                      PName = "OursShare",
                      PDisplayName = "سهم شرکت",
                      PDescription = "عددی",
-                     TG_TagTypeId = 1,
+                     TagTypeId = 1,
                  },
                  new D_Tag
                  {
@@ -197,7 +197,7 @@ public static class ModelBuilderExtensions
                      PName = "OthersShare",
                      PDisplayName = "سهم دیگران",
                      PDescription = "عددی",
-                     TG_TagTypeId = 1
+                     TagTypeId = 1
                  },
                  new D_Tag
                  {
@@ -206,7 +206,7 @@ public static class ModelBuilderExtensions
                      PName = "Price",
                      PDisplayName = "مبلغ",
                      PDescription = "عددی",
-                     TG_TagTypeId = 1
+                     TagTypeId = 1
                  },
                  new D_Tag
                  {
@@ -215,7 +215,7 @@ public static class ModelBuilderExtensions
                      PName = "Refrigerator",
                      PDisplayName = "مخدر/ یخچالی",
                      PDescription = "دودویی",
-                     TG_TagTypeId = 2,
+                     TagTypeId = 2,
                  },
                  new D_Tag
                  {
@@ -224,7 +224,7 @@ public static class ModelBuilderExtensions
                      PName = "Approve",
                      PDisplayName = "تایید",
                      PDescription = "پارامتریک",
-                     TG_TagTypeId = 2
+                     TagTypeId = 2
                  },
                  new D_Tag
                  {
@@ -233,7 +233,7 @@ public static class ModelBuilderExtensions
                      PName = "Reject",
                      PDisplayName = "عدم تایید",
                      PDescription = "پارامتریک",
-                     TG_TagTypeId = 2
+                     TagTypeId = 2
                  },
                  new D_Tag
                  {
@@ -242,7 +242,7 @@ public static class ModelBuilderExtensions
                      PName = "Revise",
                      PDisplayName = "بازنگری",
                      PDescription = "پارامتریک",
-                     TG_TagTypeId = 2
+                     TagTypeId = 2
                  },
                  new D_Tag
                  {
@@ -251,7 +251,7 @@ public static class ModelBuilderExtensions
                      PName = "Med",
                      PDisplayName = "دارویی",
                      PDescription = "پارامتریک",
-                     TG_TagTypeId = 2
+                     TagTypeId = 2
                  },
                  new D_Tag
                  {
@@ -260,7 +260,7 @@ public static class ModelBuilderExtensions
                      PName = "FMCG",
                      PDisplayName = "مصرفی",
                      PDescription = "پارامتریک",
-                     TG_TagTypeId = 2
+                     TagTypeId = 2
                  },
                  new D_Tag
                  {
@@ -269,7 +269,7 @@ public static class ModelBuilderExtensions
                      PName = "General",
                      PDisplayName = "کل",
                      PDescription = "پارامتریک",
-                     TG_TagTypeId = 2
+                     TagTypeId = 2
                  }
                  );
         #endregion
@@ -301,7 +301,7 @@ public static class ModelBuilderExtensions
                       PIndex = 1,
                       PName = "PharmaceuticalDeputy",
                       PDisplayName = "معاونت دارویی",
-                      ROL_Independent = true
+                      Independent = true
                   },
                   new D_Role
                   {
@@ -309,7 +309,7 @@ public static class ModelBuilderExtensions
                       PIndex = 2,
                       PName = "FMCGDeputy",
                       PDisplayName = "معاونت غذایی",
-                      ROL_Independent = true
+                      Independent = true
                   },
                   new D_Role
                   {
@@ -317,7 +317,7 @@ public static class ModelBuilderExtensions
                       PIndex = 3,
                       PName = "BusinessSpecialist",
                       PDisplayName = "کارشناس بازرگانی",
-                      ROL_Independent = true
+                      Independent = true
                   },
                   new D_Role
                   {
@@ -325,7 +325,7 @@ public static class ModelBuilderExtensions
                       PIndex = 4,
                       PName = "SalesSpecialist",
                       PDisplayName = "کارشناس فروش",
-                      ROL_Independent = true
+                      Independent = true
                   },
                   new D_Role
                   {
@@ -333,7 +333,7 @@ public static class ModelBuilderExtensions
                       PIndex = 5,
                       PName = "DistributionCenterManager",
                       PDisplayName = "مدیریت مرکز توزیع",
-                      ROL_Independent = false
+                      Independent = false
                   }
                   );
         #endregion
@@ -478,7 +478,7 @@ public static class ModelBuilderExtensions
                     {
                         Id = 200,
                         PIndex = 200,
-                        PName = nameof(F_Assignment),
+                        PName = nameof(F_WorkItem),
                         PDisplayName = new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString(),
                         Display = false
                     },
@@ -510,7 +510,7 @@ public static class ModelBuilderExtensions
                     {
                         Id = 205,
                         PIndex = 205,
-                        PName = nameof(F_Request),
+                        PName = nameof(F_Case),
                         PDisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString(),
                         Display = true
                     },
@@ -596,11 +596,11 @@ public static class ModelBuilderExtensions
                 PIndex = 1,
                 PName = "Head_Scenario,OursShare,>,0",
                 PDisplayName = "سناریو ستاد,سهم شرکت,بزگتر از,0",
-                CD_TagId = 100,
-                CD_OperandId = 3,
-                CD_Value = "0",
-                CD_ScenarioId = 1,
-                CD_EndorsementId = 2
+                TagId = 100,
+                OperandId = 3,
+                Value = "0",
+                ScenarioId = 1,
+                EndorsementId = 2
             },
             new F_Condition
             {
@@ -608,10 +608,10 @@ public static class ModelBuilderExtensions
                 PIndex = 2,
                 PName = "Med_Scenario,Med,=,1",
                 PDisplayName = "سناریو دارویی,دارویی,مساوی,1",
-                CD_TagId = 204,
-                CD_OperandId = 1,
-                CD_Value = "1",
-                CD_ScenarioId = 2
+                TagId = 204,
+                OperandId = 1,
+                Value = "1",
+                ScenarioId = 2
             },
             new F_Condition
             {
@@ -619,10 +619,10 @@ public static class ModelBuilderExtensions
                 PIndex = 3,
                 PName = "Med_Scenario,OursShare,>,0",
                 PDisplayName = "سناریو دارویی,سهم شرکت,بزگتر از,0",
-                CD_TagId = 100,
-                CD_OperandId = 3,
-                CD_Value = "0",
-                CD_ScenarioId = 2
+                TagId = 100,
+                OperandId = 3,
+                Value = "0",
+                ScenarioId = 2
             },
             new F_Condition
             {
@@ -630,10 +630,10 @@ public static class ModelBuilderExtensions
                 PIndex = 4,
                 PName = "FMCG_Scenario,FMCG,=,1",
                 PDisplayName = "سناریو مصرفی,مصرفی,مساوی,1",
-                CD_TagId = 205,
-                CD_OperandId = 1,
-                CD_Value = "1",
-                CD_ScenarioId = 3
+                TagId = 205,
+                OperandId = 1,
+                Value = "1",
+                ScenarioId = 3
             },
             new F_Condition
             {
@@ -641,10 +641,10 @@ public static class ModelBuilderExtensions
                 PIndex = 5,
                 PName = "FMCG_Scenario,Price,>,0",
                 PDisplayName = "سناریو مصرفی,مبلغ,بزگتر از,0",
-                CD_TagId = 103,
-                CD_OperandId = 3,
-                CD_Value = "0",
-                CD_ScenarioId = 3
+                TagId = 103,
+                OperandId = 3,
+                Value = "0",
+                ScenarioId = 3
             }
             );
         #endregion
@@ -657,8 +657,8 @@ public static class ModelBuilderExtensions
                 PIndex = 1,
                 PName = "Med_Scenario,DistributionCenterManager",
                 PDisplayName = "سناریو سه,مدیریت مرکز توزیع",
-                ED_RoleId = 5,
-                ED_ScenarioId = 3
+                RoleId = 5,
+                ScenarioId = 3
             },
             new F_Endorsement
             {
@@ -666,8 +666,8 @@ public static class ModelBuilderExtensions
                 PIndex = 2,
                 PName = "Strategy3,FMCGDeputy",
                 PDisplayName = "سناریو سه,معاونت غذایی",
-                ED_RoleId = 2,
-                ED_ScenarioId = 3
+                RoleId = 2,
+                ScenarioId = 3
             },
             new F_Endorsement
             {
@@ -675,8 +675,8 @@ public static class ModelBuilderExtensions
                 PIndex = 3,
                 PName = "Strategy2,PharmaceuticalDeputy",
                 PDisplayName = "سناریو دو,معاونت دارویی",
-                ED_RoleId = 1,
-                ED_ScenarioId = 2
+                RoleId = 1,
+                ScenarioId = 2
             },
             new F_Endorsement
             {
@@ -684,8 +684,8 @@ public static class ModelBuilderExtensions
                 PIndex = 4,
                 PName = "Med_Scenario,PharmaceuticalDeputy",
                 PDisplayName = "سناریو دارویی,معاونت دارویی",
-                ED_RoleId = 2,
-                ED_ScenarioId = 1
+                RoleId = 2,
+                ScenarioId = 1
             }
             );
         #endregion
