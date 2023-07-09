@@ -13,7 +13,7 @@ namespace Cheetah_Business.Dimentions;
 [Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
 public partial class D_Position : BaseClass<D_Position>
 {
-    public virtual ICollection<L_UserPosition>? PSO_UserPositions { get; set; } = new HashSet<L_UserPosition>();
+    public virtual ICollection<L_UserPosition>? UserPositions { get; set; } = new HashSet<L_UserPosition>();
 
-    public virtual ICollection<L_RolePosition>? PSO_RolePositions { get; set; } = new HashSet<L_RolePosition>();
+    public virtual ICollection<L_RolePosition>? RolePositions { get; set; } = new HashSet<L_RolePosition>();
 }

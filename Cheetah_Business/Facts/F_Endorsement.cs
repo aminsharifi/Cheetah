@@ -14,18 +14,18 @@ namespace Cheetah_Business.Facts;
 public partial class F_Endorsement : BaseClass<F_Endorsement>
 {
     [Column(Order = 100)]
-    public long? ED_RoleId { get; set; }
-    public virtual D_Role? ED_Role { get; set; }
+    public long? RoleId { get; set; }
+    public virtual D_Role? Role { get; set; }
 
     [Column(Order = 101)]
-    public long? ED_ScenarioId { get; set; }
-    public virtual F_Scenario? ED_Scenario { get; set; }
+    public long? ScenarioId { get; set; }
+    public virtual F_Scenario? Scenario { get; set; }
 
-    public virtual ICollection<F_Condition>? ED_Conditions { get; set; } = new HashSet<F_Condition>();
+    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
 
     public override void SetName()
     {
-        PDisplayName = ED_Scenario?.PDisplayName + "," + ED_Role?.PDisplayName;
-        PName = ED_Scenario?.PName + "," + ED_Role?.PName;
+        PDisplayName = Scenario?.PDisplayName + "," + Role?.PDisplayName;
+        PName = Scenario?.PName + "," + Role?.PName;
     }
 }

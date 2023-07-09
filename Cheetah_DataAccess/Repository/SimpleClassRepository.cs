@@ -22,115 +22,119 @@ public class SimpleClassRepository : ISimpleClassRepository
         _mapper = mapper;
         CreateViews();
     }
+
+    private void RemoveView(string ViewName)
+    {
+        var DeleteQuery = $@"
+            if exists(select 1 from sys.tables where name = '{ViewName}')
+            DROP table [Virtuals].[{ViewName}]
+            if exists(select 1 from sys.views where name = '{ViewName}')
+            DROP view [Virtuals].[{ViewName}]
+        ";
+        _db.Database.ExecuteSqlRaw(DeleteQuery);
+    }
+
     private void CreateViews()
     {
-        #region V_Location
-        string V_Location_Cmd1 = @"
-                            if exists(select 1 from sys.views where name = 'V_Location')
-                            DROP VIEW[Virtuals].[V_Location]";
-        _db.Database.ExecuteSqlRaw(V_Location_Cmd1);
-        string V_Location_Cmd2 = @"                            
-                            CREATE VIEW [Virtuals].[V_Location]
-                            AS
-                            SELECT cast([Id] as bigint) PERPCode, cast([Id]
-                            as nvarchar(512)) as PName, [Name] as PDisplayName
-                            FROM [192.168.10.66].[Alborz].[Bizagi].[Branch]
-                            ";
-        _db.Database.ExecuteSqlRaw(V_Location_Cmd2);
-        #endregion
-
-        #region V_Position
-        var V_Position_Cmd1 = @"
-        if exists(select 1 from sys.views where name = 'V_Position')
-        DROP VIEW[Virtuals].[V_Position]
-        ";
-        _db.Database.ExecuteSqlRaw(V_Position_Cmd1);
-
-        var V_Position_Cmd2 = @"
-        CREATE VIEW[Virtuals].[V_Position]
-        AS
-        SELECT cast(oj.Id as bigint) PERPCode, cast(oj.Id as nvarchar(512)) as PName, oj.Title as PDisplayName
-        FROM[192.168.10.66].[Alborz].access.OrganizationJob oj
-        ";
-        _db.Database.ExecuteSqlRaw(V_Position_Cmd2);
-        #endregion
-
-        #region V_User
-        var V_User_Cmd1 = @"
-        if exists(select 1 from sys.views where name = 'V_User')
-        DROP VIEW[Virtuals].[V_User]
-        ";
-        _db.Database.ExecuteSqlRaw(V_User_Cmd1);
-
-        var V_User_Cmd2 = @"       
-        CREATE VIEW[Virtuals].[V_User]
-        AS
-        SELECT
-        CAST(Users.Id AS bigint) as PERPCode, Users.UserName PName, (FirstName + N' ' + LastName) PDisplayName,
-        (
-        SELECT top(1)
-        PUsers.UserName
-        FROM
-        [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
-        left join[192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid = cp.id
-        left join[192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
-        left join[192.168.10.66].[Alborz].[dbo].[Users] PUsers on Pur.UserId = PUsers.Id
-        where Pur.EndDate > getdate() and UR.UserId = Users.Id
-        )
-        User_BossName,
-        CAST((
-        select top(1) iif(max(Dsbl_UR.EndDate) < getdate(), 1, 0)
-        from[192.168.10.66].[Alborz].[access].[UserResponsibility] Dsbl_UR
-        where Dsbl_UR.UserId = Users.Id
-        ) as bit) DsblRecord
-        FROM[192.168.10.66].[Alborz].[dbo].[UserProfile]
-        left join[192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
-        where FirstName is not null
-        ";
-        _db.Database.ExecuteSqlRaw(V_User_Cmd2);
-        #endregion
-
         #region V_UserLocation
-        var V_UserLocation_Cmd1 = @"
-        if exists(select 1 from sys.views where name = 'V_UserLocation')
-        DROP VIEW[Virtuals].[V_UserLocation]
-        ";
-        _db.Database.ExecuteSqlRaw(V_UserLocation_Cmd1);
+        
+        RemoveView("V_UserLocation");
+
         var V_UserLocation_Cmd2 = @"
-        CREATE VIEW [Virtuals].[V_UserLocation]
-        AS
-        SELECT distinct
-        cast((cast(UserId as varchar(50)) + cast(BranchId as varchar(50))) as bigint) as PERPCode,
-        cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) DsblRecord
-        FROM[192.168.10.66].[Alborz].[access].[GetUserBranchs_evw]
-        ";
+            CREATE VIEW [Virtuals].[V_UserLocation]
+            AS
+            SELECT distinct
+            cast((cast(UserId as varchar(50)) + cast(BranchId as varchar(50))) as bigint) as PERPCode,
+            cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) DsblRecord
+            FROM[192.168.10.66].[Alborz].[access].[GetUserBranchs_evw]
+            ";
+
         _db.Database.ExecuteSqlRaw(V_UserLocation_Cmd2);
         #endregion
 
         #region V_UserPosition
-        var V_UserPosition_Cmd1 = @"
-        if exists(select 1 from sys.views where name = 'V_UserPosition')
-        DROP VIEW[Virtuals].[V_UserPosition]     
-        ";
-        _db.Database.ExecuteSqlRaw(V_UserLocation_Cmd1);
+
+        RemoveView("V_UserPosition");
+
         var V_UserPosition_Cmd2 = @"
-        CREATE VIEW[Virtuals].[V_UserPosition]
-        AS
-        SELECT distinct
-        cast((cast(Users.Id as varchar(50)) + cast(oj.Id as varchar(50))) as bigint) as PERPCode,
-        cast(Users.Id as bigint) FirstId, cast(oj.Id as bigint) as SecondId,
-        cast(iif(UR.EndDate < getdate(), 1, 0) as bit)  DsblRecord
-        FROM
-        [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
-        inner join[192.168.10.66].[Alborz].[dbo].[Users] on UR.UserId = Users.Id
-        inner join[192.168.10.66].[Alborz].[dbo].[UserProfile] on UserProfile.UserId = Users.Id
-        inner join[192.168.10.66].[Alborz].[access].[ChartPosition] cp on UR.positionid = cp.id
-        inner join[192.168.10.66].[Alborz].access.ChartPost on ChartPost.Id = cp.PostId
-        inner join[192.168.10.66].[Alborz].access.OrganizationJob oj on oj.Id = ChartPost.JobId
-        where UR.EndDate > getdate() and UserProfile.FirstName is not null and UR.isenabled = 1
-        ";
+            CREATE VIEW [Virtuals].[V_UserPosition]
+            AS
+            SELECT distinct
+            cast((cast(Users.Id as varchar(50)) + cast(oj.Id as varchar(50))) as bigint) as PERPCode,
+            cast(Users.Id as bigint) FirstId, cast(oj.Id as bigint) as SecondId,
+            cast(iif(UR.EndDate < getdate(), 1, 0) as bit)  DsblRecord
+            FROM
+            [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
+            inner join[192.168.10.66].[Alborz].[dbo].[Users] on UR.UserId = Users.Id
+            inner join[192.168.10.66].[Alborz].[dbo].[UserProfile] on UserProfile.UserId = Users.Id
+            inner join[192.168.10.66].[Alborz].[access].[ChartPosition] cp on UR.positionid = cp.id
+            inner join[192.168.10.66].[Alborz].access.ChartPost on ChartPost.Id = cp.PostId
+            inner join[192.168.10.66].[Alborz].access.OrganizationJob oj on oj.Id = ChartPost.JobId
+            where UR.EndDate > getdate() and UserProfile.FirstName is not null and UR.isenabled = 1
+            ";
         _db.Database.ExecuteSqlRaw(V_UserPosition_Cmd2);
         #endregion
+
+        #region V_Location
+
+        RemoveView("V_Location");
+
+        string V_Location_Cmd2 = @"                            
+            CREATE VIEW [Virtuals].[V_Location]
+            AS
+            SELECT cast([Id] as bigint) PERPCode, cast([Id]
+            as nvarchar(512)) as PName, [Name] as PDisplayName
+            FROM [192.168.10.66].[Alborz].[Bizagi].[Branch]
+            ";
+        _db.Database.ExecuteSqlRaw(V_Location_Cmd2);
+        #endregion
+
+        #region V_Position
+
+        RemoveView("V_Position");
+
+        var V_Position_Cmd2 = @"
+            CREATE VIEW [Virtuals].[V_Position]
+            AS
+            SELECT cast(oj.Id as bigint) PERPCode, cast(oj.Id as nvarchar(512)) as PName, oj.Title as PDisplayName
+            FROM[192.168.10.66].[Alborz].access.OrganizationJob oj
+            ";
+        _db.Database.ExecuteSqlRaw(V_Position_Cmd2);
+        #endregion
+
+        #region V_User
+
+        RemoveView("V_User");
+
+        var V_User_Cmd2 = @"       
+            CREATE VIEW [Virtuals].[V_User]
+            AS
+            SELECT
+            CAST(Users.Id AS bigint) as PERPCode, Users.UserName PName, (FirstName + N' ' + LastName) PDisplayName,
+            (
+            SELECT top(1)
+            PUsers.UserName
+            FROM
+            [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
+            left join[192.168.10.66].[Alborz].access.ChartPosition cp on UR.positionid = cp.id
+            left join[192.168.10.66].[Alborz].[access].[UserResponsibility] Pur on cp.parentid = Pur.PositionId
+            left join[192.168.10.66].[Alborz].[dbo].[Users] PUsers on Pur.UserId = PUsers.Id
+            where Pur.EndDate > getdate() and UR.UserId = Users.Id
+            )
+            User_BossName,
+            CAST((
+            select top(1) iif(max(Dsbl_UR.EndDate) < getdate(), 1, 0)
+            from[192.168.10.66].[Alborz].[access].[UserResponsibility] Dsbl_UR
+            where Dsbl_UR.UserId = Users.Id
+            ) as bit) DsblRecord
+            FROM[192.168.10.66].[Alborz].[dbo].[UserProfile]
+            left join[192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
+            where FirstName is not null
+            ";
+        _db.Database.ExecuteSqlRaw(V_User_Cmd2);
+        #endregion
+
+     
 
     }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
@@ -164,13 +168,13 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             var Condition = Expected_Conditions.ToArray()[i];
 
-            if (Actual_Conditions.Any(x => x.CD_Tag.PName == Condition.CD_Tag.PName))
+            if (Actual_Conditions.Any(x => x.Tag.PName == Condition.Tag.PName))
             {
-                var Scenario_Value = float.Parse(Condition.CD_Value);
+                var Scenario_Value = float.Parse(Condition.Value);
                 var Current_Value = float.Parse(Actual_Conditions
-                    .Single(x => x.CD_Tag.PName == Condition.CD_Tag.PName).CD_Value);
+                    .Single(x => x.Tag.PName == Condition.Tag.PName).Value);
 
-                var Operand_Name = Condition.CD_Operand.PName;
+                var Operand_Name = Condition.Operand.PName;
 
                 if (
                        (Operand_Name == ">" && Current_Value > Scenario_Value)
@@ -187,7 +191,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         }
         return (ConditionOccur == cnt_con);
     }
-    public async Task<F_Request> SetCurrentAssignment(F_Request GeneralRequest)
+    public async Task<F_Case> SetCurrentAssignment(F_Case GeneralRequest)
     {
         //var RQT_Assignment = GeneralRequest.RQT_Assignments
         //           .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve"));
@@ -452,70 +456,70 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return true;
     }
-    public async Task<F_Request> CreateRequestAsync(F_Request request)
+    public async Task<F_Case> CreateRequestAsync(F_Case request)
     {
-        F_Request GeneralRequest = request;
+        F_Case GeneralRequest = request;
 
         try
         {
-            GeneralRequest.RQT_Creator = await GetUser(request.RQT_Creator.PName);
+            GeneralRequest.Creator = await GetUser(request.Creator.PName);
 
-            GeneralRequest.RQT_Requestor = await GetUser(request.RQT_Requestor.PName);
+            GeneralRequest.Requestor = await GetUser(request.Requestor.PName);
 
-            GeneralRequest.RQT_Process = await _db.D_Processes
-                .SingleAsync(x => x.PName == request.RQT_Process.PName);
+            GeneralRequest.Process = await _db.D_Processes
+                .SingleAsync(x => x.PName == request.Process.PName);
 
             GeneralRequest.CreateTimeRecord = DateTime.Now;
 
             GeneralRequest.Id = null;
 
-            GeneralRequest.RQT_ProcessStateId = 1;
+            GeneralRequest.ProcessStateId = 1;
 
-            if (GeneralRequest.RQT_Conditions is not null)
+            if (GeneralRequest.Conditions is not null)
             {
-                foreach (var item in GeneralRequest.RQT_Conditions)
+                foreach (var item in GeneralRequest.Conditions)
                 {
                     item.Id = null;
-                    item.CD_Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.CD_Tag.PName);
+                    item.Tag = await _db.D_Tags.SingleAsync(x => x.PName == item.Tag.PName);
                 }
             }
 
-            var pc_ProcessScenario = GeneralRequest.RQT_Process?.PC_ProcessScenario;
+            var pc_ProcessScenario = GeneralRequest.Process?.ProcessScenario;
 
             foreach (var ProcessScenario in pc_ProcessScenario)
             {
                 var ConditionOccures = false;
 
-                if (GeneralRequest.RQT_Conditions is null || GeneralRequest.RQT_Conditions.Count() == 0)
+                if (GeneralRequest.Conditions is null || GeneralRequest.Conditions.Count() == 0)
                 {
                     ConditionOccures = true;
                 }
                 else
                 {
-                    var Actual_Conditions = GeneralRequest.RQT_Conditions.ToList();
+                    var Actual_Conditions = GeneralRequest.Conditions.ToList();
 
-                    var Expected_Conditions = ProcessScenario.PS_Scenario.EP_Conditions.ToList();
+                    var Expected_Conditions = ProcessScenario.Scenario.Conditions.ToList();
 
                     ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
                 }
                 if (ConditionOccures)
                 {
-                    GeneralRequest.RQT_SelectedScenario = ProcessScenario.PS_Scenario;
+                    GeneralRequest.SelectedScenario = ProcessScenario.Scenario;
                     break;
                 }
             }
 
-            if (GeneralRequest.RQT_Assignments is null || GeneralRequest.RQT_Assignments.Count() == 0)
+            if (GeneralRequest.WorkItems is null || GeneralRequest.WorkItems.Count() == 0)
             {
-                GeneralRequest.RQT_Assignments = new HashSet<F_Assignment>();
+                GeneralRequest.WorkItems = new HashSet<F_WorkItem>();
 
-                var eP_Endorsements = GeneralRequest.RQT_SelectedScenario?.EP_Endorsements.ToList();
+                var eP_Endorsements = GeneralRequest.SelectedScenario?.Endorsements.ToList();
 
                 foreach (var eP_Endorsement in eP_Endorsements)
                 {
-                    if (CompareCondition(GeneralRequest.RQT_Conditions, eP_Endorsement.ED_Conditions))
+                    if (CompareCondition(GeneralRequest.Conditions, eP_Endorsement.Conditions))
                     {
-                        var Positions = await _db.L_RolePositions.Where(x => x.FirstId == eP_Endorsement.ED_RoleId).Select(x => x.SecondId).ToListAsync();
+                        var Positions = await _db.L_RolePositions.Where(x => x.FirstId == eP_Endorsement.RoleId).Select(x => x.SecondId).ToListAsync();
 
                         var Users = await _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId).ToListAsync();
 
@@ -526,15 +530,15 @@ public class SimpleClassRepository : ISimpleClassRepository
                         foreach (var D_User in D_Users)
                         {
                             var UserOccur = false;
-                            if (eP_Endorsement.ED_Role.ROL_Independent)
+                            if (eP_Endorsement.Role.Independent)
                             {
                                 UserOccur = true;
                             }
                             else
                             {
-                                var userLocations = GeneralRequest.RQT_Requestor.User_UserLocations.Select(x => x.SecondId).ToList();
+                                var userLocations = GeneralRequest.Requestor.UserLocations.Select(x => x.SecondId).ToList();
 
-                                if (D_User.User_UserLocations.Any(x => userLocations.Contains(x.SecondId)))
+                                if (D_User.UserLocations.Any(x => userLocations.Contains(x.SecondId)))
                                 {
                                     UserOccur = true;
                                 }
@@ -544,9 +548,9 @@ public class SimpleClassRepository : ISimpleClassRepository
                                 Added_Users.Add(D_User);
                             }
                         }
-                        var new_Assignment = new F_Assignment()
+                        var new_Assignment = new F_WorkItem()
                         {
-                            PRM_Endorsement = eP_Endorsement
+                            Endorsement = eP_Endorsement
                         };
 
                         if (Added_Users.Count == 0)
@@ -562,9 +566,9 @@ public class SimpleClassRepository : ISimpleClassRepository
                             //      });
                         }
 
-                        await _db.F_Assignments.AddAsync(new_Assignment);
+                        await _db.F_WorkItems.AddAsync(new_Assignment);
 
-                        GeneralRequest.RQT_Assignments.Add(new_Assignment);
+                        GeneralRequest.WorkItems.Add(new_Assignment);
                     }
                 }
 
@@ -582,15 +586,15 @@ public class SimpleClassRepository : ISimpleClassRepository
             throw;
         }
 
-        var ret_Requests = await _db.F_Requests
-            .Include(x => x.RQT_ProcessState)
+        var ret_Requests = await _db.F_Cases
+            .Include(x => x.ProcessState)
             .SingleAsync(x => x.Id == GeneralRequest.Id);
 
         return ret_Requests;
     }
-    public async Task<F_Request> PerformRequestAsync(F_Request request)
+    public async Task<F_Case> PerformRequestAsync(F_Case request)
     {
-        var GeneralRequest = await Get(nameof(F_Request), request.Id) as F_Request;
+        var GeneralRequest = await Get(nameof(F_Case), request.Id) as F_Case;
 
         //if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
         //    throw new ArgumentNullException("Id is incorrect");
@@ -623,8 +627,8 @@ public class SimpleClassRepository : ISimpleClassRepository
             throw;
         }
 
-        var ret_Requests = await _db.F_Requests
-            .Include(x => x.RQT_ProcessState)
+        var ret_Requests = await _db.F_Cases
+            .Include(x => x.ProcessState)
             .SingleAsync(x => x.Id == GeneralRequest.Id);
 
         return ret_Requests;
@@ -861,19 +865,18 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return Enumerable.Empty<CartableDTO>();
     }
-    public async Task<F_Request> GetCaseAsync(F_Request request)
+    public async Task<F_Case> GetCaseAsync(F_Case request)
     {
-        F_Request GeneralRequest = await _db.F_Requests
-            .Include(x => x.RQT_Creator)
-            .Include(x => x.RQT_Requestor)
-            .Include(x => x.RQT_Process)
-            .Include(x => x.RQT_SelectedScenario)
-            .Include(x => x.RQT_Conditions)
-            .Include(x => x.RQT_ProcessState)
-            .Include(x => x.RQT_Assignments)
-            .Include(x => x.RQT_CurrentAssignment)
+        F_Case GeneralRequest = await _db.F_Cases
+            .Include(x => x.Creator)
+            .Include(x => x.Requestor)
+            .Include(x => x.Process)
+            .Include(x => x.SelectedScenario)
+            .Include(x => x.Conditions)
+            .Include(x => x.ProcessState)
+            .Include(x => x.WorkItems)
             .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
-            (x.RQT_Process.PName == request.RQT_Process.PName &&
+            (x.Process.PName == request.Process.PName &&
             x.PERPCode == request.PERPCode));
 
         return GeneralRequest;

@@ -41,8 +41,8 @@ public class Mutation
     [UseFiltering]
     [UseSorting]
     [Authorize]
-    public async Task<F_Request> CreateRequestAsync(
-        [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
+    public async Task<F_Case> CreateRequestAsync(
+        [Service] ISimpleClassRepository iSimpleClassRepository, F_Case request)
     {
         return await iSimpleClassRepository.CreateRequestAsync(request);
     }
@@ -53,8 +53,8 @@ public class Mutation
     [UseFiltering]
     [UseSorting]
     [Authorize]
-    public async Task<F_Request> PerformRequestAsync(
-           [Service] ISimpleClassRepository iSimpleClassRepository, F_Request request)
+    public async Task<F_Case> PerformRequestAsync(
+           [Service] ISimpleClassRepository iSimpleClassRepository, F_Case request)
     {
         return await iSimpleClassRepository.PerformRequestAsync(request);
     }

@@ -16,10 +16,10 @@ public partial class L_UserLocation : SimpleLinkClass
 {
     [Column(Order = 100)]
     [ForeignKey(nameof(FirstId))]
-    public virtual D_User? UL_User { get; set; }
+    public virtual D_User? User { get; set; }
 
     [Column(Order = 101)]
     [ForeignKey(nameof(SecondId))]
-    public virtual D_Location? UL_Location { get; set; }
+    public virtual D_Location? Location { get; set; }
 
 }

@@ -5,10 +5,10 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-LValue="(Record as D_Tag).TG_TagTypeId"
+        <CInput @bind-LValue="(Record as D_Tag).TagTypeId"
                 Records="@d_ParameterType"
                 CDescription="نوع پارامتر"
-                Record="@((Record as D_Tag).TG_TagType)"
+                Record="@((Record as D_Tag).TagType)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
                 CDisplayName="نوع پارامتر"
                 CFieldType="@(FieldType.CSelect)"
@@ -29,7 +29,7 @@
         {
             var _D_ParameterType = Int64.Parse(e.Value.ToString());
 
-            (Record as D_Tag).TG_TagType = d_ParameterType
+            (Record as D_Tag).TagType = d_ParameterType
             .First(x => x.Id == _D_ParameterType) as D_TagType;
         }
     }

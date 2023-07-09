@@ -27,19 +27,19 @@ public partial class D_User : BaseClass<D_User>
     #region Simple Prob
     [StringLength(25)]
     [Column(Order = 102)]
-    public string? User_Domain { get; set; }
+    public string? Domain { get; set; }
     [Column(Order = 103)]
-    public bool? User_EnabledForAssignation { get; set; }
+    public bool? EnabledForAssignation { get; set; }
     [Column(Order = 104)]
-    public bool? User_DelegateEnabled { get; set; }
+    public bool? DelegateEnabled { get; set; }
     [Column(Order = 105)]
-    public bool? User_CreatedCasesSkipAssigRules { get; set; }
+    public bool? CreatedCasesSkipAssigRules { get; set; }
     [StringLength(10)]
     [Column(Order = 106)]
-    public string? User_IDPersonel { get; set; }
+    public string? IDPersonel { get; set; }
     [StringLength(20)]
     [Column(Order = 107)]
-    public string? User_LDAPDescription { get; set; }
+    public string? LDAPDescription { get; set; }
 
     #endregion
 
@@ -50,24 +50,24 @@ public partial class D_User : BaseClass<D_User>
     #region S_User
 
     [Column(Order = 109)]
-    public long? User_DelegateId { get; set; }
-    [ForeignKey(nameof(User_DelegateId))]
-    public virtual D_User? User_Delegate { get; set; }
+    public long? DelegateId { get; set; }
+    [ForeignKey(nameof(DelegateId))]
+    public virtual D_User? Delegate { get; set; }
 
     [Column(Order = 110)]
-    public long? User_UserInformationId { get; set; }
-    public virtual D_UserInformation? User_UserInformation { get; set; }
+    public long? UserInformationId { get; set; }
+    public virtual D_UserInformation? UserInformation { get; set; }
     #endregion
 
     #endregion
 
     #region Collection
-    public virtual ICollection<F_Condition>? User_Conditions { get; set; } = new HashSet<F_Condition>();
+    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
 
     [Description("موقعیت")]
-    public virtual ICollection<L_UserLocation>? User_UserLocations { get; set; } = new HashSet<L_UserLocation>();
+    public virtual ICollection<L_UserLocation>? UserLocations { get; set; } = new HashSet<L_UserLocation>();
 
-    public virtual ICollection<L_UserPosition>? User_UserPositions { get; set; } = new HashSet<L_UserPosition>();
+    public virtual ICollection<L_UserPosition>? UserPositions { get; set; } = new HashSet<L_UserPosition>();
 
     #endregion
 

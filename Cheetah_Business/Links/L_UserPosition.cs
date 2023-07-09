@@ -16,9 +16,9 @@ public partial class L_UserPosition : SimpleLinkClass
 {
     [Column(Order = 101)]
     [ForeignKey(nameof(FirstId))]
-    public virtual D_User? UP_User { get; set; }
+    public virtual D_User? User { get; set; }
 
     [Column(Order = 100)]
     [ForeignKey(nameof(SecondId))]
-    public virtual D_Position? UP_Position { get; set; }
+    public virtual D_Position? Position { get; set; }
 }
