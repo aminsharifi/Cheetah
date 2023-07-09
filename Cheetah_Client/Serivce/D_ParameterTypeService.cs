@@ -231,5 +231,10 @@ namespace Cheetah_Client.Service
         {
             throw new NotImplementedException();
         }
+
+        public Task<int> Sync(string TableName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

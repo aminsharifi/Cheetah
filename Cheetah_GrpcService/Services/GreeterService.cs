@@ -219,5 +219,11 @@ namespace Cheetah_GrpcService.Services
         {
             return Cartable(request, CartableProperty.Outbox);
         }
+        public override Task<OutputSync> Sync(InputSync request, ServerCallContext context)
+        {
+            OutputSync outputSync = new();
+            simpleClassRepository.Sync(request.TableName).GetAwaiter().GetResult();
+            return Task.FromResult(outputSync);
+        }
     }
 }
