@@ -65,9 +65,9 @@ namespace Cheetah_GrpcService.Services
             output_Request.ProcessState =
                 new()
                 {
-                    Id = f_Request.ProcessState.Id.Value,
-                    Name = f_Request.ProcessState.Name,
-                    DisplayName = f_Request.ProcessState.DisplayName
+                    Id = f_Request.CaseStateId.Value,
+                    Name = f_Request.CaseState.Name,
+                    DisplayName = f_Request.CaseState.DisplayName
                 };
 
             output_Request.Id = f_Request.Id.Value;
@@ -76,18 +76,20 @@ namespace Cheetah_GrpcService.Services
         }
         public override Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var f_Request = new F_Case();
-
-            f_Request.Id = request.AssignmentId;
-
-            //if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
+            var f_Request = _db.F_WorkItems.Single(x => x.Id == request.WorkItemId).Case;
 
             f_Request = simpleClassRepository.PerformRequestAsync(f_Request)
             .GetAwaiter().GetResult();
 
-            var output_Request = new Brief_Output_Request();
-
-            output_Request.Id = f_Request.Id.Value;
+            var output_Request = new Brief_Output_Request()
+            {
+                ProcessState = new GRPC_BaseClass()
+                {
+                    Id = f_Request.CaseStateId.Value,
+                    Name = f_Request.CaseState.Name,
+                    DisplayName = f_Request.CaseState.DisplayName
+                }
+            };
 
             return Task.FromResult(output_Request);
         }
@@ -116,9 +118,9 @@ namespace Cheetah_GrpcService.Services
             output_Request.ProcessState =
                 new()
                 {
-                    Id = f_Request.ProcessState.Id.Value,
-                    Name = f_Request.ProcessState.Name,
-                    DisplayName = f_Request.ProcessState.DisplayName
+                    Id = f_Request.CaseStateId.Value,
+                    Name = f_Request.CaseState.Name,
+                    DisplayName = f_Request.CaseState.DisplayName
                 };
 
             var L_WorkItems = f_Request.WorkItems.ToList();
@@ -141,11 +143,11 @@ namespace Cheetah_GrpcService.Services
                     (
                         L_WorkItems.Where(x => x.EndorsementId == Assignment.Endorsement.Id)
                         .Select(x => new GRPC_BaseClass()
-                            {
-                                Id = x.UserId.Value,
-                                Name = x.User.Name,
-                                DisplayName = x.User.DisplayName
-                            }
+                        {
+                            Id = x.UserId.Value,
+                            Name = x.User.Name,
+                            DisplayName = x.User.DisplayName
+                        }
                         )
                     );
             }

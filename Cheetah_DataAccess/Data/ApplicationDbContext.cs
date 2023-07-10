@@ -40,7 +40,7 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<D_Entity> D_Entities { get; set; }
     public virtual DbSet<D_Tag> D_Tags { get; set; }
     public virtual DbSet<D_Process> D_Processes { get; set; }
-    public virtual DbSet<D_ProcessState> D_ProcessStates { get; set; }
+    public virtual DbSet<D_CaseState> D_CaseStates { get; set; }
     public virtual DbSet<D_Position> D_Positions { get; set; }
     public virtual DbSet<D_Location> D_Locations { get; set; }
     public virtual DbSet<D_Role> D_Roles { get; set; }
