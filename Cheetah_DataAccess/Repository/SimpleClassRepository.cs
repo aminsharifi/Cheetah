@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -197,31 +196,19 @@ public class SimpleClassRepository : ISimpleClassRepository
     {
         var L_WorkItems = GeneralRequest.WorkItems.ToList();
 
-        var GworkItems = L_WorkItems
-            .OrderBy(x => x.Endorsement.SortIndex)
-            .GroupBy(x => x.EndorsementId);
+        var Q_L_WorkItems = L_WorkItems.Where(x => x.TagId == 201);
 
-        foreach (var GworkItem in GworkItems)
-        {
-            var found = false;
+        var EndorsementSortIndex = Q_L_WorkItems.Any() ? Q_L_WorkItems.Max(x => x.Endorsement.SortIndex) : 0;
 
-            var QueryEndorsement = L_WorkItems.Where(x => x.EndorsementId == GworkItem.Key);
+        L_WorkItems.Where(x => x.WorkItemStateId is null && x.Endorsement.SortIndex == EndorsementSortIndex)
+            .ToList().ForEach(x => x.WorkItemStateId = 3);
 
-            if (!found)
-            {
-                found = !QueryEndorsement.Any(x => x.Tag is not null);
-            }
-            if (found)
-            {
-                QueryEndorsement.ToList().ForEach(x => x.WorkItemStateId = 1);
+        L_WorkItems.Where(x => x.Endorsement.SortIndex == (EndorsementSortIndex + 1))
+            .ToList().ForEach(x => x.WorkItemStateId = 1);
 
-                _db.UpdateRange(L_WorkItems);
+        _db.UpdateRange(L_WorkItems);
 
-                await _db.SaveChangesAsync();
-
-                break;
-            }
-        }
+        await _db.SaveChangesAsync();
 
         return GeneralRequest;
     }
@@ -615,44 +602,9 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<F_Case> PerformRequestAsync(F_Case request)
     {
-        var GeneralRequest = await Get(nameof(F_Case), request.Id) as F_Case;
+        request = await SetCurrentAssignment(request);
 
-        //if (GeneralRequest.RQT_CurrentAssignment.Id != request.RQT_Current_Review.APV_AssignmentId)
-        //    throw new ArgumentNullException("Id is incorrect");
-
-        try
-        {
-            //GeneralRequest.RQT_Current_Review = new F_Review();
-
-            //GeneralRequest.RQT_Current_Review.APV_Tag = await _db.D_Tags
-            //    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Tag.PName);
-
-            //GeneralRequest.RQT_Current_Review.APV_Performer = await _db.D_Users
-            //    .SingleAsync(x => x.PName == request.RQT_Current_Review.APV_Performer.PName);
-
-            //GeneralRequest.RQT_Current_Review.APV_Assignment = GeneralRequest.RQT_CurrentAssignment;
-
-            var tmp = _db.Update(GeneralRequest);
-
-            GeneralRequest = tmp.Entity;
-
-            await _db.SaveChangesAsync();
-
-            //GeneralRequest.RQT_Current_Review.APV_Request = GeneralRequest;
-
-            await SetCurrentAssignment(GeneralRequest);
-
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }
-
-        var ret_Requests = await _db.F_Cases
-            .Include(x => x.CaseState)
-            .SingleAsync(x => x.Id == GeneralRequest.Id);
-
-        return ret_Requests;
+        return request;
     }
     public async Task<SimpleClass> Create(SimpleClass obj_DTO)
     {
@@ -898,7 +850,8 @@ public class SimpleClassRepository : ISimpleClassRepository
             .Include(x => x.SelectedScenario)
             .Include(x => x.Conditions)
             .Include(x => x.CaseState)
-            .Include(x => x.WorkItems)
+            .Include(x => x.WorkItems).ThenInclude(x=>x.WorkItemState)
+            .Include(x => x.WorkItems).ThenInclude(x => x.User)
             .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
             (x.Process.Name == request.Process.Name &&
             x.ERPCode == request.ERPCode));

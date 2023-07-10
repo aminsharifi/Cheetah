@@ -61,13 +61,14 @@ message RecordCartable
     GRPC_BaseClass D_Tag = 1;
     string Requestor  = 2;
     string RadNumber  = 3;
-    int64 CreateDate  = 4;
-    string PCreateDate = 5;
-    int64 RecieveDate = 6;
-    string PRecieveDate = 7;
-    string ProcessName = 8;
-    string TaskName = 9;
-    string Summary = 10;
+    string WorkItemId  = 4;
+    int64 CreateDate  = 5;
+    string PCreateDate = 6;
+    int64 RecieveDate = 7;
+    string PRecieveDate = 8;
+    string ProcessName = 9;
+    string TaskName = 10;
+    string Summary = 11;
 }
 
 message Brief_Output_Request
@@ -104,13 +105,21 @@ message DetailOutput_Request
     int64  PERPCode = 2;
     string ProcessName = 3;
     GRPC_BaseClass ProcessState = 4;
-    repeated GRPC_UserAssignment AllAssignments = 5;
+    repeated GRPC_Assignment Assignments = 5;
+}
+
+message GRPC_Assignment
+{
+    GRPC_BaseClass Endorsement = 1;
+    repeated GRPC_UserAssignment UserAssignments = 2;
 }
 
 message GRPC_UserAssignment
 {
-    GRPC_BaseClass Endorsement = 2;
-    repeated GRPC_BaseClass UserAssignments = 1;
+    int64 WorkItemId = 1;
+    GRPC_BaseClass User = 2;
+    GRPC_BaseClass Tag = 3;
+    GRPC_BaseClass WorkItemState = 4;
 }
 
 message GRPC_BaseClass
