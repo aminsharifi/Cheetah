@@ -21,4 +21,6 @@ public interface ISimpleClassRepository
     public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass);
     public Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO);
     public Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO);
+    public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
+        IQueryable<F_WorkItem> f_WorkItems);
 }

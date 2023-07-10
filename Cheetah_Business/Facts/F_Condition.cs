@@ -10,7 +10,7 @@ namespace Cheetah_Business.Facts;
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-public partial class F_Condition : BaseClass<F_Condition>
+public partial class F_Condition : SimpleClass
 {
     [Column(Order = 100)]
     public long? TagId { get; set; }

@@ -11,8 +11,8 @@ namespace Cheetah_Business.Facts;
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-public partial class F_Attachment : BaseClass<F_Attachment>
+//[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
+public partial class F_Attachment : SimpleClass
 {
     //Passed 
 

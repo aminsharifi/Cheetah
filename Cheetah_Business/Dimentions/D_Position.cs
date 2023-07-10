@@ -10,8 +10,8 @@ namespace Cheetah_Business.Dimentions;
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-public partial class D_Position : BaseClass<D_Position>
+//[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
+public partial class D_Position : SimpleClass
 {
     public virtual ICollection<L_UserPosition>? UserPositions { get; set; } = new HashSet<L_UserPosition>();
 

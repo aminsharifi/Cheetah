@@ -8,6 +8,7 @@ using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
 using Cheetah_Business.Virtuals;
 using Cheetah_DataAccess.Data;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
@@ -194,15 +195,33 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<F_Case> SetCurrentAssignment(F_Case GeneralRequest)
     {
-        //var RQT_Assignment = GeneralRequest.RQT_Assignments
-        //           .Where(x => x.PRM_Review is null || !x.PRM_Review.APV_Tag.PName.Equals("Approve"));
+        var L_WorkItems = GeneralRequest.WorkItems.ToList();
 
-        //if (RQT_Assignment.Any())
-        //    GeneralRequest.RQT_CurrentAssignment = RQT_Assignment.First();
-        //else
-        //    GeneralRequest.RQT_ProcessStateId = 3;
+        var GworkItems = L_WorkItems
+            .OrderBy(x => x.Endorsement.SortIndex)
+            .GroupBy(x => x.EndorsementId);
 
-        //await _db.SaveChangesAsync();
+        foreach (var GworkItem in GworkItems)
+        {
+            var found = false;
+
+            var QueryEndorsement = L_WorkItems.Where(x => x.EndorsementId == GworkItem.Key);
+
+            if (!found)
+            {
+                found = !QueryEndorsement.Any(x => x.Tag is not null);
+            }
+            if (found)
+            {
+                QueryEndorsement.ToList().ForEach(x => x.WorkItemStateId = 1);
+
+                _db.UpdateRange(L_WorkItems);
+
+                await _db.SaveChangesAsync();
+
+                break;
+            }
+        }
 
         return GeneralRequest;
     }
@@ -492,7 +511,8 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             GeneralRequest.ProcessStateId = 1;
 
-            if (GeneralRequest.Conditions is not null)
+            if (GeneralRequest.Conditions is not null
+                && GeneralRequest.Conditions.Count > 0)
             {
                 foreach (var item in GeneralRequest.Conditions)
                 {
@@ -542,11 +562,10 @@ public class SimpleClassRepository : ISimpleClassRepository
 
                         var D_Users = await _db.D_Users.Where(x => Users.Contains(x.Id)).ToListAsync();
 
-                        var Added_Users = new List<D_User>();
-
                         foreach (var D_User in D_Users)
                         {
                             var UserOccur = false;
+
                             if (eP_Endorsement.Role.Independent)
                             {
                                 UserOccur = true;
@@ -562,30 +581,15 @@ public class SimpleClassRepository : ISimpleClassRepository
                             }
                             if (UserOccur)
                             {
-                                Added_Users.Add(D_User);
+                                F_WorkItem f_WorkItem = new()
+                                {
+                                    EndorsementId = eP_Endorsement.Id,
+                                    UserId = D_User.Id
+                                };
+
+                                GeneralRequest.WorkItems.Add(f_WorkItem);
                             }
                         }
-                        var new_Assignment = new F_WorkItem()
-                        {
-                            Endorsement = eP_Endorsement
-                        };
-
-                        if (Added_Users.Count == 0)
-                            throw new ArgumentNullException("There are'nt any users for this role");
-
-                        foreach (var Added_User in Added_Users)
-                        {
-                            //await _db.L_UserAssignments.AddAsync(
-                            //      new L_UserAssignment()
-                            //      {
-                            //          UA_User = Added_User,
-                            //          UA_Assignment = new_Assignment
-                            //      });
-                        }
-
-                        await _db.F_WorkItems.AddAsync(new_Assignment);
-
-                        GeneralRequest.WorkItems.Add(new_Assignment);
                     }
                 }
 
@@ -744,7 +748,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
         var instance = (SimpleClass)Activator.CreateInstance(gtype);
-        instance.Index = aa.Any() ? aa.Max(x => x.Index) + 1 : 1;
+        instance.SortIndex = aa.Any() ? aa.Max(x => x.SortIndex) + 1 : 1;
         return instance;
     }
     public async Task<Int32> RemoveLink(SimpleLinkClassDTO obj_DTO)
@@ -785,7 +789,7 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             if (simpleLinkClass.Any())
             {
-                instance.Index = simpleLinkClass.Last().Index + 1;
+                instance.SortIndex = simpleLinkClass.Last().SortIndex + 1;
             }
             else
             {
@@ -831,56 +835,59 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return await _db.SaveChangesAsync();
     }
+    public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
+        IQueryable<F_WorkItem> f_WorkItems)
+    {
+        if (!String.IsNullOrEmpty(cartableDTO.Username))
+        {
+            var username = cartableDTO.Username;
+            f_WorkItems = f_WorkItems.Where(x => x.User.Name == username);
+        }
 
-    //public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
-    //    IQueryable<L_UserAssignment> l_UserAssignments)
-    //{
-    //    if (!String.IsNullOrEmpty(cartableDTO.Username))
-    //    {
-    //        var username = cartableDTO.Username;
-    //        l_UserAssignments = l_UserAssignments.Where(x => x.UA_User.PName == username);
-    //    }
+        if (!String.IsNullOrEmpty(cartableDTO.ProcessName))
+        {
+            var processName = cartableDTO.ProcessName;
+            f_WorkItems = f_WorkItems
+                .Where(x => x.Case.Process.Name == processName);
+        }
+        if (!String.IsNullOrEmpty(cartableDTO.RadNumber))
+        {
+            var radNumber = cartableDTO.RadNumber;
+            f_WorkItems = f_WorkItems.Where(x => x.CaseId == Int64.Parse(radNumber));
+        }
 
-    //    if (!String.IsNullOrEmpty(cartableDTO.ProcessName))
-    //    {
-    //        var processName = cartableDTO.ProcessName;
-    //        l_UserAssignments = l_UserAssignments
-    //            .Where(x => x.UA_Assignment.PRM_Request.RQT_Process.PName == processName);
-    //    }
-    //    var Inbox = l_UserAssignments
-    //    .Select(x =>
-    //    new CartableDTO()
-    //    {
-    //        ProcessName = x.UA_Assignment.PRM_Request.RQT_Process.PDisplayName,
-    //        RadNumber = x.UA_Assignment.PRM_RequestId.ToString(),
-    //        Requestor = x.UA_Assignment.PRM_Request.RQT_Requestor.PDisplayName,
-    //        TaskName = x.UA_Assignment.PRM_Endorsement.PDisplayName,
-    //        CreateDate = x.UA_Assignment.PRM_Request.CreateTimeRecord,
-    //        RecieveDate = x.UA_Assignment.CreateTimeRecord,
-    //        Summary = x.UA_Assignment.PRM_Request.PDisplayName
-    //    }
-    //    );
+        var Inbox = f_WorkItems
+        .Select(x =>
+        new CartableDTO()
+        {
+            ProcessName = x.Case.Process.DisplayName,
+            RadNumber = x.CaseId.ToString(),
+            WorkItemId = x.Id.ToString(),
+            Requestor = x.Case.Requestor.DisplayName,
+            TaskName = x.Endorsement.DisplayName,
+            CreateDate = x.Case.CreateTimeRecord,
+            RecieveDate = x.CreateTimeRecord,
+            Summary = String.Empty
+        }
+        );
 
-    //    return Inbox;
-    //}
-
+        return Inbox;
+    }
     public async Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
     {
-        //var l_UserAssignments = _db.L_UserAssignments
-        //    .Where(x => x.UA_Assignment.PRM_Request.RQT_CurrentAssignment == x.UA_Assignment);
+        var inboxQuery = _db.F_WorkItems.Where(x => x.WorkItemStateId == 1);
 
-        //var inbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
+        var inbox = GetCartable(cartableDTO, inboxQuery).AsEnumerable();
 
-        return Enumerable.Empty<CartableDTO>();
+        return inbox.ToList();
     }
     public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
     {
-        //var l_UserAssignments = _db.L_UserAssignments
-        //    .Where(x => x.UA_Assignment.PRM_Review.APV_Tag != null);
+        var outBoxQuery = _db.F_WorkItems.Where(x => x.WorkItemStateId == 2);
 
-        //var outbox = GetCartable(cartableDTO, l_UserAssignments).AsEnumerable();
+        var outBox = GetCartable(cartableDTO, outBoxQuery).AsEnumerable();
 
-        return Enumerable.Empty<CartableDTO>();
+        return outBox.ToList();
     }
     public async Task<F_Case> GetCaseAsync(F_Case request)
     {
