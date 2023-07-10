@@ -236,5 +236,10 @@ namespace Cheetah_Client.Service
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO, IQueryable<F_WorkItem> f_WorkItems)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

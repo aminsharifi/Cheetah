@@ -16,7 +16,7 @@ public abstract class SimpleClass
     [Description("اندیس مرتب‌سازی")]
     [Column(Order = 2)]
     [DefaultValue(0)]
-    public Int64? Index { get; set; }
+    public Int64? SortIndex { get; set; }
 
 
     [StringLength(512)]

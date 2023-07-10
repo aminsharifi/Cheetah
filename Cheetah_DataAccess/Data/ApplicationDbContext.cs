@@ -46,6 +46,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<D_Role> D_Roles { get; set; }
     public virtual DbSet<D_User> D_Users { get; set; }
     public virtual DbSet<D_Operand> D_Operands { get; set; }
+    public virtual DbSet<D_WorkItemState> D_WorkItemStates { get; set; }
+    
     #endregion
 
     #region Facts

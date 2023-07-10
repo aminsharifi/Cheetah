@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Cheetah_Business;
 using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -67,8 +66,8 @@ namespace Cheetah_GrpcService.Services
                 new()
                 {
                     Id = f_Request.ProcessState.Id.Value,
-                    PName = f_Request.ProcessState.Name,
-                    PDisplayName = f_Request.ProcessState.DisplayName
+                    Name = f_Request.ProcessState.Name,
+                    DisplayName = f_Request.ProcessState.DisplayName
                 };
 
             output_Request.Id = f_Request.Id.Value;
@@ -107,70 +106,49 @@ namespace Cheetah_GrpcService.Services
             f_Request = simpleClassRepository.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
 
-            DetailOutput_Request output_Request = new();
-
-            output_Request.Id = f_Request.Id.Value;
-
-            output_Request.ProcessName = f_Request.Process.Name;
-
-            output_Request.PERPCode = f_Request.ERPCode.Value;
+            DetailOutput_Request output_Request = new()
+            {
+                Id = f_Request.Id.Value,
+                ProcessName = f_Request.Process.Name,
+                PERPCode = f_Request.ERPCode.Value
+            };
 
             output_Request.ProcessState =
                 new()
                 {
                     Id = f_Request.ProcessState.Id.Value,
-                    PName = f_Request.ProcessState.Name,
-                    PDisplayName = f_Request.ProcessState.DisplayName
+                    Name = f_Request.ProcessState.Name,
+                    DisplayName = f_Request.ProcessState.DisplayName
                 };
 
-            output_Request.CurrentAssignments = new GRPC_UserAssignment();
-            //output_Request.CurrentAssignments.Endorsement = new()
-            //{
-            //    Id = f_Request.CAS_CurrentAssignment.PRM_Endorsement.Id.Value,
-            //    PName = f_Request.CAS_CurrentAssignment.PRM_Endorsement.PName,
-            //    PDisplayName = f_Request.RQT_CurrentAssignment.PRM_Endorsement.PDisplayName
-            //};
+            var L_WorkItems = f_Request.WorkItems.ToList();
 
-            //output_Request.CurrentAssignments.UserAssignments.AddRange
-            //    (
-            //        f_Request.RQT_CurrentAssignment.PRM_UserAssignments
-            //        .Select(x => new GRPC_BaseClass()
-            //        {
-            //            Id = x.Id.Value,
-            //            PName = x.UA_User.PName
-            //        }
-            //        )
-            //    );
-
-
-            var assignments = f_Request.WorkItems.ToList();
-
-            output_Request.AllAssignments.AddRange(assignments
-            .Select(p => new GRPC_UserAssignment()
-            {
-                Endorsement =
-                new()
+            output_Request.AllAssignments.AddRange(
+                L_WorkItems.Select(x => x.Endorsement).Distinct()
+                .Select(x => new GRPC_UserAssignment()
                 {
-                    Id = p.Endorsement.Id.Value,
-                    PName = p.Endorsement.Name,
-                    PDisplayName = p.Endorsement.DisplayName
-                }
+                    Endorsement = new GRPC_BaseClass()
+                    {
+                        Id = x.Id.Value,
+                        Name = x.Name,
+                        DisplayName = x.DisplayName
+                    }
+                }));
 
-            }));
-
-            //output_Request.AllAssignments.ToList()
-            //    .ForEach(x =>
-            //    x.UserAssignments.AddRange(
-            //        assignments.First(y => y.PRM_EndorsementId == x.Endorsement.Id).PRM_UserAssignments
-            //        .Select(z =>
-            //            new GRPC_BaseClass()
-            //            {
-            //                Id = z.Id.Value,
-            //                PName = z.UA_User.PName,
-            //                PDisplayName = z.UA_User.PDisplayName
-            //            }
-            //        )
-            //    ));
+            foreach (var Assignment in output_Request.AllAssignments)
+            {
+                Assignment.UserAssignments.AddRange
+                    (
+                        L_WorkItems.Where(x => x.EndorsementId == Assignment.Endorsement.Id)
+                        .Select(x => new GRPC_BaseClass()
+                            {
+                                Id = x.UserId.Value,
+                                Name = x.User.Name,
+                                DisplayName = x.User.DisplayName
+                            }
+                        )
+                    );
+            }
 
             return Task.FromResult(output_Request);
         }
@@ -195,8 +173,8 @@ namespace Cheetah_GrpcService.Services
                         DTag = (x.Tag is not null) ? new()
                         {
                             Id = x.Tag.Id.Value,
-                            PName = x.Tag.Name,
-                            PDisplayName = x.Tag.DisplayName
+                            Name = x.Tag.Name,
+                            DisplayName = x.Tag.DisplayName
                         } : new(),
                         RecieveDate = ((DateTimeOffset)x.RecieveDate).ToUnixTimeSeconds(),
                         PRecieveDate = x.PRecieveDate,

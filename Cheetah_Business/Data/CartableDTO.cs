@@ -9,6 +9,7 @@ public class CartableDTO
     public String? Username { get; set; }
     public String? Requestor { get; set; }
     public String? RadNumber { get; set; }
+    public String? WorkItemId { get; set; }
     public DateTime? CreateDate { get; set; }
     public  String? PCreateDate
     {

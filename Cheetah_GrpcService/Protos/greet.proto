@@ -104,8 +104,7 @@ message DetailOutput_Request
     int64  PERPCode = 2;
     string ProcessName = 3;
     GRPC_BaseClass ProcessState = 4;
-    GRPC_UserAssignment CurrentAssignments = 5;
-    repeated GRPC_UserAssignment AllAssignments = 6;
+    repeated GRPC_UserAssignment AllAssignments = 5;
 }
 
 message GRPC_UserAssignment
@@ -117,6 +116,6 @@ message GRPC_UserAssignment
 message GRPC_BaseClass
 {
     int64 Id = 1;
-    string PName = 2;
-    string PDisplayName = 3;    
+    string Name = 2;
+    string DisplayName = 3;    
 }

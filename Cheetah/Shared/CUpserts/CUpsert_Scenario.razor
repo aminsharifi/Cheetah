@@ -51,7 +51,7 @@
                                                 </span>
                                             </td>
                                             <td style="width:8%">
-                                                <InputNumber class="col-12" @bind-Value="item.Index"></InputNumber>
+                                                <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
@@ -165,7 +165,7 @@
                                                 </span>
                                             </td>
                                             <td style="width:8%">
-                                                <InputNumber class="col-12" @bind-Value="item.Index"></InputNumber>
+                                                <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
                                             </td>
                                             <td style="width:16%">
                                                 <InputSelect class="col-12"
@@ -225,7 +225,7 @@
                                                                             </span>
                                                                         </td>
                                                                         <td style="width:8%">
-                                                                            <InputNumber class="col-12" @bind-Value="item.Index"></InputNumber>
+                                                                            <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
                                                                         </td>
                                                                         <td style="width:16%">
                                                                             <InputSelect class="col-12"
@@ -387,7 +387,7 @@
 
         if (Conditions.Any())
         {
-            Condition.Index = Conditions.Max(x => x.Index) + 1;
+            Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
         }
         else
         {
@@ -415,7 +415,7 @@
 
         if (eP_Endorsements.Any())
         {
-            d_Endorsement.Index = eP_Endorsements.Max(x => x.Index) + 1;
+            d_Endorsement.SortIndex = eP_Endorsements.Max(x => x.SortIndex) + 1;
         }
         else
         {

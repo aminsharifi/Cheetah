@@ -11,8 +11,8 @@ namespace Cheetah_Business.Dimentions;
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
-public partial class D_Process : BaseClass<D_Process>
+//[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
+public partial class D_Process : SimpleClass
 {
     #region Simple Prob
 

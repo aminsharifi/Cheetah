@@ -11,9 +11,9 @@ namespace Cheetah_Business.Dimentions;
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
 [Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
-[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
+//[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
 [Index(nameof(Independent), IsUnique = false, AllDescending = true)]
-public partial class D_Role : BaseClass<D_Role>
+public partial class D_Role : SimpleClass
 {
 
     [Column(Order = 100)]
