@@ -509,7 +509,7 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             GeneralRequest.Id = null;
 
-            GeneralRequest.ProcessStateId = 1;
+            GeneralRequest.CaseStateId = 1;
 
             if (GeneralRequest.Conditions is not null
                 && GeneralRequest.Conditions.Count > 0)
@@ -608,7 +608,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         }
 
         var ret_Requests = await _db.F_Cases
-            .Include(x => x.ProcessState)
+            .Include(x => x.CaseState)
             .SingleAsync(x => x.Id == GeneralRequest.Id);
 
         return ret_Requests;
@@ -649,7 +649,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         }
 
         var ret_Requests = await _db.F_Cases
-            .Include(x => x.ProcessState)
+            .Include(x => x.CaseState)
             .SingleAsync(x => x.Id == GeneralRequest.Id);
 
         return ret_Requests;
@@ -897,7 +897,7 @@ public class SimpleClassRepository : ISimpleClassRepository
             .Include(x => x.Process)
             .Include(x => x.SelectedScenario)
             .Include(x => x.Conditions)
-            .Include(x => x.ProcessState)
+            .Include(x => x.CaseState)
             .Include(x => x.WorkItems)
             .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
             (x.Process.Name == request.Process.Name &&

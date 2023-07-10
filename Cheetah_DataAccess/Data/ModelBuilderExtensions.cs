@@ -41,29 +41,29 @@ public static class ModelBuilderExtensions
         #endregion
 
         #region D_ProcessState
-        modelBuilder.Entity<D_ProcessState>().HasData(
-            new D_ProcessState
+        modelBuilder.Entity<D_CaseState>().HasData(
+            new D_CaseState
             {
                 Id = 1,
                 SortIndex = 1,
                 Name = "Ongoing",
                 DisplayName = "در دست بررسی"
             },
-            new D_ProcessState
+            new D_CaseState
             {
                 Id = 2,
                 SortIndex = 2,
                 Name = "Editing",
                 DisplayName = "منتظر بازنگری"
             },
-            new D_ProcessState
+            new D_CaseState
             {
                 Id = 3,
                 SortIndex = 3,
                 Name = "Completed",
                 DisplayName = "کامل شده"
             },
-            new D_ProcessState
+            new D_CaseState
             {
                 Id = 4,
                 SortIndex = 4,
@@ -484,7 +484,7 @@ public static class ModelBuilderExtensions
                     {
                         Id = 106,
                         SortIndex = 106,
-                        Name = nameof(D_ProcessState),
+                        Name = nameof(D_CaseState),
                         DisplayName = new StringBuilder().Append("وضعیت فرآیندها")
                         .Append($"({TableType.Dimentions})").ToString(),
                         Display = false

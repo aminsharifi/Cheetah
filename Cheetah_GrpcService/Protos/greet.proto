@@ -72,7 +72,7 @@ message RecordCartable
 
 message Brief_Output_Request
 {
-    int64  Id = 1;
+    int64 Id = 1;
     GRPC_BaseClass ProcessState = 2;
 }
 message GetCase_Input_Request
@@ -94,7 +94,7 @@ message Create_Input_Request
 
 message Perform_Input_Request
 {
-     int64  AssignmentId = 1;
+     int64  WorkItemId = 1;
      string Tag_Name = 2;
 }
 

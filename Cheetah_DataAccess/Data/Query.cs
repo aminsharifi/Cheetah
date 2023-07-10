@@ -36,9 +36,9 @@ public class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<D_ProcessState> d_ProcessState([Service] ApplicationDbContext context)
+    public IQueryable<D_CaseState> d_CaseStates([Service] ApplicationDbContext context)
     {
-        return context.D_ProcessStates;
+        return context.D_CaseStates;
     }
     [UseProjection]
     [UseFiltering]

@@ -28,8 +28,8 @@ public partial class F_Case : SimpleClass
     [Description("وضعیت فرآیند")]
     [Column(Order = 110)]
     [DefaultValue(1)]
-    public long? ProcessStateId { get; set; }
-    public virtual D_ProcessState? ProcessState { get; set; }
+    public long? CaseStateId { get; set; }
+    public virtual D_CaseState? CaseState { get; set; }
 
     [Description("نام فرآیند")]
     [Column(Order = 111)]
