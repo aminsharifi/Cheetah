@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Cheetah_Business;
 using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -76,8 +77,15 @@ namespace Cheetah_GrpcService.Services
         }
         public override Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var f_Request = _db.F_WorkItems.Single(x => x.Id == request.WorkItemId).Case;
+            var F_WorkItem = _db.F_WorkItems.Single(x => x.Id == request.WorkItemId);
+            var tagId = _db.D_Tags.Single(x => x.Name == request.TagName).Id;
+            F_WorkItem.TagId = tagId;
+            F_WorkItem.WorkItemStateId = 2;
+            _db.Update(F_WorkItem);
 
+            _db.SaveChangesAsync().GetAwaiter().GetResult();
+
+            var f_Request = F_WorkItem.Case;
             f_Request = simpleClassRepository.PerformRequestAsync(f_Request)
             .GetAwaiter().GetResult();
 
@@ -125,9 +133,9 @@ namespace Cheetah_GrpcService.Services
 
             var L_WorkItems = f_Request.WorkItems.ToList();
 
-            output_Request.AllAssignments.AddRange(
+            output_Request.Assignments.AddRange(
                 L_WorkItems.Select(x => x.Endorsement).Distinct()
-                .Select(x => new GRPC_UserAssignment()
+                .Select(x => new GRPC_Assignment()
                 {
                     Endorsement = new GRPC_BaseClass()
                     {
@@ -137,16 +145,32 @@ namespace Cheetah_GrpcService.Services
                     }
                 }));
 
-            foreach (var Assignment in output_Request.AllAssignments)
+            foreach (var Assignment in output_Request.Assignments)
             {
                 Assignment.UserAssignments.AddRange
                     (
                         L_WorkItems.Where(x => x.EndorsementId == Assignment.Endorsement.Id)
-                        .Select(x => new GRPC_BaseClass()
+                        .Select(x => new GRPC_UserAssignment()
                         {
-                            Id = x.UserId.Value,
-                            Name = x.User.Name,
-                            DisplayName = x.User.DisplayName
+                            WorkItemId = x.Id.Value,
+                            User = new GRPC_BaseClass()
+                            {
+                                Id = x.UserId.Value,
+                                Name = x.User.Name,
+                                DisplayName = x.User.DisplayName
+                            },
+                            Tag = new GRPC_BaseClass()
+                            {
+                                Id = x.TagId ?? 0,
+                                Name = x.Tag?.Name ?? String.Empty,
+                                DisplayName = x.Tag?.DisplayName ?? String.Empty
+                            },
+                            WorkItemState = new GRPC_BaseClass()
+                            {
+                                Id = x.WorkItemStateId ?? 0,
+                                Name = x.WorkItemState?.Name ?? String.Empty,
+                                DisplayName = x.WorkItemState?.DisplayName ?? String.Empty
+                            }
                         }
                         )
                     );
@@ -183,6 +207,7 @@ namespace Cheetah_GrpcService.Services
                         Summary = x.Summary ?? String.Empty,
                         ProcessName = x.ProcessName,
                         RadNumber = x.RadNumber,
+                        WorkItemId = x.WorkItemId,
                         Requestor = x.Requestor,
                         TaskName = x.TaskName
                     }
