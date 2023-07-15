@@ -48,15 +48,15 @@ public class Mutation
     }
     #endregion
 
-    #region PerformRequestAsync
+    #region PerformWorkItemAsync
     [UseProjection]
     [UseFiltering]
     [UseSorting]
     [Authorize]
-    public async Task<F_Case> PerformRequestAsync(
-           [Service] ISimpleClassRepository iSimpleClassRepository, F_Case request)
+    public async Task<F_Case> PerformWorkItemAsync(
+           [Service] ISimpleClassRepository iSimpleClassRepository, F_WorkItem request)
     {
-        return await iSimpleClassRepository.PerformRequestAsync(request);
+        return await iSimpleClassRepository.PerformWorkItemAsync(request);
     }
     #endregion
 

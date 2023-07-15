@@ -13,7 +13,7 @@ public interface ISimpleClassRepository
     public Task<SimpleClass> GetLast(string type);
     public Task<SimpleClass> Create(SimpleClass obj_DTO);
     public Task<Int32> Sync(String TableName);
-    public Task<F_Case> PerformRequestAsync(F_Case request);
+    public Task<F_Case> PerformWorkItemAsync(F_WorkItem request);
     public Task<F_Case> CreateRequestAsync(F_Case request);
     public Task<F_Case> GetCaseAsync(F_Case request);
     public Task<SimpleClass> Update(SimpleClass obj_DTO);
