@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Cheetah_Business;
 using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -53,10 +52,10 @@ namespace Cheetah_GrpcService.Services
         {
             var f_Request = new F_Case();
 
-            f_Request.Creator = new() { Name = request.CreatorPName };
-            f_Request.Requestor = new() { Name = request.RequestorPName };
-            f_Request.Process = new() { Name = request.ProcessPName };
-            f_Request.ERPCode = request.PERPCode;
+            f_Request.Creator = new() { Name = request.CreatorName };
+            f_Request.Requestor = new() { Name = request.RequestorName };
+            f_Request.Process = new() { Name = request.ProcessName };
+            f_Request.ERPCode = request.ERPCode;
 
             f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
@@ -91,6 +90,7 @@ namespace Cheetah_GrpcService.Services
 
             var output_Request = new Brief_Output_Request()
             {
+                Id = f_Request.Id.Value,
                 ProcessState = new GRPC_BaseClass()
                 {
                     Id = f_Request.CaseStateId.Value,
@@ -107,8 +107,8 @@ namespace Cheetah_GrpcService.Services
 
             f_Request.Id = request.Id;
 
-            if (request.PERPCode > 0)
-                f_Request.ERPCode = request.PERPCode;
+            if (request.ERPCode > 0)
+                f_Request.ERPCode = request.ERPCode;
 
             if (!String.IsNullOrEmpty(request.ProcessName))
                 f_Request.Process = _db.D_Processes.Single(x => x.Name == request.ProcessName);
@@ -120,7 +120,7 @@ namespace Cheetah_GrpcService.Services
             {
                 Id = f_Request.Id.Value,
                 ProcessName = f_Request.Process.Name,
-                PERPCode = f_Request.ERPCode.Value
+                ERPCode = f_Request.ERPCode.Value
             };
 
             output_Request.ProcessState =
