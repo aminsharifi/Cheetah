@@ -23,7 +23,6 @@ public class SimpleClassRepository : ISimpleClassRepository
         _mapper = mapper;
         CreateViews();
     }
-
     private void RemoveView(string ViewName)
     {
         var DeleteQuery = $@"
@@ -34,7 +33,6 @@ public class SimpleClassRepository : ISimpleClassRepository
         ";
         _db.Database.ExecuteSqlRaw(DeleteQuery);
     }
-
     private void CreateViews()
     {
         #region V_UserLocation
@@ -200,11 +198,20 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         var EndorsementSortIndex = Q_L_WorkItems.Any() ? Q_L_WorkItems.Max(x => x.Endorsement.SortIndex) : 0;
 
-        L_WorkItems.Where(x => x.WorkItemStateId is null && x.Endorsement.SortIndex == EndorsementSortIndex)
-            .ToList().ForEach(x => x.WorkItemStateId = 3);
+        L_WorkItems.Where(x => x.WorkItemStateId != 2 && x.Endorsement.SortIndex == EndorsementSortIndex)
+            .ToList().ForEach(x => x.WorkItemStateId = 3); // Exit
 
         L_WorkItems.Where(x => x.Endorsement.SortIndex == (EndorsementSortIndex + 1))
-            .ToList().ForEach(x => x.WorkItemStateId = 1);
+            .ToList().ForEach(x => x.WorkItemStateId = 1); // Inbox
+
+        L_WorkItems.Where(x => x.Endorsement.SortIndex > (EndorsementSortIndex + 1))
+      .ToList().ForEach(x => x.WorkItemStateId = 4); // Future
+
+        if (!L_WorkItems.Any(x => x.WorkItemStateId == 4))
+        {
+            GeneralRequest.CaseStateId = 3; // Completed
+            _db.Update(GeneralRequest);
+        }
 
         _db.UpdateRange(L_WorkItems);
 
@@ -850,7 +857,7 @@ public class SimpleClassRepository : ISimpleClassRepository
             .Include(x => x.SelectedScenario)
             .Include(x => x.Conditions)
             .Include(x => x.CaseState)
-            .Include(x => x.WorkItems).ThenInclude(x=>x.WorkItemState)
+            .Include(x => x.WorkItems).ThenInclude(x => x.WorkItemState)
             .Include(x => x.WorkItems).ThenInclude(x => x.User)
             .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
             (x.Process.Name == request.Process.Name &&

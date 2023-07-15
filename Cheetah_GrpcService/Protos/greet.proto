@@ -66,7 +66,7 @@ message RecordCartable
     string PCreateDate = 6;
     int64 RecieveDate = 7;
     string PRecieveDate = 8;
-    string ProcessName = 9;
+    string Process_Name = 9;
     string TaskName = 10;
     string Summary = 11;
 }
@@ -74,22 +74,22 @@ message RecordCartable
 message Brief_Output_Request
 {
     int64 Id = 1;
-    GRPC_BaseClass ProcessState = 2;
+    GRPC_BaseClass Process_State = 2;
 }
 message GetCase_Input_Request
 {
      int64  Id = 1;
-     int64  PERPCode = 2;
-     string ProcessName = 3;
+     int64  ERPCode = 2;
+     string Process_Name = 3;
 }
 
 message Create_Input_Request
 {
      
-     int64  PERPCode = 1;
-     string Creator_PName = 2;
-     string Requestor_PName = 3;
-     string Process_PName = 4;
+     int64  ERPCode = 1;
+     string Creator_Name = 2;
+     string Requestor_Name = 3;
+     string Process_Name = 4;
      repeated GRPC_BaseClass Conditions = 5;
 }
 
@@ -102,9 +102,9 @@ message Perform_Input_Request
 message DetailOutput_Request
 {
     int64  Id = 1;
-    int64  PERPCode = 2;
-    string ProcessName = 3;
-    GRPC_BaseClass ProcessState = 4;
+    int64  ERPCode = 2;
+    string Process_Name = 3;
+    GRPC_BaseClass Process_State = 4;
     repeated GRPC_Assignment Assignments = 5;
 }
 
@@ -119,7 +119,7 @@ message GRPC_UserAssignment
     int64 WorkItemId = 1;
     GRPC_BaseClass User = 2;
     GRPC_BaseClass Tag = 3;
-    GRPC_BaseClass WorkItemState = 4;
+    GRPC_BaseClass WorkItem_State = 4;
 }
 
 message GRPC_BaseClass
