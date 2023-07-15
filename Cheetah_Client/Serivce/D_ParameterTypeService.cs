@@ -207,10 +207,6 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        public Task<F_Case> PerformRequestAsync(F_Case request)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
         {
@@ -238,6 +234,11 @@ namespace Cheetah_Client.Service
         }
 
         public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO, IQueryable<F_WorkItem> f_WorkItems)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<F_Case> PerformWorkItemAsync(F_WorkItem request)
         {
             throw new NotImplementedException();
         }

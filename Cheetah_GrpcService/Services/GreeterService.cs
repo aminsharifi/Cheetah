@@ -84,8 +84,7 @@ namespace Cheetah_GrpcService.Services
 
             _db.SaveChangesAsync().GetAwaiter().GetResult();
 
-            var f_Request = F_WorkItem.Case;
-            f_Request = simpleClassRepository.PerformRequestAsync(f_Request)
+            var f_Request = simpleClassRepository.PerformWorkItemAsync(F_WorkItem)
             .GetAwaiter().GetResult();
 
             var output_Request = new Brief_Output_Request()
