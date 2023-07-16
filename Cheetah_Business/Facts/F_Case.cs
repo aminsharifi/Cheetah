@@ -49,4 +49,47 @@ public partial class F_Case : SimpleClass
     public virtual ICollection<F_WorkItem>? WorkItems { get; set; } = new HashSet<F_WorkItem>();
 
     #endregion
+
+    #region Functions
+
+    #region Getter
+    public Boolean IsCreating()
+    {
+        return (CaseStateId is null);
+    }
+    public Boolean IsEditing()
+    {
+        return (CaseStateId == 2);
+    }
+    public Boolean IsAborted()
+    {
+        return (CaseStateId == 4);
+    }
+    public Boolean IsCompleted()
+    {
+        return (CaseStateId == 3);
+    }
+    #endregion
+
+    #region Setter
+    public void SetEditing()
+    {
+        CaseStateId = 2;
+    }
+    public void SetAborted()
+    {
+        CaseStateId = 4;
+    }
+    public void SetCompleted()
+    {
+        CaseStateId = 3;
+    }
+    public void SetOngoing()
+    {
+        CaseStateId = 1;
+    }
+    
+    #endregion
+
+    #endregion
 }

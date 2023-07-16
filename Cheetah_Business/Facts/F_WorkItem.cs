@@ -33,4 +33,82 @@ public partial class F_WorkItem : SimpleClass
     [Column(Order = 105)]
     public long? WorkItemStateId { get; set; }
     public virtual D_WorkItemState? WorkItemState { get; set; }
+
+    #region Functions
+
+    #region Getter
+    public Boolean IsInbox()
+    {
+        return (WorkItemStateId == 1);
+    }
+    public Boolean IsSent()
+    {
+        return (WorkItemStateId == 2);
+    }
+    public Boolean IsExit()
+    {
+        return (WorkItemStateId == 3);
+    }
+    public Boolean IsFuture()
+    {
+        return (WorkItemStateId == 4);
+    }
+    public Boolean IsAborted()
+    {
+        return (WorkItemStateId == 5);
+    }
+    public Boolean IsApprove()
+    {
+        return (TagId == 201);
+    }
+    public Boolean IsReject()
+    {
+        return (TagId == 202);
+    }
+    public Boolean IsRevise()
+    {
+        return (TagId == 203);
+    }
+
+    #endregion
+
+    #region Setter
+    public void SetInbox()
+    {
+        WorkItemStateId = 1;
+    }
+    public void SetSent()
+    {
+        WorkItemStateId = 2;
+    }
+    public void SetExit()
+    {
+        WorkItemStateId = 3;
+    }
+    public void SetFuture()
+    {
+        WorkItemStateId = 4;
+    }
+    public void SetAborted()
+    {
+        WorkItemStateId = 5;
+    }
+    public void SetApprove()
+    {
+        TagId = 201;
+    }
+    public void SetReject()
+    {
+        TagId = 202;
+    }
+    public void SetRevise()
+    {
+        TagId = 203;
+    }
+
+
+    #endregion
+
+    #endregion
+
 }
