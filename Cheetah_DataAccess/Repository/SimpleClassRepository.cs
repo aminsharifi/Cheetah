@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -191,41 +190,31 @@ public class SimpleClassRepository : ISimpleClassRepository
         }
         return (ConditionOccur == cnt_con);
     }
-    public async Task<F_Case> SetInboxAndFuture(F_Case? f_Case, Int64? SortIndex)
+    public async Task<F_Case> SetInboxAndFuture(F_Case? f_Case, Int64? f_WorkItemId)
     {
-        f_Case.WorkItems.Where(x => x.Endorsement.SortIndex == (SortIndex + 1))
-            .ToList().ForEach(x => x.WorkItemStateId = 1); // Inbox
+        f_Case.WorkItems.Where(x => x.Id == (f_WorkItemId + 1))
+            .ToList().ForEach(x => x.SetInbox());
 
-        f_Case.WorkItems.Where(x => x.Endorsement.SortIndex > (SortIndex + 1))
-            .ToList().ForEach(x => x.WorkItemStateId = 4); // Future
+        f_Case.WorkItems.Where(x => x.Id > (f_WorkItemId + 1))
+            .ToList().ForEach(x => x.SetFuture());
 
         return f_Case;
     }
-    public async Task<F_Case> Exit(F_Case? f_Case, Int64? SortIndex)
+    public async Task<F_Case> Exit(F_Case? f_Case, Int64? f_WorkItemId)
     {
-        f_Case.WorkItems.Where(x => x.Tag is null && x.Endorsement.SortIndex >= SortIndex)
-                     .ToList().ForEach(x => x.WorkItemStateId = 3); // Exit
+        f_Case.WorkItems.Where(x => x.Tag is null && x.TagId is null
+        && x.Id >= f_WorkItemId)
+                     .ToList().ForEach(x => x.SetExit());
 
         return f_Case;
     }
     public async Task<F_Case> SetCurrentAssignment(F_WorkItem? f_WorkItem)
     {
-        long EndorsementSortIndex = 0;
+        long f_WorkItemId = f_WorkItem.Id.Value;
 
-        if (f_WorkItem.Endorsement is not null)
-        {
-            EndorsementSortIndex = f_WorkItem.Endorsement.SortIndex.Value;
-        }
+        Exit(f_WorkItem.Case, f_WorkItemId).GetAwaiter().GetResult();
 
-        Exit(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
-
-        if (f_WorkItem.IsRevise())
-        {
-            f_WorkItem.Case.SetEditing();
-            f_WorkItem.Case = SetWorkItemsAsync(f_WorkItem.Case).GetAwaiter().GetResult();
-
-        }
-        else if (f_WorkItem.IsReject())
+        if (f_WorkItem.IsReject())
         {
             f_WorkItem.Case.SetAborted();
         }
@@ -233,7 +222,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             f_WorkItem.Case.SetOngoing();
 
-            f_WorkItem.Case = SetInboxAndFuture(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
+            f_WorkItem.Case = SetInboxAndFuture(f_WorkItem.Case, f_WorkItemId).GetAwaiter().GetResult();
 
             if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox()))
             {
@@ -558,27 +547,37 @@ public class SimpleClassRepository : ISimpleClassRepository
                 GeneralRequest.WorkItems = new HashSet<F_WorkItem>();
             }
 
-            var eP_Endorsements = GeneralRequest.SelectedScenario?.Endorsements.ToList();
+            var eP_Endorsements = GeneralRequest.SelectedScenario?.Endorsements.OrderBy(x => x.SortIndex).ToList();
+
+            F_WorkItem first_WorkItem = new()
+            {
+                Case = GeneralRequest
+            };
 
             foreach (var eP_Endorsement in eP_Endorsements)
             {
                 if (eP_Endorsement.Role.FixedRole)
                 {
-                    F_WorkItem f_WorkItem = new()
+                    first_WorkItem = new()
                     {
+                        Endorsement = eP_Endorsement,
                         EndorsementId = eP_Endorsement.Id
                     };
 
                     if (eP_Endorsement.IsRequestor())
                     {
-                        f_WorkItem.UserId = GeneralRequest.RequestorId;
+                        first_WorkItem.UserId = GeneralRequest.Requestor.Id;
+                        first_WorkItem.User = GeneralRequest.Requestor;
+                        first_WorkItem.SetApprove();
+                        first_WorkItem.SetSent();
                     }
                     else if (eP_Endorsement.IsRequestorManager())
                     {
-                        f_WorkItem.UserId = GeneralRequest.Requestor.Parent_Id;
+                        first_WorkItem.UserId = GeneralRequest.Requestor.Parent_Id;
+                        first_WorkItem.User = GeneralRequest.Requestor.Parent;
                     }
 
-                    GeneralRequest.WorkItems.Add(f_WorkItem);
+                    GeneralRequest.WorkItems.Add(first_WorkItem);
                 }
                 else
                 {
@@ -611,10 +610,11 @@ public class SimpleClassRepository : ISimpleClassRepository
                             {
                                 F_WorkItem f_WorkItem = new()
                                 {
+                                    Case = GeneralRequest,
+                                    Endorsement = eP_Endorsement,
                                     EndorsementId = eP_Endorsement.Id,
                                     UserId = D_User.Id
                                 };
-
                                 GeneralRequest.WorkItems.Add(f_WorkItem);
                             }
                         }
@@ -622,9 +622,15 @@ public class SimpleClassRepository : ISimpleClassRepository
                 }
             }
 
-            var request = await SetCurrentAssignment(GeneralRequest.WorkItems.First());            
+            GeneralRequest = _db.Update(GeneralRequest).Entity;
 
-            var tmp = _db.Update(GeneralRequest);
+            _db.Update(GeneralRequest);
+
+            await _db.SaveChangesAsync();
+
+            var request = await SetCurrentAssignment(first_WorkItem);
+
+            _db.Update(GeneralRequest);
 
             await _db.SaveChangesAsync();
         }
@@ -656,6 +662,10 @@ public class SimpleClassRepository : ISimpleClassRepository
 
             GeneralRequest.Id = null;
 
+            GeneralRequest = _db.AddAsync(GeneralRequest).GetAwaiter().GetResult().Entity;
+
+            await _db.SaveChangesAsync();
+
             GeneralRequest = SetWorkItemsAsync(GeneralRequest).GetAwaiter().GetResult();
         }
         catch (Exception ex)
@@ -667,9 +677,20 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<F_Case> PerformWorkItemAsync(F_WorkItem f_WorkItem)
     {
-        var request = await SetCurrentAssignment(f_WorkItem);
+        if (f_WorkItem.IsRevise())
+        {
+            f_WorkItem.Case.SetEditing();
 
-        return request;
+            f_WorkItem.Case = Exit(f_WorkItem.Case, f_WorkItem.Id).GetAwaiter().GetResult();
+
+            f_WorkItem.Case = SetWorkItemsAsync(f_WorkItem.Case).GetAwaiter().GetResult();
+        }
+        else
+        {
+            var request = await SetCurrentAssignment(f_WorkItem);
+        }
+
+        return f_WorkItem.Case;
     }
     public async Task<SimpleClass> Create(SimpleClass obj_DTO)
     {

@@ -102,13 +102,6 @@ public static class ModelBuilderExtensions
                 SortIndex = 4,
                 Name = "Future",
                 DisplayName = "آینده"
-            },
-            new D_WorkItemState
-            {
-                Id = 5,
-                SortIndex = 5,
-                Name = "Aborted",
-                DisplayName = "ابطال شده"
             }
              );
         #endregion
