@@ -28,4 +28,20 @@ public partial class F_Endorsement : SimpleClass
         DisplayName = Scenario?.DisplayName + "," + Role?.DisplayName;
         Name = Scenario?.Name + "," + Role?.Name;
     }
+
+    #region Functions
+
+    #region Getter
+    public Boolean IsRequestor()
+    {
+        return (RoleId == 100);
+    }
+    public Boolean IsRequestorManager()
+    {
+        return (RoleId == 101);
+    }
+    #endregion
+
+    #endregion
+
 }

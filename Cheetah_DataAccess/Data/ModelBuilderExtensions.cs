@@ -113,7 +113,6 @@ public static class ModelBuilderExtensions
              );
         #endregion
 
-        
         #region D_Location
         modelBuilder.Entity<D_Location>().HasData(
             new D_Location
@@ -336,6 +335,7 @@ public static class ModelBuilderExtensions
 
         #region D_Role
         modelBuilder.Entity<D_Role>().HasData(
+
                   new D_Role
                   {
                       Id = 1,
@@ -375,6 +375,22 @@ public static class ModelBuilderExtensions
                       Name = "DistributionCenterManager",
                       DisplayName = "مدیریت مرکز توزیع",
                       Independent = false
+                  },                  
+                  new D_Role
+                  {
+                      Id = 100,
+                      SortIndex = 100,
+                      Name = "Requestor",
+                      DisplayName = "درخواست کننده",
+                      FixedRole = true
+                  },
+                  new D_Role
+                  {
+                      Id = 101,
+                      SortIndex = 101,
+                      Name = "RequestorManager",
+                      DisplayName = "مدیر درخواست کننده",
+                      FixedRole = true
                   }
                   );
         #endregion

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -190,7 +191,7 @@ public class SimpleClassRepository : ISimpleClassRepository
         }
         return (ConditionOccur == cnt_con);
     }
-    public async Task<F_Case> Inbox_Future(F_Case? f_Case, Int64? SortIndex)
+    public async Task<F_Case> SetInboxAndFuture(F_Case? f_Case, Int64? SortIndex)
     {
         f_Case.WorkItems.Where(x => x.Endorsement.SortIndex == (SortIndex + 1))
             .ToList().ForEach(x => x.WorkItemStateId = 1); // Inbox
@@ -202,40 +203,41 @@ public class SimpleClassRepository : ISimpleClassRepository
     }
     public async Task<F_Case> Exit(F_Case? f_Case, Int64? SortIndex)
     {
-      f_Case.WorkItems.Where(x => x.Tag is null && x.Endorsement.SortIndex >= SortIndex)
-                   .ToList().ForEach(x => x.WorkItemStateId = 3); // Exit
-
-        return f_Case;
-    }
-    public async Task<F_Case> FirstAssignment(F_Case? f_Case)
-    {
-        f_Case = Inbox_Future(f_Case, 0).GetAwaiter().GetResult();
-
-        _db.UpdateRange(f_Case);
-
-        await _db.SaveChangesAsync();
+        f_Case.WorkItems.Where(x => x.Tag is null && x.Endorsement.SortIndex >= SortIndex)
+                     .ToList().ForEach(x => x.WorkItemStateId = 3); // Exit
 
         return f_Case;
     }
     public async Task<F_Case> SetCurrentAssignment(F_WorkItem? f_WorkItem)
     {
-        var EndorsementSortIndex = f_WorkItem.Endorsement.SortIndex;
+        long EndorsementSortIndex = 0;
 
-        if (f_WorkItem?.TagId == 202) //Reject
+        if (f_WorkItem.Endorsement is not null)
         {
-            Exit(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
-
-            f_WorkItem.Case.CaseStateId = 4; // Aborted
+            EndorsementSortIndex = f_WorkItem.Endorsement.SortIndex.Value;
         }
-        else
+
+        Exit(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
+
+        if (f_WorkItem.IsRevise())
         {
-            Exit(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
+            f_WorkItem.Case.SetEditing();
+            f_WorkItem.Case = SetWorkItemsAsync(f_WorkItem.Case).GetAwaiter().GetResult();
 
-            f_WorkItem.Case = Inbox_Future(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
+        }
+        else if (f_WorkItem.IsReject())
+        {
+            f_WorkItem.Case.SetAborted();
+        }
+        else if (f_WorkItem.IsApprove())
+        {
+            f_WorkItem.Case.SetOngoing();
 
-            if (!f_WorkItem.Case.WorkItems.Any(x => x.WorkItemStateId == 1))
+            f_WorkItem.Case = SetInboxAndFuture(f_WorkItem.Case, EndorsementSortIndex).GetAwaiter().GetResult();
+
+            if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox()))
             {
-                f_WorkItem.Case.CaseStateId = 3; // Completed
+                f_WorkItem.Case.SetCompleted();
             }
         }
 
@@ -512,25 +514,10 @@ public class SimpleClassRepository : ISimpleClassRepository
 
         return true;
     }
-    public async Task<F_Case> CreateRequestAsync(F_Case request)
+    public async Task<F_Case> SetWorkItemsAsync(F_Case GeneralRequest)
     {
-        F_Case GeneralRequest = request;
-
         try
         {
-            GeneralRequest.Creator = await GetUser(request.Creator.Name);
-
-            GeneralRequest.Requestor = await GetUser(request.Requestor.Name);
-
-            GeneralRequest.Process = await _db.D_Processes
-                .SingleAsync(x => x.Name == request.Process.Name);
-
-            GeneralRequest.CreateTimeRecord = DateTime.Now;
-
-            GeneralRequest.Id = null;
-
-            GeneralRequest.CaseStateId = 1;
-
             if (GeneralRequest.Conditions is not null
                 && GeneralRequest.Conditions.Count > 0)
             {
@@ -569,10 +556,31 @@ public class SimpleClassRepository : ISimpleClassRepository
             if (GeneralRequest.WorkItems is null || GeneralRequest.WorkItems.Count() == 0)
             {
                 GeneralRequest.WorkItems = new HashSet<F_WorkItem>();
+            }
 
-                var eP_Endorsements = GeneralRequest.SelectedScenario?.Endorsements.ToList();
+            var eP_Endorsements = GeneralRequest.SelectedScenario?.Endorsements.ToList();
 
-                foreach (var eP_Endorsement in eP_Endorsements)
+            foreach (var eP_Endorsement in eP_Endorsements)
+            {
+                if (eP_Endorsement.Role.FixedRole)
+                {
+                    F_WorkItem f_WorkItem = new()
+                    {
+                        EndorsementId = eP_Endorsement.Id
+                    };
+
+                    if (eP_Endorsement.IsRequestor())
+                    {
+                        f_WorkItem.UserId = GeneralRequest.RequestorId;
+                    }
+                    else if (eP_Endorsement.IsRequestorManager())
+                    {
+                        f_WorkItem.UserId = GeneralRequest.Requestor.Parent_Id;
+                    }
+
+                    GeneralRequest.WorkItems.Add(f_WorkItem);
+                }
+                else
                 {
                     if (CompareCondition(GeneralRequest.Conditions, eP_Endorsement.Conditions))
                     {
@@ -612,15 +620,13 @@ public class SimpleClassRepository : ISimpleClassRepository
                         }
                     }
                 }
-
-                var tmp = await _db.AddAsync(GeneralRequest);
-
-                GeneralRequest = tmp.Entity;
-
-                await _db.SaveChangesAsync();
-
-                await FirstAssignment(GeneralRequest);
             }
+
+            var request = await SetCurrentAssignment(GeneralRequest.WorkItems.First());            
+
+            var tmp = _db.Update(GeneralRequest);
+
+            await _db.SaveChangesAsync();
         }
         catch (Exception ex)
         {
@@ -632,6 +638,32 @@ public class SimpleClassRepository : ISimpleClassRepository
             .SingleAsync(x => x.Id == GeneralRequest.Id);
 
         return ret_Requests;
+    }
+    public async Task<F_Case> CreateRequestAsync(F_Case request)
+    {
+        F_Case GeneralRequest = request;
+
+        try
+        {
+            GeneralRequest.Creator = await GetUser(request.Creator.Name);
+
+            GeneralRequest.Requestor = await GetUser(request.Requestor.Name);
+
+            GeneralRequest.Process = await _db.D_Processes
+                .SingleAsync(x => x.Name == request.Process.Name);
+
+            GeneralRequest.CreateTimeRecord = DateTime.Now;
+
+            GeneralRequest.Id = null;
+
+            GeneralRequest = SetWorkItemsAsync(GeneralRequest).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+
+        return GeneralRequest;
     }
     public async Task<F_Case> PerformWorkItemAsync(F_WorkItem f_WorkItem)
     {
