@@ -382,8 +382,8 @@
 
         var baseType = cObject.GetType().BaseType;
 
-        ICollection<F_Condition> Conditions = (baseType == typeof(F_Scenario)) ? (cObject as F_Scenario).Conditions
-        : (cObject as F_Endorsement).Conditions;
+        ICollection<F_Condition> Conditions = (baseType == typeof(F_Scenario)) ? (cObject as F_Scenario)?.Conditions
+        : (cObject as F_Endorsement)?.Conditions;
 
         if (Conditions.Any())
         {

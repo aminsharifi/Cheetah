@@ -190,39 +190,48 @@ public class SimpleClassRepository : ISimpleClassRepository
         }
         return (ConditionOccur == cnt_con);
     }
-    public async Task<F_Case> SetInboxAndFuture(F_Case? f_Case, Int64? f_WorkItemId)
+    public async Task<F_Case> SetInboxAndFuture(F_WorkItem f_WorkItem)
     {
-        f_Case.WorkItems.Where(x => x.Id == (f_WorkItemId + 1))
+        var Current_SortIndex = f_WorkItem.Endorsement.SortIndex;
+
+        f_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
+        x.Endorsement.SortIndex == Current_SortIndex)
+                   .ToList().ForEach(x => x.SetExit());
+
+        var Next_SortIndex = f_WorkItem.Case.IsEditing() ? Current_SortIndex : (Current_SortIndex + 1);
+
+        f_WorkItem.Case.WorkItems.Where(x => x.Endorsement.SortIndex == Next_SortIndex
+        && x.Id >= f_WorkItem.Id)
             .ToList().ForEach(x => x.SetInbox());
 
-        f_Case.WorkItems.Where(x => x.Id > (f_WorkItemId + 1))
+        f_WorkItem.Case.WorkItems.Where(x => x.Endorsement.SortIndex > Next_SortIndex
+        && x.Id > f_WorkItem.Id)
             .ToList().ForEach(x => x.SetFuture());
 
-        return f_Case;
+        return f_WorkItem.Case;
     }
-    public async Task<F_Case> Exit(F_Case? f_Case, Int64? f_WorkItemId)
+    public async Task<F_Case> Exit(F_WorkItem f_WorkItem)
     {
-        f_Case.WorkItems.Where(x => x.Tag is null && x.TagId is null
-        && x.Id >= f_WorkItemId)
-                     .ToList().ForEach(x => x.SetExit());
+        var Current_SortIndex = f_WorkItem.Endorsement.SortIndex;
 
-        return f_Case;
+        f_WorkItem.Case.WorkItems.Where(x => !x.IsSent() &&
+        x.Endorsement.SortIndex >= Current_SortIndex)
+                   .ToList().ForEach(x => x.SetExit());
+
+        return f_WorkItem.Case;
     }
     public async Task<F_Case> SetCurrentAssignment(F_WorkItem? f_WorkItem)
     {
-        long f_WorkItemId = f_WorkItem.Id.Value;
-
-        Exit(f_WorkItem.Case, f_WorkItemId).GetAwaiter().GetResult();
-
         if (f_WorkItem.IsReject())
         {
             f_WorkItem.Case.SetAborted();
+            Exit(f_WorkItem).GetAwaiter().GetResult();
         }
         else if (f_WorkItem.IsApprove())
         {
             f_WorkItem.Case.SetOngoing();
 
-            f_WorkItem.Case = SetInboxAndFuture(f_WorkItem.Case, f_WorkItemId).GetAwaiter().GetResult();
+            f_WorkItem.Case = SetInboxAndFuture(f_WorkItem).GetAwaiter().GetResult();
 
             if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox()))
             {
@@ -568,8 +577,11 @@ public class SimpleClassRepository : ISimpleClassRepository
                     {
                         first_WorkItem.UserId = GeneralRequest.Requestor.Id;
                         first_WorkItem.User = GeneralRequest.Requestor;
-                        first_WorkItem.SetApprove();
-                        first_WorkItem.SetSent();
+                        if (!GeneralRequest.IsEditing())
+                        {
+                            first_WorkItem.SetApprove();
+                            first_WorkItem.SetSent();
+                        }
                     }
                     else if (eP_Endorsement.IsRequestorManager())
                     {
@@ -681,14 +693,21 @@ public class SimpleClassRepository : ISimpleClassRepository
         {
             f_WorkItem.Case.SetEditing();
 
-            f_WorkItem.Case = Exit(f_WorkItem.Case, f_WorkItem.Id).GetAwaiter().GetResult();
+            f_WorkItem.Case = Exit(f_WorkItem).GetAwaiter().GetResult();
 
             f_WorkItem.Case = SetWorkItemsAsync(f_WorkItem.Case).GetAwaiter().GetResult();
+
+            f_WorkItem.Case = SetInboxAndFuture(f_WorkItem.Case.WorkItems
+                .Where(x => x.WorkItemStateId is null || x.WorkItemStateId == 0)
+                .MinBy(x => x.Id)).GetAwaiter().GetResult();
         }
         else
         {
             var request = await SetCurrentAssignment(f_WorkItem);
         }
+
+        _db.Update(f_WorkItem);
+        await _db.SaveChangesAsync();
 
         return f_WorkItem.Case;
     }
