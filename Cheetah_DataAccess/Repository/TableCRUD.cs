@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Repository;
@@ -16,7 +17,7 @@ public class TableCRUD : ITableCRUD
     public TableCRUD(ApplicationDbContext db, IMapper mapper)
     {
         _db = db;
-        _mapper = mapper;        
+        _mapper = mapper;
     }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
     {
@@ -41,6 +42,7 @@ public class TableCRUD : ITableCRUD
     }
     public async Task<SimpleClass> Create(SimpleClass obj_DTO)
     {
+        obj_DTO.Id = null;
         await _db.AddAsync(obj_DTO);
         await _db.SaveChangesAsync();
         return obj_DTO;
@@ -85,8 +87,17 @@ public class TableCRUD : ITableCRUD
             }
         }
         return null;
-
     }
+
+    public async Task<SimpleClass> Get(string type, string? recordName, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
+    {       
+        var gtype = DatabaseClass.GetDBType(type);
+        var instance = (SimpleClass)Activator.CreateInstance(gtype);
+        var invokeTable = DatabaseClass.InvokeSet(_db, gtype);
+        var SingleRecord = await invokeTable.Where(x => x.Name == recordName).SingleAsync();
+        return SingleRecord;
+    }
+
     public async Task<IEnumerable<SimpleClass>> GetAllByName(String type)
     {
         if (!String.IsNullOrEmpty(type))
@@ -219,5 +230,5 @@ public class TableCRUD : ITableCRUD
         await _db.AddRangeAsync(simpleLinkClass);
 
         return await _db.SaveChangesAsync();
-    }      
+    }
 }

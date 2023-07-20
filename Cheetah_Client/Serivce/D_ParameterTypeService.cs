@@ -242,5 +242,10 @@ namespace Cheetah_Client.Service
         {
             throw new NotImplementedException();
         }
+
+        public Task<SimpleClass> Get(string type, string? recordName, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
