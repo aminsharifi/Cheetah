@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Cheetah_Business;
 using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
-using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using FluentAssertions;
@@ -19,7 +17,7 @@ public class SimpleClassRepository : ISimpleClassRepository
     {
         _db = db;
         _mapper = mapper;
-        var views = new Views(_db);
+        var views = new View(_db);
         views.createViews();
     }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
@@ -223,7 +221,5 @@ public class SimpleClassRepository : ISimpleClassRepository
         await _db.AddRangeAsync(simpleLinkClass);
 
         return await _db.SaveChangesAsync();
-    }    
-  
-
+    }      
 }

@@ -1,5 +1,4 @@
 ﻿using Cheetah_Business.Data;
-using Cheetah_Business.Facts;
 using Microsoft.EntityFrameworkCore;
 namespace Cheetah_Business.Repository;
 

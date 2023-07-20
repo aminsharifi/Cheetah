@@ -1,14 +1,10 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Facts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cheetah_Business.Repository;
 
 namespace Cheetah_DataAccess.Data
 {
-    public class Cartable
+    public class Cartable : ICartable
     {
         protected ApplicationDbContext _db;
 
