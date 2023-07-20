@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -10,11 +11,13 @@ namespace Cheetah_DataAccess.Repository
     {
         protected ApplicationDbContext _db;
         protected IMapper _mapper;
-        protected ISync iSync;
-        public WorkItem(ApplicationDbContext db, IMapper mapper, ISync _iSync)
+        protected ISync _iSync;
+        protected TableCRUD _tableCRUD;
+        public WorkItem(ApplicationDbContext db, IMapper mapper, ISync iSync, TableCRUD tableCRUD)
         {
             _db = db;
-            iSync = _iSync;
+            _iSync = iSync;
+            _tableCRUD = tableCRUD;
         }
         public async Task<F_Case> GetCaseAsync(F_Case request)
         {
@@ -68,13 +71,13 @@ namespace Cheetah_DataAccess.Repository
             if (f_WorkItem.IsReject())
             {
                 f_WorkItem.Case.SetAborted();
-                Exit(f_WorkItem).GetAwaiter().GetResult();
+                f_WorkItem.Case = await Exit(f_WorkItem);
             }
             else if (f_WorkItem.IsApprove())
             {
                 f_WorkItem.Case.SetOngoing();
 
-                f_WorkItem.Case = SetInboxAndFuture(f_WorkItem).GetAwaiter().GetResult();
+                f_WorkItem.Case = await SetInboxAndFuture(f_WorkItem);
 
                 if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox()))
                 {
@@ -239,22 +242,18 @@ namespace Cheetah_DataAccess.Repository
 
             try
             {
-                GeneralRequest.Creator = await iSync.GetUser(request.Creator.Name);
+                GeneralRequest.Creator = await _iSync.GetUser(request.Creator.Name);
 
-                GeneralRequest.Requestor = await iSync.GetUser(request.Requestor.Name);
+                GeneralRequest.Requestor = await _iSync.GetUser(request.Requestor.Name);
 
-                GeneralRequest.Process = await _db.D_Processes
-                    .SingleAsync(x => x.Name == request.Process.Name);
+                GeneralRequest.Process =
+                await _tableCRUD.Get(nameof(D_Process), request.Process.Name, QueryTrackingBehavior.NoTracking) as D_Process;
 
                 GeneralRequest.CreateTimeRecord = DateTime.Now;
 
-                GeneralRequest.Id = null;
+                GeneralRequest = await _tableCRUD.Create(GeneralRequest) as F_Case;
 
-                GeneralRequest = _db.AddAsync(GeneralRequest).GetAwaiter().GetResult().Entity;
-
-                await _db.SaveChangesAsync();
-
-                GeneralRequest = SetWorkItemsAsync(GeneralRequest).GetAwaiter().GetResult();
+                GeneralRequest = await SetWorkItemsAsync(GeneralRequest);
             }
             catch (Exception ex)
             {
@@ -269,13 +268,13 @@ namespace Cheetah_DataAccess.Repository
             {
                 f_WorkItem.Case.SetEditing();
 
-                f_WorkItem.Case = Exit(f_WorkItem).GetAwaiter().GetResult();
+                f_WorkItem.Case = await Exit(f_WorkItem);
 
-                f_WorkItem.Case = SetWorkItemsAsync(f_WorkItem.Case).GetAwaiter().GetResult();
+                f_WorkItem.Case = await SetWorkItemsAsync(f_WorkItem.Case);
 
-                f_WorkItem.Case = SetInboxAndFuture(f_WorkItem.Case.WorkItems
+                f_WorkItem.Case = await SetInboxAndFuture(f_WorkItem.Case.WorkItems
                     .Where(x => x.WorkItemStateId is null || x.WorkItemStateId == 0)
-                    .MinBy(x => x.Id)).GetAwaiter().GetResult();
+                    .MinBy(x => x.Id));
             }
             else
             {
