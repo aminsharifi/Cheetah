@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using Cheetah_Business.Facts;
+using Cheetah_Business.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Data
 {
-    public class WorkItem
+    public class WorkItem : IWorkItem
     {
         protected ApplicationDbContext _db;
         protected IMapper _mapper;
-        public WorkItem(ApplicationDbContext db, IMapper mapper)
+        protected ISync iSync;
+        public WorkItem(ApplicationDbContext db, IMapper mapper, ISync _iSync)
         {
             _db = db;
+            this.iSync = _iSync;
         }
         public async Task<F_Case> GetCaseAsync(F_Case request)
         {
@@ -29,7 +32,6 @@ namespace Cheetah_DataAccess.Data
 
             return GeneralRequest;
         }
-
         public async Task<F_Case> SetInboxAndFuture(F_WorkItem f_WorkItem)
         {
             var Current_SortIndex = f_WorkItem.Endorsement.SortIndex;
@@ -236,9 +238,9 @@ namespace Cheetah_DataAccess.Data
 
             try
             {
-                GeneralRequest.Creator = await GetUser(request.Creator.Name);
+                GeneralRequest.Creator = await iSync.GetUser(request.Creator.Name);
 
-                GeneralRequest.Requestor = await GetUser(request.Requestor.Name);
+                GeneralRequest.Requestor = await iSync.GetUser(request.Requestor.Name);
 
                 GeneralRequest.Process = await _db.D_Processes
                     .SingleAsync(x => x.Name == request.Process.Name);
@@ -284,7 +286,6 @@ namespace Cheetah_DataAccess.Data
 
             return f_WorkItem.Case;
         }
-
         public Boolean CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
         {
             var cnt_con = Expected_Conditions.Count();
@@ -318,7 +319,5 @@ namespace Cheetah_DataAccess.Data
             }
             return (ConditionOccur == cnt_con);
         }
-
-
     }
 }

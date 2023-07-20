@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Cheetah_Business.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Data
 {
-    public class Views
+    public class View : IView
     {
         protected ApplicationDbContext _db;
-        public Views(ApplicationDbContext db)
+        public View(ApplicationDbContext db)
         {
             _db = db;
             createViews();

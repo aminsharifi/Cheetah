@@ -1,23 +1,17 @@
 ﻿using Cheetah_Business.Dimentions;
 using Cheetah_Business.Links;
+using Cheetah_Business.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cheetah_DataAccess.Data
 {
-    public class Sync
+    public class Sync : ISync
     {
         protected ApplicationDbContext _db;
-
         public Sync(ApplicationDbContext db)
         {
             _db = db;
         }
-
         public async Task<int> Syncing(String TableName)
         {
             switch (TableName)
@@ -48,7 +42,6 @@ namespace Cheetah_DataAccess.Data
 
             return 1;
         }
-
         public async Task<D_User> GetUser(String PName)
         {
             var Cheetah_User = _db.D_Users.Where(x => x.Name == PName);

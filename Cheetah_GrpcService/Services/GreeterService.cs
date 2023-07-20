@@ -36,16 +36,26 @@ namespace Cheetah_GrpcService.Services
     {
         private readonly ILogger<GreeterService> _logger;
         private readonly ISimpleClassRepository simpleClassRepository;
+        private readonly ICartable iCartable;
+        private readonly ISync iSync;
+        private readonly IView iView;
+        private readonly IWorkItem iWorkItem;
         private readonly IMapper _mapper;
         protected ApplicationDbContext _db;
         public RequestService(ILogger<GreeterService> logger,
             ApplicationDbContext db,
-            ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
+            ISimpleClassRepository iP_ParameterListRepository,
+            ICartable _iCartable, ISync _iSync, IView _iView, IWorkItem _iWorkItem,
+            IMapper mapper)
         {
             _logger = logger;
             _db = db;
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;
+            this.iCartable = _iCartable;
+            this.iSync = _iSync;
+            this.iView = _iView;
+            this.iWorkItem = _iWorkItem;
         }
 
         public override Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
@@ -57,7 +67,7 @@ namespace Cheetah_GrpcService.Services
             f_Request.Process = new() { Name = request.ProcessName };
             f_Request.ERPCode = request.ERPCode;
 
-            f_Request = simpleClassRepository.CreateRequestAsync(f_Request)
+            f_Request = iWorkItem.CreateRequestAsync(f_Request)
                 .GetAwaiter().GetResult();
 
             var output_Request = new Brief_Output_Request();
@@ -84,7 +94,7 @@ namespace Cheetah_GrpcService.Services
 
             _db.SaveChangesAsync().GetAwaiter().GetResult();
 
-            var f_Request = simpleClassRepository.PerformWorkItemAsync(F_WorkItem)
+            var f_Request = iWorkItem.PerformWorkItemAsync(F_WorkItem)
             .GetAwaiter().GetResult();
 
             var output_Request = new Brief_Output_Request()
@@ -112,7 +122,7 @@ namespace Cheetah_GrpcService.Services
             if (!String.IsNullOrEmpty(request.ProcessName))
                 f_Request.Process = _db.D_Processes.Single(x => x.Name == request.ProcessName);
 
-            f_Request = simpleClassRepository.GetCaseAsync(f_Request)
+            f_Request = iWorkItem.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
 
             DetailOutput_Request output_Request = new()
@@ -186,8 +196,8 @@ namespace Cheetah_GrpcService.Services
             };
 
             var OutputRequest = (cartableProperty == CartableProperty.Inbox) ?
-                simpleClassRepository.Inbox(cartableDTO).GetAwaiter().GetResult() :
-                simpleClassRepository.Outbox(cartableDTO).GetAwaiter().GetResult();
+                iCartable.Inbox(cartableDTO).GetAwaiter().GetResult() :
+                iCartable.Outbox(cartableDTO).GetAwaiter().GetResult();
 
             request.RecordCartables.AddRange(
                 OutputRequest.Select(
@@ -226,7 +236,7 @@ namespace Cheetah_GrpcService.Services
         public override Task<OutputSync> Sync(InputSync request, ServerCallContext context)
         {
             OutputSync outputSync = new();
-            simpleClassRepository.Sync(request.TableName).GetAwaiter().GetResult();
+            iSync.Syncing(request.TableName).GetAwaiter().GetResult();
             return Task.FromResult(outputSync);
         }
     }

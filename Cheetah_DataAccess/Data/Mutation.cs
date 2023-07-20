@@ -42,9 +42,9 @@ public class Mutation
     [UseSorting]
     [Authorize]
     public async Task<F_Case> CreateRequestAsync(
-        [Service] ISimpleClassRepository iSimpleClassRepository, F_Case request)
+        [Service] IWorkItem iWorkItem, F_Case request)
     {
-        return await iSimpleClassRepository.CreateRequestAsync(request);
+        return await iWorkItem.CreateRequestAsync(request);
     }
     #endregion
 
@@ -54,9 +54,9 @@ public class Mutation
     [UseSorting]
     [Authorize]
     public async Task<F_Case> PerformWorkItemAsync(
-           [Service] ISimpleClassRepository iSimpleClassRepository, F_WorkItem request)
+           [Service] IWorkItem iWorkItem, F_WorkItem request)
     {
-        return await iSimpleClassRepository.PerformWorkItemAsync(request);
+        return await iWorkItem.PerformWorkItemAsync(request);
     }
     #endregion
 

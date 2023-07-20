@@ -1,6 +1,7 @@
 ﻿@using Cheetah.Data
 @using Cheetah_Business.Repository;
 @inject ISimpleClassRepository simpleClassRepository;
+@inject ICartable iCartable;
 
 <div dir="rtl">
 
@@ -46,8 +47,8 @@
         cartableDTO.Username = Username;
 
         if (Inbox)
-            cartableDTOList = await simpleClassRepository.Inbox(cartableDTO);
+            cartableDTOList = await iCartable.Inbox(cartableDTO);
         else
-            cartableDTOList = await simpleClassRepository.Outbox(cartableDTO);
+            cartableDTOList = await iCartable.Outbox(cartableDTO);
     }
 }
