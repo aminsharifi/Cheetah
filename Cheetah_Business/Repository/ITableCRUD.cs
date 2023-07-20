@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 namespace Cheetah_Business.Repository;
 
-public interface ISimpleClassRepository
+public interface ITableCRUD
 {
     public Task<Int32> delete(string type, Int64? id);
     public Task<IEnumerable<SimpleClass>> GetAllByName(String type);

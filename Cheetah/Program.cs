@@ -52,8 +52,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
-builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
+builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
 builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));

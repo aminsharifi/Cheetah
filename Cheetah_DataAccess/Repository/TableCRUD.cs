@@ -9,16 +9,14 @@ using System.Text;
 
 namespace Cheetah_DataAccess.Repository;
 
-public class SimpleClassRepository : ISimpleClassRepository
+public class TableCRUD : ITableCRUD
 {
     protected ApplicationDbContext _db;
     protected IMapper _mapper;
-    public SimpleClassRepository(ApplicationDbContext db, IMapper mapper)
+    public TableCRUD(ApplicationDbContext db, IMapper mapper)
     {
         _db = db;
-        _mapper = mapper;
-        var views = new View(_db);
-        views.createViews();
+        _mapper = mapper;        
     }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
     {

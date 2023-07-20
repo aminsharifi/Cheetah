@@ -11,10 +11,10 @@ namespace Cheetah_GrpcService.Services
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private readonly ISimpleClassRepository simpleClassRepository;
+        private readonly ITableCRUD simpleClassRepository;
         private readonly IMapper _mapper;
 
-        public GreeterService(ILogger<GreeterService> logger, ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
+        public GreeterService(ILogger<GreeterService> logger, ITableCRUD iP_ParameterListRepository, IMapper mapper)
         {
             _logger = logger;
             this._mapper = mapper;
@@ -35,7 +35,7 @@ namespace Cheetah_GrpcService.Services
     public class RequestService : Request.RequestBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private readonly ISimpleClassRepository simpleClassRepository;
+        private readonly ITableCRUD simpleClassRepository;
         private readonly ICartable iCartable;
         private readonly ISync iSync;
         private readonly IView iView;
@@ -44,7 +44,7 @@ namespace Cheetah_GrpcService.Services
         protected ApplicationDbContext _db;
         public RequestService(ILogger<GreeterService> logger,
             ApplicationDbContext db,
-            ISimpleClassRepository iP_ParameterListRepository,
+            ITableCRUD iP_ParameterListRepository,
             ICartable _iCartable, ISync _iSync, IView _iView, IWorkItem _iWorkItem,
             IMapper mapper)
         {

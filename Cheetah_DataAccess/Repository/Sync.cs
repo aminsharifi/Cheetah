@@ -1,9 +1,10 @@
 ﻿using Cheetah_Business.Dimentions;
 using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Data
+namespace Cheetah_DataAccess.Repository
 {
     public class Sync : ISync
     {
@@ -12,7 +13,7 @@ namespace Cheetah_DataAccess.Data
         {
             _db = db;
         }
-        public async Task<int> Syncing(String TableName)
+        public async Task<int> Syncing(string TableName)
         {
             switch (TableName)
             {
@@ -42,7 +43,7 @@ namespace Cheetah_DataAccess.Data
 
             return 1;
         }
-        public async Task<D_User> GetUser(String PName)
+        public async Task<D_User> GetUser(string PName)
         {
             var Cheetah_User = _db.D_Users.Where(x => x.Name == PName);
 
@@ -63,7 +64,7 @@ namespace Cheetah_DataAccess.Data
                     LastUpdatedRecord = DateTime.Now
                 };
 
-                if (!String.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
+                if (!string.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
                 {
                     D_Creator.Parent = await GetUser(v_Creator.User_BossName);
                 }
@@ -96,7 +97,7 @@ namespace Cheetah_DataAccess.Data
                         changed = true;
                     }
 
-                    if (!String.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
+                    if (!string.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
                     {
                         if (D_Creator.Parent is null || D_Creator.Parent?.Name != v_Creator.User_BossName)
                         {
@@ -118,7 +119,7 @@ namespace Cheetah_DataAccess.Data
 
             return SelectedUser;
         }
-        public async Task<Boolean> SyncUser()
+        public async Task<bool> SyncUser()
         {
             var Users = await _db.V_Users.ToListAsync();
 
@@ -129,7 +130,7 @@ namespace Cheetah_DataAccess.Data
 
             return true;
         }
-        public async Task<D_Position> GetPosition(String PName)
+        public async Task<D_Position> GetPosition(string PName)
         {
             var V_Positions = _db.V_Positions.Where(x => x.PName == PName);
             var D_Positions = _db.D_Positions.Where(x => x.Name == PName);
@@ -158,7 +159,7 @@ namespace Cheetah_DataAccess.Data
 
             return d_Position;
         }
-        public async Task<Boolean> SyncPosition()
+        public async Task<bool> SyncPosition()
         {
             var V_Positions = await _db.V_Positions.ToListAsync();
 
@@ -169,7 +170,7 @@ namespace Cheetah_DataAccess.Data
 
             return true;
         }
-        public async Task<D_Location> GetLocation(String PName)
+        public async Task<D_Location> GetLocation(string PName)
         {
             var V_Locations = _db.V_Locations.Where(x => x.PName == PName);
             var D_Locations = _db.D_Locations.Where(x => x.Name == PName);
@@ -198,7 +199,7 @@ namespace Cheetah_DataAccess.Data
 
             return d_Location;
         }
-        public async Task<Boolean> SyncLocation()
+        public async Task<bool> SyncLocation()
         {
             var v_Locations = await _db.V_Locations.ToListAsync();
 
@@ -209,7 +210,7 @@ namespace Cheetah_DataAccess.Data
 
             return true;
         }
-        public async Task<Boolean> Sync_UserPosition()
+        public async Task<bool> Sync_UserPosition()
         {
             var d_Users = await _db.D_Users.ToListAsync();
             var d_Positions = await _db.D_Positions.ToListAsync();
@@ -258,7 +259,7 @@ namespace Cheetah_DataAccess.Data
 
             return true;
         }
-        public async Task<Boolean> Sync_UserLocation()
+        public async Task<bool> Sync_UserLocation()
         {
             var d_Users = await _db.D_Users.ToListAsync();
             var d_Locations = await _db.D_Locations.ToListAsync();

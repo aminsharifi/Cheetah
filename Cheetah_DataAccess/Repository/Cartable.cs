@@ -1,8 +1,9 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
 
-namespace Cheetah_DataAccess.Data
+namespace Cheetah_DataAccess.Repository
 {
     public class Cartable : ICartable
     {
@@ -15,22 +16,22 @@ namespace Cheetah_DataAccess.Data
         public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
      IQueryable<F_WorkItem> f_WorkItems)
         {
-            if (!String.IsNullOrEmpty(cartableDTO.Username))
+            if (!string.IsNullOrEmpty(cartableDTO.Username))
             {
                 var username = cartableDTO.Username;
                 f_WorkItems = f_WorkItems.Where(x => x.User.Name == username);
             }
 
-            if (!String.IsNullOrEmpty(cartableDTO.ProcessName))
+            if (!string.IsNullOrEmpty(cartableDTO.ProcessName))
             {
                 var processName = cartableDTO.ProcessName;
                 f_WorkItems = f_WorkItems
                     .Where(x => x.Case.Process.Name == processName);
             }
-            if (!String.IsNullOrEmpty(cartableDTO.RadNumber))
+            if (!string.IsNullOrEmpty(cartableDTO.RadNumber))
             {
                 var radNumber = cartableDTO.RadNumber;
-                f_WorkItems = f_WorkItems.Where(x => x.CaseId == Int64.Parse(radNumber));
+                f_WorkItems = f_WorkItems.Where(x => x.CaseId == long.Parse(radNumber));
             }
 
             var Inbox = f_WorkItems
@@ -44,7 +45,7 @@ namespace Cheetah_DataAccess.Data
                 TaskName = x.Endorsement.DisplayName,
                 CreateDate = x.Case.CreateTimeRecord,
                 RecieveDate = x.CreateTimeRecord,
-                Summary = String.Empty
+                Summary = string.Empty
             }
             );
 

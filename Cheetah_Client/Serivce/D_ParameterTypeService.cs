@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Cheetah_Client.Service
 {
-    public class D_ParameterTypeService : ISimpleClassRepository
+    public class D_ParameterTypeService : ITableCRUD
     {
 
         private readonly HttpClient _httpClient;
@@ -160,49 +160,49 @@ namespace Cheetah_Client.Service
             throw new NotImplementedException();
         }
 
-        Task<int> ISimpleClassRepository.delete(string type, long? id)
+        Task<int> ITableCRUD.delete(string type, long? id)
         {
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<SimpleClass>> ISimpleClassRepository.GetAllByName(string type)
+        Task<IEnumerable<SimpleClass>> ITableCRUD.GetAllByName(string type)
         {
             throw new NotImplementedException();
         }
 
-        Task<Dictionary<string, string>> ISimpleClassRepository.GetAllTableName(string SchemaName)
+        Task<Dictionary<string, string>> ITableCRUD.GetAllTableName(string SchemaName)
         {
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<SimpleLinkClass>> ISimpleClassRepository.GetAllLink(string type, string sd_Status, long? linkID)
+        Task<IEnumerable<SimpleLinkClass>> ITableCRUD.GetAllLink(string type, string sd_Status, long? linkID)
         {
             throw new NotImplementedException();
         }
 
       
 
-        Task<SimpleClass> ISimpleClassRepository.GetLast(string type)
+        Task<SimpleClass> ITableCRUD.GetLast(string type)
         {
             throw new NotImplementedException();
         }
 
-        Task<SimpleClass> ISimpleClassRepository.Create(SimpleClass obj_DTO)
+        Task<SimpleClass> ITableCRUD.Create(SimpleClass obj_DTO)
         {
             throw new NotImplementedException();
         }
 
-        Task<SimpleClass> ISimpleClassRepository.Update(SimpleClass obj_DTO)
+        Task<SimpleClass> ITableCRUD.Update(SimpleClass obj_DTO)
         {
             throw new NotImplementedException();
         }
 
-        Task<int> ISimpleClassRepository.UpdateLink(SimpleLinkClassDTO obj_DTO)
+        Task<int> ITableCRUD.UpdateLink(SimpleLinkClassDTO obj_DTO)
         {
             throw new NotImplementedException();
         }
 
-        Task<SimpleLinkClass> ISimpleClassRepository.AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+        Task<SimpleLinkClass> ITableCRUD.AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
         {
             throw new NotImplementedException();
         }
