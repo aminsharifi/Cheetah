@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Data
+namespace Cheetah_DataAccess.Repository
 {
     public class WorkItem : IWorkItem
     {
@@ -13,7 +14,7 @@ namespace Cheetah_DataAccess.Data
         public WorkItem(ApplicationDbContext db, IMapper mapper, ISync _iSync)
         {
             _db = db;
-            this.iSync = _iSync;
+            iSync = _iSync;
         }
         public async Task<F_Case> GetCaseAsync(F_Case request)
         {
@@ -26,9 +27,9 @@ namespace Cheetah_DataAccess.Data
                 .Include(x => x.CaseState)
                 .Include(x => x.WorkItems).ThenInclude(x => x.WorkItemState)
                 .Include(x => x.WorkItems).ThenInclude(x => x.User)
-                .SingleAsync(x => (request.Id > 0) ? x.Id == request.Id :
-                (x.Process.Name == request.Process.Name &&
-                x.ERPCode == request.ERPCode));
+                .SingleAsync(x => request.Id > 0 ? x.Id == request.Id :
+                x.Process.Name == request.Process.Name &&
+                x.ERPCode == request.ERPCode);
 
             return GeneralRequest;
         }
@@ -40,7 +41,7 @@ namespace Cheetah_DataAccess.Data
             x.Endorsement.SortIndex == Current_SortIndex)
                        .ToList().ForEach(x => x.SetExit());
 
-            var Next_SortIndex = f_WorkItem.Case.IsEditing() ? Current_SortIndex : (Current_SortIndex + 1);
+            var Next_SortIndex = f_WorkItem.Case.IsEditing() ? Current_SortIndex : Current_SortIndex + 1;
 
             f_WorkItem.Case.WorkItems.Where(x => x.Endorsement.SortIndex == Next_SortIndex
             && x.Id >= f_WorkItem.Id)
@@ -286,7 +287,7 @@ namespace Cheetah_DataAccess.Data
 
             return f_WorkItem.Case;
         }
-        public Boolean CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
+        public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
         {
             var cnt_con = Expected_Conditions.Count();
 
@@ -305,19 +306,19 @@ namespace Cheetah_DataAccess.Data
                     var Operand_Name = Condition.Operand.Name;
 
                     if (
-                           (Operand_Name == ">" && Current_Value > Scenario_Value)
-                        || (Operand_Name == ">=" && Current_Value >= Scenario_Value)
-                        || (Operand_Name == "<" && Current_Value < Scenario_Value)
-                        || (Operand_Name == "<=" && Current_Value <= Scenario_Value)
-                        || (Operand_Name == "=" && Current_Value == Scenario_Value)
-                        || (Operand_Name == "!=" && Current_Value != Scenario_Value)
+                           Operand_Name == ">" && Current_Value > Scenario_Value
+                        || Operand_Name == ">=" && Current_Value >= Scenario_Value
+                        || Operand_Name == "<" && Current_Value < Scenario_Value
+                        || Operand_Name == "<=" && Current_Value <= Scenario_Value
+                        || Operand_Name == "=" && Current_Value == Scenario_Value
+                        || Operand_Name == "!=" && Current_Value != Scenario_Value
                         )
                     {
                         ConditionOccur++;
                     }
                 }
             }
-            return (ConditionOccur == cnt_con);
+            return ConditionOccur == cnt_con;
         }
     }
 }

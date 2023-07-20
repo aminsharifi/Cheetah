@@ -1,7 +1,8 @@
 ﻿using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Data
+namespace Cheetah_DataAccess.Repository
 {
     public class View : IView
     {
@@ -9,9 +10,8 @@ namespace Cheetah_DataAccess.Data
         public View(ApplicationDbContext db)
         {
             _db = db;
-            createViews();
         }
-        public void createViews()
+        public async Task<Boolean> createViews()
         {
             #region V_UserLocation
 
@@ -111,16 +111,18 @@ namespace Cheetah_DataAccess.Data
             _db.Database.ExecuteSqlRaw(V_User_Cmd2);
             #endregion
 
+            return true;
         }
-        public void RemoveView(string ViewName)
+        public async Task<Boolean> RemoveView(string ViewName)
         {
             var DeleteQuery = $@"
             if exists(select 1 from sys.tables where name = '{ViewName}')
             DROP table [Virtuals].[{ViewName}]
             if exists(select 1 from sys.views where name = '{ViewName}')
             DROP view [Virtuals].[{ViewName}]
-        ";
+            ";
             _db.Database.ExecuteSqlRaw(DeleteQuery);
+            return true;
         }
     }
 }

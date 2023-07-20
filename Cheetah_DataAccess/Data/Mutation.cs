@@ -25,7 +25,7 @@ public class Mutation
     [AllowAnonymous]
     public async Task<IdentityService> GetTokenAsync(
         [Service] IIdentityService identityService,
-        [Service] ISimpleClassRepository iSimpleClassRepository,
+        [Service] ITableCRUD iSimpleClassRepository,
         string email, string password)
     {
         var MyIdentityService = new IdentityService();

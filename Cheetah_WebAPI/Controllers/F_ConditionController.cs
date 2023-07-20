@@ -11,9 +11,9 @@ namespace Cheetah_WebAPI.Controllers
     [ApiController]
     public class F_ConditionController : ControllerBase
     {
-        private readonly ISimpleClassRepository simpleClassRepository;
+        private readonly ITableCRUD simpleClassRepository;
         private readonly IMapper _mapper;
-        public F_ConditionController(ISimpleClassRepository iP_ParameterListRepository, IMapper mapper)
+        public F_ConditionController(ITableCRUD iP_ParameterListRepository, IMapper mapper)
         {
             this._mapper = mapper;
             this.simpleClassRepository = iP_ParameterListRepository;

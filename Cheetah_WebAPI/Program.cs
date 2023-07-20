@@ -84,8 +84,8 @@ builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
-builder.Services.AddScoped(typeof(ISimpleClassRepository), typeof(SimpleClassRepository));
+builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
 builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));

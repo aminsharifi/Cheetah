@@ -2,7 +2,7 @@
 {
     public interface IView
     {
-        public void createViews();
-        public void RemoveView(string ViewName);
+        public Task<Boolean> createViews();
+        public Task<Boolean> RemoveView(string ViewName);
     }
 }

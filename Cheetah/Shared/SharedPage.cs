@@ -79,7 +79,7 @@ namespace Cheetah.Shared
         #region Injects
 
         [Inject]
-        protected ISimpleClassRepository simpleClassRepository { get; set; }
+        protected ITableCRUD simpleClassRepository { get; set; }
 
         [Inject]
         protected NavigationManager _NavigationManager { get; set; }

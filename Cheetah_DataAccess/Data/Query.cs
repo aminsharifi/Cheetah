@@ -2,9 +2,7 @@
 using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
-using Cheetah_Business.Repository;
 using HotChocolate;
-using System.Linq;
 
 namespace Cheetah_DataAccess.Data;
 
@@ -173,7 +171,7 @@ public class Query
     {
         return context.F_WorkItems;
     }
-  
+
     [UseProjection]
     [UseFiltering]
     [UseSorting]
@@ -186,7 +184,7 @@ public class Query
     #endregion
 
     #region Links
-  
+
     [UseProjection]
     [UseFiltering]
     [UseSorting]
