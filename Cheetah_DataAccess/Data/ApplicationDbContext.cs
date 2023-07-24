@@ -6,6 +6,7 @@ using Cheetah_Business.Virtuals;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Cheetah_DataAccess.Data;
 
@@ -27,7 +28,11 @@ public partial class ApplicationDbContext : IdentityDbContext
         //        _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
         //    }
     }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning));
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         //base.Database.EnsureDeleted();

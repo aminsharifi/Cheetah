@@ -6,7 +6,10 @@ using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
 using System.Text;
+using Cheetah_Business.Dimentions;
 
 namespace Cheetah_DataAccess.Repository;
 
@@ -89,13 +92,23 @@ public class TableCRUD : ITableCRUD
         return null;
     }
 
-    public async Task<SimpleClass> Get(string type, string? recordName, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
-    {       
+    public async Task<SimpleClass> Get(string type, string? recordName,
+        QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll,params String[] TableIncludes)
+    {
+        //_db.ChangeTracker.QueryTrackingBehavior = Tracking;
         var gtype = DatabaseClass.GetDBType(type);
-        var instance = (SimpleClass)Activator.CreateInstance(gtype);
-        var invokeTable = DatabaseClass.InvokeSet(_db, gtype);
-        var SingleRecord = await invokeTable.Where(x => x.Name == recordName).SingleAsync();
-        return SingleRecord;
+
+        var Q_SimpleClass = DatabaseClass.InvokeSet(_db, gtype).AsQueryable().Where(x => x.Name == recordName)
+            as IQueryable<SimpleClass>;
+
+        foreach ( var x in TableIncludes )
+        {
+            Q_SimpleClass = Q_SimpleClass.Include(x);
+        }
+
+        var S_SimpleClass = await Q_SimpleClass.SingleOrDefaultAsync();
+
+        return S_SimpleClass;
     }
 
     public async Task<IEnumerable<SimpleClass>> GetAllByName(String type)
