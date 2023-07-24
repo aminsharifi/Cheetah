@@ -12,12 +12,12 @@ namespace Cheetah_DataAccess.Repository
         protected ApplicationDbContext _db;
         protected IMapper _mapper;
         protected ISync _iSync;
-        protected TableCRUD _tableCRUD;
-        public WorkItem(ApplicationDbContext db, IMapper mapper, ISync iSync, TableCRUD tableCRUD)
+        protected ITableCRUD _itableCRUD;
+        public WorkItem(ApplicationDbContext db, IMapper mapper, ISync iSync, ITableCRUD itableCRUD)
         {
             _db = db;
             _iSync = iSync;
-            _tableCRUD = tableCRUD;
+            _itableCRUD = itableCRUD;
         }
         public async Task<F_Case> GetCaseAsync(F_Case request)
         {
@@ -79,13 +79,13 @@ namespace Cheetah_DataAccess.Repository
 
                 f_WorkItem.Case = await SetInboxAndFuture(f_WorkItem);
 
-                if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox()))
+                if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox() || x.IsFuture()))
                 {
                     f_WorkItem.Case.SetCompleted();
                 }
             }
 
-            _db.UpdateRange(f_WorkItem);
+            _db.Update(f_WorkItem);
 
             await _db.SaveChangesAsync();
 
@@ -174,9 +174,11 @@ namespace Cheetah_DataAccess.Repository
                     {
                         if (CompareCondition(GeneralRequest.Conditions, eP_Endorsement.Conditions))
                         {
-                            var Positions = await _db.L_RolePositions.Where(x => x.FirstId == eP_Endorsement.RoleId).Select(x => x.SecondId).ToListAsync();
+                            var Positions = await _db.L_RolePositions
+                                .Where(x => x.FirstId == eP_Endorsement.RoleId).Select(x => x.SecondId).ToListAsync();
 
-                            var Users = await _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId)).Select(x => x.FirstId).ToListAsync();
+                            var Users = await _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId))
+                                .Select(x => x.FirstId).ToListAsync();
 
                             var D_Users = await _db.D_Users.Where(x => Users.Contains(x.Id)).ToListAsync();
 
@@ -190,7 +192,9 @@ namespace Cheetah_DataAccess.Repository
                                 }
                                 else
                                 {
-                                    var userLocations = GeneralRequest.Requestor.UserLocations.Select(x => x.SecondId).ToList();
+                                    var userLocations = _db.L_UserLocations
+                                        .Where(x => x.FirstId == GeneralRequest.RequestorId)
+                                        .Select(x => x.SecondId).ToList();
 
                                     if (D_User.UserLocations.Any(x => userLocations.Contains(x.SecondId)))
                                     {
@@ -238,29 +242,32 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
-            F_Case GeneralRequest = request;
+            var GeneralRequest = await _itableCRUD.Create(new F_Case()) as F_Case;
 
             try
             {
-                GeneralRequest.Creator = await _iSync.GetUser(request.Creator.Name);
-
-                GeneralRequest.Requestor = await _iSync.GetUser(request.Requestor.Name);
-
+                GeneralRequest.CreatorId = _iSync.GetUser(request.Creator.Name).GetAwaiter().GetResult().Id;
+                GeneralRequest.RequestorId = _iSync.GetUser(request.Requestor.Name).GetAwaiter().GetResult().Id;
+                GeneralRequest.ERPCode = request.ERPCode;
                 GeneralRequest.Process =
-                await _tableCRUD.Get(nameof(D_Process), request.Process.Name, QueryTrackingBehavior.NoTracking) as D_Process;
+                await _db.D_Processes.Where(x => x.Name == request.Process.Name)
+                .Include(x=>x.ProcessScenario)
+                .ThenInclude(x=>x.Scenario)
+                .ThenInclude(x=>x.Endorsements)
+                .ThenInclude(x=>x.Role).AsTracking().SingleAsync();
 
                 GeneralRequest.CreateTimeRecord = DateTime.Now;
 
-                GeneralRequest = await _tableCRUD.Create(GeneralRequest) as F_Case;
+                await _itableCRUD.Update(GeneralRequest);
 
-                GeneralRequest = await SetWorkItemsAsync(GeneralRequest);
+                GeneralRequest = await SetWorkItemsAsync(((F_Case)GeneralRequest));
             }
             catch (Exception ex)
             {
                 throw;
             }
 
-            return GeneralRequest;
+            return ((F_Case)GeneralRequest);
         }
         public async Task<F_Case> PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {
@@ -286,7 +293,8 @@ namespace Cheetah_DataAccess.Repository
 
             return f_WorkItem.Case;
         }
-        public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
+        public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions,
+            IEnumerable<F_Condition> Expected_Conditions)
         {
             var cnt_con = Expected_Conditions.Count();
 

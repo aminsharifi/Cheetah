@@ -1,6 +1,7 @@
 ﻿using Cheetah_Business.Dimentions;
 using Cheetah_Business.Links;
 using Cheetah_Business.Repository;
+using Cheetah_Business.Virtuals;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +10,11 @@ namespace Cheetah_DataAccess.Repository
     public class Sync : ISync
     {
         protected ApplicationDbContext _db;
-        public Sync(ApplicationDbContext db)
+        protected ITableCRUD _itableCRUD;
+        public Sync(ApplicationDbContext db, ITableCRUD itableCRUD)
         {
             _db = db;
+            _itableCRUD = itableCRUD;
         }
         public async Task<int> Syncing(string TableName)
         {
@@ -45,13 +48,14 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<D_User> GetUser(string PName)
         {
-            var Cheetah_User = _db.D_Users.Where(x => x.Name == PName);
+            var Cheetah_User = 
+             await _itableCRUD.Get(nameof(D_User), PName) as D_User;
 
             var ERP_User = _db.V_Users.Where(x => x.PName == PName);
 
             D_User SelectedUser = new D_User();
 
-            if (!await Cheetah_User.AnyAsync())
+            if (Cheetah_User is null)
             {
                 var v_Creator = await ERP_User.SingleAsync();
 
@@ -66,7 +70,7 @@ namespace Cheetah_DataAccess.Repository
 
                 if (!string.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
                 {
-                    D_Creator.Parent = await GetUser(v_Creator.User_BossName);
+                    D_Creator.Parent_Id = GetUser(v_Creator.User_BossName).GetAwaiter().GetResult().Id;
                 }
 
                 await _db.D_Users.AddAsync(D_Creator);
@@ -77,7 +81,7 @@ namespace Cheetah_DataAccess.Repository
             }
             else
             {
-                var D_Creator = await Cheetah_User.SingleAsync();
+                var D_Creator =  Cheetah_User;
 
                 if (D_Creator.LastUpdatedRecord < DateTime.Now.AddMinutes(-10))
                 {
@@ -132,12 +136,13 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<D_Position> GetPosition(string PName)
         {
-            var V_Positions = _db.V_Positions.Where(x => x.PName == PName);
-            var D_Positions = _db.D_Positions.Where(x => x.Name == PName);
-            var v_Position = await V_Positions.SingleAsync();
+            var D_Positions = await _itableCRUD.Get(nameof(D_Position), PName) as D_Position;
             var d_Position = new D_Position();
 
-            if (!await D_Positions.AnyAsync())
+            var V_Positions = _db.V_Positions.Where(x => x.PName == PName);
+            var v_Position = await V_Positions.SingleAsync();
+
+            if (D_Positions is null)
             {
                 d_Position = new D_Position()
                 {
@@ -151,7 +156,7 @@ namespace Cheetah_DataAccess.Repository
             }
             else
             {
-                d_Position = await D_Positions.SingleAsync();
+                d_Position = D_Positions;
                 d_Position.Name = v_Position.PName;
                 d_Position.DisplayName = v_Position.PDisplayName;
             }
@@ -172,12 +177,13 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<D_Location> GetLocation(string PName)
         {
+            var D_Positions = await _itableCRUD.Get(nameof(D_Location), PName) as D_Location;
+
             var V_Locations = _db.V_Locations.Where(x => x.PName == PName);
-            var D_Locations = _db.D_Locations.Where(x => x.Name == PName);
             var V_Location = await V_Locations.SingleAsync();
             var d_Location = new D_Location();
 
-            if (!await D_Locations.AnyAsync())
+            if (D_Positions is null)
             {
                 d_Location = new D_Location()
                 {
@@ -191,7 +197,7 @@ namespace Cheetah_DataAccess.Repository
             }
             else
             {
-                d_Location = await D_Locations.SingleAsync();
+                d_Location =  D_Positions;
                 d_Location.Name = V_Location.PName;
                 d_Location.DisplayName = V_Location.PDisplayName;
             }
