@@ -3,6 +3,7 @@ using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
 using HotChocolate;
+using HotChocolate.Data;
 
 namespace Cheetah_DataAccess.Data;
 
