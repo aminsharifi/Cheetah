@@ -2,6 +2,7 @@
 using Cheetah_Business.Repository;
 using HotChocolate;
 using HotChocolate.Authorization;
+using HotChocolate.Data;
 
 namespace Cheetah_DataAccess.Data;
 

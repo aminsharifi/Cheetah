@@ -22,10 +22,10 @@
                 <div class="row">
                     <CInput @bind-LValue="Record.Id"
                         CDescription="شناسه یکتا سیستمی"
-                        CDisplayName="شناسه" CFieldType="@(FieldType.CID)"></CInput>
+                            CDisplayName="شناسه" CFieldType="@(Cheetah_Business.FieldType.CID)"></CInput>
                     <CInput @bind-BValue="Record.DsblRecord"
                         CDescription="جهت غیرفعال سازی"
-                        CDisplayName="غیرفعال" CFieldType="@(FieldType.CBool)"></CInput>
+                            CDisplayName="غیرفعال" CFieldType="@(Cheetah_Business.FieldType.CBool)"></CInput>
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate

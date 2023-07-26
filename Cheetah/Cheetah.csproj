@@ -12,27 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="BootstrapBlazor" Version="7.8.0" />
+    <PackageReference Include="BootstrapBlazor" Version="7.8.10" />
     <PackageReference Include="datatables.net-bs5" Version="1.13.5" />
-    <PackageReference Include="DNTPersianUtils.Core" Version="5.6.1" />
     <PackageReference Include="jquery.datatables" Version="1.10.15" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.7" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
-    <PackageReference Include="Radzen.Blazor" Version="4.13.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.8" />
+    <PackageReference Include="MudBlazor" Version="6.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
     <ProjectReference Include="..\Cheetah_DataAccess_Npgsql\Cheetah_DataAccess_Npgsql.csproj" />
     <ProjectReference Include="..\Cheetah_DataAccess_SqlServer\Cheetah_DataAccess_SqlServer.csproj" />
   </ItemGroup>

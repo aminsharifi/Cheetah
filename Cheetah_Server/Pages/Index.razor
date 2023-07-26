@@ -2,7 +2,7 @@
 
 <PageTitle>Index</PageTitle>
 <MudDatePicker Label="Persian" @bind-Date="date"
-               Culture="@Cheetah_Server.Classes.PersianCulture.GetPersianCulture()"
+               Culture="@PersianCulture.Instance"
                UseShortNames="false" TitleDateFormat="dddd, dd MMMM"
                Rounded="true" />
 <MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
@@ -10,5 +10,5 @@
 <MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
 @code
 {
-    DateTime? date = new DateTime(2021, 02, 14); // 1399-11-26 in Persian calendar
+    DateTime? date = DateTime.Now;
 }

@@ -25,7 +25,7 @@
                 CDescription="@(FirstClassRecord.DisplayName)"
                     Disabled="@(type == nameof(LinkProperty.First))"
                 CDisplayName="@(FirstClassRecord.DisplayName)"
-                CFieldType="@(FieldType.CSelect)"
+                    CFieldType="@(Cheetah_Business.FieldType.CSelect)"
                 Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
                 reference="@reference">
             </CInput>
@@ -35,7 +35,7 @@
                 CDescription="@(SecondClassRecord.DisplayName)"
                     Disabled="@(type == nameof(LinkProperty.Second))"
                 CDisplayName="@(SecondClassRecord.DisplayName)"
-                CFieldType="@(FieldType.CSelect)"
+                    CFieldType="@(Cheetah_Business.FieldType.CSelect)"
                 Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
                 reference="@reference">
             </CInput>

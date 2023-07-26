@@ -1,17 +1,17 @@
 ﻿@using System.Linq.Expressions;
 @using Cheetah_Business.Data;
 
-<div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11 @((CFieldType != FieldType.CSelect)?"col-md-5":"col-md-10" )"
-     style="@((LValue < 1 && (CFieldType == FieldType.CID))? "display: none;" : "")">
+<div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11 @((CFieldType != Cheetah_Business.FieldType.CSelect)?"col-md-5":"col-md-10" )"
+     style="@((LValue < 1 && (CFieldType == Cheetah_Business.FieldType.CID))? "display: none;" : "")">
 
     <div class="input-group d-flex justify-content-end" style="direction:ltr">
-        @if (CFieldType == FieldType.CID)
+        @if (CFieldType == Cheetah_Business.FieldType.CID)
         {
             <InputNumber @bind-Value="LValue" disabled="disabled" @attributes=CapturedAttributes
                          class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
             </InputNumber>
         }
-        else if (CFieldType == FieldType.CInt)
+        else if (CFieldType == Cheetah_Business.FieldType.CInt)
         {
             <InputNumber @attributes=CapturedAttributes
                      @bind-Value="LValue" class="form-control"
@@ -24,7 +24,7 @@
                          data-bs-title="@CDescription">
             </InputNumber>
         }
-        else if (CFieldType == FieldType.CNInt)
+        else if (CFieldType == Cheetah_Business.FieldType.CNInt)
         {
             <InputNumber @attributes=CapturedAttributes
                      @bind-Value="NLValue" class="form-control"
@@ -37,7 +37,7 @@
                          data-bs-title="@CDescription">
             </InputNumber>
         }
-        else if (CFieldType == FieldType.CString)
+        else if (CFieldType == Cheetah_Business.FieldType.CString)
         {
             <InputText @attributes=CapturedAttributes
                    @bind-Value="SValue" class="form-control"
@@ -50,7 +50,7 @@
                        data-bs-title="@CDescription">
             </InputText>
         }
-        else if (CFieldType == FieldType.CBool)
+        else if (CFieldType == Cheetah_Business.FieldType.CBool)
         {
             <div class="form-check form-switch">
                 <input type="checkbox" 
@@ -60,7 +60,7 @@
                 </input>
             </div>
         }
-        else if (CFieldType == FieldType.CSelect)
+        else if (CFieldType == Cheetah_Business.FieldType.CSelect)
         {
             @if (Record is not null)
             {
@@ -177,7 +177,7 @@
     //[Parameter]
     //public Expression<Func<object>> MessageValue { get; set; }
     [Parameter]
-    public FieldType CFieldType { get; set; }
+    public Cheetah_Business.FieldType CFieldType { get; set; }
 
     [Parameter]
     public String CDisplayName { get; set; }
