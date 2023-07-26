@@ -95,16 +95,6 @@ namespace Cheetah_DataAccess.Repository
         {
             try
             {
-                if (GeneralRequest.Conditions is not null
-                    && GeneralRequest.Conditions.Count > 0)
-                {
-                    foreach (var item in GeneralRequest.Conditions)
-                    {
-                        item.Id = null;
-                        item.Tag = await _db.D_Tags.SingleAsync(x => x.Name == item.Tag.Name);
-                    }
-                }
-
                 var pc_ProcessScenario = _db.L_ProcessScenarios.Where(x => x.FirstId ==
                 GeneralRequest.ProcessId).ToList();
 
@@ -138,6 +128,7 @@ namespace Cheetah_DataAccess.Repository
 
                 var eP_Endorsements = _db.F_Endorsements
                     .Where(x => x.Scenario == GeneralRequest.SelectedScenario)
+                    .Include(x=>x.Role)
                     .OrderBy(x => x.SortIndex).ToList();
 
                 F_WorkItem first_WorkItem = new()
@@ -250,6 +241,7 @@ namespace Cheetah_DataAccess.Repository
                 var GeneralRequest = await request.DeepCopy(_db, _iSync, _itableCRUD);
 
                 GeneralRequest = await SetWorkItemsAsync(((F_Case)GeneralRequest));
+
                 return GeneralRequest;
             }
             catch (Exception ex)

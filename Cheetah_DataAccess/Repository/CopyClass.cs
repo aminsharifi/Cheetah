@@ -7,40 +7,45 @@ namespace Cheetah_DataAccess.Repository
 {
     public static class CopyClass
     {
-        public static async Task<F_Case> DeepCopy(this F_Case obj,ApplicationDbContext _db, ISync _iSync,
+        public static async Task<F_Case> DeepCopy(this F_Case obj, ApplicationDbContext _db, ISync _iSync,
             ITableCRUD _itableCRUD)
         {
-            var f_Case = (F_Case) obj.ShallowCopy();
+            if (obj.Conditions is not null
+                   && obj.Conditions.Count > 0)
+            {
+                foreach (var item in obj.Conditions)
+                {
+                    item.TagId = await _db.D_Tags.Where(x => x.Name == item.Tag.Name)
+                        .Select(x => x.Id).SingleAsync();
 
-            if (f_Case.CreatorId is null || f_Case.CreatorId == 0)
+                    item.Tag = null;
+                }
+            }
+
+            if (obj.CreatorId is null || obj.CreatorId == 0)
             {
                 var creator = await _iSync.GetUser(obj.Creator.Name);
                 obj.CreatorId = creator.Id;
                 obj.Creator = null;
             }
-            if (f_Case.RequestorId is null || f_Case.RequestorId == 0)
+            if (obj.RequestorId is null || obj.RequestorId == 0)
             {
                 var requestor = await _iSync.GetUser(obj.Requestor.Name);
                 obj.RequestorId = requestor.Id;
                 obj.Requestor = null;
             }
-            if (f_Case.ProcessId is null || f_Case.ProcessId == 0)
+            if (obj.ProcessId is null || obj.ProcessId == 0)
             {
                 var process = await _db.D_Processes
                     .Where(x => x.Name == obj.Process.Name)
                     .SingleAsync();
-
                 obj.ProcessId = process.Id;
                 obj.Process = null;
-
             }
+
             obj.CreateTimeRecord = DateTime.Now;
-
             obj = await _itableCRUD.Create(obj) as F_Case;
-
             return obj;
         }
-
-
     }
 }
