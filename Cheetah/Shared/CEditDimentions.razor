@@ -6,12 +6,10 @@
     {
         <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
     }
-
     <div class="my-2" style="direction:rtl">
         @*    <div class="alert alert-primary mb-3 ml-3" role="alert">
     @Title @Name
     </div>*@
-
         <EditForm Model="Record" OnValidSubmit="UpsertTask">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -19,35 +17,35 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                        aria-controls="panelsStayOpen-collapseOne">
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
                             اطلاعات عمومی
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                    aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body row">                            
+                         aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body row">
                             <CInput @bind-LValue="Record.Id"
-                                CDescription="شناسه یکتا سیستمی"
+                                    CDescription="شناسه یکتا سیستمی"
                                     CDisplayName="شناسه" CFieldType="@(Cheetah_Business.FieldType.CID)"></CInput>
 
                             <CInput @bind-NLValue="Record.SortIndex"
-                                CDescription="ایندکس جهت مرتب سازی می باشد."
+                                    CDescription="ایندکس جهت مرتب سازی می باشد."
                                     CDisplayName="ایندکس" CFieldType="@(Cheetah_Business.FieldType.CNInt)"></CInput>
 
                             <CInput @bind-SValue="Record.Name"
-                                CDescription="متنی که در سیستم استفاده میشود."
+                                    CDescription="متنی که در سیستم استفاده میشود."
                                     CDisplayName="نام" CFieldType="@(Cheetah_Business.FieldType.CString)"></CInput>
 
                             <CInput @bind-SValue="Record.DisplayName"
-                                CDescription="متنی که کاربر مشاهده می کند"
+                                    CDescription="متنی که کاربر مشاهده می کند"
                                     CDisplayName="نام نمایشی" CFieldType="@(Cheetah_Business.FieldType.CString)"></CInput>
 
                             <CInput @bind-SValue="Record.Description"
-                                CDescription="متن راهنما"
+                                    CDescription="متن راهنما"
                                     CDisplayName="متن راهنما" CFieldType="@(Cheetah_Business.FieldType.CString)"></CInput>
                             <CInput @bind-BValue="Record.DsblRecord"
-                                CDescription="جهت غیرفعال سازی"
+                                    CDescription="جهت غیرفعال سازی"
                                     CDisplayName="غیرفعال" CFieldType="@(Cheetah_Business.FieldType.CBool)"></CInput>
                         </div>
                     </div>
@@ -79,17 +77,18 @@
                     @if (!IsInline)
                     {
                         <div type="button" class="btn btn-info"
-                     @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
+                        @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
                             برگشت
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
                             </svg>
                         </div>
+
+
                     }
                 </div>
             </div>
         </EditForm>
-
     </div>
 }
 <CLoading IsLoading="@IsLoading" AnyRecord="@true"></CLoading>
