@@ -1,6 +1,7 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
@@ -51,6 +52,10 @@ public partial class F_Case : SimpleClass
     #endregion
 
     #region Functions
+    public F_Case ShallowCopy()
+    {
+        return (F_Case)this.MemberwiseClone();
+    }
 
     #region Getter
     public Boolean IsCreating()

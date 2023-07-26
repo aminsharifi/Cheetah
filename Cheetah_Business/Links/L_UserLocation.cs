@@ -22,4 +22,9 @@ public partial class L_UserLocation : SimpleLinkClass
     [ForeignKey(nameof(SecondId))]
     public virtual D_Location? Location { get; set; }
 
+    public L_UserLocation ShallowCopy()
+    {
+        return (L_UserLocation)this.MemberwiseClone();
+    }
+
 }

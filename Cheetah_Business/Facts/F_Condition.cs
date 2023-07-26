@@ -62,7 +62,10 @@ public partial class F_Condition : SimpleClass
             Value = value.ToString();
         }
     }
-
+    public F_Condition ShallowCopy()
+    {
+        return (F_Condition)this.MemberwiseClone();
+    }
     public override void SetName()
     {
         DisplayName = Scenario?.DisplayName + "," + Tag?.DisplayName + "," + Operand?.DisplayName + "," + Value;

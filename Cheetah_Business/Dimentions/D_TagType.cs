@@ -12,5 +12,5 @@ namespace Cheetah_Business.Dimentions;
 //[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
 public partial class D_TagType : SimpleClass
 {
-
+    
 }

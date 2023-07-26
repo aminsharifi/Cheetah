@@ -1,4 +1,5 @@
 ﻿using Cheetah_Business.Data;
+using Cheetah_Business.Facts;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Dimentions;
@@ -14,5 +15,5 @@ public partial class D_WorkItemState : SimpleClass
 {
     #region Relations
 
-    #endregion
+    #endregion    
 }

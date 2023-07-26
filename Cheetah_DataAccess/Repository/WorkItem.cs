@@ -105,7 +105,8 @@ namespace Cheetah_DataAccess.Repository
                     }
                 }
 
-                var pc_ProcessScenario = GeneralRequest.Process?.ProcessScenario;
+                var pc_ProcessScenario = _db.L_ProcessScenarios.Where(x => x.FirstId ==
+                GeneralRequest.ProcessId).ToList();
 
                 foreach (var ProcessScenario in pc_ProcessScenario)
                 {
@@ -135,7 +136,9 @@ namespace Cheetah_DataAccess.Repository
                     GeneralRequest.WorkItems = new HashSet<F_WorkItem>();
                 }
 
-                var eP_Endorsements = GeneralRequest.SelectedScenario?.Endorsements.OrderBy(x => x.SortIndex).ToList();
+                var eP_Endorsements = _db.F_Endorsements
+                    .Where(x => x.Scenario == GeneralRequest.SelectedScenario)
+                    .OrderBy(x => x.SortIndex).ToList();
 
                 F_WorkItem first_WorkItem = new()
                 {
@@ -242,32 +245,17 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
-            var GeneralRequest = await _itableCRUD.Create(new F_Case()) as F_Case;
-
             try
-            {
-                GeneralRequest.CreatorId = _iSync.GetUser(request.Creator.Name).GetAwaiter().GetResult().Id;
-                GeneralRequest.RequestorId = _iSync.GetUser(request.Requestor.Name).GetAwaiter().GetResult().Id;
-                GeneralRequest.ERPCode = request.ERPCode;
-                GeneralRequest.Process =
-                await _db.D_Processes.Where(x => x.Name == request.Process.Name)
-                .Include(x=>x.ProcessScenario)
-                .ThenInclude(x=>x.Scenario)
-                .ThenInclude(x=>x.Endorsements)
-                .ThenInclude(x=>x.Role).AsTracking().SingleAsync();
-
-                GeneralRequest.CreateTimeRecord = DateTime.Now;
-
-                await _itableCRUD.Update(GeneralRequest);
+            {                
+                var GeneralRequest = await request.DeepCopy(_db, _iSync, _itableCRUD);
 
                 GeneralRequest = await SetWorkItemsAsync(((F_Case)GeneralRequest));
+                return GeneralRequest;
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
-
-            return ((F_Case)GeneralRequest);
         }
         public async Task<F_Case> PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {

@@ -26,5 +26,8 @@ public partial class F_Attachment : SimpleClass
     [Column(Order = 101)]
     public byte[]? Data { get; set; }
     #endregion
-
+    public F_Attachment ShallowCopy()
+    {
+        return (F_Attachment)this.MemberwiseClone();
+    }
 }
