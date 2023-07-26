@@ -1,5 +1,6 @@
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Facts;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Links;
@@ -21,4 +22,9 @@ public partial class L_UserPosition : SimpleLinkClass
     [Column(Order = 100)]
     [ForeignKey(nameof(SecondId))]
     public virtual D_Position? Position { get; set; }
+
+    public L_UserPosition ShallowCopy()
+    {
+        return (L_UserPosition)this.MemberwiseClone();
+    }
 }

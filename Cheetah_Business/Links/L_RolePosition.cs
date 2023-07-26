@@ -20,4 +20,9 @@ public partial class L_RolePosition : SimpleLinkClass
     [Column(Order = 101)]
     [ForeignKey(nameof(SecondId))]
     public virtual D_Position? Position { get; set; }
+
+    public L_RolePosition ShallowCopy()
+    {
+        return (L_RolePosition)this.MemberwiseClone();
+    }
 }

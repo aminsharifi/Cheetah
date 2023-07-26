@@ -22,4 +22,9 @@ public partial class L_ProcessScenario : SimpleLinkClass
     [Column(Order = 101)]
     [ForeignKey(nameof(SecondId))]
     public virtual F_Scenario? Scenario { get; set; }
+
+    public L_ProcessScenario ShallowCopy()
+    {
+        return (L_ProcessScenario)this.MemberwiseClone();
+    }
 }

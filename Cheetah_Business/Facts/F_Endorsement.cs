@@ -30,7 +30,10 @@ public partial class F_Endorsement : SimpleClass
     }
 
     #region Functions
-
+    public F_Endorsement ShallowCopy()
+    {
+        return (F_Endorsement)this.MemberwiseClone();
+    }
     #region Getter
     public Boolean IsRequestor()
     {

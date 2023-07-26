@@ -55,4 +55,9 @@ public partial class D_UserInformation : SimpleClass
     [StringLength(215)]
     [Column(Order = 113)]
     public string? RegistrationNumber { get; set; }
+
+    public D_UserInformation ShallowCopy()
+    {
+        return (D_UserInformation)this.MemberwiseClone();
+    }
 }

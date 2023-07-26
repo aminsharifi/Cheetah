@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
@@ -35,6 +36,10 @@ public partial class F_WorkItem : SimpleClass
     public virtual D_WorkItemState? WorkItemState { get; set; }
 
     #region Functions
+    public F_WorkItem ShallowCopy()
+    {
+        return (F_WorkItem)this.MemberwiseClone();
+    }
 
     #region Getter
     public Boolean IsInbox()

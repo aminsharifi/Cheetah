@@ -31,6 +31,11 @@ public partial class F_Scenario : SimpleClass
 
     #endregion
 
+    public F_Scenario ShallowCopy()
+    {
+        return (F_Scenario)this.MemberwiseClone();
+    }
+
     public override void SetName()
     {
         foreach (var item in Conditions)

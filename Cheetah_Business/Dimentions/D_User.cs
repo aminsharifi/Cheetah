@@ -72,4 +72,9 @@ public partial class D_User : BaseClass<D_User>
     #endregion
 
     #endregion
+
+    public D_User ShallowCopy()
+    {
+        return (D_User)this.MemberwiseClone();
+    }
 }

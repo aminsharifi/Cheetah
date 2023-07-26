@@ -30,8 +30,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder
-            .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning));
+        //optionsBuilder
+        //    .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.DetachedLazyLoadingWarning));
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -69,6 +69,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<L_RolePosition> L_RolePositions { get; set; }
     public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
     public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
+    public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
+    
     #endregion
 
     #region Virtuals
