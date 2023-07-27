@@ -4,7 +4,7 @@ namespace Cheetah_Business.Repository
 {
     public interface IWorkItem
     {
-        public Task<F_Case> GetCaseAsync(F_Case request);
+        
         public Task<F_Case> SetInboxAndFuture(F_WorkItem f_WorkItem);
         public Task<F_Case> Exit(F_WorkItem f_WorkItem);
         public Task<F_Case> SetCurrentAssignment(F_WorkItem? f_WorkItem);

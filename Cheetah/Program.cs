@@ -56,6 +56,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders().AddDefaultUI()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
@@ -63,10 +65,9 @@ builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
 builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
+builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
 
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<CNavigation>();
 
