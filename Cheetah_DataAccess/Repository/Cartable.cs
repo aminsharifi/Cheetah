@@ -2,6 +2,7 @@
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Repository
 {
@@ -12,6 +13,23 @@ namespace Cheetah_DataAccess.Repository
         public Cartable(ApplicationDbContext db)
         {
             _db = db;
+        }
+        public async Task<F_Case> GetCaseAsync(F_Case request)
+        {
+            F_Case GeneralRequest = await _db.F_Cases
+                .Include(x => x.Creator)
+                .Include(x => x.Requestor)
+                .Include(x => x.Process)
+                .Include(x => x.SelectedScenario)
+                .Include(x => x.Conditions)
+                .Include(x => x.CaseState)
+                .Include(x => x.WorkItems).ThenInclude(x => x.WorkItemState)
+                .Include(x => x.WorkItems).ThenInclude(x => x.User)
+                .SingleAsync(x => request.Id > 0 ? x.Id == request.Id :
+                x.Process.Name == request.Process.Name &&
+                x.ERPCode == request.ERPCode);
+
+            return GeneralRequest;
         }
         public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
      IQueryable<F_WorkItem> f_WorkItems)

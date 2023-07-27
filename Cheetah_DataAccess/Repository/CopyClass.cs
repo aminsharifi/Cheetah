@@ -1,14 +1,24 @@
-﻿using Cheetah_Business.Facts;
+﻿using AutoMapper;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Repository
 {
-    public static class CopyClass
+    public class CopyClass: ICopyClass
     {
-        public static async Task<F_Case> DeepCopy(this F_Case obj, ApplicationDbContext _db, ISync _iSync,
-            ITableCRUD _itableCRUD)
+        protected ApplicationDbContext _db;
+        protected IMapper _mapper;
+        protected ISync _iSync;
+        protected ITableCRUD _itableCRUD;
+        public CopyClass(ApplicationDbContext db, IMapper mapper, ISync iSync, ITableCRUD itableCRUD)
+        {
+            _db = db;
+            _iSync = iSync;
+            _itableCRUD = itableCRUD;
+        }
+        public async Task<F_Case> DeepCopy(F_Case obj)
         {
             if (obj.Conditions is not null
                    && obj.Conditions.Count > 0)

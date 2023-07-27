@@ -13,28 +13,14 @@ namespace Cheetah_DataAccess.Repository
         protected IMapper _mapper;
         protected ISync _iSync;
         protected ITableCRUD _itableCRUD;
-        public WorkItem(ApplicationDbContext db, IMapper mapper, ISync iSync, ITableCRUD itableCRUD)
+        protected ICopyClass _iCopyClass;
+        public WorkItem(ApplicationDbContext db, IMapper mapper,
+            ISync iSync, ITableCRUD itableCRUD, ICopyClass iCopyClass)
         {
             _db = db;
             _iSync = iSync;
             _itableCRUD = itableCRUD;
-        }
-        public async Task<F_Case> GetCaseAsync(F_Case request)
-        {
-            F_Case GeneralRequest = await _db.F_Cases
-                .Include(x => x.Creator)
-                .Include(x => x.Requestor)
-                .Include(x => x.Process)
-                .Include(x => x.SelectedScenario)
-                .Include(x => x.Conditions)
-                .Include(x => x.CaseState)
-                .Include(x => x.WorkItems).ThenInclude(x => x.WorkItemState)
-                .Include(x => x.WorkItems).ThenInclude(x => x.User)
-                .SingleAsync(x => request.Id > 0 ? x.Id == request.Id :
-                x.Process.Name == request.Process.Name &&
-                x.ERPCode == request.ERPCode);
-
-            return GeneralRequest;
+            _iCopyClass = iCopyClass;
         }
         public async Task<F_Case> SetInboxAndFuture(F_WorkItem f_WorkItem)
         {
@@ -128,7 +114,7 @@ namespace Cheetah_DataAccess.Repository
 
                 var eP_Endorsements = _db.F_Endorsements
                     .Where(x => x.Scenario == GeneralRequest.SelectedScenario)
-                    .Include(x=>x.Role)
+                    .Include(x => x.Role)
                     .OrderBy(x => x.SortIndex).ToList();
 
                 F_WorkItem first_WorkItem = new()
@@ -237,8 +223,8 @@ namespace Cheetah_DataAccess.Repository
         public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
             try
-            {                
-                var GeneralRequest = await request.DeepCopy(_db, _iSync, _itableCRUD);
+            {
+                var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
                 GeneralRequest = await SetWorkItemsAsync(((F_Case)GeneralRequest));
 

@@ -37,6 +37,7 @@ builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
 builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
+builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
 
 builder.Services.AddGrpc();
 
