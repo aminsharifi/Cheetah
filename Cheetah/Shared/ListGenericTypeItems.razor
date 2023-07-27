@@ -1,32 +1,8 @@
 ﻿@inherits SharedPage
+@inject IDialogService DialogService
 
 @if (Records != null && Records.Any())
 {
-    <_DeleteConfirmation ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
-    <SharedModal Title="@Title">
-        <HeaderTemplate>
-            <a href="@Href">
-                <span data-bs-dismiss="modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                         height="16" fill="currentColor"
-                         class="bi bi-arrows-fullscreen" viewBox="0 0 16 16"
-                         style="margin-left: 10px;">
-                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
-                    </svg>
-                </span>
-            </a>
-        </HeaderTemplate>
-        <RowTemplate>
-            @if (LoadData)
-            {
-                <GeneralComponent Name="@Name" IsInline="true"
-                                  ParentCallback="@ParentCallback" Id="@Id"
-                                  reference="@reference" LoadData="@LoadData"
-                                  Title="@Title">
-                </GeneralComponent>
-            }
-        </RowTemplate>
-    </SharedModal>
     <Ctable>
         <thead>
             <tr style="width:90%">
@@ -58,16 +34,18 @@
                     </td>
                     @RowTemplate
                     <td style="width:16%">
-                        <MudButtonGroup Color="Color.Primary" Variant="Variant.Outlined">
-                            <MudButton Class="bg-primary"
-                                           Icon="@Icons.Material.Filled.Edit"
-                                           data-bs-target="#exampleModal"
-                                           OnClick="()=>PrepareLink(item.Id, CrudOperation.Update)">
+                        <MudButtonGroup OverrideStyles="false">
+                            <MudButton Color="Color.Info"
+                                       Variant="Variant.Filled"
+                                       StartIcon="@Icons.Material.Filled.Edit"
+                                       data-bs-target="#exampleModal"
+                                       OnClick="()=>PrepareLink(item.Id, CrudOperation.Update)">
                                 ویرایش
                             </MudButton>
-                            <MudButton Class="bg-danger"
-                                           Icon="@Icons.Material.Filled.DeleteForever"
-                                           OnClick="()=>HandleDelete((item as SimpleClass).Id)">
+                            <MudButton Color="Color.Error"
+                                       Variant="Variant.Filled"
+                                       StartIcon="@Icons.Material.Filled.DeleteForever"
+                                       OnClick="()=>HandleDelete((item as SimpleClass).Id)">
                                 حذف
                             </MudButton>
                         </MudButtonGroup>
@@ -76,12 +54,66 @@
             }
         </tbody>
     </Ctable>
-}
+    <SharedModal Title="@Title">
+        <HeaderTemplate>
+            <a href="@Href">
+                <span data-bs-dismiss="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                         height="16" fill="currentColor"
+                         class="bi bi-arrows-fullscreen" viewBox="0 0 16 16"
+                         style="margin-left: 10px;">
+                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
+                    </svg>
+                </span>
+            </a>
+        </HeaderTemplate>
+        <RowTemplate>
+            @if (LoadData)
+            {
+                <GeneralComponent Name="@Name" IsInline="true"
+                                  ParentCallback="@ParentCallback" Id="@Id"
+                                  reference="@reference" LoadData="@LoadData"
+                                  Title="@Title">
+                </GeneralComponent>
+            }
+        </RowTemplate>
+    </SharedModal>
 
+    <MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
+        <MessageContent>
+            آیا از حذف ردیف اطمینان دارید؟
+        </MessageContent>
+        <YesButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Error"
+                       StartIcon="@Icons.Material.Filled.DeleteForever">حذف</MudButton>
+        </YesButton>
+    </MudMessageBox>
+}
+<style>
+    .my-custom-class {
+        backdrop-filter: blur(10px);
+    }
+</style>
 @code {
 
-    public void PrepareLink(long? getId, CrudOperation getCrudOperation)
+    MudDialog C_MudDialog { get; set; }
+
+    MudMessageBox mbox { get; set; }
+
+    public async Task PrepareLink(long? getId, CrudOperation getCrudOperation)
     {
+        var options = new DialogOptions { ClassBackground = "my-custom-class" };
+
+        var parameters = new DialogParameters<Dialog>();
+        parameters.Add(x => x.ContentText, "Do you really want to delete these records? This process cannot be undone.");
+        parameters.Add(x => x.ButtonText, "Delete");
+        parameters.Add(x => x.Color, Color.Error);
+
+        var dialogresult = await DialogService.ShowAsync<Dialog>("ویرایش ردیف", parameters, options);
+
+        var result = await dialogresult.Result;
+        //if (!result.Cancelled && bool.TryParse(result.Data.ToString(), out bool resultbool))
+        /*
         LoadData = true;
         Id = getId;
         if (getCrudOperation == CrudOperation.Create)
@@ -102,23 +134,22 @@
 
         Title = new UpsertStatus().GetPageTitle(Id).Value;
 
-        StateHasChanged();
+        var parameters = new DialogParameters<SharedModal>();
+        parameters.Add(x => x.Href, "Your computer seems very slow, click the download button to download free RAM.");
+        //parameters.Add(x => x.ButtonText, "Download");
+        //parameters.Add(x => x.Color, Color.Info);
+
+        */
+        //StateHasChanged();
     }
 
     private async Task HandleDelete(long? DeletedState)
     {
         Id = DeletedState;
-        await _JsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
-    }
-
-    public async Task ConfirmDelete_Click(bool isConfirmed)
-    {
-        if (isConfirmed && Id != 0)
+        bool? result = await mbox.Show();
+        if (result.HasValue && result.Value)
         {
-            await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
             await simpleClassRepository.delete(Name, Id);
-            await _JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
-            await ParentCallback.InvokeAsync();
         }
     }
 }
