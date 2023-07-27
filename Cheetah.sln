@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess_SqlServe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_GrpcService", "Cheetah_GrpcService\Cheetah_GrpcService.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah_Server", "Cheetah_Server\Cheetah_Server.csproj", "{7C30DA23-9660-441F-96F9-45E3E8AA328E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Server", "Cheetah_Server\Cheetah_Server.csproj", "{7C30DA23-9660-441F-96F9-45E3E8AA328E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,14 +11,17 @@ namespace Cheetah_GrpcService.Services
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private readonly ITableCRUD simpleClassRepository;
+        private readonly ITableCRUD _simpleClassRepository;
+        private readonly ICartable _iCartable;
         private readonly IMapper _mapper;
 
-        public GreeterService(ILogger<GreeterService> logger, ITableCRUD iP_ParameterListRepository, IMapper mapper)
+        public GreeterService(ILogger<GreeterService> logger, 
+            ITableCRUD iP_ParameterListRepository, IMapper mapper, ICartable iCartable)
         {
             _logger = logger;
             this._mapper = mapper;
-            this.simpleClassRepository = iP_ParameterListRepository;
+            this._simpleClassRepository = iP_ParameterListRepository;
+            this._iCartable = iCartable;
         }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
@@ -122,7 +125,7 @@ namespace Cheetah_GrpcService.Services
             if (!String.IsNullOrEmpty(request.ProcessName))
                 f_Request.Process = _db.D_Processes.Single(x => x.Name == request.ProcessName);
 
-            f_Request = iWorkItem.GetCaseAsync(f_Request)
+            f_Request = iCartable.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
 
             DetailOutput_Request output_Request = new()
