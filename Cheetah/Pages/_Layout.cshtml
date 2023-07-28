@@ -13,13 +13,12 @@
     <link defer href="css/site.css" rel="stylesheet" />
     <link defer href="Cheetah.styles.css" rel="stylesheet" />
     <link defer href="css/chevronprogressbar.css" rel="stylesheet" />
-    <link defer rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />    
+    <link defer rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
     <link defer rel="stylesheet" href="bootstrap/bootstrap-icons@1.7.2.css" />
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-js.css" />
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/diagram-js.css" />
     <link defer rel="stylesheet" href="bpmn-js-11.5.0/dist/assets/bpmn-font/css/bpmn.css" />
     <link defer href="css/navbar.css" rel="stylesheet" />
-    <link defer rel="stylesheet" href="datatables/1.13.4/datatables.bootstrap5.min.css" />
     <link defer href="vazirmatn-v33.003/round-dots/misc/ui-farsi-digits/vazirmatn-rd-ui-fd-font-face.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
@@ -28,37 +27,6 @@
             font-family: 'Vazirmatn RD UI FD';
             background: white;
         }
-
-        a.link-primary {
-            text-decoration: underline
-        }
-
-        a:hover.link-primary, a:focus.link-primary {
-            text-decoration: none
-        }
-
-        .accordion-button::after {
-            margin-left: 0 !important;
-            margin-right: auto;
-        }
-
-        caption {
-            text-align: right;
-            font-size: large
-        }
-
-        table {
-            text-align-last: center;
-        }
-
-            table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting_asc_disabled, table.dataTable thead > tr > th.sorting_desc_disabled, table.dataTable thead > tr > td.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting_asc_disabled, table.dataTable thead > tr > td.sorting_desc_disabled {
-                /*padding-right: 0px*/
-            }
-
-        div.dataTables_wrapper {
-            margin: 0 auto;
-        }
-
     </style>
 
 </head>
@@ -77,48 +45,11 @@
 
     <script defer src="_framework/blazor.server.js"></script>
     <script src="jquery/3.6.0/jquery.min.js"></script>
-    @*<script src="js/popper.min.js"></script>*@
-    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>    
+    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script defer src="bpmn-js-11.5.0/dist/bpmn-modeler.development.js"></script>
     <script defer src="js/samplebpms.js"></script>
     <script defer src="js/chevronprogressbar.js"></script>
-    <script defer src="datatables/1.13.4/jquery.datatables.min.js"></script>
     <script defer src="JS/common.js"></script>
     <script defer src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script defer>
-        //$('select').select2();
-        //$('.select2-selection').css("border-radius", "0px");
-        //$('.select2-selection').css("height", "35px");
-        //$('.select2-selection').css("line-height", "35px");
-        //$('.selection__rendered').css("line-height", "35px");
-        //$('.select2-selection__rendered').css("line-height", "35px");
-        //$('.select2-selection__arrow').css("height", "35px");
-        function myTimer() {
-            $('.CustomTable').each(function () {
-                $(this).removeClass("CustomTable")
-                    .DataTable({
-                        order: [[1, "asc"]],
-                        scrollX: true,
-                        scrollY: 400,
-                        scrollCollapse: true,
-                        paging: false,
-                        info: false,
-                        "destroy": true,
-                        language: {
-                            url: 'js/datatables_fa.json',
-                        },
-                    });
-
-            });
-
-        }
-        try {
-            setInterval(myTimer, 100);
-        } catch (error) {
-            // Only runs when there is an error/exception
-        } finally {
-            // Code here always runs. Doesn't matter if there was an error or not.
-        }
-    </script>
 </body>
 </html>
