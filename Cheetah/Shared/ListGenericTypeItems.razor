@@ -3,57 +3,36 @@
 
 @if (Records != null && Records.Any())
 {
-    <Ctable>
-        <thead>
-            <tr style="width:90%">
-                <th style="width:8%" aria-sort="ascending">شناسه</th>
-                <th style="width:8%">ایندکس</th>
-                <th style="width:16%">نام</th>
-                <th style="width:16%">نام نمایشی</th>
-                <th style="width:16%">متن راهنما</th>
-                <th style="width:8%">غیرفعال</th>
-                @HeaderTemplate
-                <th style="width:16%">اقدام</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Records as IEnumerable<SimpleClass>)
-            {
-                <tr style="width:90%">
-                    <td style="width:8%"><span style="align-self:center"> @(item.Id)</span></td>
-                    <td style="width:8%"><span style="align-self:center"> @(item.SortIndex)</span></td>
-                    <td style="width:16%"><span style="align-self:center"> @(item.Name)</span></td>
-                    <td style="width:16%"><span style="align-self:center"> @(item.DisplayName)</span></td>
-                    <td style="width:16%"><span style="align-self:center"> @(item.Description)</span></td>
-                    <td style="width:8%">
-                        <div class="form-check form-switch" style="align-self:center">
-                            <input class="form-check-input" type="checkbox" role="switch" disabled
-                                   style="width:3em"
-                                   checked="@(item.DsblRecord)">
-                        </div>
-                    </td>
-                    @RowTemplate
-                    <td style="width:16%">
+    <MudItem xs="12" Class="pt-0">
+        <MudDataGrid T="SimpleClass" Items="@Records" Bordered="true" Striped="true">
+            <Columns>
+                <PropertyColumn Property="x => x.Id" Title="شناسه" />
+                <PropertyColumn Property="x => x.SortIndex" Title="ایندکس" />
+                <PropertyColumn Property="x => x.Name" Title="نام" />
+                <PropertyColumn Property="x => x.DisplayName" Title="نام نمایشی" />
+                <PropertyColumn Property="x => x.Description" Title="متن راهنما" />
+                <PropertyColumn Property="x => x.DsblRecord" Title="غیرفعال" />
+                <TemplateColumn CellClass="d-flex justify-end">
+                    <CellTemplate>
                         <MudButtonGroup OverrideStyles="false">
                             <MudButton Color="Color.Info"
                                        Variant="Variant.Filled"
                                        StartIcon="@Icons.Material.Filled.Edit"
-                                       data-bs-target="#exampleModal"
-                                       OnClick="()=>PrepareLink(item.Id, CrudOperation.Update)">
+                                       OnClick="@(()=>PrepareLink(@context.Item.Id, CrudOperation.Update))">
                                 ویرایش
                             </MudButton>
                             <MudButton Color="Color.Error"
                                        Variant="Variant.Filled"
                                        StartIcon="@Icons.Material.Filled.DeleteForever"
-                                       OnClick="()=>HandleDelete((item as SimpleClass).Id)">
+                                       OnClick="@(()=>HandleDelete(@context.Item.Id))">
                                 حذف
                             </MudButton>
                         </MudButtonGroup>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </Ctable>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+        </MudDataGrid>
+    </MudItem>
 
     <MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
         <MessageContent>
@@ -73,7 +52,7 @@
 @code {
 
     MudDialog C_MudDialog { get; set; }
-    MudMessageBox mbox { get; set; }
+    MudMessageBox mbox { get; set; }    
 
     public async Task PrepareLink(long? getId, CrudOperation getCrudOperation)
     {
