@@ -20,8 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="7.8.10" />
-    <PackageReference Include="datatables.net-bs5" Version="1.13.5" />
-    <PackageReference Include="jquery.datatables" Version="1.10.15" />
+    <PackageReference Include="Google.Apis.Webfonts.v1" Version="1.61.0.3030" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
