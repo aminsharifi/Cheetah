@@ -24,8 +24,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess_SqlServe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_GrpcService", "Cheetah_GrpcService\Cheetah_GrpcService.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Server", "Cheetah_Server\Cheetah_Server.csproj", "{7C30DA23-9660-441F-96F9-45E3E8AA328E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,10 +62,6 @@ Global
 		{B688A533-38B1-4566-B332-95C15689A478}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B688A533-38B1-4566-B332-95C15689A478}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B688A533-38B1-4566-B332-95C15689A478}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C30DA23-9660-441F-96F9-45E3E8AA328E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C30DA23-9660-441F-96F9-45E3E8AA328E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C30DA23-9660-441F-96F9-45E3E8AA328E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C30DA23-9660-441F-96F9-45E3E8AA328E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
