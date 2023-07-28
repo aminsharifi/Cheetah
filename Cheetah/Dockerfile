@@ -2,14 +2,15 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 1988
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Cheetah/Cheetah.csproj", "Cheetah/"]
+COPY ["Cheetah_DataAccess_Npgsql/Cheetah_DataAccess_Npgsql.csproj", "Cheetah_DataAccess_Npgsql/"]
 COPY ["Cheetah_DataAccess/Cheetah_DataAccess.csproj", "Cheetah_DataAccess/"]
 COPY ["Cheetah_Business/Cheetah_Business.csproj", "Cheetah_Business/"]
-COPY ["Cheetah_DataAccess_Npgsql/Cheetah_DataAccess_Npgsql.csproj", "Cheetah_DataAccess_Npgsql/"]
 COPY ["Cheetah_DataAccess_SqlServer/Cheetah_DataAccess_SqlServer.csproj", "Cheetah_DataAccess_SqlServer/"]
 RUN dotnet restore "Cheetah/Cheetah.csproj"
 COPY . .

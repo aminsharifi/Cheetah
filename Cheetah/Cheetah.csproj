@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\MohammadAmin Sharifi\.nuget\packages\datatables.net-bs5\1.13.5\contentFiles\any\any\wwwroot\css\dataTables.bootstrap5.css" />
+    <Content Remove="C:\Users\MohammadAmin Sharifi\.nuget\packages\datatables.net-bs5\1.13.5\contentFiles\any\any\wwwroot\css\dataTables.bootstrap5.min.css" />
+    <Content Remove="C:\Users\MohammadAmin Sharifi\.nuget\packages\datatables.net-bs5\1.13.5\contentFiles\any\any\wwwroot\js\dataTables.bootstrap5.js" />
+    <Content Remove="C:\Users\MohammadAmin Sharifi\.nuget\packages\datatables.net-bs5\1.13.5\contentFiles\any\any\wwwroot\js\dataTables.bootstrap5.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="7.8.10" />
     <PackageReference Include="datatables.net-bs5" Version="1.13.5" />
     <PackageReference Include="jquery.datatables" Version="1.10.15" />
