@@ -3,6 +3,7 @@ using Cheetah_Business.Data;
 using Cheetah_Business.Repository;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 
 namespace Cheetah.Shared
 {
@@ -80,6 +81,9 @@ namespace Cheetah.Shared
 
         [Inject]
         protected ITableCRUD simpleClassRepository { get; set; }
+
+        [Inject]
+        protected ISnackbar Snackbar { get; set; }
 
         [Inject]
         protected NavigationManager _NavigationManager { get; set; }

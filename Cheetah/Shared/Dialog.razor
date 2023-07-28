@@ -1,17 +1,27 @@
-﻿<MudDialog>
+﻿@inherits SharedPage
+<MudDialog>
     <DialogContent>
-        <MudText>@ContentText</MudText>
+        <MudGrid Class="d-flex justify-end">
+            <MudItem>
+                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Expand" Href="@Href" />
+            </MudItem>
+        </MudGrid>
+        <div class="d-flex flex-column py-1">
+            <GeneralComponent Name="@Name" IsInline="true"
+                              ParentCallback="@Submit" Id="@Id"
+                              reference="@reference" LoadData="@LoadData"
+                              Title="@Title">
+            </GeneralComponent>
+        </div>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">انصراف</MudButton>
-        <MudButton Color="@Color" Variant="Variant.Filled" OnClick="Submit">@ButtonText</MudButton>
+        @*<MudButton Color="@Color" Variant="Variant.Filled" OnClick="Submit">@ButtonText</MudButton>*@
     </DialogActions>
 </MudDialog>
 
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-
-    [Parameter] public string ContentText { get; set; }
 
     [Parameter] public string ButtonText { get; set; }
 

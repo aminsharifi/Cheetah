@@ -54,30 +54,6 @@
             }
         </tbody>
     </Ctable>
-    <SharedModal Title="@Title">
-        <HeaderTemplate>
-            <a href="@Href">
-                <span data-bs-dismiss="modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                         height="16" fill="currentColor"
-                         class="bi bi-arrows-fullscreen" viewBox="0 0 16 16"
-                         style="margin-left: 10px;">
-                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707zm-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707z" />
-                    </svg>
-                </span>
-            </a>
-        </HeaderTemplate>
-        <RowTemplate>
-            @if (LoadData)
-            {
-                <GeneralComponent Name="@Name" IsInline="true"
-                                  ParentCallback="@ParentCallback" Id="@Id"
-                                  reference="@reference" LoadData="@LoadData"
-                                  Title="@Title">
-                </GeneralComponent>
-            }
-        </RowTemplate>
-    </SharedModal>
 
     <MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
         <MessageContent>
@@ -97,23 +73,11 @@
 @code {
 
     MudDialog C_MudDialog { get; set; }
-
     MudMessageBox mbox { get; set; }
 
     public async Task PrepareLink(long? getId, CrudOperation getCrudOperation)
     {
-        var options = new DialogOptions { ClassBackground = "my-custom-class" };
 
-        var parameters = new DialogParameters<Dialog>();
-        parameters.Add(x => x.ContentText, "Do you really want to delete these records? This process cannot be undone.");
-        parameters.Add(x => x.ButtonText, "Delete");
-        parameters.Add(x => x.Color, Color.Error);
-
-        var dialogresult = await DialogService.ShowAsync<Dialog>("ویرایش ردیف", parameters, options);
-
-        var result = await dialogresult.Result;
-        //if (!result.Cancelled && bool.TryParse(result.Data.ToString(), out bool resultbool))
-        /*
         LoadData = true;
         Id = getId;
         if (getCrudOperation == CrudOperation.Create)
@@ -134,13 +98,34 @@
 
         Title = new UpsertStatus().GetPageTitle(Id).Value;
 
-        var parameters = new DialogParameters<SharedModal>();
-        parameters.Add(x => x.Href, "Your computer seems very slow, click the download button to download free RAM.");
-        //parameters.Add(x => x.ButtonText, "Download");
-        //parameters.Add(x => x.Color, Color.Info);
+        var options = new DialogOptions
+            {
+                ClassBackground = "my-custom-class",
+                MaxWidth = MaxWidth.Medium
+            };
 
-        */
-        //StateHasChanged();
+        var parameters = new DialogParameters<Dialog>();
+
+        parameters.Add(x => x.Name, Name);
+        parameters.Add(x => x.ParentCallback, ParentCallback);
+        parameters.Add(x => x.Id, Id);
+        parameters.Add(x => x.LoadData, LoadData);
+        parameters.Add(x => x.IsLoading, IsLoading);
+        parameters.Add(x => x.reference, reference);
+        parameters.Add(x => x.Href, Href);
+        parameters.Add(x => x.Title, Title);
+        parameters.Add(x => x.ButtonText, "ذخیره");
+        parameters.Add(x => x.Color, Color.Success);
+
+        var dialogresult = await DialogService.ShowAsync<Dialog>("ویرایش ردیف", parameters, options);
+
+        var result = await dialogresult.Result;
+
+        if (!result.Cancelled && bool.TryParse(result.Data.ToString(), out bool resultbool))
+        {
+            await ParentCallback.InvokeAsync();
+            StateHasChanged();
+        }
     }
 
     private async Task HandleDelete(long? DeletedState)

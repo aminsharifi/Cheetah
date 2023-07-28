@@ -58,6 +58,8 @@
 
     [Parameter]
     public String type { get; set; }
+    [Inject]
+    protected ISnackbar Snackbar { get; set; }
 
     public SimpleLinkClass Record { get; set; }
 
@@ -128,7 +130,7 @@
         }
         catch (Exception ex)
         {
-            await _JsRuntime.ToastrError(ex.InnerException.Message);
+            Snackbar.Add(ex.InnerException.Message, Severity.Error);
         }
     }
 }
