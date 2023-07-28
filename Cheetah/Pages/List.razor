@@ -14,7 +14,7 @@
         <div class="shadow rounded p-3 form-group my-1 col-sm-8 col-md-8">
             <div class="input-group d-flex justify-content-end" style="direction:ltr">
                 <select class="form-select" id="floatingSelectGrid" value=@Name bind=@Name
-                    @onchange="SelectedProcessesChanged"
+                @onchange="SelectedProcessesChanged"
                         aria-describedby="basic-addon2" lang="fa" dir="rtl"
                         data-bs-toggle="tooltip" data-bs-placement="top"
                         data-bs-custom-class="custom-tooltip"
@@ -67,9 +67,9 @@
         }
 
         <ListGenericTypeItems Records="@Records"
-                          reference="@reference" Name="@Name"
-                          ParentCallback="UpdateForm" LoadData="@LoadData"
-                          type="@type" @ref="listGenericTypeItems">
+                              reference="@reference" Name="@Name"
+                              ParentCallback="UpdateForm" LoadData="@LoadData"
+                              type="@type" @ref="listGenericTypeItems">
         </ListGenericTypeItems>
     }
 </div>
@@ -146,7 +146,8 @@
         }
         catch (Exception ex)
         {
-            await _JsRuntime.ToastrError((ex.InnerException is not null) ? ex.InnerException.Message : ex.Message);
+            Snackbar.Add((ex.InnerException is not null) ? ex.InnerException.Message : ex.Message,
+            Severity.Error);
         }
     }
 

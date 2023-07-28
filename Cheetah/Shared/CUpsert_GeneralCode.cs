@@ -1,5 +1,6 @@
 ﻿using Cheetah.Helper;
 using Microsoft.JSInterop;
+using MudBlazor;
 
 namespace Cheetah.Shared
 {
@@ -18,7 +19,8 @@ namespace Cheetah.Shared
             }
             catch (Exception ex)
             {
-                await _JsRuntime.ToastrError(ex?.InnerException?.Message ?? ex?.Message);
+                Snackbar.Add(ex?.InnerException?.Message ?? ex?.Message, Severity.Error);
+                //await _JsRuntime.ToastrError(ex?.InnerException?.Message ?? ex?.Message);
             }
         }
 
@@ -56,7 +58,7 @@ namespace Cheetah.Shared
             {
                 var IsNew = (Record.Id == 0 || Record.Id is null);
 
-                await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
+                //await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
 
                 Record.SetName();
 
@@ -76,9 +78,13 @@ namespace Cheetah.Shared
                 }
 
                 if (IsNew)
-                    await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
+                {
+                    Snackbar.Add("ردیف با موفقیت ایجاد شد", Severity.Success);
+                }
                 else
-                    await _JsRuntime.ToastrSuccess($"ردیف {Record.DisplayName} با موفقیت ذخیره شد");
+                {
+                    Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
+                }
 
                 if (!IsInline)
                 {
@@ -93,7 +99,8 @@ namespace Cheetah.Shared
             }
             catch (Exception ex)
             {
-                await _JsRuntime.ToastrError(ex?.InnerException?.Message ?? ex?.Message);
+                Snackbar.Add(ex?.InnerException?.Message ?? ex?.Message, Severity.Error);
+                //await _JsRuntime.ToastrError(ex?.InnerException?.Message ?? ex?.Message);
             }
         }
 

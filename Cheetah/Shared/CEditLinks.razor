@@ -77,6 +77,8 @@
     public String? Title { get; set; }
     [Parameter]
     public RenderFragment? RowTemplate { get; set; }
+    [Inject]
+    protected ISnackbar Snackbar { get; set; }
     private EditContext? editContext;
 
     protected override void OnAfterRender(bool firstRender)
@@ -106,18 +108,18 @@
                 if (Record.Id > 0)
                 {
                     Record = await simpleClassRepository.Update(Record) as SimpleLinkClass;
-                    await _JsRuntime.ToastrSuccess($"ردیف {Record.DisplayName} با موفقیت ذخیره شد");
+                    Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
                 }
                 else
                 {
                     Record = await simpleClassRepository.Create(Record) as SimpleLinkClass;
-                    await _JsRuntime.ToastrSuccess("ردیف با موفقیت ایجاد شد");
+                    Snackbar.Add("ردیف با موفقیت ایجاد شد", Severity.Error);
                 }
                 _CNavigation.BackNavigation(_NavigationManager);
             }
             catch (Exception ex)
             {
-                await _JsRuntime.ToastrError(ex.InnerException.Message);
+                Snackbar.Add(ex.InnerException.Message, Severity.Error);
             }
         }
     }
