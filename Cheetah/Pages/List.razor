@@ -11,11 +11,15 @@
     @if (!IsLoading)
     {
         <div class="col-lg-5 col-sm-9">
-            <MudAutocomplete T="KeyValuePair<String, String>" Label="انتخاب پارامتر"
-            @bind-Value="SelectedName" ToStringFunc="@(x=>x.Value)"
-                             SearchFunc="@Search" ResetValueOnEmptyText="@true"
-                             AdornmentIcon="@Icons.Material.Filled.Settings"
-                             AdornmentColor="Color.Primary" />
+            <MudSelect Label="انتخاب پارامتر" HelperText="جدول مدنظرتان را انتخاب نمایید."
+                       AnchorOrigin="Origin.BottomCenter" AdornmentColor="Color.Primary"
+                       AdornmentIcon="@Icons.Material.Filled.Settings" T="KeyValuePair<String, String>"
+            @bind-Value="SelectedName">
+                @foreach (var _keyValuePair in keyValuePair)
+                {
+                    <MudSelectItem T="KeyValuePair<String, String>" Value="@_keyValuePair">@_keyValuePair.Value</MudSelectItem>
+                }
+            </MudSelect>
         </div>
         <div class="col-lg-5 col-sm-3">
             @if (type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
