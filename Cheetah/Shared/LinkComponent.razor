@@ -1,31 +1,49 @@
 ﻿@if (Records.sd_Status is not null)
 {
-    <Ctable>
-        <caption>
-            <span class="text-success">@Title</span>
-        </caption>
-        <thead>
-            <tr>
-                <th data-sortable="true" data-checkbox="true">انتخاب</th>
-                <th data-sortable="true">نام</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Records.floatState)
-            {
-                <tr>
-                    <td>
-                        <input type="checkbox"
-                       @onchange="args=>TogglePattern(args, item)"
-                               checked="@(@item.Value)" />
-                    </td>
-                    <td> @item.Key.Item2</td>
-                </tr>
-            }
-        </tbody>
-    </Ctable>
+    <MudDataGrid Items="@Records.floatState"
+                 T="KeyValuePair<Tuple<long?, string>, bool>" Hover="true"
+                 Bordered="true" Striped="true"
+                 QuickFilter="@_quickFilter">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">@Title</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="_searchString" Placeholder="جستجو" Adornment="Adornment.Start" Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <Columns>
+            <PropertyColumn Property="x => x.Value"
+                            Title="انتخاب" IsEditable="true">
+                <CellTemplate>
+                    <MudCheckBox Checked="@context.Item.Value"
+                                 Color="Color.Tertiary"
+                                 CheckedIcon="@Icons.Material.Filled.Bookmark"
+                                 UncheckedIcon="@Icons.Material.Filled.BookmarkBorder"
+                                 @onclick="args=>TogglePattern(context.Item)" />
+                </CellTemplate>
+            </PropertyColumn>
+            <PropertyColumn Property="x => x.Key.Item2" Title="نام" />
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="KeyValuePair<Tuple<long?, string>, bool>" />
+        </PagerContent>
+    </MudDataGrid>
 }
 @code {
+
+    private string _searchString;
+
+    // quick filter - filter gobally across multiple columns with the same input
+    private Func<KeyValuePair<Tuple<long?, string>, bool>, bool> _quickFilter => x =>
+    {
+        if (string.IsNullOrWhiteSpace(_searchString))
+            return true;
+
+        if (x.Key.Item2.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    };
+
     [Parameter]
     public SimpleLinkClassDTO? Records { get; set; }
 
@@ -35,8 +53,9 @@
     [Parameter]
     public String? Title { get; set; }
 
-    private async Task TogglePattern(ChangeEventArgs e, KeyValuePair<Tuple<long?, string>, bool> item)
+    private async Task TogglePattern(KeyValuePair<Tuple<long?, string>, bool> item)
     {
-        Records.floatState[item.Key] = (Boolean)e.Value;
+        Records.floatState[item.Key] = !item.Value;
     }
+
 }

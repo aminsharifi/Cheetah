@@ -9,7 +9,7 @@ namespace Cheetah_Business.Facts;
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
-[Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
+[Index(nameof(EnableRecord), IsUnique = false, AllDescending = true)]
 public partial class F_Condition : SimpleClass
 {
     [Column(Order = 100)]

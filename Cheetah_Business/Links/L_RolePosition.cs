@@ -9,7 +9,7 @@ namespace Cheetah_Business.Links;
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
-[Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
+[Index(nameof(EnableRecord), IsUnique = false, AllDescending = true)]
 [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
 [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
 public partial class L_RolePosition : SimpleLinkClass

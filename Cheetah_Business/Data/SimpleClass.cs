@@ -49,8 +49,8 @@ public abstract class SimpleClass
 
     [DefaultValue(false)]
     [Column(Order = 9)]
-    [Description("غیرفعال")]
-    public bool? DsblRecord { get; set; } = false;
+    [Description("فعال")]
+    public bool? EnableRecord { get; set; } = true;
 
     [Description("کد در ERP")]
     [Column(Order = 10)]

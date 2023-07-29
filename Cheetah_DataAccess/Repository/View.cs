@@ -22,7 +22,7 @@ namespace Cheetah_DataAccess.Repository
             AS
             SELECT distinct
             cast((cast(UserId as varchar(50)) + cast(BranchId as varchar(50))) as bigint) as PERPCode,
-            cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) DsblRecord
+            cast(UserId as bigint) FirstId, cast(BranchId as bigint) as SecondId, cast(0 as bit) EnableRecord
             FROM[192.168.10.66].[Alborz].[access].[GetUserBranchs_evw]
             ";
 
@@ -39,7 +39,7 @@ namespace Cheetah_DataAccess.Repository
             SELECT distinct
             cast((cast(Users.Id as varchar(50)) + cast(oj.Id as varchar(50))) as bigint) as PERPCode,
             cast(Users.Id as bigint) FirstId, cast(oj.Id as bigint) as SecondId,
-            cast(iif(UR.EndDate < getdate(), 1, 0) as bit)  DsblRecord
+            cast(iif(UR.EndDate > getdate(), 1, 0) as bit)  EnableRecord
             FROM
             [192.168.10.66].[Alborz].[access].[UserResponsibility] UR
             inner join[192.168.10.66].[Alborz].[dbo].[Users] on UR.UserId = Users.Id
@@ -100,10 +100,10 @@ namespace Cheetah_DataAccess.Repository
             )
             User_BossName,
             CAST((
-            select top(1) iif(max(Dsbl_UR.EndDate) < getdate(), 1, 0)
+            select top(1) iif(max(Dsbl_UR.EndDate) > getdate(), 1, 0)
             from[192.168.10.66].[Alborz].[access].[UserResponsibility] Dsbl_UR
             where Dsbl_UR.UserId = Users.Id
-            ) as bit) DsblRecord
+            ) as bit) EnableRecord
             FROM[192.168.10.66].[Alborz].[dbo].[UserProfile]
             left join[192.168.10.66].[Alborz].[dbo].[Users] on UserProfile.UserId = Users.Id
             where FirstName is not null

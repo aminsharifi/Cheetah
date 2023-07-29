@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Virtuals;
 
 [Table(nameof(V_UserLocation), Schema = nameof(TableType.Virtuals))]
-[Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
+[Index(nameof(EnableRecord), IsUnique = false, AllDescending = true)]
 [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
 [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
 public partial class V_UserLocation
@@ -28,5 +28,5 @@ public partial class V_UserLocation
     public virtual V_Location? UL_Location { get; set; }
 
     [Column(Order = 103)]
-    public Boolean? DsblRecord { get; set; }
+    public Boolean? EnableRecord { get; set; }
 }
