@@ -64,7 +64,7 @@ namespace Cheetah_DataAccess.Repository
                     ERPCode = v_Creator.PERPCode,
                     Name = v_Creator.PName,
                     DisplayName = v_Creator.PDisplayName,
-                    DsblRecord = v_Creator.DsblRecord,
+                    EnableRecord = v_Creator.EnableRecord,
                     LastUpdatedRecord = DateTime.Now
                 };
 
@@ -95,9 +95,9 @@ namespace Cheetah_DataAccess.Repository
                         changed = true;
                     }
 
-                    if (D_Creator.DsblRecord != v_Creator.DsblRecord)
+                    if (D_Creator.EnableRecord != v_Creator.EnableRecord)
                     {
-                        D_Creator.DsblRecord = v_Creator.DsblRecord;
+                        D_Creator.EnableRecord = v_Creator.EnableRecord;
                         changed = true;
                     }
 
@@ -253,7 +253,7 @@ namespace Cheetah_DataAccess.Repository
                             SecondId = position.Id,
                             Name = user.Name + "-" + position.Name,
                             DisplayName = user.DisplayName + "-" + position.DisplayName,
-                            DsblRecord = item.DsblRecord,
+                            EnableRecord = item.EnableRecord,
                             LastUpdatedRecord = DateTime.Now
                         };
                         await _db.L_UserPositions.AddAsync(l_UserPosition);
@@ -304,7 +304,7 @@ namespace Cheetah_DataAccess.Repository
                             SecondId = location.Id,
                             Name = user.Name + "-" + location.Name,
                             DisplayName = user.DisplayName + "-" + location.DisplayName,
-                            DsblRecord = item.DsblRecord,
+                            EnableRecord = item.EnableRecord,
                             LastUpdatedRecord = DateTime.Now
                         };
                         await _db.L_UserLocations.AddAsync(l_UserLocation);

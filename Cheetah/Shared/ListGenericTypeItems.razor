@@ -4,14 +4,30 @@
 @if (Records != null && Records.Any())
 {
     <MudItem xs="12" Class="pt-0">
-        <MudDataGrid T="SimpleClass" Items="@Records" Bordered="true" Striped="true">
+        <MudDataGrid T="SimpleClass" Items="@Records" Hover="true"
+                     Bordered="true" Striped="true" QuickFilter="@_quickFilter">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">@Name</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="_searchString" Placeholder="جستجو" Adornment="Adornment.Start" Immediate="true"
+                              AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
             <Columns>
                 <PropertyColumn Property="x => x.Id" Title="شناسه" />
                 <PropertyColumn Property="x => x.SortIndex" Title="ایندکس" />
                 <PropertyColumn Property="x => x.Name" Title="نام" />
                 <PropertyColumn Property="x => x.DisplayName" Title="نام نمایشی" />
                 <PropertyColumn Property="x => x.Description" Title="متن راهنما" />
-                <PropertyColumn Property="x => x.DsblRecord" Title="غیرفعال" />
+                <PropertyColumn Property="x => x.EnableRecord" Title="فعال">
+                    <CellTemplate>
+                        <MudCheckBox ReadOnly="true"
+                                     Checked="@context.Item.EnableRecord"
+                                     Color="Color.Primary"
+                                     CheckedIcon="@Icons.Material.Filled.Verified"
+                                     UnCheckedColor="Color.Error"
+                                     UncheckedIcon="@Icons.Material.Filled.DoNotDisturb" />
+                    </CellTemplate>
+                </PropertyColumn>
                 <TemplateColumn CellClass="d-flex justify-end">
                     <CellTemplate>
                         <MudButtonGroup OverrideStyles="false">
@@ -31,6 +47,9 @@
                     </CellTemplate>
                 </TemplateColumn>
             </Columns>
+            <PagerContent>
+                <MudDataGridPager T="SimpleClass" />
+            </PagerContent>
         </MudDataGrid>
     </MudItem>
 
@@ -52,7 +71,28 @@
 @code {
 
     MudDialog C_MudDialog { get; set; }
-    MudMessageBox mbox { get; set; }    
+
+    MudMessageBox mbox { get; set; }
+
+    private string _searchString;
+
+    // quick filter - filter gobally across multiple columns with the same input
+    private Func<SimpleClass, bool> _quickFilter => x =>
+    {
+        if (string.IsNullOrWhiteSpace(_searchString))
+            return true;
+
+        if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (x.DisplayName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (x.Id.ToString().Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    };
 
     public async Task PrepareLink(long? getId, CrudOperation getCrudOperation)
     {
@@ -113,6 +153,7 @@
         bool? result = await mbox.Show();
         if (result.HasValue && result.Value)
         {
+            Records = Records.Where(x => x.Id != DeletedState);
             await simpleClassRepository.delete(Name, Id);
         }
     }

@@ -32,7 +32,7 @@ public partial class V_User
     public String? User_BossName { get; set; }
 
     [Column(Order = 105)]
-    public Boolean? DsblRecord { get; set; }
+    public Boolean? EnableRecord { get; set; }
 
     #endregion
 
