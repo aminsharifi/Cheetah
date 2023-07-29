@@ -478,7 +478,7 @@ public static class ModelBuilderExtensions
                         Name = nameof(D_Tag),
                         DisplayName = new StringBuilder().Append("تگ‌ها")
                         .Append($"({TableType.Dimentions})").ToString(),
-                        Display = false
+                        Display = true
                     },
                     new D_Entity
                     {
