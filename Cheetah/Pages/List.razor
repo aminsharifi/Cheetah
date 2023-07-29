@@ -7,27 +7,23 @@
 
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
 
-<div class="row mb-2" style="direction:rtl">
-
+<div class="row">
     @if (!IsLoading)
     {
-        <div class="shadow rounded p-3 form-group my-1 col-sm-8 col-md-8">
-            <div class="input-group d-flex justify-content-end" style="direction:ltr">
-                <MudAutocomplete T="KeyValuePair<String, String>" Label="انتخاب پارامتر"
-                @bind-Value="SelectedName" ToStringFunc="@(x=>x.Value)"
-                                 SearchFunc="@Search" ResetValueOnEmptyText="@true"
-                                 AdornmentIcon="@Icons.Material.Filled.Settings"
-                                 AdornmentColor="Color.Primary" />
-
-            </div>
+        <div class="col-lg-5 col-sm-9">
+            <MudAutocomplete T="KeyValuePair<String, String>" Label="انتخاب پارامتر"
+            @bind-Value="SelectedName" ToStringFunc="@(x=>x.Value)"
+                             SearchFunc="@Search" ResetValueOnEmptyText="@true"
+                             AdornmentIcon="@Icons.Material.Filled.Settings"
+                             AdornmentColor="Color.Primary" />
         </div>
-        @if (type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
-        {
-            <div class="col-md-2 col-sm-5 my-1">
+        <div class="col-lg-5 col-sm-3">
+            @if (type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
+            {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
                         OnClick="Addnew" Label="افزودن" />
-            </div>
-        }
+            }
+        </div>
     }
 
     @if (!String.IsNullOrEmpty(Name))
