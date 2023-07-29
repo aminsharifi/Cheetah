@@ -1,6 +1,4 @@
-﻿using Cheetah.Helper;
-using Microsoft.JSInterop;
-using MudBlazor;
+﻿using MudBlazor;
 
 namespace Cheetah.Shared
 {
