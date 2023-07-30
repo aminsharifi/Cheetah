@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System;
 using System.Text;
-using Cheetah_Business.Dimentions;
 
 namespace Cheetah_DataAccess.Repository;
 

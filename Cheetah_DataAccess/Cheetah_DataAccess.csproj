@@ -12,10 +12,8 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="FluentAssertions" Version="6.11.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.32.0" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.0" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.32.1" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.32.1" />
 	</ItemGroup>
 
 	<ItemGroup>
