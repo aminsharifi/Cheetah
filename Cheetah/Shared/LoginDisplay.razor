@@ -1,12 +1,16 @@
 ﻿<AuthorizeView>
     <Authorized>
         @context.User.Identity.Name خوش آمدید
-        <a href="Identity/Account/Logout">خروج</a>
+        &nbsp&nbsp&nbsp&nbsp
+        <MudIconButton Icon="@Icons.Material.Filled.Logout" Title="خروج"
+                       Color="Color.Inherit" Edge="Edge.Start" Href="Identity/Account/Logout" />
 
     </Authorized>
     <NotAuthorized>
-        <a href="Identity/Account/Register">ثبت‌نام</a>
-        <a href="Identity/Account/Login">ورود</a>
+        <MudIconButton Icon="@Icons.Material.Filled.HowToReg" Title="ثبت‌نام"
+                       Color="Color.Inherit" Edge="Edge.Start" Href="Identity/Account/Register" />
+        <MudIconButton Icon="@Icons.Material.Filled.Login" Title="ورود"
+                       Color="Color.Inherit" Edge="Edge.Start" Href="Identity/Account/Login" />
     </NotAuthorized>
 </AuthorizeView>
 

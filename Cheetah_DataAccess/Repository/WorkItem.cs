@@ -129,8 +129,9 @@ namespace Cheetah_DataAccess.Repository
                         first_WorkItem = new()
                         {
                             Endorsement = eP_Endorsement,
-                            EndorsementId = eP_Endorsement.Id
-                        };
+                            EndorsementId = eP_Endorsement.Id,
+                            LastUpdatedRecord = DateTime.Now
+                    };
 
                         if (eP_Endorsement.IsRequestor())
                         {
@@ -227,7 +228,7 @@ namespace Cheetah_DataAccess.Repository
                 var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
                 GeneralRequest = await SetWorkItemsAsync(((F_Case)GeneralRequest));
-
+                 
                 return GeneralRequest;
             }
             catch (Exception ex)
@@ -253,7 +254,7 @@ namespace Cheetah_DataAccess.Repository
             {
                 var request = await SetCurrentAssignment(f_WorkItem);
             }
-
+            f_WorkItem.LastUpdatedRecord = DateTime.Now;
             _db.Update(f_WorkItem);
             await _db.SaveChangesAsync();
 

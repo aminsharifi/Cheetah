@@ -2,7 +2,6 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-
 option csharp_namespace = "Cheetah_GrpcService";
 
 package greet;
@@ -50,10 +49,12 @@ message OutputSync
 
 message PageCartable
 {
-    int32 PageNo = 1;
-    string Username = 2;
-    string ProcessName = 3;
-    repeated RecordCartable RecordCartables = 4;
+    int32 PageNumber = 1;
+    int32 PageSize  = 2;
+    int32 TotalItems  = 3;
+    string Username = 4;
+    string ProcessName = 5;
+    repeated RecordCartable RecordCartables = 6;
 }
 
 message RecordCartable
@@ -117,9 +118,10 @@ message GRPC_Assignment
 message GRPC_UserAssignment
 {
     int64 WorkItemId = 1;
-    GRPC_BaseClass User = 2;
-    GRPC_BaseClass Tag = 3;
-    GRPC_BaseClass WorkItem_State = 4;
+    int64 LastUpdatedRecord = 2;
+    GRPC_BaseClass User = 3;
+    GRPC_BaseClass Tag = 4;
+    GRPC_BaseClass WorkItem_State = 5;
 }
 
 message GRPC_BaseClass

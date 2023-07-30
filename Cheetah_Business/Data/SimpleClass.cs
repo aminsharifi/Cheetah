@@ -42,7 +42,7 @@ public abstract class SimpleClass
 
     [Column(Order = 7)]
     [ConcurrencyCheck]
-    public DateTime? LastUpdatedRecord { get; set; } = DateTime.Now;
+    public DateTime? LastUpdatedRecord { get; set; }
 
     [Column(Order = 8)]
     public Guid? GuidRecord { get; set; } = Guid.NewGuid();
