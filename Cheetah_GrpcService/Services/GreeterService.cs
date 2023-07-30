@@ -4,6 +4,7 @@ using Cheetah_Business.Data;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
 namespace Cheetah_GrpcService.Services
@@ -15,7 +16,7 @@ namespace Cheetah_GrpcService.Services
         private readonly ICartable _iCartable;
         private readonly IMapper _mapper;
 
-        public GreeterService(ILogger<GreeterService> logger, 
+        public GreeterService(ILogger<GreeterService> logger,
             ITableCRUD iP_ParameterListRepository, IMapper mapper, ICartable iCartable)
         {
             _logger = logger;
@@ -165,6 +166,8 @@ namespace Cheetah_GrpcService.Services
                         .Select(x => new GRPC_UserAssignment()
                         {
                             WorkItemId = x.Id.Value,
+                            LastUpdatedRecord =
+                            (x.LastUpdatedRecord is null) ? 0 : ((DateTimeOffset)x.LastUpdatedRecord.Value).ToUnixTimeSeconds(),
                             User = new GRPC_BaseClass()
                             {
                                 Id = x.UserId.Value,
@@ -195,12 +198,16 @@ namespace Cheetah_GrpcService.Services
             var cartableDTO = new CartableDTO()
             {
                 Username = request.Username,
-                ProcessName = request.ProcessName
+                ProcessName = request.ProcessName,
+                PageSize = request.PageSize,
+                PageNumber = request.PageNumber
             };
 
             var OutputRequest = (cartableProperty == CartableProperty.Inbox) ?
                 iCartable.Inbox(cartableDTO).GetAwaiter().GetResult() :
                 iCartable.Outbox(cartableDTO).GetAwaiter().GetResult();
+
+            request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
 
             request.RecordCartables.AddRange(
                 OutputRequest.Select(
@@ -208,7 +215,7 @@ namespace Cheetah_GrpcService.Services
                     {
                         CreateDate = ((DateTimeOffset)x.CreateDate).ToUnixTimeSeconds(),
                         PCreateDate = x.PCreateDate,
-                        DTag = (x.Tag is not null) ? new()
+                        DTag = (x.Tag != null) ? new()
                         {
                             Id = x.Tag.Id.Value,
                             Name = x.Tag.Name,

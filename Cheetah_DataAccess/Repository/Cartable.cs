@@ -3,6 +3,7 @@ using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Cheetah_DataAccess.Repository
 {
@@ -52,7 +53,24 @@ namespace Cheetah_DataAccess.Repository
                 f_WorkItems = f_WorkItems.Where(x => x.CaseId == long.Parse(radNumber));
             }
 
-            var Inbox = f_WorkItems
+            int _PageSize = 0;
+
+            int _PageNumber = 0;
+
+            var _Filterf_WorkItems = f_WorkItems;
+
+            if (cartableDTO.PageSize is not null)
+            {
+                _PageSize = cartableDTO.PageSize.Value;
+
+                _PageNumber = cartableDTO.PageNumber.Value;
+
+                _Filterf_WorkItems = f_WorkItems.Skip(_PageNumber * (_PageSize - 1)).Take(_PageSize);
+            }
+
+            var _TotalItems = f_WorkItems.Count();
+
+            var Inbox = _Filterf_WorkItems
             .Select(x =>
             new CartableDTO()
             {
@@ -63,27 +81,30 @@ namespace Cheetah_DataAccess.Repository
                 TaskName = x.Endorsement.DisplayName,
                 CreateDate = x.Case.CreateTimeRecord,
                 RecieveDate = x.CreateTimeRecord,
-                Summary = string.Empty
+                Summary = string.Empty,
+                PageSize = _PageSize,
+                PageNumber = _PageNumber,
+                TotalItems = _TotalItems
             }
             );
 
             return Inbox;
         }
-        public async Task<IEnumerable<CartableDTO>> Inbox(CartableDTO cartableDTO)
+        public async Task<IQueryable<CartableDTO>> Inbox(CartableDTO cartableDTO)
         {
             var inboxQuery = _db.F_WorkItems.Where(x => x.WorkItemStateId == 1);
 
-            var inbox = GetCartable(cartableDTO, inboxQuery).AsEnumerable();
+            var inbox = GetCartable(cartableDTO, inboxQuery);
 
-            return inbox.ToList();
+            return inbox;
         }
-        public async Task<IEnumerable<CartableDTO>> Outbox(CartableDTO cartableDTO)
+        public async Task<IQueryable<CartableDTO>> Outbox(CartableDTO cartableDTO)
         {
             var outBoxQuery = _db.F_WorkItems.Where(x => x.WorkItemStateId == 2);
 
-            var outBox = GetCartable(cartableDTO, outBoxQuery).AsEnumerable();
+            var outBox = GetCartable(cartableDTO, outBoxQuery);
 
-            return outBox.ToList();
+            return outBox;
         }
     }
 }

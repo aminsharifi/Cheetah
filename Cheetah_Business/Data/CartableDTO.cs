@@ -1,10 +1,15 @@
 ﻿using Cheetah_Business.Dimentions;
+using System;
 
 namespace Cheetah_Business.Data;
 
 public class CartableDTO
 {
     private CPersianClass? cPersianClass = new CPersianClass();
+
+    public Int32? PageNumber { get; set; }
+    public Int32? PageSize { get; set; }
+    public Int32? TotalItems { get; set; }
     public virtual D_Tag? Tag { get; set; }
     public String? Username { get; set; }
     public String? Requestor { get; set; }
