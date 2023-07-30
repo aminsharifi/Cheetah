@@ -1,6 +1,6 @@
 ﻿@if (Records.sd_Status is not null)
 {
-    <MudDataGrid Items="@Records.floatState"
+    <MudDataGrid Items="@Records.floatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"
                  T="KeyValuePair<Tuple<long?, string>, bool>" Hover="true"
                  Bordered="true" Striped="true"
                  QuickFilter="@_quickFilter">
@@ -18,7 +18,7 @@
                                  Color="Color.Tertiary"
                                  CheckedIcon="@Icons.Material.Filled.Bookmark"
                                  UncheckedIcon="@Icons.Material.Filled.BookmarkBorder"
-                                 @onclick="args=>TogglePattern(context.Item)" />
+                    @onclick="args=>TogglePattern(context.Item)" />
                 </CellTemplate>
             </PropertyColumn>
             <PropertyColumn Property="x => x.Key.Item2" Title="نام" />

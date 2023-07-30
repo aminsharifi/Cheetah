@@ -47,7 +47,7 @@ public abstract class SimpleClass
     [Column(Order = 8)]
     public Guid? GuidRecord { get; set; } = Guid.NewGuid();
 
-    [DefaultValue(false)]
+    [DefaultValue(true)]
     [Column(Order = 9)]
     [Description("فعال")]
     public bool? EnableRecord { get; set; } = true;

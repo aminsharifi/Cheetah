@@ -487,7 +487,7 @@ public static class ModelBuilderExtensions
                         Name = nameof(D_Position),
                         DisplayName = new StringBuilder().Append("سمت‌ها")
                         .Append($"({TableType.Dimentions})").ToString(),
-                        Display = true
+                        Display = false
                     },
                     new D_Entity
                     {
@@ -577,7 +577,7 @@ public static class ModelBuilderExtensions
                         Name = nameof(F_Case),
                         DisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها")
                         .Append($"({TableType.Facts})").ToString(),
-                        Display = true
+                        Display = false
                     },
                      new D_Entity
                      {
