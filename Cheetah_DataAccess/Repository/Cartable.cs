@@ -65,7 +65,7 @@ namespace Cheetah_DataAccess.Repository
 
                 _PageNumber = cartableDTO.PageNumber.Value;
 
-                _Filterf_WorkItems = f_WorkItems.Skip(_PageNumber * (_PageSize - 1)).Take(_PageSize);
+                _Filterf_WorkItems = f_WorkItems.Skip(_PageSize * (_PageNumber - 1)).Take(_PageSize);
             }
 
             var _TotalItems = f_WorkItems.Count();

@@ -48,8 +48,7 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<D_User> GetUser(string PName)
         {
-            var Cheetah_User = 
-             await _itableCRUD.Get(nameof(D_User), PName) as D_User;
+            var Cheetah_User = _db.D_Users.Where(x => x.Name == PName);
 
             var ERP_User = _db.V_Users.Where(x => x.PName == PName);
 
@@ -59,7 +58,7 @@ namespace Cheetah_DataAccess.Repository
             {
                 var v_Creator = await ERP_User.SingleAsync();
 
-                var D_Creator = new D_User()
+                SelectedUser = new D_User()
                 {
                     ERPCode = v_Creator.PERPCode,
                     Name = v_Creator.PName,
@@ -68,57 +67,55 @@ namespace Cheetah_DataAccess.Repository
                     LastUpdatedRecord = DateTime.Now
                 };
 
-                if (!string.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
+                if (!string.IsNullOrEmpty(v_Creator.User_BossName)
+                    && v_Creator.User_BossName != v_Creator.PName)
                 {
-                    D_Creator.Parent_Id = GetUser(v_Creator.User_BossName).GetAwaiter().GetResult().Id;
+                    SelectedUser.Parent_Id = (await GetUser(v_Creator.User_BossName)).Id;
                 }
 
-                await _db.D_Users.AddAsync(D_Creator);
-
-                SelectedUser = D_Creator;
+                await _db.D_Users.AddAsync(SelectedUser);
 
                 await _db.SaveChangesAsync();
             }
             else
             {
-                var D_Creator =  Cheetah_User;
+                SelectedUser = await Cheetah_User.Include(x => x.Parent).SingleAsync();
 
-                if (D_Creator.LastUpdatedRecord < DateTime.Now.AddMinutes(-10))
+                if (SelectedUser.LastUpdatedRecord < DateTime.Now.AddMinutes(-10))
                 {
                     var v_Creator = await ERP_User.SingleAsync();
 
                     var changed = false;
 
-                    if (D_Creator.DisplayName != v_Creator.PDisplayName)
+                    if (SelectedUser.DisplayName != v_Creator.PDisplayName)
                     {
-                        D_Creator.DisplayName = v_Creator.PDisplayName;
+                        SelectedUser.DisplayName = v_Creator.PDisplayName;
                         changed = true;
                     }
 
-                    if (D_Creator.EnableRecord != v_Creator.EnableRecord)
+                    if (SelectedUser.EnableRecord != v_Creator.EnableRecord)
                     {
-                        D_Creator.EnableRecord = v_Creator.EnableRecord;
+                        SelectedUser.EnableRecord = v_Creator.EnableRecord;
                         changed = true;
                     }
 
                     if (!string.IsNullOrEmpty(v_Creator.User_BossName) && v_Creator.User_BossName != v_Creator.PName)
                     {
-                        if (D_Creator.Parent is null || D_Creator.Parent?.Name != v_Creator.User_BossName)
+                        if (SelectedUser.Parent is null || SelectedUser.Parent?.Name != v_Creator.User_BossName)
                         {
-                            D_Creator.Parent = await GetUser(v_Creator.User_BossName);
+                            SelectedUser.Parent = await GetUser(v_Creator.User_BossName);
 
                             changed = true;
                         }
                     }
 
-                    D_Creator.LastUpdatedRecord = DateTime.Now;
+                    SelectedUser.LastUpdatedRecord = DateTime.Now;
 
                     if (changed)
                     {
                         await _db.SaveChangesAsync();
                     }
                 }
-                SelectedUser = D_Creator;
             }
 
             return SelectedUser;
@@ -136,7 +133,8 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<D_Position> GetPosition(string PName)
         {
-            var D_Positions = await _itableCRUD.Get(nameof(D_Position), PName) as D_Position;
+            var D_Positions = await _db.D_Positions.Where(x => x.Name == PName).SingleOrDefaultAsync();
+
             var d_Position = new D_Position();
 
             var V_Positions = _db.V_Positions.Where(x => x.PName == PName);
@@ -197,7 +195,7 @@ namespace Cheetah_DataAccess.Repository
             }
             else
             {
-                d_Location =  D_Positions;
+                d_Location = D_Positions;
                 d_Location.Name = V_Location.PName;
                 d_Location.DisplayName = V_Location.PDisplayName;
             }

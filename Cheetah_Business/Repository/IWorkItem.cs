@@ -4,13 +4,12 @@ namespace Cheetah_Business.Repository
 {
     public interface IWorkItem
     {
-        
-        public Task<F_Case> SetInboxAndFuture(F_WorkItem f_WorkItem);
-        public Task<F_Case> Exit(F_WorkItem f_WorkItem);
-        public Task<F_Case> SetCurrentAssignment(F_WorkItem? f_WorkItem);
-        public Task<F_Case> SetWorkItemsAsync(F_Case GeneralRequest);
-        public Task<F_Case> CreateRequestAsync(F_Case request);
-        public Task<F_Case> PerformWorkItemAsync(F_WorkItem f_WorkItem);
+        public Task SetInboxAndFuture(Int64 workItem_Id);
+        public Task Exit(Int64 workItem_Id);
+        public Task SetCurrentAssignment(Int64 workItem_Id);
+        public Task SetWorkItemsAsync(Int64 workItem_Id);
+        public Task<Int64> CreateRequestAsync(F_Case request);
+        public Task PerformWorkItemAsync(F_WorkItem f_WorkItem);
         public Boolean CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions);
     }
 }
