@@ -22,104 +22,145 @@ namespace Cheetah_DataAccess.Repository
             _itableCRUD = itableCRUD;
             _iCopyClass = iCopyClass;
         }
-        public async Task<F_Case> SetInboxAndFuture(F_WorkItem f_WorkItem)
+        public async Task SetInboxAndFuture(Int64 workItem_Id)
         {
-            var Current_SortIndex = f_WorkItem.Endorsement.SortIndex;
+            var Current_WorkItem = await _db.F_WorkItems
+              .Where(x => x.Id == workItem_Id)
+              .Include(x => x.Case)
+              .ThenInclude(x => x.WorkItems)
+              .ThenInclude(x => x.Endorsement)
+              .FirstAsync();
 
-            f_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
+            var Current_SortIndex = Current_WorkItem.Endorsement.SortIndex;
+
+            Current_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
             x.Endorsement.SortIndex == Current_SortIndex)
                        .ToList().ForEach(x => x.SetExit());
 
-            var Next_SortIndex = f_WorkItem.Case.IsEditing() ? Current_SortIndex : Current_SortIndex + 1;
+            var Next_SortIndex = Current_WorkItem.Case.IsEditing() ? Current_SortIndex : Current_SortIndex + 1;
 
-            f_WorkItem.Case.WorkItems.Where(x => x.Endorsement.SortIndex == Next_SortIndex
-            && x.Id >= f_WorkItem.Id)
+            Current_WorkItem.Case.WorkItems
+                .Where(x => x.Endorsement.SortIndex == Next_SortIndex
+                && x.Id >= workItem_Id)
                 .ToList().ForEach(x => x.SetInbox());
 
-            f_WorkItem.Case.WorkItems.Where(x => x.Endorsement.SortIndex > Next_SortIndex
-            && x.Id > f_WorkItem.Id)
+            Current_WorkItem.Case.WorkItems
+                .Where(x => x.Endorsement.SortIndex > Next_SortIndex
+                && x.Id > workItem_Id)
                 .ToList().ForEach(x => x.SetFuture());
 
-            return f_WorkItem.Case;
-        }
-        public async Task<F_Case> Exit(F_WorkItem f_WorkItem)
-        {
-            var Current_SortIndex = f_WorkItem.Endorsement.SortIndex;
+            _db.Update(Current_WorkItem);
+            await _db.SaveChangesAsync();
 
-            f_WorkItem.Case.WorkItems.Where(x => !x.IsSent() &&
+        }
+        public async Task Exit(Int64 workItem_Id)
+        {
+            var Current_WorkItem = await _db.F_WorkItems
+            .Where(x => x.Id == workItem_Id)
+            .Include(x => x.Case)
+            .ThenInclude(x => x.WorkItems)
+            .ThenInclude(x => x.Endorsement)
+            .FirstAsync();
+
+            var Current_SortIndex = Current_WorkItem.SortIndex;
+
+            Current_WorkItem.Case.WorkItems.Where(x => !x.IsSent() &&
             x.Endorsement.SortIndex >= Current_SortIndex)
                        .ToList().ForEach(x => x.SetExit());
 
-            return f_WorkItem.Case;
+            _db.Update(Current_WorkItem);
+            await _db.SaveChangesAsync();
         }
-        public async Task<F_Case> SetCurrentAssignment(F_WorkItem? f_WorkItem)
+        public async Task SetCurrentAssignment(Int64 workItem_Id)
         {
-            if (f_WorkItem.IsReject())
+            var Current_WorkItem = await _db.F_WorkItems
+            .Where(x => x.Id == workItem_Id)
+            .Include(x => x.Case)
+            .ThenInclude(x => x.WorkItems)
+            .ThenInclude(x => x.Endorsement)
+            .FirstAsync();
+
+            Current_WorkItem.LastUpdatedRecord = DateTime.Now;
+
+            if (Current_WorkItem.IsReject())
             {
-                f_WorkItem.Case.SetAborted();
-                f_WorkItem.Case = await Exit(f_WorkItem);
+                Current_WorkItem.Case.SetAborted();
+                _db.Update(Current_WorkItem);
+                await _db.SaveChangesAsync();
+                await Exit(workItem_Id);
             }
-            else if (f_WorkItem.IsApprove())
+            else if (Current_WorkItem.IsApprove())
             {
-                f_WorkItem.Case.SetOngoing();
+                Current_WorkItem.Case.SetOngoing();
+                _db.Update(Current_WorkItem);
+                await _db.SaveChangesAsync();
+                await SetInboxAndFuture(workItem_Id);
 
-                f_WorkItem.Case = await SetInboxAndFuture(f_WorkItem);
-
-                if (!f_WorkItem.Case.WorkItems.Any(x => x.IsInbox() || x.IsFuture()))
+                if (!Current_WorkItem.Case.WorkItems.Any(x => x.IsInbox() || x.IsFuture()))
                 {
-                    f_WorkItem.Case.SetCompleted();
+                    Current_WorkItem.Case.SetCompleted();
+                    _db.Update(Current_WorkItem);
+                    await _db.SaveChangesAsync();
                 }
             }
-
-            _db.Update(f_WorkItem);
-
-            await _db.SaveChangesAsync();
-
-            return f_WorkItem.Case;
         }
-        public async Task<F_Case> SetWorkItemsAsync(F_Case GeneralRequest)
+        public async Task SetWorkItemsAsync(Int64 Case_Id)
         {
+            var Current_Case = await _db.F_Cases
+              .Where(x => x.Id == Case_Id)
+              .Include(x => x.WorkItems)
+              .ThenInclude(x => x.Endorsement)
+              .Include(x => x.Conditions)
+              .FirstAsync();
+
             try
             {
-                var pc_ProcessScenario = _db.L_ProcessScenarios.Where(x => x.FirstId ==
-                GeneralRequest.ProcessId).ToList();
+                var pc_ProcessScenario = await _db.L_ProcessScenarios
+                    .Where(x => x.FirstId == Current_Case.ProcessId)
+                    .Include(x => x.Scenario)
+                    .ThenInclude(x => x.Conditions)
+                    .AsNoTracking()
+                    .ToListAsync();
+
+                var Actual_Conditions = Current_Case.Conditions;
 
                 foreach (var ProcessScenario in pc_ProcessScenario)
                 {
                     var ConditionOccures = false;
 
-                    if (GeneralRequest.Conditions is null || GeneralRequest.Conditions.Count() == 0)
+                    if (Actual_Conditions.Count() == 0)
                     {
                         ConditionOccures = true;
                     }
                     else
                     {
-                        var Actual_Conditions = GeneralRequest.Conditions.ToList();
-
-                        var Expected_Conditions = ProcessScenario.Scenario.Conditions.ToList();
+                        var Expected_Conditions = ProcessScenario.Scenario.Conditions;
 
                         ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
                     }
                     if (ConditionOccures)
                     {
-                        GeneralRequest.SelectedScenario = ProcessScenario.Scenario;
+                        Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
                         break;
                     }
                 }
 
-                if (GeneralRequest.WorkItems is null || GeneralRequest.WorkItems.Count() == 0)
+                if (Current_Case.WorkItems is null)
                 {
-                    GeneralRequest.WorkItems = new HashSet<F_WorkItem>();
+                    Current_Case.WorkItems = new HashSet<F_WorkItem>();
                 }
 
-                var eP_Endorsements = _db.F_Endorsements
-                    .Where(x => x.Scenario == GeneralRequest.SelectedScenario)
+                var eP_Endorsements = await _db.F_Endorsements
+                    .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId)
                     .Include(x => x.Role)
-                    .OrderBy(x => x.SortIndex).ToList();
+                    .OrderBy(x => x.SortIndex)
+                    .Include(x => x.Conditions)
+                    .AsNoTracking()
+                    .ToListAsync();
 
                 F_WorkItem first_WorkItem = new()
                 {
-                    Case = GeneralRequest
+                    CaseId = Case_Id
                 };
 
                 foreach (var eP_Endorsement in eP_Endorsements)
@@ -128,16 +169,14 @@ namespace Cheetah_DataAccess.Repository
                     {
                         first_WorkItem = new()
                         {
-                            Endorsement = eP_Endorsement,
                             EndorsementId = eP_Endorsement.Id,
                             LastUpdatedRecord = DateTime.Now
-                    };
+                        };
 
                         if (eP_Endorsement.IsRequestor())
                         {
-                            first_WorkItem.UserId = GeneralRequest.Requestor.Id;
-                            first_WorkItem.User = GeneralRequest.Requestor;
-                            if (!GeneralRequest.IsEditing())
+                            first_WorkItem.UserId = Current_Case.RequestorId;
+                            if (!Current_Case.IsEditing())
                             {
                                 first_WorkItem.SetApprove();
                                 first_WorkItem.SetSent();
@@ -145,23 +184,32 @@ namespace Cheetah_DataAccess.Repository
                         }
                         else if (eP_Endorsement.IsRequestorManager())
                         {
-                            first_WorkItem.UserId = GeneralRequest.Requestor.Parent_Id;
-                            first_WorkItem.User = GeneralRequest.Requestor.Parent;
+                            first_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
                         }
 
-                        GeneralRequest.WorkItems.Add(first_WorkItem);
+                        Current_Case.WorkItems.Add(first_WorkItem);
                     }
                     else
                     {
-                        if (CompareCondition(GeneralRequest.Conditions, eP_Endorsement.Conditions))
+                        if (CompareCondition(Actual_Conditions, eP_Endorsement.Conditions))
                         {
                             var Positions = await _db.L_RolePositions
-                                .Where(x => x.FirstId == eP_Endorsement.RoleId).Select(x => x.SecondId).ToListAsync();
+                                .Where(x => x.FirstId == eP_Endorsement.RoleId)
+                                .AsNoTracking()
+                                .Select(x => x.SecondId)
+                                .ToListAsync();
 
-                            var Users = await _db.L_UserPositions.Where(x => Positions.Contains(x.SecondId))
-                                .Select(x => x.FirstId).ToListAsync();
+                            var Users = await _db.L_UserPositions
+                                .Where(x => Positions.Contains(x.SecondId))
+                                .AsNoTracking()
+                                .Select(x => x.FirstId)
+                                .ToListAsync();
 
-                            var D_Users = await _db.D_Users.Where(x => Users.Contains(x.Id)).ToListAsync();
+                            var D_Users = await _db.D_Users
+                                .Where(x => Users.Contains(x.Id))
+                                .Include(x => x.UserLocations)
+                                .AsNoTracking()
+                                .ToListAsync();
 
                             foreach (var D_User in D_Users)
                             {
@@ -173,9 +221,11 @@ namespace Cheetah_DataAccess.Repository
                                 }
                                 else
                                 {
-                                    var userLocations = _db.L_UserLocations
-                                        .Where(x => x.FirstId == GeneralRequest.RequestorId)
-                                        .Select(x => x.SecondId).ToList();
+                                    var userLocations = await _db.L_UserLocations
+                                        .Where(x => x.FirstId == Current_Case.RequestorId)
+                                        .AsNoTracking()
+                                        .Select(x => x.SecondId)
+                                        .ToListAsync();
 
                                     if (D_User.UserLocations.Any(x => userLocations.Contains(x.SecondId)))
                                     {
@@ -186,79 +236,64 @@ namespace Cheetah_DataAccess.Repository
                                 {
                                     F_WorkItem f_WorkItem = new()
                                     {
-                                        Case = GeneralRequest,
-                                        Endorsement = eP_Endorsement,
+                                        CaseId = Case_Id,
                                         EndorsementId = eP_Endorsement.Id,
                                         UserId = D_User.Id
                                     };
-                                    GeneralRequest.WorkItems.Add(f_WorkItem);
+                                    Current_Case.WorkItems.Add(f_WorkItem);
                                 }
                             }
                         }
                     }
                 }
 
-                GeneralRequest = _db.Update(GeneralRequest).Entity;
-
-                _db.Update(GeneralRequest);
+                _db.Update(Current_Case);
 
                 await _db.SaveChangesAsync();
 
-                var request = await SetCurrentAssignment(first_WorkItem);
-
-                _db.Update(GeneralRequest);
-
-                await _db.SaveChangesAsync();
+                await SetCurrentAssignment(first_WorkItem.Id.Value);
             }
             catch (Exception ex)
             {
                 throw;
             }
 
-            var ret_Requests = await _db.F_Cases
-                .Include(x => x.CaseState)
-                .SingleAsync(x => x.Id == GeneralRequest.Id);
-
-            return ret_Requests;
         }
-        public async Task<F_Case> CreateRequestAsync(F_Case request)
+        public async Task<Int64> CreateRequestAsync(F_Case request)
         {
             try
             {
                 var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
-                GeneralRequest = await SetWorkItemsAsync(((F_Case)GeneralRequest));
-                 
-                return GeneralRequest;
+                await SetWorkItemsAsync(GeneralRequest.Id.Value);
+
+                return GeneralRequest.Id.Value;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public async Task<F_Case> PerformWorkItemAsync(F_WorkItem f_WorkItem)
+        public async Task PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {
             if (f_WorkItem.IsRevise())
             {
                 f_WorkItem.Case.SetEditing();
+                _db.Update(f_WorkItem);
+                await _db.SaveChangesAsync();
 
-                f_WorkItem.Case = await Exit(f_WorkItem);
+                await Exit(f_WorkItem.Id.Value);
 
-                f_WorkItem.Case = await SetWorkItemsAsync(f_WorkItem.Case);
+                await SetWorkItemsAsync(f_WorkItem.CaseId.Value);
 
-                f_WorkItem.Case = await SetInboxAndFuture(f_WorkItem.Case.WorkItems
+                await SetInboxAndFuture(f_WorkItem.Case.WorkItems
                     .Where(x => x.WorkItemStateId is null || x.WorkItemStateId == 0)
-                    .MinBy(x => x.Id));
+                    .MinBy(x => x.Id).Id.Value);
             }
             else
             {
-                var request = await SetCurrentAssignment(f_WorkItem);
+                await SetCurrentAssignment(f_WorkItem.Id.Value);
             }
-            f_WorkItem.LastUpdatedRecord = DateTime.Now;
-            _db.Update(f_WorkItem);
-            await _db.SaveChangesAsync();
-
-            return f_WorkItem.Case;
         }
         public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions,
             IEnumerable<F_Condition> Expected_Conditions)
@@ -294,5 +329,6 @@ namespace Cheetah_DataAccess.Repository
             }
             return ConditionOccur == cnt_con;
         }
+
     }
 }

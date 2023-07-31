@@ -25,7 +25,9 @@ namespace Cheetah_DataAccess.Repository
             {
                 foreach (var item in obj.Conditions)
                 {
-                    item.TagId = await _db.D_Tags.Where(x => x.Name == item.Tag.Name)
+                    item.TagId = await _db.D_Tags
+                        .Where(x => x.Name == item.Tag.Name)
+                        .AsNoTracking()
                         .Select(x => x.Id).SingleAsync();
 
                     item.Tag = null;

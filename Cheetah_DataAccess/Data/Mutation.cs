@@ -3,6 +3,7 @@ using Cheetah_Business.Repository;
 using HotChocolate;
 using HotChocolate.Authorization;
 using HotChocolate.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_DataAccess.Data;
 
@@ -43,9 +44,13 @@ public class Mutation
     [UseSorting]
     [Authorize]
     public async Task<F_Case> CreateRequestAsync(
-        [Service] IWorkItem iWorkItem, F_Case request)
+        [Service] IWorkItem iWorkItem,
+        [Service] ApplicationDbContext _db,
+        F_Case request)
     {
-        return await iWorkItem.CreateRequestAsync(request);
+        var CaseId = await iWorkItem.CreateRequestAsync(request);
+
+        return await _db.F_Cases.SingleAsync(x => x.Id == CaseId);
     }
     #endregion
 
@@ -55,9 +60,13 @@ public class Mutation
     [UseSorting]
     [Authorize]
     public async Task<F_Case> PerformWorkItemAsync(
-           [Service] IWorkItem iWorkItem, F_WorkItem request)
+           [Service] IWorkItem iWorkItem,
+           [Service] ApplicationDbContext _db,
+           F_WorkItem request)
     {
-        return await iWorkItem.PerformWorkItemAsync(request);
+         await iWorkItem.PerformWorkItemAsync(request);
+
+        return await _db.F_Cases.SingleAsync(x=>x.Id == request.CaseId);
     }
     #endregion
 

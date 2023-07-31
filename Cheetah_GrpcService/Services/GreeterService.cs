@@ -6,6 +6,7 @@ using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_GrpcService.Services
 {
@@ -62,7 +63,7 @@ namespace Cheetah_GrpcService.Services
             this.iWorkItem = _iWorkItem;
         }
 
-        public override Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
+        public override async Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Case();
 
@@ -71,35 +72,48 @@ namespace Cheetah_GrpcService.Services
             f_Request.Process = new() { Name = request.ProcessName };
             f_Request.ERPCode = request.ERPCode;
 
-            f_Request = iWorkItem.CreateRequestAsync(f_Request)
+            var RequestId = iWorkItem.CreateRequestAsync(f_Request)
+                .GetAwaiter().GetResult();
+
+            var caseState = _db.F_Cases.Where(x => x.Id == RequestId)
+                .Select(x=>x.CaseState)
+                .SingleAsync()
                 .GetAwaiter().GetResult();
 
             var output_Request = new Brief_Output_Request();
 
+            output_Request.Id = RequestId;
+
             output_Request.ProcessState =
                 new()
                 {
-                    Id = f_Request.CaseStateId.Value,
-                    Name = f_Request.CaseState.Name,
-                    DisplayName = f_Request.CaseState.DisplayName
+                    Id = caseState.Id.Value,
+                    Name = caseState.Name,
+                    DisplayName = caseState.DisplayName
                 };
 
-            output_Request.Id = f_Request.Id.Value;
-
-            return Task.FromResult(output_Request);
+            return output_Request;
         }
         public override Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var F_WorkItem = _db.F_WorkItems.Single(x => x.Id == request.WorkItemId);
-            var tagId = _db.D_Tags.Single(x => x.Name == request.TagName).Id;
-            F_WorkItem.TagId = tagId;
-            F_WorkItem.WorkItemStateId = 2;
-            _db.Update(F_WorkItem);
+            var F_WorkItem = _db.F_WorkItems.SingleAsync(x => x.Id == request.WorkItemId)
+                .GetAwaiter().GetResult();
 
+            var tagId = _db.D_Tags.SingleAsync(x => x.Name == request.TagName)
+                .GetAwaiter().GetResult().Id;
+
+            F_WorkItem.TagId = tagId;
+
+            F_WorkItem.WorkItemStateId = 2;
+
+            _db.Update(F_WorkItem);
             _db.SaveChangesAsync().GetAwaiter().GetResult();
 
-            var f_Request = iWorkItem.PerformWorkItemAsync(F_WorkItem)
+            iWorkItem.PerformWorkItemAsync(F_WorkItem)
             .GetAwaiter().GetResult();
+
+            var f_Request = _db.F_Cases.Where(x => x.Id == F_WorkItem.CaseId)
+                .SingleAsync().GetAwaiter().GetResult();
 
             var output_Request = new Brief_Output_Request()
             {
