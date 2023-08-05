@@ -1,7 +1,10 @@
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Repository;
+using Cheetah_GrpcService.Middleware;
 using Cheetah_GrpcService.Services;
+using FluentAssertions.Common;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -42,12 +45,23 @@ builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
 builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
 
-builder.Services.AddGrpc();
+//builder.Services.AddGrpc();
 
+builder.Services.AddGrpc(options =>
+{
+    {
+        options.Interceptors.Add<ServerLoggerInterceptor>();
+        options.EnableDetailedErrors = true;
+    }
+});
+
+
+
+builder.Services.AddTransient<ExceptionMiddleware>();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<RequestService>();
 app.UseSerilogRequestLogging();
+app.UseMiddleware<ExceptionMiddleware>();
 app.Run();
