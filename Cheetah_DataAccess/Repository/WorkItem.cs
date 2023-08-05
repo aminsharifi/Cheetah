@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Exceptions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -262,25 +263,19 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<Int64> CreateRequestAsync(F_Case request)
         {
-            try
-            {
-                var GeneralRequest = await _iCopyClass.DeepCopy(request);
+            var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
-                await SetWorkItemsAsync(GeneralRequest.Id.Value);
+            await SetWorkItemsAsync(GeneralRequest.Id.Value);
 
-                var log = new LoggerConfiguration()
-                             .WriteTo.Console()
-                             .WriteTo.File("Serilog.txt")
-                             .CreateLogger();
+            var log = new LoggerConfiguration()
+                         .WriteTo.Console()
+                         .WriteTo.File("Serilog.txt")
+                         .CreateLogger();
 
-                log.Information($"CreateRequestAsync-{request.Id}");
+            log.Information($"CreateRequestAsync-{request.Id}");
 
-                return GeneralRequest.Id.Value;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return GeneralRequest.Id.Value;
+
         }
         public async Task PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {
