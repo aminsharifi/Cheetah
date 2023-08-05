@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
+using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
+using Cheetah_DataAccess.Repository;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
@@ -13,17 +16,20 @@ namespace Cheetah_GrpcService.Services
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private readonly ITableCRUD _simpleClassRepository;
+        private readonly ITableCRUD _isimpleClassRepository;
         private readonly ICartable _iCartable;
-        private readonly IMapper _mapper;
+        private readonly IMapper _imapper;
+        private readonly ICopyClass _iCopyClass;
 
         public GreeterService(ILogger<GreeterService> logger,
-            ITableCRUD iP_ParameterListRepository, IMapper mapper, ICartable iCartable)
+            ITableCRUD iP_ParameterListRepository, IMapper mapper,
+            ICartable iCartable, ICopyClass _iCopyClass)
         {
             _logger = logger;
-            this._mapper = mapper;
-            this._simpleClassRepository = iP_ParameterListRepository;
+            this._imapper = mapper;
+            this._isimpleClassRepository = iP_ParameterListRepository;
             this._iCartable = iCartable;
+            this._iCopyClass = _iCopyClass;
         }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
@@ -46,12 +52,13 @@ namespace Cheetah_GrpcService.Services
         private readonly IView iView;
         private readonly IWorkItem iWorkItem;
         private readonly IMapper _mapper;
+        private readonly ICopyClass _iCopyClass;
         protected ApplicationDbContext _db;
         public RequestService(ILogger<GreeterService> logger,
             ApplicationDbContext db,
             ITableCRUD iP_ParameterListRepository,
             ICartable _iCartable, ISync _iSync, IView _iView, IWorkItem _iWorkItem,
-            IMapper mapper)
+            IMapper mapper, ICopyClass _iCopyClass)
         {
             _logger = logger;
             _db = db;
@@ -61,24 +68,38 @@ namespace Cheetah_GrpcService.Services
             this.iSync = _iSync;
             this.iView = _iView;
             this.iWorkItem = _iWorkItem;
+            this._iCopyClass = _iCopyClass;
         }
 
         public override async Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Case();
 
-            f_Request.Creator = new() { Name = request.CreatorName };
-            f_Request.Requestor = new() { Name = request.RequestorName };
-            f_Request.Process = new() { Name = request.ProcessName };
+            f_Request.Creator = new()
+            {
+                Name = request.Creator.Name,
+                ERPCode = request.Creator.ERPCode
+            };
+
+            f_Request.Requestor = new()
+            {
+                Name = request.Requestor.Name,
+                ERPCode = request.Requestor.ERPCode
+            };
+            f_Request.Process = new()
+            {
+                Name = request.Process.Name,
+                ERPCode = request.Process.ERPCode
+            };
+
             f_Request.ERPCode = request.ERPCode;
 
-            var RequestId = iWorkItem.CreateRequestAsync(f_Request)
-                .GetAwaiter().GetResult();
+            var RequestId = await iWorkItem.CreateRequestAsync(f_Request);
 
-            var caseState = _db.F_Cases.Where(x => x.Id == RequestId)
-                .Select(x=>x.CaseState)
-                .SingleAsync()
-                .GetAwaiter().GetResult();
+            var caseState = await _db.F_Cases.Where(x => x.Id == RequestId)
+                .Select(x => x.CaseState)
+                .AsNoTracking()
+                .SingleAsync();
 
             var output_Request = new Brief_Output_Request();
 
@@ -88,32 +109,40 @@ namespace Cheetah_GrpcService.Services
                 new()
                 {
                     Id = caseState.Id.Value,
+                    ERPCode = caseState.ERPCode.Value,
                     Name = caseState.Name,
                     DisplayName = caseState.DisplayName
                 };
 
             return output_Request;
         }
-        public override Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
+        public override async Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var F_WorkItem = _db.F_WorkItems.SingleAsync(x => x.Id == request.WorkItemId)
-                .GetAwaiter().GetResult();
+            var F_WorkItem = await
+                _db.F_WorkItems
+                .AsNoTracking()
+                .SingleAsync(x => x.Id == request.WorkItemId);
 
-            var tagId = _db.D_Tags.SingleAsync(x => x.Name == request.TagName)
-                .GetAwaiter().GetResult().Id;
+            var tagId = await _iCopyClass
+                .GetSimpleClassId(_db.D_Tags, new D_Tag()
+                {
+                    Name = request.Tag.Name,
+                    ERPCode = request.Tag.ERPCode
+                });
 
             F_WorkItem.TagId = tagId;
 
             F_WorkItem.WorkItemStateId = 2;
 
             _db.Update(F_WorkItem);
-            _db.SaveChangesAsync().GetAwaiter().GetResult();
 
-            iWorkItem.PerformWorkItemAsync(F_WorkItem)
-            .GetAwaiter().GetResult();
+            await _db.SaveChangesAsync();
 
-            var f_Request = _db.F_Cases.Where(x => x.Id == F_WorkItem.CaseId)
-                .SingleAsync().GetAwaiter().GetResult();
+            await iWorkItem.PerformWorkItemAsync(F_WorkItem);
+
+            var f_Request = await _db.F_Cases
+                .Where(x => x.Id == F_WorkItem.CaseId)
+                .SingleAsync();
 
             var output_Request = new Brief_Output_Request()
             {
@@ -121,12 +150,13 @@ namespace Cheetah_GrpcService.Services
                 ProcessState = new GRPC_BaseClass()
                 {
                     Id = f_Request.CaseStateId.Value,
+                    ERPCode = f_Request.CaseState.ERPCode.Value,
                     Name = f_Request.CaseState.Name,
                     DisplayName = f_Request.CaseState.DisplayName
                 }
             };
 
-            return Task.FromResult(output_Request);
+            return output_Request;
         }
         public override Task<DetailOutput_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
         {
