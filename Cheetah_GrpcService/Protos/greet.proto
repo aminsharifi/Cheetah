@@ -88,16 +88,16 @@ message Create_Input_Request
 {
      
      int64  ERPCode = 1;
-     string Creator_Name = 2;
-     string Requestor_Name = 3;
-     string Process_Name = 4;
+     GRPC_BaseClass Creator = 2;
+     GRPC_BaseClass Requestor = 3;
+     GRPC_BaseClass Process = 4;
      repeated GRPC_BaseClass Conditions = 5;
 }
 
 message Perform_Input_Request
 {
      int64  WorkItemId = 1;
-     string Tag_Name = 2;
+     GRPC_BaseClass Tag = 2;
 }
 
 message DetailOutput_Request
@@ -127,6 +127,7 @@ message GRPC_UserAssignment
 message GRPC_BaseClass
 {
     int64 Id = 1;
-    string Name = 2;
-    string DisplayName = 3;    
+    int64 ERPCode = 2;
+    string Name = 3;
+    string DisplayName = 4;
 }
