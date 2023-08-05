@@ -3,8 +3,11 @@ using Cheetah_DataAccess.Data;
 using Cheetah_DataAccess.Repository;
 using Cheetah_GrpcService.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
@@ -46,5 +49,5 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<RequestService>();
-
+app.UseSerilogRequestLogging();
 app.Run();
