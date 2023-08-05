@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 
@@ -78,6 +81,8 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
+
+
 builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
 
 /**/
@@ -127,6 +132,8 @@ if (app.Environment.IsDevelopment())
     //});
 
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 

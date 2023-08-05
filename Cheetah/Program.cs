@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
@@ -29,7 +32,7 @@ var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 if (provider is "Npgsql")
 {
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-    
+
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
         .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql")
@@ -88,6 +91,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 

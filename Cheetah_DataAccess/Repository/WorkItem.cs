@@ -4,6 +4,7 @@ using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Cheetah_DataAccess.Repository
 {
@@ -266,6 +267,13 @@ namespace Cheetah_DataAccess.Repository
                 var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
                 await SetWorkItemsAsync(GeneralRequest.Id.Value);
+
+                var log = new LoggerConfiguration()
+                             .WriteTo.Console()
+                             .WriteTo.File("Serilog.txt")
+                             .CreateLogger();
+
+                log.Information($"CreateRequestAsync-{request.Id}");
 
                 return GeneralRequest.Id.Value;
             }
