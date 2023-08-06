@@ -46,21 +46,20 @@ namespace Cheetah_DataAccess.Repository
            .ToList().ForEach(x => x.SetExit());
 
             Current_WorkItem.Case.WorkItems
-                .Where(x => !x.IsExit() && x.EndorsementId == Next_Endorsement.Key)
+                .Where(x => !x.IsExit() && !x.IsSent() && x.EndorsementId == Next_Endorsement.Key)
                 .ToList().ForEach(x => x.SetInbox());
 
             foreach (var Endorsement_Item in All_Endorsements.Where(x => x.Key > Next_Endorsement.Key))
             {
                 Current_WorkItem.Case.WorkItems
-                    .Where(x => !x.IsExit() && x.EndorsementId == Endorsement_Item.Key)
+                    .Where(x => !x.IsExit() && !x.IsSent() && x.EndorsementId == Endorsement_Item.Key)
                     .ToList().ForEach(x => x.SetFuture());
             }
         }
         public async Task Exit(F_WorkItem Current_WorkItem)
         {
-            var Current_SortIndex = Current_WorkItem.SortIndex;
-            Current_WorkItem.Case.WorkItems.Where(x => !x.IsSent() &&
-            x.Endorsement.SortIndex >= Current_SortIndex)
+            var Current_SortIndex = Current_WorkItem.Endorsement.SortIndex;
+            Current_WorkItem.Case.WorkItems.Where(x => !x.IsSent() && !x.IsExit())
                        .ToList().ForEach(x => x.SetExit());
         }
         public async Task SetCurrentAssignment(F_WorkItem Current_WorkItem)
@@ -265,7 +264,7 @@ namespace Cheetah_DataAccess.Repository
 
             Current_WorkItem.TagId = f_WorkItem.TagId;
 
-            Current_WorkItem.WorkItemStateId = 2;
+            Current_WorkItem.SetSent();
 
             if (Current_WorkItem.IsRevise())
             {
@@ -275,9 +274,7 @@ namespace Cheetah_DataAccess.Repository
 
                 await SetWorkItemsAsync(Current_WorkItem.Case);
 
-                await SetInboxAndFuture(Current_WorkItem.Case.WorkItems
-                    .Where(x => x.WorkItemStateId is null || x.WorkItemStateId == 0)
-                    .MinBy(x => x.Id));
+                await SetInboxAndFuture(Current_WorkItem);
             }
             else
             {
@@ -324,6 +321,5 @@ namespace Cheetah_DataAccess.Repository
             }
             return ConditionOccur == cnt_con;
         }
-
     }
 }
