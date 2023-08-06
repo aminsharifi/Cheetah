@@ -1,12 +1,8 @@
-﻿using Cheetah_Business;
-using Cheetah_Business.Dimentions;
+﻿using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
-using Cheetah_Business.Virtuals;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Cheetah_DataAccess.Data;
 
@@ -71,15 +67,6 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
     
-    #endregion
-
-    #region Virtuals
-
-    public virtual DbSet<V_Position> V_Positions { get; set; }
-    public virtual DbSet<V_User> V_Users { get; set; }
-    public virtual DbSet<V_UserPosition> V_UserPositions { get; set; }
-    public virtual DbSet<V_Location> V_Locations { get; set; }
-    public virtual DbSet<V_UserLocation> V_UserLocations { get; set; }
     #endregion
     public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 }

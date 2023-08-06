@@ -2,7 +2,6 @@
 using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
@@ -67,6 +66,14 @@ public static class ModelBuilderExtensions
             {
                 Id = 4,
                 SortIndex = 4,
+                Name = "Rejected",
+                DisplayName = "عدم تایید"
+            }
+            ,
+            new D_CaseState
+            {
+                Id = 5,
+                SortIndex = 5,
                 Name = "Aborted",
                 DisplayName = "ابطال شده"
             }
@@ -272,7 +279,7 @@ public static class ModelBuilderExtensions
                  {
                      Id = 203,
                      SortIndex = 203,
-                     Name = "Revise",
+                     Name = "Edit",
                      DisplayName = "بازنگری",
                      Description = "پارامتریک",
                      TagTypeId = 2
