@@ -94,65 +94,45 @@ namespace Cheetah_GrpcService.Services
 
             f_Request.ERPCode = request.ERPCode;
 
-            var RequestId = await iWorkItem.CreateRequestAsync(f_Request);
-
-            var caseState = await _db.F_Cases.Where(x => x.Id == RequestId)
-                .Select(x => x.CaseState)
-                .AsNoTracking()
-                .SingleAsync();
+            f_Request = await iWorkItem.CreateRequestAsync(f_Request);
 
             var output_Request = new Brief_Output_Request();
 
-            output_Request.Id = RequestId;
+            output_Request.Id = f_Request.Id.Value;
 
             output_Request.ProcessState =
                 new()
                 {
-                    Id = caseState.Id.Value,
-                    ERPCode = caseState.ERPCode.Value,
-                    Name = caseState.Name,
-                    DisplayName = caseState.DisplayName
+                    Id = f_Request.CaseState.Id.Value,
+                    ERPCode = f_Request.CaseState.ERPCode.Value,
+                    Name = f_Request.CaseState.Name,
+                    DisplayName = f_Request.CaseState.DisplayName
                 };
 
             return output_Request;
         }
         public override async Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
-            var F_WorkItem = await
-                _db.F_WorkItems
-                .AsNoTracking()
-                .SingleAsync(x => x.Id == request.WorkItemId);
-
-            var tagId = await _iCopyClass
+            var f_WorkItem = new F_WorkItem();
+            f_WorkItem.Id = request.WorkItemId;
+            f_WorkItem.TagId = await _iCopyClass
                 .GetSimpleClassId(_db.D_Tags, new D_Tag()
                 {
                     Name = request.Tag.Name,
                     ERPCode = request.Tag.ERPCode
                 });
 
-            F_WorkItem.TagId = tagId;
-
-            F_WorkItem.WorkItemStateId = 2;
-
-            _db.Update(F_WorkItem);
-
-            await _db.SaveChangesAsync();
-
-            await iWorkItem.PerformWorkItemAsync(F_WorkItem);
-
-            var f_Request = await _db.F_Cases
-                .Where(x => x.Id == F_WorkItem.CaseId)
-                .SingleAsync();
+            f_WorkItem = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
 
             var output_Request = new Brief_Output_Request()
             {
-                Id = f_Request.Id.Value,
+                Id = f_WorkItem.Case.Id.Value,
                 ProcessState = new GRPC_BaseClass()
                 {
-                    Id = f_Request.CaseStateId.Value,
-                    ERPCode = f_Request.CaseState.ERPCode.Value,
-                    Name = f_Request.CaseState.Name,
-                    DisplayName = f_Request.CaseState.DisplayName
+                    Id = f_WorkItem.Case.CaseStateId.Value,
+                    ERPCode = f_WorkItem.Case.CaseState.ERPCode.Value,
+                    Name = f_WorkItem.Case.CaseState.Name,
+                    DisplayName = f_WorkItem.Case.CaseState.DisplayName
                 }
             };
 

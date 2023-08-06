@@ -25,27 +25,36 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task SetInboxAndFuture(F_WorkItem Current_WorkItem)
         {
-            var Current_SortIndex = await _db.F_Endorsements
-                .Where(x => x.Id == Current_WorkItem.EndorsementId)
-                .Select(x => x.SortIndex)
-                .SingleAsync();
+            var All_Endorsements = await _db.F_Endorsements
+                .Where(x => x.ScenarioId == Current_WorkItem.Case.SelectedScenarioId)
+                .AsNoTracking()
+                .OrderBy(x => x.Scenario.SortIndex)
+                .Select(x => new KeyValuePair<Int64?, Int64?>(x.Id, x.SortIndex))
+                .ToListAsync();
+
+            var Current_Endorsement = All_Endorsements
+                .Where(x => x.Key == Current_WorkItem.EndorsementId)
+                .Single();
+
+            var Next_Endorsement = Current_WorkItem.Case.IsEditing() ?
+                All_Endorsements.First() : All_Endorsements
+                .Where(x => x.Value > Current_Endorsement.Value)
+                .FirstOrDefault();
 
             Current_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
-            (Current_WorkItem.Id is null || x.Endorsement.SortIndex == Current_SortIndex))
-                       .ToList().ForEach(x => x.SetExit());
-
-            var Next_SortIndex = Current_WorkItem.Case.IsEditing() ?
-                Current_SortIndex : Current_SortIndex + 1;
+            x.Endorsement.SortIndex == Current_Endorsement.Value)
+           .ToList().ForEach(x => x.SetExit());
 
             Current_WorkItem.Case.WorkItems
-                .Where(x => x.EndorsementId == Current_WorkItem.EndorsementId
-                && (Current_WorkItem.Id is null ||  x.Endorsement.SortIndex >= Current_WorkItem.Id))
+                .Where(x => !x.IsExit() && x.EndorsementId == Next_Endorsement.Key)
                 .ToList().ForEach(x => x.SetInbox());
 
-            Current_WorkItem.Case.WorkItems
-                .Where(x => x.EndorsementId > Current_WorkItem.EndorsementId
-                && (Current_WorkItem.Id is null || x.Endorsement.SortIndex > Current_WorkItem.Id))
-                .ToList().ForEach(x => x.SetFuture());
+            foreach (var Endorsement_Item in All_Endorsements.Where(x => x.Key > Next_Endorsement.Key))
+            {
+                Current_WorkItem.Case.WorkItems
+                    .Where(x => !x.IsExit() && x.EndorsementId == Endorsement_Item.Key)
+                    .ToList().ForEach(x => x.SetFuture());
+            }
         }
         public async Task Exit(F_WorkItem Current_WorkItem)
         {
@@ -138,7 +147,6 @@ namespace Cheetah_DataAccess.Repository
                             Case = Current_Case
                         };
 
-
                         if (eP_Endorsement.IsRequestor())
                         {
                             first_WorkItem.UserId = Current_Case.RequestorId;
@@ -221,13 +229,17 @@ namespace Cheetah_DataAccess.Repository
             }
 
         }
-        public async Task<Int64> CreateRequestAsync(F_Case request)
+        public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
             await SetWorkItemsAsync(GeneralRequest);
 
-            await _db.F_Cases.AddAsync(GeneralRequest);
+            GeneralRequest.CaseState = await _db.D_CaseStates
+                .Where(x => x.Id == GeneralRequest.CaseStateId)
+                .SingleAsync();
+
+            GeneralRequest = (await _db.F_Cases.AddAsync(GeneralRequest)).Entity;
 
             await _db.SaveChangesAsync();
 
@@ -236,41 +248,47 @@ namespace Cheetah_DataAccess.Repository
                          .WriteTo.File("Serilog.txt")
                          .CreateLogger();
 
-            log.Information($"CreateRequestAsync-{request.Id}");
+            log.Information($"CreateRequestAsync-{GeneralRequest.Id}");
 
-            return GeneralRequest.Id.Value;
+            return GeneralRequest;
         }
-        public async Task PerformWorkItemAsync(F_WorkItem f_WorkItem)
+        public async Task<F_WorkItem> PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {
-            if (f_WorkItem.IsRevise())
-            {
-                var Current_WorkItem = await _db.F_WorkItems
-                   .Where(x => x.Id == f_WorkItem.Id)
-                   .Include(x => x.Case)
-                   .ThenInclude(x => x.WorkItems)
-                   .ThenInclude(x => x.Endorsement)
-                   .Include(x => x.Case)
-                   .ThenInclude(x => x.Conditions)
-                   .FirstAsync();
+            var Current_WorkItem = await _db.F_WorkItems
+                  .Where(x => x.Id == f_WorkItem.Id)
+                  .Include(x => x.Case)
+                  .ThenInclude(x => x.WorkItems)
+                  .ThenInclude(x => x.Endorsement)
+                  .Include(x => x.Case)
+                  .ThenInclude(x => x.Conditions)
+                  .FirstAsync();
 
-                f_WorkItem.Case.SetEditing();
+            Current_WorkItem.TagId = f_WorkItem.TagId;
+
+            Current_WorkItem.WorkItemStateId = 2;
+
+            if (Current_WorkItem.IsRevise())
+            {
+                Current_WorkItem.Case.SetEditing();
 
                 Exit(Current_WorkItem);
 
-                _db.Update(f_WorkItem);
-
-                await _db.SaveChangesAsync();
-
                 await SetWorkItemsAsync(Current_WorkItem.Case);
 
-                await SetInboxAndFuture(f_WorkItem.Case.WorkItems
+                await SetInboxAndFuture(Current_WorkItem.Case.WorkItems
                     .Where(x => x.WorkItemStateId is null || x.WorkItemStateId == 0)
                     .MinBy(x => x.Id));
             }
             else
             {
-                await SetCurrentAssignment(f_WorkItem);
+                await SetCurrentAssignment(Current_WorkItem);
             }
+
+            _db.F_WorkItems.Update(Current_WorkItem);
+
+            await _db.SaveChangesAsync();
+
+            return Current_WorkItem;
         }
         public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions,
             IEnumerable<F_Condition> Expected_Conditions)
