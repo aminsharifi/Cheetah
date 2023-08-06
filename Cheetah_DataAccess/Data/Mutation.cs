@@ -48,9 +48,7 @@ public class Mutation
         [Service] ApplicationDbContext _db,
         F_Case request)
     {
-        var CaseId = await iWorkItem.CreateRequestAsync(request);
-
-        return await _db.F_Cases.SingleAsync(x => x.Id == CaseId);
+        return await iWorkItem.CreateRequestAsync(request);
     }
     #endregion
 
@@ -64,9 +62,9 @@ public class Mutation
            [Service] ApplicationDbContext _db,
            F_WorkItem request)
     {
-         await iWorkItem.PerformWorkItemAsync(request);
+        await iWorkItem.PerformWorkItemAsync(request);
 
-        return await _db.F_Cases.SingleAsync(x=>x.Id == request.CaseId);
+        return await _db.F_Cases.SingleAsync(x => x.Id == request.CaseId);
     }
     #endregion
 
