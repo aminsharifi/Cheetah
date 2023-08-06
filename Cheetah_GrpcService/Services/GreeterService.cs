@@ -270,7 +270,7 @@ namespace Cheetah_GrpcService.Services
         public override Task<OutputSync> Sync(InputSync request, ServerCallContext context)
         {
             OutputSync outputSync = new();
-            iSync.Syncing(request.TableName).GetAwaiter().GetResult();
+            //iSync.Syncing(request.TableName).GetAwaiter().GetResult();
             return Task.FromResult(outputSync);
         }
     }
