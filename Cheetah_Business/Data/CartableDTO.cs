@@ -30,6 +30,9 @@ public class CartableDTO
     public String? ProcessName { get; set; }
     public String? TaskName { get; set; }
     public string? Summary { get; set; }
+
+    public SimpleClassDTO? CaseState { get; set; }
+
     //public CartableDTO()
     //{
 

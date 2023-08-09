@@ -4,7 +4,6 @@ using Cheetah_DataAccess.Repository;
 using Cheetah_GrpcService.Middleware;
 using Cheetah_GrpcService.Services;
 using FluentAssertions.Common;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
