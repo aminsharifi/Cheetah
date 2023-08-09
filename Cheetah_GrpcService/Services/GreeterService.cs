@@ -71,7 +71,7 @@ namespace Cheetah_GrpcService.Services
             this._iCopyClass = _iCopyClass;
         }
 
-        public override async Task<Brief_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
+        public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Case();
 
@@ -96,9 +96,20 @@ namespace Cheetah_GrpcService.Services
 
             f_Request = await iWorkItem.CreateRequestAsync(f_Request);
 
-            var output_Request = new Brief_Output_Request();
+            var output_Request = new Brief_Request();
 
-            output_Request.Id = f_Request.Id.Value;
+            output_Request.CaseId = f_Request.Id.Value;
+
+            output_Request.ERPCode = f_Request.ERPCode.Value;
+
+            output_Request.Process =
+            new()
+            {
+                Id = f_Request.Process.Id.Value,
+                ERPCode = f_Request.Process.ERPCode.Value,
+                Name = f_Request.Process.Name,
+                DisplayName = f_Request.Process.DisplayName
+            };
 
             output_Request.ProcessState =
                 new()
@@ -111,7 +122,7 @@ namespace Cheetah_GrpcService.Services
 
             return output_Request;
         }
-        public override async Task<Brief_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
+        public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
             var f_WorkItem = new F_WorkItem();
             f_WorkItem.Id = request.WorkItemId;
@@ -124,31 +135,39 @@ namespace Cheetah_GrpcService.Services
 
             f_WorkItem = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
 
-            var output_Request = new Brief_Output_Request()
+            var output_Request = new Brief_Request()
             {
-                Id = f_WorkItem.Case.Id.Value,
+                CaseId = f_WorkItem.Case.Id.Value,
                 ProcessState = new GRPC_BaseClass()
                 {
                     Id = f_WorkItem.Case.CaseStateId.Value,
                     ERPCode = f_WorkItem.Case.CaseState.ERPCode.Value,
                     Name = f_WorkItem.Case.CaseState.Name,
                     DisplayName = f_WorkItem.Case.CaseState.DisplayName
-                }
+                },
+                Process = new GRPC_BaseClass()
+                {
+                    Id = f_WorkItem.Case.Process.Id.Value,
+                    ERPCode = f_WorkItem.Case.Process.ERPCode.Value,
+                    Name = f_WorkItem.Case.Process.Name,
+                    DisplayName = f_WorkItem.Case.Process.DisplayName
+                },
+                ERPCode = f_WorkItem.Case.ERPCode.Value
             };
 
             return output_Request;
         }
-        public override Task<DetailOutput_Request> GetCase(GetCase_Input_Request request, ServerCallContext context)
+        public override Task<DetailOutput_Request> GetCase(Brief_Request request, ServerCallContext context)
         {
             F_Case f_Request = new();
 
-            f_Request.Id = request.Id;
+            f_Request.Id = request.CaseId;
 
             if (request.ERPCode > 0)
                 f_Request.ERPCode = request.ERPCode;
 
-            if (!String.IsNullOrEmpty(request.ProcessName))
-                f_Request.Process = _db.D_Processes.Single(x => x.Name == request.ProcessName);
+            if (request.Process is not null)
+                f_Request.Process = _db.D_Processes.Single(x => x.Name == request.Process.Name);
 
             f_Request = iCartable.GetCaseAsync(f_Request)
                 .GetAwaiter().GetResult();
@@ -156,7 +175,7 @@ namespace Cheetah_GrpcService.Services
             DetailOutput_Request output_Request = new()
             {
                 Id = f_Request.Id.Value,
-                ProcessName = f_Request.Process.Name,
+                Process = new GRPC_BaseClass() { Name = f_Request.Process.Name },
                 ERPCode = f_Request.ERPCode.Value
             };
 
@@ -191,7 +210,9 @@ namespace Cheetah_GrpcService.Services
                         {
                             WorkItemId = x.Id.Value,
                             LastUpdatedRecord =
-                            (x.LastUpdatedRecord is null) ? 0 : ((DateTimeOffset)x.LastUpdatedRecord.Value).ToUnixTimeSeconds(),
+                            (x.LastUpdatedRecord is null) ? new Timestamp() :
+                            Timestamp.FromDateTime(
+                                DateTime.SpecifyKind(x.LastUpdatedRecord.Value, DateTimeKind.Utc)),
                             User = new GRPC_BaseClass()
                             {
                                 Id = x.UserId.Value,
@@ -221,8 +242,8 @@ namespace Cheetah_GrpcService.Services
         {
             var cartableDTO = new CartableDTO()
             {
-                Username = request.Username,
-                ProcessName = request.ProcessName,
+                Username = request.Assignee.Name,
+                ProcessName = request.Process.Name,
                 PageSize = request.PageSize,
                 PageNumber = request.PageNumber
             };
@@ -237,22 +258,23 @@ namespace Cheetah_GrpcService.Services
                 OutputRequest.Select(
                     x => new RecordCartable()
                     {
-                        CreateDate = ((DateTimeOffset)x.CreateDate).ToUnixTimeSeconds(),
-                        PCreateDate = x.PCreateDate,
+                        CreateDate = Timestamp.FromDateTime(
+                            DateTime.SpecifyKind(
+                            x.CreateDate.Value, DateTimeKind.Utc)),
                         DTag = (x.Tag != null) ? new()
                         {
                             Id = x.Tag.Id.Value,
                             Name = x.Tag.Name,
                             DisplayName = x.Tag.DisplayName
                         } : new(),
-                        RecieveDate = ((DateTimeOffset)x.RecieveDate).ToUnixTimeSeconds(),
-                        PRecieveDate = x.PRecieveDate,
+                        RecieveDate = Timestamp.FromDateTime
+                        (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
                         Summary = x.Summary ?? String.Empty,
-                        ProcessName = x.ProcessName,
-                        RadNumber = x.RadNumber,
-                        WorkItemId = x.WorkItemId,
-                        Requestor = x.Requestor,
-                        TaskName = x.TaskName
+                        Process = new GRPC_BaseClass() { Name = x.ProcessName },
+                        CaseId = long.Parse(x.RadNumber),
+                        WorkItemId = long.Parse(x.WorkItemId),
+                        Requestor = new GRPC_BaseClass() { Name = x.Requestor },
+                        Task = new GRPC_BaseClass() { Name = x.TaskName }
                     }
                     )
                 );

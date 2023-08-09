@@ -238,9 +238,13 @@ namespace Cheetah_DataAccess.Repository
                 .Where(x => x.Id == GeneralRequest.CaseStateId)
                 .SingleAsync();
 
+            GeneralRequest.Process = await _db.D_Processes
+               .Where(x => x.Id == GeneralRequest.ProcessId).SingleAsync();
+
             GeneralRequest = (await _db.F_Cases.AddAsync(GeneralRequest)).Entity;
 
             await _db.SaveChangesAsync();
+
 
             var log = new LoggerConfiguration()
                          .WriteTo.Console()
