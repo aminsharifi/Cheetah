@@ -10,10 +10,12 @@ namespace Cheetah_DataAccess.Repository
     public class Cartable : ICartable
     {
         protected ApplicationDbContext _db;
+        protected ICopyClass _iCopyClass;
 
-        public Cartable(ApplicationDbContext db)
+        public Cartable(ApplicationDbContext db, ICopyClass iCopyClass)
         {
             _db = db;
+            _iCopyClass = iCopyClass;
         }
         public async Task<F_Case> GetCaseAsync(F_Case request)
         {
@@ -52,6 +54,17 @@ namespace Cheetah_DataAccess.Repository
                 var radNumber = cartableDTO.RadNumber;
                 f_WorkItems = f_WorkItems.Where(x => x.CaseId == long.Parse(radNumber));
             }
+            if (!String.IsNullOrEmpty(cartableDTO.CaseState?.Name))
+            {
+                f_WorkItems = f_WorkItems
+                    .Where(x => x.Case.CaseState.Name == cartableDTO.CaseState.Name);
+            }
+
+            if (cartableDTO.CaseState?.ERPCode is not null && cartableDTO.CaseState?.ERPCode > 0)
+            {
+                f_WorkItems = f_WorkItems
+                    .Where(x => x.Case.CaseState.ERPCode == cartableDTO.CaseState.ERPCode);
+            }
 
             int _PageSize = 0;
 
@@ -84,7 +97,14 @@ namespace Cheetah_DataAccess.Repository
                 Summary = string.Empty,
                 PageSize = _PageSize,
                 PageNumber = _PageNumber,
-                TotalItems = _TotalItems
+                TotalItems = _TotalItems,
+                CaseState = new SimpleClassDTO()
+                {
+                    Id = x.Case.CaseState.Id,
+                    Name = x.Case.CaseState.Name,
+                    DisplayName = x.Case.CaseState.DisplayName,
+                    ERPCode = x.Case.CaseState.ERPCode
+                }
             }
             );
 

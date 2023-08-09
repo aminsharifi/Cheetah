@@ -111,7 +111,7 @@ namespace Cheetah_GrpcService.Services
                 DisplayName = f_Request.Process.DisplayName
             };
 
-            output_Request.ProcessState =
+            output_Request.CaseState =
                 new()
                 {
                     Id = f_Request.CaseState.Id.Value,
@@ -138,7 +138,7 @@ namespace Cheetah_GrpcService.Services
             var output_Request = new Brief_Request()
             {
                 CaseId = f_WorkItem.Case.Id.Value,
-                ProcessState = new GRPC_BaseClass()
+                CaseState = new GRPC_BaseClass()
                 {
                     Id = f_WorkItem.Case.CaseStateId.Value,
                     ERPCode = f_WorkItem.Case.CaseState.ERPCode.Value,
@@ -179,7 +179,7 @@ namespace Cheetah_GrpcService.Services
                 ERPCode = f_Request.ERPCode.Value
             };
 
-            output_Request.ProcessState =
+            output_Request.CaseState =
                 new()
                 {
                     Id = f_Request.CaseStateId.Value,
@@ -238,29 +238,41 @@ namespace Cheetah_GrpcService.Services
 
             return Task.FromResult(output_Request);
         }
-        public Task<PageCartable> Cartable(PageCartable request, CartableProperty cartableProperty)
+        public async Task<PageCartable> Cartable(PageCartable request, CartableProperty cartableProperty)
         {
             var cartableDTO = new CartableDTO()
             {
                 Username = request.Assignee.Name,
                 ProcessName = request.Process.Name,
                 PageSize = request.PageSize,
-                PageNumber = request.PageNumber
+                PageNumber = request.PageNumber,
+                CaseState = (request.CaseState is null) ? new() : new SimpleClassDTO()
+                {
+                    ERPCode = request.CaseState.ERPCode,
+                    Name = request.CaseState.Name,
+                    DisplayName = request.CaseState.DisplayName
+                }
             };
 
             var OutputRequest = (cartableProperty == CartableProperty.Inbox) ?
-                iCartable.Inbox(cartableDTO).GetAwaiter().GetResult() :
-                iCartable.Outbox(cartableDTO).GetAwaiter().GetResult();
+               await iCartable.Inbox(cartableDTO) :
+               await iCartable.Outbox(cartableDTO);
 
             request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
 
             request.RecordCartables.AddRange(
-                OutputRequest.Select(
+                 OutputRequest.Select(
                     x => new RecordCartable()
                     {
                         CreateDate = Timestamp.FromDateTime(
                             DateTime.SpecifyKind(
                             x.CreateDate.Value, DateTimeKind.Utc)),
+                        CaseState = new GRPC_BaseClass()
+                        {
+                            ERPCode = x.CaseState.ERPCode.Value,
+                            Name = x.CaseState.Name,
+                            DisplayName = x.CaseState.DisplayName
+                        },
                         DTag = (x.Tag != null) ? new()
                         {
                             Id = x.Tag.Id.Value,
@@ -279,7 +291,7 @@ namespace Cheetah_GrpcService.Services
                     )
                 );
 
-            return Task.FromResult(request);
+            return request;
         }
         public override Task<PageCartable> Inbox(PageCartable request, ServerCallContext context)
         {
@@ -289,11 +301,26 @@ namespace Cheetah_GrpcService.Services
         {
             return Cartable(request, CartableProperty.Outbox);
         }
-        public override Task<OutputSync> Sync(InputSync request, ServerCallContext context)
+        public override Task<TableInfo> Sync(TableInfo request, ServerCallContext context)
         {
-            OutputSync outputSync = new();
+            TableInfo outputSync = new();
             //iSync.Syncing(request.TableName).GetAwaiter().GetResult();
             return Task.FromResult(outputSync);
+        }
+        public override async Task<TableInfo> GetAllByName(TableInfo request, ServerCallContext context)
+        {
+            TableInfo tableInfo = new();
+            var TableRecords = await simpleClassRepository.GetAllByName(request.TableInput.Name);
+            tableInfo.TableOutput.AddRange(
+                TableRecords.Select(x => new GRPC_BaseClass()
+                {
+                    Id = x.Id.Value,
+                    Name = x.Name,
+                    DisplayName = x.DisplayName,
+                    ERPCode = x.ERPCode.Value
+                })
+                );
+            return tableInfo;
         }
     }
 }

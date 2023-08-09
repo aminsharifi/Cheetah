@@ -87,7 +87,6 @@ public class TableCRUD : ITableCRUD
         }
         return null;
     }
-
     public async Task<SimpleClass> Get(string type, string? recordName,
         QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll,params String[] TableIncludes)
     {

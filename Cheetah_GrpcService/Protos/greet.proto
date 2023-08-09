@@ -30,20 +30,17 @@ service Request {
   // Sends a greeting
   rpc CreateRequest (Create_Input_Request) returns (Brief_Request);
   rpc PerformRequest (Perform_Input_Request) returns (Brief_Request);
-  rpc GetCase (Brief_Request) returns (DetailOutput_Request);
-  rpc Sync(InputSync) returns (OutputSync);
+  rpc GetCase (Brief_Request) returns (DetailOutput_Request);  
   rpc Inbox (PageCartable) returns (PageCartable);
   rpc Outbox (PageCartable) returns (PageCartable);
+  rpc GetAllByName (TableInfo) returns (TableInfo);
+  rpc Sync(TableInfo) returns (TableInfo);
 }
 
-message InputSync
+message TableInfo
 {    
-    GRPC_BaseClass Table = 1;
-}
-
-message OutputSync
-{    
-    repeated GRPC_BaseClass SyncTable = 1;
+    GRPC_BaseClass TableInput = 1;
+    repeated GRPC_BaseClass TableOutput = 2;
 }
 
 message PageCartable
@@ -52,8 +49,9 @@ message PageCartable
     int32 PageSize  = 2;
     int32 TotalItems  = 3;
     GRPC_BaseClass Assignee = 4;
-    GRPC_BaseClass Process = 5;
-    repeated RecordCartable RecordCartables = 6;
+    GRPC_BaseClass CaseState = 5;
+    GRPC_BaseClass Process = 6;
+    repeated RecordCartable RecordCartables = 7;
 }
 
 message RecordCartable
@@ -66,7 +64,8 @@ message RecordCartable
     google.protobuf.Timestamp RecieveDate = 6;
     GRPC_BaseClass Process = 7;
     GRPC_BaseClass Task = 8;
-    string Summary = 9;
+    GRPC_BaseClass CaseState = 9;
+    string Summary = 10;
 }
 
 message Brief_Request
@@ -74,7 +73,7 @@ message Brief_Request
     int64 CaseId = 1;
     int64  ERPCode = 2;
     GRPC_BaseClass Process = 3;
-    GRPC_BaseClass ProcessState = 4;
+    GRPC_BaseClass CaseState = 4;
 }
 
 message Create_Input_Request
@@ -98,7 +97,7 @@ message DetailOutput_Request
     int64  Id = 1;
     int64  ERPCode = 2;
     GRPC_BaseClass Process = 3;
-    GRPC_BaseClass Process_State = 4;
+    GRPC_BaseClass CaseState = 4;
     repeated GRPC_Assignment Assignments = 5;
 }
 
@@ -114,7 +113,7 @@ message GRPC_UserAssignment
     google.protobuf.Timestamp LastUpdatedRecord = 2;
     GRPC_BaseClass User = 3;
     GRPC_BaseClass Tag = 4;
-    GRPC_BaseClass WorkItem_State = 5;
+    GRPC_BaseClass WorkItemState = 5;
 }
 
 message GRPC_BaseClass

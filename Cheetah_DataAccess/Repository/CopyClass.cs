@@ -22,6 +22,7 @@ namespace Cheetah_DataAccess.Repository
             _itableCRUD = itableCRUD;
         }
 
+
         public async Task<Int64?> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input)
         {
             if (!String.IsNullOrEmpty(input.Name))
