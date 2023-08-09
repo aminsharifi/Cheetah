@@ -28,9 +28,9 @@ message HelloReply
 // The greeting service definition.
 service Request {
   // Sends a greeting
-  rpc CreateRequest (Create_Input_Request) returns (Brief_Output_Request);
-  rpc PerformRequest (Perform_Input_Request) returns (Brief_Output_Request);
-  rpc GetCase (GetCase_Input_Request) returns (DetailOutput_Request);
+  rpc CreateRequest (Create_Input_Request) returns (Brief_Request);
+  rpc PerformRequest (Perform_Input_Request) returns (Brief_Request);
+  rpc GetCase (Brief_Request) returns (DetailOutput_Request);
   rpc Sync(InputSync) returns (OutputSync);
   rpc Inbox (PageCartable) returns (PageCartable);
   rpc Outbox (PageCartable) returns (PageCartable);
@@ -38,7 +38,7 @@ service Request {
 
 message InputSync
 {    
-    string TableName = 1;
+    GRPC_BaseClass Table = 1;
 }
 
 message OutputSync
@@ -46,42 +46,35 @@ message OutputSync
     repeated GRPC_BaseClass SyncTable = 1;
 }
 
-
 message PageCartable
 {
     int32 PageNumber = 1;
     int32 PageSize  = 2;
     int32 TotalItems  = 3;
-    string Username = 4;
-    string ProcessName = 5;
+    GRPC_BaseClass Assignee = 4;
+    GRPC_BaseClass Process = 5;
     repeated RecordCartable RecordCartables = 6;
 }
 
 message RecordCartable
 {    
     GRPC_BaseClass D_Tag = 1;
-    string Requestor  = 2;
-    string RadNumber  = 3;
-    string WorkItemId  = 4;
-    int64 CreateDate  = 5;
-    string PCreateDate = 6;
-    int64 RecieveDate = 7;
-    string PRecieveDate = 8;
-    string Process_Name = 9;
-    string TaskName = 10;
-    string Summary = 11;
+    GRPC_BaseClass Requestor  = 2;
+    int64 CaseId  = 3;
+    int64 WorkItemId  = 4;
+    google.protobuf.Timestamp CreateDate  = 5;
+    google.protobuf.Timestamp RecieveDate = 6;
+    GRPC_BaseClass Process = 7;
+    GRPC_BaseClass Task = 8;
+    string Summary = 9;
 }
 
-message Brief_Output_Request
+message Brief_Request
 {
-    int64 Id = 1;
-    GRPC_BaseClass Process_State = 2;
-}
-message GetCase_Input_Request
-{
-     int64  Id = 1;
-     int64  ERPCode = 2;
-     string Process_Name = 3;
+    int64 CaseId = 1;
+    int64  ERPCode = 2;
+    GRPC_BaseClass Process = 3;
+    GRPC_BaseClass ProcessState = 4;
 }
 
 message Create_Input_Request
@@ -104,7 +97,7 @@ message DetailOutput_Request
 {
     int64  Id = 1;
     int64  ERPCode = 2;
-    string Process_Name = 3;
+    GRPC_BaseClass Process = 3;
     GRPC_BaseClass Process_State = 4;
     repeated GRPC_Assignment Assignments = 5;
 }
@@ -118,7 +111,7 @@ message GRPC_Assignment
 message GRPC_UserAssignment
 {
     int64 WorkItemId = 1;
-    int64 LastUpdatedRecord = 2;
+    google.protobuf.Timestamp LastUpdatedRecord = 2;
     GRPC_BaseClass User = 3;
     GRPC_BaseClass Tag = 4;
     GRPC_BaseClass WorkItem_State = 5;
