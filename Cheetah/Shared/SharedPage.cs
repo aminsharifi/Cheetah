@@ -1,6 +1,7 @@
 ﻿using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Repository;
+using Cheetah_DataAccess.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
@@ -93,6 +94,9 @@ namespace Cheetah.Shared
 
         [Inject]
         protected IJSRuntime _JsRuntime { get; set; }
+
+        [Inject]
+        protected ApplicationDbContext _db { get; set; }
         #endregion
     }
 }
