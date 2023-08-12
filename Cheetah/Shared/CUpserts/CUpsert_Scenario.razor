@@ -143,10 +143,11 @@
                                 </caption>
                                 <thead>
                                     <tr style="width:90%">
+                                        <th data-sortable="true" style="width:16%">فعال کننده</th>
                                         <th data-sortable="true" style="width:8%" aria-sort="ascending">شناسه</th>
                                         <th data-sortable="true" style="width:8%">ترتیب</th>
                                         <th data-sortable="true" style="width:16%">نام نقش</th>
-                                        <th data-sortable="true" style="width:16%">فعال کننده</th>
+                                        <th data-sortable="true" style="width:16%">اقدامات مجاز</th>
                                         <th data-sortable="true" style="width:8%">فعال</th>
                                     </tr>
                                 </thead>
@@ -154,32 +155,6 @@
                                     @foreach (var item in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
                                     {
                                         <tr style="width:90%">
-                                            <td style="width:8%">
-                                                <span class="col-12">
-                                                    @(
-                                                        (item.Id == 0) ? String.Empty : item.Id
-                                                        )
-                                                </span>
-                                            </td>
-                                            <td style="width:8%">
-                                                <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
-                                            </td>
-                                            <td style="width:16%">
-                                                <InputSelect class="col-12"
-                                                @bind-Value="item.RoleId" style="direction:rtl"
-                                                @oninput="(e => SelectedEndorsementChanged(e,item))">
-                                                    @if (item.RoleId < 1)
-                                                    {
-                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                                                    }
-                                                    @foreach (var list_D_Role in List_D_Role)
-                                                    {
-                                                        <option value="@list_D_Role.Id">
-                                                            @list_D_Role.DisplayName (@list_D_Role.Name)
-                                                        </option>
-                                                    }
-                                                </InputSelect>
-                                            </td>
                                             <td style="width:16%">
                                                 <center>
                                                     <button type="button" class="col-6 btn btn-primary"
@@ -280,7 +255,7 @@
                                                                                 }
                                                                             }
                                                                         </td>
-                                                                        <td style="width:8%">                                                                           
+                                                                        <td style="width:8%">
                                                                             <MudCheckBox Label="فعال"
                                                                                          Checked="@item.EnableRecord"
                                                                                          Color="Color.Primary"
@@ -295,6 +270,46 @@
                                                         </Ctable>
                                                     }
                                                 </div>
+                                            </td>
+                                            <td style="width:8%">
+                                                <span class="col-12">
+                                                    @(
+                                                        (item.Id == 0) ? String.Empty : item.Id
+                                                        )
+                                                </span>
+                                            </td>
+                                            <td style="width:8%">
+                                                <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
+                                            </td>
+                                            <td style="width:16%">
+                                                <InputSelect class="col-12"
+                                                @bind-Value="item.RoleId" style="direction:rtl"
+                                                @oninput="(e => SelectedEndorsementChanged(e,item))">
+                                                    @if (item.RoleId < 1)
+                                                    {
+                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                    }
+                                                    @foreach (var list_D_Role in List_D_Role)
+                                                    {
+                                                        <option value="@list_D_Role.Id">
+                                                            @list_D_Role.DisplayName (@list_D_Role.Name)
+                                                        </option>
+                                                    }
+                                                </InputSelect>
+                                            </td>
+                                            <td style="width:8%">
+                                                <MudSelect MultiSelection="true"
+                                                           AdornmentIcon="@Icons.Material.Filled.Search"
+                                                           AnchorOrigin="Origin.BottomCenter"
+                                                           T="D_Tag"
+                                                           ToStringFunc="@GetMultiSelectionText"
+                                                           SelectedValuesChanged="SelectedValues=>SelectionText(SelectedValues,item)"
+                                                           SelectedValues="L_TagEndorsement.Where(x=>x.SecondId == item.Id).Select(x=>x.D_Tag)">
+                                                    @foreach (var state in List_D_Tag)
+                                                    {
+                                                        <MudSelectItem Value="@state" />
+                                                    }
+                                                </MudSelect>
                                             </td>
                                             <td style="width:8%">
                                                 <MudCheckBox Label="فعال"
@@ -324,22 +339,60 @@
 @code {
 
     public List<SimpleClass> List_D_Role { get; set; } = new();
-
-    public List<SimpleClass> List_D_Tag { get; set; } = new();
-
+    public List<D_Tag> List_D_Tag { get; set; } = new();
     public List<SimpleClass> List_D_Operand { get; set; } = new();
-
     public List<SimpleClass> List_D_TagType { get; set; } = new();
+
+    public List<L_TagEndorsement> L_TagEndorsement = new();
+
+    private async Task SelectionText(IEnumerable<D_Tag> selectedValues, F_Endorsement? f_Endorsement)
+    {
+        foreach (D_Tag selectedValue in selectedValues)
+        {
+            if (!L_TagEndorsement.Any(x => x.FirstId == selectedValue.Id && x.SecondId == f_Endorsement.Id))
+            {
+                var l_TagEndorsement = new L_TagEndorsement()
+                    {
+                        FirstId = selectedValue.Id,
+                        D_Tag = selectedValue,
+                        SecondId = f_Endorsement.Id,
+                        F_Endorsement = f_Endorsement,
+                        Name = selectedValue.Name + "_" + f_Endorsement.Name,
+                        DisplayName = selectedValue.DisplayName + "_" + f_Endorsement.DisplayName
+                    };
+                L_TagEndorsement.Add(l_TagEndorsement);
+                f_Endorsement.TagEndorsements.Add(l_TagEndorsement);
+            }
+        }
+        foreach (var item in L_TagEndorsement.Where(x => x.SecondId == f_Endorsement.Id))
+        {
+            if (!selectedValues.Any(x=>x.Id == item.FirstId))
+            {
+                L_TagEndorsement.Remove(item);
+                var tagEndorsement = f_Endorsement.TagEndorsements.Single(x => x.Id == item.Id);
+                var state = f_Endorsement.TagEndorsements.Remove(tagEndorsement);
+                
+            }
+        }
+    }
+
+    private string GetMultiSelectionText(SimpleClass selectedValues)
+    {
+        return $"{string.Join(", ", selectedValues?.DisplayName)}";
+    }
 
     public override async Task ExtendedLoadDTO()
     {
         List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<SimpleClass>;
-        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<SimpleClass>;
+        List_D_Tag = await Task.FromResult(_db.D_Tags.ToList());
         List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<SimpleClass>;
         List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<SimpleClass>;
-
         AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
         AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
+        L_TagEndorsement.AddRange(await Task.FromResult(_db.L_TagEndorsements.ToList()));
+
+        // simpleClassRepository.GetAllLink(nameof(L_TagEndorsement), nameof(LinkProperty.Second), Id);
+
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
@@ -351,7 +404,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                                                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 

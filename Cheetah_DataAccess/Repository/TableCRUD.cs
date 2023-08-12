@@ -170,16 +170,7 @@ public class TableCRUD : ITableCRUD
     }
     public async Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO)
     {
-        var gtype = DatabaseClass.GetDBType(obj_DTO.linkType);
-
-        var allLink = await GetAllLink
-            (
-                obj_DTO.linkType,
-                obj_DTO.sd_Status,
-                obj_DTO.fixedId
-            );
-
-        _db.RemoveRange(allLink);
+        var gtype = DatabaseClass.GetDBType(obj_DTO.linkType);    
 
         var simpleLinkClass = new List<SimpleLinkClass>();
 
@@ -235,8 +226,21 @@ public class TableCRUD : ITableCRUD
             simpleLinkClass.Add(instance);
         }
 
-        await _db.AddRangeAsync(simpleLinkClass);
+        var allLink = await GetAllLink
+        (
+            obj_DTO.linkType,
+            obj_DTO.sd_Status,
+            obj_DTO.fixedId
+        );
 
-        return await _db.SaveChangesAsync();
+        _db.RemoveRange(allLink);       
+
+        _db.AddRange(simpleLinkClass);
+
+        await _db.SaveChangesAsync();
+
+        return 0;
+
+        //return await _db.SaveChangesAsync();
     }
 }

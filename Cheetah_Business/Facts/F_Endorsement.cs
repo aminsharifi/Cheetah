@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
@@ -22,6 +23,8 @@ public partial class F_Endorsement : SimpleClass
     public virtual F_Scenario? Scenario { get; set; }
 
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
+
+    public virtual ICollection<L_TagEndorsement>? TagEndorsements { get; set; } = new HashSet<L_TagEndorsement>();
 
     public override void SetName()
     {
