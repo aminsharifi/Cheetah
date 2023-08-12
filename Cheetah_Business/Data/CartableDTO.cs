@@ -16,9 +16,9 @@ public class CartableDTO
     public String? RadNumber { get; set; }
     public String? WorkItemId { get; set; }
     public DateTime? CreateDate { get; set; }
-    public  String? PCreateDate
+    public String? PCreateDate
     {
-        get {return cPersianClass.GetPersianDate(this.CreateDate); }
+        get { return cPersianClass.GetPersianDate(this.CreateDate); }
         set { PCreateDate = value; }
     }
     public DateTime? RecieveDate { get; set; }
@@ -30,7 +30,7 @@ public class CartableDTO
     public String? ProcessName { get; set; }
     public String? TaskName { get; set; }
     public string? Summary { get; set; }
-
+    public IEnumerable<SimpleClassDTO> ValidUserActions { get; set; }
     public SimpleClassDTO? CaseState { get; set; }
 
     //public CartableDTO()

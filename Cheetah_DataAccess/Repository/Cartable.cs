@@ -104,7 +104,15 @@ namespace Cheetah_DataAccess.Repository
                     Name = x.Case.CaseState.Name,
                     DisplayName = x.Case.CaseState.DisplayName,
                     ERPCode = x.Case.CaseState.ERPCode
-                }
+                },
+                ValidUserActions = x.Endorsement.ValidUserActions.Select
+                (y => new SimpleClassDTO()
+                {
+                    Id = y.D_Tag.Id,
+                    Name = y.D_Tag.Name,
+                    DisplayName = y.D_Tag.DisplayName,
+                    ERPCode = y.D_Tag.ERPCode
+                })
             }
             );
 
