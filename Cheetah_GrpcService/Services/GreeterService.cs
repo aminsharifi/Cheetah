@@ -254,42 +254,60 @@ namespace Cheetah_GrpcService.Services
                 }
             };
 
-            var OutputRequest = (cartableProperty == CartableProperty.Inbox) ?
+            var OutputRequest = await ((cartableProperty == CartableProperty.Inbox) ?
                await iCartable.Inbox(cartableDTO) :
-               await iCartable.Outbox(cartableDTO);
+               await iCartable.Outbox(cartableDTO)).ToListAsync();
 
             request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
 
-            request.RecordCartables.AddRange(
-                 OutputRequest.Select(
-                    x => new RecordCartable()
-                    {
-                        CreateDate = Timestamp.FromDateTime(
-                            DateTime.SpecifyKind(
-                            x.CreateDate.Value, DateTimeKind.Utc)),
-                        CaseState = new GRPC_BaseClass()
-                        {
-                            ERPCode = x.CaseState.ERPCode.Value,
-                            Name = x.CaseState.Name,
-                            DisplayName = x.CaseState.DisplayName
-                        },
-                        DTag = (x.Tag != null) ? new()
-                        {
-                            Id = x.Tag.Id.Value,
-                            Name = x.Tag.Name,
-                            DisplayName = x.Tag.DisplayName
-                        } : new(),
-                        RecieveDate = Timestamp.FromDateTime
-                        (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
-                        Summary = x.Summary ?? String.Empty,
-                        Process = new GRPC_BaseClass() { Name = x.ProcessName },
-                        CaseId = long.Parse(x.RadNumber),
-                        WorkItemId = long.Parse(x.WorkItemId),
-                        Requestor = new GRPC_BaseClass() { Name = x.Requestor },
-                        Task = new GRPC_BaseClass() { Name = x.TaskName }
-                    }
-                    )
-                );
+            var _Recordtable = OutputRequest.Select(
+                 x => new RecordCartable()
+                 {
+                     CreateDate = Timestamp.FromDateTime(
+                         DateTime.SpecifyKind(
+                         x.CreateDate.Value, DateTimeKind.Utc)),
+                     CaseState = new GRPC_BaseClass()
+                     {
+                         ERPCode = x.CaseState.ERPCode.Value,
+                         Name = x.CaseState.Name,
+                         DisplayName = x.CaseState.DisplayName
+                     },
+                     DTag = (x.Tag != null) ? new()
+                     {
+                         Id = x.Tag.Id.Value,
+                         Name = x.Tag.Name,
+                         DisplayName = x.Tag.DisplayName
+                     } : new(),
+                     RecieveDate = Timestamp.FromDateTime
+                     (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
+                     Summary = x.Summary ?? String.Empty,
+                     Process = new GRPC_BaseClass() { Name = x.ProcessName },
+                     CaseId = long.Parse(x.RadNumber),
+                     WorkItemId = long.Parse(x.WorkItemId),
+                     Requestor = new GRPC_BaseClass() { Name = x.Requestor },
+                     Task = new GRPC_BaseClass() { Name = x.TaskName }
+                 }
+                 );
+
+            request.RecordCartables.AddRange(_Recordtable);
+
+            for (int i = 0; i < request.RecordCartables.Count(); i++)
+            {
+                request.RecordCartables[i].ValidUserActions.AddRange(
+ 
+                    OutputRequest
+                    .Where(x => x.WorkItemId == request.RecordCartables[i].WorkItemId.ToString())
+                    .Single().ValidUserActions
+                    .Select(
+                          y =>
+                      new GRPC_BaseClass()
+                      {
+                          ERPCode = y.ERPCode.Value,
+                          Name = y.Name,
+                          DisplayName = y.DisplayName
+                      })
+                    );
+            }
 
             return request;
         }

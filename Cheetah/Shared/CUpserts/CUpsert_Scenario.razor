@@ -361,7 +361,7 @@
                         DisplayName = selectedValue.DisplayName + "_" + f_Endorsement.DisplayName
                     };
                 L_TagEndorsement.Add(l_TagEndorsement);
-                f_Endorsement.TagEndorsements.Add(l_TagEndorsement);
+                f_Endorsement.ValidUserActions.Add(l_TagEndorsement);
             }
         }
         foreach (var item in L_TagEndorsement.Where(x => x.SecondId == f_Endorsement.Id))
@@ -369,8 +369,8 @@
             if (!selectedValues.Any(x=>x.Id == item.FirstId))
             {
                 L_TagEndorsement.Remove(item);
-                var tagEndorsement = f_Endorsement.TagEndorsements.Single(x => x.Id == item.Id);
-                var state = f_Endorsement.TagEndorsements.Remove(tagEndorsement);
+                var tagEndorsement = f_Endorsement.ValidUserActions.Single(x => x.Id == item.Id);
+                var state = f_Endorsement.ValidUserActions.Remove(tagEndorsement);
                 
             }
         }
