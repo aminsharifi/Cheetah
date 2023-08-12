@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Repository;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_GrpcService.Services
 {
