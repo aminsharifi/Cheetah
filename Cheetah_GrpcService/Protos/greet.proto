@@ -65,7 +65,8 @@ message RecordCartable
     GRPC_BaseClass Process = 7;
     GRPC_BaseClass Task = 8;
     GRPC_BaseClass CaseState = 9;
-    string Summary = 10;
+    repeated GRPC_BaseClass ValidUserActions = 10;
+    string Summary = 11;
 }
 
 message Brief_Request

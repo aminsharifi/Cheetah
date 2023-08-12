@@ -24,7 +24,7 @@ public partial class F_Endorsement : SimpleClass
 
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
 
-    public virtual ICollection<L_TagEndorsement>? TagEndorsements { get; set; } = new HashSet<L_TagEndorsement>();
+    public virtual ICollection<L_TagEndorsement>? ValidUserActions { get; set; } = new HashSet<L_TagEndorsement>();
 
     public override void SetName()
     {
