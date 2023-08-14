@@ -251,9 +251,9 @@ namespace Cheetah_GrpcService.Services
                 }
             };
 
-            var OutputRequest = await ((cartableProperty == CartableProperty.Inbox) ?
+            var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
                await iCartable.Inbox(cartableDTO) :
-               await iCartable.Outbox(cartableDTO)).ToListAsync();
+               await iCartable.Outbox(cartableDTO)).ToList<CartableDTO>();
 
             request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
 
