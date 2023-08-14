@@ -35,6 +35,18 @@ public partial class F_Condition : SimpleClass
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
 
+    [Column(Order = 106)]
+    public long? ToEndorsementId { get; set; }
+    public virtual F_Endorsement? ToEndorsement { get; set; }
+
+    [Column(Order = 107)]
+    public long? CaseStateId { get; set; }
+    public virtual D_CaseState? CaseState { get; set; }
+
+    [Column(Order = 108)]
+    public long? UserId { get; set; }
+    public virtual D_User? User { get; set; }
+
     [NotMapped]
     [GraphQLIgnore]
     public Boolean BooleanValue
