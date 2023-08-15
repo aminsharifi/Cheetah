@@ -143,19 +143,44 @@
                                 </caption>
                                 <thead>
                                     <tr style="width:90%">
-                                        <th data-sortable="true" style="width:16%">فعال کننده</th>
-                                        <th data-sortable="true" style="width:8%" aria-sort="ascending">شناسه</th>
-                                        <th data-sortable="true" style="width:8%">ترتیب</th>
-                                        <th data-sortable="true" style="width:16%">نام نقش</th>
-                                        <th data-sortable="true" style="width:16%">اقدامات مجاز</th>
-                                        <th data-sortable="true" style="width:8%">فعال</th>
+                                        @* <th data-sortable="true" style="width:16%">اقدامات</th> *@
+                                        <th data-sortable="true" aria-sort="ascending">شناسه</th>
+                                        <th data-sortable="true">ترتیب</th>
+                                        <th data-sortable="true">نام نقش</th>
+                                        <th data-sortable="true">اقدامات</th>
+                                        <th data-sortable="true">فعال</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
                                     {
                                         <tr style="width:90%">
-                                            <td style="width:16%">
+                                            <td>
+                                                <span>
+                                                    @(
+                                                        (item.Id == 0) ? String.Empty : item.Id
+                                                        )
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <InputNumber @bind-Value="item.SortIndex"></InputNumber>
+                                            </td>
+                                            <td>
+                                                <InputSelect @bind-Value="item.RoleId" style="direction:rtl"
+                                                @oninput="(e => SelectedEndorsementChanged(e,item))">
+                                                    @if (item.RoleId < 1)
+                                                    {
+                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                    }
+                                                    @foreach (var list_D_Role in List_D_Role)
+                                                    {
+                                                        <option value="@list_D_Role.Id">
+                                                            @list_D_Role.DisplayName (@list_D_Role.Name)
+                                                        </option>
+                                                    }
+                                                </InputSelect>
+                                            </td>
+                                            <td>
                                                 <center>
                                                     <button type="button" class="col-6 btn btn-primary"
                                                             style="align-self: center;"
@@ -164,41 +189,38 @@
                                                             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
                                                             <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
                                                         </svg>
-                                                        اضافه کردن فعال‌ساز
+                                                        اضافه کردن اقدامات
                                                     </button>
                                                 </center>
-                                                <div class="row">
+                                                <div>
                                                     @if (item.Conditions.Any())
                                                     {
                                                         <Ctable>
-                                                            <caption>
-                                                                <div class="row my-1" style="justify-content: center;">
-                                                                    <span class="col-4 text-success">لیست فعال‌ساز‌ها</span>
-                                                                </div>
-                                                            </caption>
                                                             <thead>
                                                                 <tr style="width:90%">
-                                                                    <th data-sortable="true" style="width:8%" aria-sort="ascending">شناسه</th>
-                                                                    <th data-sortable="true" style="width:8%">ترتیب</th>
-                                                                    <th data-sortable="true" style="width:16%">نام پارامتر</th>
-                                                                    <th data-sortable="true" style="width:16%">عملگر</th>
-                                                                    <th data-sortable="true" style="width:16%">مقدار</th>
-                                                                    <th data-sortable="true" style="width:8%">فعال</th>
+                                                                    <th data-sortable="true" aria-sort="ascending">شناسه</th>
+                                                                    <th data-sortable="true">ترتیب</th>
+                                                                    <th data-sortable="true">نام پارامتر</th>
+                                                                    <th data-sortable="true">عملگر</th>
+                                                                    <th data-sortable="true">مقدار</th>
+                                                                    <th data-sortable="true">وضعیت فرآیند</th>
+                                                                    <th data-sortable="true">اقدام بعدی</th>
+                                                                    <th data-sortable="true">فعال</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach (var item in item.Conditions.OrderBy(x => x.SortIndex))
                                                                 {
                                                                     <tr style="width:90%">
-                                                                        <td style="width:8%">
+                                                                        <td>
                                                                             <span class="col-12">
                                                                                 @((item.Id == 0) ? String.Empty : item.Id)
                                                                             </span>
                                                                         </td>
-                                                                        <td style="width:8%">
+                                                                        <td>
                                                                             <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
                                                                         </td>
-                                                                        <td style="width:16%">
+                                                                        <td>
                                                                             <InputSelect class="col-12"
                                                                             @bind-Value="item.TagId" style="direction:rtl"
                                                                             @oninput="(e => SelectedParameterListChanged(e,item))">
@@ -214,7 +236,7 @@
                                                                                 }
                                                                             </InputSelect>
                                                                         </td>
-                                                                        <td style="width:16%">
+                                                                        <td>
                                                                             <InputSelect class="col-12"
                                                                             @bind-Value="item.OperandId" style="direction:rtl"
                                                                             @oninput="(e => SelectedOperandChanged(e,item))">
@@ -230,7 +252,7 @@
                                                                                 }
                                                                             </InputSelect>
                                                                         </td>
-                                                                        <td style="width:16%">
+                                                                        <td>
                                                                             @if (item.Tag is not null)
                                                                             {
                                                                                 @if (item.Tag?.TagTypeId is not null)
@@ -255,7 +277,34 @@
                                                                                 }
                                                                             }
                                                                         </td>
-                                                                        <td style="width:8%">
+                                                                        <td>
+                                                                            <InputSelect @bind-Value="item.CaseStateId" style="direction:rtl"
+                                                                            @oninput="(e => SelectedCaseStateChanged(e,item))">
+                                                                                @if (item.CaseStateId < 1)
+                                                                                {
+                                                                                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                                                }
+                                                                                @foreach (var CaseState in List_CaseState)
+                                                                                {
+                                                                                    <option value="@CaseState.Id">
+                                                                                        @CaseState.DisplayName
+                                                                                    </option>
+                                                                                }
+                                                                            </InputSelect>
+                                                                        </td>
+                                                                        <td>
+                                                                            <InputSelect @bind-Value="item.ToEndorsementId" style="direction:rtl"
+                                                                            @oninput="(e => SelectedToEndorsementChanged(e,item))">
+                                                                                <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                                                @foreach (var ToEndorsement in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
+                                                                                {
+                                                                                    <option value="@ToEndorsement.Id">
+                                                                                        @ToEndorsement.DisplayName
+                                                                                    </option>
+                                                                                }
+                                                                            </InputSelect>
+                                                                        </td>
+                                                                        <td>
                                                                             <MudCheckBox Label="فعال"
                                                                                          Checked="@item.EnableRecord"
                                                                                          Color="Color.Primary"
@@ -271,47 +320,21 @@
                                                     }
                                                 </div>
                                             </td>
-                                            <td style="width:8%">
-                                                <span class="col-12">
-                                                    @(
-                                                        (item.Id == 0) ? String.Empty : item.Id
-                                                        )
-                                                </span>
-                                            </td>
-                                            <td style="width:8%">
-                                                <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
-                                            </td>
-                                            <td style="width:16%">
-                                                <InputSelect class="col-12"
-                                                @bind-Value="item.RoleId" style="direction:rtl"
-                                                @oninput="(e => SelectedEndorsementChanged(e,item))">
-                                                    @if (item.RoleId < 1)
-                                                    {
-                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                                                    }
-                                                    @foreach (var list_D_Role in List_D_Role)
-                                                    {
-                                                        <option value="@list_D_Role.Id">
-                                                            @list_D_Role.DisplayName (@list_D_Role.Name)
-                                                        </option>
-                                                    }
-                                                </InputSelect>
-                                            </td>
-                                            <td style="width:8%">
-                                                <MudSelect MultiSelection="true"
-                                                           AdornmentIcon="@Icons.Material.Filled.Search"
-                                                           AnchorOrigin="Origin.BottomCenter"
-                                                           T="D_Tag"
-                                                           ToStringFunc="@GetMultiSelectionText"
-                                                           SelectedValuesChanged="SelectedValues=>SelectionText(SelectedValues,item)"
-                                                           SelectedValues="L_TagEndorsement.Where(x=>x.SecondId == item.Id).Select(x=>x.D_Tag)">
-                                                    @foreach (var state in List_D_Tag)
-                                                    {
-                                                        <MudSelectItem Value="@state" />
-                                                    }
-                                                </MudSelect>
-                                            </td>
-                                            <td style="width:8%">
+                                            @* <td style="width:8%">
+                                <MudSelect MultiSelection="true"
+                                AdornmentIcon="@Icons.Material.Filled.Search"
+                                AnchorOrigin="Origin.BottomCenter"
+                                T="D_Tag"
+                                ToStringFunc="@GetMultiSelectionText"
+                                SelectedValuesChanged="SelectedValues=>SelectionText(SelectedValues,item)"
+                                SelectedValues="L_TagEndorsement.Where(x=>x.SecondId == item.Id).Select(x=>x.D_Tag)">
+                                @foreach (var state in List_D_Tag)
+                                {
+                                <MudSelectItem Value="@state" />
+                                }
+                                </MudSelect>
+                                </td> *@
+                                            <td>
                                                 <MudCheckBox Label="فعال"
                                                              Checked="@item.EnableRecord"
                                                              Color="Color.Primary"
@@ -341,8 +364,8 @@
     public List<SimpleClass> List_D_Role { get; set; } = new();
     public List<D_Tag> List_D_Tag { get; set; } = new();
     public List<SimpleClass> List_D_Operand { get; set; } = new();
+    public List<SimpleClass> List_CaseState { get; set; } = new();
     public List<SimpleClass> List_D_TagType { get; set; } = new();
-
     public List<L_TagEndorsement> L_TagEndorsement = new();
 
     private async Task SelectionText(IEnumerable<D_Tag> selectedValues, F_Endorsement? f_Endorsement)
@@ -366,12 +389,12 @@
         }
         foreach (var item in L_TagEndorsement.Where(x => x.SecondId == f_Endorsement.Id))
         {
-            if (!selectedValues.Any(x=>x.Id == item.FirstId))
+            if (!selectedValues.Any(x => x.Id == item.FirstId))
             {
                 L_TagEndorsement.Remove(item);
                 var tagEndorsement = f_Endorsement.ValidUserActions.Single(x => x.Id == item.Id);
                 var state = f_Endorsement.ValidUserActions.Remove(tagEndorsement);
-                
+
             }
         }
     }
@@ -386,13 +409,13 @@
         List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<SimpleClass>;
         List_D_Tag = await Task.FromResult(_db.D_Tags.ToList());
         List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<SimpleClass>;
+        List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<SimpleClass>;
         List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<SimpleClass>;
         AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
         AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
         L_TagEndorsement.AddRange(await Task.FromResult(_db.L_TagEndorsements.ToList()));
 
         // simpleClassRepository.GetAllLink(nameof(L_TagEndorsement), nameof(LinkProperty.Second), Id);
-
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
@@ -404,7 +427,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                        .ToDictionary(x => x.Key, x => x.Value)
+                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 
@@ -419,6 +442,31 @@
         }
     }
 
+    private async Task SelectedToEndorsementChanged(ChangeEventArgs e, F_Condition f_Condition)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var ToEndorsementId = Int64.Parse(e.Value.ToString());
+
+            f_Condition.ToEndorsement = (Record as F_Scenario).Endorsements
+            .First(x => x.Id == ToEndorsementId) as F_Endorsement;
+        }
+        else
+        {
+            f_Condition.ToEndorsement = null;
+        }
+    }
+
+    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Condition f_Condition)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var CaseStateId = Int64.Parse(e.Value.ToString());
+
+            f_Condition.CaseState = List_CaseState
+            .First(x => x.Id == CaseStateId) as D_CaseState;
+        }
+    }
     private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
