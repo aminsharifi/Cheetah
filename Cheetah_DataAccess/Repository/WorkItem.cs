@@ -31,6 +31,11 @@ namespace Cheetah_DataAccess.Repository
                 !x.IsSent() && !x.IsExit())
                 .ToList().ForEach(x => x.SetExit());
 
+      //      Current_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
+      // x.Endorsement.SortIndex == Current_Endorsement.Value)
+      //.ToList().ForEach(x => x.SetExit());
+
+
             Current_WorkItem.Case
                      .WorkItems
                      .Where(x => x.EndorsementId == ExpectedCondition.ToEndorsementId)
@@ -51,16 +56,6 @@ namespace Cheetah_DataAccess.Repository
                 All_Endorsements.First() : All_Endorsements
                 .Where(x => x.Value > Current_Endorsement.Value)
                 .FirstOrDefault();
-
-            Current_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
-            x.Endorsement.SortIndex == Current_Endorsement.Value)
-           .ToList().ForEach(x => x.SetExit());
-
-
-
-
-
-
 
             Current_WorkItem.Case.WorkItems
                 .Where(x => !x.IsExit() && !x.IsSent() && x.EndorsementId == Next_Endorsement.Key)
