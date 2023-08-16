@@ -148,6 +148,7 @@
                                         <th data-sortable="true">ترتیب</th>
                                         <th data-sortable="true">نام نقش</th>
                                         <th data-sortable="true">اقدامات</th>
+                                        @* <th data-sortable="true">اقدامات مجاز</th> *@
                                         <th data-sortable="true">فعال</th>
                                     </tr>
                                 </thead>
@@ -203,7 +204,7 @@
                                                                     <th data-sortable="true">نام پارامتر</th>
                                                                     <th data-sortable="true">عملگر</th>
                                                                     <th data-sortable="true">مقدار</th>
-                                                                    <th data-sortable="true">وضعیت فرآیند</th>
+                                                                    <th data-sortable="true">وضعیت فرآیند</th>                                                                    
                                                                     <th data-sortable="true">اقدام بعدی</th>
                                                                     <th data-sortable="true">فعال</th>
                                                                 </tr>
@@ -320,20 +321,20 @@
                                                     }
                                                 </div>
                                             </td>
-                                            @* <td style="width:8%">
-                                <MudSelect MultiSelection="true"
-                                AdornmentIcon="@Icons.Material.Filled.Search"
-                                AnchorOrigin="Origin.BottomCenter"
-                                T="D_Tag"
-                                ToStringFunc="@GetMultiSelectionText"
-                                SelectedValuesChanged="SelectedValues=>SelectionText(SelectedValues,item)"
-                                SelectedValues="L_TagEndorsement.Where(x=>x.SecondId == item.Id).Select(x=>x.D_Tag)">
-                                @foreach (var state in List_D_Tag)
-                                {
-                                <MudSelectItem Value="@state" />
-                                }
-                                </MudSelect>
-                                </td> *@
+                                            @* <td>
+                                                <MudSelect MultiSelection="true"
+                                                           AdornmentIcon="@Icons.Material.Filled.Search"
+                                                           AnchorOrigin="Origin.BottomCenter"
+                                                           T="SimpleClass"
+                                                           ToStringFunc="@GetMultiSelectionText"
+                                                           SelectedValuesChanged="SelectedValues=>SelectionText(SelectedValues,item)"
+                                                           SelectedValues="L_TagEndorsement.Where(x=>x.SecondId == item.Id).Select(x=>x.D_Tag)">
+                                                    @foreach (var state in List_D_Tag)
+                                                    {
+                                                        <MudSelectItem Value="@state" />
+                                                    }
+                                                </MudSelect>
+                                            </td> *@
                                             <td>
                                                 <MudCheckBox Label="فعال"
                                                              Checked="@item.EnableRecord"
@@ -362,22 +363,24 @@
 @code {
 
     public List<SimpleClass> List_D_Role { get; set; } = new();
-    public List<D_Tag> List_D_Tag { get; set; } = new();
+    public List<SimpleClass> List_D_Tag { get; set; } = new();
     public List<SimpleClass> List_D_Operand { get; set; } = new();
     public List<SimpleClass> List_CaseState { get; set; } = new();
     public List<SimpleClass> List_D_TagType { get; set; } = new();
     public List<L_TagEndorsement> L_TagEndorsement = new();
-
-    private async Task SelectionText(IEnumerable<D_Tag> selectedValues, F_Endorsement? f_Endorsement)
+    private async Task SelectionText(IEnumerable<SimpleClass> selectedValues, F_Endorsement? f_Endorsement)
     {
-        foreach (D_Tag selectedValue in selectedValues)
+        foreach (SimpleClass selectedValue in selectedValues)
         {
-            if (!L_TagEndorsement.Any(x => x.FirstId == selectedValue.Id && x.SecondId == f_Endorsement.Id))
+            var selectedValueId = selectedValue.Id;
+            var f_EndorsementId = f_Endorsement.Id;
+
+            if (!L_TagEndorsement.Any(x => x.FirstId == selectedValueId && x.SecondId == f_EndorsementId))
             {
                 var l_TagEndorsement = new L_TagEndorsement()
                     {
                         FirstId = selectedValue.Id,
-                        D_Tag = selectedValue,
+                        D_Tag = selectedValue as D_Tag,
                         SecondId = f_Endorsement.Id,
                         F_Endorsement = f_Endorsement,
                         Name = selectedValue.Name + "_" + f_Endorsement.Name,
@@ -398,16 +401,14 @@
             }
         }
     }
-
     private string GetMultiSelectionText(SimpleClass selectedValues)
     {
         return $"{string.Join(", ", selectedValues?.DisplayName)}";
     }
-
     public override async Task ExtendedLoadDTO()
     {
         List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<SimpleClass>;
-        List_D_Tag = await Task.FromResult(_db.D_Tags.ToList());
+        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<SimpleClass>;
         List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<SimpleClass>;
         List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<SimpleClass>;
         List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<SimpleClass>;
@@ -427,10 +428,9 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                        .ToDictionary(x => x.Key, x => x.Value)
+                            .ToDictionary(x => x.Key, x => x.Value)
             };
     }
-
     private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
@@ -441,7 +441,6 @@
             .First(x => x.Id == _D_OperandId) as D_Operand;
         }
     }
-
     private async Task SelectedToEndorsementChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
@@ -456,7 +455,6 @@
             f_Condition.ToEndorsement = null;
         }
     }
-
     private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
@@ -477,7 +475,6 @@
             .First(x => x.Id == _D_ParameterListId) as D_Tag;
         }
     }
-
     public async Task AddConditions(MouseEventArgs e, SimpleClass cObject)
     {
         var Condition = new F_Condition();
@@ -508,7 +505,6 @@
             (cObject as F_Endorsement).Conditions.Add(Condition);
         }
     }
-
     public async Task AddEndorsementPattern()
     {
         var d_Endorsement = new F_Endorsement();
@@ -528,7 +524,6 @@
 
         (Record as F_Scenario).Endorsements.Add(d_Endorsement);
     }
-
     private async Task SelectedEndorsementChanged(ChangeEventArgs e, F_Endorsement d_Endorsement)
     {
         if (Id > 0 && e.Value is not null)

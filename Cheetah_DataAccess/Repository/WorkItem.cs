@@ -164,7 +164,7 @@ namespace Cheetah_DataAccess.Repository
                     }
                     else
                     {
-                        if (CompareCondition(Actual_Conditions, eP_Endorsement.Conditions))
+                        if (CompareCondition(Actual_Conditions, eP_Endorsement.Conditions) || 1 == 1)
                         {
                             var Positions = await _db.L_RolePositions
                                 .Where(x => x.FirstId == eP_Endorsement.RoleId)
