@@ -7,6 +7,7 @@ using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheetah_GrpcService.Services
 {
@@ -61,6 +62,29 @@ namespace Cheetah_GrpcService.Services
 
             f_Request.ERPCode = request.ERPCode;
 
+            foreach (var Condition in request.Conditions)
+            {
+                var f_Condition = new F_Condition();
+                if (Condition.Tag is not null)
+                {
+                    f_Condition.Tag = new D_Tag() { ERPCode = Condition?.Tag?.ERPCode };
+                }
+                if (Condition.Operand is not null)
+                {
+                    f_Condition.Operand = new D_Operand() { ERPCode = Condition?.Operand?.ERPCode };
+                }
+                if (Condition.Value is not null)
+                {
+                    f_Condition.Value = Condition.Value;
+                }
+                if (Condition.User is not null)
+                {
+                    f_Condition.User = new D_User() { ERPCode = Condition?.User?.ERPCode };
+                }
+
+                f_Request.Conditions.Add(f_Condition);
+            }
+
             f_Request = await iWorkItem.CreateRequestAsync(f_Request);
 
             var output_Request = new Brief_Request();
@@ -69,22 +93,30 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.ERPCode = f_Request.ERPCode.Value;
 
+            var processes = await _db.D_Processes
+                .Where(x => x.Id == f_Request.ProcessId)
+                .SingleAsync();
+
+            var caseState = await _db.D_CaseStates
+                .Where(x => x.Id == f_Request.CaseStateId)
+                .SingleAsync();
+
             output_Request.Process =
             new()
             {
-                Id = f_Request.Process.Id.Value,
-                ERPCode = f_Request.Process.ERPCode.Value,
-                Name = f_Request.Process.Name,
-                DisplayName = f_Request.Process.DisplayName
+                Id = processes.Id.Value,
+                ERPCode = processes.ERPCode.Value,
+                Name = processes.Name,
+                DisplayName = processes.DisplayName
             };
 
             output_Request.CaseState =
                 new()
                 {
-                    Id = f_Request.CaseState.Id.Value,
-                    ERPCode = f_Request.CaseState.ERPCode.Value,
-                    Name = f_Request.CaseState.Name,
-                    DisplayName = f_Request.CaseState.DisplayName
+                    Id = caseState.Id.Value,
+                    ERPCode = caseState.ERPCode.Value,
+                    Name = caseState.Name,
+                    DisplayName = caseState.DisplayName
                 };
 
             return output_Request;
@@ -261,7 +293,7 @@ namespace Cheetah_GrpcService.Services
             for (int i = 0; i < request.RecordCartables.Count(); i++)
             {
                 request.RecordCartables[i].ValidUserActions.AddRange(
- 
+
                     OutputRequest
                     .Where(x => x.WorkItemId == request.RecordCartables[i].WorkItemId.ToString())
                     .Single().ValidUserActions
