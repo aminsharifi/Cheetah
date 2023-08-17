@@ -5,6 +5,7 @@ using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Cheetah_DataAccess.Repository
 {
@@ -36,16 +37,15 @@ namespace Cheetah_DataAccess.Repository
 
             return await Q_input.Select(x => x.Id.Value).SingleAsync();
         }
-        public async Task<F_Case> DeepCopy(F_Case obj)
+
+        public async Task<List<F_Condition>> CopyCondition(IEnumerable<F_Condition> Conditions)
         {
-            var Return_Case = new F_Case();
+            List<F_Condition> list_condition = new List<F_Condition>();
 
-            Return_Case.ERPCode = obj.ERPCode;
-
-            if (obj.Conditions is not null
-                   && obj.Conditions.Count > 0)
+            if (Conditions is not null
+                 && Conditions.Count() > 0)
             {
-                foreach (var item in obj.Conditions)
+                foreach (var item in Conditions)
                 {
                     var _condition = new F_Condition();
 
@@ -65,10 +65,19 @@ namespace Cheetah_DataAccess.Repository
                     {
                         _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
                     }
-
-                    Return_Case.Conditions.Add(_condition);
+                    list_condition.Add(_condition);
                 }
             }
+            return list_condition;
+        }
+
+        public async Task<F_Case> DeepCopy(F_Case obj)
+        {
+            var Return_Case = new F_Case();
+
+            Return_Case.ERPCode = obj.ERPCode;
+
+            Return_Case.Conditions = await CopyCondition(obj.Conditions);
 
             if (obj.CreatorId is null || obj.CreatorId == 0)
             {
