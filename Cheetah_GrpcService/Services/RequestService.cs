@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -7,6 +8,8 @@ using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
+using Serilog.Parsing;
 
 namespace Cheetah_GrpcService.Services
 {
@@ -38,6 +41,34 @@ namespace Cheetah_GrpcService.Services
             this._iCopyClass = _iCopyClass;
         }
 
+
+        public IEnumerable<F_Condition> GetCondition(IEnumerable<Condition> Conditions)
+        {
+            
+            foreach (var Condition in Conditions)
+            {
+                var f_Condition = new F_Condition();
+                if (Condition.Tag is not null)
+                {
+                    f_Condition.Tag = new D_Tag() { ERPCode = Condition?.Tag?.ERPCode };
+                }
+                if (Condition.Operand is not null)
+                {
+                    f_Condition.Operand = new D_Operand() { ERPCode = Condition?.Operand?.ERPCode };
+                }
+                if (Condition.Value is not null)
+                {
+                    f_Condition.Value = Condition.Value;
+                }
+                if (Condition.User is not null)
+                {
+                    f_Condition.User = new D_User() { ERPCode = Condition?.User?.ERPCode };
+                }
+
+                yield return f_Condition;
+            }
+        }
+
         public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Case();
@@ -61,6 +92,8 @@ namespace Cheetah_GrpcService.Services
 
             f_Request.ERPCode = request.ERPCode;
 
+            f_Request.Conditions = GetCondition(request.Conditions).ToList();
+
             f_Request = await iWorkItem.CreateRequestAsync(f_Request);
 
             var output_Request = new Brief_Request();
@@ -69,22 +102,30 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.ERPCode = f_Request.ERPCode.Value;
 
+            var processes = await _db.D_Processes
+                .Where(x => x.Id == f_Request.ProcessId)
+                .SingleAsync();
+
+            var caseState = await _db.D_CaseStates
+                .Where(x => x.Id == f_Request.CaseStateId)
+                .SingleAsync();
+
             output_Request.Process =
             new()
             {
-                Id = f_Request.Process.Id.Value,
-                ERPCode = f_Request.Process.ERPCode.Value,
-                Name = f_Request.Process.Name,
-                DisplayName = f_Request.Process.DisplayName
+                Id = processes.Id.Value,
+                ERPCode = processes.ERPCode.Value,
+                Name = processes.Name,
+                DisplayName = processes.DisplayName
             };
 
             output_Request.CaseState =
                 new()
                 {
-                    Id = f_Request.CaseState.Id.Value,
-                    ERPCode = f_Request.CaseState.ERPCode.Value,
-                    Name = f_Request.CaseState.Name,
-                    DisplayName = f_Request.CaseState.DisplayName
+                    Id = caseState.Id.Value,
+                    ERPCode = caseState.ERPCode.Value,
+                    Name = caseState.Name,
+                    DisplayName = caseState.DisplayName
                 };
 
             return output_Request;
@@ -92,13 +133,12 @@ namespace Cheetah_GrpcService.Services
         public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
             var f_WorkItem = new F_WorkItem();
+
             f_WorkItem.Id = request.WorkItemId;
-            f_WorkItem.TagId = await _iCopyClass
-                .GetSimpleClassId(_db.D_Tags, new D_Tag()
-                {
-                    Name = request.Tag.Name,
-                    ERPCode = request.Tag.ERPCode
-                });
+
+            f_WorkItem.Case = new F_Case();
+
+            f_WorkItem.Case.Conditions = GetCondition(request.Conditions).ToList();
 
             f_WorkItem = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
 
@@ -124,7 +164,7 @@ namespace Cheetah_GrpcService.Services
 
             return output_Request;
         }
-        public override Task<DetailOutput_Request> GetCase(Brief_Request request, ServerCallContext context)
+        public override async Task<DetailOutput_Request> GetCase(Brief_Request request, ServerCallContext context)
         {
             F_Case f_Request = new();
 
@@ -136,8 +176,9 @@ namespace Cheetah_GrpcService.Services
             if (request.Process is not null)
                 f_Request.Process = _db.D_Processes.Single(x => x.Name == request.Process.Name);
 
-            f_Request = iCartable.GetCaseAsync(f_Request)
-                .GetAwaiter().GetResult();
+            f_Request = await iCartable.GetCaseAsync(f_Request);
+
+            #region DetailOutput_Request
 
             DetailOutput_Request output_Request = new()
             {
@@ -146,18 +187,27 @@ namespace Cheetah_GrpcService.Services
                 ERPCode = f_Request.ERPCode.Value
             };
 
+            #region CaseState
             output_Request.CaseState =
-                new()
-                {
-                    Id = f_Request.CaseStateId.Value,
-                    Name = f_Request.CaseState.Name,
-                    DisplayName = f_Request.CaseState.DisplayName
-                };
+                          new()
+                          {
+                              Id = f_Request.CaseStateId.Value,
+                              Name = f_Request.CaseState.Name,
+                              DisplayName = f_Request.CaseState.DisplayName
+                          };
+            #endregion
 
-            var L_WorkItems = f_Request.WorkItems.ToList();
+            #region Endorsements
+
+            var Endorsements = _db.F_Cases
+                .SelectMany(x => x.WorkItems)
+                .Where(x => x.Endorsement != null)
+                .Select(x => x.Endorsement)
+                .Distinct();
 
             output_Request.Assignments.AddRange(
-                L_WorkItems.Select(x => x.Endorsement).Distinct()
+                Endorsements
+                .OrderBy(x => x.SortIndex)
                 .Select(x => new GRPC_Assignment()
                 {
                     Endorsement = new GRPC_BaseClass()
@@ -166,7 +216,14 @@ namespace Cheetah_GrpcService.Services
                         Name = x.Name,
                         DisplayName = x.DisplayName
                     }
-                }));
+                })
+                );
+
+            #endregion
+
+            #region L_WorkItem
+
+            var L_WorkItems = f_Request.WorkItems.ToList();
 
             foreach (var Assignment in output_Request.Assignments)
             {
@@ -186,12 +243,7 @@ namespace Cheetah_GrpcService.Services
                                 Name = x.User.Name,
                                 DisplayName = x.User.DisplayName
                             },
-                            Tag = new GRPC_BaseClass()
-                            {
-                                Id = x.TagId ?? 0,
-                                Name = x.Tag?.Name ?? String.Empty,
-                                DisplayName = x.Tag?.DisplayName ?? String.Empty
-                            },
+
                             WorkItemState = new GRPC_BaseClass()
                             {
                                 Id = x.WorkItemStateId ?? 0,
@@ -200,10 +252,39 @@ namespace Cheetah_GrpcService.Services
                             }
                         }
                         )
-                    );
+                );
             }
 
-            return Task.FromResult(output_Request);
+            #region d_Tag
+
+            var d_Tags = await _db.D_Tags.AsNoTracking().ToListAsync();
+            foreach (var Assignment in output_Request.Assignments)
+            {
+                foreach (var UserAssignment in Assignment.UserAssignments)
+                {
+                    var TagId = L_WorkItems.Where(x => x.Id == UserAssignment.WorkItemId).Single().TagId;
+
+                    if (TagId is not null && TagId > 0)
+                    {
+                        var d_Tag = d_Tags.Where(x => x.Id == TagId).SingleOrDefault();
+
+                        UserAssignment.Tag = new GRPC_BaseClass()
+                        {
+                            Id = d_Tag.Id ?? 0,
+                            Name = d_Tag?.Name ?? String.Empty,
+                            DisplayName = d_Tag?.DisplayName ?? String.Empty
+                        };
+                    }
+                }
+            }
+
+            #endregion
+
+            #endregion
+
+            #endregion
+
+            return output_Request;
         }
         public async Task<PageCartable> Cartable(PageCartable request, CartableProperty cartableProperty)
         {
@@ -261,7 +342,7 @@ namespace Cheetah_GrpcService.Services
             for (int i = 0; i < request.RecordCartables.Count(); i++)
             {
                 request.RecordCartables[i].ValidUserActions.AddRange(
- 
+
                     OutputRequest
                     .Where(x => x.WorkItemId == request.RecordCartables[i].WorkItemId.ToString())
                     .Single().ValidUserActions
