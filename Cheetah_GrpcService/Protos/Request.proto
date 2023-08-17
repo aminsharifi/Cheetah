@@ -79,8 +79,8 @@ message Condition
 
 message Perform_Input_Request
 {
-     int64  WorkItemId = 1;
-     GRPC_BaseClass Tag = 2;
+     int64 WorkItemId = 1;
+     repeated Condition Conditions = 2;
 }
 
 message DetailOutput_Request

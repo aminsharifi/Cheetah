@@ -25,50 +25,47 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task SetCartable(F_WorkItem Current_WorkItem, F_Condition ExpectedCondition)
         {
-            var Current_SortIndex = ExpectedCondition.Endorsement.SortIndex;
-            Current_WorkItem.Case.WorkItems
-                .Where(x => 
-                !x.IsSent() && !x.IsExit())
-                .ToList().ForEach(x => x.SetExit());
-
-      //      Current_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
-      // x.Endorsement.SortIndex == Current_Endorsement.Value)
-      //.ToList().ForEach(x => x.SetExit());
-
-
-            Current_WorkItem.Case
-                     .WorkItems
-                     .Where(x => x.EndorsementId == ExpectedCondition.ToEndorsementId)
-                     .Single().SetInbox();
-
             var All_Endorsements = await _db.F_Endorsements
-                .Where(x => x.ScenarioId == Current_WorkItem.Case.SelectedScenarioId)
-                .AsNoTracking()
-                .OrderBy(x => x.Scenario.SortIndex)
-                .Select(x => new KeyValuePair<Int64?, Int64?>(x.Id, x.SortIndex))
-                .ToListAsync();
+                                .Where(x => x.ScenarioId == Current_WorkItem.Case.SelectedScenarioId)
+                                .AsNoTracking()
+                                .OrderBy(x => x.Scenario.SortIndex)
+                                .Select(x => new KeyValuePair<Int64?, Int64?>(x.Id, x.SortIndex))
+                                .ToListAsync();
 
             var Current_Endorsement = All_Endorsements
-                .Where(x => x.Key == Current_WorkItem.EndorsementId)
-                .Single();
+                                .Where(x => x.Key == ExpectedCondition.ToEndorsementId)
+                                .Single();
 
-            var Next_Endorsement = Current_WorkItem.Case.IsEditing() ?
-                All_Endorsements.First() : All_Endorsements
+            var Next_Endorsement = All_Endorsements
                 .Where(x => x.Value > Current_Endorsement.Value)
                 .FirstOrDefault();
 
-            Current_WorkItem.Case.WorkItems
-                .Where(x => !x.IsExit() && !x.IsSent() && x.EndorsementId == Next_Endorsement.Key)
-                .ToList().ForEach(x => x.SetInbox());
-
-            foreach (var Endorsement_Item in All_Endorsements.Where(x => x.Key > Next_Endorsement.Key))
+            foreach (var Endorsement_Item in All_Endorsements.Where(x => x.Key >= Next_Endorsement.Key))
             {
                 Current_WorkItem.Case.WorkItems
                     .Where(x => !x.IsExit() && !x.IsSent() && x.EndorsementId == Endorsement_Item.Key)
                     .ToList().ForEach(x => x.SetFuture());
             }
+
+            /*
+            var Current_SortIndex = ExpectedCondition.Endorsement.SortIndex;
+
+
+                        Current_WorkItem.Case.WorkItems
+                            .Where(x =>
+                            !x.IsSent() && !x.IsExit())
+                            .ToList().ForEach(x => x.SetExit());
+
+                        //      Current_WorkItem.Case.WorkItems.Where(x => x.IsInbox() &&
+                        // x.Endorsement.SortIndex == Current_Endorsement.Value)
+                        //.ToList().ForEach(x => x.SetExit());
+
+                              Current_WorkItem.Case.WorkItems
+                                  .Where(x => !x.IsExit() && !x.IsSent() && x.EndorsementId == Next_Endorsement.Key)
+                                  .ToList().ForEach(x => x.SetInbox());
+
+                              */
         }
-     
         public async Task SetCurrentAssignment(F_WorkItem Current_WorkItem)
         {
             Current_WorkItem.LastUpdatedRecord = DateTime.Now;
@@ -79,19 +76,41 @@ namespace Cheetah_DataAccess.Repository
                 .ThenInclude(x => x.Operand)
                 .SingleAsync();
 
-            foreach (var ExpectedCondition in WorkItemEndorsement.Conditions)
+            var ActualConditions = Current_WorkItem.Case.Conditions;
+            var ExpectedConditions = WorkItemEndorsement.Conditions;
+
+            foreach (var ExpectedCondition in ExpectedConditions)
             {
                 var ExpectedConditionList = new List<F_Condition>();
-
                 ExpectedConditionList.Add(ExpectedCondition);
-
-                if (CompareCondition(WorkItemEndorsement.Conditions, ExpectedConditionList))
+                if (CompareCondition(ActualConditions, ExpectedConditionList))
                 {
                     Current_WorkItem.Case.CaseStateId =
                         ExpectedCondition.CaseStateId;
+                    Current_WorkItem.TagId =
+                        ExpectedCondition.TagId;
+
+                    #region Exit Current work items
+                    Current_WorkItem.SetSent();
+                    var OtherWorkItems = Current_WorkItem.Case.WorkItems
+                        .Where(x => x.EndorsementId == Current_WorkItem.EndorsementId)
+                        .Where(x=>x.IsInbox())
+                        .Where(x => x.Id != Current_WorkItem.Id);
+
+                    foreach (var OtherWorkItem in OtherWorkItems)
+                    {
+                        OtherWorkItem.SetExit();
+                    }
+                    #endregion
+
+                    #region Set inbox
+                    Current_WorkItem.Case.WorkItems
+                        .Where(x => x.EndorsementId == ExpectedCondition.ToEndorsementId)
+                        .ToList().ForEach(x => x.SetInbox());
+                    #endregion
 
                     await SetCartable(Current_WorkItem, ExpectedCondition);
-                }
+                }                    
             }
         }
         public async Task SetWorkItemsAsync(F_Case Current_Case)
@@ -265,24 +284,9 @@ namespace Cheetah_DataAccess.Repository
                   .ThenInclude(x => x.Conditions)
                   .FirstAsync();
 
-            Current_WorkItem.TagId = f_WorkItem.TagId;
+            Current_WorkItem.Case.Conditions = await _iCopyClass.CopyCondition(f_WorkItem.Case.Conditions);
 
-            Current_WorkItem.SetSent();
-
-            if (Current_WorkItem.IsRevise())
-            {
-                Current_WorkItem.Case.SetEditing();
-
-                //Exit(Current_WorkItem, Current_WorkItem.Endorsement);
-
-                await SetWorkItemsAsync(Current_WorkItem.Case);
-
-                //await SetInboxAndFuture(Current_WorkItem);
-            }
-            else
-            {
-                await SetCurrentAssignment(Current_WorkItem);
-            }
+            SetCurrentAssignment(Current_WorkItem);
 
             _db.F_WorkItems.Update(Current_WorkItem);
 
