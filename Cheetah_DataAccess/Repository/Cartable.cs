@@ -26,8 +26,11 @@ namespace Cheetah_DataAccess.Repository
                 .Include(x => x.SelectedScenario)
                 .Include(x => x.Conditions)
                 .Include(x => x.CaseState)
-                .Include(x => x.WorkItems).ThenInclude(x => x.WorkItemState)
-                .Include(x => x.WorkItems).ThenInclude(x => x.User)
+                .Include(x => x.WorkItems)
+                .ThenInclude(x => x.WorkItemState)
+                .Include(x => x.WorkItems)
+                .ThenInclude(x => x.User)
+                .AsNoTracking()
                 .SingleAsync(x => request.Id > 0 ? x.Id == request.Id :
                 x.Process.Name == request.Process.Name &&
                 x.ERPCode == request.ERPCode);

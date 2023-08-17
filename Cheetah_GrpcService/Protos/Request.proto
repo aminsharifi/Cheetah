@@ -12,7 +12,7 @@ service Request {
   // Sends a greeting
   rpc CreateRequest (Create_Input_Request) returns (Brief_Request);
   rpc PerformRequest (Perform_Input_Request) returns (Brief_Request);
-  rpc GetCase (Brief_Request) returns (DetailOutput_Request);  
+  rpc GetCase (Brief_Request) returns (DetailOutput_Request);
   rpc Inbox (PageCartable) returns (PageCartable);
   rpc Outbox (PageCartable) returns (PageCartable);
   rpc GetAllByName (TableInfo) returns (TableInfo);
@@ -66,13 +66,21 @@ message Create_Input_Request
      GRPC_BaseClass Creator = 2;
      GRPC_BaseClass Requestor = 3;
      GRPC_BaseClass Process = 4;
-     repeated GRPC_BaseClass Conditions = 5;
+     repeated Condition Conditions = 5;
+}
+
+message Condition
+{     
+    GRPC_BaseClass Tag = 1;
+    GRPC_BaseClass Operand = 2;
+    string Value = 3;
+    GRPC_BaseClass User = 4;
 }
 
 message Perform_Input_Request
 {
-     int64  WorkItemId = 1;
-     GRPC_BaseClass Tag = 2;
+     int64 WorkItemId = 1;
+     repeated Condition Conditions = 2;
 }
 
 message DetailOutput_Request
