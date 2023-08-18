@@ -29,8 +29,8 @@ public partial class F_Endorsement : SimpleClass
 
     public override void SetName()
     {
-        DisplayName = Scenario?.DisplayName + "," + Role?.DisplayName;
-        Name = Scenario?.Name + "," + Role?.Name;
+        DisplayName = Scenario?.DisplayName + "," + SortIndex + "," + Role?.DisplayName;
+        Name = Scenario?.Name + "," + SortIndex + "," + Role?.Name;
     }
 
     #region Functions

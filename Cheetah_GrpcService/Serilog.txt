@@ -183,3 +183,14 @@
 2023-08-17 18:04:16.856 +03:30 [INF] CreateRequestAsync-10441
 2023-08-17 18:11:50.981 +03:30 [INF] CreateRequestAsync-10442
 2023-08-17 18:15:54.558 +03:30 [INF] CreateRequestAsync-10443
+2023-08-19 04:22:33.901 +04:30 [INF] Error Result: {"Messages":["Sequence contains no elements."],"Source":"Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor+<SingleAsync>d__15`1","Exception":"Sequence contains no elements.","ErrorId":"a0f7a106-05c2-4039-84ef-998372bd4662","SupportMessage":"Provide the Error Id: a0f7a106-05c2-4039-84ef-998372bd4662 to the support team for further analysis.","StatusCode":500,"$type":"ErrorResult"}
+2023-08-19 04:24:08.774 +04:30 [INF] Error Result: {"Messages":["Sequence contains no elements."],"Source":"Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor+<SingleAsync>d__15`1","Exception":"Sequence contains no elements.","ErrorId":"c34c755c-1a6c-4dd7-a7f9-59bdd41a491f","SupportMessage":"Provide the Error Id: c34c755c-1a6c-4dd7-a7f9-59bdd41a491f to the support team for further analysis.","StatusCode":500,"$type":"ErrorResult"}
+2023-08-19 04:24:45.652 +04:30 [INF] Error Result: {"Messages":["Sequence contains no elements."],"Source":"Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor+<SingleAsync>d__15`1","Exception":"Sequence contains no elements.","ErrorId":"6610f553-ae30-4533-b922-24a462a12bf0","SupportMessage":"Provide the Error Id: 6610f553-ae30-4533-b922-24a462a12bf0 to the support team for further analysis.","StatusCode":500,"$type":"ErrorResult"}
+2023-08-19 04:26:03.878 +04:30 [INF] Error Result: {"Messages":["Sequence contains no elements."],"Source":"Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor+<SingleAsync>d__15`1","Exception":"Sequence contains no elements.","ErrorId":"eefa4947-a880-4625-8389-49873f9c540c","SupportMessage":"Provide the Error Id: eefa4947-a880-4625-8389-49873f9c540c to the support team for further analysis.","StatusCode":500,"$type":"ErrorResult"}
+2023-08-19 04:27:33.134 +04:30 [INF] CreateRequestAsync-1
+2023-08-19 04:30:29.735 +04:30 [INF] CreateRequestAsync-3
+2023-08-19 04:40:27.650 +04:30 [INF] CreateRequestAsync-11
+2023-08-19 04:43:09.711 +04:30 [INF] CreateRequestAsync-12
+2023-08-19 05:30:35.700 +04:30 [INF] CreateRequestAsync-13
+2023-08-19 05:41:25.276 +04:30 [INF] CreateRequestAsync-14
+2023-08-19 05:49:40.197 +04:30 [INF] CreateRequestAsync-15

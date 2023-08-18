@@ -101,10 +101,29 @@ namespace Cheetah_DataAccess.Repository
                         #endregion
 
                         #region Set inbox
-                        Current_WorkItem.Case.WorkItems
+                        var _Current_WorkItems = Current_WorkItem.Case.WorkItems
                             .Where(x => x.EndorsementId == ExpectedCondition.ToEndorsementId)
-                            .Where(x => !x.IsSent() && !x.IsExit())
-                            .ToList().ForEach(x => x.SetInbox());
+                            .Where(x => !x.IsSent() && !x.IsExit());
+
+                        var _UserId = ActualConditions.First().UserId;
+
+                        if (_UserId > 0)
+                        {
+                            _Current_WorkItems.Where(x => x.UserId == _UserId)
+                                .Single().SetInbox();
+
+                            _Current_WorkItems
+                                .Where(x => x.UserId != _UserId)
+                                .ToList()
+                                .ForEach(x => x.SetExit());
+                        }
+                        else
+                        {
+                            _Current_WorkItems
+                                .ToList()
+                                .ForEach(x => x.SetInbox());
+                        }
+
                         #endregion
 
                         await SetCartable(Current_WorkItem, ExpectedCondition);
@@ -173,7 +192,7 @@ namespace Cheetah_DataAccess.Repository
                 {
                     if (eP_Endorsement.Role.FixedRole)
                     {
-                        first_WorkItem = new()
+                        F_WorkItem f_WorkItem = new()
                         {
                             Case = Current_Case,
                             EndorsementId = eP_Endorsement.Id,
@@ -182,14 +201,17 @@ namespace Cheetah_DataAccess.Repository
 
                         if (eP_Endorsement.IsRequestor())
                         {
-                            first_WorkItem.UserId = Current_Case.RequestorId;
+                            f_WorkItem.UserId = Current_Case.RequestorId;
                         }
                         else if (eP_Endorsement.IsRequestorManager())
                         {
-                            first_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
+                            f_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
                         }
-
-                        Current_Case.WorkItems.Add(first_WorkItem);
+                        if (!(first_WorkItem.EndorsementId > 0))
+                        {
+                            first_WorkItem = f_WorkItem;
+                        }
+                        Current_Case.WorkItems.Add(f_WorkItem);
                     }
                     else
                     {
@@ -288,6 +310,8 @@ namespace Cheetah_DataAccess.Repository
 
             Current_WorkItem.Case.Conditions = await _iCopyClass.CopyCondition(f_WorkItem.Case.Conditions);
 
+            await SetCurrentAssignment(Current_WorkItem);
+
             if (Current_WorkItem.Case.IsEditing())
             {
                 Current_WorkItem.Case.WorkItems
@@ -295,23 +319,11 @@ namespace Cheetah_DataAccess.Repository
                     .ToList().ForEach(x => x.SetExit());
 
                 await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
-
-                _db.F_WorkItems.Update(Current_WorkItem);
-                
-                await _db.SaveChangesAsync();
-
-                _db.F_Cases.Update(Current_WorkItem.Case);
-
-                await _db.SaveChangesAsync();
             }
-            else
-            {
-                await SetCurrentAssignment(Current_WorkItem);
 
-                _db.F_WorkItems.Update(Current_WorkItem);
+            _db.F_WorkItems.Update(Current_WorkItem);
 
-                await _db.SaveChangesAsync();
-            }
+            await _db.SaveChangesAsync();
 
             return Current_WorkItem;
         }
