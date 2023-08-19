@@ -9,6 +9,7 @@ using Cheetah_DataAccess.Data;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog.Parsing;
 
 namespace Cheetah_GrpcService.Services
@@ -44,7 +45,7 @@ namespace Cheetah_GrpcService.Services
 
         public IEnumerable<F_Condition> GetCondition(IEnumerable<Condition> Conditions)
         {
-            
+
             foreach (var Condition in Conditions)
             {
                 var f_Condition = new F_Condition();
@@ -164,141 +165,259 @@ namespace Cheetah_GrpcService.Services
 
             return output_Request;
         }
-        public override async Task<DetailOutput_Request> GetCase(Brief_Request request, ServerCallContext context)
+        public override async Task<DetailOutput_Requests> GetCase(Brief_Request request, ServerCallContext context)
         {
             F_Case f_Request = new();
 
-            f_Request.Id = request.CaseId;
+            #region CaseId
+            if (request.CaseId > 0)
+            {
+                f_Request.Id = request.CaseId;
+            }
+            #endregion
 
+            #region ERPCode
             if (request.ERPCode > 0)
+            {
                 f_Request.ERPCode = request.ERPCode;
+            }
+            #endregion
+
+            #region Process
 
             if (request.Process is not null)
-                f_Request.Process = _db.D_Processes.Single(x => x.Name == request.Process.Name);
-
-            f_Request = await iCartable.GetCaseAsync(f_Request);
-
-            #region DetailOutput_Request
-
-            DetailOutput_Request output_Request = new()
             {
-                Id = f_Request.Id.Value,
-                Process = new GRPC_BaseClass() { Name = f_Request.Process.Name },
-                ERPCode = f_Request.ERPCode.Value
-            };
+                var _Process = _db.D_Processes
+                    .AsNoTracking();
 
-            #region CaseState
-            output_Request.CaseState =
-                          new()
-                          {
-                              Id = f_Request.CaseStateId.Value,
-                              Name = f_Request.CaseState.Name,
-                              DisplayName = f_Request.CaseState.DisplayName
-                          };
-            #endregion
-
-            #region Endorsements
-
-            var Endorsements = _db.F_Cases
-                .SelectMany(x => x.WorkItems)
-                .Where(x => x.Endorsement != null)
-                .Select(x => x.Endorsement)
-                .Distinct();
-
-            output_Request.Assignments.AddRange(
-                Endorsements
-                .OrderBy(x => x.SortIndex)
-                .Select(x => new GRPC_Assignment()
+                if (!String.IsNullOrEmpty(request.Process.Name))
                 {
-                    Endorsement = new GRPC_BaseClass()
-                    {
-                        Id = x.Id.Value,
-                        Name = x.Name,
-                        DisplayName = x.DisplayName
-                    }
-                })
-                );
-
-            #endregion
-
-            #region L_WorkItem
-
-            var L_WorkItems = f_Request.WorkItems.ToList();
-
-            foreach (var Assignment in output_Request.Assignments)
-            {
-                Assignment.UserAssignments.AddRange
-                    (
-                        L_WorkItems.Where(x => x.EndorsementId == Assignment.Endorsement.Id)
-                        .Select(x => new GRPC_UserAssignment()
-                        {
-                            WorkItemId = x.Id.Value,
-                            LastUpdatedRecord =
-                            (x.LastUpdatedRecord is null) ? new Timestamp() :
-                            Timestamp.FromDateTime(
-                                DateTime.SpecifyKind(x.LastUpdatedRecord.Value, DateTimeKind.Utc)),
-                            User = new GRPC_BaseClass()
-                            {
-                                Id = x.UserId.Value,
-                                Name = x.User.Name,
-                                DisplayName = x.User.DisplayName
-                            },
-
-                            WorkItemState = new GRPC_BaseClass()
-                            {
-                                Id = x.WorkItemStateId ?? 0,
-                                Name = x.WorkItemState?.Name ?? String.Empty,
-                                DisplayName = x.WorkItemState?.DisplayName ?? String.Empty
-                            }
-                        }
-                        )
-                );
-            }
-
-            #region d_Tag
-
-            var d_Tags = await _db.D_Tags.AsNoTracking().ToListAsync();
-            foreach (var Assignment in output_Request.Assignments)
-            {
-                foreach (var UserAssignment in Assignment.UserAssignments)
+                    _Process = _Process.Where(x => x.Name == request.Process.Name);
+                }
+                if (request.Process.ERPCode > 0)
                 {
-                    var TagId = L_WorkItems.Where(x => x.Id == UserAssignment.WorkItemId).Single().TagId;
-
-                    if (TagId is not null && TagId > 0)
-                    {
-                        var d_Tag = d_Tags.Where(x => x.Id == TagId).SingleOrDefault();
-
-                        UserAssignment.Tag = new GRPC_BaseClass()
-                        {
-                            Id = d_Tag.Id ?? 0,
-                            Name = d_Tag?.Name ?? String.Empty,
-                            DisplayName = d_Tag?.DisplayName ?? String.Empty
-                        };
-                    }
+                    _Process = _Process.Where(x => x.ERPCode == request.Process.ERPCode);
+                }
+                if (_Process.Any())
+                {
+                    f_Request.ProcessId = _Process
+                                .Select(x => x.Id)
+                                .Single();
                 }
             }
 
             #endregion
 
-            #endregion
+            #region CaseState
+
+            if (request.CaseState is not null)
+            {
+                var _CaseStates = _db.D_CaseStates
+                    .AsNoTracking();
+
+                if (!String.IsNullOrEmpty(request.CaseState.Name))
+                {
+                    _CaseStates = _CaseStates.Where(x => x.Name == request.CaseState.Name);
+                }
+                if (request.Process.ERPCode > 0)
+                {
+                    _CaseStates = _CaseStates.Where(x => x.ERPCode == request.CaseState.ERPCode);
+                }
+
+                if (_CaseStates.Any())
+                {
+                    f_Request.CaseStateId = _CaseStates
+                              .Select(x => x.Id)
+                              .Single();
+                }
+            }
 
             #endregion
 
-            return output_Request;
+            var l_Requests = await iCartable.GetCaseAsync(f_Request);
+
+            #region DetailOutput_Request
+
+            DetailOutput_Requests output_Requests = new();
+
+            var Endorsements = _db.F_Cases
+               .SelectMany(x => x.WorkItems)
+               .Where(x => x.Endorsement != null)
+               .Select(x => x.Endorsement)
+               .Distinct();
+
+            var d_Tags = await _db.D_Tags.AsNoTracking().ToListAsync();
+
+            foreach (var l_Request in l_Requests)
+            {
+                DetailOutput_Request output_Request = new();
+                output_Request = new()
+                {
+                    Id = l_Request.Id.Value,
+                    Process = new GRPC_BaseClass() { Name = l_Request.Process.Name },
+                    ERPCode = l_Request.ERPCode.Value
+                };
+
+                #region CaseState
+                output_Request.CaseState =
+                              new()
+                              {
+                                  Id = l_Request.CaseStateId.Value,
+                                  Name = l_Request.CaseState.Name,
+                                  DisplayName = l_Request.CaseState.DisplayName
+                              };
+                #endregion
+
+                #region Endorsements
+
+                output_Request.Assignments.AddRange(
+                    Endorsements
+                    .OrderBy(x => x.SortIndex)
+                    .Select(x => new GRPC_Assignment()
+                    {
+                        Endorsement = new GRPC_BaseClass()
+                        {
+                            Id = x.Id.Value,
+                            Name = x.Name,
+                            DisplayName = x.DisplayName
+                        }
+                    })
+                    );
+
+                #endregion
+
+                #region L_WorkItem
+
+                var L_WorkItems = l_Request.WorkItems.ToList();
+
+                foreach (var Assignment in output_Request.Assignments)
+                {
+                    Assignment.UserAssignments.AddRange
+                        (
+                            L_WorkItems.Where(x => x.EndorsementId == Assignment.Endorsement.Id)
+                            .Select(x => new GRPC_UserAssignment()
+                            {
+                                WorkItemId = x.Id.Value,
+                                LastUpdatedRecord =
+                                (x.LastUpdatedRecord is null) ? new Timestamp() :
+                                Timestamp.FromDateTime(
+                                    DateTime.SpecifyKind(x.LastUpdatedRecord.Value, DateTimeKind.Utc)),
+                                User = new GRPC_BaseClass()
+                                {
+                                    Id = x.UserId.Value,
+                                    ERPCode = x.User.ERPCode.Value,
+                                    Name = x.User.Name,
+                                    DisplayName = x.User.DisplayName
+                                },
+
+                                WorkItemState = new GRPC_BaseClass()
+                                {
+                                    Id = x.WorkItemStateId ?? 0,
+                                    ERPCode = x.WorkItemState.ERPCode.Value,
+                                    Name = x.WorkItemState?.Name ?? String.Empty,
+                                    DisplayName = x.WorkItemState?.DisplayName ?? String.Empty
+                                }
+                            }
+                            )
+                    );
+                }
+
+                #region d_Tag
+
+
+                foreach (var Assignment in output_Request.Assignments)
+                {
+                    foreach (var UserAssignment in Assignment.UserAssignments)
+                    {
+                        var TagId = L_WorkItems.Where(x => x.Id == UserAssignment.WorkItemId).Single().TagId;
+
+                        if (TagId is not null && TagId > 0)
+                        {
+                            var d_Tag = d_Tags.Where(x => x.Id == TagId).SingleOrDefault();
+
+                            UserAssignment.Tag = new GRPC_BaseClass()
+                            {
+                                Id = d_Tag.Id ?? 0,
+                                ERPCode = d_Tag.ERPCode.Value,
+                                Name = d_Tag?.Name ?? String.Empty,
+                                DisplayName = d_Tag?.DisplayName ?? String.Empty
+                            };
+                        }
+                    }
+                }
+
+                #endregion
+
+                #endregion
+
+                output_Requests.DetailOutputRequest.Add(output_Request);
+            }
+
+            #endregion
+
+            return output_Requests;
         }
         public async Task<PageCartable> Cartable(PageCartable request, CartableProperty cartableProperty)
         {
+            var _Username = String.Empty;
+
+            if (request.Assignee is not null)
+            {
+                var _d_Users = _db.D_Users.AsNoTracking();
+                if (!String.IsNullOrEmpty(request.Assignee.Name))
+                {
+                    _d_Users = _d_Users.Where(x => x.Name == request.Assignee.Name);
+                }
+                if (request.Assignee.ERPCode > 0)
+                {
+                    _d_Users = _d_Users.Where(x => x.ERPCode == request.Assignee.ERPCode);
+                }
+                _Username = await _d_Users.Select(x => x.Name).SingleAsync();
+            }
+
+            var _ProcessName = String.Empty;
+
+            if (request.Assignee is not null)
+            {
+                var _d_Processes = _db.D_Processes.AsNoTracking();
+
+                if (!String.IsNullOrEmpty(request.Process.Name))
+                {
+                    _d_Processes = _d_Processes.Where(x => x.Name == request.Process.Name);
+                }
+                if (request.Assignee.ERPCode > 0)
+                {
+                    _d_Processes = _d_Processes.Where(x => x.ERPCode == request.Process.ERPCode);
+                }
+                _ProcessName = await _d_Processes.Select(x => x.Name).SingleAsync();
+            }
+
+            var _CaseState = String.Empty;
+
+            if (request.Assignee is not null)
+            {
+                var _CaseStates = _db.D_CaseStates.AsNoTracking();
+
+                if (!String.IsNullOrEmpty(request.Process.Name))
+                {
+                    _CaseStates = _CaseStates.Where(x => x.Name == request.CaseState.Name);
+                }
+                if (request.Assignee.ERPCode > 0)
+                {
+                    _CaseStates = _CaseStates.Where(x => x.ERPCode == request.CaseState.ERPCode);
+                }
+                _CaseState = await _CaseStates.Select(x => x.Name).SingleAsync();
+            }
+
             var cartableDTO = new CartableDTO()
             {
-                Username = request.Assignee.Name,
-                ProcessName = request.Process.Name,
+                Username = _Username,
+                ProcessName = _ProcessName,
                 PageSize = request.PageSize,
                 PageNumber = request.PageNumber,
                 CaseState = (request.CaseState is null) ? new() : new SimpleClassDTO()
                 {
-                    ERPCode = request.CaseState.ERPCode,
-                    Name = request.CaseState.Name,
-                    DisplayName = request.CaseState.DisplayName
+                    Name = _CaseState
                 }
             };
 
@@ -316,6 +435,7 @@ namespace Cheetah_GrpcService.Services
                          x.CreateDate.Value, DateTimeKind.Utc)),
                      CaseState = new GRPC_BaseClass()
                      {
+                         Id = x.CaseState.Id.Value,
                          ERPCode = x.CaseState.ERPCode.Value,
                          Name = x.CaseState.Name,
                          DisplayName = x.CaseState.DisplayName
@@ -323,17 +443,27 @@ namespace Cheetah_GrpcService.Services
                      DTag = (x.Tag != null) ? new()
                      {
                          Id = x.Tag.Id.Value,
+                         ERPCode = x.Tag.ERPCode.Value,
                          Name = x.Tag.Name,
                          DisplayName = x.Tag.DisplayName
                      } : new(),
                      RecieveDate = Timestamp.FromDateTime
                      (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
                      Summary = x.Summary ?? String.Empty,
-                     Process = new GRPC_BaseClass() { Name = x.ProcessName },
+                     Process = new GRPC_BaseClass()
+                     {
+                         Name = x.ProcessName
+                     },
                      CaseId = long.Parse(x.RadNumber),
                      WorkItemId = long.Parse(x.WorkItemId),
-                     Requestor = new GRPC_BaseClass() { Name = x.Requestor },
-                     Task = new GRPC_BaseClass() { Name = x.TaskName }
+                     Requestor = new GRPC_BaseClass()
+                     {
+                         Name = x.Requestor
+                     },
+                     Task = new GRPC_BaseClass()
+                     {
+                         Name = x.TaskName
+                     }
                  }
                  );
 
@@ -350,6 +480,7 @@ namespace Cheetah_GrpcService.Services
                           y =>
                       new GRPC_BaseClass()
                       {
+                          Id = y.Id.Value,
                           ERPCode = y.ERPCode.Value,
                           Name = y.Name,
                           DisplayName = y.DisplayName
