@@ -17,9 +17,9 @@ namespace Cheetah_DataAccess.Repository
             _db = db;
             _iCopyClass = iCopyClass;
         }
-        public async Task<F_Case> GetCaseAsync(F_Case request)
+        public async Task<IQueryable<F_Case>> GetCaseAsync(F_Case request)
         {
-            F_Case GeneralRequest = await _db.F_Cases
+            var GeneralRequest = _db.F_Cases
                 .Include(x => x.Creator)
                 .Include(x => x.Requestor)
                 .Include(x => x.Process)
@@ -30,11 +30,24 @@ namespace Cheetah_DataAccess.Repository
                 .ThenInclude(x => x.WorkItemState)
                 .Include(x => x.WorkItems)
                 .ThenInclude(x => x.User)
-                .AsNoTracking()
-                .SingleAsync(x => request.Id > 0 ? x.Id == request.Id :
-                x.Process.Name == request.Process.Name &&
-                x.ERPCode == request.ERPCode);
+                .AsNoTracking();
 
+            if (request.ProcessId > 0)
+            {
+                GeneralRequest = GeneralRequest.Where(x => x.ProcessId == request.ProcessId);
+            }
+            if (request.CaseStateId > 0)
+            {
+                GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == request.CaseStateId);
+            }
+            if (request.ERPCode > 0)
+            {
+                GeneralRequest = GeneralRequest.Where(x => x.ERPCode == request.ERPCode);
+            }
+            if (request.Id > 0)
+            {
+                GeneralRequest = GeneralRequest.Where(x => x.Id == request.Id);
+            }
             return GeneralRequest;
         }
         public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,

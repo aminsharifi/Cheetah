@@ -12,7 +12,7 @@ service Request {
   // Sends a greeting
   rpc CreateRequest (Create_Input_Request) returns (Brief_Request);
   rpc PerformRequest (Perform_Input_Request) returns (Brief_Request);
-  rpc GetCase (Brief_Request) returns (DetailOutput_Request);
+  rpc GetCase (Brief_Request) returns (DetailOutput_Requests);
   rpc Inbox (PageCartable) returns (PageCartable);
   rpc Outbox (PageCartable) returns (PageCartable);
   rpc GetAllByName (TableInfo) returns (TableInfo);
@@ -83,6 +83,10 @@ message Perform_Input_Request
      repeated Condition Conditions = 2;
 }
 
+message DetailOutput_Requests
+{
+    repeated DetailOutput_Request DetailOutput_Request = 1;
+}
 message DetailOutput_Request
 {
     int64  Id = 1;
@@ -91,6 +95,7 @@ message DetailOutput_Request
     GRPC_BaseClass CaseState = 4;
     repeated GRPC_Assignment Assignments = 5;
 }
+
 
 message GRPC_Assignment
 {
