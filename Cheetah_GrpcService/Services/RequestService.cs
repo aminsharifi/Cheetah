@@ -455,6 +455,7 @@ namespace Cheetah_GrpcService.Services
                          Name = x.ProcessName
                      },
                      CaseId = long.Parse(x.RadNumber),
+                     ERPCode = x.ERPCode.Value,
                      WorkItemId = long.Parse(x.WorkItemId),
                      Requestor = new GRPC_BaseClass()
                      {
