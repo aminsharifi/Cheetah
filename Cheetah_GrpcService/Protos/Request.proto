@@ -49,6 +49,7 @@ message RecordCartable
     GRPC_BaseClass CaseState = 9;
     repeated GRPC_BaseClass ValidUserActions = 10;
     string Summary = 11;
+    int64 ERPCode = 12;
 }
 
 message Brief_Request
