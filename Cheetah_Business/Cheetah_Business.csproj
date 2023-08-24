@@ -8,14 +8,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DNTPersianUtils.Core" Version="5.7.0" />
-		<PackageReference Include="HotChocolate.Abstractions" Version="13.4.0" />
-		<PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.4.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.9" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
+		<PackageReference Include="DNTPersianUtils.Core" Version="5.7.1" />
+		<PackageReference Include="HotChocolate.Abstractions" Version="13.5.1" />
+		<PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.5.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
