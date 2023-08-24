@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\Cheetah_Business\Cheetah_Business.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Sync_Query\" />
+	</ItemGroup>
+
 </Project>
