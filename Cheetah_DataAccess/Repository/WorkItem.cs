@@ -220,7 +220,7 @@ namespace Cheetah_DataAccess.Repository
                         var Positions = await _db.L_RolePositions
                             .AsNoTracking()
                             .Where(x => x.FirstId == eP_Endorsement.RoleId)
-                            .Where(x=>x.EnableRecord == true)
+                            .Where(x => x.EnableRecord == true)
                             .Select(x => x.SecondId)
                             .ToListAsync();
 
@@ -251,6 +251,7 @@ namespace Cheetah_DataAccess.Repository
                                 var userLocations = await _db.L_UserLocations
                                     .AsNoTracking()
                                     .Where(x => x.FirstId == Current_Case.RequestorId)
+                                    .Where(x => x.EnableRecord == true)
                                     .Select(x => x.SecondId)
                                     .ToListAsync();
 
@@ -269,6 +270,13 @@ namespace Cheetah_DataAccess.Repository
                                 };
                                 Current_Case.WorkItems.Add(f_WorkItem);
                             }
+                        }
+
+                        if (!Current_Case.WorkItems
+                          .Where(x => x.EndorsementId == eP_Endorsement.Id)
+                          .Any())
+                        {
+                            throw new ArgumentNullException($"There aren't any related users for {eP_Endorsement.Name}");
                         }
                     }
                 }
