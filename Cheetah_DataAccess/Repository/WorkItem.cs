@@ -138,6 +138,7 @@ namespace Cheetah_DataAccess.Repository
                 var pc_ProcessScenario = await _db.L_ProcessScenarios
                     .AsNoTracking()
                     .Where(x => x.FirstId == Current_Case.ProcessId)
+                    .Where(x => x.EnableRecord == true)
                     .Include(x => x.Scenario)
                     .ThenInclude(x => x.Conditions)
                     .ToListAsync();
@@ -173,6 +174,7 @@ namespace Cheetah_DataAccess.Repository
                 var eP_Endorsements = await _db.F_Endorsements
                     .AsNoTracking()
                     .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId)
+                    .Where(x => x.EnableRecord == true)
                     .OrderBy(x => x.SortIndex)
                     .Include(x => x.Role)
                     .Include(x => x.Conditions)
@@ -218,18 +220,21 @@ namespace Cheetah_DataAccess.Repository
                         var Positions = await _db.L_RolePositions
                             .AsNoTracking()
                             .Where(x => x.FirstId == eP_Endorsement.RoleId)
+                            .Where(x=>x.EnableRecord == true)
                             .Select(x => x.SecondId)
                             .ToListAsync();
 
                         var Users = await _db.L_UserPositions
                             .AsNoTracking()
                             .Where(x => Positions.Contains(x.SecondId))
+                            .Where(x => x.EnableRecord == true)
                             .Select(x => x.FirstId)
                             .ToListAsync();
 
                         var D_Users = await _db.D_Users
                             .AsNoTracking()
                             .Where(x => Users.Contains(x.Id))
+                            .Where(x => x.EnableRecord == true)
                             .Include(x => x.UserLocations)
                             .ToListAsync();
 
