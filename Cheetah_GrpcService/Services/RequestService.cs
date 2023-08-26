@@ -394,15 +394,15 @@ namespace Cheetah_GrpcService.Services
 
             var _CaseState = String.Empty;
 
-            if (request.Assignee is not null)
+            if (request.CaseState is not null)
             {
                 var _CaseStates = _db.D_CaseStates.AsNoTracking();
 
-                if (!String.IsNullOrEmpty(request.Process.Name))
+                if (!String.IsNullOrEmpty(request.CaseState.Name))
                 {
                     _CaseStates = _CaseStates.Where(x => x.Name == request.CaseState.Name);
                 }
-                if (request.Assignee.ERPCode > 0)
+                if (request.CaseState.ERPCode > 0)
                 {
                     _CaseStates = _CaseStates.Where(x => x.ERPCode == request.CaseState.ERPCode);
                 }
@@ -425,68 +425,71 @@ namespace Cheetah_GrpcService.Services
                await iCartable.Inbox(cartableDTO) :
                await iCartable.Outbox(cartableDTO)).ToList<CartableDTO>();
 
-            request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
-
-            var _Recordtable = OutputRequest.Select(
-                 x => new RecordCartable()
-                 {
-                     CreateDate = Timestamp.FromDateTime(
-                         DateTime.SpecifyKind(
-                         x.CreateDate.Value, DateTimeKind.Utc)),
-                     CaseState = new GRPC_BaseClass()
-                     {
-                         Id = x.CaseState.Id.Value,
-                         ERPCode = x.CaseState.ERPCode.Value,
-                         Name = x.CaseState.Name,
-                         DisplayName = x.CaseState.DisplayName
-                     },
-                     DTag = (x.Tag != null) ? new()
-                     {
-                         Id = x.Tag.Id.Value,
-                         ERPCode = x.Tag.ERPCode.Value,
-                         Name = x.Tag.Name,
-                         DisplayName = x.Tag.DisplayName
-                     } : new(),
-                     RecieveDate = Timestamp.FromDateTime
-                     (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
-                     Summary = x.Summary ?? String.Empty,
-                     Process = new GRPC_BaseClass()
-                     {
-                         Name = x.ProcessName
-                     },
-                     CaseId = long.Parse(x.RadNumber),
-                     ERPCode = x.ERPCode.Value,
-                     WorkItemId = long.Parse(x.WorkItemId),
-                     Requestor = new GRPC_BaseClass()
-                     {
-                         Name = x.Requestor
-                     },
-                     Task = new GRPC_BaseClass()
-                     {
-                         Name = x.TaskName
-                     }
-                 }
-                 );
-
-            request.RecordCartables.AddRange(_Recordtable);
-
-            for (int i = 0; i < request.RecordCartables.Count(); i++)
+            if (OutputRequest.Count() > 0)
             {
-                request.RecordCartables[i].ValidUserActions.AddRange(
+                request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
 
-                    OutputRequest
-                    .Where(x => x.WorkItemId == request.RecordCartables[i].WorkItemId.ToString())
-                    .Single().ValidUserActions
-                    .Select(
-                          y =>
-                      new GRPC_BaseClass()
-                      {
-                          Id = y.Id.Value,
-                          ERPCode = y.ERPCode.Value,
-                          Name = y.Name,
-                          DisplayName = y.DisplayName
-                      })
-                    );
+                var _Recordtable = OutputRequest.Select(
+                     x => new RecordCartable()
+                     {
+                         CreateDate = Timestamp.FromDateTime(
+                             DateTime.SpecifyKind(
+                             x.CreateDate.Value, DateTimeKind.Utc)),
+                         CaseState = new GRPC_BaseClass()
+                         {
+                             Id = x.CaseState.Id.Value,
+                             ERPCode = x.CaseState.ERPCode.Value,
+                             Name = x.CaseState.Name,
+                             DisplayName = x.CaseState.DisplayName
+                         },
+                         DTag = (x.Tag != null) ? new()
+                         {
+                             Id = x.Tag.Id.Value,
+                             ERPCode = x.Tag.ERPCode.Value,
+                             Name = x.Tag.Name,
+                             DisplayName = x.Tag.DisplayName
+                         } : new(),
+                         RecieveDate = Timestamp.FromDateTime
+                         (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
+                         Summary = x.Summary ?? String.Empty,
+                         Process = new GRPC_BaseClass()
+                         {
+                             Name = x.ProcessName
+                         },
+                         CaseId = long.Parse(x.RadNumber),
+                         ERPCode = x.ERPCode.Value,
+                         WorkItemId = long.Parse(x.WorkItemId),
+                         Requestor = new GRPC_BaseClass()
+                         {
+                             Name = x.Requestor
+                         },
+                         Task = new GRPC_BaseClass()
+                         {
+                             Name = x.TaskName
+                         }
+                     }
+                     );
+
+                request.RecordCartables.AddRange(_Recordtable);
+
+                for (int i = 0; i < request.RecordCartables.Count(); i++)
+                {
+                    request.RecordCartables[i].ValidUserActions.AddRange(
+
+                        OutputRequest
+                        .Where(x => x.WorkItemId == request.RecordCartables[i].WorkItemId.ToString())
+                        .Single().ValidUserActions
+                        .Select(
+                              y =>
+                          new GRPC_BaseClass()
+                          {
+                              Id = y.Id.Value,
+                              ERPCode = y.ERPCode.Value,
+                              Name = y.Name,
+                              DisplayName = y.DisplayName
+                          })
+                        );
+                }
             }
 
             return request;

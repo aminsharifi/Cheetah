@@ -11,7 +11,7 @@ public class CartableDTO
     public Int64? ERPCode { get; set; }
     public Int32? PageSize { get; set; }
     public Int32? TotalItems { get; set; }
-    public virtual D_Tag? Tag { get; set; }
+    public SimpleClassDTO? Tag { get; set; }
     public String? Username { get; set; }
     public String? Requestor { get; set; }
     public String? RadNumber { get; set; }
