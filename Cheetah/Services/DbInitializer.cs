@@ -24,7 +24,7 @@
             _userManager = userManager;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
             try
             {
@@ -32,11 +32,11 @@
                 {
                     _db.Database.Migrate();
                 }
-                if (!_roleManager.RoleExistsAsync(nameof(RoleProperty.User)).GetAwaiter().GetResult())
+                if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
                 {
-                    _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin))).GetAwaiter().GetResult();
+                    await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
 
-                    _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User))).GetAwaiter().GetResult();
+                    await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
 
                     IdentityUser user = new()
                     {
@@ -45,9 +45,9 @@
                         EmailConfirmed = true
                     };
 
-                    _userManager.CreateAsync(user, "Cheetah@123").GetAwaiter().GetResult();
+                    await _userManager.CreateAsync(user, "Cheetah@123");
 
-                    _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin)).GetAwaiter().GetResult();
+                    await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
                 }
             }
             catch (Exception ex)

@@ -115,6 +115,13 @@ namespace Cheetah_DataAccess.Repository
                 PageNumber = _PageNumber,
                 TotalItems = _TotalItems,
                 ERPCode = x.Case.ERPCode,
+                Tag = new SimpleClassDTO()
+                {
+                    Id = x.Tag.Id.Value,
+                    Name = x.Tag.Name,
+                    DisplayName = x.Tag.DisplayName,
+                    ERPCode = x.Tag.ERPCode
+                },
                 CaseState = new SimpleClassDTO()
                 {
                     Id = x.Case.CaseState.Id,
