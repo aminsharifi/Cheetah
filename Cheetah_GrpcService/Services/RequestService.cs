@@ -394,15 +394,15 @@ namespace Cheetah_GrpcService.Services
 
             var _CaseState = String.Empty;
 
-            if (request.Assignee is not null)
+            if (request.CaseState is not null)
             {
                 var _CaseStates = _db.D_CaseStates.AsNoTracking();
 
-                if (!String.IsNullOrEmpty(request.Process.Name))
+                if (!String.IsNullOrEmpty(request.CaseState.Name))
                 {
                     _CaseStates = _CaseStates.Where(x => x.Name == request.CaseState.Name);
                 }
-                if (request.Assignee.ERPCode > 0)
+                if (request.CaseState.ERPCode > 0)
                 {
                     _CaseStates = _CaseStates.Where(x => x.ERPCode == request.CaseState.ERPCode);
                 }
