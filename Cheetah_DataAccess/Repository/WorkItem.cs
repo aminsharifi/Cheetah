@@ -294,9 +294,10 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
+            //Clean up
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
-            var DuplicateCase = _db.F_Cases
+            var DuplicateCase = _db.F_Cases 
                 .AsNoTracking()
                 .Where(x => x.ProcessId == GeneralRequest.ProcessId)
                 .Where(x => x.ERPCode == GeneralRequest.ERPCode)
