@@ -62,17 +62,21 @@ public partial class F_Case : SimpleClass
     {
         return (CaseStateId is null);
     }
+    public Boolean IsOngoing()
+    {
+        return (CaseStateId == 1);
+    }
     public Boolean IsEditing()
     {
         return (CaseStateId == 2);
     }
-    public Boolean IsAborted()
-    {
-        return (CaseStateId == 4);
-    }
     public Boolean IsCompleted()
     {
         return (CaseStateId == 3);
+    }
+    public Boolean IsAborted()
+    {
+        return (CaseStateId == 4);
     }
     #endregion
 
@@ -93,7 +97,7 @@ public partial class F_Case : SimpleClass
     {
         CaseStateId = 1;
     }
-    
+
     #endregion
 
     #endregion

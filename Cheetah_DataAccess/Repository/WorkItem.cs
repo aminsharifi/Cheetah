@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Exceptions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -293,7 +294,23 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
+            //Clean up
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
+
+            var DuplicateCase = _db.F_Cases 
+                .AsNoTracking()
+                .Where(x => x.ProcessId == GeneralRequest.ProcessId)
+                .Where(x => x.ERPCode == GeneralRequest.ERPCode)
+                .Where(x => x.CaseStateId == 1 || x.CaseStateId == 2);
+
+            var AnyDuplicate = await DuplicateCase.AnyAsync();
+
+            if (AnyDuplicate)
+            {
+                var CaseID = (await DuplicateCase.FirstAsync()).Id;
+
+                throw new Exception($"There is another case with caseid {CaseID}");
+            }
 
             await SetWorkItemsAsync(GeneralRequest);
 
