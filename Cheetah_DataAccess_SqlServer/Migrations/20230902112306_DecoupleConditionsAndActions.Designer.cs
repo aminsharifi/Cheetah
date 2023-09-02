@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah_DataAccess_SqlServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230902112306_DecoupleConditionsAndActions")]
+    partial class DecoupleConditionsAndActions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1304,10 +1307,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnType("bit")
                         .HasColumnOrder(9);
 
-                    b.Property<long?>("EndorsementItemId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(109);
-
                     b.Property<Guid?>("GuidRecord")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
@@ -1359,8 +1358,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
                     b.HasIndex("EnableRecord")
                         .IsDescending();
-
-                    b.HasIndex("EndorsementItemId");
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
@@ -2399,10 +2396,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .WithMany("Conditions")
                         .HasForeignKey("D_UserId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
-                        .WithMany("Conditions")
-                        .HasForeignKey("EndorsementItemId");
-
                     b.HasOne("Cheetah_Business.Dimentions.D_Operand", "Operand")
                         .WithMany()
                         .HasForeignKey("OperandId");
@@ -2416,8 +2409,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasForeignKey("TagId");
 
                     b.Navigation("Case");
-
-                    b.Navigation("EndorsementItem");
 
                     b.Navigation("Operand");
 
@@ -2666,8 +2657,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_EndorsementItem", b =>
                 {
-                    b.Navigation("Conditions");
-
                     b.Navigation("Endorsements");
 
                     b.Navigation("Users");

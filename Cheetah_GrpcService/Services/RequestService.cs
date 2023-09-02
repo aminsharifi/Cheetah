@@ -61,10 +61,6 @@ namespace Cheetah_GrpcService.Services
                 {
                     f_Condition.Value = Condition.Value;
                 }
-                if (Condition.User is not null)
-                {
-                    f_Condition.User = new D_User() { ERPCode = Condition?.User?.ERPCode };
-                }
 
                 yield return f_Condition;
             }

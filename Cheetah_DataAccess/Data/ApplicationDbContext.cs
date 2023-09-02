@@ -66,9 +66,7 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
     public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
-    public virtual DbSet<L_TagEndorsement> L_TagEndorsements { get; set; }
     
-
     #endregion
     public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 }
