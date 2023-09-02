@@ -61,10 +61,10 @@ namespace Cheetah_DataAccess.Repository
                     {
                         _condition.Value = item.Value;
                     }
-                    if (item.User is not null)
-                    {
-                        _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
-                    }
+                    //if (item.User is not null)
+                    //{
+                    //    _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
+                    //}
                     list_condition.Add(_condition);
                 }
             }

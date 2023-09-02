@@ -676,8 +676,7 @@ public static class ModelBuilderExtensions
                 TagId = 100,
                 OperandId = 3,
                 Value = "0",
-                ScenarioId = 1,
-                EndorsementId = 2
+                ScenarioId = 1
             },
             new F_Condition
             {

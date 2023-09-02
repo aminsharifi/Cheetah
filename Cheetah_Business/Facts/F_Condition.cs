@@ -27,25 +27,14 @@ public partial class F_Condition : SimpleClass
     public long? ScenarioId { get; set; }
     public virtual F_Scenario? Scenario { get; set; }
 
-    [Column(Order = 104)]
-    public long? EndorsementId { get; set; }
-    public virtual F_Endorsement? Endorsement { get; set; }
-
     [Column(Order = 105)]
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
 
-    [Column(Order = 106)]
-    public long? ToEndorsementId { get; set; }
-    public virtual F_Endorsement? ToEndorsement { get; set; }
-
-    [Column(Order = 107)]
-    public long? CaseStateId { get; set; }
-    public virtual D_CaseState? CaseState { get; set; }
-
-    [Column(Order = 108)]
-    public long? UserId { get; set; }
-    public virtual D_User? User { get; set; }
+    [Column(Order = 109)]
+    public long? EndorsementItemId { get; set; }
+    [ForeignKey(nameof(EndorsementItemId))]
+    public virtual F_EndorsementItem? EndorsementItem { get; set; }
 
     [NotMapped]
     [GraphQLIgnore]

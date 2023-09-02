@@ -33,6 +33,8 @@ namespace Cheetah_DataAccess.Repository
                                 .Select(x => new KeyValuePair<Int64?, Int64?>(x.Id, x.SortIndex))
                                 .ToListAsync();
 
+            /*
+
             if (ExpectedCondition.ToEndorsementId is not null)
             {
                 var Current_Endorsement = All_Endorsements
@@ -51,6 +53,9 @@ namespace Cheetah_DataAccess.Repository
                         .ToList().ForEach(x => x.SetFuture());
                 }
             }
+
+            */
+
         }
         public async Task SetCurrentAssignment(F_WorkItem Current_WorkItem)
         {
@@ -59,12 +64,13 @@ namespace Cheetah_DataAccess.Repository
             var WorkItemEndorsement = await _db.F_Endorsements
                 .AsNoTracking()
                 .Where(x => x.Id == Current_WorkItem.EndorsementId)
-                .Include(x => x.Conditions)
-                .ThenInclude(x => x.Operand)
+                //.Include(x => x.EndorsementItem.Conditions)
+                //.ThenInclude(x => x.Operand)
                 .SingleAsync();
 
             var ActualConditions = Current_WorkItem.Case.Conditions;
-            var ExpectedConditions = WorkItemEndorsement.Conditions;
+            /*
+            var ExpectedConditions = WorkItemEndorsement.EndorsementItem.Conditions;
 
             foreach (var ExpectedCondition in ExpectedConditions)
             {
@@ -74,8 +80,8 @@ namespace Cheetah_DataAccess.Repository
 
                 if (CompareCondition(ActualConditions, ExpectedConditionList))
                 {
-                    Current_WorkItem.Case.CaseStateId =
-                        ExpectedCondition.CaseStateId;
+                    //Current_WorkItem.Case.CaseStateId =
+                    //    ExpectedCondition.CaseStateId;
 
                     Current_WorkItem.TagId =
                         ExpectedCondition.TagId;
@@ -102,6 +108,9 @@ namespace Cheetah_DataAccess.Repository
                         #endregion
 
                         #region Set inbox
+
+                        /*
+
                         var _Current_WorkItems = Current_WorkItem.Case.WorkItems
                             .Where(x => x.EndorsementId == ExpectedCondition.ToEndorsementId)
                             .Where(x => !x.IsSent() && !x.IsExit());
@@ -125,12 +134,17 @@ namespace Cheetah_DataAccess.Repository
                                 .ForEach(x => x.SetInbox());
                         }
 
+                       
+
                         #endregion
 
                         await SetCartable(Current_WorkItem, ExpectedCondition);
+            
                     }
                 }
             }
+
+            */
         }
         public async Task SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
         {
@@ -178,11 +192,11 @@ namespace Cheetah_DataAccess.Repository
                     .Where(x => x.EnableRecord == true)
                     .OrderBy(x => x.SortIndex)
                     .Include(x => x.Role)
-                    .Include(x => x.Conditions)
+                    .Include(x => x.EndorsementItem.Conditions)
                     .ThenInclude(x => x.Tag)
-                    .Include(x => x.Conditions)
+                    .Include(x => x.EndorsementItem.Conditions)
                     .ThenInclude(x => x.Operand)
-                    .Include(x => x.Conditions)
+                    .Include(x => x.EndorsementItem)
                     .ThenInclude(x => x.CaseState)
                     .ToListAsync();
 
@@ -297,7 +311,7 @@ namespace Cheetah_DataAccess.Repository
             //Clean up
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
-            var DuplicateCase = _db.F_Cases 
+            var DuplicateCase = _db.F_Cases
                 .AsNoTracking()
                 .Where(x => x.ProcessId == GeneralRequest.ProcessId)
                 .Where(x => x.ERPCode == GeneralRequest.ERPCode)
