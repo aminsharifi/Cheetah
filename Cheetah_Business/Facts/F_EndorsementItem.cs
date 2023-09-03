@@ -24,8 +24,10 @@ public partial class F_EndorsementItem : SimpleClass
     [InverseProperty(nameof(F_Condition.EndorsementItem))]
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
 
-    [InverseProperty(nameof(F_Endorsement.EndorsementItem))]
-    public virtual ICollection<F_Endorsement>? Endorsements { get; set; } = new HashSet<F_Endorsement>();
+    
+    [InverseProperty(nameof(F_EndorsementSelector.EndorsementItem))]
+    public virtual ICollection<F_EndorsementSelector>? Endorsements { get; set; } = new HashSet<F_EndorsementSelector>();
+
 
     [InverseProperty(nameof(D_User.EndorsementItem))]
     public virtual ICollection<D_User>? Users { get; set; } = new HashSet<D_User>();
