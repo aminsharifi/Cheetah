@@ -146,6 +146,7 @@
                                         @* <th data-sortable="true" style="width:16%">اقدامات</th> *@
                                         <th data-sortable="true" aria-sort="ascending">شناسه</th>
                                         <th data-sortable="true">ترتیب</th>
+                                        <th data-sortable="true">نام فرم</th>
                                         <th data-sortable="true">نام نقش</th>
                                         <th data-sortable="true">اقدامات</th>
                                         <th data-sortable="true">فعال</th>
@@ -164,6 +165,9 @@
                                             </td>
                                             <td>
                                                 <InputNumber @bind-Value="item.SortIndex"></InputNumber>
+                                            </td>
+                                            <td>
+                                                <InputText @bind-Value="item.DisplayName"></InputText>
                                             </td>
                                             <td>
                                                 <InputSelect @bind-Value="item.RoleId" style="direction:rtl"
@@ -348,7 +352,7 @@
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                    @foreach (var Endorsement in EndorsementItem.Endorsements
+                                                                                    @foreach (var Endorsement in EndorsementItem.EndorsementSelectors
                                                                                    .OrderBy(x => x.SortIndex))
                                                                                     {
                                                                                         <tr style="width:90%">
@@ -473,7 +477,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                    .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 
@@ -508,7 +512,7 @@
     {
         var _Endorsement = new F_EndorsementSelector();
 
-        ICollection<F_EndorsementSelector> _Endorsements = cObject.Endorsements;
+        ICollection<F_EndorsementSelector> _Endorsements = cObject.EndorsementSelectors;
 
         if (_Endorsements.Any())
         {
@@ -520,7 +524,7 @@
             .GetLast(nameof(F_EndorsementSelector)) as F_EndorsementSelector;
         }
 
-        cObject.Endorsements.Add(_Endorsement);
+        cObject.EndorsementSelectors.Add(_Endorsement);
     }
 
     private async Task Add_EndorsementItemsCondition(MouseEventArgs e, F_EndorsementItem cObject)

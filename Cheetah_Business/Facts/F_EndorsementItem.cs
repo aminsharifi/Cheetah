@@ -26,11 +26,14 @@ public partial class F_EndorsementItem : SimpleClass
 
     
     [InverseProperty(nameof(F_EndorsementSelector.EndorsementItem))]
-    public virtual ICollection<F_EndorsementSelector>? Endorsements { get; set; } = new HashSet<F_EndorsementSelector>();
+    public virtual ICollection<F_EndorsementSelector>? EndorsementSelectors { get; set; } = new HashSet<F_EndorsementSelector>();
 
 
     [InverseProperty(nameof(D_User.EndorsementItem))]
     public virtual ICollection<D_User>? Users { get; set; } = new HashSet<D_User>();
+
+    [InverseProperty(nameof(D_Location.EndorsementItem))]
+    public virtual ICollection<D_Location>? Locations { get; set; } = new HashSet<D_Location>();
 
     #region Functions
     public F_EndorsementItem ShallowCopy()
