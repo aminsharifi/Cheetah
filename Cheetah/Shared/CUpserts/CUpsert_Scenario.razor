@@ -201,7 +201,7 @@
                                                                     <th data-sortable="true" aria-sort="ascending">شناسه</th>
                                                                     <th data-sortable="true">ترتیب</th>
                                                                     <th data-sortable="true">شرط‌ها</th>
-                                                                    <th data-sortable="true">اقدام‌ها</th>
+                                                                    <th data-sortable="true">اقدام‌های بعدی</th>
                                                                     <th data-sortable="true">وضعیت فرآیند</th>
                                                                     <th data-sortable="true">فعال</th>
                                                                 </tr>
@@ -219,16 +219,16 @@
                                                                         <td>
                                                                             <InputNumber class="col-12" @bind-Value="EndorsementItem.SortIndex"></InputNumber>
                                                                         </td>
-                                                                        <td>                                                                            
+                                                                        <td>
                                                                             <center>
                                                                                 <button type="button" class="col-6 btn btn-primary"
                                                                                         style="align-self: center;"
-                                                                                @onclick="(e => Add_EndorsementItems(e,item))">
+                                                                                @onclick="(e => Add_EndorsementItemsCondition(e,EndorsementItem))">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
                                                                                         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
                                                                                         <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
                                                                                     </svg>
-                                                                                    اضافه کردن اقدامات
+                                                                                    اضافه کردن شرط‌ها
                                                                                 </button>
                                                                             </center>
                                                                             <Ctable>
@@ -330,15 +330,14 @@
                                                                             <center>
                                                                                 <button type="button" class="col-6 btn btn-primary"
                                                                                         style="align-self: center;"
-                                                                                @onclick="(e => Add_EndorsementItems(e,item))">
+                                                                                @onclick="(e => Add_EndorsementItemsEndorsement(e,EndorsementItem))">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
                                                                                         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
                                                                                         <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
                                                                                     </svg>
-                                                                                    اضافه کردن اقدامات
+                                                                                    اضافه کردن اقدام بعدی
                                                                                 </button>
                                                                             </center>
-
                                                                             <Ctable>
                                                                                 <thead>
                                                                                     <tr style="width:90%">
@@ -359,13 +358,20 @@
                                                                                                 </span>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <InputNumber class="col-12" @bind-Value="EndorsementItem.SortIndex"></InputNumber>
+                                                                                                <InputNumber class="col-12" @bind-Value="Endorsement.SortIndex"></InputNumber>
                                                                                             </td>
-
                                                                                             <td>
-                                                                                               
+                                                                                                <InputSelect @bind-Value="Endorsement.EndorsementId" style="direction:rtl"
+                                                                                                @oninput="(e => SelectedToEndorsementChanged(e,Endorsement))">
+                                                                                                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                                                                    @foreach (var ToEndorsement in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
+                                                                                                    {
+                                                                                                        <option value="@ToEndorsement.Id">
+                                                                                                            @ToEndorsement.DisplayName
+                                                                                                        </option>
+                                                                                                    }
+                                                                                                </InputSelect>
                                                                                             </td>
-
                                                                                             <td>
                                                                                                 <MudCheckBox Label="فعال"
                                                                                                              Checked="@Endorsement.EnableRecord"
@@ -444,11 +450,6 @@
     public List<SimpleClass> List_CaseState { get; set; } = new();
     public List<SimpleClass> List_D_TagType { get; set; } = new();
 
-
-    private string GetMultiSelectionText(SimpleClass selectedValues)
-    {
-        return $"{string.Join(", ", selectedValues?.DisplayName)}";
-    }
     public override async Task ExtendedLoadDTO()
     {
         List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<SimpleClass>;
@@ -472,9 +473,15 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                        .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
             };
     }
+
+    private string GetMultiSelectionText(SimpleClass selectedValues)
+    {
+        return $"{string.Join(", ", selectedValues?.DisplayName)}";
+    }
+
     private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
@@ -496,7 +503,46 @@
             .First(x => x.Id == _D_ParameterListId) as D_Tag;
         }
     }
-    public async Task Add_EndorsementItems(MouseEventArgs e, F_Endorsement cObject)
+
+    private async Task Add_EndorsementItemsEndorsement(MouseEventArgs e, F_EndorsementItem cObject)
+    {
+        var _Endorsement = new F_EndorsementSelector();
+
+        ICollection<F_EndorsementSelector> _Endorsements = cObject.Endorsements;
+
+        if (_Endorsements.Any())
+        {
+            _Endorsement.SortIndex = _Endorsements.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            _Endorsement = await simpleClassRepository
+            .GetLast(nameof(F_EndorsementSelector)) as F_EndorsementSelector;
+        }
+
+        cObject.Endorsements.Add(_Endorsement);
+    }
+
+    private async Task Add_EndorsementItemsCondition(MouseEventArgs e, F_EndorsementItem cObject)
+    {
+        var _Condition = new F_Condition();
+
+        ICollection<F_Condition> _Conditions = cObject.Conditions;
+
+        if (_Conditions.Any())
+        {
+            _Condition.SortIndex = _Conditions.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            _Condition = await simpleClassRepository
+            .GetLast(nameof(F_Condition)) as F_Condition;
+        }
+
+        cObject.Conditions.Add(_Condition);
+    }
+
+    private async Task Add_EndorsementItems(MouseEventArgs e, F_Endorsement cObject)
     {
         var _EndorsementItem = new F_EndorsementItem();
 
@@ -514,7 +560,7 @@
         cObject.EndorsementItems.Add(_EndorsementItem);
     }
 
-    public async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
+    private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
     {
         var Condition = new F_Condition();
 
@@ -536,7 +582,7 @@
         cObject.Conditions.Add(Condition);
     }
 
-    public async Task AddEndorsementPattern()
+    private async Task AddEndorsementPattern()
     {
         var d_Endorsement = new F_Endorsement();
 
@@ -555,6 +601,7 @@
 
         (Record as F_Scenario).Endorsements.Add(d_Endorsement);
     }
+
     private async Task SelectedEndorsementChanged(ChangeEventArgs e, F_Endorsement d_Endorsement)
     {
         if (Id > 0 && e.Value is not null)
@@ -574,6 +621,21 @@
 
             f_EndorsementItem.CaseState = List_CaseState
             .First(x => x.Id == CaseStateId) as D_CaseState;
+        }
+    }
+
+    private async Task SelectedToEndorsementChanged(ChangeEventArgs e, F_EndorsementSelector endorsementSelector)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var ToEndorsementId = Int64.Parse(e.Value.ToString());
+
+            endorsementSelector.Endorsement = (Record as F_Scenario).Endorsements
+            .First(x => x.Id == ToEndorsementId) as F_Endorsement;
+        }
+        else
+        {
+            endorsementSelector.Endorsement = null;
         }
     }
 }
