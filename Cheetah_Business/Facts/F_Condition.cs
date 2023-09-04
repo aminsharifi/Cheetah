@@ -21,7 +21,7 @@ public partial class F_Condition : SimpleClass
     public virtual D_Operand? Operand { get; set; }
 
     [Column(Order = 102)]
-    public String Value { get; set; }
+    public String? Value { get; set; }
 
     [Column(Order = 103)]
     public long? ScenarioId { get; set; }
@@ -69,7 +69,7 @@ public partial class F_Condition : SimpleClass
     }
     public override void SetName()
     {
-        DisplayName = Scenario?.DisplayName + "," + Tag?.DisplayName + "," + Operand?.DisplayName + "," + Value;
-        Name = Scenario?.Name + "," + Tag?.Name + "," + Operand?.Name + "," + Value;
+        //DisplayName = Scenario?.DisplayName + "," + Tag?.DisplayName + "," + Operand?.DisplayName + "," + Value;
+        //Name = Scenario?.Name + "," + Tag?.Name + "," + Operand?.Name + "," + Value;
     }
 }

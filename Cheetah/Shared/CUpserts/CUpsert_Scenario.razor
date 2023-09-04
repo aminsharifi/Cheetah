@@ -15,7 +15,7 @@
                                    StartIcon="@Icons.Material.Filled.NoteAdd"
                                    style="align-self: center;"
                         @onclick="(e => AddConditions(e,(Record as F_Scenario)))">
-                            افزودن به لیست شرط ها
+                            افزودن به لیست شرط‌ها/متغیرها
                         </MudButton>
                     </center>
                     <div class="row">
@@ -24,7 +24,7 @@
                             <Ctable>
                                 <caption>
                                     <div class="row my-1" style="justify-content: center;">
-                                        <span class="col-2 text-success">لیست شرط‌ها</span>
+                                        <span class="col-2 text-success">لیست شرط‌ها/متغیرها</span>
 
                                     </div>
                                 </caption>
@@ -32,6 +32,7 @@
                                     <tr style="width:90%">
                                         <th data-sortable="true" style="width:8%" aria-sort="ascending">شناسه</th>
                                         <th data-sortable="true" style="width:8%">ترتیب</th>
+                                        <th data-sortable="true" style="width:16%">نام متغیر</th>
                                         <th data-sortable="true" style="width:16%">نام پارامتر</th>
                                         <th data-sortable="true" style="width:16%">عملگر</th>
                                         <th data-sortable="true" style="width:16%">مقدار</th>
@@ -42,22 +43,22 @@
                                     @foreach (var item in (Record as F_Scenario).Conditions)
                                     {
                                         <tr style="width:90%">
-                                            <td style="width:8%">
+                                            <td>
                                                 <span class="col-12">
                                                     @((item.Id == 0) ? String.Empty : item.Id)
                                                 </span>
                                             </td>
-                                            <td style="width:8%">
+                                            <td>
                                                 <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
                                             </td>
-                                            <td style="width:16%">
+                                            <td>
+                                                <InputText class="col-12" @bind-Value="item.Name"></InputText>
+                                            </td>
+                                            <td>
                                                 <InputSelect class="col-12"
                                                 @bind-Value="item.TagId" style="direction:rtl"
                                                 @oninput="(e => SelectedParameterListChanged(e,item))">
-                                                    @if (item.TagId < 1)
-                                                    {
-                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                                                    }
+                                                    <option @if (item.TagId is null){"selected"} value="">لطفا یک مورد را انتخاب نمایید</option>
                                                     @foreach (var list_D_ParameterList in List_D_Tag)
                                                     {
                                                         <option value="@list_D_ParameterList.Id">
@@ -66,14 +67,11 @@
                                                     }
                                                 </InputSelect>
                                             </td>
-                                            <td style="width:16%">
+                                            <td>
                                                 <InputSelect class="col-12"
                                                 @bind-Value="item.OperandId" style="direction:rtl"
                                                 @oninput="(e => SelectedOperandChanged(e,item))">
-                                                    @if (item.TagId < 1)
-                                                    {
-                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                                                    }
+                                                    <option @if (item.TagId is null){"selected"} value="">لطفا یک مورد را انتخاب نمایید</option>
                                                     @foreach (var list_D_Operand in List_D_Operand)
                                                     {
                                                         <option value="@list_D_Operand.Id">
@@ -82,8 +80,8 @@
                                                     }
                                                 </InputSelect>
                                             </td>
-                                            <td style="width:16%">
-                                                @if (item.Tag is not null)
+                                            <td>
+                                                @if (item.Tag is not null && item.Operand is not null)
                                                 {
                                                     @if (item.Tag?.TagTypeId is not null)
                                                     {
@@ -107,7 +105,7 @@
                                                     }
                                                 }
                                             </td>
-                                            <td style="width:8%">
+                                            <td>
                                                 <MudCheckBox Label="فعال"
                                                              Checked="@Record.EnableRecord"
                                                              Color="Color.Primary"
@@ -148,6 +146,7 @@
                                         <th data-sortable="true">ترتیب</th>
                                         <th data-sortable="true">نام فرم</th>
                                         <th data-sortable="true">نام نقش</th>
+                                        <th data-sortable="true">موقعیت</th>
                                         <th data-sortable="true">اقدامات</th>
                                         <th data-sortable="true">فعال</th>
                                     </tr>
@@ -184,6 +183,22 @@
                                                     }
                                                 </InputSelect>
                                             </td>
+                                            <td>
+                                                <InputSelect @bind-Value="item.ConditionId" style="direction:rtl"
+                                                @oninput="(e => SelectedConditionChanged(e,item))">
+                                                    @if (item.ConditionId is null)
+                                                    {
+                                                        <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                    }
+                                                    @foreach (var condition in (Record as F_Scenario).Conditions)
+                                                    {
+                                                        <option value="@condition.Id">
+                                                            @condition.Name
+                                                        </option>
+                                                    }
+                                                </InputSelect>
+                                            </td>
+
                                             <td>
                                                 <center>
                                                     <button type="button" class="col-6 btn btn-primary"
@@ -477,7 +492,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                    .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 
@@ -488,7 +503,12 @@
 
     private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
-        if (Id > 0 && e.Value is not null)
+        if (String.IsNullOrEmpty(e.ToString()))
+        {
+            f_Condition.OperandId = null;
+            f_Condition.Operand = null;
+        }
+        else
         {
             var _D_OperandId = Int64.Parse(e.Value.ToString());
 
@@ -642,4 +662,15 @@
             endorsementSelector.Endorsement = null;
         }
     }
+    private async Task SelectedConditionChanged(ChangeEventArgs e, F_Endorsement endorsement)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var conditionId = Int64.Parse(e.Value.ToString());
+
+            endorsement.Condition = (Record as F_Scenario).Conditions
+            .First(x => x.Id == conditionId) as F_Condition;
+        }
+    }
+
 }
