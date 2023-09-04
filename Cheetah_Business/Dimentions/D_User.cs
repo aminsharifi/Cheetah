@@ -59,12 +59,6 @@ public partial class D_User : BaseClass<D_User>
     public virtual D_UserInformation? UserInformation { get; set; }
     #endregion
 
-
-    [Column(Order = 111)]
-    public long? EndorsementItemId { get; set; }
-    [ForeignKey(nameof(EndorsementItemId))]
-    public virtual F_EndorsementItem? EndorsementItem { get; set; }
-
     #endregion
 
     #region Collection

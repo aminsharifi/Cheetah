@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
@@ -24,16 +25,14 @@ public partial class F_EndorsementItem : SimpleClass
     [InverseProperty(nameof(F_Condition.EndorsementItem))]
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
 
+    [InverseProperty(nameof(L_EndorsementItemEndorsement.EndorsementItem))]
+    public virtual ICollection<L_EndorsementItemEndorsement>? Endorsements { get; set; } = new HashSet<L_EndorsementItemEndorsement>();
+
+    [InverseProperty(nameof(L_EndorsementItemUser.EndorsementItem))]
+    public virtual ICollection<L_EndorsementItemUser>? Users { get; set; } = new HashSet<L_EndorsementItemUser>();
     
-    [InverseProperty(nameof(F_EndorsementSelector.EndorsementItem))]
-    public virtual ICollection<F_EndorsementSelector>? EndorsementSelectors { get; set; } = new HashSet<F_EndorsementSelector>();
-
-
-    [InverseProperty(nameof(D_User.EndorsementItem))]
-    public virtual ICollection<D_User>? Users { get; set; } = new HashSet<D_User>();
-
-    [InverseProperty(nameof(D_Location.EndorsementItem))]
-    public virtual ICollection<D_Location>? Locations { get; set; } = new HashSet<D_Location>();
+    [InverseProperty(nameof(L_EndorsementItemLocation.EndorsementItem))]
+    public virtual ICollection<L_EndorsementItemLocation>? Locations { get; set; } = new HashSet<L_EndorsementItemLocation>();
 
     #region Functions
     public F_EndorsementItem ShallowCopy()
