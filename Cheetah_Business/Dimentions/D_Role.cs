@@ -24,7 +24,6 @@ public partial class D_Role : SimpleClass
 
     #region Collection
     public virtual ICollection<L_RolePosition>? RolePositions { get; set; } = new HashSet<L_RolePosition>();
-
-    public virtual ICollection<F_Endorsement>? EndorsementPosition { get; set; } = new HashSet<F_Endorsement>();
+    
     #endregion
 }
