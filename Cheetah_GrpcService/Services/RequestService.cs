@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -9,8 +8,6 @@ using Cheetah_DataAccess.Data;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Serilog.Parsing;
 
 namespace Cheetah_GrpcService.Services
 {

@@ -71,11 +71,12 @@ message Create_Input_Request
 }
 
 message Condition
-{     
+{   
     GRPC_BaseClass Tag = 1;
     GRPC_BaseClass Operand = 2;
     string Value = 3;
     GRPC_BaseClass User = 4;
+    GRPC_BaseClass Base = 5;
 }
 
 message Perform_Input_Request
