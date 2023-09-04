@@ -30,7 +30,7 @@ public partial class D_Location : SimpleClass
     #endregion
 
     #region Collections
-    public virtual ICollection<L_UserLocation>? UserLocations { get; set; } = new HashSet<L_UserLocation>();
+    
     #endregion
 
     #endregion

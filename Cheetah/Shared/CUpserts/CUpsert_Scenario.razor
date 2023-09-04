@@ -352,7 +352,7 @@
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                    @foreach (var Endorsement in EndorsementItem.EndorsementSelectors
+                                                                                    @foreach (var Endorsement in EndorsementItem.Endorsements
                                                                                    .OrderBy(x => x.SortIndex))
                                                                                     {
                                                                                         <tr style="width:90%">
@@ -365,7 +365,7 @@
                                                                                                 <InputNumber class="col-12" @bind-Value="Endorsement.SortIndex"></InputNumber>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <InputSelect @bind-Value="Endorsement.EndorsementId" style="direction:rtl"
+                                                                                                <InputSelect @bind-Value="Endorsement.SecondId" style="direction:rtl"
                                                                                                 @oninput="(e => SelectedToEndorsementChanged(e,Endorsement))">
                                                                                                     <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
                                                                                                     @foreach (var ToEndorsement in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
@@ -510,9 +510,9 @@
 
     private async Task Add_EndorsementItemsEndorsement(MouseEventArgs e, F_EndorsementItem cObject)
     {
-        var _Endorsement = new F_EndorsementSelector();
+        var _Endorsement = new L_EndorsementItemEndorsement();
 
-        ICollection<F_EndorsementSelector> _Endorsements = cObject.EndorsementSelectors;
+        ICollection<L_EndorsementItemEndorsement> _Endorsements = cObject.Endorsements;
 
         if (_Endorsements.Any())
         {
@@ -521,10 +521,10 @@
         else
         {
             _Endorsement = await simpleClassRepository
-            .GetLast(nameof(F_EndorsementSelector)) as F_EndorsementSelector;
+            .GetLast(nameof(L_EndorsementItemEndorsement)) as L_EndorsementItemEndorsement;
         }
 
-        cObject.EndorsementSelectors.Add(_Endorsement);
+        cObject.Endorsements.Add(_Endorsement);
     }
 
     private async Task Add_EndorsementItemsCondition(MouseEventArgs e, F_EndorsementItem cObject)
@@ -628,7 +628,7 @@
         }
     }
 
-    private async Task SelectedToEndorsementChanged(ChangeEventArgs e, F_EndorsementSelector endorsementSelector)
+    private async Task SelectedToEndorsementChanged(ChangeEventArgs e, L_EndorsementItemEndorsement endorsementSelector)
     {
         if (Id > 0 && e.Value is not null)
         {
