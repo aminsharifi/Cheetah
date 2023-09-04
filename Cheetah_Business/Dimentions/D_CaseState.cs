@@ -16,5 +16,4 @@ public partial class D_CaseState : SimpleClass
 
     #endregion
 
-
 }
