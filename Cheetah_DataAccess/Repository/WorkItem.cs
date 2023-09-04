@@ -64,8 +64,10 @@ namespace Cheetah_DataAccess.Repository
             var WorkItemEndorsement = await _db.F_Endorsements
                 .AsNoTracking()
                 .Where(x => x.Id == Current_WorkItem.EndorsementId)
-                //.Include(x => x.EndorsementItem.Conditions)
-                //.ThenInclude(x => x.Operand)
+                .Include(x => x.EndorsementItem.Conditions)
+                .ThenInclude(x => x.Operand)
+                .Include(x => x.EndorsementItem.Endorsements)
+                .ThenInclude(x=>x.Endorsement)
                 .SingleAsync();
 
             var ActualConditions = Current_WorkItem.Case.Conditions;
@@ -253,6 +255,13 @@ namespace Cheetah_DataAccess.Repository
                             .Include(x => x.UserLocations)
                             .ToListAsync();
 
+                        var userLocations = await _db.L_UserLocations
+                                    .AsNoTracking()
+                                    .Where(x => x.FirstId == Current_Case.RequestorId)
+                                    .Where(x => x.EnableRecord == true)
+                                    .Select(x => x.SecondId)
+                                    .ToListAsync();
+
                         foreach (var D_User in D_Users)
                         {
                             var UserOccur = false;
@@ -263,13 +272,6 @@ namespace Cheetah_DataAccess.Repository
                             }
                             else
                             {
-                                var userLocations = await _db.L_UserLocations
-                                    .AsNoTracking()
-                                    .Where(x => x.FirstId == Current_Case.RequestorId)
-                                    .Where(x => x.EnableRecord == true)
-                                    .Select(x => x.SecondId)
-                                    .ToListAsync();
-
                                 if (D_User.UserLocations.Any(x => userLocations.Contains(x.SecondId)))
                                 {
                                     UserOccur = true;

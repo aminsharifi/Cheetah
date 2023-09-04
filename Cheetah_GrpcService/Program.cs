@@ -34,7 +34,7 @@ else
         ServiceLifetime.Transient
         );
 }
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
@@ -57,18 +57,10 @@ builder.Services.AddGrpc(options =>
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 var app = builder.Build();
-SeedDatabase();
+
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<RequestService>();
 app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.Run();
-void SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
-    }
-}
