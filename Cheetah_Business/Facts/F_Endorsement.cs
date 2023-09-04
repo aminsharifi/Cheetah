@@ -1,5 +1,6 @@
 ﻿using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
+using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Facts;
@@ -25,6 +26,10 @@ public partial class F_Endorsement : SimpleClass
     public long? EndorsementItemId { get; set; }
     [ForeignKey(nameof(EndorsementItemId))]
     public virtual F_EndorsementItem? EndorsementItem { get; set; }
+
+    [Column(Order = 103)]
+    public virtual long? ConditionId { get; set; }
+    public virtual F_Condition? Condition { get; set; }
 
     [InverseProperty(nameof(F_EndorsementItem.Endorsement))]
     public virtual ICollection<F_EndorsementItem>? EndorsementItems { get; set; } = new HashSet<F_EndorsementItem>();
