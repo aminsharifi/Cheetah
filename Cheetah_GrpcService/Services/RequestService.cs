@@ -8,6 +8,7 @@ using Cheetah_DataAccess.Data;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
+using Type = System.Type;
 
 namespace Cheetah_GrpcService.Services
 {
@@ -63,26 +64,29 @@ namespace Cheetah_GrpcService.Services
             }
         }
 
+        public SimpleClass GetSimpleClass(Type type, GRPC_BaseClass gRPC_BaseClass)
+        {
+            var _SimpleClass = (SimpleClass)Activator.CreateInstance(type);
+
+            if (gRPC_BaseClass.ERPCode > 0)
+            {
+                _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
+            }
+            else if (!String.IsNullOrEmpty(gRPC_BaseClass.Name))
+            {
+                _SimpleClass.Name = gRPC_BaseClass.Name;
+            }
+
+            return _SimpleClass;
+        }
+
         public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Case();
 
-            f_Request.Creator = new()
-            {
-                Name = request.Creator.Name,
-                ERPCode = request.Creator.ERPCode
-            };
-
-            f_Request.Requestor = new()
-            {
-                Name = request.Requestor.Name,
-                ERPCode = request.Requestor.ERPCode
-            };
-            f_Request.Process = new()
-            {
-                Name = request.Process.Name,
-                ERPCode = request.Process.ERPCode
-            };
+            f_Request.Creator = (D_User)GetSimpleClass(typeof(D_User), request.Creator);
+            f_Request.Requestor = (D_User)GetSimpleClass(typeof(D_User), request.Requestor);
+            f_Request.Process = (D_Process)GetSimpleClass(typeof(D_Process), request.Process);
 
             f_Request.ERPCode = request.ERPCode;
 

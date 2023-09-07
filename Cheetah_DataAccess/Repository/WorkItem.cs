@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Cheetah_Business.Dimentions;
-using Cheetah_Business.Exceptions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
@@ -67,7 +66,7 @@ namespace Cheetah_DataAccess.Repository
                 .Include(x => x.EndorsementItem.Conditions)
                 .ThenInclude(x => x.Operand)
                 .Include(x => x.EndorsementItem.Endorsements)
-                .ThenInclude(x=>x.Endorsement)
+                .ThenInclude(x => x.Endorsement)
                 .SingleAsync();
 
             var ActualConditions = Current_WorkItem.Case.Conditions;
@@ -188,19 +187,53 @@ namespace Cheetah_DataAccess.Repository
                     Current_Case.WorkItems = new HashSet<F_WorkItem>();
                 }
 
-                var eP_Endorsements = await _db.F_Endorsements
+                #region Endorsements
+                var eP_Endorsements_Query =
+                    _db.F_Endorsements
                     .AsNoTracking()
+                    .Include(x => x.Role)
                     .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId)
                     .Where(x => x.EnableRecord == true)
-                    .OrderBy(x => x.SortIndex)
-                    .Include(x => x.Role)
+                    .OrderBy(x => x.SortIndex);
+
+
+                #region Variables
+                eP_Endorsements_Query
+                    .Include(x => x.Condition)
+                    .ThenInclude(x => x.Tag)
+                    .Include(x => x.Condition)
+                    .ThenInclude(x => x.Operand);
+
+                #endregion
+
+                #region EndorsementItem
+
+                eP_Endorsements_Query
+                    .Include(x => x.EndorsementItem)
+                    .ThenInclude(x => x.CaseState)
+                    .Include(x => x.EndorsementItem)
+                    .ThenInclude(x => x.Users);
+
+                #region Conditions
+                eP_Endorsements_Query
                     .Include(x => x.EndorsementItem.Conditions)
                     .ThenInclude(x => x.Tag)
                     .Include(x => x.EndorsementItem.Conditions)
-                    .ThenInclude(x => x.Operand)
-                    .Include(x => x.EndorsementItem)
-                    .ThenInclude(x => x.CaseState)
+                    .ThenInclude(x => x.Operand);
+                #endregion
+
+                #region EndorsementItem
+                eP_Endorsements_Query
+                    .Include(x => x.EndorsementItem.Endorsements);
+
+
+                #endregion
+
+                #endregion
+
+                var eP_Endorsements = await eP_Endorsements_Query
                     .ToListAsync();
+                #endregion
 
                 F_WorkItem first_WorkItem = new()
                 {
@@ -226,7 +259,7 @@ namespace Cheetah_DataAccess.Repository
                         {
                             f_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
                         }
-                        if (!(first_WorkItem.EndorsementId > 0))
+                        if (first_WorkItem.EndorsementId is null)
                         {
                             first_WorkItem = f_WorkItem;
                         }
@@ -255,12 +288,19 @@ namespace Cheetah_DataAccess.Repository
                             .Include(x => x.UserLocations)
                             .ToListAsync();
 
-                        var userLocations = await _db.L_UserLocations
+                        List<long?> userLocations = new();
+
+                        if (!eP_Endorsement.Role.Independent)
+                        {
+                            userLocations = await _db.L_UserLocations
                                     .AsNoTracking()
                                     .Where(x => x.FirstId == Current_Case.RequestorId)
                                     .Where(x => x.EnableRecord == true)
                                     .Select(x => x.SecondId)
                                     .ToListAsync();
+                        }
+
+                        var test = 0;
 
                         foreach (var D_User in D_Users)
                         {

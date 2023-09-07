@@ -27,9 +27,11 @@ public partial class F_Endorsement : SimpleClass
     [ForeignKey(nameof(EndorsementItemId))]
     public virtual F_EndorsementItem? EndorsementItem { get; set; }
 
+    #region For Variables
     [Column(Order = 103)]
     public virtual long? ConditionId { get; set; }
     public virtual F_Condition? Condition { get; set; }
+    #endregion
 
     [InverseProperty(nameof(F_EndorsementItem.Endorsement))]
     public virtual ICollection<F_EndorsementItem>? EndorsementItems { get; set; } = new HashSet<F_EndorsementItem>();
