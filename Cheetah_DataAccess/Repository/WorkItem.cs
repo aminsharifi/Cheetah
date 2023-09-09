@@ -29,6 +29,9 @@ namespace Cheetah_DataAccess.Repository
 
             var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
 
+            var WorkItemEndorsement = await _db.F_Endorsements
+                .Where(x => x.Id == Current_WorkItem.EndorsementId).SingleAsync();
+
             var ActualConditions = Current_WorkItem.Case.Conditions;
 
             var endorsementItems = await _db.F_EndorsementItems
@@ -65,12 +68,16 @@ namespace Cheetah_DataAccess.Repository
                         {
                             #region Exit Current work items
 
-                            var OtherWorkItems = Current_WorkItem.Case.WorkItems
-                                .Where(x => x.IsInbox());
-
-                            foreach (var OtherWorkItem in OtherWorkItems)
+                            if (Current_WorkItem.CaseId.HasValue)
                             {
-                                OtherWorkItem.SetExit();
+                                var OtherWorkItems = Current_WorkItem.Case.WorkItems
+                                    .Where(x => x.Endorsement.SortIndex <= WorkItemEndorsement.SortIndex)
+                                    .Where(x => x.IsInbox() || x.IsFuture());
+
+                                foreach (var OtherWorkItem in OtherWorkItems)
+                                {
+                                    OtherWorkItem.SetExit();
+                                }
                             }
                             #endregion
 
@@ -106,6 +113,10 @@ namespace Cheetah_DataAccess.Repository
                                 }
                                 #endregion
                             }
+
+                            Current_WorkItem.Case.WorkItems
+                            .Where(x => x.WorkItemStateId is null)
+                            .ToList().ForEach(x => x.SetFuture());
                         }
                     }
                 }
