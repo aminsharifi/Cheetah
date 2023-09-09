@@ -122,13 +122,20 @@ namespace Cheetah_GrpcService.Services
         }
         public GRPC_BaseClass GetBaseClass(SimpleClass simpleClass)
         {
-            return new GRPC_BaseClass()
+            var _GRPC_BaseClass = new GRPC_BaseClass();
+
+            if (simpleClass is not null)
             {
-                Id = simpleClass.Id.Value,
-                ERPCode = simpleClass.ERPCode.Value,
-                Name = simpleClass.Name,
-                DisplayName = simpleClass.DisplayName
-            };
+                _GRPC_BaseClass = new GRPC_BaseClass()
+                {
+                    Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+                    ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
+                    Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
+                    DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
+                };
+            }
+
+            return _GRPC_BaseClass;
         }
         public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
@@ -170,9 +177,13 @@ namespace Cheetah_GrpcService.Services
             }
             #endregion
 
-            f_Request.Process = (D_Process)GetSimpleClass(typeof(D_Process), request.Process);
+            var _Process = (D_Process)GetSimpleClass(typeof(D_Process), request.Process);
 
-            f_Request.CaseState = (D_CaseState)GetSimpleClass(typeof(D_CaseState), request.CaseState);
+            f_Request.ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, _Process);
+
+            var _CaseState = (D_CaseState)GetSimpleClass(typeof(D_CaseState), request.CaseState);
+
+            f_Request.CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, _CaseState);
 
             var l_Requests = await iCartable.GetCaseAsync(f_Request);
 
@@ -204,14 +215,17 @@ namespace Cheetah_GrpcService.Services
 
                 #region Endorsements
 
-                output_Request.Assignments.AddRange(
-                    Endorsements
+                var lendorsements = await Endorsements
                     .OrderBy(x => x.SortIndex)
+                    .ToListAsync();
+
+                var endorsements = lendorsements
                     .Select(x => new GRPC_Assignment()
                     {
                         Endorsement = GetBaseClass(x)
-                    })
-                    );
+                    });
+
+                output_Request.Assignments.AddRange(endorsements);
 
                 #endregion
 

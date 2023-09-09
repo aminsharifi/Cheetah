@@ -87,13 +87,16 @@ public class TableCRUD : ITableCRUD
         }
         return null;
     }
-    public async Task<SimpleClass> Get(string type, string? recordName,
+    public async Task<SimpleClass> Get(String type, string? recordName,
         QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll,params String[] TableIncludes)
     {
         //_db.ChangeTracker.QueryTrackingBehavior = Tracking;
         var gtype = DatabaseClass.GetDBType(type);
 
-        var Q_SimpleClass = DatabaseClass.InvokeSet(_db, gtype).AsQueryable().Where(x => x.Name == recordName)
+        var Q_SimpleClass = DatabaseClass
+            .InvokeSet(_db, gtype)
+            .AsQueryable()
+            .Where(x => x.Name == recordName)
             as IQueryable<SimpleClass>;
 
         foreach ( var x in TableIncludes )
