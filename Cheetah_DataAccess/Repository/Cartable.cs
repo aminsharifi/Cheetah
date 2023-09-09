@@ -33,18 +33,6 @@ namespace Cheetah_DataAccess.Repository
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             if (request.ProcessId > 0)
             {
                 GeneralRequest = GeneralRequest.Where(x => x.ProcessId == request.ProcessId);
