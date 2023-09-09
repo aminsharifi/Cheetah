@@ -5,11 +5,9 @@ using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Repository;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using Type = System.Type;
 
 namespace Cheetah_GrpcService.Services
@@ -41,7 +39,6 @@ namespace Cheetah_GrpcService.Services
             this.iWorkItem = _iWorkItem;
             this._iCopyClass = _iCopyClass;
         }
-
 
         public IEnumerable<F_Condition> GetCondition(IEnumerable<Condition> Conditions)
         {
