@@ -36,7 +36,6 @@ else
 }
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
 builder.Services.AddScoped(typeof(IView), typeof(View));
@@ -58,6 +57,7 @@ builder.Services.AddGrpc(options =>
 
 builder.Services.AddTransient<ExceptionMiddleware>();
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<RequestService>();

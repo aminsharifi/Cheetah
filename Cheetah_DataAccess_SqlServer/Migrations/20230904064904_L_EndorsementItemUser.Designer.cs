@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah_DataAccess_SqlServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230904064904_L_EndorsementItemUser")]
+    partial class L_EndorsementItemUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1339,6 +1342,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnOrder(100);
 
                     b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(102);
 
@@ -1383,10 +1387,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<long?>("ConditionId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(103);
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
@@ -1442,8 +1442,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ConditionId");
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
@@ -1835,7 +1833,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.ToTable("L_EndorsementItemEndorsement", "Links");
                 });
 
-            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementUser", b =>
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementItemUser", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -1922,7 +1920,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.HasIndex("SecondId")
                         .IsDescending();
 
-                    b.ToTable("L_EndorsementUser", "Links");
+                    b.ToTable("L_EndorsementItemUser", "Links");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Links.L_ProcessScenario", b =>
@@ -2508,7 +2506,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Location", b =>
                 {
                     b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
-                        .WithMany()
+                        .WithMany("Locations")
                         .HasForeignKey("EndorsementItemId");
 
                     b.Navigation("EndorsementItem");
@@ -2616,23 +2614,17 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
                 {
-                    b.HasOne("Cheetah_Business.Facts.F_Condition", "Condition")
-                        .WithMany()
-                        .HasForeignKey("ConditionId");
-
                     b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany()
                         .HasForeignKey("EndorsementItemId");
 
                     b.HasOne("Cheetah_Business.Dimentions.D_Role", "Role")
-                        .WithMany()
+                        .WithMany("EndorsementPosition")
                         .HasForeignKey("RoleId");
 
                     b.HasOne("Cheetah_Business.Facts.F_Scenario", "Scenario")
                         .WithMany("Endorsements")
                         .HasForeignKey("ScenarioId");
-
-                    b.Navigation("Condition");
 
                     b.Navigation("EndorsementItem");
 
@@ -2704,9 +2696,9 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("EndorsementItem");
                 });
 
-            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementUser", b =>
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementItemUser", b =>
                 {
-                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "Endorsement")
+                    b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany("Users")
                         .HasForeignKey("FirstId");
 
@@ -2714,7 +2706,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .WithMany()
                         .HasForeignKey("SecondId");
 
-                    b.Navigation("Endorsement");
+                    b.Navigation("EndorsementItem");
 
                     b.Navigation("User");
                 });
@@ -2736,7 +2728,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Links.L_RolePosition", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Role", "Role")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Role", "D_Role")
                         .WithMany("RolePositions")
                         .HasForeignKey("FirstId");
 
@@ -2744,9 +2736,9 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .WithMany("RolePositions")
                         .HasForeignKey("SecondId");
 
-                    b.Navigation("Position");
+                    b.Navigation("D_Role");
 
-                    b.Navigation("Role");
+                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Links.L_UserLocation", b =>
@@ -2756,7 +2748,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasForeignKey("FirstId");
 
                     b.HasOne("Cheetah_Business.Dimentions.D_Location", "Location")
-                        .WithMany()
+                        .WithMany("UserLocations")
                         .HasForeignKey("SecondId");
 
                     b.Navigation("Location");
@@ -2841,6 +2833,11 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("IU_User");
                 });
 
+            modelBuilder.Entity("Cheetah_Business.Dimentions.D_Location", b =>
+                {
+                    b.Navigation("UserLocations");
+                });
+
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Position", b =>
                 {
                     b.Navigation("RolePositions");
@@ -2855,6 +2852,8 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Role", b =>
                 {
+                    b.Navigation("EndorsementPosition");
+
                     b.Navigation("RolePositions");
                 });
 
@@ -2879,8 +2878,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
                 {
                     b.Navigation("EndorsementItems");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_EndorsementItem", b =>
@@ -2888,6 +2885,10 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("Conditions");
 
                     b.Navigation("Endorsements");
+
+                    b.Navigation("Locations");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Scenario", b =>

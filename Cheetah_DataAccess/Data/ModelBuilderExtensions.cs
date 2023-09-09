@@ -79,7 +79,7 @@ public static class ModelBuilderExtensions
             }
              );
         #endregion
-        
+
         #region D_WorkItemState
         modelBuilder.Entity<D_WorkItemState>().HasData(
             new D_WorkItemState
@@ -97,12 +97,12 @@ public static class ModelBuilderExtensions
                 DisplayName = "ارسال شده"
             },
             new D_WorkItemState
-             {
-                 Id = 3,
-                 SortIndex = 3,
-                 Name = "Exit",
-                 DisplayName = "خارج شده"
-             },
+            {
+                Id = 3,
+                SortIndex = 3,
+                Name = "Exit",
+                DisplayName = "خارج شده"
+            },
             new D_WorkItemState
             {
                 Id = 4,
@@ -221,15 +221,25 @@ public static class ModelBuilderExtensions
 
         #region D_Tag
         modelBuilder.Entity<D_Tag>().HasData(
-                 new D_Tag
-                 {
-                     Id = 100,
-                     SortIndex = 100,
-                     Name = "OursShare",
-                     DisplayName = "سهم شرکت",
-                     Description = "عددی",
-                     TagTypeId = 1,
-                 },
+             new D_Tag
+             {
+                 Id = 1,
+                 SortIndex = 1,
+                 Name = "D_Location",
+                 DisplayName = "مرکز",
+                 Description = "عددی",
+                 TagTypeId = 1,
+                 ERPCode = 1
+             },
+             new D_Tag
+             {
+                 Id = 100,
+                 SortIndex = 100,
+                 Name = "OursShare",
+                 DisplayName = "سهم شرکت",
+                 Description = "عددی",
+                 TagTypeId = 1,
+             },
                  new D_Tag
                  {
                      Id = 101,
@@ -311,7 +321,7 @@ public static class ModelBuilderExtensions
                      Description = "پارامتریک",
                      TagTypeId = 2
                  }
-                 );
+                 ); ;
         #endregion
 
         #region D_User
@@ -375,7 +385,7 @@ public static class ModelBuilderExtensions
                       Name = "DistributionCenterManager",
                       DisplayName = "مدیریت مرکز توزیع",
                       Independent = false
-                  },                  
+                  },
                   new D_Role
                   {
                       Id = 100,
@@ -676,8 +686,7 @@ public static class ModelBuilderExtensions
                 TagId = 100,
                 OperandId = 3,
                 Value = "0",
-                ScenarioId = 1,
-                EndorsementId = 2
+                ScenarioId = 1
             },
             new F_Condition
             {

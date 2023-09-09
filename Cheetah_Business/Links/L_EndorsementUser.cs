@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah_Business.Links;
 
-[Table(nameof(L_TagEndorsement), Schema = nameof(TableType.Links))]
+[Table(nameof(L_EndorsementUser), Schema = nameof(TableType.Links))]
 [Index(nameof(Name), IsUnique = true, AllDescending = true)]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
 [Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
@@ -13,18 +13,18 @@ namespace Cheetah_Business.Links;
 [Index(nameof(EnableRecord), IsUnique = false, AllDescending = true)]
 [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
 [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
-public partial class L_TagEndorsement : SimpleLinkClass
+public partial class L_EndorsementUser : SimpleLinkClass
 {
     [Column(Order = 100)]
     [ForeignKey(nameof(FirstId))]
-    public virtual D_Tag? D_Tag { get; set; }
+    public virtual F_Endorsement? Endorsement { get; set; }
 
     [Column(Order = 101)]
     [ForeignKey(nameof(SecondId))]
-    public virtual F_Endorsement? F_Endorsement { get; set; }
+    public virtual D_User? User { get; set; }
 
-    public L_TagEndorsement ShallowCopy()
+    public L_EndorsementUser ShallowCopy()
     {
-        return (L_TagEndorsement)this.MemberwiseClone();
+        return (L_EndorsementUser)this.MemberwiseClone();
     }
 }

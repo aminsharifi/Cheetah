@@ -3,7 +3,6 @@ using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Cheetah_DataAccess.Repository
 {
@@ -31,6 +30,8 @@ namespace Cheetah_DataAccess.Repository
                 .Include(x => x.WorkItems)
                 .ThenInclude(x => x.User)
                 .AsNoTracking();
+
+
 
             if (request.ProcessId > 0)
             {
@@ -129,13 +130,15 @@ namespace Cheetah_DataAccess.Repository
                     DisplayName = x.Case.CaseState.DisplayName,
                     ERPCode = x.Case.CaseState.ERPCode
                 },
-                ValidUserActions = x.Endorsement.ValidUserActions.Select
+                ValidUserActions = _db.D_Tags
+                .Where(x=>x.Id.Value == 201 || x.Id.Value == 202 || x.Id.Value == 203)
+                .Select
                 (y => new SimpleClassDTO()
                 {
-                    Id = y.D_Tag.Id,
-                    Name = y.D_Tag.Name,
-                    DisplayName = y.D_Tag.DisplayName,
-                    ERPCode = y.D_Tag.ERPCode
+                    Id = y.Id,
+                    Name = y.Name,
+                    DisplayName = y.DisplayName,
+                    ERPCode = y.ERPCode
                 })
             }
             );

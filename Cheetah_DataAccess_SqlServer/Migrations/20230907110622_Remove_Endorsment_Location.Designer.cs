@@ -4,6 +4,7 @@ using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah_DataAccess_SqlServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230907110622_Remove_Endorsment_Location")]
+    partial class Remove_Endorsment_Location
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1835,7 +1838,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.ToTable("L_EndorsementItemEndorsement", "Links");
                 });
 
-            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementUser", b =>
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementItemUser", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -1922,7 +1925,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.HasIndex("SecondId")
                         .IsDescending();
 
-                    b.ToTable("L_EndorsementUser", "Links");
+                    b.ToTable("L_EndorsementItemUser", "Links");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Links.L_ProcessScenario", b =>
@@ -2704,9 +2707,9 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("EndorsementItem");
                 });
 
-            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementUser", b =>
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementItemUser", b =>
                 {
-                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "Endorsement")
+                    b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany("Users")
                         .HasForeignKey("FirstId");
 
@@ -2714,7 +2717,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .WithMany()
                         .HasForeignKey("SecondId");
 
-                    b.Navigation("Endorsement");
+                    b.Navigation("EndorsementItem");
 
                     b.Navigation("User");
                 });
@@ -2879,8 +2882,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
                 {
                     b.Navigation("EndorsementItems");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_EndorsementItem", b =>
@@ -2888,6 +2889,8 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("Conditions");
 
                     b.Navigation("Endorsements");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Scenario", b =>

@@ -21,18 +21,32 @@ namespace Cheetah_DataAccess.Repository
             _iSync = iSync;
             _itableCRUD = itableCRUD;
         }
-        public async Task<Int64> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input)
+        public async Task<Int64?> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input)
         {
+            var Find = false;
+
+            if (input.Id is not null && input.Id > 0)
+            {
+                Find = true;
+                return input.Id.Value;
+            }
             Q_input = Q_input.AsNoTracking();
 
             if (!String.IsNullOrEmpty(input.Name))
             {
+                Find = true;
                 Q_input = Q_input.Where(x => x.Name == input.Name);
             }
 
             if (input.ERPCode is not null && input.ERPCode > 0)
             {
+                Find = true;
                 Q_input = Q_input.Where(x => x.ERPCode == input.ERPCode);
+            }
+
+            if (!Find)
+            {
+                return null;
             }
 
             return await Q_input.Select(x => x.Id.Value).SingleAsync();
@@ -61,10 +75,10 @@ namespace Cheetah_DataAccess.Repository
                     {
                         _condition.Value = item.Value;
                     }
-                    if (item.User is not null)
-                    {
-                        _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
-                    }
+                    //if (item.User is not null)
+                    //{
+                    //    _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
+                    //}
                     list_condition.Add(_condition);
                 }
             }
