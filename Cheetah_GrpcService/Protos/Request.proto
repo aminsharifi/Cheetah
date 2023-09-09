@@ -23,6 +23,7 @@ message TableInfo
 {
     GRPC_BaseClass TableInput = 1;
     repeated GRPC_BaseClass TableOutput = 2;
+    GRPC_BaseClass OutputState = 3;
 }
 
 message PageCartable
@@ -34,6 +35,7 @@ message PageCartable
     GRPC_BaseClass CaseState = 5;
     GRPC_BaseClass Process = 6;
     repeated RecordCartable RecordCartables = 7;
+    GRPC_BaseClass OutputState = 8;
 }
 
 message RecordCartable
@@ -58,11 +60,11 @@ message Brief_Request
     int64  ERPCode = 2;
     GRPC_BaseClass Process = 3;
     GRPC_BaseClass CaseState = 4;
+    GRPC_BaseClass OutputState = 5;
 }
 
 message Create_Input_Request
-{
-     
+{     
      int64  ERPCode = 1;
      GRPC_BaseClass Creator = 2;
      GRPC_BaseClass Requestor = 3;
@@ -88,6 +90,7 @@ message Perform_Input_Request
 message DetailOutput_Requests
 {
     repeated DetailOutput_Request DetailOutput_Request = 1;
+    GRPC_BaseClass OutputState = 2;
 }
 message DetailOutput_Request
 {
@@ -97,7 +100,6 @@ message DetailOutput_Request
     GRPC_BaseClass CaseState = 4;
     repeated GRPC_Assignment Assignments = 5;
 }
-
 
 message GRPC_Assignment
 {

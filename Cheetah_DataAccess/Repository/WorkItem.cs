@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
@@ -319,23 +320,28 @@ namespace Cheetah_DataAccess.Repository
                 throw;
             }
         }
-        public async Task<F_Case> CreateRequestAsync(F_Case request)
+        public async Task<Tuple<F_Case, SimpleClassDTO>> CreateRequestAsync(F_Case request)
         {
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
+
+            SimpleClassDTO OutputState = new();
 
             var DuplicateCase = _db.F_Cases
                 .AsNoTracking()
                 .Where(x => x.ProcessId == GeneralRequest.ProcessId)
                 .Where(x => x.ERPCode == GeneralRequest.ERPCode)
-                .Where(x => x.CaseStateId == 1 || x.CaseStateId == 2);
+                .Where(x => x.CaseStateId == 1 || x.CaseStateId == 2)
+                .Where(x => x.EnableRecord == true);
 
             var AnyDuplicate = await DuplicateCase.AnyAsync();
 
             if (AnyDuplicate)
             {
                 var CaseID = (await DuplicateCase.FirstAsync()).Id;
-
-                throw new Exception($"There is another case with caseid {CaseID}");
+                OutputState.Id = 1;
+                OutputState.Name = "Duplicate";
+                OutputState.DisplayName = $"درخواست پیشین با شماره رهیگری {CaseID} در چیتا ثبت شده است";
+                return new(GeneralRequest, OutputState);
             }
 
             await SetWorkItemsAsync(GeneralRequest);
@@ -351,7 +357,7 @@ namespace Cheetah_DataAccess.Repository
 
             log.Information($"CreateRequestAsync-{GeneralRequest.Id}");
 
-            return GeneralRequest;
+            return new(GeneralRequest, OutputState);
         }
         public async Task<F_WorkItem> PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {
