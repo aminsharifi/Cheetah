@@ -1,4 +1,5 @@
 using Cheetah_Business.Data;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,10 +22,15 @@ public partial class D_Location : SimpleClass
 
     #region Entity
 
+    [Column(Order = 110)]
+    public long? EndorsementItemId { get; set; }
+    [ForeignKey(nameof(EndorsementItemId))]
+    public virtual F_EndorsementItem? EndorsementItem { get; set; }
+
     #endregion
 
     #region Collections
-    public virtual ICollection<L_UserLocation>? UserLocations { get; set; } = new HashSet<L_UserLocation>();
+    
     #endregion
 
     #endregion
