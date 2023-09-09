@@ -88,6 +88,8 @@ namespace Cheetah_GrpcService.Services
         }
         public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
+            var output_Request = new Brief_Request();
+
             var f_Request = new F_Case();
 
             f_Request.Creator = (D_User)GetSimpleClass(typeof(D_User), request.Creator);
@@ -98,9 +100,18 @@ namespace Cheetah_GrpcService.Services
 
             f_Request.Conditions = GetCondition(request.Conditions).ToList();
 
-            f_Request = await iWorkItem.CreateRequestAsync(f_Request);
+            var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
 
-            var output_Request = new Brief_Request();
+            var OutputState = Outputresult.Item2 as SimpleClassDTO;
+
+            f_Request = Outputresult.Item1 as F_Case;
+
+            if (OutputState is not null && OutputState.Id > 0)
+            {
+                output_Request.OutputState = GetBaseClass(OutputState);
+
+                return output_Request;
+            }
 
             output_Request.CaseId = f_Request.Id.Value;
 

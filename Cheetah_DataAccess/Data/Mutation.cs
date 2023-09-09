@@ -1,4 +1,5 @@
-﻿using Cheetah_Business.Facts;
+﻿using Cheetah_Business.Data;
+using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using HotChocolate;
 using HotChocolate.Authorization;
@@ -43,7 +44,7 @@ public class Mutation
     [UseFiltering]
     [UseSorting]
     [Authorize]
-    public async Task<F_Case> CreateRequestAsync(
+    public async Task<Tuple<F_Case, SimpleClassDTO>> CreateRequestAsync(
         [Service] IWorkItem iWorkItem,
         [Service] ApplicationDbContext _db,
         F_Case request)
