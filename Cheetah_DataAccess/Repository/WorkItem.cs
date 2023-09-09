@@ -71,6 +71,7 @@ namespace Cheetah_DataAccess.Repository
                             if (Current_WorkItem.CaseId.HasValue)
                             {
                                 var OtherWorkItems = Current_WorkItem.Case.WorkItems
+                                    .Where(x => x.Endorsement is not null)
                                     .Where(x => x.Endorsement.SortIndex <= WorkItemEndorsement.SortIndex)
                                     .Where(x => x.IsInbox() || x.IsFuture());
 
