@@ -5,9 +5,11 @@ using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
+using Cheetah_DataAccess.Repository;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using Type = System.Type;
 
 namespace Cheetah_GrpcService.Services
@@ -63,23 +65,27 @@ namespace Cheetah_GrpcService.Services
                 yield return f_Condition;
             }
         }
-
         public SimpleClass GetSimpleClass(Type type, GRPC_BaseClass gRPC_BaseClass)
         {
             var _SimpleClass = (SimpleClass)Activator.CreateInstance(type);
 
-            if (gRPC_BaseClass.ERPCode > 0)
+            if (gRPC_BaseClass is not null)
             {
-                _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
+                if (gRPC_BaseClass.Id > 0)
+                {
+                    _SimpleClass.Id = gRPC_BaseClass.Id;
+                }
+                else if (gRPC_BaseClass.ERPCode > 0)
+                {
+                    _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
+                }
+                else if (!String.IsNullOrEmpty(gRPC_BaseClass.Name))
+                {
+                    _SimpleClass.Name = gRPC_BaseClass.Name;
+                }
             }
-            else if (!String.IsNullOrEmpty(gRPC_BaseClass.Name))
-            {
-                _SimpleClass.Name = gRPC_BaseClass.Name;
-            }
-
             return _SimpleClass;
         }
-
         public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
             var f_Request = new F_Case();
@@ -104,29 +110,25 @@ namespace Cheetah_GrpcService.Services
                 .Where(x => x.Id == f_Request.ProcessId)
                 .SingleAsync();
 
+            output_Request.Process = GetBaseClass(processes);
+
             var caseState = await _db.D_CaseStates
                 .Where(x => x.Id == f_Request.CaseStateId)
                 .SingleAsync();
 
-            output_Request.Process =
-            new()
-            {
-                Id = processes.Id.Value,
-                ERPCode = processes.ERPCode.Value,
-                Name = processes.Name,
-                DisplayName = processes.DisplayName
-            };
-
-            output_Request.CaseState =
-                new()
-                {
-                    Id = caseState.Id.Value,
-                    ERPCode = caseState.ERPCode.Value,
-                    Name = caseState.Name,
-                    DisplayName = caseState.DisplayName
-                };
+            output_Request.CaseState = GetBaseClass(caseState);
 
             return output_Request;
+        }
+        public GRPC_BaseClass GetBaseClass(SimpleClass simpleClass)
+        {
+            return new GRPC_BaseClass()
+            {
+                Id = simpleClass.Id.Value,
+                ERPCode = simpleClass.ERPCode.Value,
+                Name = simpleClass.Name,
+                DisplayName = simpleClass.DisplayName
+            };
         }
         public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
@@ -143,21 +145,9 @@ namespace Cheetah_GrpcService.Services
             var output_Request = new Brief_Request()
             {
                 CaseId = f_WorkItem.Case.Id.Value,
-                CaseState = new GRPC_BaseClass()
-                {
-                    Id = f_WorkItem.Case.CaseStateId.Value,
-                    ERPCode = f_WorkItem.Case.CaseState.ERPCode.Value,
-                    Name = f_WorkItem.Case.CaseState.Name,
-                    DisplayName = f_WorkItem.Case.CaseState.DisplayName
-                },
-                Process = new GRPC_BaseClass()
-                {
-                    Id = f_WorkItem.Case.Process.Id.Value,
-                    ERPCode = f_WorkItem.Case.Process.ERPCode.Value,
-                    Name = f_WorkItem.Case.Process.Name,
-                    DisplayName = f_WorkItem.Case.Process.DisplayName
-                },
-                ERPCode = f_WorkItem.Case.ERPCode.Value
+                ERPCode = f_WorkItem.Case.ERPCode.Value,
+                CaseState = GetBaseClass(f_WorkItem.Case.CaseState),
+                Process = GetBaseClass(f_WorkItem.Case.Process)
             };
 
             return output_Request;
@@ -180,56 +170,9 @@ namespace Cheetah_GrpcService.Services
             }
             #endregion
 
-            #region Process
+            f_Request.Process = (D_Process)GetSimpleClass(typeof(D_Process), request.Process);
 
-            if (request.Process is not null)
-            {
-                var _Process = _db.D_Processes
-                    .AsNoTracking();
-
-                if (!String.IsNullOrEmpty(request.Process.Name))
-                {
-                    _Process = _Process.Where(x => x.Name == request.Process.Name);
-                }
-                if (request.Process.ERPCode > 0)
-                {
-                    _Process = _Process.Where(x => x.ERPCode == request.Process.ERPCode);
-                }
-                if (_Process.Any())
-                {
-                    f_Request.ProcessId = _Process
-                                .Select(x => x.Id)
-                                .Single();
-                }
-            }
-
-            #endregion
-
-            #region CaseState
-
-            if (request.CaseState is not null)
-            {
-                var _CaseStates = _db.D_CaseStates
-                    .AsNoTracking();
-
-                if (!String.IsNullOrEmpty(request.CaseState.Name))
-                {
-                    _CaseStates = _CaseStates.Where(x => x.Name == request.CaseState.Name);
-                }
-                if (request.Process.ERPCode > 0)
-                {
-                    _CaseStates = _CaseStates.Where(x => x.ERPCode == request.CaseState.ERPCode);
-                }
-
-                if (_CaseStates.Any())
-                {
-                    f_Request.CaseStateId = _CaseStates
-                              .Select(x => x.Id)
-                              .Single();
-                }
-            }
-
-            #endregion
+            f_Request.CaseState = (D_CaseState)GetSimpleClass(typeof(D_CaseState), request.CaseState);
 
             var l_Requests = await iCartable.GetCaseAsync(f_Request);
 
@@ -256,13 +199,7 @@ namespace Cheetah_GrpcService.Services
                 };
 
                 #region CaseState
-                output_Request.CaseState =
-                              new()
-                              {
-                                  Id = l_Request.CaseStateId.Value,
-                                  Name = l_Request.CaseState.Name,
-                                  DisplayName = l_Request.CaseState.DisplayName
-                              };
+                output_Request.CaseState = GetBaseClass(l_Request.CaseState);
                 #endregion
 
                 #region Endorsements
@@ -272,12 +209,7 @@ namespace Cheetah_GrpcService.Services
                     .OrderBy(x => x.SortIndex)
                     .Select(x => new GRPC_Assignment()
                     {
-                        Endorsement = new GRPC_BaseClass()
-                        {
-                            Id = x.Id.Value,
-                            Name = x.Name,
-                            DisplayName = x.DisplayName
-                        }
+                        Endorsement = GetBaseClass(x)
                     })
                     );
 
@@ -299,21 +231,8 @@ namespace Cheetah_GrpcService.Services
                                 (x.LastUpdatedRecord is null) ? new Timestamp() :
                                 Timestamp.FromDateTime(
                                     DateTime.SpecifyKind(x.LastUpdatedRecord.Value, DateTimeKind.Utc)),
-                                User = new GRPC_BaseClass()
-                                {
-                                    Id = x.UserId.Value,
-                                    ERPCode = x.User.ERPCode.Value,
-                                    Name = x.User.Name,
-                                    DisplayName = x.User.DisplayName
-                                },
-
-                                WorkItemState = new GRPC_BaseClass()
-                                {
-                                    Id = x.WorkItemStateId ?? 0,
-                                    ERPCode = x.WorkItemState.ERPCode.Value,
-                                    Name = x.WorkItemState?.Name ?? String.Empty,
-                                    DisplayName = x.WorkItemState?.DisplayName ?? String.Empty
-                                }
+                                User = GetBaseClass(x.User),
+                                WorkItemState = GetBaseClass(x.WorkItemState)
                             }
                             )
                     );
@@ -331,14 +250,7 @@ namespace Cheetah_GrpcService.Services
                         if (TagId is not null && TagId > 0)
                         {
                             var d_Tag = d_Tags.Where(x => x.Id == TagId).SingleOrDefault();
-
-                            UserAssignment.Tag = new GRPC_BaseClass()
-                            {
-                                Id = d_Tag.Id ?? 0,
-                                ERPCode = d_Tag.ERPCode.Value,
-                                Name = d_Tag?.Name ?? String.Empty,
-                                DisplayName = d_Tag?.DisplayName ?? String.Empty
-                            };
+                            UserAssignment.Tag = GetBaseClass(d_Tag);
                         }
                     }
                 }

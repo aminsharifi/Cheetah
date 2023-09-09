@@ -4,7 +4,6 @@ namespace Cheetah_Business.Repository
 {
     public interface IWorkItem
     {
-        public Task SetCartable(F_WorkItem f_WorkItem, F_Condition ExpectedCondition);
         public Task SetCurrentAssignment(F_WorkItem f_WorkItem);
         public Task SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null);
         public Task<F_Case> CreateRequestAsync(F_Case request);

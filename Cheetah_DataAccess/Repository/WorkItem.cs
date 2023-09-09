@@ -23,129 +23,145 @@ namespace Cheetah_DataAccess.Repository
             _itableCRUD = itableCRUD;
             _iCopyClass = iCopyClass;
         }
-        public async Task SetCartable(F_WorkItem Current_WorkItem, F_Condition ExpectedCondition)
-        {
-            var All_Endorsements = await _db.F_Endorsements
-                                .AsNoTracking()
-                                .Where(x => x.ScenarioId == Current_WorkItem.Case.SelectedScenarioId)
-                                .OrderBy(x => x.Scenario.SortIndex)
-                                .Select(x => new KeyValuePair<Int64?, Int64?>(x.Id, x.SortIndex))
-                                .ToListAsync();
-
-            /*
-
-            if (ExpectedCondition.ToEndorsementId is not null)
-            {
-                var Current_Endorsement = All_Endorsements
-                                               .Where(x => x.Key == ExpectedCondition.ToEndorsementId)
-                                               .Single();
-
-                var Next_Endorsement = All_Endorsements
-                    .Where(x => x.Value > Current_Endorsement.Value)
-                    .FirstOrDefault();
-
-                foreach (var Endorsement_Item in All_Endorsements.Where(x => x.Key >= Next_Endorsement.Key))
-                {
-                    Current_WorkItem.Case.WorkItems
-                        .Where(x => !x.IsExit() && !x.IsSent())
-                        .Where(x => x.EndorsementId == Endorsement_Item.Key)
-                        .ToList().ForEach(x => x.SetFuture());
-                }
-            }
-
-            */
-
-        }
         public async Task SetCurrentAssignment(F_WorkItem Current_WorkItem)
         {
             Current_WorkItem.LastUpdatedRecord = DateTime.Now;
 
-            var WorkItemEndorsement = await _db.F_Endorsements
-                .AsNoTracking()
-                .Where(x => x.Id == Current_WorkItem.EndorsementId)
-                .Include(x => x.EndorsementItem.Conditions)
-                .ThenInclude(x => x.Operand)
-                .Include(x => x.EndorsementItem.Endorsements)
-                .ThenInclude(x => x.Endorsement)
-                .SingleAsync();
+            var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
 
             var ActualConditions = Current_WorkItem.Case.Conditions;
-            /*
-            var ExpectedConditions = WorkItemEndorsement.EndorsementItem.Conditions;
 
-            foreach (var ExpectedCondition in ExpectedConditions)
+            var endorsementItems = await _db.F_EndorsementItems
+                .Where(x => x.EndorsementId == WorkItemEndorsementId)
+                .ToListAsync();
+
+            foreach (var endorsementItem in endorsementItems)
             {
-                var ExpectedConditionList = new List<F_Condition>();
+                var ExpectedConditions = endorsementItem.Conditions;
 
-                ExpectedConditionList.Add(ExpectedCondition);
-
-                if (CompareCondition(ActualConditions, ExpectedConditionList))
+                foreach (var ExpectedCondition in ExpectedConditions)
                 {
-                    //Current_WorkItem.Case.CaseStateId =
-                    //    ExpectedCondition.CaseStateId;
+                    var ExpectedConditionList = new List<F_Condition>();
 
-                    Current_WorkItem.TagId =
-                        ExpectedCondition.TagId;
+                    ExpectedConditionList.Add(ExpectedCondition);
 
-                    Current_WorkItem.SetSent();
-
-                    if (Current_WorkItem.Case.IsAborted())
+                    if (CompareCondition(ActualConditions, ExpectedConditionList))
                     {
-                        Current_WorkItem.Case.WorkItems
-                            .Where(x => !x.IsExit() && !x.IsSent())
-                            .ToList().ForEach(x => x.SetExit());
-                    }
-                    if (!Current_WorkItem.Case.IsAborted())
-                    {
-                        #region Exit Current work items
-                        var OtherWorkItems = Current_WorkItem.Case.WorkItems
-                            .Where(x => x.EndorsementId == Current_WorkItem.EndorsementId)
-                            .Where(x => x.IsInbox());
+                        Current_WorkItem.Case.CaseStateId =
+                            endorsementItem.CaseStateId;
 
-                        foreach (var OtherWorkItem in OtherWorkItems)
+                        Current_WorkItem.TagId =
+                            ExpectedCondition.TagId;
+
+                        Current_WorkItem.SetSent();
+
+                        if (Current_WorkItem.Case.IsAborted())
                         {
-                            OtherWorkItem.SetExit();
+                            Current_WorkItem.Case.WorkItems
+                                .Where(x => !x.IsExit() && !x.IsSent())
+                                .ToList().ForEach(x => x.SetExit());
                         }
-                        #endregion
-
-                        #region Set inbox
-
-                        /*
-
-                        var _Current_WorkItems = Current_WorkItem.Case.WorkItems
-                            .Where(x => x.EndorsementId == ExpectedCondition.ToEndorsementId)
-                            .Where(x => !x.IsSent() && !x.IsExit());
-
-                        var _UserId = ActualConditions.First().UserId;
-
-                        if (_UserId > 0)
+                        if (!Current_WorkItem.Case.IsAborted())
                         {
-                            _Current_WorkItems.Where(x => x.UserId == _UserId)
-                                .Single().SetInbox();
+                            #region Exit Current work items
 
-                            _Current_WorkItems
-                                .Where(x => x.UserId != _UserId)
-                                .ToList()
-                                .ForEach(x => x.SetExit());
+                            var OtherWorkItems = Current_WorkItem.Case.WorkItems
+                                .Where(x => x.IsInbox());
+
+                            foreach (var OtherWorkItem in OtherWorkItems)
+                            {
+                                OtherWorkItem.SetExit();
+                            }
+                            #endregion
+
+                            #region Set inbox
+
+                            var toEndorsements = endorsementItem.Endorsements
+                                .Select(x => x.Endorsement);
+
+                            foreach (var toEndorsement in toEndorsements)
+                            {
+                                var _Current_WorkItems =
+                                    Current_WorkItem.Case.WorkItems
+                                    .Where(x => x.EndorsementId == toEndorsement.Id)
+                                    .Where(x => !x.IsSent() && !x.IsExit());
+
+                                var _User = toEndorsement.Users.FirstOrDefault();
+
+                                if (_User is not null)
+                                {
+                                    _Current_WorkItems.Where(x => x.UserId == _User.Id)
+                                        .Single().SetInbox();
+
+                                    _Current_WorkItems
+                                        .Where(x => x.UserId != _User.Id)
+                                        .ToList()
+                                        .ForEach(x => x.SetExit());
+                                }
+                                else
+                                {
+                                    _Current_WorkItems
+                                        .ToList()
+                                        .ForEach(x => x.SetInbox());
+                                }
+                                #endregion
+                            }
                         }
-                        else
-                        {
-                            _Current_WorkItems
-                                .ToList()
-                                .ForEach(x => x.SetInbox());
-                        }
-
-                       
-
-                        #endregion
-
-                        await SetCartable(Current_WorkItem, ExpectedCondition);
-            
                     }
                 }
             }
+        }
+        public IQueryable<F_Endorsement> GetAllEndorsement()
+        {
+            #region Endorsements
+            var eP_Endorsements_Query =
+                _db.F_Endorsements
+                .AsNoTracking()
+                .Include(x => x.Role)
+                .Where(x => x.EnableRecord == true)
+                .OrderBy(x => x.SortIndex);
 
-            */
+
+            #region Variables
+            eP_Endorsements_Query
+                .Include(x => x.Condition)
+                .ThenInclude(x => x.Tag)
+                .Include(x => x.Condition)
+                .ThenInclude(x => x.Operand);
+
+            #endregion
+
+            #region EndorsementItem
+
+            //eP_Endorsements_Query
+            //    .Include(x => x.EndorsementItems)
+            //    .ThenInclude(x => x.CaseState)
+            //    .Include(x => x.EndorsementItems)
+            //    .ThenInclude(x => x.Users);
+
+            #region Conditions
+            //eP_Endorsements_Query
+            //    .Include(x => x.EndorsementItems)
+            //    .ThenInclude(x => x.Conditions)
+            //    .ThenInclude(x => x.Tag)
+            //    .Include(x => x.EndorsementItems)
+            //    .ThenInclude(x => x.Conditions)
+            //    .ThenInclude(x => x.Operand);
+            #endregion
+
+            #region EndorsementItem
+            //eP_Endorsements_Query
+            //    .Include(x => x.EndorsementItem.Endorsements);
+
+
+            #endregion
+
+            #endregion
+
+            #endregion
+
+            return eP_Endorsements_Query;
+
         }
         public async Task SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
         {
@@ -165,16 +181,10 @@ namespace Cheetah_DataAccess.Repository
                 {
                     var ConditionOccures = false;
 
-                    if (Actual_Conditions.Count() == 0)
-                    {
-                        ConditionOccures = true;
-                    }
-                    else
-                    {
-                        var Expected_Conditions = ProcessScenario.Scenario.Conditions;
+                    var Expected_Conditions = ProcessScenario.Scenario.Conditions;
 
-                        ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
-                    }
+                    ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
+
                     if (ConditionOccures)
                     {
                         Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
@@ -182,58 +192,9 @@ namespace Cheetah_DataAccess.Repository
                     }
                 }
 
-                if (Current_Case.WorkItems is null)
-                {
-                    Current_Case.WorkItems = new HashSet<F_WorkItem>();
-                }
-
-                #region Endorsements
-                var eP_Endorsements_Query =
-                    _db.F_Endorsements
-                    .AsNoTracking()
-                    .Include(x => x.Role)
-                    .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId)
-                    .Where(x => x.EnableRecord == true)
-                    .OrderBy(x => x.SortIndex);
-
-
-                #region Variables
-                eP_Endorsements_Query
-                    .Include(x => x.Condition)
-                    .ThenInclude(x => x.Tag)
-                    .Include(x => x.Condition)
-                    .ThenInclude(x => x.Operand);
-
-                #endregion
-
-                #region EndorsementItem
-
-                eP_Endorsements_Query
-                    .Include(x => x.EndorsementItem)
-                    .ThenInclude(x => x.CaseState)
-                    .Include(x => x.EndorsementItem)
-                    .ThenInclude(x => x.Users);
-
-                #region Conditions
-                eP_Endorsements_Query
-                    .Include(x => x.EndorsementItem.Conditions)
-                    .ThenInclude(x => x.Tag)
-                    .Include(x => x.EndorsementItem.Conditions)
-                    .ThenInclude(x => x.Operand);
-                #endregion
-
-                #region EndorsementItem
-                eP_Endorsements_Query
-                    .Include(x => x.EndorsementItem.Endorsements);
-
-
-                #endregion
-
-                #endregion
-
-                var eP_Endorsements = await eP_Endorsements_Query
-                    .ToListAsync();
-                #endregion
+                var eP_Endorsements = await GetAllEndorsement()
+                     .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId.Value)
+                     .ToListAsync();
 
                 F_WorkItem first_WorkItem = new()
                 {
@@ -300,8 +261,6 @@ namespace Cheetah_DataAccess.Repository
                                     .ToListAsync();
                         }
 
-                        var test = 0;
-
                         foreach (var D_User in D_Users)
                         {
                             var UserOccur = false;
@@ -350,7 +309,6 @@ namespace Cheetah_DataAccess.Repository
         }
         public async Task<F_Case> CreateRequestAsync(F_Case request)
         {
-            //Clean up
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
             var DuplicateCase = _db.F_Cases
