@@ -58,7 +58,8 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
     public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
-
+    public virtual DbSet<F_EndorsementItem> F_EndorsementItems { get; set; }
+    
     #endregion
 
     #region Links

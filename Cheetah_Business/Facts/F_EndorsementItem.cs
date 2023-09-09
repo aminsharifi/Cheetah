@@ -20,6 +20,7 @@ public partial class F_EndorsementItem : SimpleClass
 
     [Column(Order = 103)]
     public long? EndorsementId { get; set; }
+    [ForeignKey(nameof(EndorsementId))]
     public virtual F_Endorsement? Endorsement { get; set; }
 
     [InverseProperty(nameof(F_Condition.EndorsementItem))]
@@ -28,9 +29,6 @@ public partial class F_EndorsementItem : SimpleClass
     [InverseProperty(nameof(L_EndorsementItemEndorsement.EndorsementItem))]
     public virtual ICollection<L_EndorsementItemEndorsement>? Endorsements { get; set; } = new HashSet<L_EndorsementItemEndorsement>();
 
-    [InverseProperty(nameof(L_EndorsementItemUser.EndorsementItem))]
-    public virtual ICollection<L_EndorsementItemUser>? Users { get; set; } = new HashSet<L_EndorsementItemUser>();
-    
     #region Functions
     public F_EndorsementItem ShallowCopy()
     {
