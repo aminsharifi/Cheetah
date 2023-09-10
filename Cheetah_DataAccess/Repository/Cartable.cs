@@ -107,6 +107,7 @@ namespace Cheetah_DataAccess.Repository
             new CartableDTO()
             {
                 Process = _iCopyClass.GetSimpleClass(x.Case.Process),
+                User = _iCopyClass.GetSimpleClass(x.User),
                 RadNumber = x.CaseId.ToString(),
                 WorkItemId = x.Id.ToString(),
                 Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
