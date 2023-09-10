@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
@@ -98,15 +99,13 @@ namespace Cheetah_GrpcService.Services
             f_Request.Conditions = GetCondition(request.Conditions).ToList();
 
             var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
-
+            f_Request = Outputresult.Item1 as F_Case;
             var OutputState = Outputresult.Item2 as SimpleClassDTO;
 
-            f_Request = Outputresult.Item1 as F_Case;
+            output_Request.OutputState = GetBaseClass(OutputState);
 
-            if (OutputState is not null && OutputState.Id > 0)
+            if (OutputState.Id > 0)
             {
-                output_Request.OutputState = GetBaseClass(OutputState);
-
                 return output_Request;
             }
 
@@ -155,7 +154,9 @@ namespace Cheetah_GrpcService.Services
 
             f_WorkItem.Case.Conditions = GetCondition(request.Conditions).ToList();
 
-            f_WorkItem = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
+            var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
+            f_WorkItem = Outputresult.Item1 as F_WorkItem;
+            var OutputState = Outputresult.Item2 as SimpleClassDTO;
 
             var output_Request = new Brief_Request()
             {
@@ -164,7 +165,7 @@ namespace Cheetah_GrpcService.Services
                 CaseState = GetBaseClass(f_WorkItem.Case.CaseState),
                 Process = GetBaseClass(f_WorkItem.Case.Process)
             };
-
+            output_Request.OutputState = GetBaseClass(OutputState);
             return output_Request;
         }
         public override async Task<DetailOutput_Requests> GetCase(Brief_Request request, ServerCallContext context)

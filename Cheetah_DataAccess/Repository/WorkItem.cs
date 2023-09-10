@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cheetah_Business;
 using Cheetah_Business.Data;
 using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
@@ -324,7 +325,7 @@ namespace Cheetah_DataAccess.Repository
         {
             var GeneralRequest = await _iCopyClass.DeepCopy(request);
 
-            SimpleClassDTO OutputState = new();
+            SimpleClassDTO _OutputState = new();
 
             var DuplicateCase = _db.F_Cases
                 .AsNoTracking()
@@ -338,10 +339,8 @@ namespace Cheetah_DataAccess.Repository
             if (AnyDuplicate)
             {
                 var CaseID = (await DuplicateCase.FirstAsync()).Id;
-                OutputState.Id = 1;
-                OutputState.Name = "Duplicate";
-                OutputState.DisplayName = $"درخواست پیشین با شماره رهیگری {CaseID} در چیتا ثبت شده است";
-                return new(GeneralRequest, OutputState);
+                _OutputState = OutputState.DuplicateErrorCreateRequest(CaseID);
+                return new(GeneralRequest, _OutputState);
             }
 
             await SetWorkItemsAsync(GeneralRequest);
@@ -355,12 +354,16 @@ namespace Cheetah_DataAccess.Repository
                          .WriteTo.File("Serilog.txt")
                          .CreateLogger();
 
+            _OutputState = OutputState.SuccessCreateRequest(GeneralRequest.Id);
+
             log.Information($"CreateRequestAsync-{GeneralRequest.Id}");
 
-            return new(GeneralRequest, OutputState);
+            return new(GeneralRequest, _OutputState);
         }
-        public async Task<F_WorkItem> PerformWorkItemAsync(F_WorkItem f_WorkItem)
+        public async Task<Tuple<F_WorkItem, SimpleClassDTO>> PerformWorkItemAsync(F_WorkItem f_WorkItem)
         {
+            SimpleClassDTO _OutputState = new();
+
             var Current_WorkItem = await _db.F_WorkItems
                   .Where(x => x.Id == f_WorkItem.Id)
                   .Include(x => x.Case)
@@ -387,7 +390,9 @@ namespace Cheetah_DataAccess.Repository
 
             await _db.SaveChangesAsync();
 
-            return Current_WorkItem;
+            _OutputState = OutputState.SuccessPerformWorkItem(Current_WorkItem.Id);
+
+            return new(Current_WorkItem, _OutputState);
         }
         public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions,
             IEnumerable<F_Condition> Expected_Conditions)
