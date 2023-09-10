@@ -312,6 +312,9 @@ namespace Cheetah_GrpcService.Services
             if (OutputRequest.Count() > 0)
             {
                 request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
+                request.Assignee = GetBaseClass(OutputRequest.FirstOrDefault().User);
+                request.Process = GetBaseClass(OutputRequest.FirstOrDefault().Process);
+                request.CaseState = GetBaseClass(OutputRequest.FirstOrDefault().CaseState);
 
                 var _Recordtable = OutputRequest.Select(
                      x => new RecordCartable()
