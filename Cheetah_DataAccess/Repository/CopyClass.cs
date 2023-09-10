@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
 using Cheetah_Business.Facts;
 using Cheetah_Business.Repository;
 using Cheetah_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Cheetah_DataAccess.Repository
 {
@@ -83,6 +81,32 @@ namespace Cheetah_DataAccess.Repository
                 }
             }
             return list_condition;
+        }
+
+        public SimpleClassDTO GetSimpleClass(SimpleClass simpleClass)
+        {
+            SimpleClassDTO _SimpleClass = new();
+
+            if (simpleClass is not null)
+            {
+                if (simpleClass.Id > 0)
+                {
+                    _SimpleClass.Id = simpleClass.Id;
+                }
+                if (simpleClass.ERPCode > 0)
+                {
+                    _SimpleClass.ERPCode = simpleClass.ERPCode;
+                }
+                if (!String.IsNullOrEmpty(simpleClass.Name))
+                {
+                    _SimpleClass.Name = simpleClass.Name;
+                }
+                if (!String.IsNullOrEmpty(simpleClass.DisplayName))
+                {
+                    _SimpleClass.DisplayName = simpleClass.DisplayName;
+                }
+            }
+            return _SimpleClass;
         }
 
         public async Task<F_Case> DeepCopy(F_Case obj)

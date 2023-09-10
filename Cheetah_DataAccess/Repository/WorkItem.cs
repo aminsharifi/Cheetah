@@ -32,7 +32,8 @@ namespace Cheetah_DataAccess.Repository
             var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
 
             var WorkItemEndorsement = await _db.F_Endorsements
-                .Where(x => x.Id == Current_WorkItem.EndorsementId).SingleAsync();
+                .Where(x => x.Id == Current_WorkItem.EndorsementId)
+                .SingleAsync();
 
             var ActualConditions = Current_WorkItem.Case.Conditions;
 

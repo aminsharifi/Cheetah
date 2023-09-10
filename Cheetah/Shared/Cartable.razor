@@ -44,7 +44,7 @@
     {
         var cartableDTO = new CartableDTO();
 
-        cartableDTO.Username = Username;
+        cartableDTO.User = new SimpleClassDTO() { Name = Username };
 
         if (Inbox)
             cartableDTOList = await iCartable.Inbox(cartableDTO);

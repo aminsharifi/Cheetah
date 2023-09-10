@@ -12,8 +12,8 @@ public class CartableDTO
     public Int32? PageSize { get; set; }
     public Int32? TotalItems { get; set; }
     public SimpleClassDTO? Tag { get; set; }
-    public String? Username { get; set; }
-    public String? Requestor { get; set; }
+    public SimpleClassDTO? User { get; set; }
+    public SimpleClassDTO? Requestor { get; set; }
     public String? RadNumber { get; set; }
     public String? WorkItemId { get; set; }
     public DateTime? CreateDate { get; set; }
@@ -28,8 +28,8 @@ public class CartableDTO
         get { return cPersianClass.GetPersianDate(this.RecieveDate); }
         set { PRecieveDate = value; }
     }
-    public String? ProcessName { get; set; }
-    public String? TaskName { get; set; }
+    public SimpleClassDTO? Process { get; set; }
+    public SimpleClassDTO? Task { get; set; }
     public string? Summary { get; set; }
     public IEnumerable<SimpleClassDTO> ValidUserActions { get; set; }
     public SimpleClassDTO? CaseState { get; set; }
