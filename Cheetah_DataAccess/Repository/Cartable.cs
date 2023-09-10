@@ -31,8 +31,6 @@ namespace Cheetah_DataAccess.Repository
                 .ThenInclude(x => x.User)
                 .AsNoTracking();
 
-
-
             if (request.ProcessId > 0)
             {
                 GeneralRequest = GeneralRequest.Where(x => x.ProcessId == request.ProcessId);
@@ -51,37 +49,39 @@ namespace Cheetah_DataAccess.Repository
             }
             return GeneralRequest;
         }
-        public IQueryable<CartableDTO> GetCartable(CartableDTO cartableDTO,
+        public async Task<List<CartableDTO>> GetCartable(CartableDTO cartableDTO,
      IQueryable<F_WorkItem> f_WorkItems)
         {
-            if (!string.IsNullOrEmpty(cartableDTO.Username))
+            if (cartableDTO.User is not null)
             {
-                var username = cartableDTO.Username;
-                f_WorkItems = f_WorkItems.Where(x => x.User.Name == username);
+                var UserID = await _iCopyClass.GetSimpleClassId(_db.D_Users, cartableDTO.User);
+
+                f_WorkItems = f_WorkItems.Where(x => x.UserId == UserID);
+            }
+            if (cartableDTO.Process is not null)
+            {
+                var ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, cartableDTO.Process);
+
+                f_WorkItems = f_WorkItems.Where(x => x.Case.ProcessId == ProcessId);
+            }
+            if (cartableDTO.CaseState is not null)
+            {
+                var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, cartableDTO.CaseState);
+
+                f_WorkItems = f_WorkItems.Where(x => x.Case.CaseStateId == CaseStateId);
             }
 
-            if (!string.IsNullOrEmpty(cartableDTO.ProcessName))
-            {
-                var processName = cartableDTO.ProcessName;
-                f_WorkItems = f_WorkItems
-                    .Where(x => x.Case.Process.Name == processName);
-            }
             if (!string.IsNullOrEmpty(cartableDTO.RadNumber))
             {
                 var radNumber = cartableDTO.RadNumber;
                 f_WorkItems = f_WorkItems.Where(x => x.CaseId == long.Parse(radNumber));
             }
-            if (!String.IsNullOrEmpty(cartableDTO.CaseState?.Name))
-            {
-                f_WorkItems = f_WorkItems
-                    .Where(x => x.Case.CaseState.Name == cartableDTO.CaseState.Name);
-            }
 
-            if (cartableDTO.CaseState?.ERPCode is not null && cartableDTO.CaseState?.ERPCode > 0)
-            {
-                f_WorkItems = f_WorkItems
-                    .Where(x => x.Case.CaseState.ERPCode == cartableDTO.CaseState.ERPCode);
-            }
+            var _D_Tags = await _db.D_Tags
+                .Where(x => x.Id.Value == 201 || x.Id.Value == 202 || x.Id.Value == 203)
+                .ToListAsync();
+
+            var _SelectedTag = _D_Tags.Select(y => _iCopyClass.GetSimpleClass(y)).ToList();
 
             int _PageSize = 0;
 
@@ -100,15 +100,17 @@ namespace Cheetah_DataAccess.Repository
 
             var _TotalItems = f_WorkItems.Count();
 
-            var Inbox = _Filterf_WorkItems
+            var Records = await _Filterf_WorkItems.ToListAsync();
+
+            var Inbox = Records
             .Select(x =>
             new CartableDTO()
             {
-                ProcessName = x.Case.Process.DisplayName,
+                Process = _iCopyClass.GetSimpleClass(x.Case.Process),
                 RadNumber = x.CaseId.ToString(),
                 WorkItemId = x.Id.ToString(),
-                Requestor = x.Case.Requestor.DisplayName,
-                TaskName = x.Endorsement.DisplayName,
+                Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
+                Task = _iCopyClass.GetSimpleClass(x.Endorsement),
                 CreateDate = x.Case.CreateTimeRecord,
                 RecieveDate = x.CreateTimeRecord,
                 Summary = string.Empty,
@@ -116,48 +118,35 @@ namespace Cheetah_DataAccess.Repository
                 PageNumber = _PageNumber,
                 TotalItems = _TotalItems,
                 ERPCode = x.Case.ERPCode,
-                Tag = new SimpleClassDTO()
-                {
-                    Id = x.Tag.Id.Value,
-                    Name = x.Tag.Name,
-                    DisplayName = x.Tag.DisplayName,
-                    ERPCode = x.Tag.ERPCode
-                },
-                CaseState = new SimpleClassDTO()
-                {
-                    Id = x.Case.CaseState.Id,
-                    Name = x.Case.CaseState.Name,
-                    DisplayName = x.Case.CaseState.DisplayName,
-                    ERPCode = x.Case.CaseState.ERPCode
-                },
-                ValidUserActions = _db.D_Tags
-                .Where(x=>x.Id.Value == 201 || x.Id.Value == 202 || x.Id.Value == 203)
-                .Select
-                (y => new SimpleClassDTO()
-                {
-                    Id = y.Id,
-                    Name = y.Name,
-                    DisplayName = y.DisplayName,
-                    ERPCode = y.ERPCode
-                })
+                Tag = _iCopyClass.GetSimpleClass(x.Tag),
+                CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
+                ValidUserActions = _SelectedTag
             }
             );
 
-            return Inbox;
+            return Inbox.ToList();
         }
-        public async Task<IQueryable<CartableDTO>> Inbox(CartableDTO cartableDTO)
+        public async Task<List<CartableDTO>> Inbox(CartableDTO cartableDTO)
         {
-            var inboxQuery = _db.F_WorkItems.Where(x => x.WorkItemStateId == 1);
+            var inboxQuery = _db.F_WorkItems
+                .Where(x =>
+                x.Case.EnableRecord == true &&
+                x.EnableRecord == true &&
+                x.WorkItemStateId == 1);
 
-            var inbox = GetCartable(cartableDTO, inboxQuery);
+            var inbox = await GetCartable(cartableDTO, inboxQuery);
 
             return inbox;
         }
-        public async Task<IQueryable<CartableDTO>> Outbox(CartableDTO cartableDTO)
+        public async Task<List<CartableDTO>> Outbox(CartableDTO cartableDTO)
         {
-            var outBoxQuery = _db.F_WorkItems.Where(x => x.WorkItemStateId == 2);
+            var outBoxQuery = _db.F_WorkItems
+           .Where(x =>
+           x.Case.EnableRecord == true &&
+           x.EnableRecord == true &&
+           x.WorkItemStateId == 2);
 
-            var outBox = GetCartable(cartableDTO, outBoxQuery);
+            var outBox = await GetCartable(cartableDTO, outBoxQuery);
 
             return outBox;
         }
