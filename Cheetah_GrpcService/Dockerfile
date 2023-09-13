@@ -23,4 +23,4 @@ RUN dotnet publish "Cheetah_GrpcService.csproj" -c Release -o /app/publish /p:Us
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "cheetah_grpcservice.dll"]
+ENTRYPOINT ["dotnet", "Cheetah_GrpcService.dll"]
