@@ -16,7 +16,7 @@ namespace Cheetah_Business
         }
         public static SimpleClassDTO SuccessCreateRequest(long? CaseID)
         {
-            var DisplayName = $"درخواست با شماره رهیگری {CaseID} با موفقیت در چیتا ثبت شده است";
+            var DisplayName = $"درخواست با شماره رهیگری {CaseID} با موفقیت در چیتا ثبت شد ";
             var _OutputState = Success(DisplayName);
             return _OutputState;
         }
