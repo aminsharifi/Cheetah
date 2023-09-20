@@ -83,9 +83,9 @@ namespace Cheetah_DataAccess.Repository
 
             var _SelectedTag = _D_Tags.Select(y => _iCopyClass.GetSimpleClass(y)).ToList();
 
-            int _PageSize = 0;
+            Int64 _PageSize = 0;
 
-            int _PageNumber = 0;
+            Int64 _PageNumber = 0;
 
             var _Filterf_WorkItems = f_WorkItems;
 
@@ -95,7 +95,7 @@ namespace Cheetah_DataAccess.Repository
 
                 _PageNumber = cartableDTO.PageNumber.Value;
 
-                _Filterf_WorkItems = f_WorkItems.Skip(_PageSize * (_PageNumber - 1)).Take(_PageSize);
+                _Filterf_WorkItems = f_WorkItems.Skip(Convert.ToInt32(_PageSize * (_PageNumber - 1))).Take(Convert.ToInt32(_PageSize));
             }
 
             var _TotalItems = f_WorkItems.Count();

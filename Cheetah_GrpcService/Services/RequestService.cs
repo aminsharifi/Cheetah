@@ -290,8 +290,10 @@ namespace Cheetah_GrpcService.Services
 
             return output_Requests;
         }
-        public async Task<PageCartable> Cartable(PageCartable request, CartableProperty cartableProperty)
+        public async Task<OutputCartable> Cartable(InputCartable request, CartableProperty cartableProperty)
         {
+            OutputCartable _OutputCartable = new();
+
             var _D_User = (SimpleClassDTO)GetSimpleClass(typeof(SimpleClassDTO), request.Assignee);
             var _D_Process = (SimpleClassDTO)GetSimpleClass(typeof(SimpleClassDTO), request.Process);
             var _D_CaseState = (SimpleClassDTO)GetSimpleClass(typeof(SimpleClassDTO), request.CaseState);
@@ -311,10 +313,10 @@ namespace Cheetah_GrpcService.Services
 
             if (OutputRequest.Count() > 0)
             {
-                request.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
-                request.Assignee = GetBaseClass(OutputRequest.FirstOrDefault().User);
-                request.Process = GetBaseClass(OutputRequest.FirstOrDefault().Process);
-                request.CaseState = GetBaseClass(OutputRequest.FirstOrDefault().CaseState);
+                _OutputCartable.TotalItems = OutputRequest.FirstOrDefault().TotalItems.Value;
+                _OutputCartable.Assignee = GetBaseClass(OutputRequest.FirstOrDefault().User);
+                _OutputCartable.Process = GetBaseClass(OutputRequest.FirstOrDefault().Process);
+                _OutputCartable.CaseState = GetBaseClass(OutputRequest.FirstOrDefault().CaseState);
 
                 var _Recordtable = OutputRequest.Select(
                      x => new RecordCartable()
@@ -336,9 +338,9 @@ namespace Cheetah_GrpcService.Services
                      }
                      );
 
-                request.RecordCartables.AddRange(_Recordtable);
+                _OutputCartable.RecordCartables.AddRange(_Recordtable);
 
-                foreach (var RecordCartable in request.RecordCartables)
+                foreach (var RecordCartable in _OutputCartable.RecordCartables)
                 {
                     RecordCartable.ValidUserActions.AddRange(
                        OutputRequest
@@ -349,13 +351,13 @@ namespace Cheetah_GrpcService.Services
                 }
             }
 
-            return request;
+            return _OutputCartable;
         }
-        public override Task<PageCartable> Inbox(PageCartable request, ServerCallContext context)
+        public override Task<OutputCartable> Inbox(InputCartable request, ServerCallContext context)
         {
             return Cartable(request, CartableProperty.Inbox);
         }
-        public override Task<PageCartable> Outbox(PageCartable request, ServerCallContext context)
+        public override Task<OutputCartable> Outbox(InputCartable request, ServerCallContext context)
         {
             return Cartable(request, CartableProperty.Outbox);
         }

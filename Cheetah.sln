@@ -3,26 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah", "Cheetah\Cheetah.csproj", "{8203F184-4A69-473B-A930-CA46B6B6154B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_portal", "Cheetah\cheetah_portal.csproj", "{8203F184-4A69-473B-A930-CA46B6B6154B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_WebAPI", "Cheetah_WebAPI\Cheetah_WebAPI.csproj", "{C579A033-D773-4D99-9235-F95D5D43DEBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_graphql", "Cheetah_WebAPI\cheetah_graphql.csproj", "{C579A033-D773-4D99-9235-F95D5D43DEBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess", "Cheetah_DataAccess\Cheetah_DataAccess.csproj", "{960836BF-B0FC-4DFC-83A1-0036DB25A542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_data_access", "Cheetah_DataAccess\cheetah_data_access.csproj", "{960836BF-B0FC-4DFC-83A1-0036DB25A542}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Client", "Cheetah_Client\Cheetah_Client.csproj", "{47E3D0B2-0C4C-491E-AA43-52DACA158F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_client", "Cheetah_Client\cheetah_client.csproj", "{47E3D0B2-0C4C-491E-AA43-52DACA158F75}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_Business", "Cheetah_Business\Cheetah_Business.csproj", "{228EF986-C3C5-4504-90DA-23F2F5AA40C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_business", "Cheetah_Business\cheetah_business.csproj", "{228EF986-C3C5-4504-90DA-23F2F5AA40C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{1EDCF15C-8AEC-45F1-B9F2-8BE2FCB1E22B}"
 	ProjectSection(SolutionItems) = preProject
 		Migration.txt = Migration.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess_Npgsql", "Cheetah_DataAccess_Npgsql\Cheetah_DataAccess_Npgsql.csproj", "{2D689A0B-BD27-4AA2-A098-8CCC1F50848B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_data_access_npgsql", "Cheetah_DataAccess_Npgsql\cheetah_data_access_npgsql.csproj", "{2D689A0B-BD27-4AA2-A098-8CCC1F50848B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_DataAccess_SqlServer", "Cheetah_DataAccess_SqlServer\Cheetah_DataAccess_SqlServer.csproj", "{5426EE32-853A-4565-8811-91FC747B848D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_data_access_sqlserver", "Cheetah_DataAccess_SqlServer\cheetah_data_access_sqlserver.csproj", "{5426EE32-853A-4565-8811-91FC747B848D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah_GrpcService", "Cheetah_GrpcService\Cheetah_GrpcService.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cheetah_grpc", "Cheetah_GrpcService\cheetah_grpc.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
