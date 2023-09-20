@@ -31,11 +31,11 @@ jobs:
       matrix:
         include:
           - dockerfile: ./Cheetah/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Blazor_Server
+            image: ghcr.io/${{ github.actor }}/cheetah_portal
           - dockerfile: ./Cheetah_WebAPI/Dockerfile
-            image: ghcr.io/${{ github.actor }}/GraphQL
+            image: ghcr.io/${{ github.actor }}/cheetah_graphql
           - dockerfile: ./Cheetah_GrpcService/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Grpc
+            image: ghcr.io/${{ github.actor }}/cheetah_grpc
     permissions:
       contents: read
       packages: write
