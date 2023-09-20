@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Cheetah_Business\cheetah_business.csproj" />
+	  <ProjectReference Include="..\cheetah_business\cheetah_business.csproj" />
 	</ItemGroup>
 
 </Project>

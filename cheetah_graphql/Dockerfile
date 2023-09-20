@@ -2,18 +2,19 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 5001
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cheetah_WebAPI/cheetah_graphql.csproj", "cheetah_graphql/"]
-COPY ["Cheetah_DataAccess_Npgsql/cheetah_data_access_npgsql.csproj", "cheetah_data_access_npgsql/"]
-COPY ["Cheetah_DataAccess/cheetah_data_access.csproj", "cheetah_data_access/"]
-COPY ["Cheetah_Business/cheetah_business.csproj", "cheetah_business/"]
-COPY ["Cheetah_DataAccess_SqlServer/cheetah_data_access_sqlserver.csproj", "cheetah_data_access_sqlserver/"]
-RUN dotnet restore "Cheetah_WebAPI/cheetah_graphql.csproj"
+COPY ["cheetah_graphql/cheetah_graphql.csproj", "cheetah_graphql/"]
+COPY ["cheetah_data_access_npgsql/cheetah_data_access_npgsql.csproj", "cheetah_data_access_npgsql/"]
+COPY ["cheetah_data_access/cheetah_data_access.csproj", "cheetah_data_access/"]
+COPY ["cheetah_business/cheetah_business.csproj", "cheetah_business/"]
+COPY ["cheetah_data_access_sqlserver/cheetah_data_access_sqlserver.csproj", "cheetah_data_access_sqlserver/"]
+RUN dotnet restore "cheetah_graphql/cheetah_graphql.csproj"
 COPY . .
-WORKDIR "/src/Cheetah_WebAPI"
+WORKDIR "/src/cheetah_graphql"
 RUN dotnet build "cheetah_graphql.csproj" -c Release -o /app/build
 
 FROM build AS publish

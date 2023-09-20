@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah_DataAccess_Npgsql\cheetah_data_access_npgsql.csproj" />
-    <ProjectReference Include="..\Cheetah_DataAccess_SqlServer\cheetah_data_access_sqlserver.csproj" />
+    <ProjectReference Include="..\cheetah_data_access_npgsql\cheetah_data_access_npgsql.csproj" />
+    <ProjectReference Include="..\cheetah_data_access_sqlserver\cheetah_data_access_sqlserver.csproj" />
   </ItemGroup>
 
 </Project>
