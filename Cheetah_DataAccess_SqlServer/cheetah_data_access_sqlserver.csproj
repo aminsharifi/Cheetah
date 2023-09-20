@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah_DataAccess\Cheetah_DataAccess.csproj" />
+    <ProjectReference Include="..\Cheetah_DataAccess\cheetah_data_access.csproj" />
   </ItemGroup>
 
 </Project>

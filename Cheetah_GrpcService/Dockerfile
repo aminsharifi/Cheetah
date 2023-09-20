@@ -6,21 +6,20 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cheetah_GrpcService/Cheetah_GrpcService.csproj", "Cheetah_GrpcService/"]
-COPY ["Cheetah_DataAccess/Cheetah_DataAccess.csproj", "Cheetah_DataAccess/"]
-COPY ["Cheetah_Business/Cheetah_Business.csproj", "Cheetah_Business/"]
-COPY ["Cheetah_DataAccess_Npgsql/Cheetah_DataAccess_Npgsql.csproj", "Cheetah_DataAccess_Npgsql/"]
-COPY ["Cheetah_DataAccess_SqlServer/Cheetah_DataAccess_SqlServer.csproj", "Cheetah_DataAccess_SqlServer/"]
-
-RUN dotnet restore "Cheetah_GrpcService/Cheetah_GrpcService.csproj"
+COPY ["Cheetah_GrpcService/cheetah_grpc.csproj", "Cheetah_GrpcService/"]
+COPY ["Cheetah_DataAccess_Npgsql/cheetah_data_access_npgsql.csproj", "Cheetah_DataAccess_Npgsql/"]
+COPY ["Cheetah_DataAccess/cheetah_data_access.csproj", "Cheetah_DataAccess/"]
+COPY ["Cheetah_Business/cheetah_business.csproj", "Cheetah_Business/"]
+COPY ["Cheetah_DataAccess_SqlServer/cheetah_data_access_sqlserver.csproj", "Cheetah_DataAccess_SqlServer/"]
+RUN dotnet restore "Cheetah_GrpcService/cheetah_grpc.csproj"
 COPY . .
 WORKDIR "/src/Cheetah_GrpcService"
-RUN dotnet build "Cheetah_GrpcService.csproj" -c Release -o /app/build
+RUN dotnet build "cheetah_grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Cheetah_GrpcService.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "cheetah_grpc.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Cheetah_GrpcService.dll"]
+ENTRYPOINT ["dotnet", "cheetah_grpc.dll"]
