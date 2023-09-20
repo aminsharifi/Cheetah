@@ -20,14 +20,14 @@
   <ItemGroup>
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.5.1" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="13.5.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.10" />
-    <PackageReference Include="Microsoft.NET.Build.Containers" Version="7.0.400" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.11" />
+    <PackageReference Include="Microsoft.NET.Build.Containers" Version="7.0.401" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Octokit" Version="7.1.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
@@ -40,8 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cheetah_DataAccess_Npgsql\Cheetah_DataAccess_Npgsql.csproj" />
-    <ProjectReference Include="..\Cheetah_DataAccess_SqlServer\Cheetah_DataAccess_SqlServer.csproj" />
+    <ProjectReference Include="..\Cheetah_DataAccess_Npgsql\cheetah_data_access_npgsql.csproj" />
+    <ProjectReference Include="..\Cheetah_DataAccess_SqlServer\cheetah_data_access_sqlserver.csproj" />
   </ItemGroup>
 
 </Project>
