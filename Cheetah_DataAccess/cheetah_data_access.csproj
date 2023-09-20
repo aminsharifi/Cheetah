@@ -17,11 +17,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Cheetah_Business\cheetah_business.csproj" />
+	  <Folder Include="Sync_Query\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Sync_Query\" />
+	  <ProjectReference Include="..\Cheetah_Business\cheetah_business.csproj" />
 	</ItemGroup>
 
 </Project>
