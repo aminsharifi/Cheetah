@@ -30,11 +30,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./Cheetah/Dockerfile
+          - dockerfile: ./cheetah_portal/Dockerfile
             image: ghcr.io/${{ github.actor }}/cheetah_portal
-          - dockerfile: ./Cheetah_WebAPI/Dockerfile
+          - dockerfile: ./cheetah_graphql/Dockerfile
             image: ghcr.io/${{ github.actor }}/cheetah_graphql
-          - dockerfile: ./Cheetah_GrpcService/Dockerfile
+          - dockerfile: ./cheetah_grpc/Dockerfile
             image: ghcr.io/${{ github.actor }}/cheetah_grpc
     permissions:
       contents: read
