@@ -6,11 +6,11 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cheetah_GrpcService/cheetah_grpc.csproj", "Cheetah_GrpcService/"]
-COPY ["Cheetah_DataAccess_Npgsql/cheetah_data_access_npgsql.csproj", "Cheetah_DataAccess_Npgsql/"]
-COPY ["Cheetah_DataAccess/cheetah_data_access.csproj", "Cheetah_DataAccess/"]
-COPY ["Cheetah_Business/cheetah_business.csproj", "Cheetah_Business/"]
-COPY ["Cheetah_DataAccess_SqlServer/cheetah_data_access_sqlserver.csproj", "Cheetah_DataAccess_SqlServer/"]
+COPY ["Cheetah_GrpcService/cheetah_grpc.csproj", "cheetah_grpc/"]
+COPY ["Cheetah_DataAccess_Npgsql/cheetah_data_access_npgsql.csproj", "cheetah_data_access_npgsql/"]
+COPY ["Cheetah_DataAccess/cheetah_data_access.csproj", "cheetah_data_access/"]
+COPY ["Cheetah_Business/cheetah_business.csproj", "cheetah_business/"]
+COPY ["Cheetah_DataAccess_SqlServer/cheetah_data_access_sqlserver.csproj", "cheetah_data_access_sqlserver/"]
 RUN dotnet restore "Cheetah_GrpcService/cheetah_grpc.csproj"
 COPY . .
 WORKDIR "/src/Cheetah_GrpcService"
