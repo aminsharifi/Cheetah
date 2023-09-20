@@ -20,7 +20,8 @@
             Title="@Title" IsLoading="@IsLoading"
             reference="@reference">
         <RowTemplate>
-            <CInput @bind-LValue="Record.FirstId"
+            @* 
+                <CInput @bind-LValue="Record.FirstId"
                 Records="@FirstClass"
                 CDescription="@(FirstClassRecord.DisplayName)"
                     Disabled="@(type == nameof(LinkProperty.First))"
@@ -30,7 +31,7 @@
                 reference="@reference">
             </CInput>
 
-            <CInput @bind-LValue="Record.SecondId"
+           <CInput @bind-LValue="Record.SecondId"
                 Records="@SecondClass"
                 CDescription="@(SecondClassRecord.DisplayName)"
                     Disabled="@(type == nameof(LinkProperty.Second))"
@@ -38,7 +39,8 @@
                     CFieldType="@(Cheetah_Business.FieldType.CSelect)"
                 Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
                 reference="@reference">
-            </CInput>
+            </CInput> *@
+
         </RowTemplate>
     </CEditLinks>
 }

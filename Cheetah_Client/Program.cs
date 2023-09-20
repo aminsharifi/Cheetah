@@ -1,4 +1,4 @@
-using Cheetah_Client;
+using cheetah_client;
 using Cheetah_Client.Service;
 using Cheetah_Business.Repository;
 using Microsoft.AspNetCore.Components.Web;
