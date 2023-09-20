@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cheetah_GrpcService/cheetah_grpc.csproj", "Cheetah_GrpcService/"]
-COPY ["Cheetah_DataAccess_Npgsql/cheetah_data_access_npgsql.csproj", "Cheetah_DataAccess_Npgsql/"]
-COPY ["Cheetah_DataAccess/cheetah_data_access.csproj", "Cheetah_DataAccess/"]
-COPY ["Cheetah_Business/cheetah_business.csproj", "Cheetah_Business/"]
-COPY ["Cheetah_DataAccess_SqlServer/cheetah_data_access_sqlserver.csproj", "Cheetah_DataAccess_SqlServer/"]
-RUN dotnet restore "Cheetah_GrpcService/cheetah_grpc.csproj"
+COPY Cheetah_GrpcService/cheetah_grpc.csproj
+COPY Cheetah_DataAccess_Npgsql/cheetah_data_access_npgsql.csproj
+COPY Cheetah_DataAccess/cheetah_data_access.csproj
+COPY Cheetah_Business/cheetah_business.csproj
+COPY Cheetah_DataAccess_SqlServer/cheetah_data_access_sqlserver.csproj
+RUN dotnet restore Cheetah_GrpcService/cheetah_grpc.csproj
 COPY . .
-WORKDIR "/src/Cheetah_GrpcService"
+WORKDIR /src/Cheetah_GrpcService
 RUN dotnet build "cheetah_grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish
