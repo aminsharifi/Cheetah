@@ -87,6 +87,9 @@ namespace Cheetah_GrpcService.Services
         }
         public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
         {
+            _logger.LogInformation("started " + nameof(CreateRequest));
+            _logger.LogInformation("{@Create_Input_Request}", request);
+
             var output_Request = new Brief_Request();
 
             var f_Request = new F_Case();
@@ -126,6 +129,9 @@ namespace Cheetah_GrpcService.Services
 
             output_Request.CaseState = GetBaseClass(caseState);
 
+            _logger.LogInformation("Ended " + nameof(CreateRequest));
+            _logger.LogInformation("{@Brief_Request}", output_Request);
+
             return output_Request;
         }
         public GRPC_BaseClass GetBaseClass(SimpleClass simpleClass)
@@ -147,6 +153,9 @@ namespace Cheetah_GrpcService.Services
         }
         public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
         {
+            _logger.LogInformation("started " + nameof(PerformRequest));
+            _logger.LogInformation("{@Perform_Input_Request}", request);
+
             var f_WorkItem = new F_WorkItem();
 
             f_WorkItem.Id = request.WorkItemId;
@@ -167,6 +176,10 @@ namespace Cheetah_GrpcService.Services
                 Process = GetBaseClass(f_WorkItem.Case.Process)
             };
             output_Request.OutputState = GetBaseClass(OutputState);
+
+            _logger.LogInformation("Ended " + nameof(PerformRequest));
+            _logger.LogInformation("{@Brief_Request}", output_Request);
+
             return output_Request;
         }
         public override async Task<DetailOutput_Requests> GetCase(Brief_Request request, ServerCallContext context)
@@ -299,6 +312,9 @@ namespace Cheetah_GrpcService.Services
         }
         public async Task<OutputCartable> Cartable(InputCartable request, CartableProperty cartableProperty)
         {
+            _logger.LogInformation("started " + nameof(Cartable));
+            _logger.LogInformation("{@InputCartable}", request);
+
             OutputCartable _OutputCartable = new();
 
             var _D_User = (SimpleClassDTO)GetSimpleClass(typeof(SimpleClassDTO), request.Assignee);
@@ -357,6 +373,8 @@ namespace Cheetah_GrpcService.Services
                        );
                 }
             }
+            _logger.LogInformation("Ended " + nameof(Cartable));
+            _logger.LogInformation("{@OutputCartable}", _OutputCartable);
 
             return _OutputCartable;
         }
