@@ -12,7 +12,10 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+
+#region Serilog
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration)); 
+#endregion
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
