@@ -6,10 +6,16 @@ using Cheetah_GrpcService.Services;
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Sinks.MSSqlServer;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+#region Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+#endregion
+
 
 var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
