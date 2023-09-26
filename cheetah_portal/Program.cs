@@ -39,7 +39,7 @@ if (provider is "Npgsql")
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
         .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql")
-        , x => x.MigrationsAssembly("Cheetah_DataAccess_Npgsql")
+        , x => x.MigrationsAssembly("cheetah_data_access_npgsql")
         ),
         ServiceLifetime.Transient
         );
@@ -49,7 +49,7 @@ else
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
         .UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"),
-        x => x.MigrationsAssembly("Cheetah_DataAccess_SqlServer")),
+        x => x.MigrationsAssembly("cheetah_data_access_sqlserver")),
         ServiceLifetime.Transient
         );
 }
