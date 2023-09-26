@@ -75,7 +75,7 @@ jobs:
         id: get-version
         with:
           proj-path: ./cheetah_portal/cheetah_portal.csproj
-      - run: echo "VTAG='v'+${{steps.get-version.outputs.version}}" >> $GITHUB_ENV
+      - run: echo "VTAG=${{steps.get-version.outputs.version}}" >> $GITHUB_ENV
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -86,7 +86,7 @@ jobs:
           images: ${{ matrix.image }}
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
-            type=raw,value=${{ env.VTAG }},enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+            type=raw,value=v${{ env.VTAG }},enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
             
 
 
