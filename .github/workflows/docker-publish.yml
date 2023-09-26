@@ -79,7 +79,7 @@ jobs:
           images: ${{ matrix.image }}
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
-            ${{ steps.meta.outputs.tags }}
+             type=raw,value=latest2,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
 
 
       # Build and push Docker image with Buildx (don't push on PR)
