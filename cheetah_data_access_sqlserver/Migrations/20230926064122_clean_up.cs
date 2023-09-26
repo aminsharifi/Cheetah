@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Cheetah_DataAccess_SqlServer.Migrations
+namespace cheetah_data_access_sqlserver.Migrations
 {
     /// <inheritdoc />
-    public partial class cleanup_972023 : Migration
+    public partial class clean_up : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
