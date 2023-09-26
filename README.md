@@ -1,7 +1,7 @@
 
 # Cheetah
 
-Cheetah is a free and open-source lightweight BPMS engine.
+Cheetah is a free and open-source lightweight BPMS engine. 
 
 
 ## Authors
