@@ -20,7 +20,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  VTAG: '1.0.0'
+  VTAG: 'v1.0.1'
 
 
 jobs:
