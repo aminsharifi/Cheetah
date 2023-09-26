@@ -1,33 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <Version>1.0.2</Version>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>77325be2-ba4e-4194-9f27-03ee80f90846</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-  </PropertyGroup>
+	<PropertyGroup>
+		<VersionPrefix>23.9.26.1</VersionPrefix>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>77325be2-ba4e-4194-9f27-03ee80f90846</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Protos\greet.proto" />
-    <None Remove="Protos\Request.proto" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Protos\greet.proto" />
+		<None Remove="Protos\Request.proto" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Protobuf Include="Protos\Request.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-  </ItemGroup>
+	<ItemGroup>
+		<Protobuf Include="Protos\Request.proto" GrpcServices="Server" />
+		<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\cheetah_data_access_npgsql\cheetah_data_access_npgsql.csproj" />
-    <ProjectReference Include="..\cheetah_data_access_sqlserver\cheetah_data_access_sqlserver.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\cheetah_data_access_npgsql\cheetah_data_access_npgsql.csproj" />
+		<ProjectReference Include="..\cheetah_data_access_sqlserver\cheetah_data_access_sqlserver.csproj" />
+	</ItemGroup>
 
 </Project>
