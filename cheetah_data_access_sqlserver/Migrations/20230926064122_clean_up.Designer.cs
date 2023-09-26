@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Cheetah_DataAccess_SqlServer.Migrations
+namespace cheetah_data_access_sqlserver.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230903131815_Locations_EndorsementItem")]
-    partial class Locations_EndorsementItem
+    [Migration("20230926064122_clean_up")]
+    partial class clean_up
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -804,10 +804,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnType("bit")
                         .HasColumnOrder(103);
 
-                    b.Property<long?>("EndorsementItemId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(111);
-
                     b.Property<Guid?>("GuidRecord")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnOrder(8);
@@ -858,8 +854,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
                     b.HasIndex("EnableRecord")
                         .IsDescending();
-
-                    b.HasIndex("EndorsementItemId");
 
                     b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
@@ -1348,7 +1342,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnOrder(100);
 
                     b.Property<string>("Value")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(102);
 
@@ -1393,6 +1386,10 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+
+                    b.Property<long?>("ConditionId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(103);
 
                     b.Property<DateTime?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
@@ -1448,6 +1445,8 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ConditionId");
 
                     b.HasIndex("CreateTimeRecord")
                         .IsUnique()
@@ -1565,94 +1564,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("F_EndorsementItem", "Facts");
-                });
-
-            modelBuilder.Entity("Cheetah_Business.Facts.F_EndorsementSelector", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
-
-                    b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
-
-                    b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
-
-                    b.Property<long?>("EndorsementId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(100);
-
-                    b.Property<long?>("EndorsementItemId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(101);
-
-                    b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
-
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
-
-                    b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
-                    b.HasIndex("EndorsementId");
-
-                    b.HasIndex("EndorsementItemId");
-
-                    b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
-
-                    b.ToTable("F_EndorsementSelector", "Facts");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Scenario", b =>
@@ -1835,6 +1746,186 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.HasIndex("WorkItemStateId");
 
                     b.ToTable("F_WorkItem", "Facts");
+                });
+
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementItemEndorsement", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+
+                    b.Property<DateTime?>("CreateTimeRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(6);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnOrder(4);
+
+                    b.Property<long?>("ERPCode")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10);
+
+                    b.Property<bool?>("EnableRecord")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(9);
+
+                    b.Property<long?>("FirstId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(50);
+
+                    b.Property<Guid?>("GuidRecord")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnOrder(8);
+
+                    b.Property<DateTime?>("LastUpdatedRecord")
+                        .IsConcurrencyToken()
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(7);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnOrder(3);
+
+                    b.Property<long?>("SecondId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(51);
+
+                    b.Property<long?>("SortIndex")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreateTimeRecord")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+
+                    b.HasIndex("ERPCode")
+                        .IsDescending();
+
+                    b.HasIndex("EnableRecord")
+                        .IsDescending();
+
+                    b.HasIndex("FirstId")
+                        .IsDescending();
+
+                    b.HasIndex("LastUpdatedRecord")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.HasIndex("SecondId")
+                        .IsDescending();
+
+                    b.ToTable("L_EndorsementItemEndorsement", "Links");
+                });
+
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementUser", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+
+                    b.Property<DateTime?>("CreateTimeRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(6);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnOrder(4);
+
+                    b.Property<long?>("ERPCode")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10);
+
+                    b.Property<bool?>("EnableRecord")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(9);
+
+                    b.Property<long?>("FirstId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(50);
+
+                    b.Property<Guid?>("GuidRecord")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnOrder(8);
+
+                    b.Property<DateTime?>("LastUpdatedRecord")
+                        .IsConcurrencyToken()
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(7);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasColumnOrder(3);
+
+                    b.Property<long?>("SecondId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(51);
+
+                    b.Property<long?>("SortIndex")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreateTimeRecord")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+
+                    b.HasIndex("ERPCode")
+                        .IsDescending();
+
+                    b.HasIndex("EnableRecord")
+                        .IsDescending();
+
+                    b.HasIndex("FirstId")
+                        .IsDescending();
+
+                    b.HasIndex("LastUpdatedRecord")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.HasIndex("SecondId")
+                        .IsDescending();
+
+                    b.ToTable("L_EndorsementUser", "Links");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Links.L_ProcessScenario", b =>
@@ -2420,7 +2511,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Location", b =>
                 {
                     b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
-                        .WithMany("Locations")
+                        .WithMany()
                         .HasForeignKey("EndorsementItemId");
 
                     b.Navigation("EndorsementItem");
@@ -2441,10 +2532,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .WithMany()
                         .HasForeignKey("DelegateId");
 
-                    b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
-                        .WithMany("Users")
-                        .HasForeignKey("EndorsementItemId");
-
                     b.HasOne("Cheetah_Business.Dimentions.D_User", "Parent")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
@@ -2454,8 +2541,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasForeignKey("UserInformationId");
 
                     b.Navigation("Delegate");
-
-                    b.Navigation("EndorsementItem");
 
                     b.Navigation("Parent");
 
@@ -2534,17 +2619,23 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
                 {
+                    b.HasOne("Cheetah_Business.Facts.F_Condition", "Condition")
+                        .WithMany()
+                        .HasForeignKey("ConditionId");
+
                     b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany()
                         .HasForeignKey("EndorsementItemId");
 
                     b.HasOne("Cheetah_Business.Dimentions.D_Role", "Role")
-                        .WithMany("EndorsementPosition")
+                        .WithMany()
                         .HasForeignKey("RoleId");
 
                     b.HasOne("Cheetah_Business.Facts.F_Scenario", "Scenario")
                         .WithMany("Endorsements")
                         .HasForeignKey("ScenarioId");
+
+                    b.Navigation("Condition");
 
                     b.Navigation("EndorsementItem");
 
@@ -2566,21 +2657,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("CaseState");
 
                     b.Navigation("Endorsement");
-                });
-
-            modelBuilder.Entity("Cheetah_Business.Facts.F_EndorsementSelector", b =>
-                {
-                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "Endorsement")
-                        .WithMany()
-                        .HasForeignKey("EndorsementId");
-
-                    b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
-                        .WithMany("EndorsementSelectors")
-                        .HasForeignKey("EndorsementItemId");
-
-                    b.Navigation("Endorsement");
-
-                    b.Navigation("EndorsementItem");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_WorkItem", b =>
@@ -2616,6 +2692,36 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("WorkItemState");
                 });
 
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementItemEndorsement", b =>
+                {
+                    b.HasOne("Cheetah_Business.Facts.F_EndorsementItem", "EndorsementItem")
+                        .WithMany("Endorsements")
+                        .HasForeignKey("FirstId");
+
+                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "Endorsement")
+                        .WithMany()
+                        .HasForeignKey("SecondId");
+
+                    b.Navigation("Endorsement");
+
+                    b.Navigation("EndorsementItem");
+                });
+
+            modelBuilder.Entity("Cheetah_Business.Links.L_EndorsementUser", b =>
+                {
+                    b.HasOne("Cheetah_Business.Facts.F_Endorsement", "Endorsement")
+                        .WithMany("Users")
+                        .HasForeignKey("FirstId");
+
+                    b.HasOne("Cheetah_Business.Dimentions.D_User", "User")
+                        .WithMany()
+                        .HasForeignKey("SecondId");
+
+                    b.Navigation("Endorsement");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Cheetah_Business.Links.L_ProcessScenario", b =>
                 {
                     b.HasOne("Cheetah_Business.Dimentions.D_Process", "Process")
@@ -2633,7 +2739,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Links.L_RolePosition", b =>
                 {
-                    b.HasOne("Cheetah_Business.Dimentions.D_Role", "D_Role")
+                    b.HasOne("Cheetah_Business.Dimentions.D_Role", "Role")
                         .WithMany("RolePositions")
                         .HasForeignKey("FirstId");
 
@@ -2641,9 +2747,9 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .WithMany("RolePositions")
                         .HasForeignKey("SecondId");
 
-                    b.Navigation("D_Role");
-
                     b.Navigation("Position");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Links.L_UserLocation", b =>
@@ -2653,7 +2759,7 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                         .HasForeignKey("FirstId");
 
                     b.HasOne("Cheetah_Business.Dimentions.D_Location", "Location")
-                        .WithMany("UserLocations")
+                        .WithMany()
                         .HasForeignKey("SecondId");
 
                     b.Navigation("Location");
@@ -2738,11 +2844,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
                     b.Navigation("IU_User");
                 });
 
-            modelBuilder.Entity("Cheetah_Business.Dimentions.D_Location", b =>
-                {
-                    b.Navigation("UserLocations");
-                });
-
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Position", b =>
                 {
                     b.Navigation("RolePositions");
@@ -2757,8 +2858,6 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah_Business.Dimentions.D_Role", b =>
                 {
-                    b.Navigation("EndorsementPosition");
-
                     b.Navigation("RolePositions");
                 });
 
@@ -2783,17 +2882,15 @@ namespace Cheetah_DataAccess_SqlServer.Migrations
             modelBuilder.Entity("Cheetah_Business.Facts.F_Endorsement", b =>
                 {
                     b.Navigation("EndorsementItems");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_EndorsementItem", b =>
                 {
                     b.Navigation("Conditions");
 
-                    b.Navigation("EndorsementSelectors");
-
-                    b.Navigation("Locations");
-
-                    b.Navigation("Users");
+                    b.Navigation("Endorsements");
                 });
 
             modelBuilder.Entity("Cheetah_Business.Facts.F_Scenario", b =>
