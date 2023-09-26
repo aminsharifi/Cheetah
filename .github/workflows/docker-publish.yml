@@ -75,7 +75,7 @@ jobs:
         id: get-version
         with:
           proj-path: ./cheetah_portal/cheetah_portal.csproj
-      - run: "${{VTAG = steps.get-version.outputs.version}}"
+      - run: echo "${{VTAG = steps.get-version.outputs.version}}"
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
