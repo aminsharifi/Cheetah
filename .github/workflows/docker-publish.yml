@@ -71,11 +71,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: kzrnm/get-net-sdk-project-versions-action@v1
+      - uses: kzrnm/get-net-sdk-project-versions-action@v1.3.0
         id: get-version
         with:
           proj-path: ./cheetah_portal/cheetah_portal.csproj
-      - run: echo "VTAG = ${{steps.get-version.outputs.version}}"
+      - run: "${{env.VTAG = steps.get-version.outputs.version}}"
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
