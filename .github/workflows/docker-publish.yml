@@ -20,6 +20,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  VTAG: '1.0.0'
 
 
 jobs:
@@ -70,6 +71,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: kzrnm/get-net-sdk-project-versions-action@v1
+        id: get-version
+        with:
+          proj-path: ./cheetah_portal/cheetah_portal.csproj
+      - run: echo "VTAG = ${{steps.get-version.outputs.version}}"
+
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
@@ -79,7 +86,7 @@ jobs:
           images: ${{ matrix.image }}
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
-            type=raw,value=${{ steps.meta.outputs.tags }},enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+            type=raw,value=${{ env.VTAG }},enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
             
 
 
