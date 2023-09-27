@@ -1,36 +1,36 @@
 ﻿using AutoMapper;
-using Cheetah_Business.Repository;
+using Cheetah.Application.Business.Repository;
+using Cheetah_GrpcService;
 using Grpc.Core;
 
-namespace Cheetah_GrpcService.Services
+namespace Cheetah.Application.Services.gRPC.Services;
+
+public class GreeterService : Greeter.GreeterBase
 {
-    public class GreeterService : Greeter.GreeterBase
+    private readonly ILogger<GreeterService> _logger;
+    private readonly ITableCRUD _isimpleClassRepository;
+    private readonly ICartable _iCartable;
+    private readonly IMapper _imapper;
+    private readonly ICopyClass _iCopyClass;
+
+    public GreeterService(ILogger<GreeterService> logger,
+        ITableCRUD iP_ParameterListRepository, IMapper mapper,
+        ICartable iCartable, ICopyClass _iCopyClass)
     {
-        private readonly ILogger<GreeterService> _logger;
-        private readonly ITableCRUD _isimpleClassRepository;
-        private readonly ICartable _iCartable;
-        private readonly IMapper _imapper;
-        private readonly ICopyClass _iCopyClass;
+        _logger = logger;
+        this._imapper = mapper;
+        this._isimpleClassRepository = iP_ParameterListRepository;
+        this._iCartable = iCartable;
+        this._iCopyClass = _iCopyClass;
+    }
 
-        public GreeterService(ILogger<GreeterService> logger,
-            ITableCRUD iP_ParameterListRepository, IMapper mapper,
-            ICartable iCartable, ICopyClass _iCopyClass)
+    public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+    {
+        var helloReply = new HelloReply()
         {
-            _logger = logger;
-            this._imapper = mapper;
-            this._isimpleClassRepository = iP_ParameterListRepository;
-            this._iCartable = iCartable;
-            this._iCopyClass = _iCopyClass;
-        }
+            Message = "Hello " + request.Name
+        };
 
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
-        {
-            var helloReply = new HelloReply()
-            {
-                Message = "Hello " + request.Name
-            };
-
-            return Task.FromResult(helloReply);
-        }
+        return Task.FromResult(helloReply);
     }
 }

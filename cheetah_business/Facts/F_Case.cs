@@ -1,10 +1,9 @@
-﻿using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
+﻿using Cheetah.Domain.Data;
+using Cheetah.Domain.Dimentions;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Cheetah_Business.Facts;
+namespace Cheetah.Domain.Facts;
 
 [Table(nameof(F_Case), Schema = nameof(TableType.Facts))]
 [Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]

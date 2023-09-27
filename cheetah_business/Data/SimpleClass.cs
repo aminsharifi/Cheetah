@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cheetah_Business.Data;
+namespace Cheetah.Domain.Data;
 
 public abstract class SimpleClass
 {

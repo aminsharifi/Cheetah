@@ -1,10 +1,8 @@
-﻿using Cheetah_Business.Repository;
-using Cheetah_DataAccess.Data;
+﻿using Cheetah.Application.Business.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Repository
-{
-    public class View : IView
+namespace Cheetah.Infrastructure.Persistence.Repository;
+public class View : IView
     {
         protected ApplicationDbContext _db;
         public View(ApplicationDbContext db)
@@ -125,4 +123,3 @@ namespace Cheetah_DataAccess.Repository
             return true;
         }
     }
-}

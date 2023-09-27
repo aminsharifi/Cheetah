@@ -1,4 +1,4 @@
-﻿namespace Cheetah_Business.Data;
+﻿namespace Cheetah.Domain.Data;
 
 public class SimpleLinkClassDTO
 {

@@ -1,9 +1,8 @@
-using Cheetah.Data;
-using Cheetah.Services;
-using Cheetah_Business;
-using Cheetah_Business.Repository;
-using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Repository;
+using Cheetah.Application.Business.Repository;
+using Cheetah.Infrastructure.Persistence;
+using Cheetah.Infrastructure.Persistence.Repository;
+using Cheetah.Web.Blazor.Server.Data;
+using Cheetah.Web.Blazor.Server.Services;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

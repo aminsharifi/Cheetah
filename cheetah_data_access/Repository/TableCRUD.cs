@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using Cheetah_Business;
-using Cheetah_Business.Data;
-using Cheetah_Business.Repository;
-using Cheetah_DataAccess.Data;
+using Cheetah.Application.Business.Repository;
+using Cheetah.Domain;
+using Cheetah.Domain.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 
-namespace Cheetah_DataAccess.Repository;
+namespace Cheetah.Infrastructure.Persistence.Repository;
 
 public class TableCRUD : ITableCRUD
 {

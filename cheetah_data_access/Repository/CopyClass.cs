@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using Cheetah_Business.Data;
-using Cheetah_Business.Facts;
-using Cheetah_Business.Repository;
-using Cheetah_DataAccess.Data;
+using Cheetah.Application.Business.Repository;
+using Cheetah.Domain.Data;
+using Cheetah.Domain.Facts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Repository
-{
-    public class CopyClass : ICopyClass
+namespace Cheetah.Infrastructure.Persistence.Repository;
+public class CopyClass : ICopyClass
     {
         protected ApplicationDbContext _db;
         protected IMapper _mapper;
@@ -136,4 +134,3 @@ namespace Cheetah_DataAccess.Repository
             return Return_Case;
         }
     }
-}

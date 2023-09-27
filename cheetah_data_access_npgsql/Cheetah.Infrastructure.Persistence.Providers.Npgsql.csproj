@@ -10,7 +10,7 @@
 		<PackageReference Include="Serilog.Sinks.PostgreSQL" Version="2.3.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\cheetah_data_access\cheetah_data_access.csproj" />
+		<ProjectReference Include="..\cheetah_data_access\Cheetah.Infrastructure.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

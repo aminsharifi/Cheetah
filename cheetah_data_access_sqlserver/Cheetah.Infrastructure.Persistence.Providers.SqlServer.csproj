@@ -12,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\cheetah_data_access\cheetah_data_access.csproj" />
+		<ProjectReference Include="..\cheetah_data_access\Cheetah.Infrastructure.Persistence.csproj" />
 	</ItemGroup>
 
 </Project>

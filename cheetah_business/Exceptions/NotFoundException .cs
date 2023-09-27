@@ -1,12 +1,10 @@
 ﻿using System.Net;
 
-namespace Cheetah_Business.Exceptions
+namespace Cheetah.Domain.Exceptions;
+public class NotFoundException : CustomException
 {
-    public class NotFoundException : CustomException
+    public NotFoundException(string message)
+        : base(message, null, HttpStatusCode.NotFound)
     {
-        public NotFoundException(string message)
-            : base(message, null, HttpStatusCode.NotFound)
-        {
-        }
     }
 }

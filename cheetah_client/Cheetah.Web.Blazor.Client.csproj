@@ -15,7 +15,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\cheetah_business\cheetah_business.csproj" />
+		<ProjectReference Include="..\Cheetah.Application.Business\Cheetah.Application.Business.csproj" />
+		<ProjectReference Include="..\cheetah_business\Cheetah.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

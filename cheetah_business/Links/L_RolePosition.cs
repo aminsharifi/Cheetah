@@ -1,8 +1,8 @@
-﻿using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
+﻿using Cheetah.Domain.Data;
+using Cheetah.Domain.Dimentions;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Cheetah_Business.Links;
+namespace Cheetah.Domain.Links;
 
 [Table(nameof(L_RolePosition), Schema = nameof(TableType.Links))]
 [Index(nameof(Name), IsUnique = true, AllDescending = true)]

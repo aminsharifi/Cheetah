@@ -1,59 +1,58 @@
-﻿namespace Cheetah.Services
+﻿namespace Cheetah.Web.Blazor.Server.Services;
+
+using Cheetah_Business;
+using Cheetah_DataAccess.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
+public interface IDbInitializer
 {
-    using Cheetah_Business;
-    using Cheetah_DataAccess.Data;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
+    void Initialize();
+}
+public class DbInitializer : IDbInitializer
+{
 
-    public interface IDbInitializer
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ApplicationDbContext _db;
+    public DbInitializer(UserManager<IdentityUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        ApplicationDbContext db)
     {
-        void Initialize();
+        _db = db;
+        _roleManager = roleManager;
+        _userManager = userManager;
     }
-    public class DbInitializer : IDbInitializer
+
+    public async void Initialize()
     {
-
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationDbContext _db;
-        public DbInitializer(UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            ApplicationDbContext db)
+        try
         {
-            _db = db;
-            _roleManager = roleManager;
-            _userManager = userManager;
+            if (_db.Database.GetPendingMigrations().Count() > 0)
+            {
+                _db.Database.Migrate();
+            }
+            if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
+
+                await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
+
+                IdentityUser user = new()
+                {
+                    UserName = "Admin",
+                    Email = "Admin@poshtibanebartar.com",
+                    EmailConfirmed = true
+                };
+
+                await _userManager.CreateAsync(user, "Cheetah@123");
+
+                await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
+            }
         }
-
-        public async void Initialize()
+        catch (Exception ex)
         {
-            try
-            {
-                if (_db.Database.GetPendingMigrations().Count() > 0)
-                {
-                    _db.Database.Migrate();
-                }
-                if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
 
-                    await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
-
-                    IdentityUser user = new()
-                    {
-                        UserName = "Admin",
-                        Email = "Admin@poshtibanebartar.com",
-                        EmailConfirmed = true
-                    };
-
-                    await _userManager.CreateAsync(user, "Cheetah@123");
-
-                    await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
     }
 }
