@@ -1,9 +1,9 @@
-﻿using Cheetah_Business.Data;
+﻿using Cheetah.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Cheetah_Business.Facts;
+namespace Cheetah.Domain.Facts;
 
 [Table(nameof(F_Attachment), Schema = nameof(TableType.Facts))]
 [Index(nameof(SimpleClass.Name), IsUnique = true, AllDescending = true)]

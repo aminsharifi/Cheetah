@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Text;
 
-namespace Cheetah_Business;
-
+namespace Cheetah.Domain;
 public enum CNavigationEnum
 {
     complete,
@@ -22,7 +21,7 @@ public class CNavigationStruct
         this.Id = id;
         this.Address = address;
         this.DisplayName = displayName;
-        this.CNavigationEnum = Cheetah_Business.CNavigationEnum.current;
+        this.CNavigationEnum = Domain.CNavigationEnum.current;
         this.Reference = Reference;
     }
 }

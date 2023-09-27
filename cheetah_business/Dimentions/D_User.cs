@@ -1,11 +1,11 @@
-﻿using Cheetah_Business.Data;
-using Cheetah_Business.Facts;
-using Cheetah_Business.Links;
+﻿using Cheetah.Domain.Data;
+using Cheetah.Domain.Facts;
+using Cheetah.Domain.Links;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Cheetah_Business.Dimentions;
+namespace Cheetah.Domain.Dimentions;
 
 [Table(nameof(D_User), Schema = nameof(TableType.Dimentions))]
 [Index(nameof(Name), IsUnique = true, AllDescending = true)]

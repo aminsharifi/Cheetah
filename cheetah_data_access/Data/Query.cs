@@ -1,11 +1,11 @@
-﻿using Cheetah_Business.Data;
-using Cheetah_Business.Dimentions;
-using Cheetah_Business.Facts;
-using Cheetah_Business.Links;
+﻿using Cheetah.Domain.Data;
+using Cheetah.Domain.Dimentions;
+using Cheetah.Domain.Facts;
+using Cheetah.Domain.Links;
 using HotChocolate;
 using HotChocolate.Data;
 
-namespace Cheetah_DataAccess.Data;
+namespace Cheetah.Infrastructure.Persistence;
 
 public class Query
 {

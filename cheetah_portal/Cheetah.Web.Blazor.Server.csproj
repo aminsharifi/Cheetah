@@ -39,8 +39,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\cheetah_data_access_npgsql\cheetah_data_access_npgsql.csproj" />
-		<ProjectReference Include="..\cheetah_data_access_sqlserver\cheetah_data_access_sqlserver.csproj" />
+		<ProjectReference Include="..\cheetah_data_access_npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
+		<ProjectReference Include="..\cheetah_data_access_sqlserver\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
 	</ItemGroup>
 
 </Project>

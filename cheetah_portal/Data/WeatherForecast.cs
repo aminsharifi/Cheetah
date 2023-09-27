@@ -1,17 +1,16 @@
-namespace Cheetah.Data
+namespace Cheetah.Web.Blazor.Server.Data;
+
+public class WeatherForecast
 {
-    public class WeatherForecast
-    {
-        public String? RadNumber { get; set; }
+    public String? RadNumber { get; set; }
 
-        public DateTime? CreateDate { get; set; }
+    public DateTime? CreateDate { get; set; }
 
-        public String? Creator { get; set; }
+    public String? Creator { get; set; }
 
-        public String? ProcessName { get; set; }
+    public String? ProcessName { get; set; }
 
-        public String? TaskName { get; set; }
+    public String? TaskName { get; set; }
 
-        public string? Summary { get; set; }
-    }
+    public string? Summary { get; set; }
 }

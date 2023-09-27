@@ -1,12 +1,12 @@
-﻿using Cheetah_Business.Data;
-using Cheetah_Business.Facts;
-using Cheetah_Business.Repository;
+﻿using Cheetah.Application.Business.Repository;
+using Cheetah.Domain.Data;
+using Cheetah.Domain.Facts;
 using HotChocolate;
 using HotChocolate.Authorization;
 using HotChocolate.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Data;
+namespace Cheetah.Infrastructure.Persistence;
 
 public class Mutation
 {

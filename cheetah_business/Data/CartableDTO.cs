@@ -1,7 +1,4 @@
-﻿using Cheetah_Business.Dimentions;
-using System;
-
-namespace Cheetah_Business.Data;
+﻿namespace Cheetah.Domain.Data;
 
 public class CartableDTO
 {

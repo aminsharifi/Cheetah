@@ -1,5 +1,4 @@
-﻿namespace Cheetah_Business;
-
+﻿namespace Cheetah.Domain;
 public class ErrorModelDTO
 {
     public Int32? StatusCode { get; set; }

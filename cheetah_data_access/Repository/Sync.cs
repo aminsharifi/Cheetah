@@ -1,12 +1,10 @@
-﻿using Cheetah_Business.Dimentions;
-using Cheetah_Business.Links;
-using Cheetah_Business.Repository;
-using Cheetah_DataAccess.Data;
+﻿using Cheetah.Application.Business.Repository;
+using Cheetah.Domain.Dimentions;
+using Cheetah.Domain.Links;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cheetah_DataAccess.Repository
-{
-    public class Sync : ISync
+namespace Cheetah.Infrastructure.Persistence.Repository;
+public class Sync : ISync
     {
         protected ApplicationDbContext _db;
         protected ITableCRUD _itableCRUD;
@@ -263,4 +261,3 @@ namespace Cheetah_DataAccess.Repository
             return true;
         }
     }
-}

@@ -1,6 +1,6 @@
-using cheetah_client;
-using Cheetah_Client.Service;
-using Cheetah_Business.Repository;
+using Cheetah.Application.Business.Repository;
+using Cheetah.Web.Blazor.Client;
+using Cheetah.Web.Blazor.Client.Service;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

@@ -1,13 +1,11 @@
-using Cheetah_Business.Repository;
-using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Repository;
-using Cheetah_GrpcService.Middleware;
-using Cheetah_GrpcService.Services;
+using Cheetah.Application.Business.Repository;
+using Cheetah.Application.Services.gRPC.Middleware;
+using Cheetah.Application.Services.gRPC.Services;
+using Cheetah.Infrastructure.Persistence;
+using Cheetah.Infrastructure.Persistence.Repository;
 using FluentAssertions.Common;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Sinks.MSSqlServer;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

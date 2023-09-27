@@ -2,21 +2,19 @@
 
 #nullable disable
 
-namespace cheetah_data_access_sqlserver.Migrations
+namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations;
+/// <inheritdoc />
+public partial class clean_up : Migration
 {
     /// <inheritdoc />
-    public partial class clean_up : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
 
-        }
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
 
-        }
     }
 }

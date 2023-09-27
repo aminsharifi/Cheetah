@@ -1,8 +1,7 @@
-using Cheetah_Business.Repository;
-using Cheetah_DataAccess;
-using Cheetah_DataAccess.Data;
-using Cheetah_DataAccess.Repository;
-using Cheetah_WebAPI.Helper;
+using Cheetah.Application.Business.Repository;
+using Cheetah.Application.Services.Helper;
+using Cheetah.Infrastructure.Persistence;
+using Cheetah.Infrastructure.Persistence.Repository;
 using FluentAssertions.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

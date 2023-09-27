@@ -1,10 +1,8 @@
 ﻿using System.Net;
 
-namespace Cheetah_Business.Exceptions
+namespace Cheetah.Domain.Exceptions;
+public class ConflictException : CustomException
 {
-    public class ConflictException : CustomException
-    {
-        public ConflictException(string message)
-            : base(message, null, HttpStatusCode.Conflict) { }
-    }
+    public ConflictException(string message)
+        : base(message, null, HttpStatusCode.Conflict) { }
 }

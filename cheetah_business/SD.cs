@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Cheetah_Business;
+namespace Cheetah.Domain;
 
 public class CPersianClass
 {

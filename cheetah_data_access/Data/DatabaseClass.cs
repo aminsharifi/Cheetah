@@ -1,8 +1,7 @@
-﻿using Cheetah_Business;
-using Cheetah_Business.Data;
-using System.Collections;
+﻿using Cheetah.Domain;
+using Cheetah.Domain.Data;
 
-namespace Cheetah_DataAccess.Data;
+namespace Cheetah.Infrastructure.Persistence;
 
 public class DatabaseClass
 {
