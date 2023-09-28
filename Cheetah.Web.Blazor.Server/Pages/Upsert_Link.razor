@@ -1,0 +1,133 @@
+﻿@page "/Links/Create/{Name}/{type}/{LinkId:long}/{reference}"
+@page "/Links/Edit/{Name}/{type}/{Id:long}/{reference}"
+
+
+@inject ITableCRUD simpleClassRepository;
+@inject NavigationManager _NavigationManager;
+@inject CNavigation _CNavigation;
+@inject IJSRuntime _JsRuntime;
+<NavigationComponent _CNavigation="@_CNavigation" />
+@if (!IsLoading)
+{
+    <CEditLinks Record="@Record" type="@type" LinkId="@LinkId"
+            Id="@Id" Name="@Name" FirstName="@(FirstClassRecord.Name)"
+            SecondName="@(SecondClassRecord.Name)"
+            Title="@Title" IsLoading="@IsLoading"
+            reference="@reference">
+        <RowTemplate>
+            @* 
+                <CInput @bind-LValue="Record.FirstId"
+                Records="@FirstClass"
+                CDescription="@(FirstClassRecord.DisplayName)"
+                    Disabled="@(type == nameof(LinkProperty.First))"
+                CDisplayName="@(FirstClassRecord.DisplayName)"
+                    CFieldType="@(Cheetah_Business.FieldType.CSelect)"
+                Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
+                reference="@reference">
+            </CInput>
+
+           <CInput @bind-LValue="Record.SecondId"
+                Records="@SecondClass"
+                CDescription="@(SecondClassRecord.DisplayName)"
+                    Disabled="@(type == nameof(LinkProperty.Second))"
+                CDisplayName="@(SecondClassRecord.DisplayName)"
+                    CFieldType="@(Cheetah_Business.FieldType.CSelect)"
+                Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
+                reference="@reference">
+            </CInput> *@
+
+        </RowTemplate>
+    </CEditLinks>
+}
+
+@code {
+    [Parameter]
+    public long? Id { get; set; }
+
+    [Parameter]
+    public long? LinkId { get; set; } = 0;
+
+    [Parameter]
+    public String? Name { get; set; }
+
+    [Parameter]
+    public String? reference { get; set; }
+
+    [Parameter]
+    public String type { get; set; }
+    [Inject]
+    protected ISnackbar Snackbar { get; set; }
+
+    public SimpleLinkClass Record { get; set; }
+
+    public SimpleClass FirstClassRecord { get; set; }
+
+    public SimpleClass SecondClassRecord { get; set; }
+
+    public IEnumerable<SimpleClass> FirstClass { get; set; }
+
+    public IEnumerable<SimpleClass> SecondClass { get; set; }
+
+    private String Title { get; set; }
+
+    public Boolean IsLoading { get; set; } = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadDTO();
+        }
+        if (reference is null || firstRender)
+        {
+            reference = _CNavigation.LoadNavigation(Address: $"Links/{((Id > 0) ? "Edit" : "Create")}/{Name}/{type}/{((Id > 0) ? Id : LinkId)}",
+            RowDescription: Record.DisplayName, RowId: Record.Id, Reference: reference);
+
+            IsLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadDTO()
+    {
+        try
+        {
+            Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
+
+            if (type == nameof(LinkProperty.First))
+            {
+                if (Record.FirstId == 0)
+                    Record.FirstId = LinkId;
+                else
+                    LinkId = Record.FirstId;
+            }
+            else
+            {
+                if (Record.SecondId == 0)
+                    Record.SecondId = LinkId;
+                else
+                    LinkId = Record.SecondId;
+            }
+
+            var _D_Entity = await simpleClassRepository.GetAllByName(nameof(D_Entity));
+
+            var FirstClassName = Record.GetType().GetProperties()[0].PropertyType.Name;
+
+            var SecondClassName = Record.GetType().GetProperties()[1].PropertyType.Name;
+
+            FirstClassRecord = _D_Entity.Where(x => x.Name == FirstClassName).Single();
+
+            SecondClassRecord = _D_Entity.Where(x => x.Name == SecondClassName).Single();
+
+            FirstClass = await simpleClassRepository.GetAllByName(FirstClassName);
+
+            SecondClass = await simpleClassRepository.GetAllByName(SecondClassName);
+
+            Title = new UpsertStatus().GetPageTitle(Record.Id).Value;            
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.InnerException.Message, Severity.Error);
+        }
+    }
+}

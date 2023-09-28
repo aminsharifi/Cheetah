@@ -1,0 +1,45 @@
+﻿@page "/"
+
+@inject ITableCRUD _IP_ParameterListRepository;
+
+@if (IsProcessing)
+{
+    <center><img src="imeges/Gears.png" /></center>
+    @* <div style="position:fixed;top:50%;left:50%;margin-top:-50px;margin-left:-100px;">
+        <h1>در حال بارگیری اطلاعات ...</h1>
+    </div>*@
+}
+else
+{
+    <div class="container" dir="rtl">
+        <div class="row  pb-3 pt-3 backgroundWhite">
+            @foreach (var p_ParameterList in P_ParameterList)
+            {
+                <a href="/details/@p_ParameterList.Id">@p_ParameterList.Name</a>
+                <h2 class="text-success pl-1"><b>@p_ParameterList.Name</b></h2>
+                <div class="card-body p-1 px-3 row">
+                    @*@foreach (var pL_ParameterType in p_ParameterList.PL_ParameterType)
+            {
+            <div class="col-6">
+            <h3 class="text-success pl-1"><b>@pL_ParameterType.PName</b></h3>
+            </div>
+            }*@
+                </div>
+                <hr />
+            }
+        </div>
+    </div>
+}
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    public IEnumerable<SimpleClassDTO> P_ParameterList { get; set; } = new HashSet<SimpleClassDTO>();
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        P_ParameterList = await _IP_ParameterListRepository.GetAllByName(nameof(D_Tag)) as IEnumerable
+        <SimpleClassDTO>
+            ;
+        IsProcessing = false;
+    }
+}
