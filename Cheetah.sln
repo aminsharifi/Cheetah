@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Web.Blazor.Server", "Cheetah.Web.Blazor.Server\Cheetah.Web.Blazor.Server.csproj", "{8203F184-4A69-473B-A930-CA46B6B6154B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Web.Blazor.Server", "Cheetah.Presentation.Web.Blazor.Server\Cheetah.Presentation.Web.Blazor.Server.csproj", "{8203F184-4A69-473B-A930-CA46B6B6154B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Application.Services.GraphQL", "Cheetah.Application.Services.GraphQL\Cheetah.Application.Services.GraphQL.csproj", "{C579A033-D773-4D99-9235-F95D5D43DEBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.GraphQL", "Cheetah.Presentation.Services.GraphQL\Cheetah.Presentation.Services.GraphQL.csproj", "{C579A033-D773-4D99-9235-F95D5D43DEBB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Infrastructure.Persistence", "Cheetah.Infrastructure.Persistence\Cheetah.Infrastructure.Persistence.csproj", "{960836BF-B0FC-4DFC-83A1-0036DB25A542}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Web.Blazor.Client", "Cheetah.Web.Blazor.Client\Cheetah.Web.Blazor.Client.csproj", "{47E3D0B2-0C4C-491E-AA43-52DACA158F75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Web.Blazor.Client", "Cheetah.Presentation.Web.Blazor.Client\Cheetah.Presentation.Web.Blazor.Client.csproj", "{47E3D0B2-0C4C-491E-AA43-52DACA158F75}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Domain", "Cheetah.Domain\Cheetah.Domain.csproj", "{228EF986-C3C5-4504-90DA-23F2F5AA40C3}"
 EndProject
@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Infrastructure.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Infrastructure.Persistence.Providers.SqlServer", "Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "{5426EE32-853A-4565-8811-91FC747B848D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Application.Services.gRPC", "Cheetah.Application.Services.gRPC\Cheetah.Application.Services.gRPC.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.gRPC", "Cheetah.Presentation.Services.gRPC\Cheetah.Presentation.Services.gRPC.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure", "Cheetah.Infrastructure", "{E3650071-446E-4A8A-8AFD-3E510B8CF848}"
 EndProject
@@ -38,7 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation.Servic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation", "Cheetah.Presentation", "{34EA5201-210E-4794-B1FD-57F464B8514F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Application.Business", "Cheetah.Application.Business\Cheetah.Application.Business.csproj", "{2AB23359-6C3E-4459-873B-FDBAB666294A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Application.Business", "Cheetah.Application.Business\Cheetah.Application.Business.csproj", "{2AB23359-6C3E-4459-873B-FDBAB666294A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
