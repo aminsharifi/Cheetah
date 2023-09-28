@@ -1,0 +1,52 @@
+﻿@inject ITableCRUD simpleClassRepository;
+@inject ICartable iCartable;
+
+<div dir="rtl">
+
+    @if (cartableDTOList == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"
+                        AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="5"
+                        AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+                        Data="@cartableDTOList" TItem="CartableDTO" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or">
+            <Columns>
+                <RadzenDataGridColumn TItem="CartableDTO" Property="RadNumber" Title="رهگیری" Frozen="true" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="PCreateDate" Title="تاریخ ایجاد" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="PRecieveDate" Title="تاریخ دریافت" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="Requestor" Title="درخواست کننده" Width="200px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="ProcessName" Title="نام فرآیند" Width="120px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="TaskName" Title="نام فرم" Width="160px" />
+                <RadzenDataGridColumn TItem="CartableDTO" Property="Summary" Title="خلاصه درخواست" Width="160px" />
+            </Columns>
+        </RadzenDataGrid>
+        <hr />
+        <br />
+        <br />
+    }
+</div>
+@code
+{
+    [Parameter]
+    public Boolean Inbox { get; set; }
+
+    [Parameter]
+    public String Username { get; set; }
+
+    private IEnumerable<CartableDTO>? cartableDTOList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var cartableDTO = new CartableDTO();
+
+        cartableDTO.User = new SimpleClassDTO() { Name = Username };
+
+        if (Inbox)
+            cartableDTOList = await iCartable.Inbox(cartableDTO);
+        else
+            cartableDTOList = await iCartable.Outbox(cartableDTO);
+    }
+}
