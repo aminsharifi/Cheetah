@@ -1,0 +1,185 @@
+﻿<div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11 @((CFieldType != Cheetah.Domain.FieldType.CSelect)?"col-md-5":"col-md-10" )"
+     style="@((LValue < 1 && (CFieldType == Cheetah.Domain.FieldType.CID))? "display: none;" : "")">
+
+    <div class="input-group d-flex justify-content-end" style="direction:ltr">
+        @if (CFieldType == Cheetah.Domain.FieldType.CID)
+        {
+            <InputNumber @bind-Value="LValue" disabled="disabled" @attributes=CapturedAttributes
+                         class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
+            </InputNumber>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CInt)
+        {
+            <InputNumber @attributes=CapturedAttributes
+                     @bind-Value="LValue" class="form-control"
+                         aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                         data-bs-toggle="tooltip" data-bs-placement="top"
+                         data-bs-custom-class="custom-tooltip"
+                         data-bs-delay='{"show":100, "hide":100}'
+                         data-bs-animation="true"
+                         data-bs-trigger="hover"
+                         data-bs-title="@CDescription">
+            </InputNumber>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CNInt)
+        {
+            <InputNumber @attributes=CapturedAttributes
+                     @bind-Value="NLValue" class="form-control"
+                         aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                         data-bs-toggle="tooltip" data-bs-placement="top"
+                         data-bs-custom-class="custom-tooltip"
+                         data-bs-delay='{"show":100, "hide":100}'
+                         data-bs-animation="true"
+                         data-bs-trigger="hover"
+                         data-bs-title="@CDescription">
+            </InputNumber>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CString)
+        {
+            <InputText @attributes=CapturedAttributes
+                   @bind-Value="SValue" class="form-control"
+                       aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                       data-bs-toggle="tooltip" data-bs-placement="top"
+                       data-bs-custom-class="custom-tooltip"
+                       data-bs-delay='{"show":100, "hide":100}'
+                       data-bs-animation="true"
+                       data-bs-trigger="hover"
+                       data-bs-title="@CDescription">
+            </InputText>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CBool)
+        {
+            <div class="form-check form-switch">
+                <input type="checkbox" 
+                    @attributes=CapturedAttributes
+                    class="form-check-input" role="switch"
+                    value="@BValue" style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
+                </input>
+            </div>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CSelect)
+        {
+            @if (Record is not null)
+            {
+                <NavLink class="btn btn-primary btn"
+                         href="@($"Dimentions/Edit/{Record.GetType().BaseType.Name}/{(Record as SimpleClass).Id}/{reference}")">
+                    ویرایش
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                    </svg>
+                </NavLink>
+            }
+            <InputSelect @attributes=CapturedAttributes
+                     @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
+                         disabled="@Disabled" class="col-6">
+                @if (LValue < 1)
+                {
+                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
+                }
+                @foreach (var d_User in Records)
+                {
+                    <option value="@d_User.Id">@d_User.Id|@d_User.Name|@d_User.DisplayName</option>
+                }
+            </InputSelect>
+        }
+        <div class="input-group-prepend col-4">
+            <span class="input-group-text" style="border-radius:revert"
+                  lang="fa" dir="rtl"><strong>@CDisplayName</strong></span>
+        </div>
+    </div>
+</div>
+
+@code {
+
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> CapturedAttributes { get; set; }
+
+    [Parameter]
+    public EventCallback<ChangeEventArgs> SelectedProcessesChanged { get; set; }
+
+    [Parameter]
+    public Boolean Disabled { get; set; } = false;
+
+    [Parameter]
+    public SimpleClass Record { get; set; }
+
+    [Parameter]
+    public IEnumerable<SimpleClass> Records { get; set; } = new List<SimpleClass>();
+
+    [Parameter]
+    public String? reference { get; set; }
+
+    private String _Svalue;
+    [Parameter]
+    public String SValue
+    {
+        get => _Svalue;
+        set
+        {
+            if (_Svalue == value) return;
+            _Svalue = value;
+            SValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<String> SValueChanged { get; set; }
+
+    private long? _NLvalue;
+    [Parameter]
+    public long? NLValue
+    {
+        get => _NLvalue;
+        set
+        {
+            if (_NLvalue == value) return;
+            _NLvalue = value;
+            NLValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<long?> NLValueChanged { get; set; }
+
+
+    [Parameter]
+    public EventCallback<long?> LValueChanged { get; set; }
+    private long? _Lvalue;
+    [Parameter]
+    public long? LValue
+    {
+        get => _Lvalue;
+        set
+        {
+            if (_Lvalue == value) return;
+            _Lvalue = value;
+            LValueChanged.InvokeAsync(value);
+        }
+    }
+
+    private Boolean? _Bvalue;
+    [Parameter]
+    public Boolean? BValue
+    {
+        get => _Bvalue;
+        set
+        {
+            if (_Bvalue == value) return;
+            _Bvalue = value;
+            BValueChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<Boolean?> BValueChanged { get; set; }
+
+    //[Parameter]
+    //public Expression<Func<object>> MessageValue { get; set; }
+    [Parameter]
+    public Cheetah.Domain.FieldType CFieldType { get; set; }
+
+    [Parameter]
+    public String CDisplayName { get; set; }
+
+    [Parameter]
+    public String CDescription { get; set; }
+
+}

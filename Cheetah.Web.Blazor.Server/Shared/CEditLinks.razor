@@ -1,0 +1,119 @@
+﻿@inject ITableCRUD simpleClassRepository;
+@inject NavigationManager _NavigationManager;
+@inject IJSRuntime _JsRuntime
+@inject CNavigation _CNavigation;
+
+<div class="row my-4" style="direction:rtl">
+    @*  <div class="alert alert-primary mb-3 ml-3" role="alert">
+    @Title @Name
+    </div>*@
+
+    <div class="col-12">
+        @if (!IsLoading)
+        {
+            <EditForm OnSubmit="UpsertTask" Model="@Record" EditContext="editContext">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="row">
+                    <CInput @bind-LValue="Record.Id"
+                            CDescription="شناسه یکتا سیستمی"
+                            CDisplayName="شناسه" CFieldType="@(Cheetah.Domain.FieldType.CID)"></CInput>
+                    <CInput @bind-BValue="Record.EnableRecord"
+                            CDescription="فعال"
+                            CDisplayName="فعال" CFieldType="@(Cheetah.Domain.FieldType.CBool)"></CInput>
+                    @if (RowTemplate is not null)
+                    {
+                        @RowTemplate
+                    }
+                </div>
+                <div class="form-group col-6 mx-auto my-1">
+                    <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr">
+                        <button class="btn btn-primary">
+                            @Title
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                            </svg>
+                        </button>
+                        <MudButton Variant="Variant.Filled" Color="Color.Info"
+                                   StartIcon="@Icons.Material.Filled.KeyboardReturn"
+                        @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
+                            برگشت
+                        </MudButton>
+                    </div>
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
+<CLoading IsLoading="@IsLoading" AnyRecord="@true"></CLoading>
+
+@code {
+    [Parameter]
+    public Boolean IsLoading { get; set; } = true;
+    [Parameter]
+    public long? Id { get; set; }
+    [Parameter]
+    public long? LinkId { get; set; } = 0;
+    [Parameter]
+    public SimpleLinkClass Record { get; set; }
+    [Parameter]
+    public String? reference { get; set; }
+    [Parameter]
+    public String Name { get; set; }
+    [Parameter]
+    public String FirstName { get; set; }
+    [Parameter]
+    public String SecondName { get; set; }
+    [Parameter]
+    public String? type { get; set; }
+    [Parameter]
+    public String? Title { get; set; }
+    [Parameter]
+    public RenderFragment? RowTemplate { get; set; }
+    [Inject]
+    protected ISnackbar Snackbar { get; set; }
+    private EditContext? editContext;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        //_JsRuntime.InvokeVoidAsync("CreateToolTip");
+    }
+
+
+    private async Task UpsertTask(EditContext editContext)
+    {
+
+        var FirstDB = await simpleClassRepository.Get(type: FirstName,
+        id: Record.FirstId, Tracking: QueryTrackingBehavior.NoTracking);
+
+        var SecondDB = await simpleClassRepository.Get(type: SecondName,
+        id: Record.SecondId, Tracking: QueryTrackingBehavior.NoTracking);
+
+        Record = await simpleClassRepository.AddLinkName(Record, FirstDB, SecondDB);
+
+        var formIsValid = editContext.Validate();
+
+        if (formIsValid)
+        {
+            try
+            {
+                if (Record.Id > 0)
+                {
+                    Record = await simpleClassRepository.Update(Record) as SimpleLinkClass;
+                    Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
+                }
+                else
+                {
+                    Record = await simpleClassRepository.Create(Record) as SimpleLinkClass;
+                    Snackbar.Add("ردیف با موفقیت ایجاد شد", Severity.Error);
+                }
+                _CNavigation.BackNavigation(_NavigationManager);
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.InnerException.Message, Severity.Error);
+            }
+        }
+    }
+}

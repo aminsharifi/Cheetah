@@ -1,0 +1,9 @@
+﻿@page "/"
+@namespace cheetah_portal.Pages
+@using Cheetah.Web.Blazor.Server;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<component type="typeof(App)" render-mode="ServerPrerendered" />
