@@ -31,12 +31,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./Cheetah.Web.Blazor.Server/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Cheetah.Web.Blazor.Server
-          - dockerfile: ./Cheetah.Application.Services.gRPC/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Cheetah.Application.Services.gRPC
-          - dockerfile: ./Cheetah.Application.Services.GraphQL/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Cheetah.Application.Services.GraphQL
+          - dockerfile: ./Cheetah.Presentation.Web.Blazor.Server/Dockerfile
+            image: ghcr.io/${{ github.actor }}/Cheetah.Presentation.Web.Blazor.Server
+          - dockerfile: ./Cheetah.Presentation.Services.gRPC/Dockerfile
+            image: ghcr.io/${{ github.actor }}/Cheetah.Presentation.Services.gRPC
+          - dockerfile: ./Cheetah.Presentation.Services.GraphQL/Dockerfile
+            image: ghcr.io/${{ github.actor }}/Cheetah.Presentation.Services.GraphQL
     permissions:
       contents: read
       packages: write
@@ -74,7 +74,7 @@ jobs:
       - uses: kzrnm/get-net-sdk-project-versions-action@v1.3.0
         id: get-version
         with:
-          proj-path: ./Cheetah.Web.Blazor.Server/Cheetah.Web.Blazor.Server.csproj
+          proj-path: ./Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj
       - run: echo "VTAG=${{steps.get-version.outputs.version}}" >> $GITHUB_ENV
 
       # Extract metadata (tags, labels) for Docker
