@@ -31,12 +31,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./cheetah_portal/Dockerfile
-            image: ghcr.io/${{ github.actor }}/cheetah_portal
-          - dockerfile: ./cheetah_graphql/Dockerfile
-            image: ghcr.io/${{ github.actor }}/cheetah_graphql
-          - dockerfile: ./cheetah_grpc/Dockerfile
-            image: ghcr.io/${{ github.actor }}/cheetah_grpc
+          - dockerfile: ./Cheetah.Web.Blazor.Server/Dockerfile
+            image: ghcr.io/${{ github.actor }}/CheetahBlazorServer
+          - dockerfile: ./Cheetah.Application.Services.gRPC/Dockerfile
+            image: ghcr.io/${{ github.actor }}/CheetahgRPC
+          - dockerfile: ./Cheetah.Application.Services.GraphQL/Dockerfile
+            image: ghcr.io/${{ github.actor }}/CheetahGraphQL
     permissions:
       contents: read
       packages: write
