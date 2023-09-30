@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="7.10.7" />
+		<PackageReference Include="BootstrapBlazor" Version="7.11.0" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.62.0.3030" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.11" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
