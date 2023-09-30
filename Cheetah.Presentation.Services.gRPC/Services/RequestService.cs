@@ -184,9 +184,6 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
     }
     public override async Task<DetailOutput_Requests> GetCase(Brief_Request request, ServerCallContext context)
     {
-        _logger.LogInformation("started "+ nameof(GetCase));
-        _logger.LogInformation("{@Brief_Request}", request);
-
         F_Case f_Request = new();
 
         #region CaseId
@@ -303,10 +300,6 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
         }
 
         #endregion
-
-
-        _logger.LogInformation("{@Brief_Request}", output_Requests);
-        _logger.LogInformation("Ended " + nameof(GetCase));
 
         return output_Requests;
     }
