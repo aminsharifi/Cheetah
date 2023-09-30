@@ -1,5 +1,4 @@
 ﻿@inherits CUpsert_GeneralCode
-
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
                  Name="D_ParameterList" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
@@ -15,6 +14,7 @@
                 reference="@reference"></CInput>
     </RowTemplate>
 </CEditDimentions>
+
 @code {
     public IEnumerable<SimpleClass> d_ParameterType { get; set; }
 
