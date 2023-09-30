@@ -44,10 +44,17 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
 
     public IEnumerable<F_Condition> GetCondition(IEnumerable<Condition> Conditions)
     {
-
         foreach (var Condition in Conditions)
         {
             var f_Condition = new F_Condition();
+
+            if (Condition.Base is not null)
+            {
+                f_Condition.Id = Condition.Base.Id;
+                f_Condition.Name = Condition.Base.Name;
+                f_Condition.ERPCode = Condition.Base.ERPCode;
+            }
+
             if (Condition.Tag is not null)
             {
                 f_Condition.Tag = new D_Tag() { ERPCode = Condition?.Tag?.ERPCode };
