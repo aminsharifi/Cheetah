@@ -1,4 +1,4 @@
-﻿using Cheetah.Domain;
+using Cheetah.Domain;
 using Cheetah.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Cheetah.Presentation.Web.Blazor.Server.Services;
 public interface IDbInitializer
 {
-    void Initialize();
+    Task Initialize();
 }
 public class DbInitializer : IDbInitializer
 {
@@ -23,7 +23,7 @@ public class DbInitializer : IDbInitializer
         _userManager = userManager;
     }
 
-    public async void Initialize()
+    public async Task Initialize()
     {
         try
         {
