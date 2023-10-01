@@ -103,7 +103,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-SeedDatabase();
+await SeedDatabase();
 
 app.UseAuthentication();
 
@@ -115,11 +115,11 @@ app.MapFallbackToPage("/_Host");
 
 app.Run();
 
-void SeedDatabase()
+async Task SeedDatabase()
 {
     using (var scope = app.Services.CreateScope())
     {
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
+        await dbInitializer.Initialize();
     }
 }
