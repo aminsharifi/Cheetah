@@ -99,6 +99,58 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_CaseState", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1032),
+                            DisplayName = "در دست بررسی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("b798b14a-91ec-484d-8bbf-b983aebcf154"),
+                            Name = "Ongoing",
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1036),
+                            DisplayName = "منتظر بازنگری",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("3115a70f-07f9-4db2-874a-352f4e4e777b"),
+                            Name = "Editing",
+                            SortIndex = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1039),
+                            DisplayName = "کامل شده",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("fd4ed136-af76-4567-bd73-3497800e0961"),
+                            Name = "Completed",
+                            SortIndex = 3L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1041),
+                            DisplayName = "عدم تایید",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("d045ced6-10f0-43a3-a2d9-b729226cdce5"),
+                            Name = "Rejected",
+                            SortIndex = 4L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1043),
+                            DisplayName = "ابطال شده",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("fc73f04a-be1f-48eb-ab0d-e9041389e271"),
+                            Name = "Aborted",
+                            SortIndex = 5L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Entity", b =>
@@ -179,6 +231,228 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_Entity", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 101L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1346),
+                            Display = false,
+                            DisplayName = "نوع تگ‌ها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("cca7a715-cdf3-4dd4-9b45-d38646286d4f"),
+                            Name = "D_TagType",
+                            SortIndex = 101L
+                        },
+                        new
+                        {
+                            Id = 102L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1387),
+                            Display = false,
+                            DisplayName = "موقعیت‌ها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("37792bb8-e522-4d8d-8e2f-1fe32d4bd6f0"),
+                            Name = "D_Location",
+                            SortIndex = 102L
+                        },
+                        new
+                        {
+                            Id = 103L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1392),
+                            Display = false,
+                            DisplayName = "عملگرها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("565cdd53-e77e-47b8-8d64-2f859b2e145e"),
+                            Name = "D_Operand",
+                            SortIndex = 103L
+                        },
+                        new
+                        {
+                            Id = 104L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1398),
+                            Display = true,
+                            DisplayName = "تگ‌ها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("2f3cde6d-0ab4-489f-9e73-555911007ee1"),
+                            Name = "D_Tag",
+                            SortIndex = 104L
+                        },
+                        new
+                        {
+                            Id = 105L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1404),
+                            Display = false,
+                            DisplayName = "سمت‌ها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("3ba2be6f-36ad-45de-9fd3-d06e511ef52b"),
+                            Name = "D_Position",
+                            SortIndex = 105L
+                        },
+                        new
+                        {
+                            Id = 106L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1409),
+                            Display = false,
+                            DisplayName = "وضعیت فرآیندها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("fe9fecd7-beb8-4cf4-865a-36197012903f"),
+                            Name = "D_CaseState",
+                            SortIndex = 106L
+                        },
+                        new
+                        {
+                            Id = 107L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1414),
+                            Display = true,
+                            DisplayName = "فرآیند‌ها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("765e189d-4a05-4ad5-ac77-60bac957b2cd"),
+                            Name = "D_Process",
+                            SortIndex = 107L
+                        },
+                        new
+                        {
+                            Id = 108L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1419),
+                            Display = true,
+                            DisplayName = "نقش‌ها(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("81a58c97-2452-4d4b-a271-970af5eb577a"),
+                            Name = "D_Role",
+                            SortIndex = 108L
+                        },
+                        new
+                        {
+                            Id = 109L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1426),
+                            Display = true,
+                            DisplayName = "کاربران(Dimentions)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("59edb2ae-7b2d-4ca9-ae88-e6fab419f27c"),
+                            Name = "D_User",
+                            SortIndex = 109L
+                        },
+                        new
+                        {
+                            Id = 112L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1432),
+                            Display = false,
+                            DisplayName = "اطلاعات کاربرها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("ddfec978-d333-4532-9d5f-bcd500c89b2b"),
+                            Name = "D_UserInformation",
+                            SortIndex = 112L
+                        },
+                        new
+                        {
+                            Id = 200L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1437),
+                            Display = false,
+                            DisplayName = "تمام تاییدها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("27635f12-892a-499c-afc4-5cc048dd047c"),
+                            Name = "F_WorkItem",
+                            SortIndex = 200L
+                        },
+                        new
+                        {
+                            Id = 202L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1443),
+                            Display = false,
+                            DisplayName = "ضمیمه‌ها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("7de3a893-5b91-4c79-803a-29bca0afd695"),
+                            Name = "F_Attachment",
+                            SortIndex = 202L
+                        },
+                        new
+                        {
+                            Id = 203L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1510),
+                            Display = false,
+                            DisplayName = "لیست تخصیص‌ها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("60de9ae7-893f-4c9b-8d48-e3e2d591bbf6"),
+                            Name = "F_Endorsement",
+                            SortIndex = 203L
+                        },
+                        new
+                        {
+                            Id = 204L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1517),
+                            Display = false,
+                            DisplayName = "لیست شرط‌ها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("30718ba7-6750-484c-aef4-2714dabd03f5"),
+                            Name = "F_Condition",
+                            SortIndex = 204L
+                        },
+                        new
+                        {
+                            Id = 205L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1522),
+                            Display = false,
+                            DisplayName = "اطلاعات درخواست‌ها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("21cae9dd-0d74-4d42-9454-92240b55d4ca"),
+                            Name = "F_Case",
+                            SortIndex = 205L
+                        },
+                        new
+                        {
+                            Id = 206L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1527),
+                            Display = true,
+                            DisplayName = "سناریوها(Facts)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("f17d46b3-b5f4-4cb2-bffd-2b29e9f7c5b3"),
+                            Name = "F_Scenario",
+                            SortIndex = 206L
+                        },
+                        new
+                        {
+                            Id = 300L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1535),
+                            Display = false,
+                            DisplayName = "نقش-سمت(Links)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("a7c3d5b7-b161-4060-9c73-5d0982727964"),
+                            Name = "L_RolePosition",
+                            SortIndex = 300L
+                        },
+                        new
+                        {
+                            Id = 301L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1539),
+                            Display = false,
+                            DisplayName = "فرآیند-سناریو(Links)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("78b096be-46ff-4188-9bab-1503b629d552"),
+                            Name = "L_ProcessScenario",
+                            SortIndex = 301L
+                        },
+                        new
+                        {
+                            Id = 302L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1544),
+                            Display = false,
+                            DisplayName = "کاربر-موقعیت(Links)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("98a19d21-a0f9-4273-802b-49f730979e80"),
+                            Name = "L_UserLocation",
+                            SortIndex = 302L
+                        },
+                        new
+                        {
+                            Id = 303L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1549),
+                            Display = false,
+                            DisplayName = "کاربر-سمت(Links)",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("fb63a3c0-61ac-475d-908f-5966192139e1"),
+                            Name = "L_UserPosition",
+                            SortIndex = 303L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Location", b =>
@@ -261,6 +535,18 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_Location", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1115),
+                            DisplayName = "فارس",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("7de1368f-7884-4850-8f83-e53ffd9f3607"),
+                            Name = "Fars",
+                            SortIndex = 1L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Operand", b =>
@@ -337,6 +623,68 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_Operand", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1133),
+                            DisplayName = "مساوی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("06b851f5-6dcd-4097-9db3-e657cd7dbc68"),
+                            Name = "=",
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1135),
+                            DisplayName = "مخالف",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("e415f958-5471-4f1c-84f8-ea056f1bd502"),
+                            Name = "!=",
+                            SortIndex = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1137),
+                            DisplayName = "بزگتر از",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("8ec6d733-71dd-44a3-a1e5-b046b98ec6a6"),
+                            Name = ">",
+                            SortIndex = 3L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1139),
+                            DisplayName = "بزرگتر و مساوی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("34f083a4-0271-4a2d-9c1b-8aa8748d66a6"),
+                            Name = ">=",
+                            SortIndex = 4L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1144),
+                            DisplayName = " کوچکتر از",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("9141b028-2d92-43f2-8a0f-d41987ad6dac"),
+                            Name = "<",
+                            SortIndex = 5L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1147),
+                            DisplayName = "کوچکتر و مساوی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("bad02f44-3898-4d64-9a23-2a12c9a82b02"),
+                            Name = "<=",
+                            SortIndex = 6L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Position", b =>
@@ -413,6 +761,18 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_Position", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1324),
+                            DisplayName = "کارشناس",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("4460df4f-c95a-4424-a994-5d4ccd9a43db"),
+                            Name = "Expert",
+                            SortIndex = 1L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Process", b =>
@@ -501,6 +861,21 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_Process", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(791),
+                            DisplayName = "فرآیند نمونه",
+                            ERP = true,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("8e5d1169-1ef7-486d-8253-fad3da87efe8"),
+                            Name = "SampleProcess",
+                            RemoveRequestorApproval = true,
+                            ShowSupport = true,
+                            SortIndex = 1L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Role", b =>
@@ -588,6 +963,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_Role", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 100L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1299),
+                            DisplayName = "درخواست کننده",
+                            EnableRecord = true,
+                            FixedRole = true,
+                            GuidRecord = new Guid("06239da4-1319-45ab-9cff-a0da92cb252e"),
+                            Independent = false,
+                            Name = "Requestor",
+                            SortIndex = 100L
+                        },
+                        new
+                        {
+                            Id = 101L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1301),
+                            DisplayName = "مدیر درخواست کننده",
+                            EnableRecord = true,
+                            FixedRole = true,
+                            GuidRecord = new Guid("c7f56aa3-34b3-406b-a122-51df22a0e9ad"),
+                            Independent = false,
+                            Name = "RequestorManager",
+                            SortIndex = 101L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Tag", b =>
@@ -670,6 +1071,69 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("TagTypeId");
 
                     b.ToTable("D_Tag", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1196),
+                            Description = "عددی",
+                            DisplayName = "مرکز",
+                            ERPCode = 1L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("f719d776-b57d-4bd8-8ef7-1dd6769ff621"),
+                            Name = "D_Location",
+                            SortIndex = 1L,
+                            TagTypeId = 1L
+                        },
+                        new
+                        {
+                            Id = 201L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1199),
+                            Description = "پارامتریک",
+                            DisplayName = "تایید",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("6835f1b5-178c-4912-a3c3-8efd981eeef4"),
+                            Name = "Approve",
+                            SortIndex = 201L,
+                            TagTypeId = 2L
+                        },
+                        new
+                        {
+                            Id = 202L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1204),
+                            Description = "پارامتریک",
+                            DisplayName = "عدم تایید",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("66a51afa-48da-436c-be51-bd9a67dba8a3"),
+                            Name = "Reject",
+                            SortIndex = 202L,
+                            TagTypeId = 2L
+                        },
+                        new
+                        {
+                            Id = 203L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1206),
+                            Description = "پارامتریک",
+                            DisplayName = "بازنگری",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("c25e9a32-0fc3-4811-8442-fe0cc01417f3"),
+                            Name = "Edit",
+                            SortIndex = 203L,
+                            TagTypeId = 2L
+                        },
+                        new
+                        {
+                            Id = 301L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1209),
+                            Description = "عددی",
+                            DisplayName = "مبلغ",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("9ebdcd1f-9954-437d-bc66-9cf40ee918b5"),
+                            Name = "Price",
+                            SortIndex = 301L,
+                            TagTypeId = 1L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_TagType", b =>
@@ -746,6 +1210,48 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_TagType", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1173),
+                            DisplayName = "عددی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("d610312a-06cf-49b5-89a3-84cb4717a79a"),
+                            Name = "Numberic",
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1175),
+                            DisplayName = "دودویی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("f214a919-663a-4532-b382-40f5412d4005"),
+                            Name = "Boolean",
+                            SortIndex = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1177),
+                            DisplayName = "تاریخ",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("4d7a15c6-3454-4c63-a813-dc6c3cb21030"),
+                            Name = "Date",
+                            SortIndex = 3L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1179),
+                            DisplayName = "حروف",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("f6a0f4b1-4fbe-496d-8013-b2d8f313c45f"),
+                            Name = "String",
+                            SortIndex = 4L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_User", b =>
@@ -868,6 +1374,28 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("UserInformationId");
 
                     b.ToTable("D_User", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1273),
+                            DisplayName = "محمد شریفی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("1e11f225-cb10-4594-8903-ca2b260d29a3"),
+                            Name = "m.sharifi",
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1277),
+                            DisplayName = "امین شریفی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("415e1cef-ef1c-4396-adea-0eaca78e797e"),
+                            Name = "a.sharifi",
+                            SortIndex = 2L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Dimentions.D_UserInformation", b =>
@@ -1085,6 +1613,48 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("D_WorkItemState", "Dimentions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1073),
+                            DisplayName = "صندوق ورودی",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("f73a3204-f8dc-4712-add8-f0fd566fec13"),
+                            Name = "Inbox",
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1086),
+                            DisplayName = "ارسال شده",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("7be40c1b-cfa3-42bb-9760-c8e07ac72bd0"),
+                            Name = "Sent",
+                            SortIndex = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1088),
+                            DisplayName = "خارج شده",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("ce3f017b-8533-4b19-8eeb-30bcca90c41a"),
+                            Name = "Exit",
+                            SortIndex = 3L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1090),
+                            DisplayName = "آینده",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("150133f9-f547-46ae-97a9-c7012f093696"),
+                            Name = "Future",
+                            SortIndex = 4L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Facts.F_Attachment", b =>
@@ -1373,6 +1943,70 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("F_Condition", "Facts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1677),
+                            DisplayName = "مبلغ",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("78208827-83c4-4360-87f2-54b586111526"),
+                            Name = "Price",
+                            OperandId = 3L,
+                            ScenarioId = 1L,
+                            SortIndex = 1L,
+                            TagId = 301L,
+                            Value = "0"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1681),
+                            EnableRecord = true,
+                            EndorsementItemId = 1L,
+                            GuidRecord = new Guid("68af3fdd-fc12-4404-92c7-2e7e4577234e"),
+                            OperandId = 1L,
+                            SortIndex = 1L,
+                            TagId = 201L,
+                            Value = "0"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1722),
+                            EnableRecord = true,
+                            EndorsementItemId = 2L,
+                            GuidRecord = new Guid("7906f267-6b8e-47a4-aa5f-d111e9901bee"),
+                            OperandId = 1L,
+                            SortIndex = 1L,
+                            TagId = 201L,
+                            Value = "0"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1725),
+                            EnableRecord = true,
+                            EndorsementItemId = 3L,
+                            GuidRecord = new Guid("793c4acb-f2fd-4bd9-9cc5-f975055f2d40"),
+                            OperandId = 1L,
+                            SortIndex = 1L,
+                            TagId = 203L,
+                            Value = "0"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1729),
+                            EnableRecord = true,
+                            EndorsementItemId = 4L,
+                            GuidRecord = new Guid("392c4981-e663-44ab-8600-c3e00333fe7e"),
+                            OperandId = 1L,
+                            SortIndex = 1L,
+                            TagId = 202L,
+                            Value = "1"
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Facts.F_Endorsement", b =>
@@ -1473,6 +2107,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("ScenarioId");
 
                     b.ToTable("F_Endorsement", "Facts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1618),
+                            DisplayName = "ثبت درخواست",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("c5096c49-b359-4240-8df9-59328d2a706c"),
+                            Name = "Sample_Scenario,Requestor",
+                            RoleId = 100L,
+                            ScenarioId = 1L,
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1622),
+                            DisplayName = "بررسی درخواست",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("6153cf16-a911-4605-915c-de2ace85ac63"),
+                            Name = "Sample_Scenario,RequestorManager",
+                            RoleId = 101L,
+                            ScenarioId = 1L,
+                            SortIndex = 2L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Facts.F_EndorsementItem", b =>
@@ -1561,6 +2221,48 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("F_EndorsementItem", "Facts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CaseStateId = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1646),
+                            EnableRecord = true,
+                            EndorsementId = 1L,
+                            GuidRecord = new Guid("64366c93-2ba1-4124-bcea-b8cd5e6a66ef"),
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CaseStateId = 3L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1653),
+                            EnableRecord = true,
+                            EndorsementId = 2L,
+                            GuidRecord = new Guid("d4ca46c2-7f21-47ff-80d9-d1e9265157bc"),
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CaseStateId = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1655),
+                            EnableRecord = true,
+                            EndorsementId = 2L,
+                            GuidRecord = new Guid("fb98e747-10ec-40fb-bfce-fecc5ece4f24"),
+                            SortIndex = 2L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CaseStateId = 4L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1658),
+                            EnableRecord = true,
+                            EndorsementId = 2L,
+                            GuidRecord = new Guid("2fda22e1-e362-44da-8d0e-200d64042b92"),
+                            SortIndex = 3L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Facts.F_Scenario", b =>
@@ -1637,6 +2339,18 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("F_Scenario", "Facts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1591),
+                            DisplayName = "سناریو نمونه",
+                            EnableRecord = true,
+                            GuidRecord = new Guid("a741d6db-6eff-4232-ba48-95d66af224ec"),
+                            Name = "SampleScenario",
+                            SortIndex = 1L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Facts.F_WorkItem", b =>
@@ -1833,6 +2547,28 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.ToTable("L_EndorsementItemEndorsement", "Links");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1849),
+                            EnableRecord = true,
+                            FirstId = 1L,
+                            GuidRecord = new Guid("84ae310a-9780-46b0-ae39-6f1d5e727204"),
+                            SecondId = 2L,
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1854),
+                            EnableRecord = true,
+                            FirstId = 3L,
+                            GuidRecord = new Guid("e8b6a7d6-ece2-4e16-9688-e85c33333c72"),
+                            SecondId = 1L,
+                            SortIndex = 2L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Links.L_EndorsementUser", b =>
@@ -2013,6 +2749,20 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.ToTable("L_ProcessScenario", "Links");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1810),
+                            DisplayName = "فرآیند نمونه-سناریو نمونه",
+                            EnableRecord = true,
+                            FirstId = 1L,
+                            GuidRecord = new Guid("87b584ea-cc9c-4268-986b-ec2ec0912c41"),
+                            Name = "SampleProcess-SampleScenario",
+                            SecondId = 1L,
+                            SortIndex = 1L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Links.L_RolePosition", b =>
@@ -2103,6 +2853,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.ToTable("L_RolePosition", "Links");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1781),
+                            DisplayName = "درخواست کننده-کارشناس",
+                            EnableRecord = true,
+                            FirstId = 100L,
+                            GuidRecord = new Guid("d4d7ebef-5d6c-4fd1-8a44-27cd7a53e50b"),
+                            Name = "Requestor-Expert",
+                            SecondId = 1L,
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1784),
+                            DisplayName = "مدیر درخواست کننده-کارشناس",
+                            EnableRecord = true,
+                            FirstId = 101L,
+                            GuidRecord = new Guid("70aaf63a-3160-4d46-b1d3-44887534274b"),
+                            Name = "RequestorManager-Expert",
+                            SecondId = 1L,
+                            SortIndex = 2L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Links.L_UserLocation", b =>
@@ -2193,6 +2969,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.ToTable("L_UserLocation", "Links");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1757),
+                            DisplayName = "محمد شریفی-فارس",
+                            EnableRecord = true,
+                            FirstId = 1L,
+                            GuidRecord = new Guid("b75a2ca4-3b58-4915-ba3d-5bfd03abe04d"),
+                            Name = "m.sharifi-Fars",
+                            SecondId = 1L,
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1760),
+                            DisplayName = "امین شریفی-فارس",
+                            EnableRecord = true,
+                            FirstId = 2L,
+                            GuidRecord = new Guid("94174913-9c0a-4e2f-838c-e9dbfc358520"),
+                            Name = "a.sharifi-Fars",
+                            SecondId = 1L,
+                            SortIndex = 2L
+                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Links.L_UserPosition", b =>
@@ -2283,6 +3085,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.ToTable("L_UserPosition", "Links");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1828),
+                            DisplayName = "محمد شریفی-کارشناس",
+                            EnableRecord = true,
+                            FirstId = 1L,
+                            GuidRecord = new Guid("55e7cfc2-6fc8-43a7-b51d-d73feaed984f"),
+                            Name = "m.sharifi-Expert",
+                            SecondId = 1L,
+                            SortIndex = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateTimeRecord = new DateTime(2023, 10, 7, 12, 41, 2, 678, DateTimeKind.Local).AddTicks(1831),
+                            DisplayName = "امین شریفی-کارشناس",
+                            EnableRecord = true,
+                            FirstId = 2L,
+                            GuidRecord = new Guid("364c0a8c-0557-4fe8-bc75-b2db87f78c8a"),
+                            Name = "a.sharifi-Expert",
+                            SecondId = 1L,
+                            SortIndex = 2L
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

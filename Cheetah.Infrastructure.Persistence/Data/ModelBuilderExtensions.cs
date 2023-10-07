@@ -19,22 +19,8 @@ public static class ModelBuilderExtensions
             {
                 Id = 1,
                 SortIndex = 1,
-                Name = "CustomerDefinition",
-                DisplayName = "تعریف/اصلاح مشتری",
-            },
-            new D_Process
-            {
-                Id = 2,
-                SortIndex = 2,
-                Name = "PolicyCenter",
-                DisplayName = "مجوزهای موردی"
-            },
-            new D_Process
-            {
-                Id = 3,
-                SortIndex = 3,
-                Name = "CustomerCredit",
-                DisplayName = "اعتباردهی مالی مشتری"
+                Name = "SampleProcess",
+                DisplayName = "فرآیند نمونه",
             }
             );
         #endregion
@@ -119,22 +105,8 @@ public static class ModelBuilderExtensions
             {
                 Id = 1,
                 SortIndex = 1,
-                Name = "Tehran",
-                DisplayName = "تهران"
-            },
-            new D_Location
-            {
-                Id = 2,
-                SortIndex = 2,
                 Name = "Fars",
                 DisplayName = "فارس"
-            },
-            new D_Location
-            {
-                Id = 3,
-                SortIndex = 3,
-                Name = "Esfahan",
-                DisplayName = "اصفهان"
             }
             );
         #endregion
@@ -216,112 +188,58 @@ public static class ModelBuilderExtensions
                 Name = "String",
                 DisplayName = "حروف"
             }
-                        );
+            );
         #endregion
 
         #region D_Tag
         modelBuilder.Entity<D_Tag>().HasData(
-             new D_Tag
-             {
-                 Id = 1,
-                 SortIndex = 1,
-                 Name = "D_Location",
-                 DisplayName = "مرکز",
-                 Description = "عددی",
-                 TagTypeId = 1,
-                 ERPCode = 1
-             },
-             new D_Tag
-             {
-                 Id = 100,
-                 SortIndex = 100,
-                 Name = "OursShare",
-                 DisplayName = "سهم شرکت",
-                 Description = "عددی",
-                 TagTypeId = 1,
-             },
-                 new D_Tag
-                 {
-                     Id = 101,
-                     SortIndex = 101,
-                     Name = "OthersShare",
-                     DisplayName = "سهم دیگران",
-                     Description = "عددی",
-                     TagTypeId = 1
-                 },
-                 new D_Tag
-                 {
-                     Id = 103,
-                     SortIndex = 103,
-                     Name = "Price",
-                     DisplayName = "مبلغ",
-                     Description = "عددی",
-                     TagTypeId = 1
-                 },
-                 new D_Tag
-                 {
-                     Id = 200,
-                     SortIndex = 200,
-                     Name = "Refrigerator",
-                     DisplayName = "مخدر/ یخچالی",
-                     Description = "دودویی",
-                     TagTypeId = 2,
-                 },
-                 new D_Tag
-                 {
-                     Id = 201,
-                     SortIndex = 201,
-                     Name = "Approve",
-                     DisplayName = "تایید",
-                     Description = "پارامتریک",
-                     TagTypeId = 2
-                 },
-                 new D_Tag
-                 {
-                     Id = 202,
-                     SortIndex = 202,
-                     Name = "Reject",
-                     DisplayName = "عدم تایید",
-                     Description = "پارامتریک",
-                     TagTypeId = 2
-                 },
-                 new D_Tag
-                 {
-                     Id = 203,
-                     SortIndex = 203,
-                     Name = "Edit",
-                     DisplayName = "بازنگری",
-                     Description = "پارامتریک",
-                     TagTypeId = 2
-                 },
-                 new D_Tag
-                 {
-                     Id = 204,
-                     SortIndex = 204,
-                     Name = "Med",
-                     DisplayName = "دارویی",
-                     Description = "پارامتریک",
-                     TagTypeId = 2
-                 },
-                 new D_Tag
-                 {
-                     Id = 205,
-                     SortIndex = 205,
-                     Name = "FMCG",
-                     DisplayName = "مصرفی",
-                     Description = "پارامتریک",
-                     TagTypeId = 2
-                 },
-                 new D_Tag
-                 {
-                     Id = 206,
-                     SortIndex = 206,
-                     Name = "General",
-                     DisplayName = "کل",
-                     Description = "پارامتریک",
-                     TagTypeId = 2
-                 }
-                 ); ;
+            new D_Tag
+            {
+                Id = 1,
+                SortIndex = 1,
+                Name = "D_Location",
+                DisplayName = "مرکز",
+                Description = "عددی",
+                TagTypeId = 1,
+                ERPCode = 1
+            },
+            new D_Tag
+            {
+                Id = 201,
+                SortIndex = 201,
+                Name = "Approve",
+                DisplayName = "تایید",
+                Description = "پارامتریک",
+                TagTypeId = 2
+            },
+            new D_Tag
+            {
+                Id = 202,
+                SortIndex = 202,
+                Name = "Reject",
+                DisplayName = "عدم تایید",
+                Description = "پارامتریک",
+                TagTypeId = 2
+            },
+            new D_Tag
+            {
+                Id = 203,
+                SortIndex = 203,
+                Name = "Edit",
+                DisplayName = "بازنگری",
+                Description = "پارامتریک",
+                TagTypeId = 2
+            },
+            new D_Tag
+            {
+                Id = 301,
+                SortIndex = 301,
+                Name = "Price",
+                DisplayName = "مبلغ",
+                Description = "عددی",
+                TagTypeId = 1
+            }
+            );
         #endregion
 
         #region D_User
@@ -345,47 +263,6 @@ public static class ModelBuilderExtensions
 
         #region D_Role
         modelBuilder.Entity<D_Role>().HasData(
-
-                  new D_Role
-                  {
-                      Id = 1,
-                      SortIndex = 1,
-                      Name = "PharmaceuticalDeputy",
-                      DisplayName = "معاونت دارویی",
-                      Independent = true
-                  },
-                  new D_Role
-                  {
-                      Id = 2,
-                      SortIndex = 2,
-                      Name = "FMCGDeputy",
-                      DisplayName = "معاونت غذایی",
-                      Independent = true
-                  },
-                  new D_Role
-                  {
-                      Id = 3,
-                      SortIndex = 3,
-                      Name = "BusinessSpecialist",
-                      DisplayName = "کارشناس بازرگانی",
-                      Independent = true
-                  },
-                  new D_Role
-                  {
-                      Id = 4,
-                      SortIndex = 4,
-                      Name = "SalesSpecialist",
-                      DisplayName = "کارشناس فروش",
-                      Independent = true
-                  },
-                  new D_Role
-                  {
-                      Id = 5,
-                      SortIndex = 5,
-                      Name = "DistributionCenterManager",
-                      DisplayName = "مدیریت مرکز توزیع",
-                      Independent = false
-                  },
                   new D_Role
                   {
                       Id = 100,
@@ -411,50 +288,8 @@ public static class ModelBuilderExtensions
                    {
                        Id = 1,
                        SortIndex = 1,
-                       Name = "PharmaceuticalDeputy",
-                       DisplayName = "معاون دارویی"
-                   },
-                   new D_Position
-                   {
-                       Id = 2,
-                       SortIndex = 2,
-                       Name = "FMCGDeputy",
-                       DisplayName = "معاون غذایی"
-                   },
-                   new D_Position
-                   {
-                       Id = 3,
-                       SortIndex = 3,
-                       Name = "BusinessSeniorSpecialist",
-                       DisplayName = "کارشناس ارشد بازرگانی"
-                   },
-                   new D_Position
-                   {
-                       Id = 4,
-                       SortIndex = 4,
-                       Name = "BusinessSpecialist",
-                       DisplayName = "کارشناس بازرگانی"
-                   },
-                   new D_Position
-                   {
-                       Id = 5,
-                       SortIndex = 5,
-                       Name = "SalesSeniorSpecialist",
-                       DisplayName = "کارشناس ارشد فروش"
-                   },
-                   new D_Position
-                   {
-                       Id = 6,
-                       SortIndex = 6,
-                       Name = "SalesSpecialist",
-                       DisplayName = "کارشناس فروش"
-                   },
-                   new D_Position
-                   {
-                       Id = 7,
-                       SortIndex = 7,
-                       Name = "DistributionCenterManager",
-                       DisplayName = "مدیر مرکز توزیع"
+                       Name = "Expert",
+                       DisplayName = "کارشناس"
                    }
                    );
         #endregion
@@ -654,22 +489,64 @@ public static class ModelBuilderExtensions
             {
                 Id = 1,
                 SortIndex = 1,
-                Name = "Head_Scenario3",
-                DisplayName = "سناریو ستاد"
+                Name = "SampleScenario",
+                DisplayName = "سناریو نمونه"
+            }
+            );
+        #endregion
+
+        #region F_Endorsement
+        modelBuilder.Entity<F_Endorsement>().HasData(
+            new F_Endorsement
+            {
+                Id = 1,
+                SortIndex = 1,
+                Name = "Sample_Scenario,Requestor",
+                DisplayName = "ثبت درخواست",
+                RoleId = 100,
+                ScenarioId = 1
             },
-            new F_Scenario
+            new F_Endorsement
             {
                 Id = 2,
                 SortIndex = 2,
-                Name = "Med_Scenario",
-                DisplayName = "سناریو دارویی"
+                Name = "Sample_Scenario,RequestorManager",
+                DisplayName = "بررسی درخواست",
+                RoleId = 101,
+                ScenarioId = 1
+            }
+            );
+        #endregion
+
+        #region F_EndorsementItem
+        modelBuilder.Entity<F_EndorsementItem>().HasData(
+            new F_EndorsementItem
+            {
+                Id = 1,
+                SortIndex = 1,
+                CaseStateId = 1,
+                EndorsementId = 1
             },
-            new F_Scenario
+            new F_EndorsementItem
+            {
+                Id = 2,
+                SortIndex = 1,
+                CaseStateId = 3,
+                EndorsementId = 2
+            },
+            new F_EndorsementItem
             {
                 Id = 3,
+                SortIndex = 2,
+                CaseStateId = 2,
+                EndorsementId = 2
+            },
+            new F_EndorsementItem
+            {
+                Id = 4,
                 SortIndex = 3,
-                Name = "FMCG_Scenario",
-                DisplayName = "سناریو مصرفی"
+                CaseStateId = 4,
+                EndorsementId = 2
             }
             );
         #endregion
@@ -681,9 +558,9 @@ public static class ModelBuilderExtensions
             {
                 Id = 1,
                 SortIndex = 1,
-                Name = "Head_Scenario,OursShare,>,0",
-                DisplayName = "سناریو ستاد,سهم شرکت,بزگتر از,0",
-                TagId = 100,
+                Name = "Price",
+                DisplayName = "مبلغ",
+                TagId = 301,
                 OperandId = 3,
                 Value = "0",
                 ScenarioId = 1
@@ -691,87 +568,38 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 2,
-                SortIndex = 2,
-                Name = "Med_Scenario,Med,=,1",
-                DisplayName = "سناریو دارویی,دارویی,مساوی,1",
-                TagId = 204,
+                SortIndex = 1,
+                TagId = 201,
                 OperandId = 1,
-                Value = "1",
-                ScenarioId = 2
+                Value = "0",
+                EndorsementItemId = 1
             },
             new F_Condition
             {
                 Id = 3,
-                SortIndex = 3,
-                Name = "Med_Scenario,OursShare,>,0",
-                DisplayName = "سناریو دارویی,سهم شرکت,بزگتر از,0",
-                TagId = 100,
-                OperandId = 3,
+                SortIndex = 1,
+                TagId = 201,
+                OperandId = 1,
                 Value = "0",
-                ScenarioId = 2
+                EndorsementItemId = 2
             },
             new F_Condition
             {
                 Id = 4,
-                SortIndex = 4,
-                Name = "FMCG_Scenario,FMCG,=,1",
-                DisplayName = "سناریو مصرفی,مصرفی,مساوی,1",
-                TagId = 205,
+                SortIndex = 1,
+                TagId = 203,
                 OperandId = 1,
-                Value = "1",
-                ScenarioId = 3
+                Value = "0",
+                EndorsementItemId = 3
             },
             new F_Condition
             {
                 Id = 5,
-                SortIndex = 5,
-                Name = "FMCG_Scenario,Price,>,0",
-                DisplayName = "سناریو مصرفی,مبلغ,بزگتر از,0",
-                TagId = 103,
-                OperandId = 3,
-                Value = "0",
-                ScenarioId = 3
-            }
-            );
-        #endregion
-
-        #region F_Endorsement
-        modelBuilder.Entity<F_Endorsement>().HasData(
-            new F_Endorsement
-            {
-                Id = 1,
                 SortIndex = 1,
-                Name = "Med_Scenario,DistributionCenterManager",
-                DisplayName = "سناریو سه,مدیریت مرکز توزیع",
-                RoleId = 5,
-                ScenarioId = 3
-            },
-            new F_Endorsement
-            {
-                Id = 2,
-                SortIndex = 2,
-                Name = "Strategy3,FMCGDeputy",
-                DisplayName = "سناریو سه,معاونت غذایی",
-                RoleId = 2,
-                ScenarioId = 3
-            },
-            new F_Endorsement
-            {
-                Id = 3,
-                SortIndex = 3,
-                Name = "Strategy2,PharmaceuticalDeputy",
-                DisplayName = "سناریو دو,معاونت دارویی",
-                RoleId = 1,
-                ScenarioId = 2
-            },
-            new F_Endorsement
-            {
-                Id = 4,
-                SortIndex = 4,
-                Name = "Med_Scenario,PharmaceuticalDeputy",
-                DisplayName = "سناریو دارویی,معاونت دارویی",
-                RoleId = 2,
-                ScenarioId = 1
+                TagId = 202,
+                OperandId = 1,
+                Value = "1",
+                EndorsementItemId = 4
             }
             );
         #endregion
@@ -786,8 +614,8 @@ public static class ModelBuilderExtensions
                     {
                         Id = 1,
                         SortIndex = 1,
-                        Name = "m.sharifi-Tehran",
-                        DisplayName = "محمد شریفی-تهران",
+                        Name = "m.sharifi-Fars",
+                        DisplayName = "محمد شریفی-فارس",
                         FirstId = 1,
                         SecondId = 1
                     },
@@ -798,26 +626,8 @@ public static class ModelBuilderExtensions
                         Name = "a.sharifi-Fars",
                         DisplayName = "امین شریفی-فارس",
                         FirstId = 2,
-                        SecondId = 2
-                    },
-                    new L_UserLocation
-                    {
-                        Id = 3,
-                        SortIndex = 3,
-                        Name = "m.sharifi-Fars",
-                        DisplayName = "محمد شریفی-فارس",
-                        FirstId = 1,
-                        SecondId = 2
-                    },
-                     new L_UserLocation
-                     {
-                         Id = 4,
-                         SortIndex = 4,
-                         Name = "a.sharifi-Tehran",
-                         DisplayName = "امین شریفی-تهران",
-                         FirstId = 2,
-                         SecondId = 1
-                     }
+                        SecondId = 1
+                    }
                    );
         #endregion
 
@@ -827,65 +637,20 @@ public static class ModelBuilderExtensions
                       {
                           Id = 1,
                           SortIndex = 1,
-                          Name = "PharmaceuticalDeputy-PharmaceuticalDeputy",
-                          DisplayName = "معاونت دارویی-معاون دارویی",
-                          FirstId = 1,
+                          Name = "Requestor-Expert",
+                          DisplayName = "درخواست کننده-کارشناس",
+                          FirstId = 100,
                           SecondId = 1
                       },
-                      new L_RolePosition
-                      {
-                          Id = 2,
-                          SortIndex = 2,
-                          Name = "FMCGDeputy-FMCGDeputy",
-                          DisplayName = "معاونت غذایی-معاون غذایی",
-                          FirstId = 2,
-                          SecondId = 2
-                      },
-                      new L_RolePosition
-                      {
-                          Id = 3,
-                          SortIndex = 3,
-                          Name = "BusinessSpecialist-BusinessSeniorSpecialist",
-                          DisplayName = "کارشناس بازرگانی-کارشناس ارشد بازرگانی",
-                          FirstId = 3,
-                          SecondId = 3
-                      },
-                      new L_RolePosition
-                      {
-                          Id = 4,
-                          SortIndex = 4,
-                          Name = "BusinessSpecialist-BusinessSpecialist",
-                          DisplayName = "کارشناس بازرگانی-کارشناس بازرگانی",
-                          FirstId = 3,
-                          SecondId = 4
-                      },
-                      new L_RolePosition
-                      {
-                          Id = 5,
-                          SortIndex = 5,
-                          Name = "SalesSpecialist-SalesSeniorSpecialist",
-                          DisplayName = "کارشناس فروش-کارشناس ارشد فروش",
-                          FirstId = 4,
-                          SecondId = 5
-                      },
-                      new L_RolePosition
-                      {
-                          Id = 6,
-                          SortIndex = 6,
-                          Name = "SalesSpecialist-SalesSpecialist",
-                          DisplayName = "کارشناس فروش-کارشناس فروش",
-                          FirstId = 4,
-                          SecondId = 6
-                      },
-                      new L_RolePosition
-                      {
-                          Id = 7,
-                          SortIndex = 7,
-                          Name = "DistributionCenterManager-DistributionCenterManager",
-                          DisplayName = "مدیریت مرکز توزیع-مدیر مرکز توزیع",
-                          FirstId = 5,
-                          SecondId = 7
-                      }
+                        new L_RolePosition
+                        {
+                            Id = 2,
+                            SortIndex = 2,
+                            Name = "RequestorManager-Expert",
+                            DisplayName = "مدیر درخواست کننده-کارشناس",
+                            FirstId = 101,
+                            SecondId = 1
+                        }
                       );
         #endregion
 
@@ -895,47 +660,11 @@ public static class ModelBuilderExtensions
                       {
                           Id = 1,
                           SortIndex = 1,
-                          Name = "CustomerDefinition-Strategy3",
-                          DisplayName = "تعریف/اصلاح مشتری-سناریو سه",
-                          FirstId = 1,
-                          SecondId = 3
-                      },
-                      new L_ProcessScenario
-                      {
-                          Id = 2,
-                          SortIndex = 2,
-                          Name = "CustomerDefinition-Strategy1",
-                          DisplayName = "تعریف/اصلاح مشتری-سناریو یک",
+                          Name = "SampleProcess-SampleScenario",
+                          DisplayName = "فرآیند نمونه-سناریو نمونه",
                           FirstId = 1,
                           SecondId = 1
-                      },
-                      new L_ProcessScenario
-                      {
-                          Id = 3,
-                          SortIndex = 3,
-                          Name = "PolicyCenter-Strategy1",
-                          DisplayName = "مجوزهای موردی-سناریو یک",
-                          FirstId = 2,
-                          SecondId = 1
-                      },
-                      new L_ProcessScenario
-                      {
-                          Id = 4,
-                          SortIndex = 4,
-                          Name = "PolicyCenter-Strategy2",
-                          DisplayName = "تعریف/اصلاح مشتری-سناریو دو",
-                          FirstId = 1,
-                          SecondId = 2
-                      },
-                       new L_ProcessScenario
-                       {
-                           Id = 5,
-                           SortIndex = 5,
-                           Name = "CustomerDefinition-Strategy2",
-                           DisplayName = "مجوزهای موردی-سناریو دو",
-                           FirstId = 2,
-                           SecondId = 2
-                       }
+                      }
                       );
         #endregion
 
@@ -947,19 +676,40 @@ public static class ModelBuilderExtensions
                 {
                     Id = 1,
                     SortIndex = 1,
-                    Name = "m.sharifi-PharmaceuticalDeputy",
-                    DisplayName = "محمد شریفی-مدیر مرکز",
+                    Name = "m.sharifi-Expert",
+                    DisplayName = "محمد شریفی-کارشناس",
                     FirstId = 1,
-                    SecondId = 7
+                    SecondId = 1
                 },
                 new L_UserPosition
                 {
                     Id = 2,
                     SortIndex = 2,
-                    Name = "a.sharifi-FMCGDeputy",
-                    DisplayName = "امین شریفی-معاون غذایی",
+                    Name = "a.sharifi-Expert",
+                    DisplayName = "امین شریفی-کارشناس",
                     FirstId = 2,
+                    SecondId = 1
+                }
+            );
+        #endregion
+
+        #region L_EndorsementItemEndorsement
+
+        modelBuilder.Entity<L_EndorsementItemEndorsement>().HasData
+            (
+                new L_EndorsementItemEndorsement
+                {
+                    Id = 1,
+                    SortIndex = 1,
+                    FirstId = 1,
                     SecondId = 2
+                },
+                new L_EndorsementItemEndorsement
+                {
+                    Id = 2,
+                    SortIndex = 2,
+                    FirstId = 3,
+                    SecondId = 1
                 }
             );
         #endregion
