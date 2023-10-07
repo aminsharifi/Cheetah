@@ -1,4 +1,5 @@
 ﻿using HotChocolate;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,7 +23,7 @@ public abstract class SimpleClass
     [StringLength(512)]
     [Description("نام")]
     [DefaultValue("")]
-    [Column(Order = 3)]
+    [Column(Order = 3)]    
     public String? Name { get; set; }
 
     [StringLength(512)]
