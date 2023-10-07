@@ -34,7 +34,8 @@ public partial class ApplicationDbContext : IdentityDbContext
         //base.Database.EnsureDeleted();
         //base.Database.EnsureCreated();
         base.OnModelCreating(builder);
-        //builder.Seed();
+
+        builder.Seed();
     }
 
     #region Dimentions
