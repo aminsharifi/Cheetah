@@ -52,44 +52,41 @@ public class CopyClass : ICopyClass
     {
         List<F_Condition> list_condition = new List<F_Condition>();
 
-        if (Conditions is not null
-             && Conditions.Count() > 0)
+        foreach (var item in Conditions)
         {
-            foreach (var item in Conditions)
-            {
-                var _condition = new F_Condition();
+            var _condition = new F_Condition();
 
-                if (item.Id is not null)
-                {
-                    _condition.Id = item.Id;
-                }
-                if (item.ERPCode is not null)
-                {
-                    _condition.ERPCode = item.ERPCode;
-                }
-                if (item.Name is not null)
-                {
-                    _condition.Name = item.Name;
-                }
-                if (item.Tag is not null)
-                {
-                    _condition.TagId = await GetSimpleClassId(_db.D_Tags, item.Tag);
-                }
-                if (item.Operand is not null)
-                {
-                    _condition.OperandId = await GetSimpleClassId(_db.D_Operands, item.Operand);
-                }
-                if (item.Value is not null)
-                {
-                    _condition.Value = item.Value;
-                }
-                //if (item.User is not null)
-                //{
-                //    _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
-                //}
-                list_condition.Add(_condition);
+            if (item.Id is not null)
+            {
+                _condition.Id = item.Id;
             }
+            if (item.ERPCode is not null)
+            {
+                _condition.ERPCode = item.ERPCode;
+            }
+            if (item.Name is not null)
+            {
+                _condition.Name = item.Name;
+            }
+            if (item.Tag is not null)
+            {
+                _condition.TagId = await GetSimpleClassId(_db.D_Tags, item.Tag);
+            }
+            if (item.Operand is not null)
+            {
+                _condition.OperandId = await GetSimpleClassId(_db.D_Operands, item.Operand);
+            }
+            if (item.Value is not null)
+            {
+                _condition.Value = item.Value;
+            }
+            //if (item.User is not null)
+            //{
+            //    _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
+            //}
+            list_condition.Add(_condition);
         }
+
         return list_condition;
     }
 

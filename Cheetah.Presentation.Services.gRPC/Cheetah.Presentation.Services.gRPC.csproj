@@ -22,12 +22,10 @@
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Cheetah.Application.Business\Cheetah.Application.Business.csproj" />
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence\Cheetah.Infrastructure.Persistence.csproj" />
 		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.Npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
 		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
 	</ItemGroup>
