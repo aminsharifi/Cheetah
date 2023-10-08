@@ -18,6 +18,7 @@ public static class ModelBuilderExtensions
             new D_Process
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "SampleProcess",
                 DisplayName = "فرآیند نمونه",
@@ -30,6 +31,7 @@ public static class ModelBuilderExtensions
             new D_CaseState
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "Ongoing",
                 DisplayName = "در دست بررسی"
@@ -37,6 +39,7 @@ public static class ModelBuilderExtensions
             new D_CaseState
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 2,
                 Name = "Editing",
                 DisplayName = "منتظر بازنگری"
@@ -44,6 +47,7 @@ public static class ModelBuilderExtensions
             new D_CaseState
             {
                 Id = 3,
+                ERPCode = 3,
                 SortIndex = 3,
                 Name = "Completed",
                 DisplayName = "کامل شده"
@@ -51,6 +55,7 @@ public static class ModelBuilderExtensions
             new D_CaseState
             {
                 Id = 4,
+                ERPCode = 4,
                 SortIndex = 4,
                 Name = "Rejected",
                 DisplayName = "عدم تایید"
@@ -59,6 +64,7 @@ public static class ModelBuilderExtensions
             new D_CaseState
             {
                 Id = 5,
+                ERPCode = 5,
                 SortIndex = 5,
                 Name = "Aborted",
                 DisplayName = "ابطال شده"
@@ -71,6 +77,7 @@ public static class ModelBuilderExtensions
             new D_WorkItemState
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "Inbox",
                 DisplayName = "صندوق ورودی"
@@ -78,6 +85,7 @@ public static class ModelBuilderExtensions
             new D_WorkItemState
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 2,
                 Name = "Sent",
                 DisplayName = "ارسال شده"
@@ -85,6 +93,7 @@ public static class ModelBuilderExtensions
             new D_WorkItemState
             {
                 Id = 3,
+                ERPCode = 3,
                 SortIndex = 3,
                 Name = "Exit",
                 DisplayName = "خارج شده"
@@ -92,6 +101,7 @@ public static class ModelBuilderExtensions
             new D_WorkItemState
             {
                 Id = 4,
+                ERPCode = 4,
                 SortIndex = 4,
                 Name = "Future",
                 DisplayName = "آینده"
@@ -104,6 +114,7 @@ public static class ModelBuilderExtensions
             new D_Location
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "Fars",
                 DisplayName = "فارس"
@@ -116,6 +127,7 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "=",
                 DisplayName = "مساوی"
@@ -123,6 +135,7 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 2,
                 Name = "!=",
                 DisplayName = "مخالف"
@@ -130,6 +143,7 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 3,
+                ERPCode = 3,
                 SortIndex = 3,
                 Name = ">",
                 DisplayName = "بزگتر از"
@@ -137,6 +151,7 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 4,
+                ERPCode = 4,
                 SortIndex = 4,
                 Name = ">=",
                 DisplayName = "بزرگتر و مساوی"
@@ -144,6 +159,7 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 5,
+                ERPCode = 5,
                 SortIndex = 5,
                 Name = "<",
                 DisplayName = " کوچکتر از"
@@ -151,6 +167,7 @@ public static class ModelBuilderExtensions
             new D_Operand
             {
                 Id = 6,
+                ERPCode = 6,
                 SortIndex = 6,
                 Name = "<=",
                 DisplayName = "کوچکتر و مساوی"
@@ -163,6 +180,7 @@ public static class ModelBuilderExtensions
             new D_TagType
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "Numberic",
                 DisplayName = "عددی"
@@ -170,6 +188,7 @@ public static class ModelBuilderExtensions
             new D_TagType
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 2,
                 Name = "Boolean",
                 DisplayName = "دودویی"
@@ -177,6 +196,7 @@ public static class ModelBuilderExtensions
             new D_TagType
             {
                 Id = 3,
+                ERPCode = 3,
                 SortIndex = 3,
                 Name = "Date",
                 DisplayName = "تاریخ"
@@ -184,6 +204,7 @@ public static class ModelBuilderExtensions
             new D_TagType
             {
                 Id = 4,
+                ERPCode = 4,
                 SortIndex = 4,
                 Name = "String",
                 DisplayName = "حروف"
@@ -196,16 +217,17 @@ public static class ModelBuilderExtensions
             new D_Tag
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "D_Location",
                 DisplayName = "مرکز",
                 Description = "عددی",
-                TagTypeId = 1,
-                ERPCode = 1
+                TagTypeId = 1
             },
             new D_Tag
             {
                 Id = 201,
+                ERPCode = 201,
                 SortIndex = 201,
                 Name = "Approve",
                 DisplayName = "تایید",
@@ -215,6 +237,7 @@ public static class ModelBuilderExtensions
             new D_Tag
             {
                 Id = 202,
+                ERPCode = 202,
                 SortIndex = 202,
                 Name = "Reject",
                 DisplayName = "عدم تایید",
@@ -224,6 +247,7 @@ public static class ModelBuilderExtensions
             new D_Tag
             {
                 Id = 203,
+                ERPCode = 203,
                 SortIndex = 203,
                 Name = "Edit",
                 DisplayName = "بازنگری",
@@ -233,6 +257,7 @@ public static class ModelBuilderExtensions
             new D_Tag
             {
                 Id = 301,
+                ERPCode = 301,
                 SortIndex = 301,
                 Name = "Price",
                 DisplayName = "مبلغ",
@@ -247,6 +272,7 @@ public static class ModelBuilderExtensions
                 new D_User
                 {
                     Id = 1,
+                    ERPCode = 1,
                     SortIndex = 1,
                     Name = "m.sharifi",
                     DisplayName = "محمد شریفی"
@@ -254,6 +280,7 @@ public static class ModelBuilderExtensions
                 new D_User
                 {
                     Id = 2,
+                    ERPCode = 2,
                     SortIndex = 2,
                     Name = "a.sharifi",
                     DisplayName = "امین شریفی"
@@ -266,6 +293,7 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 100,
+                      ERPCode = 100,
                       SortIndex = 100,
                       Name = "Requestor",
                       DisplayName = "درخواست کننده",
@@ -274,6 +302,7 @@ public static class ModelBuilderExtensions
                   new D_Role
                   {
                       Id = 101,
+                      ERPCode = 101,
                       SortIndex = 101,
                       Name = "RequestorManager",
                       DisplayName = "مدیر درخواست کننده",
@@ -287,6 +316,7 @@ public static class ModelBuilderExtensions
                    new D_Position
                    {
                        Id = 1,
+                       ERPCode = 1,
                        SortIndex = 1,
                        Name = "Expert",
                        DisplayName = "کارشناس"
@@ -299,6 +329,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 101,
+                        ERPCode = 101,
                         SortIndex = 101,
                         Name = nameof(D_TagType),
                         DisplayName = new StringBuilder().Append("نوع تگ‌ها")
@@ -308,6 +339,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 102,
+                        ERPCode = 102,
                         SortIndex = 102,
                         Name = nameof(D_Location),
                         DisplayName = new StringBuilder().Append("موقعیت‌ها")
@@ -317,6 +349,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 103,
+                        ERPCode = 103,
                         SortIndex = 103,
                         Name = nameof(D_Operand),
                         DisplayName = new StringBuilder().Append("عملگرها")
@@ -326,6 +359,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 104,
+                        ERPCode = 104,
                         SortIndex = 104,
                         Name = nameof(D_Tag),
                         DisplayName = new StringBuilder().Append("تگ‌ها")
@@ -335,6 +369,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 105,
+                        ERPCode = 105,
                         SortIndex = 105,
                         Name = nameof(D_Position),
                         DisplayName = new StringBuilder().Append("سمت‌ها")
@@ -344,6 +379,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 106,
+                        ERPCode = 106,
                         SortIndex = 106,
                         Name = nameof(D_CaseState),
                         DisplayName = new StringBuilder().Append("وضعیت فرآیندها")
@@ -353,6 +389,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 107,
+                        ERPCode = 107,
                         SortIndex = 107,
                         Name = nameof(D_Process),
                         DisplayName = new StringBuilder().Append("فرآیند‌ها")
@@ -362,6 +399,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 108,
+                        ERPCode = 108,
                         SortIndex = 108,
                         Name = nameof(D_Role),
                         DisplayName = new StringBuilder().Append("نقش‌ها")
@@ -371,6 +409,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 109,
+                        ERPCode = 109,
                         SortIndex = 109,
                         Name = nameof(D_User),
                         DisplayName = new StringBuilder().Append("کاربران")
@@ -380,6 +419,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 112,
+                        ERPCode = 112,
                         SortIndex = 112,
                         Name = nameof(D_UserInformation),
                         DisplayName = new StringBuilder().Append("اطلاعات کاربرها")
@@ -389,6 +429,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 200,
+                        ERPCode = 200,
                         SortIndex = 200,
                         Name = nameof(F_WorkItem),
                         DisplayName = new StringBuilder().Append("تمام تاییدها")
@@ -398,6 +439,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 202,
+                        ERPCode = 202,
                         SortIndex = 202,
                         Name = nameof(F_Attachment),
                         DisplayName = new StringBuilder().Append("ضمیمه‌ها")
@@ -407,6 +449,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 203,
+                        ERPCode = 203,
                         SortIndex = 203,
                         Name = nameof(F_Endorsement),
                         DisplayName = new StringBuilder().Append("لیست تخصیص‌ها")
@@ -416,6 +459,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 204,
+                        ERPCode = 204,
                         SortIndex = 204,
                         Name = nameof(F_Condition),
                         DisplayName = new StringBuilder().Append("لیست شرط‌ها")
@@ -425,6 +469,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 205,
+                        ERPCode = 205,
                         SortIndex = 205,
                         Name = nameof(F_Case),
                         DisplayName = new StringBuilder().Append("اطلاعات درخواست‌ها")
@@ -434,6 +479,7 @@ public static class ModelBuilderExtensions
                      new D_Entity
                      {
                          Id = 206,
+                         ERPCode = 206,
                          SortIndex = 206,
                          Name = nameof(F_Scenario),
                          DisplayName = new StringBuilder().Append("سناریوها")
@@ -443,6 +489,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 300,
+                        ERPCode = 300,
                         SortIndex = 300,
                         Name = nameof(L_RolePosition),
                         DisplayName = new StringBuilder().Append("نقش-سمت")
@@ -452,6 +499,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 301,
+                        ERPCode = 301,
                         SortIndex = 301,
                         Name = nameof(L_ProcessScenario),
                         DisplayName = new StringBuilder().Append("فرآیند-سناریو")
@@ -461,6 +509,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 302,
+                        ERPCode = 302,
                         SortIndex = 302,
                         Name = nameof(L_UserLocation),
                         DisplayName = new StringBuilder().Append("کاربر-موقعیت")
@@ -470,6 +519,7 @@ public static class ModelBuilderExtensions
                     new D_Entity
                     {
                         Id = 303,
+                        ERPCode = 303,
                         SortIndex = 303,
                         Name = nameof(L_UserPosition),
                         DisplayName = new StringBuilder().Append("کاربر-سمت")
@@ -488,6 +538,7 @@ public static class ModelBuilderExtensions
             new F_Scenario
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "SampleScenario",
                 DisplayName = "سناریو نمونه"
@@ -500,6 +551,7 @@ public static class ModelBuilderExtensions
             new F_Endorsement
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "Sample_Scenario,Requestor",
                 DisplayName = "ثبت درخواست",
@@ -509,6 +561,7 @@ public static class ModelBuilderExtensions
             new F_Endorsement
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 2,
                 Name = "Sample_Scenario,RequestorManager",
                 DisplayName = "بررسی درخواست",
@@ -523,6 +576,7 @@ public static class ModelBuilderExtensions
             new F_EndorsementItem
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 CaseStateId = 1,
                 EndorsementId = 1
@@ -530,6 +584,7 @@ public static class ModelBuilderExtensions
             new F_EndorsementItem
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 1,
                 CaseStateId = 3,
                 EndorsementId = 2
@@ -537,6 +592,7 @@ public static class ModelBuilderExtensions
             new F_EndorsementItem
             {
                 Id = 3,
+                ERPCode = 3,
                 SortIndex = 2,
                 CaseStateId = 2,
                 EndorsementId = 2
@@ -544,6 +600,7 @@ public static class ModelBuilderExtensions
             new F_EndorsementItem
             {
                 Id = 4,
+                ERPCode = 4,
                 SortIndex = 3,
                 CaseStateId = 4,
                 EndorsementId = 2
@@ -557,6 +614,7 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 1,
+                ERPCode = 1,
                 SortIndex = 1,
                 Name = "Price",
                 DisplayName = "مبلغ",
@@ -568,6 +626,7 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 2,
+                ERPCode = 2,
                 SortIndex = 1,
                 TagId = 201,
                 OperandId = 1,
@@ -577,6 +636,7 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 3,
+                ERPCode = 3,
                 SortIndex = 1,
                 TagId = 201,
                 OperandId = 1,
@@ -586,6 +646,7 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 4,
+                ERPCode = 4,
                 SortIndex = 1,
                 TagId = 203,
                 OperandId = 1,
@@ -595,6 +656,7 @@ public static class ModelBuilderExtensions
             new F_Condition
             {
                 Id = 5,
+                ERPCode = 5,
                 SortIndex = 1,
                 TagId = 202,
                 OperandId = 1,
@@ -613,6 +675,7 @@ public static class ModelBuilderExtensions
                     new L_UserLocation
                     {
                         Id = 1,
+                        ERPCode = 1,
                         SortIndex = 1,
                         Name = "m.sharifi-Fars",
                         DisplayName = "محمد شریفی-فارس",
@@ -622,6 +685,7 @@ public static class ModelBuilderExtensions
                     new L_UserLocation
                     {
                         Id = 2,
+                        ERPCode = 2,
                         SortIndex = 2,
                         Name = "a.sharifi-Fars",
                         DisplayName = "امین شریفی-فارس",
@@ -636,6 +700,7 @@ public static class ModelBuilderExtensions
                       new L_RolePosition
                       {
                           Id = 1,
+                          ERPCode = 1,
                           SortIndex = 1,
                           Name = "Requestor-Expert",
                           DisplayName = "درخواست کننده-کارشناس",
@@ -645,6 +710,7 @@ public static class ModelBuilderExtensions
                         new L_RolePosition
                         {
                             Id = 2,
+                            ERPCode = 2,
                             SortIndex = 2,
                             Name = "RequestorManager-Expert",
                             DisplayName = "مدیر درخواست کننده-کارشناس",
@@ -659,6 +725,7 @@ public static class ModelBuilderExtensions
                       new L_ProcessScenario
                       {
                           Id = 1,
+                          ERPCode = 1,
                           SortIndex = 1,
                           Name = "SampleProcess-SampleScenario",
                           DisplayName = "فرآیند نمونه-سناریو نمونه",
@@ -675,6 +742,7 @@ public static class ModelBuilderExtensions
                 new L_UserPosition
                 {
                     Id = 1,
+                    ERPCode = 1,
                     SortIndex = 1,
                     Name = "m.sharifi-Expert",
                     DisplayName = "محمد شریفی-کارشناس",
@@ -684,6 +752,7 @@ public static class ModelBuilderExtensions
                 new L_UserPosition
                 {
                     Id = 2,
+                    ERPCode = 2,
                     SortIndex = 2,
                     Name = "a.sharifi-Expert",
                     DisplayName = "امین شریفی-کارشناس",
@@ -700,6 +769,7 @@ public static class ModelBuilderExtensions
                 new L_EndorsementItemEndorsement
                 {
                     Id = 1,
+                    ERPCode = 1,
                     SortIndex = 1,
                     FirstId = 1,
                     SecondId = 2
@@ -707,6 +777,7 @@ public static class ModelBuilderExtensions
                 new L_EndorsementItemEndorsement
                 {
                     Id = 2,
+                    ERPCode = 2,
                     SortIndex = 2,
                     FirstId = 3,
                     SecondId = 1
