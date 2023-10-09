@@ -4,6 +4,7 @@ using Cheetah.Application.Services.gRPC.Services;
 using Cheetah.Infrastructure.Persistence;
 using Cheetah.Infrastructure.Persistence.Repository;
 using FluentAssertions.Common;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Winton.Extensions.Configuration.Consul;
@@ -12,6 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())
 {
+    builder.WebHost.ConfigureKestrel(serverOptions =>
+    {
+        serverOptions.ListenAnyIP(1989, cfg => { cfg.Protocols = HttpProtocols.Http2; });
+    });
     builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
     builder.Configuration.AddConsul(Environment.GetEnvironmentVariable("Key_Consul") ?? string.Empty,
         options =>
