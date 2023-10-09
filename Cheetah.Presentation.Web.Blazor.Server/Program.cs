@@ -6,6 +6,7 @@ using Cheetah.Presentation.Web.Blazor.Server.Data;
 using Cheetah.Presentation.Web.Blazor.Server.Services;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Serilog;
@@ -15,6 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())
 {
+    builder.WebHost.ConfigureKestrel(serverOptions =>
+    {
+        serverOptions.ListenAnyIP(1988, cfg => { cfg.Protocols = HttpProtocols.Http1; });
+    });
     builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
     builder.Configuration.AddConsul(Environment.GetEnvironmentVariable("Key_Consul") ?? string.Empty,
         options =>
