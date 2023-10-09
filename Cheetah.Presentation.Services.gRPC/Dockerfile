@@ -24,4 +24,7 @@ RUN dotnet publish "Cheetah.Presentation.Services.gRPC.csproj" -c Release -o /ap
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN chown -R 1988:1988 /app
+RUN useradd -u 1988 cheetah
+USER cheetah
 ENTRYPOINT ["dotnet", "Cheetah.Presentation.Services.gRPC.dll"]
