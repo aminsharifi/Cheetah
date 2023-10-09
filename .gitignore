@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /Cheetah_GrpcService/Serilog.txt
 /cheetah_grpc/Serilog.txt
+/Cheetah.Presentation.Services.gRPC/Serilog.txt
