@@ -1,4 +1,5 @@
 ﻿using Cheetah.Application.Business.Repository;
+using Cheetah.Domain;
 using Cheetah.Domain.Data;
 using Cheetah.Domain.Facts;
 using HotChocolate;
@@ -44,7 +45,7 @@ public class Mutation
     [UseFiltering]
     [UseSorting]
     [Authorize]
-    public async Task<Tuple<F_Case, SimpleClassDTO>> CreateRequestAsync(
+    public async Task<CheetahResult<F_Case>> CreateRequestAsync(
         [Service] IWorkItem iWorkItem,
         [Service] ApplicationDbContext _db,
         F_Case request)
