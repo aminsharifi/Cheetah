@@ -110,8 +110,10 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
         f_Request.Conditions = GetCondition(request.Conditions).ToList();
 
         var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
-        f_Request = Outputresult.Item1 as F_Case;
-        var OutputState = Outputresult.Item2 as SimpleClassDTO;
+
+        f_Request = Outputresult.Result.Value;
+
+        var OutputState = Outputresult.SimpleClassDTO;
 
         output_Request.OutputState = GetBaseClass(OutputState);
 
@@ -172,8 +174,8 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
         f_WorkItem.Case.Conditions = GetCondition(request.Conditions).ToList();
 
         var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
-        f_WorkItem = Outputresult.Item1 as F_WorkItem;
-        var OutputState = Outputresult.Item2 as SimpleClassDTO;
+        f_WorkItem = Outputresult.Result.Value;
+        var OutputState = Outputresult.SimpleClassDTO;
 
         var output_Request = new Brief_Request()
         {

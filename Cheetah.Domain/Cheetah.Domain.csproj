@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="DNTPersianUtils.Core" Version="5.7.1" />
+		<PackageReference Include="FluentResults" Version="3.15.2" />
 		<PackageReference Include="HotChocolate.Abstractions" Version="13.5.1" />
 		<PackageReference Include="HotChocolate.Data.EntityFramework" Version="13.5.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.13" />
@@ -24,5 +25,21 @@
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
 		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.3" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resx\Localization.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Localization.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resx\Localization.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 ﻿using MudBlazor;
+using System.Reflection;
+using System.Resources;
 
 namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
 
@@ -81,6 +83,10 @@ public class CUpsert_GeneralCode : SharedPage
             }
             else
             {
+                ResourceManager resourceManager =
+                new ResourceManager("Localization", Assembly.Load("Cheetah.Presentation.Web.Blazor.Server"));
+                string myString = resourceManager.GetString("Success_Message");
+
                 Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
             }
 
