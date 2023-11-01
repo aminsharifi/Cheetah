@@ -40,10 +40,11 @@ public class F_ConditionController : ControllerBase
     {
         if (id == null || id == 0)
         {
-            return BadRequest(new ErrorModelDTO()
+            return BadRequest(new CheetahResult()
             {
-                ErorrMessage = "Invalid Id",
-                StatusCode = StatusCodes.Status400BadRequest
+                //ErorrMessage = "Invalid Id",
+                //StatusCode = StatusCodes.Status400BadRequest
+                
             });
         }
 
@@ -51,10 +52,10 @@ public class F_ConditionController : ControllerBase
 
         if (_Record == null)
         {
-            return BadRequest(new ErrorModelDTO()
+            return BadRequest(new CheetahResult()
             {
-                ErorrMessage = "Invalid Id",
-                StatusCode = StatusCodes.Status404NotFound
+                //ErorrMessage = "Invalid Id",
+                //StatusCode = StatusCodes.Status404NotFound
             });
         }
 
