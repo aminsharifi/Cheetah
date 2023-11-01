@@ -117,7 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Success_Message" xml:space="preserve">
-    <value>با موفقیت درج شد</value>
+  <data name="Add" xml:space="preserve">
+    <value>ایجاد</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>رایانامه</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>فیلتر</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>صندوق ورودی</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>متن پیام</value>
+  </data>
+  <data name="ModelDiagram" xml:space="preserve">
+    <value>طراحی فرآیند</value>
+  </data>
+  <data name="NameAndFamily" xml:space="preserve">
+    <value>نام و نام خانوادگی</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>درخواست جدید</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>کارهای انجام شده</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>بازنشانی</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>برگشت</value>
+  </data>
+  <data name="RowAdded" xml:space="preserve">
+    <value>ردیف با موفقیت ایجاد شد</value>
+  </data>
+  <data name="RowSaved" xml:space="preserve">
+    <value>ردیف {0} با موفقیت ذخیره شد</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="SelectParameter" xml:space="preserve">
+    <value>انتخاب پارامتر</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="Suggestion" xml:space="preserve">
+    <value>نظرات و پیشنهادات</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>بارگزاری</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>بارگزاری شد</value>
   </data>
 </root>

@@ -1,17 +1,23 @@
 ﻿@page "/Request"
+@using Cheetah.Presentation.Web.Blazor.Server.Resx;
 @inject IJSRuntime _JSRuntime
-<PageTitle>درخواست جدید</PageTitle>
+@inject IGlobalization globalization
+<PageTitle>@(globalization.GetValue(nameof(Localization.NewMessage), new String[] { }))</PageTitle>
 
-<div>
-    <h1>طراحی فرآیند</h1>
+    <div>
+        <h1>@(globalization.GetValue(nameof(Localization.ModelDiagram), new String[] { }))</h1>
     <br />
     <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;width: 20em;">
-        <button id="save-button" class="btn btn-info">ذخیره اطلاعات</button>
-        <button class="btn btn-primary" @onclick="TestConfirmation">بارگزاری اطلاعات</button>
+        <button id="save-button" class="btn btn-info">
+            @(globalization.GetValue(nameof(Localization.Save), new String[] { }))
+        </button>
+        <button class="btn btn-primary" @onclick="TestConfirmation">
+            @(globalization.GetValue(nameof(Localization.Upload), new String[] { }))
+        </button>
     </div>
 </div>
 <br />
-<div  id="canvas" style="height:400px;direction:ltr"></div>
+<div id="canvas" style="height:400px;direction:ltr"></div>
 
 @code {
 
@@ -27,8 +33,8 @@
     private async Task TestConfirmation()
     {
         await _JSRuntime.InvokeVoidAsync("ShowBPMN");
-        value = "دیاگرام لود شد.";
+        value = globalization.GetValue(nameof(Localization.Upload), new String[] { });
     }
 
-  
+
 }
