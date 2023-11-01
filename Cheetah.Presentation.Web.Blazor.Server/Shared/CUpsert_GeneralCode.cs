@@ -1,6 +1,5 @@
-﻿using MudBlazor;
-using System.Reflection;
-using System.Resources;
+﻿using Cheetah.Presentation.Web.Blazor.Server.Resx;
+using MudBlazor;
 
 namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
 
@@ -33,7 +32,10 @@ public class CUpsert_GeneralCode : SharedPage
     {
         if (LoadData)
         {
-            Title = (Id > 0) ? "ذخیره" : "ایجاد";
+            string rowAdd = globalization.GetValue(nameof(Localization.Add), new String[] { });
+            string rowSave = globalization.GetValue(nameof(Localization.Save), new String[] { });
+
+            Title = (Id > 0) ? rowSave : rowAdd;
             await LoadDTO();
             if (!IsInline)
             {
@@ -79,15 +81,13 @@ public class CUpsert_GeneralCode : SharedPage
 
             if (IsNew)
             {
-                Snackbar.Add("ردیف با موفقیت ایجاد شد", Severity.Success);
+                string rowAdded = globalization.GetValue(nameof(Localization.RowAdded), new String[] {});
+                Snackbar.Add(rowAdded, Severity.Success);
             }
             else
             {
-                ResourceManager resourceManager =
-                new ResourceManager("Localization", Assembly.Load("Cheetah.Presentation.Web.Blazor.Server"));
-                string myString = resourceManager.GetString("Success_Message");
-
-                Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
+                string rowSaved = globalization.GetValue(nameof(Localization.RowSaved), new String[] { Record.DisplayName });
+                Snackbar.Add(rowSaved, Severity.Success);
             }
 
             if (!IsInline)

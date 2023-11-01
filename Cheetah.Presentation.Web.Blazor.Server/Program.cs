@@ -4,6 +4,7 @@ using Cheetah.Infrastructure.Persistence;
 using Cheetah.Infrastructure.Persistence.Repository;
 using Cheetah.Presentation.Web.Blazor.Server.Data;
 using Cheetah.Presentation.Web.Blazor.Server.Helper;
+using Cheetah.Presentation.Web.Blazor.Server.Resx;
 using Cheetah.Presentation.Web.Blazor.Server.Services;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
@@ -99,7 +100,7 @@ builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
 builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
-
+builder.Services.AddSingleton(typeof(IGlobalization), typeof(Globalization));
 
 
 builder.Services.AddScoped<CNavigation>();
