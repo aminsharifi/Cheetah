@@ -117,17 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>اقدام</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>اقدامات</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>ایجاد</value>
+  </data>
+  <data name="AddActions" xml:space="preserve">
+    <value>اضافه کردن اقدامات</value>
+  </data>
+  <data name="AddConditionAndVariable" xml:space="preserve">
+    <value>افزودن به لیست شرط‌ها/متغیرها</value>
+  </data>
+  <data name="AddNextAction" xml:space="preserve">
+    <value>اضافه کردن اقدام بعدی</value>
+  </data>
+  <data name="AddToConditions" xml:space="preserve">
+    <value>اضافه کردن شرط‌ها</value>
+  </data>
+  <data name="AddToEndorsements" xml:space="preserve">
+    <value>افزودن به لیست بررسی‌ها</value>
+  </data>
+  <data name="CaseState" xml:space="preserve">
+    <value>وضعیت درخواست</value>
+  </data>
+  <data name="CellValue" xml:space="preserve">
+    <value>مقدار</value>
+  </data>
+  <data name="ConditionAndVariableList" xml:space="preserve">
+    <value>لیست شرط‌ها/متغیرها</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>شرط‌ها</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>رایانامه</value>
   </data>
+  <data name="Enable" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="EndorsementsList" xml:space="preserve">
+    <value>لیست ‌تاییدها</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>فیلتر</value>
   </data>
+  <data name="FormName" xml:space="preserve">
+    <value>نام فرم</value>
+  </data>
   <data name="Inbox" xml:space="preserve">
     <value>صندوق ورودی</value>
+  </data>
+  <data name="Independ" xml:space="preserve">
+    <value>مستقل</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>موقعیت</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>متن پیام</value>
@@ -141,8 +189,38 @@
   <data name="NewMessage" xml:space="preserve">
     <value>درخواست جدید</value>
   </data>
+  <data name="NextActions" xml:space="preserve">
+    <value>اقدام های بعدی</value>
+  </data>
+  <data name="Operand" xml:space="preserve">
+    <value>عملگر</value>
+  </data>
   <data name="Outbox" xml:space="preserve">
     <value>کارهای انجام شده</value>
+  </data>
+  <data name="Parameter" xml:space="preserve">
+    <value>پارامتر</value>
+  </data>
+  <data name="ParameterType" xml:space="preserve">
+    <value>نوع پارامتر</value>
+  </data>
+  <data name="PCreateDate" xml:space="preserve">
+    <value>تاریخ ایجاد</value>
+  </data>
+  <data name="PositionsInRole" xml:space="preserve">
+    <value>لیست سمت هایی که در نقش {0} هستند</value>
+  </data>
+  <data name="PRecieveDate" xml:space="preserve">
+    <value>تاریخ دریافت</value>
+  </data>
+  <data name="Process" xml:space="preserve">
+    <value>نام فرآیند</value>
+  </data>
+  <data name="RadNumber" xml:space="preserve">
+    <value>رهگیری</value>
+  </data>
+  <data name="Requestor" xml:space="preserve">
+    <value>درخواست کننده</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>بازنشانی</value>
@@ -150,8 +228,14 @@
   <data name="Return" xml:space="preserve">
     <value>برگشت</value>
   </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>نام نقش</value>
+  </data>
   <data name="RowAdded" xml:space="preserve">
     <value>ردیف با موفقیت ایجاد شد</value>
+  </data>
+  <data name="RowId" xml:space="preserve">
+    <value>شناسه</value>
   </data>
   <data name="RowSaved" xml:space="preserve">
     <value>ردیف {0} با موفقیت ذخیره شد</value>
@@ -159,19 +243,46 @@
   <data name="Save" xml:space="preserve">
     <value>ذخیره</value>
   </data>
+  <data name="ScenariosInProcess" xml:space="preserve">
+    <value>لیست راهبردهایی که مرتبط با فرآیند {0} هستند</value>
+  </data>
+  <data name="SelectOneItem" xml:space="preserve">
+    <value>لطفا یک مورد را انتخاب نمایید</value>
+  </data>
   <data name="SelectParameter" xml:space="preserve">
     <value>انتخاب پارامتر</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>ارسال</value>
   </data>
+  <data name="SortIndex" xml:space="preserve">
+    <value>ترتیب</value>
+  </data>
   <data name="Suggestion" xml:space="preserve">
     <value>نظرات و پیشنهادات</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>خلاصه درخواست</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>تگ</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>نام فرم</value>
   </data>
   <data name="Upload" xml:space="preserve">
     <value>بارگزاری</value>
   </data>
   <data name="Uploaded" xml:space="preserve">
     <value>بارگزاری شد</value>
+  </data>
+  <data name="UsersInLocation" xml:space="preserve">
+    <value>کاربرانی که در موقعیت {0} هستند</value>
+  </data>
+  <data name="UsersInPosition" xml:space="preserve">
+    <value>کاربرانی که در سمت {0} هستند</value>
+  </data>
+  <data name="Variable" xml:space="preserve">
+    <value>متغییر</value>
   </data>
 </root>
