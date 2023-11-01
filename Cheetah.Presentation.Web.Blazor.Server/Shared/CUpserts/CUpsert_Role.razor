@@ -8,7 +8,7 @@
 
         <div class="row">
             <span class="col-2">
-                   مستقل
+                @(globalization.GetValue(nameof(Localization.Independ), new String[] { }))
             </span>
             <InputCheckbox class="col-1" @bind-Value="(Record as D_Role).Independent"></InputCheckbox>
         </div>
@@ -16,7 +16,7 @@
 
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title="@($"لیست سمت هایی که در نقش {Record?.DisplayName} هستند")">
+                       Title=@(globalization.GetValue(nameof(Localization.PositionsInRole), new String[] { Record?.DisplayName}))>
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
@@ -36,7 +36,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
-                                        .ToDictionary(x => x.Key, x => x.Value)
+                                            .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 }

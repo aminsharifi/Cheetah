@@ -7,7 +7,7 @@
     <RowTemplate>
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title="@($"لیست راهبردهایی که مرتبط با فرآیند {Record?.DisplayName} هستند")">
+                       Title=@(globalization.GetValue(nameof(Localization.ScenariosInProcess), new String[] { Record?.DisplayName}))>
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
@@ -31,7 +31,7 @@
                 floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
-                                                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 
