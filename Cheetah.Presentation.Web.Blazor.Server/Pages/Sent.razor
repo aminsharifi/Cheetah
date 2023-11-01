@@ -1,5 +1,7 @@
 ﻿@page "/Sent"
+@using Cheetah.Presentation.Web.Blazor.Server.Resx;
+@inject IGlobalization globalization
 
-<PageTitle>کارهای انجام شده</PageTitle>
+<PageTitle>@(globalization.GetValue(nameof(Localization.Outbox), new String[] { }))</PageTitle>
 
-<Cartable Inbox="false" Username="R.Rodbarani"></Cartable>
+<Cartable Inbox="false" Username="m.sharifi"></Cartable>

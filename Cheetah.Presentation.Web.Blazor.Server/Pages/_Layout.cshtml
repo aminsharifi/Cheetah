@@ -1,8 +1,7 @@
-﻿@namespace Cheetah.Pages
-@using Microsoft.AspNetCore.Components.Web;
-
+﻿@using Microsoft.AspNetCore.Components.Web;
+@namespace Cheetah.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@inject IGlobalization globalization
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +35,9 @@
         <environment include="Development">
             An unhandled exception has occurred. See browser dev tools for details.
         </environment>
-        <a href="" class="reload">بازنشانی</a>
+        <a href="" class="reload">@{
+                globalization.GetValue(nameof(Localization.Reset), new String[] { });
+            }</a>
         <a class="dismiss">🗙</a>
     </div>
 

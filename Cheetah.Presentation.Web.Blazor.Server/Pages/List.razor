@@ -2,6 +2,7 @@
 @page "/List/{Name}"
 @page "/List/{Name}/{reference}"
 @page "/List/{Name}/{FilterTableName}/{Id:long}/{reference}"
+@using Cheetah.Presentation.Web.Blazor.Server.Resx;
 
 @inherits SharedPage
 
@@ -11,7 +12,8 @@
     @if (!IsLoading)
     {
         <div class="col-lg-5 col-sm-9">
-            <MudSelect Label="انتخاب پارامتر" HelperText="جدول مدنظرتان را انتخاب نمایید."
+            <MudSelect Label=@(globalization.GetValue(nameof(Localization.SelectParameter), new String[] { }))
+                       HelperText=@(globalization.GetValue(nameof(Localization.SelectParameter), new String[] { }))
                        AnchorOrigin="Origin.BottomCenter" AdornmentColor="Color.Primary"
                        AdornmentIcon="@Icons.Material.Filled.Settings" T="KeyValuePair<String, String>"
             @bind-Value="SelectedName">
@@ -25,7 +27,8 @@
             @if (type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
             {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
-                        OnClick="Addnew" Label="افزودن" />
+                        OnClick="Addnew"
+                        Label=@(globalization.GetValue(nameof(Localization.Add), new String[] { })) />
             }
         </div>
     }
@@ -39,7 +42,9 @@
                     <span class="form-control"> @(keyValuePair.Where(x => x.Key == FilterTableName).Single().Value + ":" + Record.DisplayName)</span>
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
-                              lang="fa" dir="rtl">فیلتر</span>
+                              lang="fa" dir="rtl">
+                            @(globalization.GetValue(nameof(Localization.Filter), new String[] { }))
+                        </span>
                     </div>
                 </div>
             </div>

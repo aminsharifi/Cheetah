@@ -84,16 +84,19 @@ public class SharedPage : ComponentBase
     protected ITableCRUD simpleClassRepository { get; set; }
 
     [Inject]
+    protected IGlobalization globalization { get; set; }
+
+    [Inject]
     protected ISnackbar Snackbar { get; set; }
+
+    [Inject]
+    protected IJSRuntime _JsRuntime { get; set; }
 
     [Inject]
     protected NavigationManager _NavigationManager { get; set; }
 
     [Inject]
     protected CNavigation _CNavigation { get; set; }
-
-    [Inject]
-    protected IJSRuntime _JsRuntime { get; set; }
 
     [Inject]
     protected ApplicationDbContext _db { get; set; }
