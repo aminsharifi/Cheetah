@@ -3,6 +3,7 @@ using Cheetah.Domain;
 using Cheetah.Infrastructure.Persistence;
 using Cheetah.Infrastructure.Persistence.Repository;
 using Cheetah.Presentation.Web.Blazor.Server.Data;
+using Cheetah.Presentation.Web.Blazor.Server.Helper;
 using Cheetah.Presentation.Web.Blazor.Server.Services;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +14,8 @@ using Serilog;
 using Winton.Extensions.Configuration.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 if (builder.Environment.IsProduction())
 {

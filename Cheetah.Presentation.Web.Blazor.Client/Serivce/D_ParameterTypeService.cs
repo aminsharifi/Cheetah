@@ -14,10 +14,10 @@ public class D_ParameterTypeService : ITableCRUD
     private readonly HttpClient _httpClient;
     private IConfiguration _configuration;
     private string BaseServerUrl;
-    
+
     public D_ParameterTypeService(HttpClient httpClient, IConfiguration configuration)
     {
-        
+
         _httpClient = httpClient;
         _configuration = configuration;
         BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
@@ -35,8 +35,8 @@ public class D_ParameterTypeService : ITableCRUD
         }
         else
         {
-            var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
-            throw new Exception(errorModel.ErorrMessage);
+            var errorModel = JsonConvert.DeserializeObject<CheetahResult>(content);
+            throw new Exception(errorModel.SimpleClassDTO.DisplayName);
         }
     }
 
@@ -125,8 +125,8 @@ public class D_ParameterTypeService : ITableCRUD
         }
         else
         {
-            var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
-            throw new Exception(errorModel.ErorrMessage);
+            var errorModel = JsonConvert.DeserializeObject<CheetahResult>(content);
+            throw new Exception(errorModel.SimpleClassDTO.DisplayName);
         }
     }
 
@@ -180,7 +180,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-  
+
 
     Task<SimpleClass> ITableCRUD.GetLast(string type)
     {
@@ -243,7 +243,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClass> Get(string type, string? recordName, 
+    public Task<SimpleClass> Get(string type, string? recordName,
         QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll, params String[] TableIncludes)
     {
         throw new NotImplementedException();
