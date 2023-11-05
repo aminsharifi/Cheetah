@@ -1,7 +1,7 @@
 
 # Cheetah
 
-Cheetah is a free and open-source lightweight BPMS engine.
+Cheetah is a free and open-source lightweight BPMS engine. 
 
 
 ## Authors
@@ -28,19 +28,19 @@ ORM: Entity Framework Core
 
 ## Screenshots
 
-![Blazor Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/Blazor_Table.png)
+![Blazor Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/Blazor_Table.png)
 
-![Blazor Upsert Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/Blazor_Upsert_Table.png)
+![Blazor Upsert Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/Blazor_Upsert_Table.png)
 
-![GraphQL Query](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/GraphQL_Query.png)
+![GraphQL Query](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/GraphQL_Query.png)
 
-![GraphQL Mutation](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/GraphQL_Mutation.png)
+![GraphQL Mutation](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/GraphQL_Mutation.png)
 
-![Swagger](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/Swagger.png)
+![Swagger](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/Swagger.png)
 
-![Postgres](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/Postgres.png)
+![Postgres](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/Postgres.png)
 
-![SQL_Sever](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah_WebAPI/Cheetah/SQL_Sever.png)
+![SQL_Sever](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/Cheetah.Presentation.Services.GraphQL/Cheetah/SQL_Sever.png)
 
 ## Contributing
 
