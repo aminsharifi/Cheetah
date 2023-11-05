@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BenchmarkDotNet" Version="0.13.10" />
 		<PackageReference Include="DNTPersianUtils.Core" Version="5.7.1" />
 		<PackageReference Include="FluentResults" Version="3.15.2" />
 		<PackageReference Include="HotChocolate.Abstractions" Version="13.5.1" />
@@ -29,17 +30,17 @@
 
 	<ItemGroup>
 	  <Compile Update="Resx\Localization.Designer.cs">
+	    <DependentUpon>Localization.resx</DependentUpon>
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Localization.resx</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Resx\Localization.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
 </Project>
