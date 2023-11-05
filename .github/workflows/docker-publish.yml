@@ -32,7 +32,7 @@ jobs:
         include:
           - dockerfile: ./Cheetah.Presentation.Web.Blazor.Server/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.Blazor.Server
-          - dockerfile: ./Cheetah.Presentation.Services.gRPC/Dockerfile
+          - dockerfile: ./Cheetah.Presentation.Services.GraphQL/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.gRPC
           - dockerfile: ./Cheetah.Presentation.Services.GraphQL/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.GraphQL
