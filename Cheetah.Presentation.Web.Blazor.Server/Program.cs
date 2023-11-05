@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Serilog;
-using Winton.Extensions.Configuration.Consul; 
+using Winton.Extensions.Configuration.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
