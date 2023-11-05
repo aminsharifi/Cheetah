@@ -3,9 +3,9 @@ using Cheetah.Domain;
 using Cheetah.Infrastructure.Persistence;
 using Cheetah.Infrastructure.Persistence.Repository;
 using Cheetah.Presentation.Web.Blazor.Server.Data;
-using Cheetah.Presentation.Web.Blazor.Server.Helper;
-using Cheetah.Presentation.Web.Blazor.Server.Resx;
 using Cheetah.Presentation.Web.Blazor.Server.Services;
+using Cheetah.Resx;
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -16,14 +16,13 @@ using Winton.Extensions.Configuration.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 if (builder.Environment.IsProduction())
 {
     builder.WebHost.ConfigureKestrel(serverOptions =>
     {
         serverOptions.ListenAnyIP(1988, cfg => { cfg.Protocols = HttpProtocols.Http1; });
     });
+
     builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
     builder.Configuration.AddConsul(Environment.GetEnvironmentVariable("Key_Consul") ?? string.Empty,
         options =>
@@ -47,14 +46,27 @@ builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Confi
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
-builder.Services.AddTransient<DbInitialiser>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddMudServices();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddDefaultTokenProviders().AddDefaultUI()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddTransient<DbInitialiser>();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddBootstrapBlazor();
+builder.Services.AddSingleton<IGlobalization>
+    (x => new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Presentation) + "." +
+    nameof(Cheetah.Presentation.Web) + "." +
+    nameof(Cheetah.Presentation.Web.Blazor) + "." + nameof(Cheetah.Presentation.Web.Blazor.Server)));
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
+builder.Services.AddScoped(typeof(IView), typeof(View));
+builder.Services.AddScoped(typeof(ISync), typeof(Sync));
+builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
+builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
+builder.Services.AddScoped<CNavigation>();
 
 //var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
@@ -67,7 +79,11 @@ if (provider is "Npgsql")
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
         .UseNpgsql(builder.Configuration.GetConnectionString("Npgsql")
-        , x => x.MigrationsAssembly("Cheetah.Infrastructure.Persistence.Providers.Npgsql")
+        , x => x.MigrationsAssembly(nameof(Cheetah) + "." +
+        nameof(Cheetah.Infrastructure) + "." +
+        nameof(Cheetah.Infrastructure.Persistence) + "." +
+        nameof(Cheetah.Infrastructure.Persistence.Providers) + "." +
+        nameof(Cheetah.Infrastructure.Persistence.Providers.Npgsql))
         ),
         ServiceLifetime.Transient
         );
@@ -77,33 +93,27 @@ else
     builder.Services.AddDbContext<ApplicationDbContext>(
         b => b.UseLazyLoadingProxies()
         .UseSqlServer(builder.Configuration.GetConnectionString("SQLServer"),
-        x => x.MigrationsAssembly("Cheetah.Infrastructure.Persistence.Providers.SqlServer")),
+        x => x.MigrationsAssembly(
+            nameof(Cheetah) + "." +
+        nameof(Cheetah.Infrastructure) + "." +
+        nameof(Cheetah.Infrastructure.Persistence) + "." +
+        nameof(Cheetah.Infrastructure.Persistence.Providers) + "." +
+        nameof(Cheetah.Infrastructure.Persistence.Providers.SqlServer)
+        )),
         ServiceLifetime.Transient
         );
 }
 
+// Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddMudServices();
+builder.Services.AddBootstrapBlazor();
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>()
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddDefaultTokenProviders().AddDefaultUI()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
-builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
-builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
-builder.Services.AddScoped(typeof(IView), typeof(View));
-builder.Services.AddScoped(typeof(ISync), typeof(Sync));
-builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
-builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
-builder.Services.AddSingleton(typeof(IGlobalization), typeof(Globalization));
-
-
-builder.Services.AddScoped<CNavigation>();
 
 var app = builder.Build();
 

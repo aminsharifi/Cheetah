@@ -22,7 +22,7 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Localization {
+    public class Localization {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cheetah.Presentation.Web.Blazor.Server.Resx.Localization", typeof(Localization).Assembly);
@@ -51,7 +51,7 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,504 +63,747 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اقدام.
         /// </summary>
-        internal static string Action {
+        public static string BlazorServer_Action {
             get {
-                return ResourceManager.GetString("Action", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Action", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to اقدامات.
         /// </summary>
-        internal static string Actions {
+        public static string BlazorServer_Actions {
             get {
-                return ResourceManager.GetString("Actions", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Actions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ایجاد.
         /// </summary>
-        internal static string Add {
+        public static string BlazorServer_Add {
             get {
-                return ResourceManager.GetString("Add", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Add", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to اضافه کردن اقدامات.
         /// </summary>
-        internal static string AddActions {
+        public static string BlazorServer_AddActions {
             get {
-                return ResourceManager.GetString("AddActions", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_AddActions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to افزودن به لیست شرط‌ها/متغیرها.
         /// </summary>
-        internal static string AddConditionAndVariable {
+        public static string BlazorServer_AddConditionAndVariable {
             get {
-                return ResourceManager.GetString("AddConditionAndVariable", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_AddConditionAndVariable", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to اضافه کردن اقدام بعدی.
         /// </summary>
-        internal static string AddNextAction {
+        public static string BlazorServer_AddNextAction {
             get {
-                return ResourceManager.GetString("AddNextAction", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_AddNextAction", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to اضافه کردن شرط‌ها.
         /// </summary>
-        internal static string AddToConditions {
+        public static string BlazorServer_AddToConditions {
             get {
-                return ResourceManager.GetString("AddToConditions", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_AddToConditions", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to افزودن به لیست بررسی‌ها.
         /// </summary>
-        internal static string AddToEndorsements {
+        public static string BlazorServer_AddToEndorsements {
             get {
-                return ResourceManager.GetString("AddToEndorsements", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_AddToEndorsements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بصورت خودکار ساخته می‌شود.
+        /// </summary>
+        public static string BlazorServer_AutomaticGenerated {
+            get {
+                return ResourceManager.GetString("BlazorServer_AutomaticGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to انصراف.
+        /// </summary>
+        public static string BlazorServer_Cancel {
+            get {
+                return ResourceManager.GetString("BlazorServer_Cancel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to وضعیت درخواست.
         /// </summary>
-        internal static string CaseState {
+        public static string BlazorServer_CaseState {
             get {
-                return ResourceManager.GetString("CaseState", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_CaseState", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to مقدار.
         /// </summary>
-        internal static string CellValue {
+        public static string BlazorServer_CellValue {
             get {
-                return ResourceManager.GetString("CellValue", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_CellValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چیتا.
+        /// </summary>
+        public static string BlazorServer_Cheetah {
+            get {
+                return ResourceManager.GetString("BlazorServer_Cheetah", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to بستن.
+        /// </summary>
+        public static string BlazorServer_Close {
+            get {
+                return ResourceManager.GetString("BlazorServer_Close", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لیست شرط‌ها/متغیرها.
         /// </summary>
-        internal static string ConditionAndVariableList {
+        public static string BlazorServer_ConditionAndVariableList {
             get {
-                return ResourceManager.GetString("ConditionAndVariableList", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_ConditionAndVariableList", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to شرط‌ها.
         /// </summary>
-        internal static string Conditions {
+        public static string BlazorServer_Conditions {
             get {
-                return ResourceManager.GetString("Conditions", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Conditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ارتباط با ما.
+        /// </summary>
+        public static string BlazorServer_ContactUs {
+            get {
+                return ResourceManager.GetString("BlazorServer_ContactUs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ایجاد.
+        /// </summary>
+        public static string BlazorServer_Create {
+            get {
+                return ResourceManager.GetString("BlazorServer_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to آیا از حذف ردیف اطمینان دارید؟.
+        /// </summary>
+        public static string BlazorServer_DeleteConformation {
+            get {
+                return ResourceManager.GetString("BlazorServer_DeleteConformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ویرایش پارامتر.
+        /// </summary>
+        public static string BlazorServer_EditParameter {
+            get {
+                return ResourceManager.GetString("BlazorServer_EditParameter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to رایانامه.
         /// </summary>
-        internal static string Email {
+        public static string BlazorServer_Email {
             get {
-                return ResourceManager.GetString("Email", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Email", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to فعال.
         /// </summary>
-        internal static string Enable {
+        public static string BlazorServer_Enable {
             get {
-                return ResourceManager.GetString("Enable", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Enable", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لیست ‌تاییدها.
         /// </summary>
-        internal static string EndorsementsList {
+        public static string BlazorServer_EndorsementsList {
             get {
-                return ResourceManager.GetString("EndorsementsList", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_EndorsementsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to خروج.
+        /// </summary>
+        public static string BlazorServer_Exit {
+            get {
+                return ResourceManager.GetString("BlazorServer_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اطلاعات تکمیلی.
+        /// </summary>
+        public static string BlazorServer_ExtraInformation {
+            get {
+                return ResourceManager.GetString("BlazorServer_ExtraInformation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to فیلتر.
         /// </summary>
-        internal static string Filter {
+        public static string BlazorServer_Filter {
             get {
-                return ResourceManager.GetString("Filter", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نامی که کاربر مشاهده می‌کند.
+        /// </summary>
+        public static string BlazorServer_ForDisplayName {
+            get {
+                return ResourceManager.GetString("BlazorServer_ForDisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نام فرم.
         /// </summary>
-        internal static string FormName {
+        public static string BlazorServer_FormName {
             get {
-                return ResourceManager.GetString("FormName", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_FormName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام سیستمی.
+        /// </summary>
+        public static string BlazorServer_ForName {
+            get {
+                return ResourceManager.GetString("BlazorServer_ForName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to جهت مرتب‌سازی.
+        /// </summary>
+        public static string BlazorServer_ForSorting {
+            get {
+                return ResourceManager.GetString("BlazorServer_ForSorting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اطلاعات عمومی.
+        /// </summary>
+        public static string BlazorServer_GeneralInformation {
+            get {
+                return ResourceManager.GetString("BlazorServer_GeneralInformation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to صندوق ورودی.
         /// </summary>
-        internal static string Inbox {
+        public static string BlazorServer_Inbox {
             get {
-                return ResourceManager.GetString("Inbox", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Inbox", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to مستقل.
         /// </summary>
-        internal static string Independ {
+        public static string BlazorServer_Independ {
             get {
-                return ResourceManager.GetString("Independ", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Independ", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to موقعیت.
         /// </summary>
-        internal static string Location {
+        public static string BlazorServer_Location {
             get {
-                return ResourceManager.GetString("Location", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ورود.
+        /// </summary>
+        public static string BlazorServer_Login {
+            get {
+                return ResourceManager.GetString("BlazorServer_Login", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to متن پیام.
         /// </summary>
-        internal static string Message {
+        public static string BlazorServer_Message {
             get {
-                return ResourceManager.GetString("Message", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Message", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to طراحی فرآیند.
         /// </summary>
-        internal static string ModelDiagram {
+        public static string BlazorServer_ModelDiagram {
             get {
-                return ResourceManager.GetString("ModelDiagram", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_ModelDiagram", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نام و نام خانوادگی.
         /// </summary>
-        internal static string NameAndFamily {
+        public static string BlazorServer_NameAndFamily {
             get {
-                return ResourceManager.GetString("NameAndFamily", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_NameAndFamily", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to درخواست جدید.
         /// </summary>
-        internal static string NewMessage {
+        public static string BlazorServer_NewMessage {
             get {
-                return ResourceManager.GetString("NewMessage", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_NewMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to اقدام های بعدی.
         /// </summary>
-        internal static string NextActions {
+        public static string BlazorServer_NextActions {
             get {
-                return ResourceManager.GetString("NextActions", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_NextActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شما دسترسی ندارید.
+        /// </summary>
+        public static string BlazorServer_NotAuthorize {
+            get {
+                return ResourceManager.GetString("BlazorServer_NotAuthorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to چنین صفحه ای پیدا نشد.
+        /// </summary>
+        public static string BlazorServer_NotFound {
+            get {
+                return ResourceManager.GetString("BlazorServer_NotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to عملگر.
         /// </summary>
-        internal static string Operand {
+        public static string BlazorServer_Operand {
             get {
-                return ResourceManager.GetString("Operand", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Operand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to کارهای انجام شده.
         /// </summary>
-        internal static string Outbox {
+        public static string BlazorServer_Outbox {
             get {
-                return ResourceManager.GetString("Outbox", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Outbox", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to پارامتر.
         /// </summary>
-        internal static string Parameter {
+        public static string BlazorServer_Parameter {
             get {
-                return ResourceManager.GetString("Parameter", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Parameter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نوع پارامتر.
         /// </summary>
-        internal static string ParameterType {
+        public static string BlazorServer_ParameterType {
             get {
-                return ResourceManager.GetString("ParameterType", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_ParameterType", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to تاریخ ایجاد.
         /// </summary>
-        internal static string PCreateDate {
+        public static string BlazorServer_PCreateDate {
             get {
-                return ResourceManager.GetString("PCreateDate", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_PCreateDate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لیست سمت هایی که در نقش {0} هستند.
         /// </summary>
-        internal static string PositionsInRole {
+        public static string BlazorServer_PositionsInRole {
             get {
-                return ResourceManager.GetString("PositionsInRole", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_PositionsInRole", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to تاریخ دریافت.
         /// </summary>
-        internal static string PRecieveDate {
+        public static string BlazorServer_PRecieveDate {
             get {
-                return ResourceManager.GetString("PRecieveDate", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_PRecieveDate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نام فرآیند.
         /// </summary>
-        internal static string Process {
+        public static string BlazorServer_Process {
             get {
-                return ResourceManager.GetString("Process", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Process", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to رهگیری.
         /// </summary>
-        internal static string RadNumber {
+        public static string BlazorServer_RadNumber {
             get {
-                return ResourceManager.GetString("RadNumber", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_RadNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ثبت‌نام.
+        /// </summary>
+        public static string BlazorServer_Register {
+            get {
+                return ResourceManager.GetString("BlazorServer_Register", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to درخواست کننده.
         /// </summary>
-        internal static string Requestor {
+        public static string BlazorServer_Requestor {
             get {
-                return ResourceManager.GetString("Requestor", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Requestor", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to بازنشانی.
         /// </summary>
-        internal static string Reset {
+        public static string BlazorServer_Reset {
             get {
-                return ResourceManager.GetString("Reset", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Reset", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to برگشت.
         /// </summary>
-        internal static string Return {
+        public static string BlazorServer_Return {
             get {
-                return ResourceManager.GetString("Return", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Return", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نام نقش.
         /// </summary>
-        internal static string RoleName {
+        public static string BlazorServer_RoleName {
             get {
-                return ResourceManager.GetString("RoleName", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_RoleName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ردیف با موفقیت ایجاد شد.
         /// </summary>
-        internal static string RowAdded {
+        public static string BlazorServer_RowAdded {
             get {
-                return ResourceManager.GetString("RowAdded", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_RowAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حذف.
+        /// </summary>
+        public static string BlazorServer_RowDelete {
+            get {
+                return ResourceManager.GetString("BlazorServer_RowDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to توضیحات.
+        /// </summary>
+        public static string BlazorServer_RowDescription {
+            get {
+                return ResourceManager.GetString("BlazorServer_RowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام نمایشی.
+        /// </summary>
+        public static string BlazorServer_RowDisplayName {
+            get {
+                return ResourceManager.GetString("BlazorServer_RowDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ویرایش.
+        /// </summary>
+        public static string BlazorServer_RowEdit {
+            get {
+                return ResourceManager.GetString("BlazorServer_RowEdit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to شناسه.
         /// </summary>
-        internal static string RowId {
+        public static string BlazorServer_RowId {
             get {
-                return ResourceManager.GetString("RowId", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_RowId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام.
+        /// </summary>
+        public static string BlazorServer_RowName {
+            get {
+                return ResourceManager.GetString("BlazorServer_RowName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ردیف {0} با موفقیت ذخیره شد.
         /// </summary>
-        internal static string RowSaved {
+        public static string BlazorServer_RowSaved {
             get {
-                return ResourceManager.GetString("RowSaved", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_RowSaved", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ذخیره.
         /// </summary>
-        internal static string Save {
+        public static string BlazorServer_Save {
             get {
-                return ResourceManager.GetString("Save", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Save", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لیست راهبردهایی که مرتبط با فرآیند {0} هستند.
         /// </summary>
-        internal static string ScenariosInProcess {
+        public static string BlazorServer_ScenariosInProcess {
             get {
-                return ResourceManager.GetString("ScenariosInProcess", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_ScenariosInProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to انتخاب.
+        /// </summary>
+        public static string BlazorServer_Select {
+            get {
+                return ResourceManager.GetString("BlazorServer_Select", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لطفا یک مورد را انتخاب نمایید.
         /// </summary>
-        internal static string SelectOneItem {
+        public static string BlazorServer_SelectOneItem {
             get {
-                return ResourceManager.GetString("SelectOneItem", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_SelectOneItem", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to انتخاب پارامتر.
         /// </summary>
-        internal static string SelectParameter {
+        public static string BlazorServer_SelectParameter {
             get {
-                return ResourceManager.GetString("SelectParameter", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_SelectParameter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ارسال.
         /// </summary>
-        internal static string Send {
+        public static string BlazorServer_Send {
             get {
-                return ResourceManager.GetString("Send", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Send", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ترتیب.
         /// </summary>
-        internal static string SortIndex {
+        public static string BlazorServer_SortIndex {
             get {
-                return ResourceManager.GetString("SortIndex", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_SortIndex", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نظرات و پیشنهادات.
         /// </summary>
-        internal static string Suggestion {
+        public static string BlazorServer_Suggestion {
             get {
-                return ResourceManager.GetString("Suggestion", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Suggestion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to خلاصه درخواست.
         /// </summary>
-        internal static string Summary {
+        public static string BlazorServer_Summary {
             get {
-                return ResourceManager.GetString("Summary", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام جدول: {0}.
+        /// </summary>
+        public static string BlazorServer_TableName {
+            get {
+                return ResourceManager.GetString("BlazorServer_TableName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to تگ.
         /// </summary>
-        internal static string Tag {
+        public static string BlazorServer_Tag {
             get {
-                return ResourceManager.GetString("Tag", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Tag", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to نام فرم.
         /// </summary>
-        internal static string Task {
+        public static string BlazorServer_Task {
             get {
-                return ResourceManager.GetString("Task", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Task", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to بارگزاری.
         /// </summary>
-        internal static string Upload {
+        public static string BlazorServer_Upload {
             get {
-                return ResourceManager.GetString("Upload", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Upload", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to بارگزاری شد.
         /// </summary>
-        internal static string Uploaded {
+        public static string BlazorServer_Uploaded {
             get {
-                return ResourceManager.GetString("Uploaded", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Uploaded", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to کاربرانی که در موقعیت {0} هستند.
         /// </summary>
-        internal static string UsersInLocation {
+        public static string BlazorServer_UsersInLocation {
             get {
-                return ResourceManager.GetString("UsersInLocation", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_UsersInLocation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to کاربرانی که در سمت {0} هستند.
         /// </summary>
-        internal static string UsersInPosition {
+        public static string BlazorServer_UsersInPosition {
             get {
-                return ResourceManager.GetString("UsersInPosition", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_UsersInPosition", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to متغییر.
         /// </summary>
-        internal static string Variable {
+        public static string BlazorServer_Variable {
             get {
-                return ResourceManager.GetString("Variable", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_Variable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هشدار.
+        /// </summary>
+        public static string BlazorServer_Warning {
+            get {
+                return ResourceManager.GetString("BlazorServer_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} خوش آمدید.
+        /// </summary>
+        public static string BlazorServer_Welcome {
+            get {
+                return ResourceManager.GetString("BlazorServer_Welcome", resourceCulture);
             }
         }
     }

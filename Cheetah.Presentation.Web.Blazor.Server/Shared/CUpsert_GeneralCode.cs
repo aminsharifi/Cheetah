@@ -32,8 +32,8 @@ public class CUpsert_GeneralCode : SharedPage
     {
         if (LoadData)
         {
-            string rowAdd = globalization.GetValue(nameof(Localization.Add), new String[] { });
-            string rowSave = globalization.GetValue(nameof(Localization.Save), new String[] { });
+            string rowAdd = globalization.GetValue(nameof(Localization.BlazorServer_Add), new String[] { });
+            string rowSave = globalization.GetValue(nameof(Localization.BlazorServer_Save), new String[] { });
 
             Title = (Id > 0) ? rowSave : rowAdd;
             await LoadDTO();
@@ -81,12 +81,12 @@ public class CUpsert_GeneralCode : SharedPage
 
             if (IsNew)
             {
-                string rowAdded = globalization.GetValue(nameof(Localization.RowAdded), new String[] {});
+                string rowAdded = globalization.GetValue(nameof(Localization.BlazorServer_RowAdded), new String[] {});
                 Snackbar.Add(rowAdded, Severity.Success);
             }
             else
             {
-                string rowSaved = globalization.GetValue(nameof(Localization.RowSaved), new String[] { Record.DisplayName });
+                string rowSaved = globalization.GetValue(nameof(Localization.BlazorServer_RowSaved), new String[] { Record.DisplayName });
                 Snackbar.Add(rowSaved, Severity.Success);
             }
 
