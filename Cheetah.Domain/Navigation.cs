@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Cheetah.Domain.Resx;
+using Cheetah.Resx;
+using Microsoft.AspNetCore.Components;
 using System.Text;
 
 namespace Cheetah.Domain;
@@ -28,6 +30,8 @@ public class CNavigationStruct
 public class CNavigation
 {
     public List<CNavigationStruct> NavigationList { get; set; }
+
+    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Domain));
     public CNavigation()
     {
         NavigationList = new();
@@ -71,13 +75,19 @@ public class CNavigation
     }
     public String LoadNavigation(String Address, String RowDescription, Int64? RowId, String Reference)
     {
+        var ttt = iGlobalization.GetValue(nameof(Localization.Domain_InsertRow), new string[] { });
+
         if (!string.IsNullOrEmpty(Reference))
             Deserialize(Reference);
 
-        var PDescription = (RowId > 0) ? $"ردیف '{RowDescription}'" : (Address.StartsWith("List/")) ? "لیست جدول‌ها" : "ایجاد ردیف";
+        var PDescription = (RowId > 0) ?
+            iGlobalization.GetValue(nameof(Localization.Domain_RowDescription), new[] { RowDescription }) :
+            (Address.StartsWith("List/")) ?
+            iGlobalization.GetValue(nameof(Localization.Domain_Tablelist), new string[] { }) :
+            iGlobalization.GetValue(nameof(Localization.Domain_InsertRow), new string[] { });
 
         if (!RowId.HasValue)
-            PDescription = $"جدول {RowDescription}";
+            PDescription = iGlobalization.GetValue(nameof(Localization.Domain_TableDescription), new string[] { RowDescription });
 
         this.AddNavigation(new CNavigationStruct(
         id: RowId,

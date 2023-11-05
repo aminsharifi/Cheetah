@@ -117,172 +117,253 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Action" xml:space="preserve">
+  <data name="BlazorServer_Action" xml:space="preserve">
     <value>اقدام</value>
   </data>
-  <data name="Actions" xml:space="preserve">
+  <data name="BlazorServer_Actions" xml:space="preserve">
     <value>اقدامات</value>
   </data>
-  <data name="Add" xml:space="preserve">
+  <data name="BlazorServer_Add" xml:space="preserve">
     <value>ایجاد</value>
   </data>
-  <data name="AddActions" xml:space="preserve">
+  <data name="BlazorServer_AddActions" xml:space="preserve">
     <value>اضافه کردن اقدامات</value>
   </data>
-  <data name="AddConditionAndVariable" xml:space="preserve">
+  <data name="BlazorServer_AddConditionAndVariable" xml:space="preserve">
     <value>افزودن به لیست شرط‌ها/متغیرها</value>
   </data>
-  <data name="AddNextAction" xml:space="preserve">
+  <data name="BlazorServer_AddNextAction" xml:space="preserve">
     <value>اضافه کردن اقدام بعدی</value>
   </data>
-  <data name="AddToConditions" xml:space="preserve">
+  <data name="BlazorServer_AddToConditions" xml:space="preserve">
     <value>اضافه کردن شرط‌ها</value>
   </data>
-  <data name="AddToEndorsements" xml:space="preserve">
+  <data name="BlazorServer_AddToEndorsements" xml:space="preserve">
     <value>افزودن به لیست بررسی‌ها</value>
   </data>
-  <data name="CaseState" xml:space="preserve">
+  <data name="BlazorServer_AutomaticGenerated" xml:space="preserve">
+    <value>بصورت خودکار ساخته می‌شود</value>
+  </data>
+  <data name="BlazorServer_Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="BlazorServer_CaseState" xml:space="preserve">
     <value>وضعیت درخواست</value>
   </data>
-  <data name="CellValue" xml:space="preserve">
+  <data name="BlazorServer_CellValue" xml:space="preserve">
     <value>مقدار</value>
   </data>
-  <data name="ConditionAndVariableList" xml:space="preserve">
+  <data name="BlazorServer_Cheetah" xml:space="preserve">
+    <value>چیتا</value>
+  </data>
+  <data name="BlazorServer_Close" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="BlazorServer_ConditionAndVariableList" xml:space="preserve">
     <value>لیست شرط‌ها/متغیرها</value>
   </data>
-  <data name="Conditions" xml:space="preserve">
+  <data name="BlazorServer_Conditions" xml:space="preserve">
     <value>شرط‌ها</value>
   </data>
-  <data name="Email" xml:space="preserve">
+  <data name="BlazorServer_ContactUs" xml:space="preserve">
+    <value>ارتباط با ما</value>
+  </data>
+  <data name="BlazorServer_Create" xml:space="preserve">
+    <value>ایجاد</value>
+  </data>
+  <data name="BlazorServer_DeleteConformation" xml:space="preserve">
+    <value>آیا از حذف ردیف اطمینان دارید؟</value>
+  </data>
+  <data name="BlazorServer_EditParameter" xml:space="preserve">
+    <value>ویرایش پارامتر</value>
+  </data>
+  <data name="BlazorServer_Email" xml:space="preserve">
     <value>رایانامه</value>
   </data>
-  <data name="Enable" xml:space="preserve">
+  <data name="BlazorServer_Enable" xml:space="preserve">
     <value>فعال</value>
   </data>
-  <data name="EndorsementsList" xml:space="preserve">
+  <data name="BlazorServer_EndorsementsList" xml:space="preserve">
     <value>لیست ‌تاییدها</value>
   </data>
-  <data name="Filter" xml:space="preserve">
+  <data name="BlazorServer_Exit" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="BlazorServer_ExtraInformation" xml:space="preserve">
+    <value>اطلاعات تکمیلی</value>
+  </data>
+  <data name="BlazorServer_Filter" xml:space="preserve">
     <value>فیلتر</value>
   </data>
-  <data name="FormName" xml:space="preserve">
+  <data name="BlazorServer_ForDisplayName" xml:space="preserve">
+    <value>نامی که کاربر مشاهده می‌کند</value>
+  </data>
+  <data name="BlazorServer_FormName" xml:space="preserve">
     <value>نام فرم</value>
   </data>
-  <data name="Inbox" xml:space="preserve">
+  <data name="BlazorServer_ForName" xml:space="preserve">
+    <value>نام سیستمی</value>
+  </data>
+  <data name="BlazorServer_ForSorting" xml:space="preserve">
+    <value>جهت مرتب‌سازی</value>
+  </data>
+  <data name="BlazorServer_GeneralInformation" xml:space="preserve">
+    <value>اطلاعات عمومی</value>
+  </data>
+  <data name="BlazorServer_Inbox" xml:space="preserve">
     <value>صندوق ورودی</value>
   </data>
-  <data name="Independ" xml:space="preserve">
+  <data name="BlazorServer_Independ" xml:space="preserve">
     <value>مستقل</value>
   </data>
-  <data name="Location" xml:space="preserve">
+  <data name="BlazorServer_Location" xml:space="preserve">
     <value>موقعیت</value>
   </data>
-  <data name="Message" xml:space="preserve">
+  <data name="BlazorServer_Login" xml:space="preserve">
+    <value>ورود</value>
+  </data>
+  <data name="BlazorServer_Message" xml:space="preserve">
     <value>متن پیام</value>
   </data>
-  <data name="ModelDiagram" xml:space="preserve">
+  <data name="BlazorServer_ModelDiagram" xml:space="preserve">
     <value>طراحی فرآیند</value>
   </data>
-  <data name="NameAndFamily" xml:space="preserve">
+  <data name="BlazorServer_NameAndFamily" xml:space="preserve">
     <value>نام و نام خانوادگی</value>
   </data>
-  <data name="NewMessage" xml:space="preserve">
+  <data name="BlazorServer_NewMessage" xml:space="preserve">
     <value>درخواست جدید</value>
   </data>
-  <data name="NextActions" xml:space="preserve">
+  <data name="BlazorServer_NextActions" xml:space="preserve">
     <value>اقدام های بعدی</value>
   </data>
-  <data name="Operand" xml:space="preserve">
+  <data name="BlazorServer_NotAuthorize" xml:space="preserve">
+    <value>شما دسترسی ندارید</value>
+  </data>
+  <data name="BlazorServer_NotFound" xml:space="preserve">
+    <value>چنین صفحه ای پیدا نشد</value>
+  </data>
+  <data name="BlazorServer_Operand" xml:space="preserve">
     <value>عملگر</value>
   </data>
-  <data name="Outbox" xml:space="preserve">
+  <data name="BlazorServer_Outbox" xml:space="preserve">
     <value>کارهای انجام شده</value>
   </data>
-  <data name="Parameter" xml:space="preserve">
+  <data name="BlazorServer_Parameter" xml:space="preserve">
     <value>پارامتر</value>
   </data>
-  <data name="ParameterType" xml:space="preserve">
+  <data name="BlazorServer_ParameterType" xml:space="preserve">
     <value>نوع پارامتر</value>
   </data>
-  <data name="PCreateDate" xml:space="preserve">
+  <data name="BlazorServer_PCreateDate" xml:space="preserve">
     <value>تاریخ ایجاد</value>
   </data>
-  <data name="PositionsInRole" xml:space="preserve">
+  <data name="BlazorServer_PositionsInRole" xml:space="preserve">
     <value>لیست سمت هایی که در نقش {0} هستند</value>
   </data>
-  <data name="PRecieveDate" xml:space="preserve">
+  <data name="BlazorServer_PRecieveDate" xml:space="preserve">
     <value>تاریخ دریافت</value>
   </data>
-  <data name="Process" xml:space="preserve">
+  <data name="BlazorServer_Process" xml:space="preserve">
     <value>نام فرآیند</value>
   </data>
-  <data name="RadNumber" xml:space="preserve">
+  <data name="BlazorServer_RadNumber" xml:space="preserve">
     <value>رهگیری</value>
   </data>
-  <data name="Requestor" xml:space="preserve">
+  <data name="BlazorServer_Register" xml:space="preserve">
+    <value>ثبت‌نام</value>
+  </data>
+  <data name="BlazorServer_Requestor" xml:space="preserve">
     <value>درخواست کننده</value>
   </data>
-  <data name="Reset" xml:space="preserve">
+  <data name="BlazorServer_Reset" xml:space="preserve">
     <value>بازنشانی</value>
   </data>
-  <data name="Return" xml:space="preserve">
+  <data name="BlazorServer_Return" xml:space="preserve">
     <value>برگشت</value>
   </data>
-  <data name="RoleName" xml:space="preserve">
+  <data name="BlazorServer_RoleName" xml:space="preserve">
     <value>نام نقش</value>
   </data>
-  <data name="RowAdded" xml:space="preserve">
+  <data name="BlazorServer_RowAdded" xml:space="preserve">
     <value>ردیف با موفقیت ایجاد شد</value>
   </data>
-  <data name="RowId" xml:space="preserve">
+  <data name="BlazorServer_RowDelete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="BlazorServer_RowDescription" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="BlazorServer_RowDisplayName" xml:space="preserve">
+    <value>نام نمایشی</value>
+  </data>
+  <data name="BlazorServer_RowEdit" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="BlazorServer_RowId" xml:space="preserve">
     <value>شناسه</value>
   </data>
-  <data name="RowSaved" xml:space="preserve">
+  <data name="BlazorServer_RowName" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="BlazorServer_RowSaved" xml:space="preserve">
     <value>ردیف {0} با موفقیت ذخیره شد</value>
   </data>
-  <data name="Save" xml:space="preserve">
+  <data name="BlazorServer_Save" xml:space="preserve">
     <value>ذخیره</value>
   </data>
-  <data name="ScenariosInProcess" xml:space="preserve">
+  <data name="BlazorServer_ScenariosInProcess" xml:space="preserve">
     <value>لیست راهبردهایی که مرتبط با فرآیند {0} هستند</value>
   </data>
-  <data name="SelectOneItem" xml:space="preserve">
+  <data name="BlazorServer_Select" xml:space="preserve">
+    <value>انتخاب</value>
+  </data>
+  <data name="BlazorServer_SelectOneItem" xml:space="preserve">
     <value>لطفا یک مورد را انتخاب نمایید</value>
   </data>
-  <data name="SelectParameter" xml:space="preserve">
+  <data name="BlazorServer_SelectParameter" xml:space="preserve">
     <value>انتخاب پارامتر</value>
   </data>
-  <data name="Send" xml:space="preserve">
+  <data name="BlazorServer_Send" xml:space="preserve">
     <value>ارسال</value>
   </data>
-  <data name="SortIndex" xml:space="preserve">
+  <data name="BlazorServer_SortIndex" xml:space="preserve">
     <value>ترتیب</value>
   </data>
-  <data name="Suggestion" xml:space="preserve">
+  <data name="BlazorServer_Suggestion" xml:space="preserve">
     <value>نظرات و پیشنهادات</value>
   </data>
-  <data name="Summary" xml:space="preserve">
+  <data name="BlazorServer_Summary" xml:space="preserve">
     <value>خلاصه درخواست</value>
   </data>
-  <data name="Tag" xml:space="preserve">
+  <data name="BlazorServer_TableName" xml:space="preserve">
+    <value>نام جدول: {0}</value>
+  </data>
+  <data name="BlazorServer_Tag" xml:space="preserve">
     <value>تگ</value>
   </data>
-  <data name="Task" xml:space="preserve">
+  <data name="BlazorServer_Task" xml:space="preserve">
     <value>نام فرم</value>
   </data>
-  <data name="Upload" xml:space="preserve">
+  <data name="BlazorServer_Upload" xml:space="preserve">
     <value>بارگزاری</value>
   </data>
-  <data name="Uploaded" xml:space="preserve">
+  <data name="BlazorServer_Uploaded" xml:space="preserve">
     <value>بارگزاری شد</value>
   </data>
-  <data name="UsersInLocation" xml:space="preserve">
+  <data name="BlazorServer_UsersInLocation" xml:space="preserve">
     <value>کاربرانی که در موقعیت {0} هستند</value>
   </data>
-  <data name="UsersInPosition" xml:space="preserve">
+  <data name="BlazorServer_UsersInPosition" xml:space="preserve">
     <value>کاربرانی که در سمت {0} هستند</value>
   </data>
-  <data name="Variable" xml:space="preserve">
+  <data name="BlazorServer_Variable" xml:space="preserve">
     <value>متغییر</value>
+  </data>
+  <data name="BlazorServer_Warning" xml:space="preserve">
+    <value>هشدار</value>
+  </data>
+  <data name="BlazorServer_Welcome" xml:space="preserve">
+    <value>{0} خوش آمدید</value>
   </data>
 </root>

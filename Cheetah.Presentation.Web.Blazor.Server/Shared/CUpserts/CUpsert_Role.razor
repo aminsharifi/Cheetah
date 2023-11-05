@@ -8,7 +8,7 @@
 
         <div class="row">
             <span class="col-2">
-                @(globalization.GetValue(nameof(Localization.Independ), new String[] { }))
+                @(globalization.GetValue(nameof(Localization.BlazorServer_Independ), new String[] { }))
             </span>
             <InputCheckbox class="col-1" @bind-Value="(Record as D_Role).Independent"></InputCheckbox>
         </div>
@@ -16,7 +16,7 @@
 
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title=@(globalization.GetValue(nameof(Localization.PositionsInRole), new String[] { Record?.DisplayName}))>
+                       Title=@(globalization.GetValue(nameof(Localization.BlazorServer_PositionsInRole), new String[] { Record?.DisplayName}))>
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>

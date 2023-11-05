@@ -12,8 +12,8 @@
     @if (!IsLoading)
     {
         <div class="col-lg-5 col-sm-9">
-            <MudSelect Label=@(globalization.GetValue(nameof(Localization.SelectParameter), new String[] { }))
-                       HelperText=@(globalization.GetValue(nameof(Localization.SelectParameter), new String[] { }))
+            <MudSelect Label=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter), new String[] { }))
+                       HelperText=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter), new String[] { }))
                        AnchorOrigin="Origin.BottomCenter" AdornmentColor="Color.Primary"
                        AdornmentIcon="@Icons.Material.Filled.Settings" T="KeyValuePair<String, String>"
             @bind-Value="SelectedName">
@@ -28,7 +28,7 @@
             {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
                         OnClick="Addnew"
-                        Label=@(globalization.GetValue(nameof(Localization.Add), new String[] { })) />
+                        Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Add), new String[] { })) />
             }
         </div>
     }
@@ -43,7 +43,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
                               lang="fa" dir="rtl">
-                            @(globalization.GetValue(nameof(Localization.Filter), new String[] { }))
+                            @(globalization.GetValue(nameof(Localization.BlazorServer_Filter), new String[] { }))
                         </span>
                     </div>
                 </div>
