@@ -1,4 +1,5 @@
-﻿@inject ITableCRUD simpleClassRepository;
+﻿@using Cheetah.Resx;
+@inject ITableCRUD simpleClassRepository;
 @inject ICartable iCartable;
 @inject IGlobalization globalization;
 
@@ -13,25 +14,25 @@
         <MudTable Items="@cartableDTOList">
             <HeaderContent>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.RadNumber), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_RadNumber), new String[] { }))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.PCreateDate), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_PCreateDate), new String[] { }))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.PRecieveDate), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_PRecieveDate), new String[] { }))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.Requestor), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_Requestor), new String[] { }))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.Process), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_Process), new String[] { }))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.Task), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_Task), new String[] { }))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.Summary), new String[] { }))
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_Summary), new String[] { }))
                 </MudTh>
             </HeaderContent>
             <RowTemplate>

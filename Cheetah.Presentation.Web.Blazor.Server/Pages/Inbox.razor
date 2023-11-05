@@ -1,7 +1,8 @@
 ﻿@page "/Inbox"
 @using Cheetah.Presentation.Web.Blazor.Server.Resx;
+@using Cheetah.Resx;
 @inject IGlobalization globalization
 
-<PageTitle>@(globalization.GetValue(nameof(Localization.Inbox), new String[] { }))</PageTitle>
+<PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_Inbox), new String[] { }))</PageTitle>
 
 <Cartable Inbox="true" Username="m.sharifi"></Cartable>

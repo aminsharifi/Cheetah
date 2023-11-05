@@ -22,7 +22,7 @@ namespace Cheetah.Domain.Resx {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Localization {
+    public class Localization {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Cheetah.Domain.Resx {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cheetah.Domain.Resx.Localization", typeof(Localization).Assembly);
@@ -51,7 +51,7 @@ namespace Cheetah.Domain.Resx {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,11 +61,101 @@ namespace Cheetah.Domain.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to با موفقیت درج شد.
+        ///   Looks up a localized string similar to توضیحات.
         /// </summary>
-        internal static string Success_Message {
+        public static string Domain_Description {
             get {
-                return ResourceManager.GetString("Success_Message", resourceCulture);
+                return ResourceManager.GetString("Domain_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام نمایشی.
+        /// </summary>
+        public static string Domain_DisplayName {
+            get {
+                return ResourceManager.GetString("Domain_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to فعال.
+        /// </summary>
+        public static string Domain_EnableRecord {
+            get {
+                return ResourceManager.GetString("Domain_EnableRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کد در ERP.
+        /// </summary>
+        public static string Domain_ERPCode {
+            get {
+                return ResourceManager.GetString("Domain_ERPCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه.
+        /// </summary>
+        public static string Domain_Id {
+            get {
+                return ResourceManager.GetString("Domain_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ایجاد ردیف.
+        /// </summary>
+        public static string Domain_InsertRow {
+            get {
+                return ResourceManager.GetString("Domain_InsertRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام.
+        /// </summary>
+        public static string Domain_Name {
+            get {
+                return ResourceManager.GetString("Domain_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ردیف &apos;{0}&apos;.
+        /// </summary>
+        public static string Domain_RowDescription {
+            get {
+                return ResourceManager.GetString("Domain_RowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اندیس مرتب‌سازی.
+        /// </summary>
+        public static string Domain_SortIndex {
+            get {
+                return ResourceManager.GetString("Domain_SortIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to جدول {0}.
+        /// </summary>
+        public static string Domain_TableDescription {
+            get {
+                return ResourceManager.GetString("Domain_TableDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لیست جدول‌ها.
+        /// </summary>
+        public static string Domain_Tablelist {
+            get {
+                return ResourceManager.GetString("Domain_Tablelist", resourceCulture);
             }
         }
     }
