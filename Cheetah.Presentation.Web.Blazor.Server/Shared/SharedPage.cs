@@ -2,6 +2,7 @@
 using Cheetah.Domain;
 using Cheetah.Domain.Data;
 using Cheetah.Infrastructure.Persistence;
+using Cheetah.Resx;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;

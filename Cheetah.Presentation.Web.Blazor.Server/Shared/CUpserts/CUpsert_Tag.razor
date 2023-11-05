@@ -6,8 +6,8 @@
     <RowTemplate>
         <CInput @bind-LValue="(Record as D_Tag).TagTypeId"
                 Records="@d_ParameterType"
-                CDescription=@(globalization.GetValue(nameof(Localization.ParameterType), new String[] { }))
-                CDisplayName=@(globalization.GetValue(nameof(Localization.ParameterType), new String[] { }))
+                CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType), new String[] { }))
+                CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType), new String[] { }))
                 Record="@((Record as D_Tag).TagType)"
                 SelectedProcessesChanged="@SelectedProcessesChanged"
                 CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
