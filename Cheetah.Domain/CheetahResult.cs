@@ -11,5 +11,5 @@ public class CheetahResult<T>
 public class CheetahResult
 {
     public Result Result { get; set; }
-    public SimpleClassDTO SimpleClassDTO { get; set; }
+    public SimpleClassDTO SimpleClassDTO { get; set; } 
 }
