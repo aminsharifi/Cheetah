@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using FluentResults;
-
-namespace Cheetah.Domain;
+﻿namespace Cheetah.Domain;
 
 public class CheetahResult<T>
 {

@@ -1,7 +1,3 @@
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Dimentions;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah.Domain.Links;
 
 [Table(nameof(L_UserLocation), Schema = nameof(TableType.Links))]

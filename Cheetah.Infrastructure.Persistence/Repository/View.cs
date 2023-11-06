@@ -1,7 +1,4 @@
-﻿using Cheetah.Application.Business.Repository;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class View : IView
     {
         protected ApplicationDbContext _db;
