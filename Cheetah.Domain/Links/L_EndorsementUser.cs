@@ -1,9 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Facts;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace Cheetah.Domain.Links;
+﻿namespace Cheetah.Domain.Links;
 
 [Table(nameof(L_EndorsementUser), Schema = nameof(TableType.Links))]
 [Index(nameof(Name), IsUnique = true, AllDescending = true)]

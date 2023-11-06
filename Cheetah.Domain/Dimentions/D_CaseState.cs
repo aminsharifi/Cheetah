@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿
 namespace Cheetah.Domain.Dimentions;
 
 [Table(nameof(D_CaseState), Schema = nameof(TableType.Dimentions))]

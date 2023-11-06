@@ -1,9 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cheetah.Domain.Dimentions;
+﻿namespace Cheetah.Domain.Dimentions;
 
 [Table(nameof(D_Entity), Schema = nameof(TableType.Dimentions))]
 [Index(nameof(Name), IsUnique = true, AllDescending = true)]

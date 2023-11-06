@@ -1,9 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using FluentResults;
-using System.Reflection;
-using System.Resources;
-
-namespace Cheetah.Domain;
+﻿namespace Cheetah.Domain;
 
 public static class OutputState<T>
 {

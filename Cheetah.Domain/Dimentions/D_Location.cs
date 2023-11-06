@@ -1,7 +1,3 @@
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Facts;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah.Domain.Dimentions;
 
 [Table(nameof(D_Location), Schema = nameof(TableType.Dimentions))]

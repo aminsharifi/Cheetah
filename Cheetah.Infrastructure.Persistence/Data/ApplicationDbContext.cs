@@ -1,10 +1,4 @@
-﻿using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Facts;
-using Cheetah.Domain.Links;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 
 public partial class ApplicationDbContext : IdentityDbContext
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cheetah.Domain.Exceptions;
+﻿namespace Cheetah.Domain.Exceptions;
 public class ErrorResult
 {
     public List<string> Messages { get; set; } = new();
