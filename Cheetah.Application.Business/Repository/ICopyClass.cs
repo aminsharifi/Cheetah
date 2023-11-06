@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Cheetah.Domain.Facts;
-
-namespace Cheetah.Application.Business.Repository;
+﻿namespace Cheetah.Application.Business.Repository;
 public interface ICopyClass
 {
     public Task<F_Case> DeepCopy(F_Case obj);

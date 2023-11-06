@@ -1,7 +1,3 @@
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Links;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace Cheetah.Domain.Dimentions;
 
 [Table(nameof(D_Role), Schema = nameof(TableType.Dimentions))]

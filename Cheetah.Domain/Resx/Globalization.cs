@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Resources;
-
-namespace Cheetah.Resx;
+﻿namespace Cheetah.Resx;
 public class Globalization : IGlobalization
 {
     public String AssemblyName { get; set; }

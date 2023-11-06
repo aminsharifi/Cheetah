@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Cheetah.Domain.Facts;
-
-namespace Cheetah.Application.Business.Repository;
+﻿namespace Cheetah.Application.Business.Repository;
 public interface ICartable
 {
     public Task<List<CartableDTO>> Inbox(CartableDTO cartableDTO);

@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Cheetah.Domain.Exceptions;
+﻿namespace Cheetah.Domain.Exceptions;
 public class NotFoundException : CustomException
 {
     public NotFoundException(string message)

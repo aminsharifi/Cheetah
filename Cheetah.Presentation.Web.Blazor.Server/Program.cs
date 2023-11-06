@@ -1,19 +1,3 @@
-using Cheetah.Application.Business.Repository;
-using Cheetah.Domain;
-using Cheetah.Infrastructure.Persistence;
-using Cheetah.Infrastructure.Persistence.Repository;
-using Cheetah.Presentation.Web.Blazor.Server.Data;
-using Cheetah.Presentation.Web.Blazor.Server.Services;
-using Cheetah.Resx;
-using FluentAssertions.Common;
-using Microsoft.AspNetCore.Hosting.StaticWebAssets;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.EntityFrameworkCore;
-using MudBlazor.Services;
-using Serilog;
-using Winton.Extensions.Configuration.Consul;
-
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())
@@ -62,7 +46,6 @@ builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
-builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
 builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));

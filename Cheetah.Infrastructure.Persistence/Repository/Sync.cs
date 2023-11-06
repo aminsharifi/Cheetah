@@ -1,9 +1,4 @@
-﻿using Cheetah.Application.Business.Repository;
-using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Links;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class Sync : ISync
     {
         protected ApplicationDbContext _db;

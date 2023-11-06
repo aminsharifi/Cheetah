@@ -1,8 +1,4 @@
-﻿using Cheetah.Domain.Dimentions;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 public class ApplicationUser: IdentityUser
     {
         [Column(Order = 101)]

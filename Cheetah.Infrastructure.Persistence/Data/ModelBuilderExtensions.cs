@@ -1,11 +1,4 @@
-﻿using Cheetah.Domain;
-using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Facts;
-using Cheetah.Domain.Links;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 
 public static class ModelBuilderExtensions
 {

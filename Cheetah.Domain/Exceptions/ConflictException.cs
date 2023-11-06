@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Cheetah.Domain.Exceptions;
+﻿namespace Cheetah.Domain.Exceptions;
 public class ConflictException : CustomException
 {
     public ConflictException(string message)
