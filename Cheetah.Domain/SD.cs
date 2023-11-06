@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-
-namespace Cheetah.Domain;
-
+﻿namespace Cheetah.Domain;
 public class CPersianClass
 {
     public string GetPersianDate(DateTime? date)

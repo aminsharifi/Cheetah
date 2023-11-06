@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using Cheetah.Application.Business.Repository;
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Facts;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class CopyClass : ICopyClass
 {
     protected ApplicationDbContext _db;

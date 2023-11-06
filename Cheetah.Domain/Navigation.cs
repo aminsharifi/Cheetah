@@ -1,9 +1,4 @@
-﻿using Cheetah.Domain.Resx;
-using Cheetah.Resx;
-using Microsoft.AspNetCore.Components;
-using System.Text;
-
-namespace Cheetah.Domain;
+﻿namespace Cheetah.Domain;
 public enum CNavigationEnum
 {
     complete,

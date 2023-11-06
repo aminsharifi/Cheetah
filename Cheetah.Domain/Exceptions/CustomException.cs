@@ -1,9 +1,7 @@
-﻿using System.Net;
-
-namespace Cheetah.Domain.Exceptions;
+﻿namespace Cheetah.Domain.Exceptions;
 public class CustomException : Exception
 {
-    public List<string>? ErrorMessages { get; }
+    public List<String>? ErrorMessages { get; }
 
     public HttpStatusCode StatusCode { get; }
 

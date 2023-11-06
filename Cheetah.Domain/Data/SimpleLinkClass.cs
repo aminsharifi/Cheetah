@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cheetah.Domain.Data;
+﻿namespace Cheetah.Domain.Data;
 
 public abstract class SimpleLinkClass : SimpleClass
 {

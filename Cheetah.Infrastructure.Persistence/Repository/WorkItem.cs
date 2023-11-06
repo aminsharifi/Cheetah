@@ -1,12 +1,4 @@
-﻿using AutoMapper;
-using Cheetah.Application.Business.Repository;
-using Cheetah.Domain;
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Facts;
-using FluentResults;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
+﻿
 
 namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem : IWorkItem

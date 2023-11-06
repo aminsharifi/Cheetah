@@ -1,7 +1,4 @@
-﻿using Cheetah.Presentation.Web.Blazor.Server.Resx;
-using MudBlazor;
-
-namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
+﻿namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
 
 public class CUpsert_GeneralCode : SharedPage
 {

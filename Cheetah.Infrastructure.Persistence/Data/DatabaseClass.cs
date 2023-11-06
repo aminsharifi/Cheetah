@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain;
-using Cheetah.Domain.Data;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 
 public class DatabaseClass
 {

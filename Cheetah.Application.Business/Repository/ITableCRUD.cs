@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Application.Business.Repository;
+﻿namespace Cheetah.Application.Business.Repository;
 public interface ITableCRUD
 {
     public Task<Int32> delete(string type, Int64? id);

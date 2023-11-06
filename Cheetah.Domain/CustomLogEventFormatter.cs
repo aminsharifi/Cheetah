@@ -1,7 +1,4 @@
-﻿using Serilog.Events;
-using Serilog.Formatting;
-
-namespace Cheetah.Domain;
+﻿namespace Cheetah.Domain;
 public class CustomLogEventFormatter : ITextFormatter
 {
     public static CustomLogEventFormatter Formatter { get; } = new CustomLogEventFormatter();

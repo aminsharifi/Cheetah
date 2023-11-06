@@ -1,8 +1,3 @@
-using Cheetah.Domain;
-using Cheetah.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace Cheetah.Presentation.Web.Blazor.Server.Services;
 public interface IDbInitializer
 {
