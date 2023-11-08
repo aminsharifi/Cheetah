@@ -2,8 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 1989
+EXPOSE 1990
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -24,4 +24,7 @@ RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+RUN chown -R 1988:1988 /app
+RUN useradd -u 1988 cheetah
+USER cheetah
 ENTRYPOINT ["dotnet", "Cheetah.Presentation.Services.gRPC.dll"]
