@@ -16,6 +16,7 @@ global using Microsoft.IdentityModel.Tokens;
 global using Serilog;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using System.IdentityModel.Tokens.Jwt;
+global using System.Reflection;
 global using System.Security.Authentication;
 global using System.Security.Claims;
 global using System.Text;

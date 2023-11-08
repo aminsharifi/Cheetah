@@ -1,10 +1,4 @@
 ﻿namespace Cheetah.Domain.Facts;
-
-[Table(nameof(F_Case), Schema = nameof(TableType.Facts))]
-[Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
-//[Index(nameof(DsblRecord), IsUnique = false, AllDescending = true)]
 public partial class F_Case : SimpleClass
 {
     #region S_User
