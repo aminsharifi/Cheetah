@@ -8,13 +8,18 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj", "Cheetah.Presentation.Services.gRPC/"]
-RUN dotnet restore
+COPY ["Cheetah.Application.Business/Cheetah.Application.Business.csproj", "Cheetah.Application.Business/"]
+COPY ["Cheetah.Domain/Cheetah.Domain.csproj", "Cheetah.Domain/"]
+COPY ["Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj", "Cheetah.Infrastructure.Persistence.Providers.Npgsql/"]
+COPY ["Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence.csproj", "Cheetah.Infrastructure.Persistence/"]
+COPY ["Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
+RUN dotnet restore "Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj"
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Services.gRPC"
-RUN dotnet build  -c Release -o /app/build --no-restore
+RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish  -c Release -o /app/publish --no-restore
+RUN dotnet publish   -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
