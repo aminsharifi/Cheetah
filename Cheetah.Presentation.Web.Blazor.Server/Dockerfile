@@ -19,7 +19,7 @@ WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish  -c Release -o /app/publish
+RUN dotnet publish  -c Release -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app
