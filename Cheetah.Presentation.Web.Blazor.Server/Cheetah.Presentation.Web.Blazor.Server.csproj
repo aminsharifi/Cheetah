@@ -52,7 +52,7 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Resx\Localization.resx">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
 	    <Generator>ResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
