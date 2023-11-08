@@ -8,7 +8,7 @@ name: Docker
 on:
   schedule:
     - cron: '28 16 * * *'
-  pull_request:
+  push:
     branches: [ "master" ]
 
 env:
