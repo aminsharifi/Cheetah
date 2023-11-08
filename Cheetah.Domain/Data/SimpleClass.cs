@@ -2,7 +2,7 @@
 
 public abstract class SimpleClass
 {
-    public Int64? Id { get; set; }
+    public Int64? Id { get; set; } 
     public Int64? SortIndex { get; set; }
     public String? Name { get; set; }
     public String? DisplayName { get; set; }
