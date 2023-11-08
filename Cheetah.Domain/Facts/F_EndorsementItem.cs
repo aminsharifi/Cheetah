@@ -1,12 +1,5 @@
 ﻿namespace Cheetah.Domain.Facts;
 
-[Table(nameof(F_EndorsementItem), Schema = nameof(TableType.Facts))]
-[Index(nameof(Name), IsUnique = true, AllDescending = true)]
-[Index(nameof(CreateTimeRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(LastUpdatedRecord), IsUnique = true, AllDescending = true)]
-[Index(nameof(ERPCode), IsUnique = false, AllDescending = true)]
-[Index(nameof(EnableRecord), IsUnique = false, AllDescending = true)]
-//[Index(nameof(Parent_Id), IsUnique = false, AllDescending = true)]
 public partial class F_EndorsementItem : SimpleClass
 {
     [Column(Order = 102)]
