@@ -14,6 +14,8 @@ on:
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "master" ]
+    branches-ignore: 
+      - master
 
 env:
   # Use docker.io for Docker Hub if empty
