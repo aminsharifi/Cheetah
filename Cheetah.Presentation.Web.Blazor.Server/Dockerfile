@@ -13,13 +13,13 @@ COPY ["Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence.csp
 COPY ["Cheetah.Application.Business/Cheetah.Application.Business.csproj", "Cheetah.Application.Business/"]
 COPY ["Cheetah.Domain/Cheetah.Domain.csproj", "Cheetah.Domain/"]
 COPY ["Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
-RUN dotnet restore
+RUN dotnet restore "Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
-RUN dotnet build  -c Release -o /app/build --no-restore
+RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish  -c Release -o /app/publish --no-restore
+RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
