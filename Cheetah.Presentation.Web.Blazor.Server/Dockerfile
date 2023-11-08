@@ -16,7 +16,7 @@ COPY ["Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastruc
 RUN dotnet restore
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
-RUN dotnet build  -c Release -o /app/build
+RUN dotnet build  -c Release -o /app/build --no-restore
 
 FROM build AS publish
 RUN dotnet publish  -c Release -o /app/publish --no-restore
