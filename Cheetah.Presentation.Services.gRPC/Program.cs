@@ -1,14 +1,4 @@
-using Cheetah.Application.Business.Repository;
-using Cheetah.Application.Services.gRPC.Middleware;
-using Cheetah.Application.Services.gRPC.Services;
-using Cheetah.Infrastructure.Persistence;
-using Cheetah.Infrastructure.Persistence.Repository;
-using FluentAssertions.Common;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Winton.Extensions.Configuration.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,7 +59,6 @@ else
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
-builder.Services.AddScoped(typeof(IView), typeof(View));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
 builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));

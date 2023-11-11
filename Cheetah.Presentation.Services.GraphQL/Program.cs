@@ -2,6 +2,7 @@ using Cheetah.Application.Business.Repository;
 using Cheetah.Application.Services.Helper;
 using Cheetah.Infrastructure.Persistence;
 using Cheetah.Infrastructure.Persistence.Repository;
+using Cheetah.Presentation.Services.GraphQL;
 using FluentAssertions.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -119,11 +120,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddGraphQLServer()
     .AddMutationType<Mutation>()
-    .AddQueryType<Query>()
-    .AddProjections()
-    .AddFiltering()
+    .AddQueryType<Query>()    
     .AddAuthorization()
-    .AddSorting()
     .BindRuntimeType<char, StringType>();
 
 builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
