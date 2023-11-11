@@ -53,7 +53,7 @@ public class TableCRUD : ITableCRUD
         }
         return -1;
     }
-    public async Task<SimpleClass> Get(String type, Int64? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
+    public async Task<SimpleClass> Get(String type, Int64? id, Boolean Tracking = true)
     {
         if (!String.IsNullOrEmpty(type))
         {
@@ -69,7 +69,7 @@ public class TableCRUD : ITableCRUD
             }
             else
             {
-                _db.ChangeTracker.QueryTrackingBehavior = Tracking;
+                _db.ChangeTracker.QueryTrackingBehavior = Tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking;
 
                 var _SimpleClass = await _db.FindAsync(gtype, id) as SimpleClass;
 
@@ -78,8 +78,7 @@ public class TableCRUD : ITableCRUD
         }
         return null;
     }
-    public async Task<SimpleClass> Get(String type, string? recordName,
-        QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll,params String[] TableIncludes)
+    public async Task<SimpleClass> Get(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
     {
         //_db.ChangeTracker.QueryTrackingBehavior = Tracking;
         var gtype = DatabaseClass.GetDBType(type);
@@ -90,7 +89,7 @@ public class TableCRUD : ITableCRUD
             .Where(x => x.Name == recordName)
             as IQueryable<SimpleClass>;
 
-        foreach ( var x in TableIncludes )
+        foreach (var x in TableIncludes)
         {
             Q_SimpleClass = Q_SimpleClass.Include(x);
         }
@@ -164,13 +163,13 @@ public class TableCRUD : ITableCRUD
     }
     public async Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO)
     {
-        var gtype = DatabaseClass.GetDBType(obj_DTO.linkType);    
+        var gtype = DatabaseClass.GetDBType(obj_DTO.linkType);
 
         var simpleLinkClass = new List<SimpleLinkClass>();
 
         var fixedInstance = await Get(
             type: obj_DTO.sd_Status == nameof(LinkProperty.First) ? obj_DTO.firstType : obj_DTO.secondType,
-            id: obj_DTO.fixedId, Tracking: QueryTrackingBehavior.NoTracking);
+            id: obj_DTO.fixedId, Tracking: false);
 
         foreach (var link in obj_DTO.floatState.Where(x => x.Value))
         {
@@ -206,7 +205,7 @@ public class TableCRUD : ITableCRUD
 
             var floatedInstance = await Get(
             type: obj_DTO.sd_Status == nameof(LinkProperty.First) ? obj_DTO.secondType : obj_DTO.firstType,
-            id: link.Key.Item1, Tracking: QueryTrackingBehavior.NoTracking);
+            id: link.Key.Item1, Tracking: false);
 
             if (obj_DTO.sd_Status == nameof(LinkProperty.First))
             {
@@ -227,7 +226,7 @@ public class TableCRUD : ITableCRUD
             obj_DTO.fixedId
         );
 
-        _db.RemoveRange(allLink);       
+        _db.RemoveRange(allLink);
 
         _db.AddRange(simpleLinkClass);
 
