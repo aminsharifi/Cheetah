@@ -6,7 +6,6 @@ public partial class D_Tag : SimpleClass
 
     #region Entity
     public long? TagTypeId { get; set; }
-    [ForeignKey(nameof(TagTypeId))]
     public virtual D_TagType? TagType { get; set; }
 
     #endregion

@@ -11,7 +11,6 @@ public partial class F_WorkItem : SimpleClass
     public virtual D_User? User { get; set; }
 
     public long? CaseId { get; set; }
-    [ForeignKey(nameof(CaseId))]
     public virtual F_Case? Case { get; set; }
 
     public long? TagId { get; set; }

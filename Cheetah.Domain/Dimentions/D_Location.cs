@@ -10,7 +10,6 @@ public partial class D_Location : SimpleClass
     #region Entity
     
     public long? EndorsementItemId { get; set; }
-    [ForeignKey(nameof(EndorsementItemId))]
     public virtual F_EndorsementItem? EndorsementItem { get; set; }
 
     #endregion
