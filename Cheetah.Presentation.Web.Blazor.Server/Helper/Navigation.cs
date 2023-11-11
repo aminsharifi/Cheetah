@@ -28,7 +28,10 @@ public class CNavigation
 {
     public List<CNavigationStruct> NavigationList { get; set; }
 
-    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Domain));
+    public IGlobalization iGlobalization = 
+        new Globalization(nameof(Cheetah) + "." + nameof(Presentation) + "." + nameof(Web) +
+            "." + nameof(Blazor) + "." + nameof(Server));
+
     public CNavigation()
     {
         NavigationList = new();
