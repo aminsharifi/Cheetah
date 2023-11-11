@@ -1,7 +1,6 @@
 ﻿namespace Cheetah.Domain.Facts;
 public partial class F_Condition : SimpleClass
-{
-    
+{    
     public long? TagId { get; set; }
     public virtual D_Tag? Tag { get; set; }
 
@@ -21,7 +20,6 @@ public partial class F_Condition : SimpleClass
     public virtual F_EndorsementItem? EndorsementItem { get; set; }
 
     [NotMapped]
-    [GraphQLIgnore]
     public Boolean BooleanValue
     {
         get
@@ -35,7 +33,6 @@ public partial class F_Condition : SimpleClass
     }
 
     [NotMapped]
-    [GraphQLIgnore]
     public float FloatValue
     {
         get

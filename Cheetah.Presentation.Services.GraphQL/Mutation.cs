@@ -1,23 +1,15 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Application.Business.Repository;
+using Cheetah.Domain;
+using Cheetah.Domain.Facts;
+using Cheetah.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+
+namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Mutation
-{
-    //[UseProjection]
-    //[UseFiltering]
-    //[UseSorting]
-    //public async Task<string> GetTokenAsync(
-    //    //[Service] IIdentityService identityService, string email, string password)
-    //    string email, string password)
-    //{
-    //    //return await identityService.Authenticate(email, password);
-    //    return email;
-    //}
-
+{   
     #region GetTokenAsync
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    [AllowAnonymous]
+    
     public async Task<IdentityService> GetTokenAsync(
         [Service] IIdentityService identityService,
         [Service] ITableCRUD iSimpleClassRepository,
@@ -32,10 +24,7 @@ public class Mutation
     #endregion
 
     #region CreateRequestAsync
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    [Authorize]
+    
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(
         [Service] IWorkItem iWorkItem,
         [Service] ApplicationDbContext _db,
@@ -46,10 +35,7 @@ public class Mutation
     #endregion
 
     #region PerformWorkItemAsync
-    [UseProjection]
-    [UseFiltering]
-    [UseSorting]
-    [Authorize]
+    
     public async Task<F_Case> PerformWorkItemAsync(
            [Service] IWorkItem iWorkItem,
            [Service] ApplicationDbContext _db,
