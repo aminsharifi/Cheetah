@@ -1,4 +1,5 @@
 ﻿namespace Cheetah.Domain.Links;
+
 [Index(nameof(FirstId), IsUnique = false, AllDescending = true)]
 [Index(nameof(SecondId), IsUnique = false, AllDescending = true)]
 public partial class L_EndorsementItemEndorsement : SimpleLinkClass

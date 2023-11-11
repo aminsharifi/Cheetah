@@ -31,16 +31,30 @@ public partial class ApplicationDbContext : IdentityDbContext
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+
+        #region Dimentios
+
+        #region D_Entity
+
+        builder.Entity<D_Entity>()
+            .HasIndex(e => e.Display)
+            .IsUnique(false);
+
         builder.Entity<D_Entity>()
             .Property(e => e.Display)
             .HasDefaultValue(true)
             .HasColumnOrder(100);
 
+        #endregion
+
+        #region D_Location
+
         builder.Entity<D_Location>()
             .Property(e => e.EndorsementItemId)
             .HasColumnOrder(110);
 
-        #region Dimentios
+        #endregion
+
         #region D_Process
 
         builder.Entity<D_Process>()
@@ -61,6 +75,10 @@ public partial class ApplicationDbContext : IdentityDbContext
         #endregion
 
         #region D_Role
+
+        builder.Entity<D_Role>()
+            .HasIndex(e => e.Independent)
+            .IsUnique(false);
 
         builder.Entity<D_Role>()
          .Property(e => e.Independent)
@@ -209,6 +227,7 @@ public partial class ApplicationDbContext : IdentityDbContext
           .HasMaxLength(215);
 
         #endregion
+
         #endregion
 
         #region Facts
@@ -356,6 +375,13 @@ public partial class ApplicationDbContext : IdentityDbContext
         builder.Seed();
     }
 
+    #region DbSets
+
+    #region Identities
+    public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+    #endregion
+
     #region Dimentions
     public virtual DbSet<D_Entity> D_Entities { get; set; }
     public virtual DbSet<D_Tag> D_Tags { get; set; }
@@ -388,5 +414,7 @@ public partial class ApplicationDbContext : IdentityDbContext
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
 
     #endregion
-    public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+    #endregion
+
 }
