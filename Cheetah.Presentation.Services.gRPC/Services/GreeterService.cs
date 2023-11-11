@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using Cheetah.Application.Business.Repository;
-using Cheetah_GrpcService;
-using Grpc.Core;
-
-namespace Cheetah.Application.Services.gRPC.Services;
+﻿namespace Cheetah.Application.Services.gRPC.Services;
 
 public class GreeterService : Greeter.GreeterBase
 {

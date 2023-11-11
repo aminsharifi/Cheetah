@@ -1,16 +1,4 @@
-﻿using AutoMapper;
-using Azure.Core;
-using Cheetah.Application.Business.Repository;
-using Cheetah.Domain;
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Facts;
-using Cheetah.Infrastructure.Persistence;
-using Cheetah_GrpcService;
-using Google.Protobuf.WellKnownTypes;
-using Grpc.Core;
-using Microsoft.EntityFrameworkCore;
-using Type = System.Type;
+﻿using Type = System.Type;
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
@@ -20,7 +8,6 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
     private readonly ITableCRUD simpleClassRepository;
     private readonly ICartable iCartable;
     private readonly ISync iSync;
-    private readonly IView iView;
     private readonly IWorkItem iWorkItem;
     private readonly IMapper _mapper;
     private readonly ICopyClass _iCopyClass;
@@ -28,7 +15,7 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
     public RequestService(ILogger<RequestService> logger,
         ApplicationDbContext db,
         ITableCRUD iP_ParameterListRepository,
-        ICartable _iCartable, ISync _iSync, IView _iView, IWorkItem _iWorkItem,
+        ICartable _iCartable, ISync _iSync,  IWorkItem _iWorkItem,
         IMapper mapper, ICopyClass _iCopyClass)
     {
         _logger = logger;
@@ -37,7 +24,6 @@ public class RequestService : Cheetah_GrpcService.Request.RequestBase
         this.simpleClassRepository = iP_ParameterListRepository;
         this.iCartable = _iCartable;
         this.iSync = _iSync;
-        this.iView = _iView;
         this.iWorkItem = _iWorkItem;
         this._iCopyClass = _iCopyClass;
     }
