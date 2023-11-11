@@ -2,11 +2,9 @@
 public partial class F_Case : SimpleClass
 {
     #region S_User
-    [Column(Order = 106)]
     public long? RequestorId { get; set; }
     public virtual D_User? Requestor { get; set; }
 
-    [Column(Order = 107)]
     public long? CreatorId { get; set; }
     public virtual D_User? Creator { get; set; }
 
