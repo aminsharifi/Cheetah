@@ -12,18 +12,12 @@ public partial class F_Case : SimpleClass
 
     #region Enitty       
 
-    [Description("وضعیت فرآیند")]
-    [Column(Order = 110)]
-    [DefaultValue(1)]
     public long? CaseStateId { get; set; }
     public virtual D_CaseState? CaseState { get; set; }
 
-    [Description("نام فرآیند")]
-    [Column(Order = 111)]
     public long? ProcessId { get; set; }
     public virtual D_Process? Process { get; set; }
-
-    [Column(Order = 113)]
+    
     public long? SelectedScenarioId { get; set; }
     public virtual F_Scenario? SelectedScenario { get; set; }
 

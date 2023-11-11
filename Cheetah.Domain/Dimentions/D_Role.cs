@@ -1,6 +1,4 @@
 namespace Cheetah.Domain.Dimentions;
-
-[Index(nameof(Independent), IsUnique = false, AllDescending = true)]
 public partial class D_Role : SimpleClass
 {
     public Boolean Independent { get; set; } = false;
