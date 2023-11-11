@@ -85,10 +85,10 @@
     {
 
         var FirstDB = await simpleClassRepository.Get(type: FirstName,
-        id: Record.FirstId, Tracking: QueryTrackingBehavior.NoTracking);
+        id: Record.FirstId, Tracking: false);
 
         var SecondDB = await simpleClassRepository.Get(type: SecondName,
-        id: Record.SecondId, Tracking: QueryTrackingBehavior.NoTracking);
+        id: Record.SecondId, Tracking: false);
 
         Record = await simpleClassRepository.AddLinkName(Record, FirstDB, SecondDB);
 
