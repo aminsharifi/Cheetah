@@ -2,26 +2,25 @@
 
 public partial class F_WorkItem : SimpleClass
 {
-    [Column(Order = 101)]
+    #region Entities
+
     public long? EndorsementId { get; set; }
     public virtual F_Endorsement? Endorsement { get; set; }
 
-    [Column(Order = 102)]
     public long? UserId { get; set; }
     public virtual D_User? User { get; set; }
 
-    [Column(Order = 103)]
     public long? CaseId { get; set; }
     [ForeignKey(nameof(CaseId))]
     public virtual F_Case? Case { get; set; }
 
-    [Column(Order = 104)]
     public long? TagId { get; set; }
     public virtual D_Tag? Tag { get; set; }
 
-    [Column(Order = 105)]
     public long? WorkItemStateId { get; set; }
     public virtual D_WorkItemState? WorkItemState { get; set; }
+
+    #endregion
 
     #region Functions
     public F_WorkItem ShallowCopy()

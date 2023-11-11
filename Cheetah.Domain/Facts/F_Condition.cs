@@ -1,26 +1,21 @@
 ﻿namespace Cheetah.Domain.Facts;
 public partial class F_Condition : SimpleClass
 {
-    [Column(Order = 100)]
+    
     public long? TagId { get; set; }
     public virtual D_Tag? Tag { get; set; }
 
-    [Column(Order = 101)]
     public long? OperandId { get; set; }
     public virtual D_Operand? Operand { get; set; }
 
-    [Column(Order = 102)]
     public String? Value { get; set; }
 
-    [Column(Order = 103)]
     public long? ScenarioId { get; set; }
     public virtual F_Scenario? Scenario { get; set; }
 
-    [Column(Order = 105)]
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
 
-    [Column(Order = 109)]
     public long? EndorsementItemId { get; set; }
     [ForeignKey(nameof(EndorsementItemId))]
     public virtual F_EndorsementItem? EndorsementItem { get; set; }
