@@ -3,7 +3,6 @@ using Cheetah.Domain;
 using Cheetah.Domain.Data;
 using Cheetah.Domain.Dimentions;
 using Cheetah.Domain.Facts;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Cheetah.Presentation.Web.Blazor.Client.Service;
@@ -113,7 +112,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public async Task<SimpleClass> Get(string type, long? id, QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll)
+    public async Task<SimpleClass> Get(string type, long? id, Boolean Tracking = true)
     {
         var response = await _httpClient.GetAsync($"/{type} /{id}");
         var content = await response.Content.ReadAsStringAsync();
@@ -244,7 +243,7 @@ public class D_ParameterTypeService : ITableCRUD
     }
 
     public Task<SimpleClass> Get(string type, string? recordName,
-        QueryTrackingBehavior Tracking = QueryTrackingBehavior.TrackAll, params String[] TableIncludes)
+        Boolean Tracking = true, params String[] TableIncludes)
     {
         throw new NotImplementedException();
     }
