@@ -1,6 +1,7 @@
 ﻿using Cheetah.Domain.Dimentions;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Reflection.Emit;
 
 namespace Cheetah.Infrastructure.Persistence;
@@ -39,6 +40,7 @@ public partial class ApplicationDbContext : IdentityDbContext
             .Property(e => e.EndorsementItemId)
             .HasColumnOrder(110);
 
+        #region Dimentios
         #region D_Process
 
         builder.Entity<D_Process>()
@@ -205,6 +207,134 @@ public partial class ApplicationDbContext : IdentityDbContext
           .Property(e => e.RegistrationNumber)
           .HasColumnOrder(113)
           .HasMaxLength(215);
+
+        #endregion
+        #endregion
+
+        #region Facts
+
+        #region F_Attachment
+        builder.Entity<F_Attachment>()
+            .Property(e => e.Name)
+            .HasColumnOrder(100)
+            .HasMaxLength(255);
+
+        builder.Entity<F_Attachment>()
+            .Property(e => e.Data)
+            .HasColumnOrder(101);
+        #endregion
+
+        #region F_Case
+
+        builder.Entity<F_Case>()
+            .Property(e => e.RequestorId)
+            .HasColumnOrder(106);
+
+        builder.Entity<F_Case>()
+            .Property(e => e.CreatorId)
+            .HasColumnOrder(107);
+
+        #region Enitty       
+
+        builder.Entity<F_Case>()
+            .Property(e => e.CaseStateId)
+            .HasColumnOrder(110);
+
+        builder.Entity<F_Case>()
+            .Property(e => e.ProcessId)
+            .HasColumnOrder(111);
+
+        builder.Entity<F_Case>()
+            .Property(e => e.SelectedScenarioId)
+            .HasColumnOrder(113);
+
+        #endregion
+
+        #endregion
+
+        #region F_Condition
+
+        builder.Entity<F_Condition>()
+            .Property(e => e.TagId)
+            .HasColumnOrder(100);
+
+        builder.Entity<F_Condition>()
+            .Property(e => e.OperandId)
+            .HasColumnOrder(101);
+
+        builder.Entity<F_Condition>()
+            .Property(e => e.Value)
+            .HasColumnOrder(102);
+
+        builder.Entity<F_Condition>()
+            .Property(e => e.ScenarioId)
+            .HasColumnOrder(103);
+
+        builder.Entity<F_Condition>()
+            .Property(e => e.CaseId)
+            .HasColumnOrder(105);
+
+        builder.Entity<F_Condition>()
+            .Property(e => e.EndorsementItemId)
+            .HasColumnOrder(109);
+
+        #endregion
+
+        #region F_Endorsement
+
+        builder.Entity<F_Endorsement>()
+         .Property(e => e.RoleId)
+         .HasColumnOrder(100);
+
+        builder.Entity<F_Endorsement>()
+         .Property(e => e.ScenarioId)
+         .HasColumnOrder(101);
+
+        builder.Entity<F_Endorsement>()
+         .Property(e => e.EndorsementItemId)
+         .HasColumnOrder(102);
+
+        builder.Entity<F_Endorsement>()
+         .Property(e => e.ConditionId)
+         .HasColumnOrder(103);
+
+        #endregion
+
+        #region F_EndorsementItem
+
+        builder.Entity<F_EndorsementItem>()
+           .Property(e => e.CaseStateId)
+           .HasColumnOrder(101);
+
+        builder.Entity<F_EndorsementItem>()
+         .Property(e => e.EndorsementId)
+         .HasColumnOrder(102);
+
+        #endregion
+
+        #region F_WorkItem
+
+        builder.Entity<F_WorkItem>()
+            .Property(e => e.EndorsementId)
+            .HasColumnOrder(101);
+
+        builder.Entity<F_WorkItem>()
+            .Property(e => e.UserId)
+            .HasColumnOrder(102);
+
+        builder.Entity<F_WorkItem>()
+            .Property(e => e.CaseId)
+            .HasColumnOrder(103);
+
+        builder.Entity<F_WorkItem>()
+            .Property(e => e.TagId)
+            .HasColumnOrder(104);
+
+        builder.Entity<F_WorkItem>()
+            .Property(e => e.WorkItemStateId)
+            .HasColumnOrder(105);
+
+        #endregion
 
         #endregion
 
