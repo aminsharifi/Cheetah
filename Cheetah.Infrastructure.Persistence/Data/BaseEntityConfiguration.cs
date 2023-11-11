@@ -42,7 +42,7 @@ public static class BaseEntityConfiguration
 
             #region Id
             builder
-                  .Property(s => s.Id)                  
+                  .Property(s => s.Id)
                   .HasColumnOrder(1)
                   .HasDefaultValue((long)0);
             #endregion
@@ -118,6 +118,34 @@ public static class BaseEntityConfiguration
             #endregion
 
         });
+    }
+
+    static void ConfigureLink<TEntity>(ModelBuilder modelBuilder)
+       where TEntity : SimpleLinkClass
+    {
+        Configure<TEntity>(modelBuilder);
+
+        modelBuilder.Entity<TEntity>(builder =>
+        {
+            builder
+              .HasIndex(x => x.FirstId)
+              .IsDescending()
+              .IsUnique();
+
+            builder
+              .HasIndex(x => x.SecondId)
+              .IsDescending()
+              .IsUnique();
+
+            builder
+               .Property(s => s.FirstId)
+               .HasColumnOrder(100);
+
+            builder
+               .Property(s => s.SecondId)
+               .HasColumnOrder(101);
+        }
+        );
     }
 
     public static ModelBuilder ApplyBaseEntityConfiguration(this ModelBuilder modelBuilder)
