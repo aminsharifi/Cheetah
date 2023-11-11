@@ -366,4 +366,37 @@
   <data name="BlazorServer_Welcome" xml:space="preserve">
     <value>{0} خوش آمدید</value>
   </data>
+  <data name="Domain_Description" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="Domain_DisplayName" xml:space="preserve">
+    <value>نام نمایشی</value>
+  </data>
+  <data name="Domain_EnableRecord" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="Domain_ERPCode" xml:space="preserve">
+    <value>کد در ERP</value>
+  </data>
+  <data name="Domain_Id" xml:space="preserve">
+    <value>شناسه</value>
+  </data>
+  <data name="Domain_InsertRow" xml:space="preserve">
+    <value>ایجاد ردیف</value>
+  </data>
+  <data name="Domain_Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="Domain_RowDescription" xml:space="preserve">
+    <value>ردیف '{0}'</value>
+  </data>
+  <data name="Domain_SortIndex" xml:space="preserve">
+    <value>اندیس مرتب‌سازی</value>
+  </data>
+  <data name="Domain_TableDescription" xml:space="preserve">
+    <value>جدول {0}</value>
+  </data>
+  <data name="Domain_Tablelist" xml:space="preserve">
+    <value>لیست جدول‌ها</value>
+  </data>
 </root>

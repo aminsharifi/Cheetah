@@ -1,9 +1,4 @@
-﻿using Cheetah.Domain;
-using Cheetah.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Application.Services.gRPC.Services;
+﻿namespace Cheetah.Application.Services.gRPC.Services;
 
 public interface IDbInitializer
 {

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain;
+﻿using System.Text;
+
+namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
 public enum CNavigationEnum
 {
     complete,
@@ -11,14 +13,14 @@ public class CNavigationStruct
     public String Address { get; set; }
     public String DisplayName { get; set; }
     public String Reference { get; set; }
-    public CNavigationEnum? CNavigationEnum { get; set; }
+    public CNavigationEnum? _CNavigationEnum { get; set; }
 
     public CNavigationStruct(Int64? id, String address, String displayName, String Reference)
     {
         this.Id = id;
         this.Address = address;
         this.DisplayName = displayName;
-        this.CNavigationEnum = Domain.CNavigationEnum.current;
+        this._CNavigationEnum = CNavigationEnum.current;
         this.Reference = Reference;
     }
 }
@@ -33,7 +35,7 @@ public class CNavigation
     }
     public void AddNavigation(CNavigationStruct navigationStruct)
     {
-        NavigationList.ForEach(x => x.CNavigationEnum = CNavigationEnum.complete);
+        NavigationList.ForEach(x => x._CNavigationEnum = CNavigationEnum.complete);
         this.NavigationList.Add(
             new CNavigationStruct(
                 id: navigationStruct.Id,
