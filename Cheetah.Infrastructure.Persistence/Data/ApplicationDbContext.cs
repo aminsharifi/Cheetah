@@ -1,10 +1,4 @@
-﻿using Cheetah.Domain.Dimentions;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.Reflection.Emit;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 
 public partial class ApplicationDbContext : IdentityDbContext
 {
