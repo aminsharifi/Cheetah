@@ -1,2 +1,0 @@
-Add-Migration seed -Args "--provider Npgsql"
-Add-Migration seed -Args "--provider SqlServer"
