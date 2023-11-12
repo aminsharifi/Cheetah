@@ -2,7 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 1988
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -23,7 +24,4 @@ RUN dotnet publish "Cheetah.Presentation.Web.Blazor.Server.csproj" -c Release -o
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN chown -R 1988:1988 /app
-RUN useradd -u 1988 cheetah
-USER cheetah
 ENTRYPOINT ["dotnet", "Cheetah.Presentation.Web.Blazor.Server.dll"]
