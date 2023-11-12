@@ -15,10 +15,10 @@ COPY ["src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infras
 RUN dotnet restore "src/Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
-RUN dotnet build  -c Release -o /app/build
+RUN dotnet build "Cheetah.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Cheetah.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
