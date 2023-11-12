@@ -7,13 +7,13 @@ EXPOSE 1990
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj", "src/Cheetah.Presentation.Services.gRPC/"]
-COPY ["Cheetah.Application.Business/Cheetah.Application.Business.csproj", "src/Cheetah.Application.Business/"]
-COPY ["Cheetah.Domain/Cheetah.Domain.csproj", "src/Cheetah.Domain/"]
-COPY ["Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/"]
-COPY ["Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence.csproj", "src/Cheetah.Infrastructure.Persistence/"]
-COPY ["Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
-RUN dotnet restore "Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj"
+COPY ["src/Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj", "Cheetah.Presentation.Services.gRPC/"]
+COPY ["src/Cheetah.Application.Business/Cheetah.Application.Business.csproj", "Cheetah.Application.Business/"]
+COPY ["src/Cheetah.Domain/Cheetah.Domain.csproj", "Cheetah.Domain/"]
+COPY ["src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj", "Cheetah.Infrastructure.Persistence.Providers.Npgsql/"]
+COPY ["src/Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence.csproj", "Cheetah.Infrastructure.Persistence/"]
+COPY ["src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
+RUN dotnet restore "src/Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj"
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Services.gRPC"
 RUN dotnet build  -c Release -o /app/build
