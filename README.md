@@ -28,19 +28,19 @@ ORM: Entity Framework Core
 
 ## Screenshots
 
-![Blazor Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/Blazor_Table.png)
+![Blazor Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Blazor_Table.png)
 
-![Blazor Upsert Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/Blazor_Upsert_Table.png)
+![Blazor Upsert Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Blazor_Upsert_Table.png)
 
-![GraphQL Query](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/GraphQL_Query.png)
+![GraphQL Query](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/GraphQL_Query.png)
 
-![GraphQL Mutation](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/GraphQL_Mutation.png)
+![GraphQL Mutation](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/GraphQL_Mutation.png)
 
-![Swagger](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/Swagger.png)
+![Swagger](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Swagger.png)
 
-![Postgres](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/Postgres.png)
+![Postgres](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Postgres.png)
 
-![SQL_Sever](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/Images/Cheetah/SQL_Sever.png)
+![SQL_Sever](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/SQL_Sever.png)
 
 ## Contributing
 
