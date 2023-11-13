@@ -1,9 +1,11 @@
 ﻿namespace Cheetah.Domain.Data;
 
+/// <summary>
+/// CartableDTO use for Inbox and Outbox
+/// </summary>
 public class CartableDTO
 {
     private readonly CPersianClass?  cPersianClass = new ();
-
     public Int64? PageNumber { get; set; }
     public Int64? ERPCode { get; set; }
     public Int64? PageSize { get; set; }
