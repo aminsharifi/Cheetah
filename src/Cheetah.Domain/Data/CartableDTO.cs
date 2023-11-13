@@ -2,7 +2,7 @@
 
 public class CartableDTO
 {
-    private CPersianClass? cPersianClass = new CPersianClass();
+    private readonly CPersianClass?  cPersianClass = new ();
 
     public Int64? PageNumber { get; set; }
     public Int64? ERPCode { get; set; }

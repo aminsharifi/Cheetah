@@ -562,12 +562,12 @@
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = nameof(L_ProcessScenario),
-                firstType = nameof(D_Process),
-                secondType = nameof(F_Scenario),
-                fixedId = Id,
-                sd_Status = nameof(LinkProperty.Second),
-                floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+                LinkType = nameof(L_ProcessScenario),
+                FirstType = nameof(D_Process),
+                SecondType = nameof(F_Scenario),
+                FixedId = Id,
+                Sd_Status = nameof(LinkProperty.Second),
+                FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
                         .ToDictionary(x => x.Key, x => x.Value)

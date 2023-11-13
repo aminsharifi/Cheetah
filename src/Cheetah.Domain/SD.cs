@@ -1,20 +1,16 @@
-﻿using Cheetah.Resx;
-
-namespace Cheetah.Domain;
+﻿namespace Cheetah.Domain;
 public class CPersianClass
 {
-    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Domain));
     public string GetPersianDate(DateTime? date)
     {
-        if (date.HasValue)
-        {
-            PersianCalendar p = new PersianCalendar();
-            var CDate = p.GetYear(date.Value) + "/" + p.GetMonth(date.Value) + "/" + p.GetDayOfMonth(date.Value);
-            var CTime = date.Value.ToString("HH:mm");
-            return CTime + " " + CDate;
-        }
-        else
+        if (!date.HasValue)
             return String.Empty;
+
+        PersianCalendar p = new ();
+        var CDate = p.GetYear(date.Value) + "/" + p.GetMonth(date.Value) + "/" + p.GetDayOfMonth(date.Value);
+        var CTime = date.Value.ToString("HH:mm");
+        return CTime + " " + CDate; 
+
     }
 }
 public enum CartableProperty
@@ -58,17 +54,17 @@ public enum CrudOperation
 
 public class UpsertStatus
 {
-    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Domain));
+    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Domain));
 
     public KeyValuePair<CrudOperation, String> GetPageTitle(long? id)
     {
         if (id == 0)
         {
-            return new KeyValuePair<CrudOperation, string>(CrudOperation.Create, iGlobalization.GetValue(Resx.Localization.Domain_Create));
+            return new KeyValuePair<CrudOperation, string>(CrudOperation.Create, GlobalizationService.GetValue(Localization.Domain_Create));
         }
         else
         {
-            return new KeyValuePair<CrudOperation, string>(CrudOperation.Update, iGlobalization.GetValue(Resx.Localization.Domain_Update));
+            return new KeyValuePair<CrudOperation, string>(CrudOperation.Update, GlobalizationService.GetValue(Localization.Domain_Update));
         }
     }
 }

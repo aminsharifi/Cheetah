@@ -120,6 +120,21 @@
   <data name="Domain_Create" xml:space="preserve">
     <value>ایجاد</value>
   </data>
+  <data name="Domain_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Domain_DuplicateErrorCreateRequest" xml:space="preserve">
+    <value>درخواست پیشین با شماره رهیگری {0} در چیتا ثبت شده است</value>
+  </data>
+  <data name="Domain_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Domain_SuccessCreateRequest" xml:space="preserve">
+    <value>درخواست با شماره رهیگری {0} با موفقیت در چیتا ثبت شد</value>
+  </data>
+  <data name="Domain_SuccessPerformWorkItem" xml:space="preserve">
+    <value>درخواست با شماره کار {0} با موفقیت در چیتا ارسال شد</value>
+  </data>
   <data name="Domain_Update" xml:space="preserve">
     <value>ویرایش</value>
   </data>
