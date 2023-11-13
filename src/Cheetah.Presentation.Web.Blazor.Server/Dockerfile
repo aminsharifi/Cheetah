@@ -12,7 +12,7 @@ COPY ["src/Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence
 COPY ["src/Cheetah.Application.Business/Cheetah.Application.Business.csproj", "Cheetah.Application.Business/"]
 COPY ["src/Cheetah.Domain/Cheetah.Domain.csproj", "Cheetah.Domain/"]
 COPY ["src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
-RUN dotnet restore "src/Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
+RUN dotnet restore "Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
 RUN dotnet build  -c Release -o /app/build
