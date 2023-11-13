@@ -97,7 +97,6 @@ builder.Services.AddBootstrapBlazor();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
