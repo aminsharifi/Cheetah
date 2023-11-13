@@ -28,12 +28,12 @@
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = nameof(L_RolePosition),
-                firstType = nameof(D_Role),
-                secondType = nameof(D_Position),
-                fixedId = Id,
-                sd_Status = nameof(LinkProperty.First),
-                floatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+                LinkType = nameof(L_RolePosition),
+                FirstType = nameof(D_Role),
+                SecondType = nameof(D_Position),
+                FixedId = Id,
+                Sd_Status = nameof(LinkProperty.First),
+                FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
                                             .ToDictionary(x => x.Key, x => x.Value)
