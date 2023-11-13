@@ -6,7 +6,8 @@ public class Globalization : IGlobalization
     {
         AssemblyName = _AssemblyName;
     }
-    public String GetValue(String Key, object[]? arg0)
+
+    private ResourceManager GetResourceManager()
     {
         var StartTime = DateTime.Now;
 
@@ -14,14 +15,27 @@ public class Globalization : IGlobalization
 
         var currentNameSapce = assembly.GetName().Name;
         var basename = currentNameSapce + ".Resx.Localization";
-        var ReturnValue = String.Empty;
         ResourceManager resourceManager =
         new ResourceManager(basename, assembly);
-        ReturnValue =
-                String.Format(resourceManager.GetString(Key), arg0);
+        return resourceManager;
+    }
+
+    public String GetValue(String Key)
+    {
+        var resourceManager = GetResourceManager();
+
+        var ReturnValue = resourceManager.GetString(Key);
+
         return ReturnValue;
+    }
 
+    public String GetValue(String Key, object[]? arg0)
+    {
+        var resourceManager = GetResourceManager();
 
+        var ReturnValue =
+              String.Format(resourceManager.GetString(Key), arg0);
+        return ReturnValue;
     }
 }
 

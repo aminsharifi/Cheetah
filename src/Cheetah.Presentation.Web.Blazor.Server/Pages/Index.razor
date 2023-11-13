@@ -1,17 +1,17 @@
 ﻿@page "/Request"
 @inject IJSRuntime _JSRuntime
 @inject IGlobalization globalization
-<PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_NewMessage), new String[] { }))</PageTitle>
+<PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_NewMessage) ))</PageTitle>
 
     <div>
-        <h1>@(globalization.GetValue(nameof(Localization.BlazorServer_ModelDiagram), new String[] { }))</h1>
+        <h1>@(globalization.GetValue(nameof(Localization.BlazorServer_ModelDiagram) ))</h1>
     <br />
     <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;width: 20em;">
         <button id="save-button" class="btn btn-info">
-            @(globalization.GetValue(nameof(Localization.BlazorServer_Save), new String[] { }))
+            @(globalization.GetValue(nameof(Localization.BlazorServer_Save) ))
         </button>
         <button class="btn btn-primary" @onclick="TestConfirmation">
-            @(globalization.GetValue(nameof(Localization.BlazorServer_Upload), new String[] { }))
+            @(globalization.GetValue(nameof(Localization.BlazorServer_Upload) ))
         </button>
     </div>
 </div>
@@ -32,7 +32,7 @@
     private async Task TestConfirmation()
     {
         await _JSRuntime.InvokeVoidAsync("ShowBPMN");
-        value = globalization.GetValue(nameof(Localization.BlazorServer_Upload), new String[] { });
+        value = globalization.GetValue(nameof(Localization.BlazorServer_Upload) );
     }
 
 
