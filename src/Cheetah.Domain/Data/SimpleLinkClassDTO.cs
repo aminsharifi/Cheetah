@@ -2,10 +2,10 @@
 
 public class SimpleLinkClassDTO
 {
-    public string linkType { get; set; }
-    public string firstType { get; set; }
-    public string secondType { get; set; }
-    public string sd_Status { get; set; }
-    public long? fixedId { get; set; }
-    public Dictionary<Tuple<long?, string>, bool> floatState { get; set; }
+    public string LinkType { get; set; }
+    public string FirstType { get; set; }
+    public string SecondType { get; set; }
+    public string Sd_Status { get; set; }
+    public long? FixedId { get; set; }
+    public Dictionary<Tuple<long?, string>, bool> FloatState { get; set; }
 }

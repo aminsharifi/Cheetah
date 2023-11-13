@@ -163,15 +163,15 @@ public class TableCRUD : ITableCRUD
     }
     public async Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO)
     {
-        var gtype = DatabaseClass.GetDBType(obj_DTO.linkType);
+        var gtype = DatabaseClass.GetDBType(obj_DTO.LinkType);
 
         var simpleLinkClass = new List<SimpleLinkClass>();
 
         var fixedInstance = await Get(
-            type: obj_DTO.sd_Status == nameof(LinkProperty.First) ? obj_DTO.firstType : obj_DTO.secondType,
-            id: obj_DTO.fixedId, Tracking: false);
+            type: obj_DTO.Sd_Status == nameof(LinkProperty.First) ? obj_DTO.FirstType : obj_DTO.SecondType,
+            id: obj_DTO.FixedId, Tracking: false);
 
-        foreach (var link in obj_DTO.floatState.Where(x => x.Value))
+        foreach (var link in obj_DTO.FloatState.Where(x => x.Value))
         {
             var instance = (SimpleLinkClass)Activator.CreateInstance(gtype);
 
@@ -181,33 +181,33 @@ public class TableCRUD : ITableCRUD
             }
             else
             {
-                instance = await GetLast(obj_DTO.linkType) as SimpleLinkClass;
+                instance = await GetLast(obj_DTO.LinkType) as SimpleLinkClass;
             }
 
             Type firstType, secondType;
 
-            firstType = DatabaseClass.GetDBType(obj_DTO.firstType);
+            firstType = DatabaseClass.GetDBType(obj_DTO.FirstType);
 
-            secondType = DatabaseClass.GetDBType(obj_DTO.secondType);
+            secondType = DatabaseClass.GetDBType(obj_DTO.SecondType);
 
 
-            if (obj_DTO.sd_Status == nameof(LinkProperty.First))
+            if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
-                instance.FirstId = obj_DTO.fixedId;
+                instance.FirstId = obj_DTO.FixedId;
                 instance.SecondId = link.Key.Item1;
 
             }
             else
             {
                 instance.FirstId = link.Key.Item1;
-                instance.SecondId = obj_DTO.fixedId;
+                instance.SecondId = obj_DTO.FixedId;
             }
 
             var floatedInstance = await Get(
-            type: obj_DTO.sd_Status == nameof(LinkProperty.First) ? obj_DTO.secondType : obj_DTO.firstType,
+            type: obj_DTO.Sd_Status == nameof(LinkProperty.First) ? obj_DTO.SecondType : obj_DTO.FirstType,
             id: link.Key.Item1, Tracking: false);
 
-            if (obj_DTO.sd_Status == nameof(LinkProperty.First))
+            if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
                 instance = await AddLinkName(instance, fixedInstance, floatedInstance);
             }
@@ -221,9 +221,9 @@ public class TableCRUD : ITableCRUD
 
         var allLink = await GetAllLink
         (
-            obj_DTO.linkType,
-            obj_DTO.sd_Status,
-            obj_DTO.fixedId
+            obj_DTO.LinkType,
+            obj_DTO.Sd_Status,
+            obj_DTO.FixedId
         );
 
         _db.RemoveRange(allLink);

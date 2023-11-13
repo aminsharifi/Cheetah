@@ -16,7 +16,7 @@ public class Globalization : IGlobalization
         var currentNameSapce = assembly.GetName().Name;
         var basename = currentNameSapce + ".Resx.Localization";
         ResourceManager resourceManager =
-        new ResourceManager(basename, assembly);
+        new (basename, assembly);
         return resourceManager;
     }
 
