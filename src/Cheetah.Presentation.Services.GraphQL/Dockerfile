@@ -6,7 +6,7 @@ EXPOSE 1991
 EXPOSE 1992
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
+WORKDIR /
 COPY ["src/Cheetah.Presentation.Services.GraphQL/Cheetah.Presentation.Services.GraphQL.csproj", "src/Cheetah.Presentation.Services.GraphQL/"]
 COPY ["src/Cheetah.Application.Business/Cheetah.Application.Business.csproj", "src/Cheetah.Application.Business/"]
 COPY ["src/Cheetah.Domain/Cheetah.Domain.csproj", "src/Cheetah.Domain/"]
@@ -15,7 +15,7 @@ COPY ["src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastru
 COPY ["src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
 RUN dotnet restore "src/Cheetah.Presentation.Services.GraphQL/Cheetah.Presentation.Services.GraphQL.csproj"
 COPY . .
-WORKDIR "/src/src/Cheetah.Presentation.Services.GraphQL"
+WORKDIR "/src/Cheetah.Presentation.Services.GraphQL"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
