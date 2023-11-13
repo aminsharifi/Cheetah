@@ -19,12 +19,12 @@
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
-                linkType = nameof(L_UserPosition),
-                firstType = nameof(D_User),
-                secondType = nameof(D_Position),
-                fixedId = Id,
-                sd_Status = nameof(LinkProperty.Second),
-                floatState = d_User.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+                LinkType = nameof(L_UserPosition),
+                FirstType = nameof(D_User),
+                SecondType = nameof(D_Position),
+                FixedId = Id,
+                Sd_Status = nameof(LinkProperty.Second),
+                FloatState = d_User.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     l_UserArea.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
                             .ToDictionary(x => x.Key, x => x.Value)

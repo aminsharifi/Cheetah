@@ -64,14 +64,14 @@ public class CUpsert_GeneralCode : SharedPage
             if (IsNew)
             {
                 Record = await simpleClassRepository.Create(Record);
-                LinkRecords.fixedId = Record.Id;
+                LinkRecords.FixedId = Record.Id;
             }
             else
             {
                 Record = await simpleClassRepository.Update(Record);
             }
 
-            if (LinkRecords.sd_Status != null)
+            if (LinkRecords.Sd_Status != null)
             {
                 await UpdateLink();
             }

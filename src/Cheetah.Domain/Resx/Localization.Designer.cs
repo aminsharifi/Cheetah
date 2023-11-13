@@ -70,6 +70,51 @@ namespace Cheetah.Domain.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duplicate.
+        /// </summary>
+        public static string Domain_Duplicate {
+            get {
+                return ResourceManager.GetString("Domain_Duplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to درخواست پیشین با شماره رهیگری {0} در چیتا ثبت شده است.
+        /// </summary>
+        public static string Domain_DuplicateErrorCreateRequest {
+            get {
+                return ResourceManager.GetString("Domain_DuplicateErrorCreateRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string Domain_Success {
+            get {
+                return ResourceManager.GetString("Domain_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to درخواست با شماره رهیگری {0} با موفقیت در چیتا ثبت شد.
+        /// </summary>
+        public static string Domain_SuccessCreateRequest {
+            get {
+                return ResourceManager.GetString("Domain_SuccessCreateRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to درخواست با شماره کار {0} با موفقیت در چیتا ارسال شد.
+        /// </summary>
+        public static string Domain_SuccessPerformWorkItem {
+            get {
+                return ResourceManager.GetString("Domain_SuccessPerformWorkItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ویرایش.
         /// </summary>
         public static string Domain_Update {
