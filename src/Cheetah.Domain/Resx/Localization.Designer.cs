@@ -59,5 +59,23 @@ namespace Cheetah.Domain.Resx {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ایجاد.
+        /// </summary>
+        public static string Domain_Create {
+            get {
+                return ResourceManager.GetString("Domain_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ویرایش.
+        /// </summary>
+        public static string Domain_Update {
+            get {
+                return ResourceManager.GetString("Domain_Update", resourceCulture);
+            }
+        }
     }
 }

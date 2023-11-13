@@ -1,6 +1,9 @@
-﻿namespace Cheetah.Domain;
+﻿using Cheetah.Resx;
+
+namespace Cheetah.Domain;
 public class CPersianClass
 {
+    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Domain));
     public string GetPersianDate(DateTime? date)
     {
         if (date.HasValue)
@@ -53,17 +56,19 @@ public enum CrudOperation
     Delete
 }
 
-public struct UpsertStatus
+public class UpsertStatus
 {
+    public IGlobalization iGlobalization = new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Domain));
+
     public KeyValuePair<CrudOperation, String> GetPageTitle(long? id)
     {
         if (id == 0)
         {
-            return new KeyValuePair<CrudOperation, string>(CrudOperation.Create, "ایجاد");
+            return new KeyValuePair<CrudOperation, string>(CrudOperation.Create, iGlobalization.GetValue(Resx.Localization.Domain_Create));
         }
         else
         {
-            return new KeyValuePair<CrudOperation, string>(CrudOperation.Update, "ویرایش");
+            return new KeyValuePair<CrudOperation, string>(CrudOperation.Update, iGlobalization.GetValue(Resx.Localization.Domain_Update));
         }
     }
 }

@@ -29,8 +29,8 @@ public class CUpsert_GeneralCode : SharedPage
     {
         if (LoadData)
         {
-            string rowAdd = globalization.GetValue(nameof(Localization.BlazorServer_Add), new String[] { });
-            string rowSave = globalization.GetValue(nameof(Localization.BlazorServer_Save), new String[] { });
+            string rowAdd = globalization.GetValue(nameof(Localization.BlazorServer_Add) );
+            string rowSave = globalization.GetValue(nameof(Localization.BlazorServer_Save) );
 
             Title = (Id > 0) ? rowSave : rowAdd;
             await LoadDTO();
