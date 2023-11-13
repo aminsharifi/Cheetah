@@ -75,19 +75,19 @@ public class CNavigation
     }
     public String LoadNavigation(String Address, String RowDescription, Int64? RowId, String Reference)
     {
-        var ttt = iGlobalization.GetValue(nameof(Localization.Domain_InsertRow), new string[] { });
+        var ttt = iGlobalization.GetValue(nameof(Localization.BlazorServer_InsertRow) );
 
         if (!string.IsNullOrEmpty(Reference))
             Deserialize(Reference);
 
         var PDescription = (RowId > 0) ?
-            iGlobalization.GetValue(nameof(Localization.Domain_RowDescription), new[] { RowDescription }) :
+            iGlobalization.GetValue(nameof(Localization.BlazorServer_RowDescId), new[] { RowDescription }) :
             (Address.StartsWith("List/")) ?
-            iGlobalization.GetValue(nameof(Localization.Domain_Tablelist), new string[] { }) :
-            iGlobalization.GetValue(nameof(Localization.Domain_InsertRow), new string[] { });
+            iGlobalization.GetValue(nameof(Localization.BlazorServer_Tablelist) ) :
+            iGlobalization.GetValue(nameof(Localization.BlazorServer_InsertRow) );
 
         if (!RowId.HasValue)
-            PDescription = iGlobalization.GetValue(nameof(Localization.Domain_TableDescription), new string[] { RowDescription });
+            PDescription = iGlobalization.GetValue(nameof(Localization.BlazorServer_TableDescription), new string[] { RowDescription });
 
         this.AddNavigation(new CNavigationStruct(
         id: RowId,

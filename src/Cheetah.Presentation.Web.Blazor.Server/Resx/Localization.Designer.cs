@@ -232,6 +232,24 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to توضیحات.
+        /// </summary>
+        internal static string BlazorServer_Description {
+            get {
+                return ResourceManager.GetString("BlazorServer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام نمایشی.
+        /// </summary>
+        internal static string BlazorServer_DisplayName {
+            get {
+                return ResourceManager.GetString("BlazorServer_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ویرایش پارامتر.
         /// </summary>
         internal static string BlazorServer_EditParameter {
@@ -259,11 +277,29 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to فعال.
+        /// </summary>
+        internal static string BlazorServer_EnableRecord {
+            get {
+                return ResourceManager.GetString("BlazorServer_EnableRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to لیست ‌تاییدها.
         /// </summary>
         internal static string BlazorServer_EndorsementsList {
             get {
                 return ResourceManager.GetString("BlazorServer_EndorsementsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کد در ERP.
+        /// </summary>
+        internal static string BlazorServer_ERPCode {
+            get {
+                return ResourceManager.GetString("BlazorServer_ERPCode", resourceCulture);
             }
         }
         
@@ -340,6 +376,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شناسه.
+        /// </summary>
+        internal static string BlazorServer_Id {
+            get {
+                return ResourceManager.GetString("BlazorServer_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to صندوق ورودی.
         /// </summary>
         internal static string BlazorServer_Inbox {
@@ -354,6 +399,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         internal static string BlazorServer_Independ {
             get {
                 return ResourceManager.GetString("BlazorServer_Independ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ایجاد ردیف.
+        /// </summary>
+        internal static string BlazorServer_InsertRow {
+            get {
+                return ResourceManager.GetString("BlazorServer_InsertRow", resourceCulture);
             }
         }
         
@@ -390,6 +444,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         internal static string BlazorServer_ModelDiagram {
             get {
                 return ResourceManager.GetString("BlazorServer_ModelDiagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نام.
+        /// </summary>
+        internal static string BlazorServer_Name {
+            get {
+                return ResourceManager.GetString("BlazorServer_Name", resourceCulture);
             }
         }
         
@@ -583,6 +646,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ردیف &apos;{0}&apos;.
+        /// </summary>
+        internal static string BlazorServer_RowDescId {
+            get {
+                return ResourceManager.GetString("BlazorServer_RowDescId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to توضیحات.
         /// </summary>
         internal static string BlazorServer_RowDescription {
@@ -718,6 +790,24 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to جدول {0}.
+        /// </summary>
+        internal static string BlazorServer_TableDescription {
+            get {
+                return ResourceManager.GetString("BlazorServer_TableDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لیست جدول‌ها.
+        /// </summary>
+        internal static string BlazorServer_Tablelist {
+            get {
+                return ResourceManager.GetString("BlazorServer_Tablelist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to نام جدول: {0}.
         /// </summary>
         internal static string BlazorServer_TableName {
@@ -804,105 +894,6 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         internal static string BlazorServer_Welcome {
             get {
                 return ResourceManager.GetString("BlazorServer_Welcome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to توضیحات.
-        /// </summary>
-        internal static string Domain_Description {
-            get {
-                return ResourceManager.GetString("Domain_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to نام نمایشی.
-        /// </summary>
-        internal static string Domain_DisplayName {
-            get {
-                return ResourceManager.GetString("Domain_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to فعال.
-        /// </summary>
-        internal static string Domain_EnableRecord {
-            get {
-                return ResourceManager.GetString("Domain_EnableRecord", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to کد در ERP.
-        /// </summary>
-        internal static string Domain_ERPCode {
-            get {
-                return ResourceManager.GetString("Domain_ERPCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to شناسه.
-        /// </summary>
-        internal static string Domain_Id {
-            get {
-                return ResourceManager.GetString("Domain_Id", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ایجاد ردیف.
-        /// </summary>
-        internal static string Domain_InsertRow {
-            get {
-                return ResourceManager.GetString("Domain_InsertRow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to نام.
-        /// </summary>
-        internal static string Domain_Name {
-            get {
-                return ResourceManager.GetString("Domain_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ردیف &apos;{0}&apos;.
-        /// </summary>
-        internal static string Domain_RowDescription {
-            get {
-                return ResourceManager.GetString("Domain_RowDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to اندیس مرتب‌سازی.
-        /// </summary>
-        internal static string Domain_SortIndex {
-            get {
-                return ResourceManager.GetString("Domain_SortIndex", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to جدول {0}.
-        /// </summary>
-        internal static string Domain_TableDescription {
-            get {
-                return ResourceManager.GetString("Domain_TableDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to لیست جدول‌ها.
-        /// </summary>
-        internal static string Domain_Tablelist {
-            get {
-                return ResourceManager.GetString("Domain_Tablelist", resourceCulture);
             }
         }
     }
