@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Version>1.0.14</Version>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -21,11 +21,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="7.12.1" />
-		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.63.0.3030" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.13" />
+		<PackageReference Include="BootstrapBlazor" Version="8.0.0" />
+		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.64.0.3030" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.11" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
 		<PackageReference Include="MudBlazor" Version="6.11.0" />
 	</ItemGroup>
 

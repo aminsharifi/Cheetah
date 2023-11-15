@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Version>1.0.14</Version>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>77325be2-ba4e-4194-9f27-03ee80f90846</UserSecretsId>
@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore" Version="2.58.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.59.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 	</ItemGroup>
 
