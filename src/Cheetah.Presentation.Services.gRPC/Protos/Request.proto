@@ -34,6 +34,8 @@ message InputCartable
     GRPC_BaseClass Assignee = 4;
     GRPC_BaseClass CaseState = 5;
     GRPC_BaseClass Process = 6;
+    google.protobuf.Int64Value CaseId  = 7;
+    google.protobuf.Int64Value WorkItemId  = 8;
 }
 message OutputCartable
 {
