@@ -28,6 +28,12 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #region Dimentios
 
+        #region D_CaseState
+
+        builder = builder.ConfigureSimpleClass<D_CaseState>();
+
+        #endregion
+
         #region D_Entity
 
         builder.Entity<D_Entity>()
@@ -39,6 +45,8 @@ public partial class ApplicationDbContext : IdentityDbContext
             .HasDefaultValue(true)
             .HasColumnOrder(100);
 
+        builder = builder.ConfigureSimpleClass<D_Entity>();
+
         #endregion
 
         #region D_Location
@@ -46,6 +54,20 @@ public partial class ApplicationDbContext : IdentityDbContext
         builder.Entity<D_Location>()
             .Property(e => e.EndorsementItemId)
             .HasColumnOrder(110);
+
+        builder = builder.ConfigureSimpleClass<D_Location>();
+
+        #endregion
+
+        #region D_Operand
+
+        builder = builder.ConfigureSimpleClass<D_Operand>();
+
+        #endregion
+
+        #region D_Position
+
+        builder = builder.ConfigureSimpleClass<D_Position>();
 
         #endregion
 
@@ -66,6 +88,8 @@ public partial class ApplicationDbContext : IdentityDbContext
             .HasDefaultValue(true)
             .HasColumnOrder(102);
 
+        builder = builder.ConfigureSimpleClass<D_Process>();
+
         #endregion
 
         #region D_Role
@@ -84,6 +108,8 @@ public partial class ApplicationDbContext : IdentityDbContext
          .HasDefaultValue(false)
          .HasColumnOrder(101);
 
+        builder = builder.ConfigureSimpleClass<D_Role>();
+
         #endregion
 
         #region D_Tag
@@ -91,6 +117,14 @@ public partial class ApplicationDbContext : IdentityDbContext
         builder.Entity<D_Tag>()
             .Property(e => e.TagTypeId)
             .HasColumnOrder(100);
+
+        builder = builder.ConfigureSimpleClass<D_Tag>();
+
+        #endregion
+
+        #region D_TagType
+
+        builder = builder.ConfigureSimpleClass<D_TagType>();
 
         #endregion
 
@@ -145,9 +179,13 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #endregion
 
+        builder = builder.ConfigureSimpleClass<D_User>();
+
         #endregion
 
         #region D_UserInformation
+
+        builder = builder.ConfigureSimpleClass<D_UserInformation>();
 
         builder.Entity<D_UserInformation>()
           .Property(e => e.FirstName)
@@ -222,11 +260,18 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #endregion
 
+        #region D_WorkItemState
+
+        builder = builder.ConfigureSimpleClass<D_WorkItemState>();
+
+        #endregion
+
         #endregion
 
         #region Facts
 
         #region F_Attachment
+        builder = builder.ConfigureSimpleClass<F_Attachment>();
         builder.Entity<F_Attachment>()
             .Property(e => e.Name)
             .HasColumnOrder(100)
@@ -238,6 +283,8 @@ public partial class ApplicationDbContext : IdentityDbContext
         #endregion
 
         #region F_Case
+
+        builder = builder.ConfigureSimpleClass<F_Case>();
 
         builder.Entity<F_Case>()
             .Property(e => e.RequestorId)
@@ -267,6 +314,8 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #region F_Condition
 
+        builder = builder.ConfigureSimpleClass<F_Condition>();
+
         builder.Entity<F_Condition>()
             .Property(e => e.TagId)
             .HasColumnOrder(100);
@@ -295,6 +344,8 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #region F_Endorsement
 
+        builder = builder.ConfigureSimpleClass<F_Endorsement>();
+
         builder.Entity<F_Endorsement>()
          .Property(e => e.RoleId)
          .HasColumnOrder(100);
@@ -315,6 +366,8 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #region F_EndorsementItem
 
+        builder = builder.ConfigureSimpleClass<F_EndorsementItem>();
+
         builder.Entity<F_EndorsementItem>()
            .Property(e => e.CaseStateId)
            .HasColumnOrder(101);
@@ -325,7 +378,13 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #endregion
 
+        #region F_Scenario
+        builder = builder.ConfigureSimpleClass<F_Scenario>();
+        #endregion
+
         #region F_WorkItem
+
+        builder = builder.ConfigureSimpleClass<F_WorkItem>();
 
         builder.Entity<F_WorkItem>()
             .Property(e => e.EndorsementId)
@@ -351,6 +410,34 @@ public partial class ApplicationDbContext : IdentityDbContext
 
         #endregion
 
+        #region Links
+        
+        #region L_EndorsementItemEndorsement
+        builder = builder.ConfigureLinkClass<L_EndorsementItemEndorsement>();
+        #endregion
+
+        #region L_EndorsementUser
+        builder = builder.ConfigureLinkClass<L_EndorsementUser>();
+        #endregion
+
+        #region L_ProcessScenario
+        builder = builder.ConfigureLinkClass<L_ProcessScenario>();
+        #endregion
+
+        #region L_RolePosition
+        builder = builder.ConfigureLinkClass<L_RolePosition>();
+        #endregion
+
+        #region L_UserLocation
+        builder = builder.ConfigureLinkClass<L_UserLocation>();
+        #endregion
+
+        #region L_UserPosition
+        builder = builder.ConfigureLinkClass<L_UserPosition>();
+        #endregion
+
+        #endregion
+
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
             if (Enum.IsDefined(typeof(TableType), entityType.ClrType.Namespace.Split('.').Last()))
@@ -360,7 +447,7 @@ public partial class ApplicationDbContext : IdentityDbContext
             }
         }
 
-        builder.ApplyBaseEntityConfiguration();
+        //builder.ApplyBaseEntityConfiguration();
 
         //base.Database.EnsureDeleted();
         //base.Database.EnsureCreated();

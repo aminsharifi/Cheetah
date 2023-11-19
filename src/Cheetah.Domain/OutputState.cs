@@ -17,7 +17,7 @@ public static class OutputState<T>
     }
     public static CheetahResult<T> SuccessCreateRequest(long? CaseID, T input)
     {
-        var DisplayName = GlobalizationService.GetValue(Localization.Domain_SuccessCreateRequest, new Object[] { CaseID });
+        var DisplayName = GlobalizationService.GetValue(nameof(Localization.Domain_SuccessCreateRequest), new Object[] { CaseID });
 
         var _OutputState = OutputState<T>.Success(DisplayName, input);
 
@@ -25,7 +25,7 @@ public static class OutputState<T>
     }
     public static CheetahResult<T> SuccessPerformWorkItem(long? WorkItemID, T input)
     {
-        var DisplayName = GlobalizationService.GetValue(Localization.Domain_SuccessPerformWorkItem, new Object[] { WorkItemID });
+        var DisplayName = GlobalizationService.GetValue(nameof(Localization.Domain_SuccessPerformWorkItem), new Object[] { WorkItemID });
 
         var _OutputState = OutputState<T>.Success(DisplayName, input);
 
@@ -33,25 +33,22 @@ public static class OutputState<T>
     }
 
     #endregion
-    #region Errors
-    public static CheetahResult<T> DuplicateError(String DisplayName, T input)
-    {
-        var Duplicate = GlobalizationService.GetValue(Localization.Domain_Duplicate);
-
-        var _Result = Result.Fail(Duplicate);
-
-        var _OutputState = new CheetahResult<T>() { Result = _Result };
-        _OutputState.SimpleClassDTO.Id = 1;
-        _OutputState.SimpleClassDTO.ERPCode = 1;
-        _OutputState.SimpleClassDTO.Name = Duplicate;
-        _OutputState.SimpleClassDTO.DisplayName = DisplayName;
-        return _OutputState;
-    }
+    #region Errors   
     public static CheetahResult<T> DuplicateErrorCreateRequest(long? CaseID, T input)
     {
-        var DisplayName = GlobalizationService.GetValue(Localization.Domain_DuplicateErrorCreateRequest, new Object[] { CaseID });
+        var _Name = nameof(Localization.Domain_DuplicateErrorCreateRequest);
 
-        var _OutputState = OutputState<T>.DuplicateError(DisplayName, input);
+        var DisplayName = GlobalizationService.GetValue(_Name, new Object[] { CaseID });
+
+        var _Result = Result.Fail(_Name);
+
+        var _OutputState = new CheetahResult<T>() { Result = _Result };
+
+        _OutputState.SimpleClassDTO.Id = 1;
+        _OutputState.SimpleClassDTO.ERPCode = 1;
+        _OutputState.SimpleClassDTO.Name = _Name;
+        _OutputState.SimpleClassDTO.DisplayName = DisplayName;
+        
         return _OutputState;
     }
 

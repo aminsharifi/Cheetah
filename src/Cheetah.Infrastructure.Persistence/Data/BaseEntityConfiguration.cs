@@ -2,7 +2,7 @@
 
 public static class BaseEntityConfiguration
 {
-    static void Configure<TEntity>(ModelBuilder modelBuilder)
+    public static ModelBuilder ConfigureSimpleClass<TEntity>(this ModelBuilder modelBuilder)
         where TEntity : SimpleClass
     {
         modelBuilder.Entity<TEntity>(builder =>
@@ -116,14 +116,15 @@ public static class BaseEntityConfiguration
             #endregion
 
             #endregion
-
         });
+
+        return modelBuilder;
     }
 
-    static void ConfigureLink<TEntity>(ModelBuilder modelBuilder)
+    public static ModelBuilder ConfigureLinkClass<TEntity>(this ModelBuilder modelBuilder)
        where TEntity : SimpleLinkClass
     {
-        Configure<TEntity>(modelBuilder);
+        modelBuilder = ConfigureSimpleClass<TEntity>(modelBuilder);
 
         modelBuilder.Entity<TEntity>(builder =>
         {
@@ -146,32 +147,7 @@ public static class BaseEntityConfiguration
                .HasColumnOrder(101);
         }
         );
-    }
-
-    public static ModelBuilder ApplyBaseEntityConfiguration(this ModelBuilder modelBuilder)
-    {
-        var method = typeof(BaseEntityConfiguration).GetTypeInfo().DeclaredMethods
-            .Single(m => m.Name == nameof(Configure));
-
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            if (entityType.ClrType.IsBaseEntity(out var T))
-                method.MakeGenericMethod(entityType.ClrType, T).Invoke(null, new[] { modelBuilder });
-        }
         return modelBuilder;
     }
 
-    static bool IsBaseEntity(this Type type, out Type T)
-    {
-        for (var baseType = type.BaseType; baseType != null; baseType = baseType.BaseType)
-        {
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(SimpleClass))
-            {
-                T = baseType.GetGenericArguments()[0];
-                return true;
-            }
-        }
-        T = null;
-        return false;
-    }
 }
