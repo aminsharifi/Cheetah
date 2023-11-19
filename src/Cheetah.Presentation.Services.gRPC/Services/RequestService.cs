@@ -3,11 +3,11 @@
 namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService
-    (ILogger<RequestService> _logger,
-        ApplicationDbContext _db,
+    (ILogger<RequestService> logger,
+        ApplicationDbContext db,
         ITableCRUD simpleClassRepository,
         ICartable iCartable, ISync iSync, IWorkItem iWorkItem,
-        IMapper _mapper, ICopyClass _iCopyClass) : Request.RequestBase
+        IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
 {
     public IEnumerable<F_Condition> GetCondition(IEnumerable<Condition> Conditions)
     {
@@ -61,8 +61,8 @@ public class RequestService
     }
     public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
     {
-        _logger.LogInformation("started " + nameof(CreateRequest));
-        _logger.LogInformation("{@Create_Input_Request}", request);
+        logger.LogInformation("started " + nameof(CreateRequest));
+        logger.LogInformation("{@Create_Input_Request}", request);
 
         var output_Request = new Brief_Request();
 
@@ -78,9 +78,16 @@ public class RequestService
 
         var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
 
-        f_Request = Outputresult.Result.Value;
-
         var OutputState = Outputresult.SimpleClassDTO;
+
+        if (Outputresult.Result.IsFailed)
+        {
+            output_Request.OutputState = GetBaseClass(OutputState);
+
+            return output_Request;
+        }
+
+        f_Request = Outputresult.Result.Value;
 
         output_Request.OutputState = GetBaseClass(OutputState);
 
@@ -93,20 +100,20 @@ public class RequestService
 
         output_Request.ERPCode = f_Request.ERPCode.Value;
 
-        var processes = await _db.D_Processes
+        var processes = await db.D_Processes
             .Where(x => x.Id == f_Request.ProcessId)
             .SingleAsync();
 
         output_Request.Process = GetBaseClass(processes);
 
-        var caseState = await _db.D_CaseStates
+        var caseState = await db.D_CaseStates
             .Where(x => x.Id == f_Request.CaseStateId)
             .SingleAsync();
 
         output_Request.CaseState = GetBaseClass(caseState);
 
-        _logger.LogInformation("Ended " + nameof(CreateRequest));
-        _logger.LogInformation("{@Brief_Request}", output_Request);
+        logger.LogInformation("Ended " + nameof(CreateRequest));
+        logger.LogInformation("{@Brief_Request}", output_Request);
 
         return output_Request;
     }
@@ -127,10 +134,27 @@ public class RequestService
 
         return _GRPC_BaseClass;
     }
+    public GRPC_BaseClass GetBaseClass(SimpleClassDTO simpleClass)
+    {
+        var _GRPC_BaseClass = new GRPC_BaseClass();
+
+        if (simpleClass is not null)
+        {
+            _GRPC_BaseClass = new GRPC_BaseClass()
+            {
+                Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+                ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
+                Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
+                DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
+            };
+        }
+
+        return _GRPC_BaseClass;
+    }
     public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
     {
-        _logger.LogInformation("started " + nameof(PerformRequest));
-        _logger.LogInformation("{@Perform_Input_Request}", request);
+        logger.LogInformation("started " + nameof(PerformRequest));
+        logger.LogInformation("{@Perform_Input_Request}", request);
 
         var f_WorkItem = new F_WorkItem();
 
@@ -153,8 +177,8 @@ public class RequestService
         };
         output_Request.OutputState = GetBaseClass(OutputState);
 
-        _logger.LogInformation("Ended " + nameof(PerformRequest));
-        _logger.LogInformation("{@Brief_Request}", output_Request);
+        logger.LogInformation("Ended " + nameof(PerformRequest));
+        logger.LogInformation("{@Brief_Request}", output_Request);
 
         return output_Request;
     }
@@ -163,14 +187,14 @@ public class RequestService
         F_Case f_Request = new();
 
         #region CaseId
-        if (request.CaseId > 0)
+        if (request.CaseId is not null)
         {
             f_Request.Id = request.CaseId;
         }
         #endregion
 
         #region ERPCode
-        if (request.ERPCode > 0)
+        if (request.ERPCode is not null)
         {
             f_Request.ERPCode = request.ERPCode;
         }
@@ -178,11 +202,11 @@ public class RequestService
 
         var _Process = (D_Process)GetSimpleClass(typeof(D_Process), request.Process);
 
-        f_Request.ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, _Process);
+        f_Request.ProcessId = await iCopyClass.GetSimpleClassId(db.D_Processes, _Process);
 
         var _CaseState = (D_CaseState)GetSimpleClass(typeof(D_CaseState), request.CaseState);
 
-        f_Request.CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, _CaseState);
+        f_Request.CaseStateId = await iCopyClass.GetSimpleClassId(db.D_CaseStates, _CaseState);
 
         var l_Requests = await iCartable.GetCaseAsync(f_Request);
 
@@ -190,13 +214,13 @@ public class RequestService
 
         DetailOutput_Requests output_Requests = new();
 
-        var Endorsements = _db.F_Cases
+        var Endorsements = db.F_Cases
            .SelectMany(x => x.WorkItems)
            .Where(x => x.Endorsement != null)
            .Select(x => x.Endorsement)
            .Distinct();
 
-        var d_Tags = await _db.D_Tags.AsNoTracking().ToListAsync();
+        var d_Tags = await db.D_Tags.AsNoTracking().ToListAsync();
 
         foreach (var l_Request in l_Requests)
         {
@@ -281,8 +305,8 @@ public class RequestService
     }
     public async Task<OutputCartable> Cartable(InputCartable request, CartableProperty cartableProperty)
     {
-        _logger.LogInformation("started " + nameof(Cartable));
-        _logger.LogInformation("{@InputCartable}", request);
+        logger.LogInformation("started " + nameof(Cartable));
+        logger.LogInformation("{@InputCartable}", request);
 
         OutputCartable _OutputCartable = new();
 
@@ -342,8 +366,8 @@ public class RequestService
                    );
             }
         }
-        _logger.LogInformation("Ended " + nameof(Cartable));
-        _logger.LogInformation("{@OutputCartable}", _OutputCartable);
+        logger.LogInformation("Ended " + nameof(Cartable));
+        logger.LogInformation("{@OutputCartable}", _OutputCartable);
 
         return _OutputCartable;
     }

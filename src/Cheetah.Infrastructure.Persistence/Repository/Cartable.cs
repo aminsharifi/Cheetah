@@ -17,19 +17,19 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             .ThenInclude(x => x.User)
             .AsNoTracking();
 
-        if (request.ProcessId > 0)
+        if (request.ProcessId is not null)
         {
             GeneralRequest = GeneralRequest.Where(x => x.ProcessId == request.ProcessId);
         }
-        if (request.CaseStateId > 0)
+        if (request.CaseStateId is not null)
         {
             GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == request.CaseStateId);
         }
-        if (request.ERPCode > 0)
+        if (request.ERPCode is not null)
         {
             GeneralRequest = GeneralRequest.Where(x => x.ERPCode == request.ERPCode);
         }
-        if (request.Id > 0)
+        if (request.Id is not null)
         {
             GeneralRequest = GeneralRequest.Where(x => x.Id == request.Id);
         }
