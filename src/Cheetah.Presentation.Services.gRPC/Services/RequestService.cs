@@ -1,4 +1,5 @@
-﻿using Type = System.Type;
+﻿using Cheetah_GrpcService;
+using Type = System.Type;
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
@@ -80,21 +81,14 @@ public class RequestService
 
         var OutputState = Outputresult.SimpleClassDTO;
 
+        output_Request.OutputState = GetBaseClass(OutputState);
+
         if (Outputresult.Result.IsFailed)
         {
-            output_Request.OutputState = GetBaseClass(OutputState);
-
             return output_Request;
         }
 
         f_Request = Outputresult.Result.Value;
-
-        output_Request.OutputState = GetBaseClass(OutputState);
-
-        if (OutputState.Id > 0)
-        {
-            return output_Request;
-        }
 
         output_Request.CaseId = f_Request.Id.Value;
 
@@ -180,6 +174,8 @@ public class RequestService
         logger.LogInformation("Ended " + nameof(PerformRequest));
         logger.LogInformation("{@Brief_Request}", output_Request);
 
+        output_Request.OutputState = GetBaseClass(OutputState<Boolean>.Success(nameof(PerformRequest), true).SimpleClassDTO);
+
         return output_Request;
     }
     public override async Task<DetailOutput_Requests> GetCase(Brief_Request request, ServerCallContext context)
@@ -209,6 +205,7 @@ public class RequestService
         f_Request.CaseStateId = await iCopyClass.GetSimpleClassId(db.D_CaseStates, _CaseState);
 
         var l_Requests = await iCartable.GetCaseAsync(f_Request);
+
 
         #region DetailOutput_Request
 
@@ -301,6 +298,8 @@ public class RequestService
 
         #endregion
 
+        output_Requests.OutputState = GetBaseClass(OutputState<Boolean>.Success(nameof(GetCase), true).SimpleClassDTO);
+
         return output_Requests;
     }
     public async Task<OutputCartable> Cartable(InputCartable request, CartableProperty cartableProperty)
@@ -320,7 +319,9 @@ public class RequestService
             Process = _D_Process,
             CaseState = _D_CaseState,
             PageSize = request.PageSize,
-            PageNumber = request.PageNumber
+            PageNumber = request.PageNumber,
+            RadNumber = request.CaseId?.ToString(),
+            WorkItemId = request.WorkItemId?.ToString()
         };
 
         var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
@@ -368,6 +369,8 @@ public class RequestService
         }
         logger.LogInformation("Ended " + nameof(Cartable));
         logger.LogInformation("{@OutputCartable}", _OutputCartable);
+
+        _OutputCartable.OutputState = GetBaseClass(OutputState<Boolean>.Success(nameof(Cartable), true).SimpleClassDTO);
 
         return _OutputCartable;
     }
