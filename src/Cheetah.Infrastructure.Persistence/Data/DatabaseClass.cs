@@ -2,7 +2,6 @@
 
 public class DatabaseClass
 {
-    public DatabaseClass() { }
     public static TableType GetTableType(String dBType)
     {
         return dBType.StartsWith("D") ? TableType.Dimentions : dBType.StartsWith("L") ?

@@ -1,21 +1,7 @@
-﻿
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
-public class WorkItem : IWorkItem
-{
-    protected ApplicationDbContext _db;
-    protected IMapper _mapper;
-    protected ISync _iSync;
-    protected ITableCRUD _itableCRUD;
-    protected ICopyClass _iCopyClass;
-    public WorkItem(ApplicationDbContext db, IMapper mapper,
-        ISync iSync, ITableCRUD itableCRUD, ICopyClass iCopyClass)
-    {
-        _db = db;
-        _iSync = iSync;
-        _itableCRUD = itableCRUD;
-        _iCopyClass = iCopyClass;
-    }
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
+        ISync _iSync, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
+{  
     public CheetahResult<IOrderedQueryable<F_Endorsement>> GetAllEndorsement()
     {
         #region Endorsements

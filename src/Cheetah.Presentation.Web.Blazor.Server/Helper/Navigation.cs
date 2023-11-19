@@ -1,34 +1,24 @@
-﻿using System.Text;
-
-namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
+﻿namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
 public enum CNavigationEnum
 {
     complete,
     current,
     future
 }
-public class CNavigationStruct
+public class CNavigationStruct(Int64? id, String address, String displayName, String Reference)
 {
-    public Int64? Id { get; set; }
-    public String Address { get; set; }
-    public String DisplayName { get; set; }
-    public String Reference { get; set; }
-    public CNavigationEnum? _CNavigationEnum { get; set; }
+    public Int64? Id { get; set; } = id;
+    public String Address { get; set; } = address;
+    public String DisplayName { get; set; } = displayName;
+    public CNavigationEnum? _CNavigationEnum { get; set; } = CNavigationEnum.current;
+    public String Reference { get; set; } = Reference;
 
-    public CNavigationStruct(Int64? id, String address, String displayName, String Reference)
-    {
-        this.Id = id;
-        this.Address = address;
-        this.DisplayName = displayName;
-        this._CNavigationEnum = CNavigationEnum.current;
-        this.Reference = Reference;
-    }
 }
 public class CNavigation
 {
     public List<CNavigationStruct> NavigationList { get; set; }
 
-    public IGlobalization iGlobalization = 
+    public IGlobalization iGlobalization =
         new Globalization(nameof(Cheetah) + "." + nameof(Presentation) + "." + nameof(Web) +
             "." + nameof(Blazor) + "." + nameof(Server));
 
@@ -75,7 +65,7 @@ public class CNavigation
     }
     public String LoadNavigation(String Address, String RowDescription, Int64? RowId, String Reference)
     {
-        var ttt = iGlobalization.GetValue(nameof(Localization.BlazorServer_InsertRow) );
+        var ttt = iGlobalization.GetValue(nameof(Localization.BlazorServer_InsertRow));
 
         if (!string.IsNullOrEmpty(Reference))
             Deserialize(Reference);
@@ -83,8 +73,8 @@ public class CNavigation
         var PDescription = (RowId > 0) ?
             iGlobalization.GetValue(nameof(Localization.BlazorServer_RowDescId), new[] { RowDescription }) :
             (Address.StartsWith("List/")) ?
-            iGlobalization.GetValue(nameof(Localization.BlazorServer_Tablelist) ) :
-            iGlobalization.GetValue(nameof(Localization.BlazorServer_InsertRow) );
+            iGlobalization.GetValue(nameof(Localization.BlazorServer_Tablelist)) :
+            iGlobalization.GetValue(nameof(Localization.BlazorServer_InsertRow));
 
         if (!RowId.HasValue)
             PDescription = iGlobalization.GetValue(nameof(Localization.BlazorServer_TableDescription), new string[] { RowDescription });

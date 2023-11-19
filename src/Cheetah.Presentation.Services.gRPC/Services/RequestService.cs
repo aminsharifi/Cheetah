@@ -2,32 +2,13 @@
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
-public class RequestService : Cheetah_GrpcService.Request.RequestBase
+public class RequestService
+    (ILogger<RequestService> _logger,
+        ApplicationDbContext _db,
+        ITableCRUD simpleClassRepository,
+        ICartable iCartable, ISync iSync, IWorkItem iWorkItem,
+        IMapper _mapper, ICopyClass _iCopyClass) : Request.RequestBase
 {
-    private readonly ILogger<RequestService> _logger;
-    private readonly ITableCRUD simpleClassRepository;
-    private readonly ICartable iCartable;
-    private readonly ISync iSync;
-    private readonly IWorkItem iWorkItem;
-    private readonly IMapper _mapper;
-    private readonly ICopyClass _iCopyClass;
-    protected ApplicationDbContext _db;
-    public RequestService(ILogger<RequestService> logger,
-        ApplicationDbContext db,
-        ITableCRUD iP_ParameterListRepository,
-        ICartable _iCartable, ISync _iSync,  IWorkItem _iWorkItem,
-        IMapper mapper, ICopyClass _iCopyClass)
-    {
-        _logger = logger;
-        _db = db;
-        this._mapper = mapper;
-        this.simpleClassRepository = iP_ParameterListRepository;
-        this.iCartable = _iCartable;
-        this.iSync = _iSync;
-        this.iWorkItem = _iWorkItem;
-        this._iCopyClass = _iCopyClass;
-    }
-
     public IEnumerable<F_Condition> GetCondition(IEnumerable<Condition> Conditions)
     {
         foreach (var Condition in Conditions)
