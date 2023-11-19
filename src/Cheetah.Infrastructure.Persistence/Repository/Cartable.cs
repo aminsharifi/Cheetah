@@ -63,6 +63,12 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             f_WorkItems = f_WorkItems.Where(x => x.CaseId == long.Parse(radNumber));
         }
 
+        if (!string.IsNullOrEmpty(cartableDTO.WorkItemId))
+        {
+            var workItemId = cartableDTO.WorkItemId;
+            f_WorkItems = f_WorkItems.Where(x => x.Id == long.Parse(workItemId));
+        }
+
         var _D_Tags = await _db.D_Tags
             .Where(x => x.Id.Value == 201 || x.Id.Value == 202 || x.Id.Value == 203)
             .ToListAsync();
