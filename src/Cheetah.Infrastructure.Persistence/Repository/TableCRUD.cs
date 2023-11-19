@@ -1,14 +1,7 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 
-public class TableCRUD : ITableCRUD
+public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 {
-    protected ApplicationDbContext _db;
-    protected IMapper _mapper;
-    public TableCRUD(ApplicationDbContext db, IMapper mapper)
-    {
-        _db = db;
-        _mapper = mapper;
-    }
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
     {
         await _db.AddAsync(obj_DTO);

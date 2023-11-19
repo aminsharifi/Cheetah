@@ -1,16 +1,6 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
-public class CopyClass : ICopyClass
+public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, ITableCRUD _itableCRUD) : ICopyClass
 {
-    protected ApplicationDbContext _db;
-    protected IMapper _mapper;
-    protected ISync _iSync;
-    protected ITableCRUD _itableCRUD;
-    public CopyClass(ApplicationDbContext db, IMapper mapper, ISync iSync, ITableCRUD itableCRUD)
-    {
-        _db = db;
-        _iSync = iSync;
-        _itableCRUD = itableCRUD;
-    }
     public async Task<Int64?> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input)
     {
         var Find = false;

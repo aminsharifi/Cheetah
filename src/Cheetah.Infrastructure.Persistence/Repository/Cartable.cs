@@ -1,15 +1,7 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 
-public class Cartable : ICartable
+public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICartable
 {
-    protected ApplicationDbContext _db;
-    protected ICopyClass _iCopyClass;
-
-    public Cartable(ApplicationDbContext db, ICopyClass iCopyClass)
-    {
-        _db = db;
-        _iCopyClass = iCopyClass;
-    }
     public async Task<IQueryable<F_Case>> GetCaseAsync(F_Case request)
     {
         var GeneralRequest = _db.F_Cases
