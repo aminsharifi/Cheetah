@@ -1,5 +1,4 @@
 ﻿namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
-
 public class CUpsert_GeneralCode : SharedPage
 {
     #region Methodes
