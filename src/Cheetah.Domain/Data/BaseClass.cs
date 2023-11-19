@@ -10,6 +10,7 @@ public abstract class BaseClass<I> : SimpleClass
     /// Parent Id
     /// </summary>
     public long? Parent_Id { get; set; }
+    [ForeignKey(nameof(Parent_Id))]
     public virtual I? Parent { get; set; }
 
     /// <summary>
