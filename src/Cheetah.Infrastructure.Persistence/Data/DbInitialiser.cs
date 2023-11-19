@@ -1,14 +1,7 @@
 ﻿namespace Cheetah.Infrastructure.Persistence;
 
-public class DbInitialiser
+public class DbInitialiser(ApplicationDbContext _context)
 {
-    private readonly ApplicationDbContext _context;
-
-    public DbInitialiser(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<bool> Run()
     {
         //await _context.Database.EnsureDeletedAsync();

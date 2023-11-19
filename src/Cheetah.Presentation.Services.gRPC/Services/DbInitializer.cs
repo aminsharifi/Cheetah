@@ -4,21 +4,10 @@ public interface IDbInitializer
 {
     void Initialize();
 }
-public class DbInitializer : IDbInitializer
+public class DbInitializer(UserManager<IdentityUser> _userManager,
+        RoleManager<IdentityRole> _roleManager,
+        ApplicationDbContext _db) : IDbInitializer
 {
-
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly ApplicationDbContext _db;
-    public DbInitializer(UserManager<IdentityUser> userManager,
-        RoleManager<IdentityRole> roleManager,
-        ApplicationDbContext db)
-    {
-        _db = db;
-        _roleManager = roleManager;
-        _userManager = userManager;
-    }
-
     public async void Initialize()
     {
         try

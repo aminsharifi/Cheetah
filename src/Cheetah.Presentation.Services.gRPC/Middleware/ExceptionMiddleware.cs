@@ -1,14 +1,7 @@
 ﻿namespace Cheetah.Application.Services.gRPC.Middleware;
 
-public class ServerLoggerInterceptor : Interceptor
+public class ServerLoggerInterceptor(ILogger<ServerLoggerInterceptor> _logger) : Interceptor
 {
-    private readonly ILogger<ServerLoggerInterceptor> _logger;
-
-    public ServerLoggerInterceptor(ILogger<ServerLoggerInterceptor> logger)
-    {
-        _logger = logger;
-    }
-
     public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(
         TRequest request,
         ServerCallContext context,
