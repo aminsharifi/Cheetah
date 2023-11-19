@@ -1,12 +1,6 @@
 ﻿namespace Cheetah.Domain.Dimentions;
-
-[Table(nameof(D_User), Schema = nameof(TableType.Dimentions))]
 public partial class D_User : BaseClass<D_User>
 {
-    public D_User()
-    {
-
-    }
 
     #region Common Prop
     #endregion
