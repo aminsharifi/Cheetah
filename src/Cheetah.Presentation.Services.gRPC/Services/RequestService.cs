@@ -1,5 +1,4 @@
-﻿using Cheetah_GrpcService;
-using Type = System.Type;
+﻿using Type = System.Type;
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
@@ -115,15 +114,28 @@ public class RequestService
     {
         var _GRPC_BaseClass = new GRPC_BaseClass();
 
-        if (simpleClass is not null)
+        if (simpleClass is null)
         {
-            _GRPC_BaseClass = new GRPC_BaseClass()
-            {
-                Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
-                ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-                Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-                DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
-            };
+            return _GRPC_BaseClass;
+        }
+        _GRPC_BaseClass = new GRPC_BaseClass()
+        {
+            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
+            Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
+            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
+        };
+        if (simpleClass.CreateTimeRecord.HasValue)
+        {
+            _GRPC_BaseClass.CreateTimeRecord = Timestamp.FromDateTime(
+                     DateTime.SpecifyKind(
+                     simpleClass.CreateTimeRecord.Value, DateTimeKind.Utc));
+        }
+        if (simpleClass.LastUpdatedRecord.HasValue)
+        {
+            _GRPC_BaseClass.LastUpdatedRecord = Timestamp.FromDateTime(
+                     DateTime.SpecifyKind(
+                     simpleClass.LastUpdatedRecord.Value, DateTimeKind.Utc));
         }
 
         return _GRPC_BaseClass;
@@ -132,15 +144,29 @@ public class RequestService
     {
         var _GRPC_BaseClass = new GRPC_BaseClass();
 
-        if (simpleClass is not null)
+        if (simpleClass is null)
         {
-            _GRPC_BaseClass = new GRPC_BaseClass()
-            {
-                Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
-                ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-                Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-                DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
-            };
+            return _GRPC_BaseClass;
+        }
+
+        _GRPC_BaseClass = new GRPC_BaseClass()
+        {
+            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
+            Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
+            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
+        };
+        if (simpleClass.CreateTimeRecord.HasValue)
+        {
+            _GRPC_BaseClass.CreateTimeRecord = Timestamp.FromDateTime(
+                     DateTime.SpecifyKind(
+                     simpleClass.CreateTimeRecord.Value, DateTimeKind.Utc));
+        }
+        if (simpleClass.LastUpdatedRecord.HasValue)
+        {
+            _GRPC_BaseClass.LastUpdatedRecord = Timestamp.FromDateTime(
+                     DateTime.SpecifyKind(
+                     simpleClass.LastUpdatedRecord.Value, DateTimeKind.Utc));
         }
 
         return _GRPC_BaseClass;
@@ -347,6 +373,7 @@ public class RequestService
                      (DateTime.SpecifyKind(x.RecieveDate.Value, DateTimeKind.Utc)),
                      Summary = x.Summary ?? String.Empty,
                      Process = GetBaseClass(x.Process),
+                     WorkItem = GetBaseClass(x.WorkItem),
                      CaseId = long.Parse(x.RadNumber),
                      ERPCode = x.ERPCode.Value,
                      WorkItemId = long.Parse(x.WorkItemId),
