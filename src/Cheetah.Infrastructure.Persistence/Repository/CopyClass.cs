@@ -78,25 +78,36 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
     {
         SimpleClassDTO _SimpleClass = new();
 
-        if (simpleClass is not null)
+        if (simpleClass is null)
         {
-            if (simpleClass.Id > 0)
-            {
-                _SimpleClass.Id = simpleClass.Id;
-            }
-            if (simpleClass.ERPCode > 0)
-            {
-                _SimpleClass.ERPCode = simpleClass.ERPCode;
-            }
-            if (!String.IsNullOrEmpty(simpleClass.Name))
-            {
-                _SimpleClass.Name = simpleClass.Name;
-            }
-            if (!String.IsNullOrEmpty(simpleClass.DisplayName))
-            {
-                _SimpleClass.DisplayName = simpleClass.DisplayName;
-            }
+            return _SimpleClass;
         }
+
+        if (simpleClass.Id is not null)
+        {
+            _SimpleClass.Id = simpleClass.Id;
+        }
+        if (simpleClass.ERPCode is not null)
+        {
+            _SimpleClass.ERPCode = simpleClass.ERPCode;
+        }
+        if (!String.IsNullOrEmpty(simpleClass.Name))
+        {
+            _SimpleClass.Name = simpleClass.Name;
+        }
+        if (!String.IsNullOrEmpty(simpleClass.DisplayName))
+        {
+            _SimpleClass.DisplayName = simpleClass.DisplayName;
+        }
+        if (simpleClass.CreateTimeRecord is not null)
+        {
+            _SimpleClass.CreateTimeRecord = simpleClass.CreateTimeRecord;
+        }
+        if (simpleClass.LastUpdatedRecord is not null)
+        {
+            _SimpleClass.LastUpdatedRecord = simpleClass.LastUpdatedRecord;
+        }
+
         return _SimpleClass;
     }
 

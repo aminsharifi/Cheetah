@@ -102,6 +102,7 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             User = _iCopyClass.GetSimpleClass(x.User),
             RadNumber = x.CaseId.ToString(),
             WorkItemId = x.Id.ToString(),
+            WorkItem = _iCopyClass.GetSimpleClass(x),
             Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
             Task = _iCopyClass.GetSimpleClass(x.Endorsement),
             CreateDate = x.Case.CreateTimeRecord,
