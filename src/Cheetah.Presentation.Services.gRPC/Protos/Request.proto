@@ -63,6 +63,7 @@ message RecordCartable
     repeated GRPC_BaseClass ValidUserActions = 10;
     google.protobuf.StringValue Summary = 11;
     google.protobuf.Int64Value ERPCode = 12;
+    GRPC_BaseClass WorkItem  = 13;
 }
 
 message Brief_Request
@@ -133,4 +134,6 @@ message GRPC_BaseClass
     google.protobuf.Int64Value ERPCode = 2;
     google.protobuf.StringValue Name = 3;
     google.protobuf.StringValue DisplayName = 4;
+    google.protobuf.Timestamp CreateTimeRecord = 5;
+    google.protobuf.Timestamp LastUpdatedRecord = 6;
 }

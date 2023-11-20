@@ -13,6 +13,7 @@ public class CartableDTO
     public SimpleClassDTO? Tag { get; set; }
     public SimpleClassDTO? User { get; set; }
     public SimpleClassDTO? Requestor { get; set; }
+    public SimpleClassDTO? WorkItem { get; set; }
     public String? RadNumber { get; set; }
     public String? WorkItemId { get; set; }
     public DateTime? CreateDate { get; set; }
