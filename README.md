@@ -16,11 +16,11 @@ Cheetah is a free and open-source lightweight BPMS engine.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-## 🛠 Technology
+## 🛠 Technologies
 
 Web technologies: ASP.net Core, Blazor Server Side, Blazor Client Side, Javascript, HTML, CSS, Bootstrap, jQuery
 
-APIs: GraphQL,GRPC, Swagger
+APIs: GraphQL, gRPC, Swagger
 
 Databases: Microsoft SQL Server, PostgreSQL
 
