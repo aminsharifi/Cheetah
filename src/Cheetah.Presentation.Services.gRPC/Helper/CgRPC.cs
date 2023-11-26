@@ -128,14 +128,14 @@ public static class CgRPC
 
         return _GRPC_BaseClass;
     }
-    public static SimpleClass GetSimpleClass(this GRPC_BaseClassWithNameAndDate gRPC_BaseClass, System.Type type)
+    public static T GetSimpleClass<T>(this GRPC_BaseClassWithNameAndDate gRPC_BaseClass) where T : SimpleClass
     {
         if (gRPC_BaseClass is null)
         {
             return null;
         }
 
-        var _SimpleClass = (SimpleClass)Activator.CreateInstance(type);
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
 
         if (gRPC_BaseClass.Id is not null)
         {
@@ -160,14 +160,14 @@ public static class CgRPC
 
         return _SimpleClass;
     }
-    public static SimpleClass GetSimpleClass(this GRPC_BaseClassWithName gRPC_BaseClass, System.Type type)
+    public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass) where T : SimpleClass
     {
         if (gRPC_BaseClass is null)
         {
             return null;
         }
 
-        var _SimpleClass = (SimpleClass)Activator.CreateInstance(type);
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
 
         if (gRPC_BaseClass.Id is not null)
         {
@@ -184,14 +184,14 @@ public static class CgRPC
 
         return _SimpleClass;
     }
-    public static SimpleClass GetSimpleClass(this GRPC_BaseClass gRPC_BaseClass, System.Type type)
+    public static T GetSimpleClass<T>(this GRPC_BaseClass gRPC_BaseClass) where T : SimpleClass
     {
         if (gRPC_BaseClass is null)
         {
             return null;
         }
 
-        var _SimpleClass = (SimpleClass)Activator.CreateInstance(type);
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
 
         if (gRPC_BaseClass.Id is not null)
         {
@@ -219,11 +219,11 @@ public static class CgRPC
 
             if (Condition.Tag is not null)
             {
-                f_Condition.Tag = new D_Tag() { ERPCode = Condition?.Tag?.ERPCode };
+                f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
             }
             if (Condition.Operand is not null)
             {
-                f_Condition.Operand = new D_Operand() { ERPCode = Condition?.Operand?.ERPCode };
+                f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
             }
             if (Condition.Value is not null)
             {

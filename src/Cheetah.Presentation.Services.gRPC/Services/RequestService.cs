@@ -9,20 +9,28 @@ public class RequestService
 {
     public override async Task<Brief_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
     {
+        #region Input
+
         logger.LogInformation("started " + nameof(CreateRequest));
         logger.LogInformation("{@Create_Input_Request}", request);
 
-        var output_Request = new Brief_Request();
 
-        var f_Request = (F_Case)request.Case.GetSimpleClass(typeof(F_Case));
-        f_Request.Creator = (D_User)request.Creator.GetSimpleClass(typeof(D_User));
-        f_Request.Requestor = (D_User)request.Requestor.GetSimpleClass(typeof(D_User));
-        f_Request.Process = (D_Process)request.Process.GetSimpleClass(typeof(D_Process));
+
+        F_Case f_Request = request.Case.GetSimpleClass<F_Case>();
+        f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
+        f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
+        f_Request.Process = request.Process.GetSimpleClass<D_Process>();
         f_Request.Conditions = request.Conditions.GetCondition().ToList();
+
+        #endregion
 
         var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
 
+        #region Output
+
         var OutputState = Outputresult.SimpleClassDTO;
+
+        var output_Request = new Brief_Request();
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
@@ -40,6 +48,8 @@ public class RequestService
         logger.LogInformation("Ended " + nameof(CreateRequest));
         logger.LogInformation("{@Brief_Request}", output_Request);
 
+        #endregion
+
         return output_Request;
     }
     public override async Task<Brief_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
@@ -47,7 +57,7 @@ public class RequestService
         logger.LogInformation("started " + nameof(PerformRequest));
         logger.LogInformation("{@Perform_Input_Request}", request);
 
-        var f_WorkItem = (F_WorkItem)request.WorkItem.GetSimpleClass(typeof(F_WorkItem));
+        var f_WorkItem = request.WorkItem.GetSimpleClass<F_WorkItem>();
 
         f_WorkItem.Case = new F_Case();
 
@@ -72,9 +82,9 @@ public class RequestService
     }
     public override async Task<DetailOutput_Requests> GetCase(Brief_Request request, ServerCallContext context)
     {
-        var f_Request = (F_Case)request.Case.GetSimpleClass(typeof(F_Case));
-        var _Process = (D_Process)request.Process.GetSimpleClass(typeof(D_Process));
-        var _CaseState = (D_CaseState)request.CaseState.GetSimpleClass(typeof(D_CaseState));
+        var f_Request = request.Case.GetSimpleClass<F_Case>();
+        var _Process = request.Process.GetSimpleClass<D_Process>();
+        var _CaseState = request.CaseState.GetSimpleClass<D_CaseState>();
 
         var l_Requests = await iCartable.GetCaseAsync(f_Request);
 
@@ -193,9 +203,9 @@ public class RequestService
 
         OutputCartable _OutputCartable = new();
 
-        var _D_User = (SimpleClassDTO)request.Assignee.GetSimpleClass(typeof(SimpleClassDTO));
-        var _D_Process = (SimpleClassDTO)request.Process.GetSimpleClass(typeof(SimpleClassDTO));
-        var _D_CaseState = (SimpleClassDTO)request.CaseState.GetSimpleClass(typeof(SimpleClassDTO));
+        var _D_User = request.Assignee.GetSimpleClass<SimpleClassDTO>();
+        var _D_Process = request.Process.GetSimpleClass<SimpleClassDTO>();
+        var _D_CaseState = request.CaseState.GetSimpleClass<SimpleClassDTO>();
 
         var cartableDTO = new CartableDTO()
         {
