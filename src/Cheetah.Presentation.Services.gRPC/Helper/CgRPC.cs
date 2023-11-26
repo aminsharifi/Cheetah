@@ -13,13 +13,13 @@ public static class CgRPC
     }
     public static GRPC_BaseClass GetBaseClass(this SimpleClass simpleClass)
     {
-        var _GRPC_BaseClass = new GRPC_BaseClass();
+        GRPC_BaseClass _GRPC_BaseClass = new();
 
         if (simpleClass is null)
         {
             return _GRPC_BaseClass;
         }
-        _GRPC_BaseClass = new GRPC_BaseClass()
+        _GRPC_BaseClass = new()
         {
             Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
@@ -29,13 +29,13 @@ public static class CgRPC
     }
     public static GRPC_BaseClassWithName GetBaseClassWithName(this SimpleClass simpleClass)
     {
-        var _GRPC_BaseClass = new GRPC_BaseClassWithName();
+        GRPC_BaseClassWithName _GRPC_BaseClass = new();
 
         if (simpleClass is null)
         {
             return _GRPC_BaseClass;
         }
-        _GRPC_BaseClass = new GRPC_BaseClassWithName()
+        _GRPC_BaseClass = new()
         {
             Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
@@ -45,25 +45,43 @@ public static class CgRPC
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this SimpleClass simpleClass)
+    public static GRPC_BaseClassWithDate GetBaseClassWithDate(this SimpleClass simpleClass)
     {
-        var _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate();
+        GRPC_BaseClassWithDate _GRPC_BaseClass = new();
 
         if (simpleClass is null)
         {
             return _GRPC_BaseClass;
         }
-        _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate()
+        _GRPC_BaseClass = new()
+        {
+            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
+            CreateTimeRecord = simpleClass.CreateTimeRecord.CGetTimestamp(),
+            LastUpdatedRecord = simpleClass.LastUpdatedRecord.CGetTimestamp()
+        };
+
+
+
+        return _GRPC_BaseClass;
+    }
+    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this SimpleClass simpleClass)
+    {
+        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = new();
+
+        if (simpleClass is null)
+        {
+            return _GRPC_BaseClass;
+        }
+        _GRPC_BaseClass = new()
         {
             Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty
+            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty,
+            CreateTimeRecord = simpleClass.CreateTimeRecord.CGetTimestamp(),
+            LastUpdatedRecord = simpleClass.LastUpdatedRecord.CGetTimestamp()
         };
-
-        _GRPC_BaseClass.CreateTimeRecord = simpleClass.CreateTimeRecord.CGetTimestamp();
-
-        _GRPC_BaseClass.LastUpdatedRecord = simpleClass.LastUpdatedRecord.CGetTimestamp();
 
         return _GRPC_BaseClass;
     }

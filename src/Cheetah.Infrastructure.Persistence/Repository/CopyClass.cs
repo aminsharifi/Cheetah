@@ -5,7 +5,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
     {
         var Find = false;
 
-        if (input.Id is not null && input.Id > 0)
+        if (input.Id is not null and > 0)
         {
             Find = true;
             return input.Id.Value;
@@ -18,7 +18,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
             Q_input = Q_input.Where(x => x.Name == input.Name);
         }
 
-        if (input.ERPCode is not null && input.ERPCode > 0)
+        if (input.ERPCode is not null and > 0)
         {
             Find = true;
             Q_input = Q_input.Where(x => x.ERPCode == input.ERPCode);
@@ -32,6 +32,16 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
         return await Q_input.Select(x => x.Id.Value).SingleAsync();
     }
 
+    public async Task<Int64?> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input, Int64? output)
+    {
+        if (output is null or 0)
+        {
+            output = await GetSimpleClassId(_db.D_Users, input);
+        }
+
+        return output;
+    }
+
     public async Task<List<F_Condition>> CopyCondition(IEnumerable<F_Condition> Conditions)
     {
         List<F_Condition> list_condition = new List<F_Condition>();
@@ -40,18 +50,11 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
         {
             var _condition = new F_Condition();
 
-            if (item.Id is not null)
-            {
-                _condition.Id = item.Id;
-            }
-            if (item.ERPCode is not null)
-            {
-                _condition.ERPCode = item.ERPCode;
-            }
-            if (item.Name is not null)
-            {
-                _condition.Name = item.Name;
-            }
+            _condition.Id = item?.Id;
+            _condition.ERPCode = item?.ERPCode;
+            _condition.Name = item?.Name;
+            _condition.Value = item?.Value;
+
             if (item.Tag is not null)
             {
                 _condition.TagId = await GetSimpleClassId(_db.D_Tags, item.Tag);
@@ -60,10 +63,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
             {
                 _condition.OperandId = await GetSimpleClassId(_db.D_Operands, item.Operand);
             }
-            if (item.Value is not null)
-            {
-                _condition.Value = item.Value;
-            }
+
             //if (item.User is not null)
             //{
             //    _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
@@ -83,30 +83,17 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
             return _SimpleClass;
         }
 
-        if (simpleClass.Id is not null)
-        {
-            _SimpleClass.Id = simpleClass.Id;
-        }
-        if (simpleClass.ERPCode is not null)
-        {
-            _SimpleClass.ERPCode = simpleClass.ERPCode;
-        }
-        if (!String.IsNullOrEmpty(simpleClass.Name))
-        {
-            _SimpleClass.Name = simpleClass.Name;
-        }
-        if (!String.IsNullOrEmpty(simpleClass.DisplayName))
-        {
-            _SimpleClass.DisplayName = simpleClass.DisplayName;
-        }
-        if (simpleClass.CreateTimeRecord is not null)
-        {
-            _SimpleClass.CreateTimeRecord = simpleClass.CreateTimeRecord;
-        }
-        if (simpleClass.LastUpdatedRecord is not null)
-        {
-            _SimpleClass.LastUpdatedRecord = simpleClass.LastUpdatedRecord;
-        }
+        _SimpleClass.Id = simpleClass?.Id;
+
+        _SimpleClass.ERPCode = simpleClass?.ERPCode;
+
+        _SimpleClass.Name = simpleClass?.Name;
+
+        _SimpleClass.DisplayName = simpleClass?.DisplayName;
+
+        _SimpleClass.CreateTimeRecord = simpleClass?.CreateTimeRecord;
+
+        _SimpleClass.LastUpdatedRecord = simpleClass?.LastUpdatedRecord;
 
         return _SimpleClass;
     }
@@ -115,25 +102,15 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
     {
         var Return_Case = new F_Case();
 
-        Return_Case.ERPCode = obj.ERPCode;
+        Return_Case.ERPCode = obj?.ERPCode;
 
         Return_Case.Conditions = await CopyCondition(obj.Conditions);
 
-        if (obj.CreatorId is null || obj.CreatorId == 0)
-        {
-            Return_Case.CreatorId = await GetSimpleClassId(_db.D_Users, obj.Creator);
-        }
+        Return_Case.CreatorId = await GetSimpleClassId(_db.D_Users, obj.Creator, Return_Case.CreatorId);
 
-        if (obj.RequestorId is null || obj.RequestorId == 0)
-        {
-            Return_Case.RequestorId = await GetSimpleClassId(_db.D_Users, obj.Requestor);
-        }
-        if (obj.ProcessId is null || obj.ProcessId == 0)
-        {
-            Return_Case.ProcessId = await GetSimpleClassId(_db.D_Processes, obj.Process);
-        }
+        Return_Case.RequestorId = await GetSimpleClassId(_db.D_Users, obj.Requestor, Return_Case.RequestorId);
 
-        Return_Case.CreateTimeRecord = DateTime.Now;
+        Return_Case.ProcessId = await GetSimpleClassId(_db.D_Processes, obj.Process, Return_Case.ProcessId);
 
         return Return_Case;
     }

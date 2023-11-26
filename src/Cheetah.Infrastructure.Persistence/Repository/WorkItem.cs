@@ -1,20 +1,20 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         ISync _iSync, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
-{  
-    public CheetahResult<IOrderedQueryable<F_Endorsement>> GetAllEndorsement()
+{
+    public CheetahResult<IQueryable<F_Endorsement>> GetAllEndorsement()
     {
         #region Endorsements
         var eP_Endorsements_Query =
             _db.F_Endorsements
+            .Where(x => x.EnableRecord == true)
             .AsNoTracking()
             .Include(x => x.Role)
-            .Where(x => x.EnableRecord == true)
             .OrderBy(x => x.SortIndex);
 
 
         #region Variables
-        eP_Endorsements_Query
+        var eP_Endorsements_Query2 = eP_Endorsements_Query
             .Include(x => x.Condition)
             .ThenInclude(x => x.Tag)
             .Include(x => x.Condition)
@@ -24,25 +24,23 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
         #region EndorsementItem
 
-        //eP_Endorsements_Query
-        //    .Include(x => x.EndorsementItems)
-        //    .ThenInclude(x => x.CaseState)
-        //    .Include(x => x.EndorsementItems)
-        //    .ThenInclude(x => x.Users);
+        var eP_Endorsements_Query3 = eP_Endorsements_Query2
+            .Include(x => x.EndorsementItems)
+            .ThenInclude(x => x.CaseState);
 
         #region Conditions
-        //eP_Endorsements_Query
-        //    .Include(x => x.EndorsementItems)
-        //    .ThenInclude(x => x.Conditions)
-        //    .ThenInclude(x => x.Tag)
-        //    .Include(x => x.EndorsementItems)
-        //    .ThenInclude(x => x.Conditions)
-        //    .ThenInclude(x => x.Operand);
+        var eP_Endorsements_Query4 = eP_Endorsements_Query3
+            .Include(x => x.EndorsementItems)
+            .ThenInclude(x => x.Conditions)
+            .ThenInclude(x => x.Tag)
+            .Include(x => x.EndorsementItems)
+            .ThenInclude(x => x.Conditions)
+            .ThenInclude(x => x.Operand);
         #endregion
 
         #region EndorsementItem
-        //eP_Endorsements_Query
-        //    .Include(x => x.EndorsementItem.Endorsements);
+        var eP_Endorsements_Query5 = eP_Endorsements_Query4
+            .Include(x => x.EndorsementItem.Endorsements);
 
 
         #endregion
@@ -51,7 +49,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
         #endregion
 
-        var endorsements = OutputState<IOrderedQueryable<F_Endorsement>>.Success("خروجی", eP_Endorsements_Query);
+        var endorsements = OutputState<IQueryable<F_Endorsement>>.Success("خروجی", eP_Endorsements_Query5.AsQueryable<F_Endorsement>());
 
         return endorsements;
 
@@ -61,11 +59,11 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         try
         {
             var pc_ProcessScenario = await _db.L_ProcessScenarios
-                .AsNoTracking()
                 .Where(x => x.FirstId == Current_Case.ProcessId)
                 .Where(x => x.EnableRecord == true)
                 .Include(x => x.Scenario)
                 .ThenInclude(x => x.Conditions)
+                .AsNoTracking()
                 .ToListAsync();
 
             var Actual_Conditions = Current_Case.Conditions;
@@ -118,28 +116,29 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
                     {
                         first_WorkItem = f_WorkItem;
                     }
+
                     Current_Case.WorkItems.Add(f_WorkItem);
                 }
                 else
                 {
                     var Positions = await _db.L_RolePositions
-                        .AsNoTracking()
                         .Where(x => x.FirstId == eP_Endorsement.RoleId)
                         .Where(x => x.EnableRecord == true)
+                        .AsNoTracking()
                         .Select(x => x.SecondId)
                         .ToListAsync();
 
                     var Users = await _db.L_UserPositions
-                        .AsNoTracking()
                         .Where(x => Positions.Contains(x.SecondId))
                         .Where(x => x.EnableRecord == true)
+                        .AsNoTracking()
                         .Select(x => x.FirstId)
                         .ToListAsync();
 
                     var D_Users = await _db.D_Users
-                        .AsNoTracking()
                         .Where(x => Users.Contains(x.Id))
                         .Where(x => x.EnableRecord == true)
+                        .AsNoTracking()
                         .Include(x => x.UserLocations)
                         .ToListAsync();
 
@@ -200,7 +199,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
             }
             await SetCurrentAssignment(first_WorkItem);
 
-            return OutputState<Boolean>.Success("با موفقیت ایجاد شد.",true) ;
+            return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
         }
         catch (Exception ex)
         {
@@ -214,17 +213,16 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         CheetahResult<F_Case> _OutputState = new();
 
         var DuplicateCase = _db.F_Cases
-            .AsNoTracking()
             .Where(x => x.ProcessId == GeneralRequest.ProcessId)
             .Where(x => x.ERPCode == GeneralRequest.ERPCode)
             .Where(x => x.CaseStateId == 1 || x.CaseStateId == 2)
-            .Where(x => x.EnableRecord == true);
+            .Where(x => x.EnableRecord == true)
+            .AsNoTracking();
 
-        var AnyDuplicate = await DuplicateCase.AnyAsync();
+        var CaseID = await DuplicateCase.Select(x => x.Id).FirstOrDefaultAsync();
 
-        if (AnyDuplicate)
+        if (CaseID is not null)
         {
-            var CaseID = (await DuplicateCase.FirstAsync()).Id;
             _OutputState = OutputState<F_Case>.DuplicateErrorCreateRequest(CaseID, GeneralRequest);
 
             return _OutputState;
@@ -300,16 +298,16 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
                 var Operand_Name = Condition.Operand.Name;
 
-                if (
-                       Operand_Name == ">" && Current_Value > Scenario_Value
-                    || Operand_Name == ">=" && Current_Value >= Scenario_Value
-                    || Operand_Name == "<" && Current_Value < Scenario_Value
-                    || Operand_Name == "<=" && Current_Value <= Scenario_Value
-                    || Operand_Name == "=" && Current_Value == Scenario_Value
-                    || Operand_Name == "!=" && Current_Value != Scenario_Value
-                    )
+                switch (Operand_Name)
                 {
-                    ConditionOccur++;
+                    case ">" when Current_Value > Scenario_Value:
+                    case ">=" when Current_Value >= Scenario_Value:
+                    case "<" when Current_Value < Scenario_Value:
+                    case "<=" when Current_Value <= Scenario_Value:
+                    case "=" when Current_Value == Scenario_Value:
+                    case "!=" when Current_Value != Scenario_Value:
+                        ConditionOccur++;
+                        break;
                 }
             }
         }
@@ -317,7 +315,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
         if (ConditionOccur == cnt_con)
         {
-            _OutputState =  OutputState<bool>.Success("همانند است", true);
+            _OutputState = OutputState<bool>.Success("همانند است", true);
         }
         else
         {
@@ -426,5 +424,5 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
             }
         }
         return OutputState<Boolean>.Success("با موفقیت ایجاد شد", true);
-    }   
+    }
 }

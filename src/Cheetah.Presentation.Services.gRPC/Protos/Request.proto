@@ -10,9 +10,9 @@ package greet;
 // The greeting service definition.
 service Request {
   // Sends a greeting
-  rpc CreateRequest (Create_Input_Request) returns (Brief_Request);
-  rpc PerformRequest (Perform_Input_Request) returns (Brief_Request);
-  rpc GetCase (Brief_Request) returns (DetailOutput_Requests);
+  rpc CreateRequest (Create_Input_Request) returns (Create_Output_Request);
+  rpc PerformRequest (Perform_Input_Request) returns (Perform_Output_Request);
+  rpc GetCase (GetCase_Input) returns (GetCase_OutPut);
   rpc Inbox (InputCartable) returns (OutputCartable);
   rpc Outbox (InputCartable) returns (OutputCartable);
   rpc GetAllByName (TableInfo) returns (TableInfo);
@@ -28,18 +28,29 @@ message Create_Input_Request
      repeated Condition Conditions = 5;
 }
 
+message Create_Output_Request
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName OutputState = 4;
+}
+
 message Perform_Input_Request
 {
      GRPC_BaseClass WorkItem = 1;
      repeated Condition Conditions = 2;
 }
 
-message Brief_Request
+message Perform_Output_Request
 {
     GRPC_BaseClass Case = 1;
     GRPC_BaseClass Process = 2;
     GRPC_BaseClass CaseState = 3;
     GRPC_BaseClassWithName OutputState = 4;
+}
+
+message GetCase_Input
+{
+    GRPC_BaseClass Case = 1;
 }
 
 message Condition
@@ -51,29 +62,23 @@ message Condition
     GRPC_BaseClassWithName Base =5;
 }
 
-message DetailOutput_Requests
-{
-    repeated DetailOutput_Request DetailOutput_Request = 1;
-    GRPC_BaseClassWithName OutputState = 2;
-}
-
-message DetailOutput_Request
+message GetCase_OutPut
 {
     GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName Process = 2;
-    GRPC_BaseClassWithName CaseState = 3;
-    repeated GRPC_Assignment Assignments = 4;
+    GRPC_BaseClassWithName CaseState = 2;
+    GRPC_BaseClassWithName Process = 3;
+    repeated GRPC_Endorsement Endorsements = 4;
+    GRPC_BaseClassWithName OutputState = 5;
 }
 
-message GRPC_Assignment
+message GRPC_Endorsement
 {
-    GRPC_BaseClassWithName Endorsement = 1;
-    repeated GRPC_UserAssignment UserAssignments = 2;
+    repeated GRPC_WorkItem WorkItems = 1;
 }
 
-message GRPC_UserAssignment
+message GRPC_WorkItem
 {
-    GRPC_BaseClassWithNameAndDate WorkItem = 1;
+    GRPC_BaseClassWithDate WorkItem = 1;
     GRPC_BaseClassWithName User = 2;
     GRPC_BaseClassWithName Tag = 3;
     GRPC_BaseClassWithName WorkItemState = 4;
@@ -102,6 +107,7 @@ message OutputCartable
     repeated RecordCartable RecordCartables = 7;
     GRPC_BaseClassWithName OutputState = 8;
 }
+
 message RecordCartable
 {
     GRPC_BaseClassWithName Tag = 1;
@@ -133,6 +139,14 @@ message GRPC_BaseClassWithName
     google.protobuf.Int64Value ERPCode = 2;
     google.protobuf.StringValue Name = 3;
     google.protobuf.StringValue DisplayName = 4;
+}
+
+message GRPC_BaseClassWithDate
+{
+    google.protobuf.Int64Value Id = 1;
+    google.protobuf.Int64Value ERPCode = 2;
+    google.protobuf.Timestamp CreateTimeRecord = 5;
+    google.protobuf.Timestamp LastUpdatedRecord = 6;
 }
 
 message GRPC_BaseClassWithNameAndDate
