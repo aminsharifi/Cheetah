@@ -1,10 +1,6 @@
 ﻿@page "/Links/Create/{Name}/{type}/{LinkId:long}/{reference}"
 @page "/Links/Edit/{Name}/{type}/{Id:long}/{reference}"
-
-@inject ITableCRUD simpleClassRepository;
-@inject NavigationManager _NavigationManager;
-@inject CNavigation _CNavigation;
-@inject IJSRuntime _JsRuntime;
+@inherits MyComponentBase
 <NavigationComponent _CNavigation="@_CNavigation" />
 @if (!IsLoading)
 {

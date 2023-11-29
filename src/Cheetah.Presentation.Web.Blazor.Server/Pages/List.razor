@@ -166,6 +166,6 @@
         IsLoading = true;
         await LoadRecords();
         IsLoading = false;
-        await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Create");
+        await _JSRuntime.InvokeVoidAsync("CreateToolTip", "Create");
     }
 }
