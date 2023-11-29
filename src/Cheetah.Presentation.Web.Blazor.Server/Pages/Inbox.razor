@@ -1,5 +1,5 @@
 ﻿@page "/Inbox"
-@inject IGlobalization globalization
+@inherits MyComponentBase
 
 <PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_Inbox) ))</PageTitle>
 

@@ -1,6 +1,6 @@
 ﻿@page "/Request"
-@inject IJSRuntime _JSRuntime
-@inject IGlobalization globalization
+
+@inherits MyComponentBase
 <PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_NewMessage) ))</PageTitle>
 
     <div>
