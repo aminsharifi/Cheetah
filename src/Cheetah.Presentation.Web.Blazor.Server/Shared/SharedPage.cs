@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
-public class SharedPage : ComponentBase
+public class SharedPage : MyComponentBase
 {
     #region Parameters
 
@@ -67,29 +67,5 @@ public class SharedPage : ComponentBase
     public Dictionary<string, string> keyValuePair { get; set; } = new Dictionary<string, string>();
 
 
-    #endregion
-
-    #region Injects
-
-    [Inject]
-    protected ITableCRUD simpleClassRepository { get; set; }
-
-    [Inject]
-    protected IGlobalization globalization { get; set; }
-
-    [Inject]
-    protected ISnackbar Snackbar { get; set; }
-
-    [Inject]
-    protected IJSRuntime _JsRuntime { get; set; }
-
-    [Inject]
-    protected NavigationManager _NavigationManager { get; set; }
-
-    [Inject]
-    protected CNavigation _CNavigation { get; set; }
-
-    [Inject]
-    protected ApplicationDbContext _db { get; set; }
-    #endregion
+    #endregion  
 }

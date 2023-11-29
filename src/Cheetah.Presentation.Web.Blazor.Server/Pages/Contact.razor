@@ -1,6 +1,6 @@
 ﻿@page "/"
 @page "/Contact"
-@inject IGlobalization globalization
+@inherits MyComponentBase
 <PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_NewMessage) ))</PageTitle>
 
     <div class="container-fluid" dir="rtl">

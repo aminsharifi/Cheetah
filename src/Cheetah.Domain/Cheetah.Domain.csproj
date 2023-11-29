@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DNTPersianUtils.Core" Version="5.8.0" />
+		<PackageReference Include="DNTPersianUtils.Core" Version="5.8.1" />
 		<PackageReference Include="FluentResults" Version="3.15.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Serilog" Version="3.1.1" />
@@ -33,5 +33,9 @@
 	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Helper\" />
 	</ItemGroup>
 </Project>

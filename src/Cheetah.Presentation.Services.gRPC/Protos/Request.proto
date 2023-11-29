@@ -7,128 +7,149 @@ option csharp_namespace = "Cheetah_GrpcService";
 
 package greet;
 
-
 // The greeting service definition.
 service Request {
   // Sends a greeting
-  rpc CreateRequest (Create_Input_Request) returns (Brief_Request);
-  rpc PerformRequest (Perform_Input_Request) returns (Brief_Request);
-  rpc GetCase (Brief_Request) returns (DetailOutput_Requests);
+  rpc CreateRequest (Create_Input_Request) returns (Create_Output_Request);
+  rpc PerformRequest (Perform_Input_Request) returns (Perform_Output_Request);
+  rpc GetCase (GetCase_Input) returns (GetCase_OutPut);
   rpc Inbox (InputCartable) returns (OutputCartable);
   rpc Outbox (InputCartable) returns (OutputCartable);
   rpc GetAllByName (TableInfo) returns (TableInfo);
   rpc Sync(TableInfo) returns (TableInfo);
 }
 
-message TableInfo
+message Create_Input_Request
 {
-    GRPC_BaseClass TableInput = 1;
-    repeated GRPC_BaseClass TableOutput = 2;
-    GRPC_BaseClass OutputState = 3;
+     GRPC_BaseClass Case = 1;
+     GRPC_BaseClassWithName Creator = 2;
+     GRPC_BaseClassWithName Requestor = 3;
+     GRPC_BaseClassWithName Process = 4;
+     repeated Condition Conditions = 5;
 }
+
+message Create_Output_Request
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName OutputState = 4;
+}
+
+message Perform_Input_Request
+{
+     GRPC_BaseClass WorkItem = 1;
+     repeated Condition Conditions = 2;
+}
+
+message Perform_Output_Request
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClass Process = 2;
+    GRPC_BaseClass CaseState = 3;
+    GRPC_BaseClassWithName OutputState = 4;
+}
+
+message GetCase_Input
+{
+    GRPC_BaseClass Case = 1;
+}
+
+message Condition
+{
+    GRPC_BaseClassWithName Tag = 1;
+    GRPC_BaseClassWithName Operand = 2;
+    google.protobuf.StringValue Value = 3;
+    GRPC_BaseClassWithName User = 4;
+    GRPC_BaseClassWithName Base =5;
+}
+
+message GetCase_OutPut
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName CaseState = 2;
+    GRPC_BaseClassWithName Process = 3;
+    repeated GRPC_Endorsement Endorsements = 4;
+    GRPC_BaseClassWithName OutputState = 5;
+}
+
+message GRPC_Endorsement
+{
+    repeated GRPC_WorkItem WorkItems = 1;
+}
+
+message GRPC_WorkItem
+{
+    GRPC_BaseClassWithDate WorkItem = 1;
+    GRPC_BaseClassWithName User = 2;
+    GRPC_BaseClassWithName Tag = 3;
+    GRPC_BaseClassWithName WorkItemState = 4;
+}
+
 message InputCartable
 {
     google.protobuf.Int64Value PageNumber = 1;
     google.protobuf.Int64Value PageSize  = 2;
     google.protobuf.Int64Value TotalItems  = 3;
-    GRPC_BaseClass Assignee = 4;
-    GRPC_BaseClass CaseState = 5;
-    GRPC_BaseClass Process = 6;
-    google.protobuf.Int64Value CaseId  = 7;
-    google.protobuf.Int64Value WorkItemId  = 8;
+    GRPC_BaseClassWithName Assignee = 4;
+    GRPC_BaseClassWithName CaseState = 5;
+    GRPC_BaseClassWithName Process = 6;
+    GRPC_BaseClass Case  = 7;
+    GRPC_BaseClass WorkItem  = 8;
 }
+
 message OutputCartable
 {
     google.protobuf.Int64Value PageNumber = 1;
     google.protobuf.Int64Value PageSize  = 2;
     google.protobuf.Int64Value TotalItems  = 3;
-    GRPC_BaseClass Assignee = 4;
-    GRPC_BaseClass CaseState = 5;
-    GRPC_BaseClass Process = 6;
+    GRPC_BaseClassWithName Assignee = 4;
+    GRPC_BaseClassWithName CaseState = 5;
+    GRPC_BaseClassWithName Process = 6;
     repeated RecordCartable RecordCartables = 7;
-    GRPC_BaseClass OutputState = 8;
+    GRPC_BaseClassWithName OutputState = 8;
 }
 
 message RecordCartable
-{    
-    GRPC_BaseClass D_Tag = 1;
-    GRPC_BaseClass Requestor  = 2;
-    google.protobuf.Int64Value CaseId  = 3;
-    google.protobuf.Int64Value WorkItemId  = 4;
-    google.protobuf.Timestamp CreateDate  = 5;
-    google.protobuf.Timestamp RecieveDate = 6;
-    GRPC_BaseClass Process = 7;
-    GRPC_BaseClass Task = 8;
-    GRPC_BaseClass CaseState = 9;
+{
+    GRPC_BaseClassWithName Tag = 1;
+    GRPC_BaseClassWithName Requestor  = 2;
+    GRPC_BaseClass Case  = 3;
+    GRPC_BaseClass WorkItem  = 4;
+    GRPC_BaseClassWithName Process = 7;
+    GRPC_BaseClassWithName Task = 8;
+    GRPC_BaseClassWithName CaseState = 9;
     repeated GRPC_BaseClass ValidUserActions = 10;
-    google.protobuf.StringValue Summary = 11;
-    google.protobuf.Int64Value ERPCode = 12;
-    GRPC_BaseClass WorkItem  = 13;
 }
 
-message Brief_Request
+message TableInfo
 {
-    google.protobuf.Int64Value CaseId = 1;
-    google.protobuf.Int64Value  ERPCode = 2;
-    GRPC_BaseClass Process = 3;
-    GRPC_BaseClass CaseState = 4;
-    GRPC_BaseClass OutputState = 5;
-}
-
-message Create_Input_Request
-{     
-     google.protobuf.Int64Value  ERPCode = 1;
-     GRPC_BaseClass Creator = 2;
-     GRPC_BaseClass Requestor = 3;
-     GRPC_BaseClass Process = 4;
-     repeated Condition Conditions = 5;
-}
-
-message Condition
-{   
-    GRPC_BaseClass Tag = 1;
-    GRPC_BaseClass Operand = 2;
-    google.protobuf.StringValue Value = 3;
-    GRPC_BaseClass User = 4;
-    GRPC_BaseClass Base = 5;
-}
-
-message Perform_Input_Request
-{
-     google.protobuf.Int64Value WorkItemId = 1;
-     repeated Condition Conditions = 2;
-}
-
-message DetailOutput_Requests
-{
-    repeated DetailOutput_Request DetailOutput_Request = 1;
-    GRPC_BaseClass OutputState = 2;
-}
-message DetailOutput_Request
-{
-    google.protobuf.Int64Value  Id = 1;
-    google.protobuf.Int64Value  ERPCode = 2;
-    GRPC_BaseClass Process = 3;
-    GRPC_BaseClass CaseState = 4;
-    repeated GRPC_Assignment Assignments = 5;
-}
-
-message GRPC_Assignment
-{
-    GRPC_BaseClass Endorsement = 1;
-    repeated GRPC_UserAssignment UserAssignments = 2;
-}
-
-message GRPC_UserAssignment
-{
-    google.protobuf.Int64Value WorkItemId = 1;
-    google.protobuf.Timestamp LastUpdatedRecord = 2;
-    GRPC_BaseClass User = 3;
-    GRPC_BaseClass Tag = 4;
-    GRPC_BaseClass WorkItemState = 5;
+    GRPC_BaseClassWithName TableInput = 1;
+    repeated GRPC_BaseClassWithName TableOutput = 2;
+    GRPC_BaseClassWithName OutputState = 3;
 }
 
 message GRPC_BaseClass
+{
+    google.protobuf.Int64Value Id = 1;
+    google.protobuf.Int64Value ERPCode = 2;
+}
+
+message GRPC_BaseClassWithName
+{
+    google.protobuf.Int64Value Id = 1;
+    google.protobuf.Int64Value ERPCode = 2;
+    google.protobuf.StringValue Name = 3;
+    google.protobuf.StringValue DisplayName = 4;
+}
+
+message GRPC_BaseClassWithDate
+{
+    google.protobuf.Int64Value Id = 1;
+    google.protobuf.Int64Value ERPCode = 2;
+    google.protobuf.Timestamp CreateTimeRecord = 5;
+    google.protobuf.Timestamp LastUpdatedRecord = 6;
+}
+
+message GRPC_BaseClassWithNameAndDate
 {
     google.protobuf.Int64Value Id = 1;
     google.protobuf.Int64Value ERPCode = 2;

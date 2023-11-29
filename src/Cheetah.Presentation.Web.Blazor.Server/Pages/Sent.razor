@@ -1,6 +1,6 @@
 ﻿@page "/Sent"
 
-@inject IGlobalization globalization
+@inherits MyComponentBase
 
 <PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_Outbox) ))</PageTitle>
 
