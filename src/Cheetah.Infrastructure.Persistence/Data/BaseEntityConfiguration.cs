@@ -91,7 +91,7 @@ public static class BaseEntityConfiguration
                   .Property(s => s.LastUpdatedRecord)
                   .HasColumnOrder(7)
                   .HasDefaultValue(DateTime.Now)
-                  .ValueGeneratedOnAddOrUpdate()
+                  .ValueGeneratedOnUpdate()
                   .IsConcurrencyToken(true);
             #endregion
 

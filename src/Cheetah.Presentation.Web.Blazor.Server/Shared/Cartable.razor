@@ -33,15 +33,15 @@
                 </MudTh>
             </HeaderContent>
             <RowTemplate>
-                <MudTd>@context?.RadNumber</MudTd>
-                <MudTd>@context?.PCreateDate</MudTd>
-                <MudTd>@context?.PRecieveDate</MudTd>
-                <MudTd>@context?.Requestor?.DisplayName</MudTd>
-                <MudTd>@context?.Process?.DisplayName</MudTd>
-                <MudTd>@context?.Task?.DisplayName</MudTd>
-                <MudTd>@context.Summary</MudTd>
-            </RowTemplate>
-        </MudTable>
+                <MudTd>@context?.Case.Id</MudTd>
+                    <MudTd>@context?.Case.CreateTimeRecord</MudTd>
+                    <MudTd>@context?.WorkItem.CreateTimeRecord</MudTd>
+                    <MudTd>@context?.Requestor?.DisplayName</MudTd>
+                    <MudTd>@context?.Process?.DisplayName</MudTd>
+                    <MudTd>@context?.Endorsement?.DisplayName</MudTd>
+                    <MudTd>@context.Summary</MudTd>
+                </RowTemplate>
+            </MudTable>
         <hr />
         <br />
         <br />

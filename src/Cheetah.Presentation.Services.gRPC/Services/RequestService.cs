@@ -7,7 +7,7 @@ public class RequestService
         ICartable iCartable, ISync iSync, IWorkItem iWorkItem,
         IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
 {
-    public override async Task<Create_Output_Request> CreateRequest(Create_Input_Request request, ServerCallContext context)
+    public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
     {
         logger.LogInformation("started " + nameof(CreateRequest));
         logger.LogInformation("{@Create_Input_Request}", request);
@@ -28,7 +28,7 @@ public class RequestService
 
         var OutputState = Outputresult.SimpleClassDTO;
 
-        Create_Output_Request output_Request = new();
+        CreateRequest_Output output_Request = new();
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
@@ -39,7 +39,7 @@ public class RequestService
 
         f_Request = Outputresult.Result.Value;
 
-        output_Request.Case = f_Request.GetBaseClass();
+        output_Request.Case = f_Request.GetBaseClassWithDate();
 
         #endregion
 
@@ -48,7 +48,7 @@ public class RequestService
 
         return output_Request;
     }
-    public override async Task<Perform_Output_Request> PerformRequest(Perform_Input_Request request, ServerCallContext context)
+    public override async Task<PerformRequest_Output> PerformRequest(PerformRequest_Input request, ServerCallContext context)
     {
         logger.LogInformation("started " + nameof(PerformRequest));
         logger.LogInformation("{@Perform_Input_Request}", request);
@@ -67,7 +67,7 @@ public class RequestService
         f_WorkItem = Outputresult.Result.Value;
         var OutputState = Outputresult.SimpleClassDTO;
 
-        Perform_Output_Request output_Request = new()
+        PerformRequest_Output output_Request = new()
         {
             Case = f_WorkItem.Case?.GetBaseClass(),
             CaseState = f_WorkItem.Case?.CaseState?.GetBaseClass(),
@@ -81,7 +81,7 @@ public class RequestService
 
         return output_Request;
     }
-    public override async Task<GetCase_OutPut> GetCase(GetCase_Input request, ServerCallContext context)
+    public override async Task<GetCase_Output> GetCase(GetCase_Input request, ServerCallContext context)
     {
         #region Input
         var f_Request = request.Case.GetSimpleClass<F_Case>();
@@ -90,82 +90,50 @@ public class RequestService
         var l_Request = await iCartable.GetCaseAsync(f_Request).Result.FirstOrDefaultAsync();
 
         #region Output
-        #region DetailOutput_Request
 
-        GetCase_OutPut output_Requests = new();
-        
-        var Endorsements = l_Request?.WorkItems?
-           .Select(x => x?.Endorsement)
-           .Distinct();
+        #region GetCase_Output
 
-        //var d_Tags = await db.D_Tags.AsNoTracking().ToListAsync();
-
-        GetCase_OutPut output_Request = new();
-
-
-        output_Request = new()
+        GetCase_Output output_Requests = new()
         {
             Case = l_Request?.GetBaseClass(),
-            Process = l_Request?.Process?.GetBaseClassWithName(),
+            CaseState = l_Request?.CaseState?.GetBaseClassWithName(),
+            Process = l_Request?.Process?.GetBaseClassWithName()
         };
-
-        #region CaseState
-        output_Request.CaseState = l_Request?.CaseState?.GetBaseClassWithName();
-        #endregion
 
         #region Endorsements
 
-        var lendorsements = Endorsements
+        var Endorsements = l_Request?
+            .SelectedScenario
+            .Endorsements
             .OrderBy(x => x.SortIndex)
             .ToList();
 
-        //var endorsements = lendorsements
-        //    .Select(x => new GRPC_Assignment()
-        //    {
-        //        Endorsement = x.GetBaseClassWithName()
-        //    });
 
-        //output_Request.Assignments.AddRange(endorsements);
+        output_Requests.Endorsements.AddRange(
+            Endorsements.Select(x => new GRPC_Endorsement()
+            {
+                Endorsement = x.GetBaseClassWithName()
+            })
+            );
 
         #endregion
 
         #region L_WorkItem
 
-        var L_WorkItems = l_Request.WorkItems.ToList();
-
-        //foreach (var Assignment in output_Request.Assignments)
-        //{
-        //    Assignment.UserAssignments.AddRange
-        //        (
-        //            L_WorkItems.Where(x => x.EndorsementId == Assignment.Endorsement.Id)
-        //            .Select(x => new GRPC_UserAssignment()
-        //            {
-        //                WorkItem = x.GetBaseClassWithDate(),
-        //                User = x.User?.GetBaseClassWithName(),
-        //                WorkItemState = x.WorkItemState?.GetBaseClassWithName()
-        //            }
-        //            )
-        //    );
-        //}
-
-        #region d_Tag
-
-
-        //foreach (var Assignment in output_Request.Assignments)
-        //{
-        //    foreach (var UserAssignment in Assignment.UserAssignments)
-        //    {
-        //        var TagId = L_WorkItems.Where(x => x.Id == UserAssignment.WorkItem.Id).Single().TagId;
-
-        //        if (TagId is not null and > 0)
-        //        {
-        //            //var d_Tag = d_Tags.Where(x => x.Id == TagId).SingleOrDefault();
-        //            //UserAssignment.Tag = d_Tag.GetBaseClass();
-        //        }
-        //    }
-        //}
-
-        #endregion
+        foreach (var Endorsement in output_Requests.Endorsements)
+        {
+            Endorsement.WorkItems.AddRange(
+            l_Request?.WorkItems
+                .Where(x => x.EndorsementId == Endorsement.Endorsement.Id)
+                .Select(x => new GRPC_WorkItem()
+                {
+                    User = x.User.GetBaseClassWithName(),
+                    Tag = x.Tag.GetBaseClassWithName(),
+                    WorkItemState = x.WorkItemState?.GetBaseClassWithName(),
+                    WorkItem = x.GetBaseClassWithDate()
+                })
+                );
+        }
 
         #endregion
 
@@ -194,67 +162,68 @@ public class RequestService
     }
 
     #region Cartable
-    public async Task<OutputCartable> Cartable(InputCartable request, CartableProperty cartableProperty)
+    public async Task<Cartable_Output> Cartable(Cartable_Input request, CartableProperty cartableProperty)
     {
         logger.LogInformation("started " + nameof(Cartable));
         logger.LogInformation("{@InputCartable}", request);
 
-        OutputCartable _OutputCartable = new();
+        #region Input
 
-        var _D_User = request.Assignee.GetSimpleClass<SimpleClassDTO>();
-        var _D_Process = request.Process.GetSimpleClass<SimpleClassDTO>();
-        var _D_CaseState = request.CaseState.GetSimpleClass<SimpleClassDTO>();
+        var assignee = request.Assignee.GetSimpleClass<SimpleClassDTO>();
+        var process = request.Process.GetSimpleClass<SimpleClassDTO>();
+        var caseState = request.CaseState.GetSimpleClass<SimpleClassDTO>();
+        var caseItem = request.Case.GetSimpleClass<SimpleClassDTO>();
+        var workItem = request.WorkItem.GetSimpleClass<SimpleClassDTO>();
 
         var cartableDTO = new CartableDTO()
         {
-            User = _D_User,
-            Process = _D_Process,
-            CaseState = _D_CaseState,
+            User = assignee,
+            Process = process,
+            Case = caseItem,
+            WorkItem = workItem,
+            CaseState = caseState,
             PageSize = request.PageSize,
             PageNumber = request.PageNumber,
         };
+
+        #endregion
 
         var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
            await iCartable.Inbox(cartableDTO) :
            await iCartable.Outbox(cartableDTO)).ToList<CartableDTO>();
 
+        #region Output
+        Cartable_Output _OutputCartable = new();
+
         if (OutputRequest.Count() > 0)
         {
             _OutputCartable.TotalItems = OutputRequest.FirstOrDefault()?.TotalItems.Value;
-            _OutputCartable.Assignee = OutputRequest.FirstOrDefault()?.User.GetBaseClassWithName();
-            _OutputCartable.Process = OutputRequest.FirstOrDefault()?.Process.GetBaseClassWithName();
-            _OutputCartable.CaseState = OutputRequest.FirstOrDefault()?.CaseState.GetBaseClassWithName();
+            _OutputCartable.PageSize = OutputRequest.FirstOrDefault()?.PageSize.Value;
+            _OutputCartable.PageNumber = OutputRequest.FirstOrDefault()?.PageNumber.Value;
 
-            //var _Recordtable = OutputRequest.Select(
-            //     x => new RecordCartable()
-            //     {
-            //         CreateDate = x.CreateDate.CGetTimestamp(),
-            //         CaseState = GetBaseClass(x.CaseState),
-            //         DTag = GetBaseClass(x.Tag),
-            //         RecieveDate = x.RecieveDate.CGetTimestamp(),
-            //         Summary = x.Summary ?? String.Empty,
-            //         Process = GetBaseClass(x.Process),
-            //         WorkItem = GetBaseClass(x.WorkItem),
-            //         CaseId = long.Parse(x.RadNumber),
-            //         ERPCode = x.ERPCode.Value,
-            //         WorkItemId = long.Parse(x.WorkItemId),
-            //         Requestor = GetBaseClass(x.Requestor),
-            //         Task = GetBaseClass(x.Task)
-            //     }
-            //     );
-
-            //_OutputCartable.RecordCartables.AddRange(_Recordtable);
-
-            foreach (var RecordCartable in _OutputCartable.RecordCartables)
+            foreach (var outputRequestItem in OutputRequest)
             {
-                RecordCartable.ValidUserActions.AddRange(
-                   OutputRequest
-                   .Where(x => x.WorkItemId == RecordCartable.WorkItem.Id.ToString())
-                   .Single().ValidUserActions
-                   .Select(y => y.GetBaseClass())
-                   );
+                RecordCartable recordCartable = new()
+                {
+                    Process = outputRequestItem.Process.GetBaseClassWithName(),
+                    Case = outputRequestItem.Case.GetBaseClassWithDate(),
+                    CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
+                    Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
+                    WorkItem = outputRequestItem.WorkItem.GetBaseClassWithDate(),
+                    Assignee = outputRequestItem.User.GetBaseClassWithName(),
+                    Endorsement = outputRequestItem.Endorsement.GetBaseClassWithName(),
+                    Tag = outputRequestItem.Tag.GetBaseClassWithName()
+                };
+
+                recordCartable.ValidUserActions.AddRange(outputRequestItem.ValidUserActions.Select(_ => _.GetBaseClassWithName()));
+
+                _OutputCartable.RecordCartables.Add(recordCartable);
+
             }
+
         }
+        #endregion
+
         logger.LogInformation("Ended " + nameof(Cartable));
         logger.LogInformation("{@OutputCartable}", _OutputCartable);
 
@@ -262,11 +231,11 @@ public class RequestService
 
         return _OutputCartable;
     }
-    public override Task<OutputCartable> Inbox(InputCartable request, ServerCallContext context)
+    public override Task<Cartable_Output> Inbox(Cartable_Input request, ServerCallContext context)
     {
         return Cartable(request, CartableProperty.Inbox);
     }
-    public override Task<OutputCartable> Outbox(InputCartable request, ServerCallContext context)
+    public override Task<Cartable_Output> Outbox(Cartable_Input request, ServerCallContext context)
     {
         return Cartable(request, CartableProperty.Outbox);
     }

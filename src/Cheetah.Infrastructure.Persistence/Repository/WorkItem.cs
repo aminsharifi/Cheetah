@@ -100,8 +100,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
                     F_WorkItem f_WorkItem = new()
                     {
                         Case = Current_Case,
-                        EndorsementId = eP_Endorsement.Id,
-                        LastUpdatedRecord = DateTime.Now
+                        EndorsementId = eP_Endorsement.Id
                     };
 
                     if (eP_Endorsement.IsRequestor())
@@ -326,6 +325,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
     public async Task<CheetahResult<Boolean>> SetCurrentAssignment(F_WorkItem Current_WorkItem)
     {
         Current_WorkItem.LastUpdatedRecord = DateTime.Now;
+
+        Current_WorkItem.Case.LastUpdatedRecord = DateTime.Now;
 
         var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
 
