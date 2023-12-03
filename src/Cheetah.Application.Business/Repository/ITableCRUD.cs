@@ -3,7 +3,11 @@ public interface ITableCRUD
 {
     public Task<Int32> delete(string type, Int64? id);
     public Task<IEnumerable<SimpleClass>> GetAllByName(String type);
+
+    public Task<Tuple<SimpleClass, IEnumerable<SimpleClass>>> GetAllBySimpleClass(SimpleClass simpleClass);
+
     public Task<Dictionary<String, String>> GetAllTableName(String SchemaName);
+
     public Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, String sd_Status, Int64? linkID);
     public Task<SimpleClass> Get(string type, Int64? id, Boolean Tracking = true);
     public Task<SimpleClass> Get(string type, String? recordName, Boolean Tracking = true, params String[] TableIncludes);

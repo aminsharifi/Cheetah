@@ -57,16 +57,16 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             f_WorkItems = f_WorkItems.Where(x => x.Case.CaseStateId == CaseStateId);
         }
 
-        if (!string.IsNullOrEmpty(cartableDTO.RadNumber))
+        if (cartableDTO.Case is not null)
         {
-            var radNumber = cartableDTO.RadNumber;
-            f_WorkItems = f_WorkItems.Where(x => x.CaseId == long.Parse(radNumber));
+            var CaseId = cartableDTO.Case.Id;
+            f_WorkItems = f_WorkItems.Where(x => x.CaseId == CaseId);
         }
 
-        if (!string.IsNullOrEmpty(cartableDTO.WorkItemId))
+        if (cartableDTO.WorkItem is not null)
         {
-            var workItemId = cartableDTO.WorkItemId;
-            f_WorkItems = f_WorkItems.Where(x => x.Id == long.Parse(workItemId));
+            var workItemId = cartableDTO.WorkItem.Id;
+            f_WorkItems = f_WorkItems.Where(x => x.Id == workItemId);
         }
 
         var _D_Tags = await _db.D_Tags
@@ -98,23 +98,22 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
         .Select(x =>
         new CartableDTO()
         {
-            Process = _iCopyClass.GetSimpleClass(x.Case.Process),
-            User = _iCopyClass.GetSimpleClass(x.User),
-            RadNumber = x.CaseId.ToString(),
-            WorkItemId = x.Id.ToString(),
-            WorkItem = _iCopyClass.GetSimpleClass(x),
-            Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
-            Task = _iCopyClass.GetSimpleClass(x.Endorsement),
-            CreateDate = x.Case.CreateTimeRecord,
-            RecieveDate = x.CreateTimeRecord,
-            Summary = string.Empty,
             PageSize = _PageSize,
             PageNumber = _PageNumber,
             TotalItems = _TotalItems,
-            ERPCode = x.Case.ERPCode,
+            Process = _iCopyClass.GetSimpleClass(x.Case.Process),
+            User = _iCopyClass.GetSimpleClass(x.User),
+            Case = _iCopyClass.GetSimpleClass(x.Case),
+            WorkItem = _iCopyClass.GetSimpleClass(x),
+            Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
+            Endorsement = _iCopyClass.GetSimpleClass(x.Endorsement),
             Tag = _iCopyClass.GetSimpleClass(x.Tag),
             CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
-            ValidUserActions = _SelectedTag
+            ValidUserActions = x.Endorsement.EndorsementItems
+            .SelectMany(x => x.Conditions, (Parrent, Child) => _iCopyClass
+            .GetSimpleClass(Child.Tag)
+            ),
+            Summary = string.Empty
         }
         );
 
