@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Services.gRPC.Services;
+﻿using System.Linq;
+
+namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService
     (ILogger<RequestService> logger,
@@ -145,20 +147,34 @@ public class RequestService
 
         return output_Requests;
     }
-    public override async Task<TableInfo> GetAllByName(TableInfo request, ServerCallContext context)
+    public override async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request, ServerCallContext context)
     {
-        TableInfo tableInfo = new();
-        var TableRecords = await simpleClassRepository.GetAllByName(request.TableInput.Name);
-        //tableInfo.TableOutput.AddRange(
-        //    TableRecords.Select(x => new GRPC_BaseClass()
-        //    {
-        //        Id = x.GetBaseClassWithName(x)
-        //        Name = x.Name,
-        //        DisplayName = x.DisplayName,
-        //        ERPCode = x.ERPCode.Value
-        //    })
-        //    );
-        return tableInfo;
+        GetAllByName_Output getAllByName_Output = new();
+
+        if (String.IsNullOrWhiteSpace(request.TableInput.Name))
+        {
+            return getAllByName_Output;
+        }
+
+        #region Input
+
+        getAllByName_Output.TableInput = request.TableInput;
+
+        #endregion
+
+        var TableRecords = await simpleClassRepository.GetAllBySimpleClass(getAllByName_Output.TableInput.GetSimpleClass<SimpleClassDTO>());
+
+        #region Output
+
+        getAllByName_Output.TableInput = TableRecords.Item1.GetBaseClassWithName();
+
+        getAllByName_Output.TableOutput.AddRange(TableRecords.Item2.Select(x => x.GetBaseClassWithName()));
+
+        getAllByName_Output.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
+
+        #endregion
+
+        return getAllByName_Output;
     }
 
     #region Cartable

@@ -15,8 +15,7 @@ service Request {
   rpc PerformRequest (PerformRequest_Input) returns (PerformRequest_Output);
   rpc Inbox (Cartable_Input) returns (Cartable_Output);
   rpc Outbox (Cartable_Input) returns (Cartable_Output);
-  rpc GetAllByName (TableInfo) returns (TableInfo);
-  rpc Sync(TableInfo) returns (TableInfo);
+  rpc GetAllByName (GetAllByName_Input) returns (GetAllByName_Output);
 }
 
 message CreateRequest_Input
@@ -119,7 +118,12 @@ message RecordCartable
     repeated GRPC_BaseClassWithName ValidUserActions = 9;
 }
 
-message TableInfo
+message GetAllByName_Input
+{
+    GRPC_BaseClassWithName TableInput = 1;
+}
+
+message GetAllByName_Output
 {
     GRPC_BaseClassWithName TableInput = 1;
     repeated GRPC_BaseClassWithName TableOutput = 2;
