@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Cheetah.Application.Services.gRPC.Services;
+﻿namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService
     (ILogger<RequestService> logger,
