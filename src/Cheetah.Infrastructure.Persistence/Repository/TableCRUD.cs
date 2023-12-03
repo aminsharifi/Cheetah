@@ -92,17 +92,40 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
         return S_SimpleClass;
     }
 
+    public async Task<Tuple<SimpleClass, IEnumerable<SimpleClass>>> GetAllBySimpleClass(SimpleClass simpleClass)
+    {
+        var ReturnOutput = new Tuple<SimpleClass, IEnumerable<SimpleClass>>(new SimpleClassDTO(), new List<SimpleClass>());
+
+        if (String.IsNullOrEmpty(simpleClass.Name))
+        {
+            return ReturnOutput;
+        }
+
+        var InputEntity = await _db.D_Entities.Where(x => x.Name == simpleClass.Name).AsNoTracking().FirstAsync();
+
+
+        var gtype = DatabaseClass.GetDBType(InputEntity.Name);
+        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
+        var Result = await Task.FromResult(aa.ToList());
+
+        ReturnOutput = new Tuple<SimpleClass, IEnumerable<SimpleClass>>(InputEntity, Result);
+
+        return ReturnOutput;
+    }
+
     public async Task<IEnumerable<SimpleClass>> GetAllByName(String type)
     {
         if (!String.IsNullOrEmpty(type))
         {
-            var gtype = DatabaseClass.GetDBType(type);
-            var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
-            var Result = await Task.FromResult(aa.ToList());
-            return Result;
+            new List<SimpleClass>();
         }
-        return new List<SimpleClass>();
+
+        var gtype = DatabaseClass.GetDBType(type);
+        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
+        var Result = await Task.FromResult(aa.ToList());
+        return Result;
     }
+
     public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, String sd_Status, Int64? linkID)
     {
         if (!String.IsNullOrEmpty(type))

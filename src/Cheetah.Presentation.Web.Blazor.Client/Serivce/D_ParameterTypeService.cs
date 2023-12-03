@@ -247,4 +247,9 @@ public class D_ParameterTypeService : ITableCRUD
     {
         throw new NotImplementedException();
     }
+
+    public Task<Tuple<SimpleClass, IEnumerable<SimpleClass>>> GetAllBySimpleClass(SimpleClass simpleClass)
+    {
+        throw new NotImplementedException();
+    }
 }
