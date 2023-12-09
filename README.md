@@ -32,6 +32,8 @@ ORM: Entity Framework Core
 
 ![Blazor Upsert Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Blazor_Upsert_Table.png)
 
+![gRPC Method](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/gRPC_CreateRequest.png)
+
 ![GraphQL Query](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/GraphQL_Query.png)
 
 ![GraphQL Mutation](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/GraphQL_Mutation.png)
