@@ -42,8 +42,8 @@ message PerformRequest_Input
 message PerformRequest_Output
 {
     GRPC_BaseClass Case = 1;
-    GRPC_BaseClass Process = 2;
-    GRPC_BaseClass CaseState = 3;
+    GRPC_BaseClassWithName Process = 2;
+    GRPC_BaseClassWithName CaseState = 3;
     GRPC_BaseClassWithName OutputState = 4;
 }
 

@@ -70,8 +70,8 @@ public class RequestService
         PerformRequest_Output output_Request = new()
         {
             Case = f_WorkItem.Case?.GetBaseClass(),
-            CaseState = f_WorkItem.Case?.CaseState?.GetBaseClass(),
-            Process = f_WorkItem.Case?.Process?.GetBaseClass()
+            CaseState = f_WorkItem.Case?.CaseState?.GetBaseClassWithName(),
+            Process = f_WorkItem.Case?.Process?.GetBaseClassWithName()
         };
         output_Request.OutputState = OutputState.GetBaseClassWithName();
         #endregion
