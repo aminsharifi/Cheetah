@@ -3,6 +3,9 @@
 
 Cheetah is a free and open-source lightweight BPMS engine. 
 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=aminsharifi_Cheetah&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=aminsharifi_Cheetah)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=aminsharifi_Cheetah&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=aminsharifi_Cheetah)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=aminsharifi_Cheetah&metric=code_smells)](https://sonarcloud.io/dashboard?id=aminsharifi_Cheetah)
 
 ## Authors
 
@@ -16,11 +19,11 @@ Cheetah is a free and open-source lightweight BPMS engine.
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-## 🛠 Skills
+## 🛠 Technologies
 
 Web technologies: ASP.net Core, Blazor Server Side, Blazor Client Side, Javascript, HTML, CSS, Bootstrap, jQuery
 
-APIs: GraphQL,GRPC, Swagger
+APIs: GraphQL, gRPC, Swagger
 
 Databases: Microsoft SQL Server, PostgreSQL
 
