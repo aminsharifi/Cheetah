@@ -1,0 +1,1 @@
+  rpc Sync(TableInfo) returns (TableInfo);
