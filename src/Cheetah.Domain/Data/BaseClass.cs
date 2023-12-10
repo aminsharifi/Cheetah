@@ -7,7 +7,7 @@
 public abstract class BaseClass<I> : SimpleClass
 {
     /// <summary>
-    /// Parent Id
+    /// Parent Id comment
     /// </summary>
     public long? Parent_Id { get; set; }
     [ForeignKey(nameof(Parent_Id))]
