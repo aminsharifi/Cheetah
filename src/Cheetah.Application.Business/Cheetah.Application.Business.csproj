@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
+	  <PackageReference Include="Cheetah.Domain" Version="1.0.16" />
 	</ItemGroup>
 
 </Project>
