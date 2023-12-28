@@ -32,7 +32,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Cheetah.Application.Business\Cheetah.Application.Business.csproj" />
-	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
