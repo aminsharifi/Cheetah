@@ -7,6 +7,8 @@
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile></DocumentationFile>
+		<EnablePackageValidation>True</EnablePackageValidation>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,22 +22,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Resx\Localization.Designer.cs">
-			<DependentUpon>Localization.resx</DependentUpon>
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-		</Compile>
+	  <Compile Update="Resx\Localization.Designer.cs">
+	    <DependentUpon>Localization.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Resx\Localization.resx">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-			<LastGenOutput>Localization.Designer.cs</LastGenOutput>
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
+	  <EmbeddedResource Update="Resx\Localization.resx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Helper\" />
+	  <Folder Include="Helper\" />
 	</ItemGroup>
 </Project>
