@@ -31,7 +31,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build  -c Release -o /app/build      
+      run: dotnet build  -c Release
 
     - name: upload nuget package      
       run: dotnet nuget push bin/Release/*.nupkg -k ${{ secrets.NUGET_APIKEY }} -s https://api.nuget.org/v3/index.json
