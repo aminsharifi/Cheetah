@@ -19,24 +19,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Infrastructure.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.gRPC", "src\Cheetah.Presentation.Services.gRPC\Cheetah.Presentation.Services.gRPC.csproj", "{B688A533-38B1-4566-B332-95C15689A478}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure", "src\Cheetah.Infrastructure", "{E3650071-446E-4A8A-8AFD-3E510B8CF848}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure", "Cheetah.Infrastructure", "{E3650071-446E-4A8A-8AFD-3E510B8CF848}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure.Persistence", "src\Cheetah.Infrastructure.Persistence", "{2A785E5C-5A88-48D7-9472-5902E2283C7C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure.Persistence", "Cheetah.Infrastructure.Persistence", "{2A785E5C-5A88-48D7-9472-5902E2283C7C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure.Persistence.Providers", "src\Cheetah.Infrastructure.Persistence.Providers", "{ACE38A6A-D0BF-461E-8E94-EA0472821142}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure.Persistence.Providers", "Cheetah.Infrastructure.Persistence.Providers", "{ACE38A6A-D0BF-461E-8E94-EA0472821142}"
 	ProjectSection(SolutionItems) = preProject
 		Migration.txt = Migration.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation.Web", "src\Cheetah.Presentation.Web", "{7AF10026-6966-4DEF-90E1-CCB50EA59800}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation.Web", "Cheetah.Presentation.Web", "{7AF10026-6966-4DEF-90E1-CCB50EA59800}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Domain", "src\Cheetah.Domain", "{DD1A666F-DEE7-44AC-9EE4-78C3919A3875}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Core", "Cheetah.Core", "{DD1A666F-DEE7-44AC-9EE4-78C3919A3875}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Application", "src\Cheetah.Application", "{682F2031-CEDB-46F9-8B4B-62BE20B291C2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Application", "Cheetah.Application", "{682F2031-CEDB-46F9-8B4B-62BE20B291C2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation.Services", "src\Cheetah.Presentation.Services", "{BA5B8226-B742-4E75-A333-871DA96E15F3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation.Services", "Cheetah.Presentation.Services", "{BA5B8226-B742-4E75-A333-871DA96E15F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation", "src\Cheetah.Presentation", "{34EA5201-210E-4794-B1FD-57F464B8514F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation", "Cheetah.Presentation", "{34EA5201-210E-4794-B1FD-57F464B8514F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Application.Business", "src\Cheetah.Application.Business\Cheetah.Application.Business.csproj", "{2AB23359-6C3E-4459-873B-FDBAB666294A}"
 EndProject

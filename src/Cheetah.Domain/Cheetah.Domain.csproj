@@ -7,6 +7,8 @@
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile></DocumentationFile>
+		<EnablePackageValidation>true</EnablePackageValidation>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
