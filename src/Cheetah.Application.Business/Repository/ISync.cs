@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Repository;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Application.Business.Repository;
 public interface ISync
 {
     public Task<D_User> GetUser(D_User d_User);

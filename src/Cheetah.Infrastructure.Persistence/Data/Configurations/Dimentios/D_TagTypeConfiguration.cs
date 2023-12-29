@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
+﻿using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
 public class D_TagTypeConfiguration : IEntityTypeConfiguration<D_TagType>
 {

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         ISync _iSync, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {

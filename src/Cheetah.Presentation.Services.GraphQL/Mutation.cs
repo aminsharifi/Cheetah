@@ -1,6 +1,6 @@
 ﻿using Cheetah.Application.Business.Repository;
 using Cheetah.Domain;
-using Cheetah.Domain.Facts;
+using Cheetah.Domain.Entities.Facts;
 using Cheetah.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
