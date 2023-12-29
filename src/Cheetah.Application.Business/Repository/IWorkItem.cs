@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Repository;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Repository;
 public interface IWorkItem
 {
     

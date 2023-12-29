@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Services.gRPC.Services;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService
     (ILogger<RequestService> logger,

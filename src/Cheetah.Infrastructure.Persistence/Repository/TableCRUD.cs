@@ -115,11 +115,6 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 
     public async Task<IEnumerable<SimpleClass>> GetAllByName(String type)
     {
-        if (!String.IsNullOrEmpty(type))
-        {
-            new List<SimpleClass>();
-        }
-
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
         var Result = await Task.FromResult(aa.ToList());
