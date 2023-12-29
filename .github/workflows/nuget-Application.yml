@@ -1,4 +1,4 @@
-name: Nuget Package
+name: Nuget Application Package
 
 on:
   schedule:
@@ -34,4 +34,4 @@ jobs:
       run: dotnet build  -c Release
 
     - name: upload nuget package      
-      run: dotnet nuget push bin/Release/*.nupkg -k ${{ secrets.NUGET_APIKEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push bin/Release/*.nupkg -k ${{ secrets.NUGET_APIKEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
