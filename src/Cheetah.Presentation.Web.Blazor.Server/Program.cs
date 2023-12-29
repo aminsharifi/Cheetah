@@ -99,13 +99,7 @@ builder.Services.AddBootstrapBlazor();
 
 var app = builder.Build();
 
-using var scope = app.Services.CreateScope();
-
-var services = scope.ServiceProvider;
-
-var initialiser = services.GetRequiredService<DbInitialiser>();
-
-await initialiser.Run();
+await app.InitialiseDatabaseAsync();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -123,8 +117,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-await SeedDatabase();
-
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -134,12 +126,3 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
-
-async Task SeedDatabase()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        await dbInitializer.Initialize();
-    }
-}
