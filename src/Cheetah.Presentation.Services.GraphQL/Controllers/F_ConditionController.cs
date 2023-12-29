@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using Cheetah.Application.Business.Repository;
-using Cheetah.Domain;
-using Cheetah.Domain.Data;
-using Cheetah.Domain.Facts;
-using Microsoft.AspNetCore.Mvc;
+﻿
 
 namespace Cheetah.Application.Services.Controllers;
 [Route("[controller]")]

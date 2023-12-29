@@ -9,9 +9,10 @@ public class DatabaseClass
     }
     public static Type GetDBType(String dBType)
     {
-        var _schema = GetTableType(dBType).ToString();
+        var _schema = nameof(Cheetah.Domain.Entities) + "." + GetTableType(dBType).ToString();
         var _namespace = nameof(Cheetah) + "." + nameof(Cheetah.Domain);
         var _returnType = Type.GetType(_namespace + "." + _schema + "." + dBType + "," + _namespace);
+
         return _returnType;
     }
     public static IQueryable<SimpleClass> InvokeSet(ApplicationDbContext _db, Type gtype)
