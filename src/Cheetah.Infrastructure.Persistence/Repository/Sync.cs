@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
 {
     public async Task<D_User> GetUser(D_User v_Creator)

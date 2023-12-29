@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 
 public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICartable
 {

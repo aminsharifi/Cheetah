@@ -1,10 +1,4 @@
-﻿using Cheetah.Domain.Data;
-using Cheetah.Domain.Dimentions;
-using Cheetah.Domain.Facts;
-using Cheetah.Domain.Links;
-using Cheetah.Infrastructure.Persistence;
-
-namespace Cheetah.Presentation.Services.GraphQL;
+﻿namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Query
 {
