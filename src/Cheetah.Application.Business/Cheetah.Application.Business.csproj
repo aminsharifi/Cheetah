@@ -8,9 +8,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
 	<ItemGroup>
-	  <PackageReference Include="Cheetah.Domain" Version="1.0.17" />
+	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 
 </Project>
