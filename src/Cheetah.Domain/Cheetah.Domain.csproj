@@ -5,6 +5,7 @@
 		<DocumentationFile></DocumentationFile>
 		<EnablePackageValidation>True</EnablePackageValidation>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>8.0.100</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
