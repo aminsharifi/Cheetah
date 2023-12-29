@@ -3,7 +3,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	<Version>8.0.100</Version>
+    <Nullable>enable</Nullable>	
   </PropertyGroup>
 </Project>
