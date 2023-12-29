@@ -2,7 +2,7 @@ name: Nuget Application Package
 
 on:
   schedule:
-    - cron: '28 16 * * *'
+    - cron: '28 17 * * *'
   push:
     branches: [ "master" ]
     # Publish semver tags as releases.
