@@ -40,9 +40,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation", "Che
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Application.Business", "src\Cheetah.Application.Business\Cheetah.Application.Business.csproj", "{2AB23359-6C3E-4459-873B-FDBAB666294A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkgs", "nupkgs", "{0BBE3245-BCB0-4703-BFCC-D6666947999D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{22FB4589-8ED9-4A79-B0B8-18E6478FF09B}"
 	ProjectSection(SolutionItems) = preProject
-		nupkgs\Cheetah.Domain.1.0.15.nupkg = nupkgs\Cheetah.Domain.1.0.15.nupkg
+		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
+		LICENSE.txt = LICENSE.txt
+		.github\workflows\nuget-application.yml = .github\workflows\nuget-application.yml
+		.github\workflows\nuget-domain.yml = .github\workflows\nuget-domain.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
