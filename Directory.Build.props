@@ -4,5 +4,6 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<Version>8.0.100</Version>
   </PropertyGroup>
 </Project>
