@@ -44,6 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
+		editorconfig = editorconfig
 		LICENSE.txt = LICENSE.txt
 		.github\workflows\nuget-application.yml = .github\workflows\nuget-application.yml
 		.github\workflows\nuget-domain.yml = .github\workflows\nuget-domain.yml

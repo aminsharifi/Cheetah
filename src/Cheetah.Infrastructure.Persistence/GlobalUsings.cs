@@ -17,3 +17,4 @@ global using System.Reflection;
 global using System.Security.Authentication;
 global using System.Security.Claims;
 global using System.Text;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
