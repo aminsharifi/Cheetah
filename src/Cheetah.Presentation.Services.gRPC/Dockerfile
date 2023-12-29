@@ -10,6 +10,8 @@ WORKDIR /
 COPY ["src/Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj", "src/Cheetah.Presentation.Services.gRPC/"]
 COPY ["src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/"]
 COPY ["src/Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence.csproj", "src/Cheetah.Infrastructure.Persistence/"]
+COPY ["src/Cheetah.Application.Business/Cheetah.Application.Business.csproj", "src/Cheetah.Application.Business/"]
+COPY ["src/Cheetah.Domain/Cheetah.Domain.csproj", "src/Cheetah.Domain/"]
 COPY ["src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
 RUN dotnet restore "src/Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj"
 COPY . .
