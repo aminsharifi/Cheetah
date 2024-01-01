@@ -44,11 +44,11 @@ public class F_Endorsement : SimpleClass
     #region Getter
     public bool IsRequestor()
     {
-        return RoleId == 100;
+        return RoleId == D_Role.Requestor.Id;
     }
     public bool IsRequestorManager()
     {
-        return RoleId == 101;
+        return RoleId == D_Role.RequestorManager.Id;
     }
     #endregion
 
