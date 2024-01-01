@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public class L_RolePosition : SimpleLinkClass
+public partial class L_RolePosition : SimpleLinkClass
 {
     [ForeignKey(nameof(FirstId))]
     public virtual D_Role? Role { get; set; }
