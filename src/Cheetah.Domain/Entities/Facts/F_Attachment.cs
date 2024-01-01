@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 
-public partial class F_Attachment : SimpleClass
+public class F_Attachment : SimpleClass
 {
     //Passed 
 

@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
 
-public partial class D_UserInformation : SimpleClass
+public class D_UserInformation : SimpleClass
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
