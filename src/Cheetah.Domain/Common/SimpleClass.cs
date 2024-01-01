@@ -7,8 +7,8 @@ public abstract class SimpleClass
     public String? Name { get; set; }
     public String? DisplayName { get; set; }
     public String? Description { get; set; }
-    public DateTime? CreateTimeRecord { get; set; } = DateTime.Now;
-    public DateTime? LastUpdatedRecord { get; set; }
+    public DateTimeOffset? CreateTimeRecord { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? LastUpdatedRecord { get; set; }
     public Guid? GuidRecord { get; set; } = Guid.NewGuid();
     public Boolean? EnableRecord { get; set; } = true;
     public Int64? ERPCode { get; set; }

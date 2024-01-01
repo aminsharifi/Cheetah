@@ -1,16 +1,8 @@
-using Cheetah.Application.Business.Repository;
 using Cheetah.Application.Services.Helper;
-using Cheetah.Infrastructure.Persistence;
-using Cheetah.Infrastructure.Persistence.Repository;
 using Cheetah.Presentation.Services.GraphQL;
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 using System.Text;
-using Winton.Extensions.Configuration.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 

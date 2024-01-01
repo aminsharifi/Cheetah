@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Cheetah.Infrastructure.Persistence;
 
@@ -21,8 +20,9 @@ public static class BaseEntityConfiguration
                 {
                     entity.HasKey(nameof(SimpleClass.Id));
                     entity.HasIndex(nameof(SimpleClass.Name)).IsDescending().IsUnique();
-                    entity.HasIndex(nameof(SimpleClass.CreateTimeRecord)).IsDescending().IsUnique();
-                    entity.HasIndex(nameof(SimpleClass.LastUpdatedRecord)).IsDescending().IsUnique();
+                    entity.HasIndex(nameof(SimpleClass.CreateTimeRecord)).IsDescending();
+                    entity.HasIndex(nameof(SimpleClass.LastUpdatedRecord)).IsDescending();
+
                     entity.HasIndex(nameof(SimpleClass.ERPCode)).IsDescending();
                     entity.HasIndex(nameof(SimpleClass.EnableRecord)).IsDescending();
                     entity.Property(nameof(SimpleClass.Id)).HasColumnOrder(1).HasDefaultValue((long)0);
@@ -30,9 +30,10 @@ public static class BaseEntityConfiguration
                     entity.Property(nameof(SimpleClass.Name)).HasColumnOrder(3).HasDefaultValue(String.Empty).HasMaxLength(512);
                     entity.Property(nameof(SimpleClass.DisplayName)).HasColumnOrder(4).HasDefaultValue(String.Empty).HasMaxLength(512);
                     entity.Property(nameof(SimpleClass.Description)).HasColumnOrder(5).HasDefaultValue(String.Empty).HasMaxLength(512);
-                    entity.Property(nameof(SimpleClass.CreateTimeRecord)).HasColumnOrder(6).HasDefaultValue(DateTime.Now).ValueGeneratedOnAdd();
-                    entity.Property(nameof(SimpleClass.LastUpdatedRecord)).HasColumnOrder(7).HasDefaultValue(DateTime.Now)
-                        .ValueGeneratedOnAddOrUpdate().IsConcurrencyToken(true); ;
+                    entity.Property(nameof(SimpleClass.CreateTimeRecord)).HasColumnOrder(6).HasDefaultValue(DateTimeOffset.Now).ValueGeneratedOnAdd();
+                    entity.Property(nameof(SimpleClass.LastUpdatedRecord)).HasColumnOrder(7).HasDefaultValue(DateTimeOffset.Now)
+                        .ValueGeneratedOnAddOrUpdate().IsConcurrencyToken(true);
+
                     entity.Property(nameof(SimpleClass.GuidRecord)).HasColumnOrder(8)
                         .HasDefaultValue(Guid.NewGuid());
                     entity.Property(nameof(SimpleClass.EnableRecord)).HasColumnOrder(9)

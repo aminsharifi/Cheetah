@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain.Entities.Dimentions;
+﻿using System.Reflection;
+
+namespace Cheetah.Domain.Entities.Dimentions;
 
 public partial class D_Process : SimpleClass
 {
