@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
-public class D_User : BaseClass<D_User>
+public partial class D_User : BaseClass<D_User>
 {
 
     #region Common Prop
@@ -45,27 +45,4 @@ public class D_User : BaseClass<D_User>
         return (D_User)MemberwiseClone();
     }
 
-    #region Values
-
-    public static readonly D_User m_sharifi =
-        new D_User
-        {
-            Id = 1,
-            ERPCode = 1,
-            SortIndex = 1,
-            Name = nameof(m_sharifi).Replace('_', '.'),
-            DisplayName = "محمد شریفی"
-        };
-
-    public static readonly D_User a_sharifi =
-        new D_User
-        {
-            Id = 2,
-            ERPCode = 2,
-            SortIndex = 2,
-            Name = nameof(a_sharifi).Replace('_', '.'),
-            DisplayName = "امین شریفی"
-        };
-
-    #endregion
 }

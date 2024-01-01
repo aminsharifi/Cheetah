@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public class L_EndorsementUser : SimpleLinkClass
+public partial class L_EndorsementUser : SimpleLinkClass
 {
     [ForeignKey(nameof(FirstId))]
     public virtual F_Endorsement? Endorsement { get; set; }
