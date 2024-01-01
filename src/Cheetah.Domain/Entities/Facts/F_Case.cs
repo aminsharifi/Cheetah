@@ -44,38 +44,42 @@ public class F_Case : SimpleClass
     }
     public bool IsOngoing()
     {
-        return CaseStateId == 1;
+        return CaseStateId == D_CaseState.Ongoing.Id;
     }
     public bool IsEditing()
     {
-        return CaseStateId == 2;
+        return CaseStateId == D_CaseState.Editing.Id;
     }
     public bool IsCompleted()
     {
-        return CaseStateId == 3;
+        return CaseStateId == D_CaseState.Completed.Id;
     }
     public bool IsAborted()
     {
-        return CaseStateId == 4;
+        return CaseStateId == D_CaseState.Aborted.Id;
     }
     #endregion
 
     #region Setter
     public void SetEditing()
     {
-        CaseStateId = 2;
+        CaseStateId = D_CaseState.Editing.Id;
+        CaseState = D_CaseState.Editing;
     }
     public void SetAborted()
     {
-        CaseStateId = 4;
+        CaseStateId = D_CaseState.Aborted.Id;
+        CaseState = D_CaseState.Aborted;
     }
     public void SetCompleted()
     {
-        CaseStateId = 3;
+        CaseStateId = D_CaseState.Completed.Id;
+        CaseState = D_CaseState.Completed;
     }
     public void SetOngoing()
     {
-        CaseStateId = 1;
+        CaseStateId = D_CaseState.Ongoing.Id;
+        CaseState = D_CaseState.Ongoing;
     }
 
     #endregion

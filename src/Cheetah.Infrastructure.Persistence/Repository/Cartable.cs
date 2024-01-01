@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Entities.Facts;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 
 public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICartable
 {
@@ -71,12 +69,6 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             f_WorkItems = f_WorkItems.Where(x => x.Id == workItemId);
         }
 
-        var _D_Tags = await _db.D_Tags
-            .Where(x => x.Id.Value == 201 || x.Id.Value == 202 || x.Id.Value == 203)
-            .ToListAsync();
-
-        var _SelectedTag = _D_Tags.Select(y => _iCopyClass.GetSimpleClass(y)).ToList();
-
         Int64 _PageSize = 0;
 
         Int64 _PageNumber = 0;
@@ -127,7 +119,7 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             .Where(x =>
             x.Case.EnableRecord == true &&
             x.EnableRecord == true &&
-            x.WorkItemStateId == 1);
+            x.WorkItemStateId == D_WorkItemState.Inbox.Id);
 
         var inbox = await GetCartable(cartableDTO, inboxQuery);
 
@@ -139,7 +131,7 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
        .Where(x =>
        x.Case.EnableRecord == true &&
        x.EnableRecord == true &&
-       x.WorkItemStateId == 2);
+       x.WorkItemStateId == D_WorkItemState.Sent.Id);
 
         var outBox = await GetCartable(cartableDTO, outBoxQuery);
 

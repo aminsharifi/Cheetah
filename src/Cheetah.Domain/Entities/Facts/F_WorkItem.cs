@@ -30,35 +30,31 @@ public class F_WorkItem : SimpleClass
     #region Getter
     public bool IsInbox()
     {
-        return WorkItemStateId == 1;
+        return WorkItemStateId == D_WorkItemState.Inbox.Id;
     }
     public bool IsSent()
     {
-        return WorkItemStateId == 2;
+        return WorkItemStateId == D_WorkItemState.Sent.Id;
     }
     public bool IsExit()
     {
-        return WorkItemStateId == 3;
+        return WorkItemStateId == D_WorkItemState.Exit.Id;
     }
     public bool IsFuture()
     {
-        return WorkItemStateId == 4;
-    }
-    public bool IsAborted()
-    {
-        return WorkItemStateId == 5;
+        return WorkItemStateId == D_WorkItemState.Future.Id;
     }
     public bool IsApprove()
     {
-        return TagId == 201;
+        return TagId == D_Tag.Approve.Id;
     }
     public bool IsReject()
     {
-        return TagId == 202;
+        return TagId == D_Tag.Reject.Id;
     }
     public bool IsRevise()
     {
-        return TagId == 203;
+        return TagId == D_Tag.Revise.Id;
     }
 
     #endregion
@@ -66,35 +62,38 @@ public class F_WorkItem : SimpleClass
     #region Setter
     public void SetInbox()
     {
-        WorkItemStateId = 1;
+        WorkItemStateId = D_WorkItemState.Inbox.Id;
+        WorkItemState = D_WorkItemState.Inbox;
     }
     public void SetSent()
     {
-        WorkItemStateId = 2;
+        WorkItemStateId = D_WorkItemState.Sent.Id;
+        WorkItemState = D_WorkItemState.Sent;
     }
     public void SetExit()
     {
-        WorkItemStateId = 3;
+        WorkItemStateId = D_WorkItemState.Exit.Id;
+        WorkItemState = D_WorkItemState.Exit;
     }
     public void SetFuture()
     {
-        WorkItemStateId = 4;
-    }
-    public void SetAborted()
-    {
-        WorkItemStateId = 5;
+        WorkItemStateId = D_WorkItemState.Future.Id;
+        WorkItemState = D_WorkItemState.Future;
     }
     public void SetApprove()
     {
-        TagId = 201;
+        TagId = D_Tag.Approve.Id;
+        Tag = D_Tag.Approve;
     }
     public void SetReject()
     {
-        TagId = 202;
+        TagId = D_Tag.Reject.Id;
+        Tag = D_Tag.Reject;
     }
     public void SetRevise()
     {
-        TagId = 203;
+        TagId = D_Tag.Revise.Id;
+        Tag = D_Tag.Revise;
     }
 
 

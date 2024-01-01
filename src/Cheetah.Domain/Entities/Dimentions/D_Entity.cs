@@ -140,6 +140,7 @@ public class D_Entity : SimpleClass
                 .Append($"({TableType.Facts})").ToString(),
             Display = false
         };
+
     public static readonly D_Entity F_Attachment =
         new D_Entity
         {
@@ -211,6 +212,7 @@ public class D_Entity : SimpleClass
                         .Append($"({TableType.Links})").ToString(),
             Display = false
         };
+
     public static readonly D_Entity L_ProcessScenario =
         new D_Entity
         {
@@ -222,6 +224,7 @@ public class D_Entity : SimpleClass
                         .Append($"({TableType.Links})").ToString(),
             Display = false
         };
+
     public static readonly D_Entity L_UserLocation =
         new D_Entity
         {
@@ -233,6 +236,7 @@ public class D_Entity : SimpleClass
                         .Append($"({TableType.Links})").ToString(),
             Display = false
         };
+
     public static readonly D_Entity L_UserPosition =
         new D_Entity
         {
