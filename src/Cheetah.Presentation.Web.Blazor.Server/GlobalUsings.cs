@@ -1,14 +1,12 @@
 ﻿global using Cheetah.Application.Business.Repository;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
-global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Infrastructure.Persistence;
 global using Cheetah.Infrastructure.Persistence.Repository;
 global using Cheetah.Presentation.Web.Blazor.Server;
 global using Cheetah.Presentation.Web.Blazor.Server.Data;
 global using Cheetah.Presentation.Web.Blazor.Server.Helper;
 global using Cheetah.Presentation.Web.Blazor.Server.Resx;
-global using Cheetah.Presentation.Web.Blazor.Server.Services;
 global using Cheetah.Resx;
 global using FluentAssertions.Common;
 global using Microsoft.AspNetCore.Components;

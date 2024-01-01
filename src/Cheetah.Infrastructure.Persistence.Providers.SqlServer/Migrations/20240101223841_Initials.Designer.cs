@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231008115029_Add_ERPCode")]
-    partial class Add_ERPCode
+    [Migration("20240101223841_Initials")]
+    partial class Initials
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -28,28 +28,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_CaseState", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_CaseState", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 150, DateTimeKind.Unspecified).AddTicks(9552), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -57,33 +61,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("5f439273-ba88-47da-9e99-cbe40fc29f93"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 151, DateTimeKind.Unspecified).AddTicks(98), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -92,9 +104,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -107,86 +117,92 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3272),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(7396), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "در دست بررسی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("eb5c18d5-22d2-44f8-8d78-9c7bc0d68304"),
+                            GuidRecord = new Guid("89d4e884-a04b-484d-8426-b81d5dd567d4"),
                             Name = "Ongoing",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3278),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(7436), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "منتظر بازنگری",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6a9a7c02-3dd6-4557-af9c-d69d54768db9"),
+                            GuidRecord = new Guid("95482bf2-b673-4911-bdfe-ca8539c1c788"),
                             Name = "Editing",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3280),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(7445), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "کامل شده",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("d11dca2b-6833-4ee9-a22e-f13e0e696ad6"),
+                            GuidRecord = new Guid("a4c471e5-b176-4d59-b9c4-9be099249125"),
                             Name = "Completed",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3283),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(7448), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "عدم تایید",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6b95428a-0bc4-473b-8ade-3bcc1c96bbfc"),
+                            GuidRecord = new Guid("2a4725b3-ab14-4b3d-84cc-4cee1f87f5c6"),
                             Name = "Rejected",
                             SortIndex = 4L
                         },
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3285),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(7461), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "ابطال شده",
                             ERPCode = 5L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("c006a7a8-4bf6-4236-99e7-c47d393a518d"),
+                            GuidRecord = new Guid("9b9a910a-73e0-4230-8ebe-136a90539d9d"),
                             Name = "Aborted",
                             SortIndex = 5L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Entity", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Entity", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 151, DateTimeKind.Unspecified).AddTicks(6569), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<bool?>("Display")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(100);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -194,33 +210,43 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("667968b0-0e51-49a8-8bd7-e970f75ae010"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 151, DateTimeKind.Unspecified).AddTicks(7204), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
+
+                    b.HasIndex("Display");
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -229,9 +255,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -244,267 +268,271 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3638),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 215, DateTimeKind.Unspecified).AddTicks(1200), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "نوع تگ‌ها(Dimentions)",
                             ERPCode = 101L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("b178ad9a-6d73-4d6f-b921-67f84f5a282e"),
+                            GuidRecord = new Guid("1ac61008-66d2-4a24-9d40-370e7119c210"),
                             Name = "D_TagType",
                             SortIndex = 101L
                         },
                         new
                         {
                             Id = 102L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3684),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3302), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "موقعیت‌ها(Dimentions)",
                             ERPCode = 102L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("14e33cd9-60e2-43a7-9ecc-59838e13eb23"),
+                            GuidRecord = new Guid("101f466d-440c-42d1-ab4d-502b81c05f64"),
                             Name = "D_Location",
                             SortIndex = 102L
                         },
                         new
                         {
                             Id = 103L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3690),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3408), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "عملگرها(Dimentions)",
                             ERPCode = 103L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("172f45c8-6ec8-48e4-9829-aa068622f99b"),
+                            GuidRecord = new Guid("40df96ab-dfdf-4655-bb25-c6250cbd7972"),
                             Name = "D_Operand",
                             SortIndex = 103L
                         },
                         new
                         {
                             Id = 104L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3696),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3443), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = true,
                             DisplayName = "تگ‌ها(Dimentions)",
                             ERPCode = 104L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("0c1da910-4782-4b85-9fa0-fa3b88138fc5"),
+                            GuidRecord = new Guid("9bb303af-e1e8-4c38-94c4-79c204831d95"),
                             Name = "D_Tag",
                             SortIndex = 104L
                         },
                         new
                         {
                             Id = 105L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3703),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3461), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "سمت‌ها(Dimentions)",
                             ERPCode = 105L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("158c05a8-611e-42f9-9a33-204af7b7fb1d"),
+                            GuidRecord = new Guid("17202ceb-05aa-4cc0-b572-49d2a654f1c4"),
                             Name = "D_Position",
                             SortIndex = 105L
                         },
                         new
                         {
                             Id = 106L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3709),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3475), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "وضعیت فرآیندها(Dimentions)",
                             ERPCode = 106L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("7c4da448-ac73-418d-b3b7-2e7a208d12f3"),
+                            GuidRecord = new Guid("5e075699-6587-40fa-a017-54a06f6d1a10"),
                             Name = "D_CaseState",
                             SortIndex = 106L
                         },
                         new
                         {
                             Id = 107L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3714),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3486), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = true,
                             DisplayName = "فرآیند‌ها(Dimentions)",
                             ERPCode = 107L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("5e831a8f-97ea-4364-9237-e2dc40ff0ecf"),
+                            GuidRecord = new Guid("49b03f1c-b05e-4306-b1aa-19d5dcc1bee6"),
                             Name = "D_Process",
                             SortIndex = 107L
                         },
                         new
                         {
                             Id = 108L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3720),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3535), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = true,
                             DisplayName = "نقش‌ها(Dimentions)",
                             ERPCode = 108L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("4d4019ed-3255-4876-8b02-6a334dda0c44"),
+                            GuidRecord = new Guid("959a0f36-d0e5-4f63-885f-293a418122ad"),
                             Name = "D_Role",
                             SortIndex = 108L
                         },
                         new
                         {
                             Id = 109L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3726),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3578), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = true,
                             DisplayName = "کاربران(Dimentions)",
                             ERPCode = 109L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("21800e26-da76-41b9-919e-b61ddb685e54"),
+                            GuidRecord = new Guid("1000badf-3535-409e-8832-012ca36b8f07"),
                             Name = "D_User",
                             SortIndex = 109L
                         },
                         new
                         {
                             Id = 112L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3733),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3590), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "اطلاعات کاربرها(Facts)",
                             ERPCode = 112L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("e78eddf4-afb3-41fe-9d14-f84baee481da"),
+                            GuidRecord = new Guid("8e14479d-11d0-46c6-a75c-4bc055108f75"),
                             Name = "D_UserInformation",
                             SortIndex = 112L
                         },
                         new
                         {
                             Id = 200L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3739),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3597), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "تمام تاییدها(Facts)",
                             ERPCode = 200L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("a3736511-9622-4082-8a64-b3481eb9b94a"),
+                            GuidRecord = new Guid("aed67cbb-864a-48b7-9677-9bcfd490abd2"),
                             Name = "F_WorkItem",
                             SortIndex = 200L
                         },
                         new
                         {
                             Id = 202L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3744),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3603), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "ضمیمه‌ها(Facts)",
                             ERPCode = 202L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("f1c57d60-77e2-4b94-be40-161ada78e95c"),
+                            GuidRecord = new Guid("0087c84a-a690-4579-80b9-bafdc94b724d"),
                             Name = "F_Attachment",
                             SortIndex = 202L
                         },
                         new
                         {
                             Id = 203L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3749),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3609), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "لیست تخصیص‌ها(Facts)",
                             ERPCode = 203L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("8bbb66ef-63b9-4a38-9bae-493b975b7152"),
+                            GuidRecord = new Guid("95fcff24-b1cf-4fc1-88c2-4f71c2770860"),
                             Name = "F_Endorsement",
                             SortIndex = 203L
                         },
                         new
                         {
                             Id = 204L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3755),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3668), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "لیست شرط‌ها(Facts)",
                             ERPCode = 204L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("8803458a-3f79-4ff9-b35c-c6e28c793b6d"),
+                            GuidRecord = new Guid("5748cb0f-e189-4117-9209-b6f488851376"),
                             Name = "F_Condition",
                             SortIndex = 204L
                         },
                         new
                         {
                             Id = 205L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3830),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3676), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "اطلاعات درخواست‌ها(Facts)",
                             ERPCode = 205L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("4110f831-074b-4e4b-b27e-45885fb5d3fd"),
+                            GuidRecord = new Guid("49573f9c-7b51-423c-aba4-432700bdb84f"),
                             Name = "F_Case",
                             SortIndex = 205L
                         },
                         new
                         {
                             Id = 206L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3847),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3687), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = true,
                             DisplayName = "سناریوها(Facts)",
                             ERPCode = 206L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("039161cc-07f1-419e-a55d-9d237b86dc93"),
+                            GuidRecord = new Guid("1e980b9b-c0d5-4bce-a14c-e1a80053a8fe"),
                             Name = "F_Scenario",
                             SortIndex = 206L
                         },
                         new
                         {
                             Id = 300L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3853),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3692), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "نقش-سمت(Links)",
                             ERPCode = 300L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("0fed3614-f266-47eb-8d1a-f17c12b7c340"),
+                            GuidRecord = new Guid("d4c078a5-7a43-403d-b0de-9d5e010ec5d9"),
                             Name = "L_RolePosition",
                             SortIndex = 300L
                         },
                         new
                         {
                             Id = 301L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3860),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3697), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "فرآیند-سناریو(Links)",
                             ERPCode = 301L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("9eb4e329-7ce7-4069-ac13-f46b624e4369"),
+                            GuidRecord = new Guid("c8abf036-29fa-4335-82ef-a3a6fced9cff"),
                             Name = "L_ProcessScenario",
                             SortIndex = 301L
                         },
                         new
                         {
                             Id = 302L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3865),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3704), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "کاربر-موقعیت(Links)",
                             ERPCode = 302L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("f26b3ad1-13d2-4daf-b2dc-a84e9adc731c"),
+                            GuidRecord = new Guid("05df7904-4fdf-4b9d-9030-c87e59ab72d6"),
                             Name = "L_UserLocation",
                             SortIndex = 302L
                         },
                         new
                         {
                             Id = 303L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3871),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(3710), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "کاربر-سمت(Links)",
                             ERPCode = 303L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("85d6ede6-173a-4ed0-9597-dd17d5fdebbc"),
+                            GuidRecord = new Guid("e417056b-c8e3-47e3-9204-6ebea49cb915"),
                             Name = "L_UserPosition",
                             SortIndex = 303L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Location", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Location", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 152, DateTimeKind.Unspecified).AddTicks(3940), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -512,7 +540,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<long?>("EndorsementItemId")
@@ -520,29 +550,35 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(110);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("035f01c9-b223-43cf-8610-6a47cca6cd22"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 152, DateTimeKind.Unspecified).AddTicks(4452), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -553,9 +589,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("EndorsementItemId");
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -568,38 +602,42 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3360),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 217, DateTimeKind.Unspecified).AddTicks(6444), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "فارس",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("af7d5e08-d6fe-42aa-86ea-b805dde08465"),
+                            GuidRecord = new Guid("418514f1-3bd5-47a7-a035-684228178d49"),
                             Name = "Fars",
                             SortIndex = 1L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Operand", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Operand", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 153, DateTimeKind.Unspecified).AddTicks(752), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -607,33 +645,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("83329a5b-6759-4a43-9ddb-09bbfb24ef80"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 153, DateTimeKind.Unspecified).AddTicks(1264), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -642,9 +688,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -657,93 +701,97 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3380),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(617), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "مساوی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("7b86af53-e38f-4d69-8d2c-05963a67d880"),
+                            GuidRecord = new Guid("ccf266f7-3fdb-4eb4-96cf-df8438848185"),
                             Name = "=",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3383),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(637), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "مخالف",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("4751bd0e-e256-45c5-8e60-fbf45397a0d5"),
+                            GuidRecord = new Guid("ea29030c-939e-4e47-9e56-366d184e4bfa"),
                             Name = "!=",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3385),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(647), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "بزگتر از",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("db20de06-d640-41c4-915d-9c384785b6fa"),
+                            GuidRecord = new Guid("243b9d8d-648f-4cca-b2b4-03efb5a5e9be"),
                             Name = ">",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3388),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(649), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "بزرگتر و مساوی",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("e9e7c320-fbf0-441d-acc1-5cbb76246992"),
+                            GuidRecord = new Guid("7636530e-88e1-46ec-a5ba-3e89015f952a"),
                             Name = ">=",
                             SortIndex = 4L
                         },
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3390),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(652), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = " کوچکتر از",
                             ERPCode = 5L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("7b2e7add-0980-4bc9-b6f0-183713dbd421"),
+                            GuidRecord = new Guid("00ca11e4-fd19-4fb5-9fa9-7c2c418da1a6"),
                             Name = "<",
                             SortIndex = 5L
                         },
                         new
                         {
                             Id = 6L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3396),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(654), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "کوچکتر و مساوی",
                             ERPCode = 6L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("cdc7813c-6bd7-4a47-9544-d7afdeb73f82"),
+                            GuidRecord = new Guid("45006648-db2b-4d5d-b2ac-182bce4d99d9"),
                             Name = "<=",
                             SortIndex = 6L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Position", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Position", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 153, DateTimeKind.Unspecified).AddTicks(7260), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -751,33 +799,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("d2a3b76d-76b8-4855-8909-1284ba237c88"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 153, DateTimeKind.Unspecified).AddTicks(7682), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -786,9 +842,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -801,42 +855,48 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3616),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(3785), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "کارشناس",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("5065225c-89b8-4612-a4cb-77a83e1f43b4"),
+                            GuidRecord = new Guid("64811158-323c-4c83-ad73-756e69aeadd4"),
                             Name = "Expert",
                             SortIndex = 1L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Process", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Process", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 154, DateTimeKind.Unspecified).AddTicks(3685), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<bool?>("ERP")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(101);
 
                     b.Property<long?>("ERPCode")
@@ -844,41 +904,53 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("a5829f9e-8bac-41e4-be10-d2b2db066a56"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 154, DateTimeKind.Unspecified).AddTicks(4107), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<bool?>("RemoveRequestorApproval")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(102);
 
                     b.Property<bool?>("ShowSupport")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasColumnOrder(100);
+                        .HasDefaultValue(true)
+                        .HasColumnOrder(110);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -887,9 +959,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -902,12 +972,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3032),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(5897), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "فرآیند نمونه",
                             ERP = true,
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("dbfaf9a3-95b9-434f-b8c8-d7e182cd5420"),
+                            GuidRecord = new Guid("ab4407a8-2bfc-4cfe-bcbb-19fbdc6890c2"),
                             Name = "SampleProcess",
                             RemoveRequestorApproval = true,
                             ShowSupport = true,
@@ -915,28 +985,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Role", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Role", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 155, DateTimeKind.Unspecified).AddTicks(161), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -944,41 +1018,53 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<bool>("FixedRole")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnOrder(101);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("ff057eee-f55f-4442-a690-86f54d15222f"))
                         .HasColumnOrder(8);
 
                     b.Property<bool>("Independent")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnOrder(100);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 155, DateTimeKind.Unspecified).AddTicks(613), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -986,13 +1072,10 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("EnableRecord")
                         .IsDescending();
 
-                    b.HasIndex("Independent")
-                        .IsDescending();
+                    b.HasIndex("Independent");
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -1005,12 +1088,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 100L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3560),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(8419), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "درخواست کننده",
                             ERPCode = 100L,
                             EnableRecord = true,
                             FixedRole = true,
-                            GuidRecord = new Guid("4b850aa4-8725-4132-a324-40e03131af27"),
+                            GuidRecord = new Guid("f52333b4-f4cc-46ad-afe0-dbf7a4bc0e59"),
                             Independent = false,
                             Name = "Requestor",
                             SortIndex = 100L
@@ -1018,40 +1101,44 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3573),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 218, DateTimeKind.Unspecified).AddTicks(8836), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "مدیر درخواست کننده",
                             ERPCode = 101L,
                             EnableRecord = true,
                             FixedRole = true,
-                            GuidRecord = new Guid("5a257b82-738c-4a08-ae0e-fd29524478b2"),
+                            GuidRecord = new Guid("48cf41d1-3115-48b7-bff4-474d9760d247"),
                             Independent = false,
                             Name = "RequestorManager",
                             SortIndex = 101L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Tag", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Tag", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 155, DateTimeKind.Unspecified).AddTicks(8390), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1059,25 +1146,35 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("cc1ed8df-bf80-451c-a10f-f5c4eaa255a0"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 155, DateTimeKind.Unspecified).AddTicks(9267), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.Property<long?>("TagTypeId")
@@ -1087,9 +1184,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -1098,9 +1193,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -1115,12 +1208,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3452),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(3877), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "عددی",
                             DisplayName = "مرکز",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6e86a791-2785-4985-b2d3-99a97dfd783b"),
+                            GuidRecord = new Guid("15e847c3-e44c-4e00-a134-0ca8a80d725b"),
                             Name = "D_Location",
                             SortIndex = 1L,
                             TagTypeId = 1L
@@ -1128,12 +1221,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 201L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3456),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(4690), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "پارامتریک",
                             DisplayName = "تایید",
                             ERPCode = 201L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("0ebd4509-bb94-4557-98da-ae801ad0fab7"),
+                            GuidRecord = new Guid("bea49889-364f-4ea5-a9ad-8ffde5486233"),
                             Name = "Approve",
                             SortIndex = 201L,
                             TagTypeId = 2L
@@ -1141,12 +1234,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 202L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3459),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(4706), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "پارامتریک",
                             DisplayName = "عدم تایید",
                             ERPCode = 202L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("2d75109a-b17f-4998-9d7e-19f4575c415f"),
+                            GuidRecord = new Guid("5bdfdb1e-1991-413f-bc22-e55be3881818"),
                             Name = "Reject",
                             SortIndex = 202L,
                             TagTypeId = 2L
@@ -1154,53 +1247,57 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 203L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3464),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(4826), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "پارامتریک",
                             DisplayName = "بازنگری",
                             ERPCode = 203L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("9dc7e837-c72b-4042-9ef9-35c1c0cebd1a"),
-                            Name = "Edit",
+                            GuidRecord = new Guid("849378c9-0652-4d8f-ba74-02be71b4af32"),
+                            Name = "Revise",
                             SortIndex = 203L,
                             TagTypeId = 2L
                         },
                         new
                         {
                             Id = 301L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3467),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(4841), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "عددی",
                             DisplayName = "مبلغ",
                             ERPCode = 301L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("826dcdc2-22be-43b3-b632-6cfcf87e5a7f"),
+                            GuidRecord = new Guid("cf2c8fcd-3c34-49ff-8611-e0fa9e461d27"),
                             Name = "Price",
                             SortIndex = 301L,
                             TagTypeId = 1L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_TagType", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_TagType", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 156, DateTimeKind.Unspecified).AddTicks(6703), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1208,33 +1305,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("ca240cb6-6b8f-430d-aee1-4fe2b5400abc"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 156, DateTimeKind.Unspecified).AddTicks(7242), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -1243,9 +1348,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -1258,69 +1361,70 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3422),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(7992), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "عددی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("bbff05a5-1446-4587-bf60-d645cefb3ac4"),
+                            GuidRecord = new Guid("518be551-e9dc-44b8-a30a-188df359c0ff"),
                             Name = "Numberic",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3424),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(8013), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "دودویی",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6e458e23-2670-428a-b08e-8acf5043598a"),
+                            GuidRecord = new Guid("4dbd05c5-e7db-4ad4-8189-d4ff90d31760"),
                             Name = "Boolean",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3427),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(8018), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "تاریخ",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("3e2d67da-05d5-4817-8c80-acf11b21a4db"),
+                            GuidRecord = new Guid("8fbd24bb-fd4a-4fb3-8938-0e5b7c660e2a"),
                             Name = "Date",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3429),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 219, DateTimeKind.Unspecified).AddTicks(8028), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "حروف",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("0075514f-c78c-4c93-8533-e45e00e8b765"),
+                            GuidRecord = new Guid("31976beb-3e17-4103-a2ee-934abf928956"),
                             Name = "String",
                             SortIndex = 4L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_User", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_User", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool?>("CreatedCasesSkipAssigRules")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnOrder(105);
 
                     b.Property<bool?>("DelegateEnabled")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasColumnOrder(104);
 
                     b.Property<long?>("DelegateId")
@@ -1328,14 +1432,10 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(109);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Domain")
                         .HasMaxLength(25)
@@ -1343,20 +1443,19 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(102);
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("EnabledForAssignation")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(103);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IDPersonel")
                         .HasMaxLength(10)
@@ -1368,23 +1467,17 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasColumnOrder(107);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("Parent_Id")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("UserInformationId")
                         .HasColumnType("bigint")
@@ -1392,69 +1485,22 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
                     b.HasIndex("DelegateId");
 
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
-
-                    b.HasIndex("Parent_Id")
-                        .IsDescending();
+                    b.HasIndex("Parent_Id");
 
                     b.HasIndex("UserInformationId");
 
                     b.ToTable("D_User", "Dimentions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3493),
-                            DisplayName = "محمد شریفی",
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("36f80c6b-c0c7-4128-8db0-ae7d83cfff94"),
-                            Name = "m.sharifi",
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3536),
-                            DisplayName = "امین شریفی",
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("62d263ad-93c6-4946-803a-80e1489ecb75"),
-                            Name = "a.sharifi",
-                            SortIndex = 2L
-                        });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_UserInformation", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_UserInformation", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
                     b.Property<string>("Address")
                         .HasMaxLength(512)
@@ -1480,19 +1526,24 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(106);
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 157, DateTimeKind.Unspecified).AddTicks(4045), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1500,7 +1551,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<string>("FirstName")
@@ -1509,7 +1562,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("0358f5ef-4df3-4dda-bc2d-f9735ea33eea"))
                         .HasColumnOrder(8);
 
                     b.Property<string>("InternalPhone")
@@ -1522,14 +1577,18 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(101);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 157, DateTimeKind.Unspecified).AddTicks(4516), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<string>("NationalCode")
@@ -1555,7 +1614,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(113);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.Property<byte[]>("UserPicture")
@@ -1565,9 +1626,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -1576,9 +1635,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -1588,28 +1645,32 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.ToTable("D_UserInformation", "Dimentions");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_WorkItemState", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_WorkItemState", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 158, DateTimeKind.Unspecified).AddTicks(658), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1617,33 +1678,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("bcace081-0d0a-4c3f-9ec9-304eb05a5c25"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 158, DateTimeKind.Unspecified).AddTicks(1100), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -1652,9 +1721,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -1667,61 +1734,61 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3315),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 220, DateTimeKind.Unspecified).AddTicks(1132), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "صندوق ورودی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("7f4142e6-30eb-4cd6-acf7-8c9bcaa4e74d"),
+                            GuidRecord = new Guid("d73e35f6-38a1-4829-a8b8-37fd7b4e333c"),
                             Name = "Inbox",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3317),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 220, DateTimeKind.Unspecified).AddTicks(1150), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "ارسال شده",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("0340d26f-b5e8-4746-9f7d-47133af7dc05"),
+                            GuidRecord = new Guid("a46612d2-5602-478a-b34a-f1ffceddeedb"),
                             Name = "Sent",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3332),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 220, DateTimeKind.Unspecified).AddTicks(1154), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "خارج شده",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("be34c596-1fc2-4353-8076-527f11ead872"),
+                            GuidRecord = new Guid("5f2e5e83-4a8c-4b54-b5d7-86d19577c8b9"),
                             Name = "Exit",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3335),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 220, DateTimeKind.Unspecified).AddTicks(1156), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "آینده",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("31a9b9b1-05a7-4166-aa32-8ba46c55791c"),
+                            GuidRecord = new Guid("a249c477-d6c3-4641-9a6f-85bb03d09873"),
                             Name = "Future",
                             SortIndex = 4L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Attachment", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Attachment", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 158, DateTimeKind.Unspecified).AddTicks(7268), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<byte[]>("Data")
@@ -1729,13 +1796,17 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(101);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1743,33 +1814,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("d6d19f74-8e35-41ff-8713-a929d5a5d13e"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 158, DateTimeKind.Unspecified).AddTicks(7726), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(100);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -1778,9 +1857,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -1790,22 +1867,22 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.ToTable("F_Attachment", "Facts");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Case", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Case", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
                     b.Property<long?>("CaseStateId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(110);
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 159, DateTimeKind.Unspecified).AddTicks(6430), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<long?>("CreatorId")
@@ -1813,13 +1890,17 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(107);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1827,21 +1908,29 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("9195babd-836b-4e61-9e48-0d14bfefdacb"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 159, DateTimeKind.Unspecified).AddTicks(7121), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("ProcessId")
@@ -1857,7 +1946,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(113);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
@@ -1865,19 +1956,23 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("CaseStateId");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("CreatorId");
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
 
+                    b.HasIndex("EnableRecord")
+                        .IsDescending();
+
                     b.HasIndex("LastUpdatedRecord")
+                        .IsDescending();
+
+                    b.HasIndex("Name")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.HasIndex("ProcessId");
 
@@ -1888,35 +1983,39 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.ToTable("F_Case", "Facts");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Condition", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Condition", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
                     b.Property<long?>("CaseId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(105);
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 160, DateTimeKind.Unspecified).AddTicks(7344), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<long?>("D_UserId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -1924,7 +2023,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<long?>("EndorsementItemId")
@@ -1932,17 +2033,23 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(109);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("d67b9b06-5482-42e6-92c6-123429dace97"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 160, DateTimeKind.Unspecified).AddTicks(8059), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("OperandId")
@@ -1954,7 +2061,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(103);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.Property<long?>("TagId")
@@ -1970,9 +2079,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("CaseId");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("D_UserId");
 
@@ -1985,9 +2092,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("EndorsementItemId");
 
                     b.HasIndex("LastUpdatedRecord")
+                        .IsDescending();
+
+                    b.HasIndex("Name")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.HasIndex("OperandId");
 
@@ -2001,11 +2111,11 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4008),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 209, DateTimeKind.Unspecified).AddTicks(7748), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "مبلغ",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("cb00bc34-c012-4f45-b823-2fa36a69d938"),
+                            GuidRecord = new Guid("720ccbc3-d922-47f7-8439-579e16b1ae7a"),
                             Name = "Price",
                             OperandId = 3L,
                             ScenarioId = 1L,
@@ -2016,11 +2126,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4013),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 210, DateTimeKind.Unspecified).AddTicks(2271), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 2L,
                             EnableRecord = true,
                             EndorsementItemId = 1L,
-                            GuidRecord = new Guid("31f2358e-441b-4e21-8f41-f5952f3839e8"),
+                            GuidRecord = new Guid("48147843-2868-4073-b9f6-65ce9ad06e7d"),
+                            Name = "One",
                             OperandId = 1L,
                             SortIndex = 1L,
                             TagId = 201L,
@@ -2029,11 +2140,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 3L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4016),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 210, DateTimeKind.Unspecified).AddTicks(2634), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 3L,
                             EnableRecord = true,
                             EndorsementItemId = 2L,
-                            GuidRecord = new Guid("2143c8c8-1c73-471e-b6fa-be2dd1015f4a"),
+                            GuidRecord = new Guid("bbd32109-a82c-4c3c-be5a-f638f2c8ff68"),
+                            Name = "Two",
                             OperandId = 1L,
                             SortIndex = 1L,
                             TagId = 201L,
@@ -2042,11 +2154,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 4L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4019),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 210, DateTimeKind.Unspecified).AddTicks(2662), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 4L,
                             EnableRecord = true,
                             EndorsementItemId = 3L,
-                            GuidRecord = new Guid("8f729218-d2a7-4fd9-ab54-15a394984f61"),
+                            GuidRecord = new Guid("850bd914-0fc3-4102-89c6-81cdac877b0d"),
+                            Name = "Three",
                             OperandId = 1L,
                             SortIndex = 1L,
                             TagId = 203L,
@@ -2055,11 +2168,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 5L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4058),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 210, DateTimeKind.Unspecified).AddTicks(2675), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 5L,
                             EnableRecord = true,
                             EndorsementItemId = 4L,
-                            GuidRecord = new Guid("ce7f5479-9b39-48df-8651-916ea41e247a"),
+                            GuidRecord = new Guid("02a6e880-f320-45ff-89b7-7716981b4a30"),
+                            Name = "Four",
                             OperandId = 1L,
                             SortIndex = 1L,
                             TagId = 202L,
@@ -2067,32 +2181,36 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Endorsement", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Endorsement", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
                     b.Property<long?>("ConditionId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(103);
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 161, DateTimeKind.Unspecified).AddTicks(7221), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -2100,7 +2218,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<long?>("EndorsementItemId")
@@ -2108,17 +2228,23 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(102);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("ba0f4696-2aba-45e1-b646-3a5269e7c768"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 161, DateTimeKind.Unspecified).AddTicks(7893), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("RoleId")
@@ -2130,7 +2256,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
@@ -2138,9 +2266,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("ConditionId");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -2151,9 +2277,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("EndorsementItemId");
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -2170,12 +2294,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3944),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 211, DateTimeKind.Unspecified).AddTicks(3556), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "ثبت درخواست",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("9799dc68-21fd-4d18-ab83-9c32c69c9453"),
-                            Name = "Sample_Scenario,Requestor",
+                            GuidRecord = new Guid("88858e14-c2db-4afa-833c-a274da5266e6"),
+                            Name = "Sample_Scenario__Requestor",
                             RoleId = 100L,
                             ScenarioId = 1L,
                             SortIndex = 1L
@@ -2183,44 +2307,48 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3949),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 211, DateTimeKind.Unspecified).AddTicks(4380), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "بررسی درخواست",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("13f2ee15-a684-4450-9b34-d8ac9a399c22"),
-                            Name = "Sample_Scenario,RequestorManager",
+                            GuidRecord = new Guid("278cc6bd-8a35-4ba5-a892-c1cbaa8f2d13"),
+                            Name = "Sample_Scenario__RequestorManager",
                             RoleId = 101L,
                             ScenarioId = 1L,
                             SortIndex = 2L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_EndorsementItem", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_EndorsementItem", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
                     b.Property<long?>("CaseStateId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(102);
+                        .HasColumnOrder(101);
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 162, DateTimeKind.Unspecified).AddTicks(6088), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -2228,29 +2356,39 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<long?>("EndorsementId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(103);
+                        .HasColumnOrder(102);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("e4355ea6-15ed-486d-8071-3966a7b1825a"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 162, DateTimeKind.Unspecified).AddTicks(6745), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
@@ -2258,9 +2396,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("CaseStateId");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -2271,9 +2407,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("EndorsementId");
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -2287,70 +2421,78 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         {
                             Id = 1L,
                             CaseStateId = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3972),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(124), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 1L,
                             EnableRecord = true,
                             EndorsementId = 1L,
-                            GuidRecord = new Guid("aa133a08-e31e-4d6c-b2b6-34d445188354"),
+                            GuidRecord = new Guid("844f15af-7202-4ef7-94b6-6d616a0140fa"),
+                            Name = "one",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
                             CaseStateId = 3L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3976),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(950), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 2L,
                             EnableRecord = true,
                             EndorsementId = 2L,
-                            GuidRecord = new Guid("0a08aa3f-1d18-4ea3-ac0f-492579ecb07b"),
+                            GuidRecord = new Guid("9b2ceb78-e295-449f-b348-195d3680257a"),
+                            Name = "two",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 3L,
                             CaseStateId = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3982),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(988), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 3L,
                             EnableRecord = true,
                             EndorsementId = 2L,
-                            GuidRecord = new Guid("fdde6c80-9059-48eb-b875-1774e4667513"),
+                            GuidRecord = new Guid("e79a3585-a792-419f-82a7-90d95320e1c1"),
+                            Name = "Three",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 4L,
                             CaseStateId = 4L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3985),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(994), new TimeSpan(0, 3, 30, 0, 0)),
                             ERPCode = 4L,
                             EnableRecord = true,
                             EndorsementId = 2L,
-                            GuidRecord = new Guid("c6067e27-e8f3-4622-a8f9-025643eba868"),
+                            GuidRecord = new Guid("890369bb-1e5f-4191-9eb0-d50c82a2af32"),
+                            Name = "Four",
                             SortIndex = 3L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Scenario", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Scenario", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
-
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 163, DateTimeKind.Unspecified).AddTicks(3033), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -2358,33 +2500,41 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("17e8cd1e-0ff6-4a39-82f5-457cf354b040"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 163, DateTimeKind.Unspecified).AddTicks(3451), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -2393,9 +2543,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -2408,42 +2556,46 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(3916),
+                            CreateTimeRecord = new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 39, 212, DateTimeKind.Unspecified).AddTicks(3934), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "سناریو نمونه",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("494615fc-9ed2-413d-ac2f-060ee747870c"),
+                            GuidRecord = new Guid("460088bb-8d2e-4968-a11a-380cf7ba458e"),
                             Name = "SampleScenario",
                             SortIndex = 1L
                         });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_WorkItem", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_WorkItem", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(1);
 
                     b.Property<long?>("CaseId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(103);
 
-                    b.Property<DateTime?>("CreateTimeRecord")
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 164, DateTimeKind.Unspecified).AddTicks(2046), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(5);
 
                     b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(4);
 
                     b.Property<long?>("ERPCode")
@@ -2451,7 +2603,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<bool?>("EnableRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9);
 
                     b.Property<long?>("EndorsementId")
@@ -2459,21 +2613,29 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnOrder(101);
 
                     b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("bd9d5228-a2a4-4fc0-8fe8-061952f14801"))
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
                         .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 1, 2, 2, 8, 40, 164, DateTimeKind.Unspecified).AddTicks(2767), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(7);
 
                     b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
                         .HasColumnOrder(3);
 
                     b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
                         .HasColumnOrder(2);
 
                     b.Property<long?>("TagId")
@@ -2493,9 +2655,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("CaseId");
 
                     b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("ERPCode")
                         .IsDescending();
@@ -2506,9 +2666,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasIndex("EndorsementId");
 
                     b.HasIndex("LastUpdatedRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
+                        .IsDescending();
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -2524,667 +2682,352 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.ToTable("F_WorkItem", "Facts");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_EndorsementItemEndorsement", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_EndorsementItemEndorsement", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("FirstId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SecondId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(51);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
                     b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .HasFilter("[FirstId] IS NOT NULL");
 
                     b.HasIndex("SecondId")
-                        .IsDescending();
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[SecondId] IS NOT NULL");
 
                     b.ToTable("L_EndorsementItemEndorsement", "Links");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4203),
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            FirstId = 1L,
-                            GuidRecord = new Guid("2de215ce-a1c5-4bba-b361-d0007a929478"),
-                            SecondId = 2L,
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4206),
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            FirstId = 3L,
-                            GuidRecord = new Guid("98bad67b-6902-4e63-acd0-3e94b7e16488"),
-                            SecondId = 1L,
-                            SortIndex = 2L
-                        });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_EndorsementUser", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_EndorsementUser", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("FirstId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SecondId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(51);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
                     b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .HasFilter("[FirstId] IS NOT NULL");
 
                     b.HasIndex("SecondId")
-                        .IsDescending();
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[SecondId] IS NOT NULL");
 
                     b.ToTable("L_EndorsementUser", "Links");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_ProcessScenario", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_ProcessScenario", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("FirstId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SecondId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(51);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
                     b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .HasFilter("[FirstId] IS NOT NULL");
 
                     b.HasIndex("SecondId")
-                        .IsDescending();
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[SecondId] IS NOT NULL");
 
                     b.ToTable("L_ProcessScenario", "Links");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4158),
-                            DisplayName = "فرآیند نمونه-سناریو نمونه",
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            FirstId = 1L,
-                            GuidRecord = new Guid("dc440a53-4bf3-4a91-9f5f-1e5f472d0a17"),
-                            Name = "SampleProcess-SampleScenario",
-                            SecondId = 1L,
-                            SortIndex = 1L
-                        });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_RolePosition", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_RolePosition", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("FirstId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SecondId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(51);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
                     b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .HasFilter("[FirstId] IS NOT NULL");
 
                     b.HasIndex("SecondId")
-                        .IsDescending();
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[SecondId] IS NOT NULL");
 
                     b.ToTable("L_RolePosition", "Links");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4130),
-                            DisplayName = "درخواست کننده-کارشناس",
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            FirstId = 100L,
-                            GuidRecord = new Guid("6eebab22-4fe4-45f5-a414-01360024e52a"),
-                            Name = "Requestor-Expert",
-                            SecondId = 1L,
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4133),
-                            DisplayName = "مدیر درخواست کننده-کارشناس",
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            FirstId = 101L,
-                            GuidRecord = new Guid("a2128144-1776-40a6-a22c-b520968a7d3b"),
-                            Name = "RequestorManager-Expert",
-                            SecondId = 1L,
-                            SortIndex = 2L
-                        });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_UserLocation", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_UserLocation", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("FirstId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SecondId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(51);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
                     b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .HasFilter("[FirstId] IS NOT NULL");
 
                     b.HasIndex("SecondId")
-                        .IsDescending();
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[SecondId] IS NOT NULL");
 
                     b.ToTable("L_UserLocation", "Links");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4100),
-                            DisplayName = "محمد شریفی-فارس",
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            FirstId = 1L,
-                            GuidRecord = new Guid("670c6cfb-92d4-480f-9ac3-04f79d0e4d7b"),
-                            Name = "m.sharifi-Fars",
-                            SecondId = 1L,
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4107),
-                            DisplayName = "امین شریفی-فارس",
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            FirstId = 2L,
-                            GuidRecord = new Guid("869342af-8a1c-47ee-a1e0-7db9c7de567d"),
-                            Name = "a.sharifi-Fars",
-                            SecondId = 1L,
-                            SortIndex = 2L
-                        });
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_UserPosition", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_UserPosition", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
-                    b.Property<DateTime?>("CreateTimeRecord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(6);
+                    b.Property<DateTimeOffset?>("CreateTimeRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(4);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("ERPCode")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(10);
+                        .HasColumnType("bigint");
 
                     b.Property<bool?>("EnableRecord")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnType("bit");
 
                     b.Property<long?>("FirstId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(50);
+                        .HasColumnOrder(100);
 
                     b.Property<Guid?>("GuidRecord")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(8);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("LastUpdatedRecord")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(7);
+                    b.Property<DateTimeOffset?>("LastUpdatedRecord")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)")
-                        .HasColumnOrder(3);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("SecondId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(51);
+                        .HasColumnOrder(101);
 
                     b.Property<long?>("SortIndex")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreateTimeRecord")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[CreateTimeRecord] IS NOT NULL");
-
-                    b.HasIndex("ERPCode")
-                        .IsDescending();
-
-                    b.HasIndex("EnableRecord")
-                        .IsDescending();
-
                     b.HasIndex("FirstId")
-                        .IsDescending();
-
-                    b.HasIndex("LastUpdatedRecord")
                         .IsUnique()
                         .IsDescending()
-                        .HasFilter("[LastUpdatedRecord] IS NOT NULL");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .IsDescending()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .HasFilter("[FirstId] IS NOT NULL");
 
                     b.HasIndex("SecondId")
-                        .IsDescending();
+                        .IsUnique()
+                        .IsDescending()
+                        .HasFilter("[SecondId] IS NOT NULL");
 
                     b.ToTable("L_UserPosition", "Links");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4177),
-                            DisplayName = "محمد شریفی-کارشناس",
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            FirstId = 1L,
-                            GuidRecord = new Guid("adf95478-d0d5-4466-830a-7cd077318f5a"),
-                            Name = "m.sharifi-Expert",
-                            SecondId = 1L,
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreateTimeRecord = new DateTime(2023, 10, 8, 15, 20, 28, 303, DateTimeKind.Local).AddTicks(4180),
-                            DisplayName = "امین شریفی-کارشناس",
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            FirstId = 2L,
-                            GuidRecord = new Guid("8ffe8ed5-c2cb-45f9-8843-3de7b8d0916e"),
-                            Name = "a.sharifi-Expert",
-                            SecondId = 1L,
-                            SortIndex = 2L
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -3253,7 +3096,8 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -3398,7 +3242,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<long?>("IU_UserId")
-                        .IsRequired()
                         .HasColumnType("bigint")
                         .HasColumnOrder(101);
 
@@ -3407,35 +3250,35 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Location", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Location", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Facts.F_EndorsementItem", "EndorsementItem")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany()
                         .HasForeignKey("EndorsementItemId");
 
                     b.Navigation("EndorsementItem");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Tag", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Tag", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_TagType", "TagType")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_TagType", "TagType")
                         .WithMany()
                         .HasForeignKey("TagTypeId");
 
                     b.Navigation("TagType");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_User", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_User", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "Delegate")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "Delegate")
                         .WithMany()
                         .HasForeignKey("DelegateId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "Parent")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "Parent")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_UserInformation", "UserInformation")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_UserInformation", "UserInformation")
                         .WithMany()
                         .HasForeignKey("UserInformationId");
 
@@ -3446,25 +3289,25 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("UserInformation");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Case", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Case", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_CaseState", "CaseState")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_CaseState", "CaseState")
                         .WithMany()
                         .HasForeignKey("CaseStateId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "Creator")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Process", "Process")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Process", "Process")
                         .WithMany()
                         .HasForeignKey("ProcessId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "Requestor")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "Requestor")
                         .WithMany()
                         .HasForeignKey("RequestorId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Scenario", "SelectedScenario")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Scenario", "SelectedScenario")
                         .WithMany()
                         .HasForeignKey("SelectedScenarioId");
 
@@ -3479,29 +3322,29 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("SelectedScenario");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Condition", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Condition", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Facts.F_Case", "Case")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Case", "Case")
                         .WithMany("Conditions")
                         .HasForeignKey("CaseId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", null)
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", null)
                         .WithMany("Conditions")
                         .HasForeignKey("D_UserId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_EndorsementItem", "EndorsementItem")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany("Conditions")
                         .HasForeignKey("EndorsementItemId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Operand", "Operand")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Operand", "Operand")
                         .WithMany()
                         .HasForeignKey("OperandId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Scenario", "Scenario")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Scenario", "Scenario")
                         .WithMany("Conditions")
                         .HasForeignKey("ScenarioId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Tag", "Tag")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId");
 
@@ -3516,21 +3359,21 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Endorsement", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Endorsement", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Facts.F_Condition", "Condition")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Condition", "Condition")
                         .WithMany()
                         .HasForeignKey("ConditionId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_EndorsementItem", "EndorsementItem")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany()
                         .HasForeignKey("EndorsementItemId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Role", "Role")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Scenario", "Scenario")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Scenario", "Scenario")
                         .WithMany("Endorsements")
                         .HasForeignKey("ScenarioId");
 
@@ -3543,13 +3386,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("Scenario");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_EndorsementItem", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_EndorsementItem", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_CaseState", "CaseState")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_CaseState", "CaseState")
                         .WithMany()
                         .HasForeignKey("CaseStateId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Endorsement", "Endorsement")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Endorsement", "Endorsement")
                         .WithMany("EndorsementItems")
                         .HasForeignKey("EndorsementId");
 
@@ -3558,25 +3401,25 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("Endorsement");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_WorkItem", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_WorkItem", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Facts.F_Case", "Case")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Case", "Case")
                         .WithMany("WorkItems")
                         .HasForeignKey("CaseId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Endorsement", "Endorsement")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Endorsement", "Endorsement")
                         .WithMany()
                         .HasForeignKey("EndorsementId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Tag", "Tag")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "User")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_WorkItemState", "WorkItemState")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_WorkItemState", "WorkItemState")
                         .WithMany()
                         .HasForeignKey("WorkItemStateId");
 
@@ -3591,13 +3434,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("WorkItemState");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_EndorsementItemEndorsement", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_EndorsementItemEndorsement", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Facts.F_EndorsementItem", "EndorsementItem")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_EndorsementItem", "EndorsementItem")
                         .WithMany("Endorsements")
                         .HasForeignKey("FirstId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Endorsement", "Endorsement")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Endorsement", "Endorsement")
                         .WithMany()
                         .HasForeignKey("SecondId");
 
@@ -3606,13 +3449,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("EndorsementItem");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_EndorsementUser", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_EndorsementUser", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Facts.F_Endorsement", "Endorsement")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Endorsement", "Endorsement")
                         .WithMany("Users")
                         .HasForeignKey("FirstId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "User")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "User")
                         .WithMany()
                         .HasForeignKey("SecondId");
 
@@ -3621,13 +3464,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_ProcessScenario", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_ProcessScenario", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Process", "Process")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Process", "Process")
                         .WithMany("ProcessScenario")
                         .HasForeignKey("FirstId");
 
-                    b.HasOne("Cheetah.Domain.Facts.F_Scenario", "Scenario")
+                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Scenario", "Scenario")
                         .WithMany("ProcessScenarios")
                         .HasForeignKey("SecondId");
 
@@ -3636,13 +3479,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("Scenario");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_RolePosition", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_RolePosition", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Role", "Role")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Role", "Role")
                         .WithMany("RolePositions")
                         .HasForeignKey("FirstId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Position", "Position")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Position", "Position")
                         .WithMany("RolePositions")
                         .HasForeignKey("SecondId");
 
@@ -3651,13 +3494,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_UserLocation", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_UserLocation", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "User")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "User")
                         .WithMany("UserLocations")
                         .HasForeignKey("FirstId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Location", "Location")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Location", "Location")
                         .WithMany()
                         .HasForeignKey("SecondId");
 
@@ -3666,13 +3509,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Links.L_UserPosition", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Links.L_UserPosition", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "User")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "User")
                         .WithMany("UserPositions")
                         .HasForeignKey("FirstId");
 
-                    b.HasOne("Cheetah.Domain.Dimentions.D_Position", "Position")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Position", "Position")
                         .WithMany("UserPositions")
                         .HasForeignKey("SecondId");
 
@@ -3734,33 +3577,31 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah.Infrastructure.Persistence.ApplicationUser", b =>
                 {
-                    b.HasOne("Cheetah.Domain.Dimentions.D_User", "IU_User")
+                    b.HasOne("Cheetah.Domain.Entities.Dimentions.D_User", "IU_User")
                         .WithMany()
-                        .HasForeignKey("IU_UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IU_UserId");
 
                     b.Navigation("IU_User");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Position", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Position", b =>
                 {
                     b.Navigation("RolePositions");
 
                     b.Navigation("UserPositions");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Process", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Process", b =>
                 {
                     b.Navigation("ProcessScenario");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_Role", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_Role", b =>
                 {
                     b.Navigation("RolePositions");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Dimentions.D_User", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Dimentions.D_User", b =>
                 {
                     b.Navigation("Childs");
 
@@ -3771,28 +3612,28 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("UserPositions");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Case", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Case", b =>
                 {
                     b.Navigation("Conditions");
 
                     b.Navigation("WorkItems");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Endorsement", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Endorsement", b =>
                 {
                     b.Navigation("EndorsementItems");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_EndorsementItem", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_EndorsementItem", b =>
                 {
                     b.Navigation("Conditions");
 
                     b.Navigation("Endorsements");
                 });
 
-            modelBuilder.Entity("Cheetah.Domain.Facts.F_Scenario", b =>
+            modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Scenario", b =>
                 {
                     b.Navigation("Conditions");
 

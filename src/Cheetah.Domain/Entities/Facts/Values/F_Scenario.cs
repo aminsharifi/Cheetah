@@ -4,7 +4,7 @@ public partial class F_Scenario
 {
     #region Values
 
-    public static readonly F_Scenario SampleScenario =
+    public  static F_Scenario SampleScenario =
          new F_Scenario
          {
              Id = 1,
