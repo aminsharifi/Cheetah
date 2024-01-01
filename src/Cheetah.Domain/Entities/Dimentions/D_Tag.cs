@@ -55,13 +55,13 @@ public class D_Tag : SimpleClass
             TagTypeId = 2
         };
 
-    public static readonly D_Tag Edit =
+    public static readonly D_Tag Revise =
         new D_Tag
         {
             Id = 203,
             ERPCode = 203,
             SortIndex = 203,
-            Name = nameof(Edit),
+            Name = nameof(Revise),
             DisplayName = "بازنگری",
             Description = "پارامتریک",
             TagTypeId = 2
