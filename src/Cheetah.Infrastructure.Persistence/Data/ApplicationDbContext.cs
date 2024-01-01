@@ -1,10 +1,4 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
-using Cheetah.Domain.Entities.Links;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Cheetah.Domain.Helper;
 
 namespace Cheetah.Infrastructure.Persistence;
 
@@ -31,6 +25,16 @@ public partial class ApplicationDbContext : IdentityDbContext
         builder.ConfigureSimpleClass();
 
         builder = builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        foreach (var filedInfos in GetEntity.Values())
+        {
+            foreach (var filedInfo in filedInfos)
+            {
+                var simpleClass = filedInfo.GetValue(null) as SimpleClass;
+
+                builder.Entity(simpleClass.GetType()).HasData(simpleClass);
+            }
+        }
 
         base.OnModelCreating(builder);
     }

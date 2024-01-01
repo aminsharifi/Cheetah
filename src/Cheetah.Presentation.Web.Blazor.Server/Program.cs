@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Hosting;
+
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())
@@ -36,14 +39,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders().AddDefaultUI()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddTransient<DbInitialiser>();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IGlobalization>
     (x => new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Presentation) + "." +
     nameof(Cheetah.Presentation.Web) + "." +
     nameof(Cheetah.Presentation.Web.Blazor) + "." + nameof(Cheetah.Presentation.Web.Blazor.Server)));
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
-builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
 builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
 builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
 builder.Services.AddScoped(typeof(ISync), typeof(Sync));
@@ -97,13 +98,12 @@ builder.Services.AddBootstrapBlazor();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-var app = builder.Build();
 
-await app.InitialiseDatabaseAsync();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
-{
+{    
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
@@ -122,7 +122,25 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapBlazorHub();
-
 app.MapFallbackToPage("/_Host");
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var dbcontext = services.GetRequiredService<ApplicationDbContext>();
+        var repository = services.GetRequiredService<IDbInitializer>();
+
+        repository.Initialize(userManager, roleManager, dbcontext);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 app.Run();

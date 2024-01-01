@@ -1,36 +1,35 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿namespace Cheetah.Infrastructure.Persistence;
 
-namespace Cheetah.Infrastructure.Persistence;
-
-
-public static class InitialiserExtensions
+public interface IDbInitializer
 {
-    public static async Task InitialiseDatabaseAsync(this WebApplication app)
-    {
-        using var scope = app.Services.CreateScope();
-
-        var initialiser = scope.ServiceProvider.GetRequiredService<DbInitialiser>();
-
-        await initialiser.InitialiseAsync();
-
-        await initialiser.SeedAsync();
-    }
+    void Initialize(UserManager<IdentityUser> _userManager,
+        RoleManager<IdentityRole> _roleManager,
+        ApplicationDbContext _context);
 }
-
-public class DbInitialiser(ApplicationDbContext _context)
+public class DbInitializer() : IDbInitializer
 {
-    public async Task<bool> InitialiseAsync()
+    public async void Initialize(UserManager<IdentityUser> _userManager,
+        RoleManager<IdentityRole> _roleManager,
+        ApplicationDbContext _context)
     {
         await _context.Database.MigrateAsync();
 
-        return true;
-    }
-    public async Task SeedAsync()
-    {
-        if (!_context.D_Processes.Any())
+        if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
         {
-            await _context.SaveChangesAsync();
+            await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
+
+            await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
+
+            IdentityUser user = new()
+            {
+                UserName = "Admin",
+                Email = "Admin@poshtibanebartar.com",
+                EmailConfirmed = true
+            };
+
+            await _userManager.CreateAsync(user, "Cheetah@123");
+
+            await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
         }
     }
 }

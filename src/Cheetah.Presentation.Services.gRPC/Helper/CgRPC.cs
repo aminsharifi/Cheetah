@@ -3,14 +3,13 @@ namespace Cheetah.Presentation.Services.gRPC.Helper;
 
 public static class CgRPC
 {
-    public static Timestamp CGetTimestamp(this DateTime? dateTime)
+    public static Timestamp CGetTimestamp(this DateTimeOffset? dateTime)
     {
         if (!dateTime.HasValue)
         {
             return null;
         }
-        return Timestamp.FromDateTime
-                     (DateTime.SpecifyKind(dateTime.Value, DateTimeKind.Utc));
+        return dateTime.Value.ToTimestamp();
     }
     public static GRPC_BaseClass GetBaseClass(this SimpleClass simpleClass)
     {
