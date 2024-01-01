@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 
-public partial class F_WorkItem : SimpleClass
+public class F_WorkItem : SimpleClass
 {
     #region Entities
 
