@@ -7,18 +7,7 @@ public partial class ApplicationDbContext : IdentityDbContext
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-        //    private readonly RoleManager<IdentityRole> _roleManager;
-        //_roleManager = roleManager;
-
-        //    if (! _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin)).GetAwaiter().GetResult())
-        //    {
-        //        _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
-        //    }
-
-        //    if (!_roleManager.RoleExistsAsync(nameof(RoleProperty.User)).GetAwaiter().GetResult())
-        //    {
-        //        _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
-        //    }
+       
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
