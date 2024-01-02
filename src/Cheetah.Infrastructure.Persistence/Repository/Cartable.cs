@@ -38,6 +38,7 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
     public async Task<List<CartableDTO>> GetCartable(CartableDTO cartableDTO,
  IQueryable<F_WorkItem> f_WorkItems)
     {
+
         if (cartableDTO.User is not null)
         {
             var UserID = await _iCopyClass.GetSimpleClassId(_db.D_Users, cartableDTO.User);
@@ -115,26 +116,42 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
     }
     public async Task<List<CartableDTO>> Inbox(CartableDTO cartableDTO)
     {
-        var inboxQuery = _db.F_WorkItems
-            .Where(x =>
-            x.Case.EnableRecord == true &&
-            x.EnableRecord == true &&
-            x.WorkItemStateId == D_WorkItemState.Inbox.Id);
+        try
+        {
+            var inboxQuery = _db.F_WorkItems
+                      .Where(x =>
+                      x.Case.EnableRecord == true &&
+                      x.EnableRecord == true &&
+                      x.WorkItemStateId == D_WorkItemState.Inbox.Id);
 
-        var inbox = await GetCartable(cartableDTO, inboxQuery);
+            var inbox = await GetCartable(cartableDTO, inboxQuery);
 
-        return inbox;
+            return inbox;
+        }
+        catch (Exception ex)
+        {
+
+            return new List<CartableDTO>();
+        }
     }
     public async Task<List<CartableDTO>> Outbox(CartableDTO cartableDTO)
     {
-        var outBoxQuery = _db.F_WorkItems
-       .Where(x =>
-       x.Case.EnableRecord == true &&
-       x.EnableRecord == true &&
-       x.WorkItemStateId == D_WorkItemState.Sent.Id);
+        try
+        {
+            var outBoxQuery = _db.F_WorkItems
+                      .Where(x =>
+                      x.Case.EnableRecord == true &&
+                      x.EnableRecord == true &&
+                      x.WorkItemStateId == D_WorkItemState.Sent.Id);
 
-        var outBox = await GetCartable(cartableDTO, outBoxQuery);
+            var outBox = await GetCartable(cartableDTO, outBoxQuery);
 
-        return outBox;
+            return outBox;
+        }
+        catch (Exception ex)
+        {
+
+            return new List<CartableDTO>();
+        }
     }
 }

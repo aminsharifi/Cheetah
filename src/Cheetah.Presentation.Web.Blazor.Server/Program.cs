@@ -103,7 +103,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
-{    
+{
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
@@ -117,30 +117,23 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+SeedDatabase();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapBlazorHub();
+
 app.MapFallbackToPage("/_Host");
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        var dbcontext = services.GetRequiredService<ApplicationDbContext>();
-        var repository = services.GetRequiredService<IDbInitializer>();
+app.Run();
 
-        repository.Initialize(userManager, roleManager, dbcontext);
-    }
-    catch (Exception ex)
+async void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
     {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        await dbInitializer.Initialize();
     }
 }
-
-app.Run();
