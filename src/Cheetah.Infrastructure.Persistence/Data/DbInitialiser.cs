@@ -2,18 +2,29 @@
 
 public interface IDbInitializer
 {
-    void Initialize(UserManager<IdentityUser> _userManager,
-        RoleManager<IdentityRole> _roleManager,
-        ApplicationDbContext _context);
+    Task<Boolean> Initialize();
 }
-public class DbInitializer() : IDbInitializer
+public class DbInitializer : IDbInitializer
 {
-    public async void Initialize(UserManager<IdentityUser> _userManager,
-        RoleManager<IdentityRole> _roleManager,
-        ApplicationDbContext _context)
-    {
-        await _context.Database.MigrateAsync();
 
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ApplicationDbContext _db;
+    public DbInitializer(UserManager<IdentityUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        ApplicationDbContext db)
+    {
+        _db = db;
+        _roleManager = roleManager;
+        _userManager = userManager;
+    }
+
+    public async Task<Boolean> Initialize()
+    {
+        if (_db.Database.GetPendingMigrations().Count() > 0)
+        {
+            _db.Database.Migrate();
+        }
         if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
         {
             await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
@@ -31,5 +42,6 @@ public class DbInitializer() : IDbInitializer
 
             await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
         }
+        return true;
     }
 }
