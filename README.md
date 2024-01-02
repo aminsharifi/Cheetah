@@ -51,7 +51,6 @@ ORM: Entity Framework Core
 
 Contributions are always welcome!
 
-
 ## Feedback
 
 If you have any feedback, please reach out to us at m.amin.sharifi@gmail.com
