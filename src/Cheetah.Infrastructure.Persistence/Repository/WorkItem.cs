@@ -1,10 +1,6 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
-using Microsoft.AspNetCore.Http.HttpResults;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
-        ISync _iSync, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
+        ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
     public CheetahResult<IQueryable<F_Endorsement>> GetAllEndorsement()
     {
