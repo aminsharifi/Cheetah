@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Entities.Facts;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
 
 public class F_AttachmentConfiguration : IEntityTypeConfiguration<F_Attachment>
 {

@@ -7,7 +7,7 @@ public class RequestService
     (ILogger<RequestService> logger,
         ApplicationDbContext db,
         ITableCRUD simpleClassRepository,
-        ICartable iCartable, ISync iSync, IWorkItem iWorkItem,
+        ICartable iCartable, IWorkItem iWorkItem,
         IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
 {
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
