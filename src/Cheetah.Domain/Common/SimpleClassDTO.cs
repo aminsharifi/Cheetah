@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Common;
 
-public class SimpleClassDTO : SimpleClass
+public class SimpleClassDTO : BaseEntity
 {
 }

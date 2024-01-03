@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
-public partial class D_Position : SimpleClass
+public partial class D_Position : BaseEntity
 {
     public virtual ICollection<L_UserPosition>? UserPositions { get; set; } = new HashSet<L_UserPosition>();
 

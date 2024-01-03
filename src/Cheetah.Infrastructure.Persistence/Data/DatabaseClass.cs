@@ -15,10 +15,10 @@ public class DatabaseClass
 
         return _returnType;
     }
-    public static IQueryable<SimpleClass> InvokeSet(ApplicationDbContext _db, Type gtype)
+    public static IQueryable<BaseEntity> InvokeSet(ApplicationDbContext _db, Type gtype)
     {
         var method = _db.GetType().GetMethod("Set", new Type[0]).MakeGenericMethod(gtype);
 
-        return method.Invoke(_db, new object[0]) as IQueryable<SimpleClass>;
+        return method.Invoke(_db, new object[0]) as IQueryable<BaseEntity>;
     }
 }

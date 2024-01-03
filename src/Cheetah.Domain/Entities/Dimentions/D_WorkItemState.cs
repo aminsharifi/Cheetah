@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
-public partial class D_WorkItemState : SimpleClass
+public partial class D_WorkItemState : BaseEntity
 {
     #region Relations
 

@@ -18,7 +18,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
                 Name = v_Creator.Name,
                 DisplayName = v_Creator.DisplayName,
                 EnableRecord = v_Creator.EnableRecord,
-                LastUpdatedRecord = DateTime.Now
+                LastModified = DateTime.Now
             };
 
             if (v_Creator.Parent is not null)
@@ -34,7 +34,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
         {
             SelectedUser = await Cheetah_User.Include(x => x.Parent).SingleAsync();
 
-            if (SelectedUser.LastUpdatedRecord < DateTime.Now.AddMinutes(-10))
+            if (SelectedUser.LastModified < DateTime.Now.AddMinutes(-10))
             {
                 var changed = false;
 
@@ -60,7 +60,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
                     }
                 }
 
-                SelectedUser.LastUpdatedRecord = DateTime.Now;
+                SelectedUser.LastModified = DateTime.Now;
 
                 if (changed)
                 {
@@ -93,7 +93,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
                 ERPCode = v_Position.ERPCode,
                 Name = v_Position.Name,
                 DisplayName = v_Position.DisplayName,
-                LastUpdatedRecord = DateTime.Now
+                LastModified = DateTime.Now
             };
 
             await _db.D_Positions.AddAsync(_d_Position);
@@ -129,7 +129,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
                 ERPCode = V_Location.ERPCode,
                 Name = V_Location.Name,
                 DisplayName = V_Location.DisplayName,
-                LastUpdatedRecord = DateTime.Now
+                LastModified = DateTime.Now
             };
 
             await _db.D_Locations.AddAsync(_d_Location);
@@ -190,7 +190,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
                         Name = user.Name + "-" + position.Name,
                         DisplayName = user.DisplayName + "-" + position.DisplayName,
                         EnableRecord = item.EnableRecord,
-                        LastUpdatedRecord = DateTime.Now
+                        LastModified = DateTime.Now
                     };
                     await _db.L_UserPositions.AddAsync(l_UserPosition);
                 }
@@ -240,7 +240,7 @@ public class Sync(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ISync
                         Name = user.Name + "-" + location.Name,
                         DisplayName = user.DisplayName + "-" + location.DisplayName,
                         EnableRecord = item.EnableRecord,
-                        LastUpdatedRecord = DateTime.Now
+                        LastModified = DateTime.Now
                     };
                     await _db.L_UserLocations.AddAsync(l_UserLocation);
                 }

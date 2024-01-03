@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 
-public partial class F_EndorsementItem : SimpleClass
+public partial class F_EndorsementItem : BaseEntity
 {
     #region Entities
 

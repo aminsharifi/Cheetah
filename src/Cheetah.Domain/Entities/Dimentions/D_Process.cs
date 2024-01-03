@@ -2,7 +2,7 @@
 
 namespace Cheetah.Domain.Entities.Dimentions;
 
-public partial class D_Process : SimpleClass
+public partial class D_Process : BaseEntity
 {
     #region Simple Prob
 
