@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="8.0.4" />
+		<PackageReference Include="BootstrapBlazor" Version="8.1.1" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.64.0.3030" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
@@ -31,7 +31,7 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
-		<PackageReference Include="MudBlazor" Version="6.11.1" />
+		<PackageReference Include="MudBlazor" Version="6.12.0" />
 	</ItemGroup>
 
 	<ItemGroup>
