@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Entities.Links;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Links;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Links;
 
 public class L_ProcessScenarioConfiguration : IEntityTypeConfiguration<L_ProcessScenario>
 {

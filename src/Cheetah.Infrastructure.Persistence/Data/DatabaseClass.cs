@@ -1,5 +1,4 @@
 ﻿namespace Cheetah.Infrastructure.Persistence;
-
 public class DatabaseClass
 {
     public static TableType GetTableType(String dBType)
