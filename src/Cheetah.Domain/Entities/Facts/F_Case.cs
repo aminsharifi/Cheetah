@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
-public partial class F_Case : SimpleClass
+public partial class F_Case : BaseEntity
 {
     #region S_User
     public long? RequestorId { get; set; }

@@ -1,3 +1,9 @@
-﻿global using Cheetah.Domain;
+﻿global using AutoMapper;
+global using AutoMapper.QueryableExtensions;
+global using Cheetah.Application.Business.Common.Models;
+global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
+global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
+global using Cheetah.Domain.Entities.Links;
+global using Microsoft.EntityFrameworkCore;

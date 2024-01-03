@@ -330,9 +330,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
     }
     public async Task<CheetahResult<Boolean>> SetCurrentAssignment(F_WorkItem Current_WorkItem)
     {
-        Current_WorkItem.LastUpdatedRecord = DateTime.Now;
+        Current_WorkItem.LastModified = DateTime.Now;
 
-        Current_WorkItem.Case.LastUpdatedRecord = DateTime.Now;
+        Current_WorkItem.Case.LastModified = DateTime.Now;
 
         var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
 

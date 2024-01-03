@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 
-public partial class F_Scenario : SimpleClass
+public partial class F_Scenario : BaseEntity
 {
 
     #region Relations

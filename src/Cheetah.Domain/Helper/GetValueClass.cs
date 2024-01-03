@@ -11,7 +11,7 @@ namespace Cheetah.Domain.Helper
             var _classes = Assembly.GetExecutingAssembly()
                 .GetTypes()
                 .Where(x => x.IsClass)
-                .Where(y => y.BaseType.Name == nameof(SimpleClass));
+                .Where(y => y.BaseType.Name == nameof(BaseEntity));
 
             foreach (var _class in _classes)
             {

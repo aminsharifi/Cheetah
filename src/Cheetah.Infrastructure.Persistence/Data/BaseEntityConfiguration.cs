@@ -16,29 +16,29 @@ public static class BaseEntityConfiguration
                 entityType.SetSchema(entityType.ClrType.Namespace.Split('.').Last());
                 var entity = modelBuilder.Entity(entityType.ClrType);
 
-                if (entityType.ClrType.BaseType.Name == nameof(SimpleClass))
+                if (entityType.ClrType.BaseType.Name == nameof(BaseEntity))
                 {
-                    entity.HasKey(nameof(SimpleClass.Id));
-                    entity.HasIndex(nameof(SimpleClass.Name)).IsDescending().IsUnique();
-                    entity.HasIndex(nameof(SimpleClass.CreateTimeRecord)).IsDescending();
-                    entity.HasIndex(nameof(SimpleClass.LastUpdatedRecord)).IsDescending();
+                    entity.HasKey(nameof(BaseEntity.Id));
+                    entity.HasIndex(nameof(BaseEntity.Name)).IsDescending().IsUnique();
+                    entity.HasIndex(nameof(BaseEntity.Created)).IsDescending();
+                    entity.HasIndex(nameof(BaseEntity.LastModified)).IsDescending();
 
-                    entity.HasIndex(nameof(SimpleClass.ERPCode)).IsDescending();
-                    entity.HasIndex(nameof(SimpleClass.EnableRecord)).IsDescending();
-                    entity.Property(nameof(SimpleClass.Id)).HasColumnOrder(1).HasDefaultValue((long)0);
-                    entity.Property(nameof(SimpleClass.SortIndex)).HasColumnOrder(2).HasDefaultValue((long)0);
-                    entity.Property(nameof(SimpleClass.Name)).HasColumnOrder(3).HasDefaultValue(String.Empty).HasMaxLength(512);
-                    entity.Property(nameof(SimpleClass.DisplayName)).HasColumnOrder(4).HasDefaultValue(String.Empty).HasMaxLength(512);
-                    entity.Property(nameof(SimpleClass.Description)).HasColumnOrder(5).HasDefaultValue(String.Empty).HasMaxLength(512);
-                    entity.Property(nameof(SimpleClass.CreateTimeRecord)).HasColumnOrder(6).HasDefaultValue(DateTimeOffset.Now).ValueGeneratedOnAdd();
-                    entity.Property(nameof(SimpleClass.LastUpdatedRecord)).HasColumnOrder(7).HasDefaultValue(DateTimeOffset.Now)
+                    entity.HasIndex(nameof(BaseEntity.ERPCode)).IsDescending();
+                    entity.HasIndex(nameof(BaseEntity.EnableRecord)).IsDescending();
+                    entity.Property(nameof(BaseEntity.Id)).HasColumnOrder(1).HasDefaultValue((long)0);
+                    entity.Property(nameof(BaseEntity.SortIndex)).HasColumnOrder(2).HasDefaultValue((long)0);
+                    entity.Property(nameof(BaseEntity.Name)).HasColumnOrder(3).HasDefaultValue(String.Empty).HasMaxLength(512);
+                    entity.Property(nameof(BaseEntity.DisplayName)).HasColumnOrder(4).HasDefaultValue(String.Empty).HasMaxLength(512);
+                    entity.Property(nameof(BaseEntity.Description)).HasColumnOrder(5).HasDefaultValue(String.Empty).HasMaxLength(512);
+                    entity.Property(nameof(BaseEntity.Created)).HasColumnOrder(6).HasDefaultValue(DateTimeOffset.Now).ValueGeneratedOnAdd();
+                    entity.Property(nameof(BaseEntity.LastModified)).HasColumnOrder(7).HasDefaultValue(DateTimeOffset.Now)
                         .ValueGeneratedOnAddOrUpdate().IsConcurrencyToken(true);
 
-                    entity.Property(nameof(SimpleClass.GuidRecord)).HasColumnOrder(8)
+                    entity.Property(nameof(BaseEntity.GuidRecord)).HasColumnOrder(8)
                         .HasDefaultValue(Guid.NewGuid());
-                    entity.Property(nameof(SimpleClass.EnableRecord)).HasColumnOrder(9)
+                    entity.Property(nameof(BaseEntity.EnableRecord)).HasColumnOrder(9)
                         .HasDefaultValue(true);
-                    entity.Property(nameof(SimpleClass.ERPCode)).HasColumnOrder(10);
+                    entity.Property(nameof(BaseEntity.ERPCode)).HasColumnOrder(10);
                 }
 
                 if (entityType.ClrType.BaseType.Name == nameof(SimpleLinkClass))

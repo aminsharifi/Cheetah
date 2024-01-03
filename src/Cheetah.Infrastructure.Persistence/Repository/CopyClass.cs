@@ -3,7 +3,7 @@
 namespace Cheetah.Infrastructure.Persistence.Repository;
 public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, ITableCRUD _itableCRUD) : ICopyClass
 {
-    public async Task<Int64?> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input)
+    public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input)
     {
         var Find = false;
 
@@ -34,7 +34,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
         return await Q_input.Select(x => x.Id.Value).SingleAsync();
     }
 
-    public async Task<Int64?> GetSimpleClassId(IQueryable<SimpleClass> Q_input, SimpleClass input, Int64? output)
+    public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input, Int64? output)
     {
         if (output is null or 0)
         {
@@ -76,7 +76,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
         return list_condition;
     }
 
-    public SimpleClassDTO GetSimpleClass(SimpleClass simpleClass)
+    public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)
     {
         SimpleClassDTO _SimpleClass = new();
 
@@ -93,9 +93,9 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ISync _iSync, 
 
         _SimpleClass.DisplayName = simpleClass?.DisplayName;
 
-        _SimpleClass.CreateTimeRecord = simpleClass?.CreateTimeRecord;
+        _SimpleClass.Created = simpleClass?.Created;
 
-        _SimpleClass.LastUpdatedRecord = simpleClass?.LastUpdatedRecord;
+        _SimpleClass.LastModified = simpleClass?.LastModified;
 
         return _SimpleClass;
     }

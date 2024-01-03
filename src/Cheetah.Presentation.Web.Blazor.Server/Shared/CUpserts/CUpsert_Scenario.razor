@@ -540,19 +540,19 @@
 </CEditDimentions>
 @code {
 
-    public List<SimpleClass> List_D_Role { get; set; } = new();
-    public List<SimpleClass> List_D_Tag { get; set; } = new();
-    public List<SimpleClass> List_D_Operand { get; set; } = new();
-    public List<SimpleClass> List_CaseState { get; set; } = new();
-    public List<SimpleClass> List_D_TagType { get; set; } = new();
+    public List<BaseEntity> List_D_Role { get; set; } = new();
+    public List<BaseEntity> List_D_Tag { get; set; } = new();
+    public List<BaseEntity> List_D_Operand { get; set; } = new();
+    public List<BaseEntity> List_CaseState { get; set; } = new();
+    public List<BaseEntity> List_D_TagType { get; set; } = new();
 
     public override async Task ExtendedLoadDTO()
     {
-        List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<SimpleClass>;
-        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<SimpleClass>;
-        List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<SimpleClass>;
-        List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<SimpleClass>;
-        List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<SimpleClass>;
+        List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
+        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<BaseEntity>;
+        List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<BaseEntity>;
+        List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<BaseEntity>;
+        List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<BaseEntity>;
         AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
         AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
 
@@ -573,7 +573,7 @@
             };
     }
 
-    private string GetMultiSelectionText(SimpleClass selectedValues)
+    private string GetMultiSelectionText(BaseEntity selectedValues)
     {
         return $"{string.Join(", ", selectedValues?.DisplayName)}";
     }

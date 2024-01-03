@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
 
-public partial class D_CaseState : SimpleClass
+public partial class D_CaseState : BaseEntity
 {
     #region Values
     public static D_CaseState Ongoing = new D_CaseState
