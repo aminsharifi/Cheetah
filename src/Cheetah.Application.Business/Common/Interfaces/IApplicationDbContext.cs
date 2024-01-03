@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Application.Business.Common.Interfaces;
+﻿namespace Cheetah.Application.Business.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
