@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
 public static class BaseEntityConfiguration
 {
@@ -27,9 +25,9 @@ public static class BaseEntityConfiguration
                     entity.HasIndex(nameof(BaseEntity.EnableRecord)).IsDescending();
                     entity.Property(nameof(BaseEntity.Id)).HasColumnOrder(1).HasDefaultValue((long)0);
                     entity.Property(nameof(BaseEntity.SortIndex)).HasColumnOrder(2).HasDefaultValue((long)0);
-                    entity.Property(nameof(BaseEntity.Name)).HasColumnOrder(3).HasDefaultValue(String.Empty).HasMaxLength(512);
-                    entity.Property(nameof(BaseEntity.DisplayName)).HasColumnOrder(4).HasDefaultValue(String.Empty).HasMaxLength(512);
-                    entity.Property(nameof(BaseEntity.Description)).HasColumnOrder(5).HasDefaultValue(String.Empty).HasMaxLength(512);
+                    entity.Property(nameof(BaseEntity.Name)).HasColumnOrder(3).HasDefaultValue(string.Empty).HasMaxLength(512);
+                    entity.Property(nameof(BaseEntity.DisplayName)).HasColumnOrder(4).HasDefaultValue(string.Empty).HasMaxLength(512);
+                    entity.Property(nameof(BaseEntity.Description)).HasColumnOrder(5).HasDefaultValue(string.Empty).HasMaxLength(512);
                     entity.Property(nameof(BaseEntity.Created)).HasColumnOrder(6).HasDefaultValue(DateTimeOffset.Now).ValueGeneratedOnAdd();
                     entity.Property(nameof(BaseEntity.LastModified)).HasColumnOrder(7).HasDefaultValue(DateTimeOffset.Now)
                         .ValueGeneratedOnAddOrUpdate().IsConcurrencyToken(true);

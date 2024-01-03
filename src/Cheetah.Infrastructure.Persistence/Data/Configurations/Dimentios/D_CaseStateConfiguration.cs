@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
 public class D_CaseStateConfiguration : IEntityTypeConfiguration<D_CaseState>
 {
