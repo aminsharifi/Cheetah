@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
-public partial class D_User : BaseClass<D_User>
+public partial class D_User : BaseEntity<D_User>
 {
 
     #region Common Prop

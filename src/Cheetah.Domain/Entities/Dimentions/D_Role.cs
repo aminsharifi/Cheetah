@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
-public partial class D_Role : SimpleClass
+public partial class D_Role : BaseEntity
 {
     public bool Independent { get; set; } = false;
     public bool FixedRole { get; set; } = false;

@@ -8,7 +8,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 
         return 1;
     }
-    public async Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+    public async Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
         simpleLinkClass.DisplayName = new StringBuilder()
                  .Append(firstClass?.DisplayName ?? String.Empty)
@@ -23,7 +23,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
                           .ToString();
         return simpleLinkClass;
     }
-    public async Task<SimpleClass> Create(SimpleClass obj_DTO)
+    public async Task<BaseEntity> Create(BaseEntity obj_DTO)
     {
         obj_DTO.Id = null;
         await _db.AddAsync(obj_DTO);
@@ -46,7 +46,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
         }
         return -1;
     }
-    public async Task<SimpleClass> Get(String type, Int64? id, Boolean Tracking = true)
+    public async Task<BaseEntity> Get(String type, Int64? id, Boolean Tracking = true)
     {
         if (!String.IsNullOrEmpty(type))
         {
@@ -64,14 +64,14 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
             {
                 _db.ChangeTracker.QueryTrackingBehavior = Tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking;
 
-                var _SimpleClass = await _db.FindAsync(gtype, id) as SimpleClass;
+                var _SimpleClass = await _db.FindAsync(gtype, id) as BaseEntity;
 
                 return _SimpleClass;
             }
         }
         return null;
     }
-    public async Task<SimpleClass> Get(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
+    public async Task<BaseEntity> Get(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
     {
         //_db.ChangeTracker.QueryTrackingBehavior = Tracking;
         var gtype = DatabaseClass.GetDBType(type);
@@ -80,7 +80,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
             .InvokeSet(_db, gtype)
             .AsQueryable()
             .Where(x => x.Name == recordName)
-            as IQueryable<SimpleClass>;
+            as IQueryable<BaseEntity>;
 
         foreach (var x in TableIncludes)
         {
@@ -92,9 +92,9 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
         return S_SimpleClass;
     }
 
-    public async Task<Tuple<SimpleClass, IEnumerable<SimpleClass>>> GetAllBySimpleClass(SimpleClass simpleClass)
+    public async Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClass(BaseEntity simpleClass)
     {
-        var ReturnOutput = new Tuple<SimpleClass, IEnumerable<SimpleClass>>(new SimpleClassDTO(), new List<SimpleClass>());
+        var ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(new SimpleClassDTO(), new List<BaseEntity>());
 
         if (String.IsNullOrEmpty(simpleClass.Name))
         {
@@ -105,18 +105,18 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 
 
         var gtype = DatabaseClass.GetDBType(InputEntity.Name);
-        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
+        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var Result = await Task.FromResult(aa.ToList());
 
-        ReturnOutput = new Tuple<SimpleClass, IEnumerable<SimpleClass>>(InputEntity, Result);
+        ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(InputEntity, Result);
 
         return ReturnOutput;
     }
 
-    public async Task<IEnumerable<SimpleClass>> GetAllByName(String type)
+    public async Task<IEnumerable<BaseEntity>> GetAllByName(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
-        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
+        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var Result = await Task.FromResult(aa.ToList());
         return Result;
     }
@@ -151,11 +151,11 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
         }
         return new Dictionary<string, string>();
     }
-    public async Task<SimpleClass> GetLast(String type)
+    public async Task<BaseEntity> GetLast(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
-        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleClass>;
-        var instance = (SimpleClass)Activator.CreateInstance(gtype);
+        var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
+        var instance = (BaseEntity)Activator.CreateInstance(gtype);
         instance.SortIndex = aa.Any() ? aa.Max(x => x.SortIndex) + 1 : 1;
         return instance;
     }
@@ -165,7 +165,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 
         return 1;
     }
-    public async Task<SimpleClass> Update(SimpleClass obj_DTO)
+    public async Task<BaseEntity> Update(BaseEntity obj_DTO)
     {
         _db.Update(obj_DTO);
         await _db.SaveChangesAsync();

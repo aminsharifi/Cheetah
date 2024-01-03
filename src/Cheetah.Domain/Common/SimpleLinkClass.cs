@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Common;
 
-public abstract class SimpleLinkClass : SimpleClass
+public abstract class SimpleLinkClass : BaseEntity
 {
     public Int64? FirstId { get; set; }
 

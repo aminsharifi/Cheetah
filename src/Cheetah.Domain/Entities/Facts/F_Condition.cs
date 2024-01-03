@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
-public partial class F_Condition : SimpleClass
+public partial class F_Condition : BaseEntity
 {
     public long? TagId { get; set; }
     public virtual D_Tag? Tag { get; set; }

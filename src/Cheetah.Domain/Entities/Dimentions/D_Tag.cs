@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
 
-public partial class D_Tag : SimpleClass
+public partial class D_Tag : BaseEntity
 {
     #region Relation
 

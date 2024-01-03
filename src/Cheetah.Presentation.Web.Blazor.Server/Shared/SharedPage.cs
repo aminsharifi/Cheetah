@@ -25,13 +25,13 @@ public class SharedPage : MyComponentBase
     public CrudOperation crudOperation { get; set; }
 
     [Parameter]
-    public SimpleClass Record { get; set; }
+    public BaseEntity Record { get; set; }
 
     [Parameter]
-    public IEnumerable<SimpleClass> Records { get; set; } = new List<SimpleClass>();
+    public IEnumerable<BaseEntity> Records { get; set; } = new List<BaseEntity>();
 
     [Parameter]
-    public IEnumerable<SimpleClass> AllRecords { get; set; } = new List<SimpleClass>();
+    public IEnumerable<BaseEntity> AllRecords { get; set; } = new List<BaseEntity>();
 
     [Parameter]
     public IEnumerable<SimpleLinkClass> AllLink { get; set; } = new List<SimpleLinkClass>();

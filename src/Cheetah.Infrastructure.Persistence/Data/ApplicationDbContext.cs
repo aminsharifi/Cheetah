@@ -19,7 +19,7 @@ public partial class ApplicationDbContext : IdentityDbContext
         {
             foreach (var filedInfo in filedInfos)
             {
-                var simpleClass = filedInfo.GetValue(null) as SimpleClass;
+                var simpleClass = filedInfo.GetValue(null) as BaseEntity;
 
                 builder.Entity(simpleClass.GetType()).HasData(simpleClass);
             }
