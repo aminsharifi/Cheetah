@@ -16,7 +16,7 @@ public class F_ConditionController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var D_ParameterList = await simpleClassRepository.GetAllByName(nameof(F_Condition)) as IEnumerable<SimpleClass>;
+        var D_ParameterList = await simpleClassRepository.GetAllByName(nameof(F_Condition)) as IEnumerable<BaseEntity>;
         var simpleClassDTO = new List<SimpleClassDTO>();
         foreach (var SimpleClassDTO in D_ParameterList)
         {

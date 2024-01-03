@@ -48,7 +48,7 @@
 
     public long DeleteidRole { get; set; }
 
-    public IEnumerable<SimpleClass> Records { get; set; } = new List<SimpleClass>();
+    public IEnumerable<BaseEntity> Records { get; set; } = new List<BaseEntity>();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

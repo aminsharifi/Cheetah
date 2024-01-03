@@ -1,5 +1,5 @@
 namespace Cheetah.Domain.Entities.Dimentions;
-public partial class D_Location : SimpleClass
+public partial class D_Location : BaseEntity
 {
     #region Simple Prop
 

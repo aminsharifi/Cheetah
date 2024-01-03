@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
 
-public partial class D_Operand : SimpleClass
+public partial class D_Operand : BaseEntity
 {
 }

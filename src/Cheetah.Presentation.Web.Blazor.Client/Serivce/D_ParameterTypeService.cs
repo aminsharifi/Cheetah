@@ -67,7 +67,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<SimpleClass>> GetAllByName(string Name)
+    public async Task<IEnumerable<BaseEntity>> GetAllByName(string Name)
     {
         var response = await _httpClient.GetAsync("/" + Name);
 
@@ -97,23 +97,23 @@ public class D_ParameterTypeService : ITableCRUD
     }
 
 
-    public Task<SimpleClass> Create(SimpleClass? obj_DTO)
+    public Task<BaseEntity> Create(BaseEntity? obj_DTO)
     {
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClass> Update(SimpleClass? obj_DTO)
+    public Task<BaseEntity> Update(BaseEntity? obj_DTO)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<SimpleClass> Get(string type, long? id, Boolean Tracking = true)
+    public async Task<BaseEntity> Get(string type, long? id, Boolean Tracking = true)
     {
         var response = await _httpClient.GetAsync($"/{type} /{id}");
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            var p_ParameterList = JsonConvert.DeserializeObject<SimpleClass>(content);
+            var p_ParameterList = JsonConvert.DeserializeObject<BaseEntity>(content);
             //product.ImageUrl=BaseServerUrl+product.ImageUrl;
             return p_ParameterList;
         }
@@ -139,7 +139,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClass> GetLast(string type)
+    public Task<BaseEntity> GetLast(string type)
     {
         throw new NotImplementedException();
     }
@@ -149,7 +149,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+    public Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
         throw new NotImplementedException();
     }
@@ -159,7 +159,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    Task<IEnumerable<SimpleClass>> ITableCRUD.GetAllByName(string type)
+    Task<IEnumerable<BaseEntity>> ITableCRUD.GetAllByName(string type)
     {
         throw new NotImplementedException();
     }
@@ -176,17 +176,17 @@ public class D_ParameterTypeService : ITableCRUD
 
 
 
-    Task<SimpleClass> ITableCRUD.GetLast(string type)
+    Task<BaseEntity> ITableCRUD.GetLast(string type)
     {
         throw new NotImplementedException();
     }
 
-    Task<SimpleClass> ITableCRUD.Create(SimpleClass obj_DTO)
+    Task<BaseEntity> ITableCRUD.Create(BaseEntity obj_DTO)
     {
         throw new NotImplementedException();
     }
 
-    Task<SimpleClass> ITableCRUD.Update(SimpleClass obj_DTO)
+    Task<BaseEntity> ITableCRUD.Update(BaseEntity obj_DTO)
     {
         throw new NotImplementedException();
     }
@@ -196,7 +196,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    Task<SimpleLinkClass> ITableCRUD.AddLinkName(SimpleLinkClass simpleLinkClass, SimpleClass? firstClass, SimpleClass? SecondClass)
+    Task<SimpleLinkClass> ITableCRUD.AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
         throw new NotImplementedException();
     }
@@ -237,13 +237,13 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClass> Get(string type, string? recordName,
+    public Task<BaseEntity> Get(string type, string? recordName,
         Boolean Tracking = true, params String[] TableIncludes)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Tuple<SimpleClass, IEnumerable<SimpleClass>>> GetAllBySimpleClass(SimpleClass simpleClass)
+    public Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClass(BaseEntity simpleClass)
     {
         throw new NotImplementedException();
     }
