@@ -15,7 +15,6 @@ global using FluentAssertions.Common;
 global using Google.Protobuf.WellKnownTypes;
 global using Grpc.Core;
 global using Grpc.Core.Interceptors;
-global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Server.Kestrel.Core;
 global using Microsoft.EntityFrameworkCore;
 global using Newtonsoft.Json;
