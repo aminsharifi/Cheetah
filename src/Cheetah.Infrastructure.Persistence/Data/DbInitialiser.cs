@@ -7,10 +7,10 @@ public interface IDbInitializer
 public class DbInitializer : IDbInitializer
 {
 
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ApplicationDbContext _db;
-    public DbInitializer(UserManager<IdentityUser> userManager,
+    public DbInitializer(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
         ApplicationDbContext db)
     {
@@ -31,7 +31,7 @@ public class DbInitializer : IDbInitializer
 
             await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
 
-            IdentityUser user = new()
+            ApplicationUser user = new()
             {
                 UserName = "Admin",
                 Email = "Admin@poshtibanebartar.com",
