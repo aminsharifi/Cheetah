@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Infrastructure.Persistence.Identity;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {

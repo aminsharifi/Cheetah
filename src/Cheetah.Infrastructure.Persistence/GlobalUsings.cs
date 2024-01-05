@@ -13,6 +13,7 @@ global using Cheetah.Domain.Helper;
 global using Cheetah.Infrastructure.Persistence.Data;
 global using Cheetah.Infrastructure.Persistence.Data.Configurations;
 global using Cheetah.Infrastructure.Persistence.Data.Interceptors;
+global using Cheetah.Infrastructure.Persistence.Identity;
 global using FluentAssertions;
 global using MediatR;
 global using Microsoft.AspNetCore.Authorization;
