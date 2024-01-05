@@ -6,7 +6,6 @@ public interface IDbInitializer
 }
 public class DbInitializer : IDbInitializer
 {
-
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ApplicationDbContext _db;

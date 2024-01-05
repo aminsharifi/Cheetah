@@ -1,18 +1,101 @@
-﻿using Cheetah.Infrastructure.Persistence.Identity;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
-    public static async Task InitialiseDatabaseAsync(this WebApplication app)
+    public static async Task<WebApplication> InitialiseDatabaseAsync(this WebApplicationBuilder? builder)
     {
+        if (builder.Environment.IsProduction())
+        {
+            builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
+
+            builder.Configuration.AddConsul(Environment.GetEnvironmentVariable("Key_Consul") ?? string.Empty,
+                options =>
+                {
+                    options.ConsulConfigurationOptions =
+                        cco =>
+                        {
+                            cco.Address =
+                                new Uri(Environment.GetEnvironmentVariable("Address_Consul") ?? string.Empty);
+                            cco.Token = Environment.GetEnvironmentVariable("Token_Consul");
+                        };
+                    options.Optional = true;
+                    options.PollWaitTime = TimeSpan.FromSeconds(5);
+                    options.ReloadOnChange = true;
+                });
+
+
+        }
+
+        #region Serilog
+        builder.Host.UseSerilog((context, configuration) =>
+        configuration.ReadFrom.Configuration(context.Configuration));
+        #endregion
+
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+        var provider = builder.Configuration.GetValue("Provider", "Npgsql");
+
+        if (provider is "Npgsql")
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                b => b.UseLazyLoadingProxies()
+                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
+                , x => x.MigrationsAssembly("Cheetah.Infrastructure.Persistence.Providers.Npgsql")
+                ),
+                ServiceLifetime.Transient
+                );
+        }
+        else
+        {
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                b => b.UseLazyLoadingProxies()
+                .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                x => x.MigrationsAssembly("Cheetah.Infrastructure.Persistence.Providers.SqlServer")),
+                ServiceLifetime.Transient
+                );
+        }
+        builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
+        builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
+        builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+        builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
+        builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
+        builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
+
+        builder.Services
+            .AddDefaultIdentity<ApplicationUser>()
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        builder.Services.AddAuthorization(options =>
+         options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+
+        var app = builder.Build();
+
+        app.UseSerilogRequestLogging();
+
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+
+        //using var Appscope = app.Services.CreateScope();
+
+        //var initialiser = Appscope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+
+        //await initialiser.InitialiseAsync();
+
+        //await initialiser.SeedAsync();
+
         using var scope = app.Services.CreateScope();
 
-        var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
 
-        await initialiser.InitialiseAsync();
+        await dbInitializer.Initialize();
 
-        await initialiser.SeedAsync();
+        return app;
     }
 }
 
@@ -36,6 +119,7 @@ public class ApplicationDbContextInitialiser
         try
         {
             await _context.Database.MigrateAsync();
+
         }
         catch (Exception ex)
         {
