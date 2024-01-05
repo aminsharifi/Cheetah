@@ -1,8 +1,5 @@
-﻿using Cheetah.Application.Business.Repository;
-using Cheetah.Domain;
-using Cheetah.Domain.Entities.Facts;
-using Cheetah.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿using Cheetah.Application.Business.Common.Interfaces;
+using Cheetah.Infrastructure.Persistence.Identity;
 
 namespace Cheetah.Presentation.Services.GraphQL;
 
