@@ -41,7 +41,7 @@ public static class DependencyInjection
         .AddApiEndpoints();
 #else
         services
-            .AddDefaultIdentity<Cheetah.Infrastructure.Persistence.Identity.ApplicationUser>()
+            .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 #endif
