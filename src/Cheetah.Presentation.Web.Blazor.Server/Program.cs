@@ -32,10 +32,6 @@ StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configurat
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddDefaultTokenProviders().AddDefaultUI()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IGlobalization>
     (x => new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Presentation) + "." +
@@ -90,10 +86,19 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 builder.Services.AddBootstrapBlazor();
 
-//builder.Services.AddDefaultIdentity<ApplicationUser>()
-//    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services
+    .AddDefaultIdentity<ApplicationUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultUI()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAuthorization(options =>
+         options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+
+//builder.Services.AddScoped<ApplicationDbContextInitialiser>();
+//builder.Services.AddTransient<IIdentityService, IdentityService>();
 
 var app = builder.Build();
 

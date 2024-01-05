@@ -1,7 +1,9 @@
 ﻿global using Cheetah.Application.Business.Repository;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
+global using Cheetah.Domain.Constants;
 global using Cheetah.Infrastructure.Persistence;
+global using Cheetah.Infrastructure.Persistence.Identity;
 global using Cheetah.Infrastructure.Persistence.Repository;
 global using Cheetah.Presentation.Web.Blazor.Server;
 global using Cheetah.Presentation.Web.Blazor.Server.Data;
