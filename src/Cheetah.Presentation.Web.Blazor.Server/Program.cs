@@ -2,8 +2,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
-builder.Services.AddSingleton<WeatherForecastService>();
-
 builder.Services.AddSingleton<IGlobalization>
     (x => new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Presentation) + "." +
     nameof(Cheetah.Presentation.Web) + "." +
@@ -16,6 +14,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 builder.Services.AddBootstrapBlazor();
+
+//builder.Services
+//  .AddIdentityCore<ApplicationUser>();
 
 var app = await builder.InitialiseDatabaseAsync();
 
