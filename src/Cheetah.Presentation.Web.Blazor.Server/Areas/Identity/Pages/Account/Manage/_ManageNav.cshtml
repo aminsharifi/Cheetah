@@ -1,5 +1,6 @@
-﻿@using Cheetah.Presentation.Web.Blazor.Server.Areas.Identity.Pages.Account.Manage;
-@inject SignInManager<IdentityUser> SignInManager
+﻿@using Cheetah.Infrastructure.Persistence.Identity
+@using Cheetah.Presentation.Web.Blazor.Server.Areas.Identity.Pages.Account.Manage;
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
