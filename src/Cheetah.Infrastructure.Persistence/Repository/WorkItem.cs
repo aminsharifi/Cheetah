@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
@@ -196,6 +198,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
             {
                 first_WorkItem = Current_WorkItem;
             }
+
             await SetCurrentAssignment(first_WorkItem);
 
             return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
@@ -214,7 +217,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         var DuplicateCase = _db.F_Cases
             .Where(x => x.ProcessId == GeneralRequest.ProcessId)
             .Where(x => x.ERPCode == GeneralRequest.ERPCode)
-            .Where(x => x.CaseStateId == 1 || x.CaseStateId == 2)
+            .Where(x => x.CaseStateId == D_CaseState.Ongoing.Id || x.CaseStateId == D_CaseState.Editing.Id)
             .Where(x => x.EnableRecord == true)
             .AsNoTracking();
 
@@ -227,9 +230,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
             return _OutputState;
         }
 
-        await SetWorkItemsAsync(GeneralRequest);
-
         _db.F_Cases.Add(GeneralRequest);
+
+        await SetWorkItemsAsync(GeneralRequest);
 
         await _db.SaveChangesAsync();
 
@@ -308,7 +311,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
                         ConditionOccur++;
                         break;
                 }
-             
+
 
             }
         }
@@ -352,8 +355,10 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
                 ExpectedConditionList.Add(ExpectedCondition);
 
+
                 if (CompareCondition(ActualConditions, ExpectedConditionList).Result.Value)
                 {
+
                     Current_WorkItem.Case.CaseStateId =
                         endorsementItem.CaseStateId;
 
@@ -368,6 +373,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
                             .Where(x => !x.IsExit() && !x.IsSent())
                             .ToList().ForEach(x => x.SetExit());
                     }
+
                     if (!Current_WorkItem.Case.IsAborted())
                     {
                         #region Exit Current work items
@@ -423,9 +429,12 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
                         .Where(x => x.WorkItemStateId is null)
                         .ToList().ForEach(x => x.SetFuture());
                     }
+
+
                 }
             }
         }
+
         return OutputState<Boolean>.Success("با موفقیت ایجاد شد", true);
     }
 }

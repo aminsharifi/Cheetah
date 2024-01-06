@@ -21,10 +21,10 @@ public partial class D_Tag
         {
             Id = 201,
             ERPCode = 201,
-            SortIndex = 201,
+            SortIndex = 2,
             Name = nameof(Approve),
             DisplayName = "تایید",
-            Description = "پارامتریک",
+            Description = "دودویی",
             TagTypeId = 2
         };
 
@@ -33,10 +33,10 @@ public partial class D_Tag
         {
             Id = 202,
             ERPCode = 202,
-            SortIndex = 202,
+            SortIndex = 3,
             Name = nameof(Reject),
             DisplayName = "عدم تایید",
-            Description = "پارامتریک",
+            Description = "دودویی",
             TagTypeId = 2
         };
 
@@ -45,10 +45,10 @@ public partial class D_Tag
         {
             Id = 203,
             ERPCode = 203,
-            SortIndex = 203,
+            SortIndex = 4,
             Name = nameof(Revise),
             DisplayName = "بازنگری",
-            Description = "پارامتریک",
+            Description = "دودویی",
             TagTypeId = 2
         };
 
@@ -57,7 +57,7 @@ public partial class D_Tag
         {
             Id = 301,
             ERPCode = 301,
-            SortIndex = 301,
+            SortIndex = 5,
             Name = nameof(Price),
             DisplayName = "مبلغ",
             Description = "عددی",

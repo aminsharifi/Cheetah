@@ -8,7 +8,7 @@ public partial class D_Role
            {
                Id = 100,
                ERPCode = 100,
-               SortIndex = 100,
+               SortIndex = 1,
                Name = nameof(Requestor),
                DisplayName = "درخواست کننده",
                FixedRole = true
@@ -19,7 +19,7 @@ public partial class D_Role
          {
              Id = 101,
              ERPCode = 101,
-             SortIndex = 101,
+             SortIndex = 2,
              Name = nameof(RequestorManager),
              DisplayName = "مدیر درخواست کننده",
              FixedRole = true

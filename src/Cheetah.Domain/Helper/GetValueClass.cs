@@ -1,6 +1,4 @@
-﻿using DNTPersianUtils.Core;
-using System.Formats.Asn1;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Cheetah.Domain.Helper
 {
@@ -11,7 +9,8 @@ namespace Cheetah.Domain.Helper
             var _classes = Assembly.GetExecutingAssembly()
                 .GetTypes()
                 .Where(x => x.IsClass)
-                .Where(y => y.BaseType.Name == nameof(BaseEntity));
+                .Where(x => !x.IsAbstract)
+                .Where(y => (y.BaseType.Name == nameof(BaseEntity) || (y.BaseType.BaseType?.Name == nameof(BaseEntity))));
 
             foreach (var _class in _classes)
             {
