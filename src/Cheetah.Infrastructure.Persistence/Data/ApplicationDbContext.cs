@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Infrastructure.Persistence;
 
-public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

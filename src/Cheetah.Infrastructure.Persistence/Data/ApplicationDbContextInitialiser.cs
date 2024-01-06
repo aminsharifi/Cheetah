@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using FluentAssertions.Common;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -22,8 +24,6 @@ public static class InitialiserExtensions
                     options.PollWaitTime = TimeSpan.FromSeconds(5);
                     options.ReloadOnChange = true;
                 });
-
-
         }
 
         #region Serilog
@@ -63,12 +63,15 @@ public static class InitialiserExtensions
         builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
         builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
 
-        builder.Services
-            .AddDefaultIdentity<ApplicationUser>()
-            .AddRoles<IdentityRole>()
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+            options.User.RequireUniqueEmail = false;
+        })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddDefaultTokenProviders();
+
+
 
         builder.Services.AddAuthorization(options =>
          options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
