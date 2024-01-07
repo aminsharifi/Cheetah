@@ -54,8 +54,6 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.LastModified))
                         .HasColumnOrder(7)
-                        .HasDefaultValue(DateTimeOffset.Now)
-                        .ValueGeneratedOnAddOrUpdate()
                         .IsConcurrencyToken(true);
 
                     entity.HasIndex(nameof(BaseEntity.LastModified))

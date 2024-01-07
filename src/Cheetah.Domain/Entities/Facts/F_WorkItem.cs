@@ -63,37 +63,31 @@ public partial class F_WorkItem : BaseEntity
     public void SetInbox()
     {
         WorkItemStateId = D_WorkItemState.Inbox.Id;
-        //WorkItemState = D_WorkItemState.Inbox;
     }
     public void SetSent()
     {
         WorkItemStateId = D_WorkItemState.Sent.Id;
-        //WorkItemState = D_WorkItemState.Sent;
+        LastModified = DateTimeOffset.Now;
     }
     public void SetExit()
     {
         WorkItemStateId = D_WorkItemState.Exit.Id;
-        //WorkItemState = D_WorkItemState.Exit;
     }
     public void SetFuture()
     {
         WorkItemStateId = D_WorkItemState.Future.Id;
-        //WorkItemState = D_WorkItemState.Future;
     }
     public void SetApprove()
     {
         TagId = D_Tag.Approve.Id;
-        //Tag = D_Tag.Approve;
     }
     public void SetReject()
     {
         TagId = D_Tag.Reject.Id;
-        //Tag = D_Tag.Reject;
     }
     public void SetRevise()
     {
         TagId = D_Tag.Revise.Id;
-        //Tag = D_Tag.Revise;
     }
 
 

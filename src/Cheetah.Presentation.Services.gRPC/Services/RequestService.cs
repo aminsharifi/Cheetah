@@ -1,5 +1,4 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
+﻿using FluentResults;
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
@@ -64,19 +63,33 @@ public class RequestService
         f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
         #endregion
 
-        var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
+        //var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
+
+        var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase);
 
         #region Output
-        f_WorkItem = Outputresult.Result.Value;
+
         var OutputState = Outputresult.SimpleClassDTO;
 
-        PerformRequest_Output output_Request = new()
+        PerformRequest_Output output_Request = new();
+
+        output_Request.OutputState = OutputState.GetBaseClassWithName();
+
+        if (Outputresult.Result.IsFailed)
+        {
+            return output_Request;
+        }
+        f_WorkItem = Outputresult.Result.Value;
+
+        output_Request = new()
         {
             Case = f_WorkItem.Case?.GetBaseClass(),
             CaseState = f_WorkItem.Case?.CaseState?.GetBaseClassWithName(),
             Process = f_WorkItem.Case?.Process?.GetBaseClassWithName()
         };
+
         output_Request.OutputState = OutputState.GetBaseClassWithName();
+
         #endregion
 
         logger.LogInformation("Ended " + nameof(PerformRequest));
@@ -88,13 +101,16 @@ public class RequestService
     {
         #region Input
         var f_Request = request.Case.GetSimpleClass<F_Case>();
+        f_Request.CaseState = request.CaseState.GetSimpleClass<D_CaseState>();
+        f_Request.Process = request.Process.GetSimpleClass<D_Process>();
         #endregion
-
-        var l_Request = await iCartable.GetCaseAsync(f_Request).Result.FirstOrDefaultAsync();
 
         #region Output
 
         #region GetCase_Output
+
+        var _l_Request = await iCartable.GetCaseAsync(f_Request);
+        var l_Request = _l_Request.FirstOrDefault();
 
         GetCase_Output output_Requests = new()
         {
@@ -102,6 +118,12 @@ public class RequestService
             CaseState = l_Request?.CaseState?.GetBaseClassWithName(),
             Process = l_Request?.Process?.GetBaseClassWithName()
         };
+
+        if (!_l_Request.Any())
+        {
+            output_Requests.OutputState = OutputState<Boolean>.NotFoundErrorCreateRequest(false).SimpleClassDTO.GetBaseClassWithName();
+            return output_Requests;
+        }
 
         #region Endorsements
 

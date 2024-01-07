@@ -71,8 +71,6 @@ public static class InitialiserExtensions
             .AddDefaultUI()
             .AddDefaultTokenProviders();
 
-
-
         builder.Services.AddAuthorization(options =>
          options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
