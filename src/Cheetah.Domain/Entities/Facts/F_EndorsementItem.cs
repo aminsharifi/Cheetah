@@ -13,7 +13,6 @@ public partial class F_EndorsementItem : BaseEntity
 
     #endregion
 
-
     #region Collection
 
     [InverseProperty(nameof(F_Condition.EndorsementItem))]
@@ -24,7 +23,6 @@ public partial class F_EndorsementItem : BaseEntity
 
     #endregion
 
-
     #region Functions
     public F_EndorsementItem ShallowCopy()
     {
@@ -32,5 +30,4 @@ public partial class F_EndorsementItem : BaseEntity
     }
 
     #endregion
-
 }

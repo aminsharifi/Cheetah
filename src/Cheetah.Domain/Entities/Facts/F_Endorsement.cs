@@ -20,7 +20,6 @@ public partial class F_Endorsement : BaseEntity
 
     #endregion
 
-
     #region Collections
 
     [InverseProperty(nameof(F_EndorsementItem.Endorsement))]

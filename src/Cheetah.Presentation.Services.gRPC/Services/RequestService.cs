@@ -1,4 +1,7 @@
-﻿using FluentResults;
+﻿using Cheetah.Application.Business.Common.Interfaces;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Entities.Links;
+using Cheetah.Presentation.Services.gRPC.Helper;
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
@@ -62,8 +65,6 @@ public class RequestService
 
         f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
         #endregion
-
-        //var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem);
 
         var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase);
 
@@ -198,6 +199,46 @@ public class RequestService
         #endregion
 
         return getAllByName_Output;
+    }
+    public override async Task<SetCaseEndorsementUser_Output> SetCaseEndorsementUser(SetCaseEndorsementUser_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(SetCaseEndorsementUser) + $": {request}");
+
+        #region Input
+
+        L_CaseEndorsementUser l_CaseEndorsementUser = new();
+
+        l_CaseEndorsementUser.Case = request.Case.GetSimpleClass<F_Case>();
+        l_CaseEndorsementUser.Endorsement = request.Endorsement.GetSimpleClass<F_Endorsement>();
+        l_CaseEndorsementUser.User = request.User.GetSimpleClass<D_User>();
+
+        #endregion
+
+        var Outputresult = await iWorkItem.SetCaseEndorsementUser(l_CaseEndorsementUser);
+
+        #region Output
+
+        var OutputState = Outputresult.SimpleClassDTO;
+
+        SetCaseEndorsementUser_Output output_Request = new();
+
+        output_Request.OutputState = OutputState.GetBaseClassWithName();
+
+        if (Outputresult.Result.IsFailed)
+        {
+            return output_Request;
+        }
+
+        //l_CaseEndorsementUser = Outputresult.Result.Value;
+
+        //output_Request.Case = f_Request.GetBaseClassWithDate();
+
+        #endregion
+
+        logger.LogInformation("Ended " + nameof(CreateRequest));
+        logger.LogInformation("{@Create_Output_Request}", output_Request);
+
+        return output_Request;
     }
 
     #region Cartable

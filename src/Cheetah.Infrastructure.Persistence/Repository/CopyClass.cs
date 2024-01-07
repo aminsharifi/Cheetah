@@ -100,7 +100,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
 
     public async Task<F_Case> DeepCopy(F_Case obj)
     {
-        var Return_Case = new F_Case();
+        F_Case Return_Case = new ();
 
         Return_Case.ERPCode = obj?.ERPCode;
 
@@ -113,5 +113,20 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
         Return_Case.ProcessId = await GetSimpleClassId(_db.D_Processes, obj.Process, Return_Case.ProcessId);
 
         return Return_Case;
+    }
+    public async Task<L_CaseEndorsementUser> DeepCopy(L_CaseEndorsementUser obj)
+    {
+        L_CaseEndorsementUser Return_CaseEndorsementUser = new();
+
+        //Case
+        Return_CaseEndorsementUser.FirstId = await GetSimpleClassId(_db.F_Cases, obj.Case);
+
+        //Endorsement
+        Return_CaseEndorsementUser.SecondId = await GetSimpleClassId(_db.F_Endorsements, obj.Endorsement);
+
+        //User
+        Return_CaseEndorsementUser.ThirdId = await GetSimpleClassId(_db.D_Users, obj.User);
+
+        return Return_CaseEndorsementUser;
     }
 }
