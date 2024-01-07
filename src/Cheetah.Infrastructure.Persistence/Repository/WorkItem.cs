@@ -1,8 +1,8 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
+﻿
+using Azure.Core;
 
 namespace Cheetah.Infrastructure.Persistence.Repository;
-public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
-        ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
+public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
     public CheetahResult<IQueryable<F_Endorsement>> GetAllEndorsement()
     {
@@ -288,8 +288,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
         return _OutputState;
     }
-    public CheetahResult<bool> CompareCondition(IEnumerable<F_Condition> Actual_Conditions,
-        IEnumerable<F_Condition> Expected_Conditions)
+    public CheetahResult<bool> CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
     {
         var cnt_con = Expected_Conditions.Count();
 
@@ -441,5 +440,14 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         }
 
         return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
+    }
+
+    public async Task<CheetahResult<List<L_CaseEndorsementUser>>> SetCaseEndorsementUser(L_CaseEndorsementUser CaseEndorsementUser)
+    {
+        var _CaseEndorsementUser = await _iCopyClass.DeepCopy(CaseEndorsementUser);
+
+        CheetahResult<List<L_CaseEndorsementUser>> _OutputState = new();
+
+        return _OutputState;
     }
 }
