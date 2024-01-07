@@ -30,13 +30,14 @@ message CreateRequest_Input
 message CreateRequest_Output
 {
     GRPC_BaseClassWithDate Case = 1;
-    GRPC_BaseClassWithName OutputState = 2;
+    GRPC_BaseClassWithName OutputState = 2;    
 }
 
 message PerformRequest_Input
 {
      GRPC_BaseClass WorkItem = 1;
      repeated Condition Conditions = 2;
+     bool Rebase = 3;     
 }
 
 message PerformRequest_Output
@@ -50,6 +51,8 @@ message PerformRequest_Output
 message GetCase_Input
 {
     GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName CaseState = 2;
+    GRPC_BaseClassWithName Process = 3;
 }
 
 message Condition

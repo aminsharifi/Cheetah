@@ -2,7 +2,7 @@
 
 public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICartable
 {
-    public async Task<IQueryable<F_Case>> GetCaseAsync(F_Case request)
+    public async Task<List<F_Case>> GetCaseAsync(F_Case request)
     {
         var GeneralRequest = _db.F_Cases
             .Include(x => x.Creator)
@@ -17,26 +17,32 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             .ThenInclude(x => x.User)
             .AsNoTracking();
 
-        if (request.ProcessId is not null)
+        if (request.Process is not null)
         {
-            GeneralRequest = GeneralRequest.Where(x => x.ProcessId == request.ProcessId);
+            var _ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, request.Process);
+            GeneralRequest = GeneralRequest.Where(x => x.ProcessId == _ProcessId);
         }
-        if (request.CaseStateId is not null)
+
+        if (request.CaseState is not null)
         {
-            GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == request.CaseStateId);
+            var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, request.CaseState);
+            GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == CaseStateId);
+        }
+
+        if (request.Id is not null)
+        {
+            GeneralRequest = GeneralRequest.Where(x => x.Id == request.Id);
         }
         if (request.ERPCode is not null)
         {
             GeneralRequest = GeneralRequest.Where(x => x.ERPCode == request.ERPCode);
         }
-        if (request.Id is not null)
-        {
-            GeneralRequest = GeneralRequest.Where(x => x.Id == request.Id);
-        }
-        return GeneralRequest;
+
+        var _casesList = await GeneralRequest.ToListAsync();
+
+        return _casesList;
     }
-    public async Task<List<CartableDTO>> GetCartable(CartableDTO cartableDTO,
- IQueryable<F_WorkItem> f_WorkItems)
+    public async Task<List<CartableDTO>> GetCartable(CartableDTO cartableDTO, IQueryable<F_WorkItem> f_WorkItems)
     {
 
         if (cartableDTO.User is not null)
