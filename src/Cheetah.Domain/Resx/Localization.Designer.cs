@@ -88,6 +88,15 @@ namespace Cheetah.Domain.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رکوردی یافت نشد.
+        /// </summary>
+        public static string Domain_NotFound {
+            get {
+                return ResourceManager.GetString("Domain_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string Domain_Success {
@@ -120,6 +129,15 @@ namespace Cheetah.Domain.Resx {
         public static string Domain_Update {
             get {
                 return ResourceManager.GetString("Domain_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پیشین فرم با شماره کار {0} در چیتا ارسال شده است.
+        /// </summary>
+        public static string PreviouslySentError {
+            get {
+                return ResourceManager.GetString("PreviouslySentError", resourceCulture);
             }
         }
     }

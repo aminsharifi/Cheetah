@@ -126,6 +126,9 @@
   <data name="Domain_DuplicateErrorCreateRequest" xml:space="preserve">
     <value>درخواست پیشین با شماره رهیگری {0} در چیتا ثبت شده است</value>
   </data>
+  <data name="Domain_NotFound" xml:space="preserve">
+    <value>رکوردی یافت نشد</value>
+  </data>
   <data name="Domain_Success" xml:space="preserve">
     <value>Success</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="Domain_Update" xml:space="preserve">
     <value>ویرایش</value>
+  </data>
+  <data name="PreviouslySentError" xml:space="preserve">
+    <value>پیشین فرم با شماره کار {0} در چیتا ارسال شده است</value>
   </data>
 </root>

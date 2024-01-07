@@ -247,7 +247,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
         return _OutputState;
     }
-    public async Task<CheetahResult<F_WorkItem>> PerformWorkItemAsync(F_WorkItem f_WorkItem)
+    public async Task<CheetahResult<F_WorkItem>> PerformWorkItemAsync(F_WorkItem f_WorkItem, Boolean Rebase = false)
     {
         CheetahResult<F_WorkItem> _OutputState = new();
 
@@ -262,7 +262,14 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
 
         Current_WorkItem.Case.Conditions = await _iCopyClass.CopyCondition(f_WorkItem.Case.Conditions);
 
-        await SetCurrentAssignment(Current_WorkItem);
+        if (Current_WorkItem.LastModified is not null && Rebase == false)
+        {
+            _OutputState = OutputState<F_WorkItem>.PreviouslySentErrorCreateRequest(Current_WorkItem.Id, Current_WorkItem);
+
+            return _OutputState;
+        }
+
+        var _currentAssignment = await SetCurrentAssignment(Current_WorkItem);
 
         if (Current_WorkItem.Case.IsEditing())
         {
@@ -273,7 +280,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
             await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
         }
 
-        _db.F_WorkItems.Update(Current_WorkItem);
+        _db.F_WorkItems.Update(_currentAssignment.Result.Value);
 
         await _db.SaveChangesAsync();
 
@@ -327,11 +334,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
         }
         return _OutputState;
     }
-    public async Task<CheetahResult<Boolean>> SetCurrentAssignment(F_WorkItem Current_WorkItem)
+    public async Task<CheetahResult<F_WorkItem>> SetCurrentAssignment(F_WorkItem Current_WorkItem)
     {
-        Current_WorkItem.LastModified = DateTime.Now;
-
-        Current_WorkItem.Case.LastModified = DateTime.Now;
+        Current_WorkItem.Case.LastModified = DateTimeOffset.Now;
 
         var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
 
@@ -435,6 +440,6 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper,
             }
         }
 
-        return OutputState<Boolean>.Success("با موفقیت ایجاد شد", true);
+        return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
     }
 }
