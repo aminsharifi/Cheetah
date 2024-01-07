@@ -13,11 +13,18 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
 
         builder = builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        foreach (var filedInfos in GetEntity.Values())
+        var _entityValues = GetEntity.Values();
+
+        foreach (var filedInfos in _entityValues)
         {
             foreach (var filedInfo in filedInfos)
             {
                 var simpleClass = filedInfo.GetValue(null) as BaseEntity;
+
+                if (simpleClass == null)
+                {
+                    var aa = 12;
+                }
 
                 builder.Entity(simpleClass.GetType()).HasData(simpleClass);
             }
