@@ -33,6 +33,7 @@ public static class OutputState<T>
     }
 
     #endregion
+    
     #region Errors   
     public static CheetahResult<T> DuplicateErrorCreateRequest(long? CaseID, T input)
     {
@@ -48,9 +49,42 @@ public static class OutputState<T>
         _OutputState.SimpleClassDTO.ERPCode = 1;
         _OutputState.SimpleClassDTO.Name = _Name;
         _OutputState.SimpleClassDTO.DisplayName = DisplayName;
-        
+
         return _OutputState;
     }
+    public static CheetahResult<T> NotFoundErrorCreateRequest(T input)
+    {
+        var _Name = nameof(Localization.Domain_NotFound);
 
+        var DisplayName = GlobalizationService.GetValue(_Name);
+
+        var _Result = Result.Fail(_Name);
+
+        var _OutputState = new CheetahResult<T>() { Result = _Result };
+
+        _OutputState.SimpleClassDTO.Id = 2;
+        _OutputState.SimpleClassDTO.ERPCode = 2;
+        _OutputState.SimpleClassDTO.Name = _Name;
+        _OutputState.SimpleClassDTO.DisplayName = DisplayName;
+
+        return _OutputState;
+    }
+    public static CheetahResult<T> PreviouslySentErrorCreateRequest(long? workItemId, T input)
+    {
+        var _Name = nameof(Localization.PreviouslySentError);
+
+        var DisplayName = GlobalizationService.GetValue(_Name, new Object[] { workItemId });
+
+        var _Result = Result.Fail(_Name);
+
+        var _OutputState = new CheetahResult<T>() { Result = _Result };
+
+        _OutputState.SimpleClassDTO.Id = 3;
+        _OutputState.SimpleClassDTO.ERPCode = 3;
+        _OutputState.SimpleClassDTO.Name = _Name;
+        _OutputState.SimpleClassDTO.DisplayName = DisplayName;
+
+        return _OutputState;
+    }
     #endregion
 }
