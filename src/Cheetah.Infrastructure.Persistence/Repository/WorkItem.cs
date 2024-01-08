@@ -1,5 +1,4 @@
-﻿
-using Azure.Core;
+﻿using System.Collections.Immutable;
 
 namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
@@ -408,16 +407,24 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                                 .Where(x => x.EndorsementId == toEndorsement.Id)
                                 .Where(x => !x.IsSent() && !x.IsExit());
 
-                            var _User = toEndorsement.Users.FirstOrDefault();
 
-                            if (_User is not null)
+                            var _caseEndorsementUsers = await _db.L_CaseEndorsementUsers
+                                .Where(x => x.Case.Id == Current_WorkItem.CaseId)
+                                .Where(x => x.Endorsement.Id == toEndorsement.Id)
+                                .ToListAsync();
+
+                            if (_caseEndorsementUsers.Any())
                             {
-                                _Current_WorkItems.Where(x => x.UserId == _User.Id)
-                                    .Single().SetInbox();
+                                var _users = _caseEndorsementUsers.Select(x => x.User?.Id.Value);
 
                                 _Current_WorkItems
-                                    .Where(x => x.UserId != _User.Id)
-                                    .ToList()
+                                    .Where(x => _users.Any(y => y == x.UserId))
+                                    .ToImmutableList()
+                                    .ForEach(x => x.SetInbox());
+
+                                _Current_WorkItems
+                                    .Where(x => !_users.Any(y => y == x.UserId))
+                                    .ToImmutableList()
                                     .ForEach(x => x.SetExit());
                             }
                             else
@@ -441,13 +448,28 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
     }
-
-    public async Task<CheetahResult<List<L_CaseEndorsementUser>>> SetCaseEndorsementUser(L_CaseEndorsementUser CaseEndorsementUser)
+    public async Task<CheetahResult<L_CaseEndorsementUser>> SetCaseEndorsementUser(L_CaseEndorsementUser CaseEndorsementUser)
     {
         var _CaseEndorsementUser = await _iCopyClass.DeepCopy(CaseEndorsementUser);
 
-        CheetahResult<List<L_CaseEndorsementUser>> _OutputState = new();
+        var _selectedCaseEndorsementUsers = _db.L_CaseEndorsementUsers
+            .Where(x => x.Case.Id == CaseEndorsementUser.Case.Id)
+            .Where(x => x.Endorsement.Id == CaseEndorsementUser.Endorsement.Id);
 
-        return _OutputState;
+        var _result = _selectedCaseEndorsementUsers
+            .Include(x => x.Case)
+            .Include(x => x.Endorsement)
+            .Include(x => x.User);
+
+        if (!await _selectedCaseEndorsementUsers.AnyAsync())
+        {
+            await _db.L_CaseEndorsementUsers.AddAsync(_CaseEndorsementUser);
+
+            await _db.SaveChangesAsync();
+        }
+
+        var _caseEndorsementUsers = await _result.FirstOrDefaultAsync();
+
+        return OutputState<L_CaseEndorsementUser>.Success("با موفقیت ایجاد شد", _caseEndorsementUsers);
     }
 }

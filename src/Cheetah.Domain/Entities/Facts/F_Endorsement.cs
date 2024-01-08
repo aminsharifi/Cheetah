@@ -25,8 +25,6 @@ public partial class F_Endorsement : BaseEntity
     [InverseProperty(nameof(F_EndorsementItem.Endorsement))]
     public virtual ICollection<F_EndorsementItem>? EndorsementItems { get; set; } = new HashSet<F_EndorsementItem>();
 
-    public virtual ICollection<L_EndorsementUser>? Users { get; set; } = new HashSet<L_EndorsementUser>();
-
     #endregion
 
     public override void SetName()

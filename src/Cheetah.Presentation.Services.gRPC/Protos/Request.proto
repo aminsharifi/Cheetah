@@ -21,20 +21,18 @@ service Request {
 
 message SetCaseEndorsementUser_Input
 {
-     GRPC_BaseClass Case = 1;
-     GRPC_BaseClassWithName Endorsement = 2;
-     GRPC_BaseClassWithName User = 3;
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName Endorsement = 2;
+    GRPC_BaseClassWithName User = 3;
 }
 
 message SetCaseEndorsementUser_Output
 {
-     GRPC_BaseClass Case = 1;
-     GRPC_BaseClassWithName Endorsement = 2;
-     repeated GRPC_BaseClassWithName Users = 3;
-     GRPC_BaseClassWithName OutputState = 4;
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName Endorsement = 2;
+    GRPC_BaseClassWithName User = 3;
+    GRPC_BaseClassWithName OutputState = 4;
 }
-
-
 
 message CreateRequest_Input
 {
@@ -160,9 +158,9 @@ message GRPC_BaseClass
 
 message GRPC_BaseClassWithName
 {
-    google.protobuf.Int64Value Id = 1;
-    google.protobuf.Int64Value ERPCode = 2;
-    google.protobuf.Int64Value SortIndex = 3;
+    google.protobuf.Int64Value  Id = 1;
+    google.protobuf.Int64Value  ERPCode = 2;
+    google.protobuf.Int64Value  SortIndex = 3;
     google.protobuf.StringValue Name = 4;
     google.protobuf.StringValue DisplayName = 5;
 }
@@ -172,17 +170,17 @@ message GRPC_BaseClassWithDate
     google.protobuf.Int64Value Id = 1;
     google.protobuf.Int64Value ERPCode = 2;
     google.protobuf.Int64Value SortIndex = 3;
-    google.protobuf.Timestamp CreateTimeRecord = 4;
-    google.protobuf.Timestamp LastUpdatedRecord = 5;
+    google.protobuf.Timestamp  CreateTimeRecord = 4;
+    google.protobuf.Timestamp  LastUpdatedRecord = 5;
 }
 
 message GRPC_BaseClassWithNameAndDate
 {
-    google.protobuf.Int64Value Id = 1;
-    google.protobuf.Int64Value ERPCode = 2;
-    google.protobuf.Int64Value SortIndex = 3;
+    google.protobuf.Int64Value  Id = 1;
+    google.protobuf.Int64Value  ERPCode = 2;
+    google.protobuf.Int64Value  SortIndex = 3;
     google.protobuf.StringValue Name = 4;
     google.protobuf.StringValue DisplayName = 5;
-    google.protobuf.Timestamp CreateTimeRecord = 6;
-    google.protobuf.Timestamp LastUpdatedRecord = 7;
+    google.protobuf.Timestamp   CreateTimeRecord = 6;
+    google.protobuf.Timestamp   LastUpdatedRecord = 7;
 }
