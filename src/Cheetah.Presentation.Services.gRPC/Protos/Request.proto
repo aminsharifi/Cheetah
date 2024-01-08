@@ -16,7 +16,25 @@ service Request {
   rpc Inbox (Cartable_Input) returns (Cartable_Output);
   rpc Outbox (Cartable_Input) returns (Cartable_Output);
   rpc GetAllByName (GetAllByName_Input) returns (GetAllByName_Output);
+  rpc SetCaseEndorsementUser (SetCaseEndorsementUser_Input) returns (SetCaseEndorsementUser_Output);
 }
+
+message SetCaseEndorsementUser_Input
+{
+     GRPC_BaseClass Case = 1;
+     GRPC_BaseClassWithName Endorsement = 2;
+     GRPC_BaseClassWithName User = 3;
+}
+
+message SetCaseEndorsementUser_Output
+{
+     GRPC_BaseClass Case = 1;
+     GRPC_BaseClassWithName Endorsement = 2;
+     repeated GRPC_BaseClassWithName Users = 3;
+     GRPC_BaseClassWithName OutputState = 4;
+}
+
+
 
 message CreateRequest_Input
 {
@@ -30,14 +48,14 @@ message CreateRequest_Input
 message CreateRequest_Output
 {
     GRPC_BaseClassWithDate Case = 1;
-    GRPC_BaseClassWithName OutputState = 2;    
+    GRPC_BaseClassWithName OutputState = 2;
 }
 
 message PerformRequest_Input
 {
      GRPC_BaseClass WorkItem = 1;
      repeated Condition Conditions = 2;
-     bool Rebase = 3;     
+     bool Rebase = 3;
 }
 
 message PerformRequest_Output

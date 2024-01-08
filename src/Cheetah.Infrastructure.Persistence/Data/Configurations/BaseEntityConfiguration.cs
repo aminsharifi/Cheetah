@@ -80,9 +80,19 @@ public static class BaseEntityConfiguration
                 if (entityType.ClrType.BaseType.Name == nameof(SimpleLinkClass))
                 {
                     entity.HasIndex(nameof(SimpleLinkClass.FirstId)).IsDescending();
-                    entity.HasIndex(nameof(SimpleLinkClass.SecondId)).IsDescending();
                     entity.Property(nameof(SimpleLinkClass.FirstId)).HasColumnOrder(100);
+
+                    entity.HasIndex(nameof(SimpleLinkClass.SecondId)).IsDescending();
                     entity.Property(nameof(SimpleLinkClass.SecondId)).HasColumnOrder(101);
+
+                    entity.HasIndex(nameof(SimpleLinkClass.ThirdId)).IsDescending();
+                    entity.Property(nameof(SimpleLinkClass.ThirdId)).HasColumnOrder(102);
+
+                    entity.HasIndex(nameof(SimpleLinkClass.FourthId)).IsDescending();
+                    entity.Property(nameof(SimpleLinkClass.FourthId)).HasColumnOrder(103);
+
+                    entity.HasIndex(nameof(SimpleLinkClass.FifthId)).IsDescending();
+                    entity.Property(nameof(SimpleLinkClass.FifthId)).HasColumnOrder(104);
                 }
             }
         }
