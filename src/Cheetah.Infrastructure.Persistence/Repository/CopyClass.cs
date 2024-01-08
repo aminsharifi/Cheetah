@@ -100,7 +100,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
 
     public async Task<F_Case> DeepCopy(F_Case obj)
     {
-        F_Case Return_Case = new ();
+        F_Case Return_Case = new();
 
         Return_Case.ERPCode = obj?.ERPCode;
 

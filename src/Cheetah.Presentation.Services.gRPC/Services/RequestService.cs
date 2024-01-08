@@ -1,15 +1,7 @@
-﻿using Cheetah.Application.Business.Common.Interfaces;
-using Cheetah.Domain.Entities.Facts;
-using Cheetah.Domain.Entities.Links;
-using Cheetah.Presentation.Services.gRPC.Helper;
+﻿namespace Cheetah.Application.Services.gRPC.Services;
 
-namespace Cheetah.Application.Services.gRPC.Services;
-
-public class RequestService
-    (ILogger<RequestService> logger,
-        ApplicationDbContext db,
-        ITableCRUD simpleClassRepository,
-        ICartable iCartable, IWorkItem iWorkItem,
+public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
+        ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
         IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
 {
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
@@ -207,7 +199,6 @@ public class RequestService
         #region Input
 
         L_CaseEndorsementUser l_CaseEndorsementUser = new();
-
         l_CaseEndorsementUser.Case = request.Case.GetSimpleClass<F_Case>();
         l_CaseEndorsementUser.Endorsement = request.Endorsement.GetSimpleClass<F_Endorsement>();
         l_CaseEndorsementUser.User = request.User.GetSimpleClass<D_User>();
@@ -229,9 +220,11 @@ public class RequestService
             return output_Request;
         }
 
-        //l_CaseEndorsementUser = Outputresult.Result.Value;
+        var _list_CaseEndorsementUser = Outputresult.Result.Value;
 
-        //output_Request.Case = f_Request.GetBaseClassWithDate();
+        output_Request.Case = Outputresult.Result.Value.Case.GetBaseClass();
+        output_Request.Endorsement = Outputresult.Result.Value.Endorsement.GetBaseClassWithName();
+        output_Request.User = Outputresult.Result.Value.User.GetBaseClassWithName();
 
         #endregion
 
