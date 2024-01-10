@@ -59,5 +59,8 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
-
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="npm install" WorkingDirectory="npm" />
+		<Exec Command="npm run build" WorkingDirectory="npm" />
+	</Target>
 </Project>
