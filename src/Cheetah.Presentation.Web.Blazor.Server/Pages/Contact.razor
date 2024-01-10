@@ -1,11 +1,13 @@
 ﻿@page "/"
 @page "/Contact"
 @inherits MyComponentBase
+@inject IJSRuntime JSRuntime;
 <PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_NewMessage)))</PageTitle>
 
 <div class="container-fluid" dir="rtl">
     <h1>@(globalization.GetValue(nameof(Localization.BlazorServer_Suggestion)))</h1>
     <br />
+
     <div class="row px-3">
         <div class="p-3">
             <img src="cheetah.jpg" />
@@ -35,6 +37,15 @@
             </button>
         </div>
     </div>
+    <div class="row">
+        <div id="canvas" style=" height: 800px;"></div>
+        <igc-radial-gauge id="rg" height="400px" width="400px" value="25" interval="5" minimum-value="0" maximum-value="100">
+            <igc-radial-gauge-range start-value="0" end-value="30" brush="red"></igc-radial-gauge-range>
+            <igc-radial-gauge-range start-value="30" end-value="60" brush="yellow"></igc-radial-gauge-range>
+            <igc-radial-gauge-range start-value="60" end-value="100" brush="green"></igc-radial-gauge-range>
+        </igc-radial-gauge>
+        <button @onclick="OnClick">Update Value</button>
+    </div>
 </div>
 
 
@@ -46,5 +57,9 @@
     void OnChange(string value, string name)
     {
         //console.Log($"{name} value changed to {value}");
+    }
+    async void OnClick()
+    {
+        await JSRuntime.InvokeVoidAsync("updateValue", GaugeValue++);
     }
 }
