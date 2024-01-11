@@ -4,6 +4,10 @@ import { IgcRadialGaugeCoreModule } from 'igniteui-webcomponents-gauges';
 import { IgcRadialGaugeModule } from 'igniteui-webcomponents-gauges';
 import BpmnJS from 'bpmn-js/lib/Modeler';
 
+//import diagram_js from 'bpmn-js/dist/assets/diagram-js.css';
+//import bpmn_js from 'bpmn-js/dist/assets/bpmn-js.css';
+//import bpmn from 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+
 $('.step-menu li').click(function () {
     $('.current').removeClass('current')
     $('.complete').removeClass('complete')
@@ -33,14 +37,18 @@ window.updateValue = function (value) {
             "    <startEvent id='StartEvent_1y45yut' name='hunger noticed'> " +
             "      <outgoing>SequenceFlow_0h21x7r</outgoing> " +
             "    </startEvent> " +
+
             "    <task id='Task_1hcentk' name='choose recipe'> " +
             "      <incoming>SequenceFlow_0h21x7r</incoming> " +
             "      <outgoing>SequenceFlow_0wnb4ke</outgoing> " +
             "    </task> " +
+
             "    <sequenceFlow id='SequenceFlow_0h21x7r' sourceRef='StartEvent_1y45yut' targetRef='Task_1hcentk' /> " +
+
             "    <exclusiveGateway id='ExclusiveGateway_15hu1pt' name='desired dish?'> " +
             "      <incoming>SequenceFlow_0wnb4ke</incoming> " +
             "    </exclusiveGateway> " +
+
             "    <sequenceFlow id='SequenceFlow_0wnb4ke' sourceRef='Task_1hcentk' targetRef='ExclusiveGateway_15hu1pt' /> " +
             "  </process> " +
             "  <bpmndi:BPMNDiagram id='BpmnDiagram_1'> " +
@@ -54,7 +62,7 @@ window.updateValue = function (value) {
             "      <bpmndi:BPMNShape id='Task_1hcentk_di' bpmnElement='Task_1hcentk'> " +
             "        <omgdc:Bounds x='240' y='80' width='100' height='80' /> " +
             "      </bpmndi:BPMNShape> " +
-            "      <bpmndi:BPMNShape id='ExclusiveGateway_15hu1pt_di' bpmnElement='ExclusiveGateway_15hu1pt' isMarkerVisible='true'> " +
+            "      <bpmndi:BPMNShape id='ExclusiveGateway_15hu1pt_di' bpmnElement='ExclusiveGateway_15hu1pt' isMarkerVisible='true' bioc:stroke='#5b176d' bioc:fill='#e1bee7' color:background-color='#e1bee7' color:border-color='#5b176d'> " +
             "        <omgdc:Bounds x='395' y='95' width='50' height='50' /> " +
             "        <bpmndi:BPMNLabel> " +
             "          <omgdc:Bounds x='388' y='152' width='65' height='14' /> " +
@@ -85,6 +93,3 @@ window.updateValue = function (value) {
 //var bpmnViewer = new BpmnJS({
 //    container: '#canvas'
 //});
-
-
-    
