@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
-    <link defer href="css/site.css" rel="stylesheet" />   
+    <link defer href="css/site.css" rel="stylesheet" />
     <link defer href="css/chevronprogressbar.css" rel="stylesheet" />
     <link defer rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
     <link defer href="vazirmatn-v33.003/round-dots/misc/ui-farsi-digits/vazirmatn-rd-ui-fd-font-face.css" rel="stylesheet" />
@@ -30,18 +30,19 @@
         <environment include="Development">
             An unhandled exception has occurred. See browser dev tools for details.
         </environment>
-        <a href="" class="reload">@{
-                globalization.GetValue(nameof(Localization.BlazorServer_Reset) );
-            }</a>
+        <a href="" class="reload">
+            @{
+                globalization.GetValue(nameof(Localization.BlazorServer_Reset));
+            }
+        </a>
         <a class="dismiss">🗙</a>
     </div>
-
+    <script defer src="js/index.bundle.js"></script>
     <script defer src="_framework/blazor.server.js"></script>
     @* <script src="jquery/3.6.0/jquery.min.js"></script> *@
-    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>   
+    <script defer src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script defer src="js/chevronprogressbar.js"></script>
     <script defer src="js/common.js"></script>
     <script defer src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script defer src="js/index.bundle.js"></script>
 </body>
 </html>
