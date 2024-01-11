@@ -60,6 +60,6 @@
     }
     async void OnClick()
     {
-        await JSRuntime.InvokeVoidAsync("updateValue", GaugeValue++);
+        await JSRuntime.InvokeVoidAsync("updateValue", GaugeValue == 100 ? GaugeValue = 0 : GaugeValue += 10);
     }
 }
