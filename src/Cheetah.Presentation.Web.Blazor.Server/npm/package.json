@@ -1,7 +1,6 @@
 {
   "name": "npm",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack ./src/index.js --output-path ../wwwroot/js --output-filename index.bundle.js"
@@ -23,5 +22,6 @@
     "igniteui-webcomponents-core": "^4.7.0",
     "igniteui-webcomponents-gauges": "^4.7.0",
     "jquery": "^3.7.1"
-  }
+  },
+  "description": ""
 }
