@@ -4,7 +4,6 @@ global using Cheetah.Domain.Common;
 global using Cheetah.Infrastructure.Persistence;
 global using Cheetah.Infrastructure.Persistence.Data;
 global using Cheetah.Presentation.Web.Blazor.Server;
-global using Cheetah.Presentation.Web.Blazor.Server.Data;
 global using Cheetah.Presentation.Web.Blazor.Server.Helper;
 global using Cheetah.Presentation.Web.Blazor.Server.Resx;
 global using Cheetah.Resx;
