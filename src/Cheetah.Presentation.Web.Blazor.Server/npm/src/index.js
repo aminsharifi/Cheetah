@@ -4,9 +4,11 @@ import { IgcRadialGaugeCoreModule } from 'igniteui-webcomponents-gauges';
 import { IgcRadialGaugeModule } from 'igniteui-webcomponents-gauges';
 import BpmnJS from 'bpmn-js/lib/Modeler';
 
-//import diagram_js from 'bpmn-js/dist/assets/diagram-js.css';
-//import bpmn_js from 'bpmn-js/dist/assets/bpmn-js.css';
-//import bpmn from 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+//const MiniCssExtractPlugin = require("mini-css-extract-plugin");   
+import diagram_js from 'bpmn-js/dist/assets/diagram-js.css';
+import bpmn_js from 'bpmn-js/dist/assets/bpmn-js.css';
+import bpmn from 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
+import bpmn_embedded from 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 
 $('.step-menu li').click(function () {
     $('.current').removeClass('current')

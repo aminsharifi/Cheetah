@@ -37,6 +37,7 @@
 	<ItemGroup>
 		<Folder Include="Areas\Identity\Data\" />
 		<Folder Include="wwwroot\imeges\" />
+		<Folder Include="wwwroot\dist\" />
 	</ItemGroup>
 
 	<ItemGroup>
