@@ -1,0 +1,67 @@
+stages:  
+  - version
+  - build
+  - push
+  - deploy
+  - stability
+
+variables:
+  IMAGE_NAME: cheetah
+  NAME_SPACE: common
+
+default:
+  tags:
+    - ifb
+    - production
+
+version:
+  stage: version
+  script:
+    - cicdver next-version --allow-current > .next-version
+  artifacts:
+    paths:
+    - .next-version
+  except:
+    - tags
+
+build:
+  stage: build
+  script:
+    - tag=`cat .next-version`
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f src/Cheetah.Presentation.Services.gRPC/Dockerfile .
+  artifacts:
+    paths:
+    - .next-version
+  needs:
+    - version
+
+push-to-repo:
+  stage: push
+  script:
+    - tag=`cat .next-version`
+    - docker push docker.repoifb.local/services/$IMAGE_NAME:$tag
+  artifacts:
+    paths:
+      - build_info
+      - .next-version
+    expire_in: 2 min
+  needs:
+    - build
+
+deploy-to-k8s:
+  stage: deploy
+  environment: production
+  script:
+    - tag=`cat .next-version`
+    - helm repo update
+    - helm upgrade -i $IMAGE_NAME -n $NAME_SPACE --set env.secret.Token_Consul=$CONSUL_TOKEN --set image.tag=$tag jfrog/$IMAGE_NAME
+  needs:
+    - push-to-repo
+
+checking-stability:
+  stage: stability
+  script:
+    - kubectl rollout status Deployment/$IMAGE_NAME -n $NAME_SPACE
+  timeout: 3 minute
+  needs:
+    - deploy-to-k8s
