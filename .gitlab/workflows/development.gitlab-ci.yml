@@ -1,0 +1,133 @@
+stages:  
+  - version
+  - build
+  - push
+  - changelog
+  - deploy
+  - stability
+
+variables:
+  IMAGE_NAME: cheetah
+  NAME_SPACE: common
+
+default:
+  tags:
+    - ifb
+    - development
+
+version:
+  stage: version
+  script:
+    - cicdver next-version --allow-current > .next-version
+  artifacts:
+    paths:
+    - .next-version
+  except:
+    - tags
+
+build-grpc:
+  stage: build
+  script:
+    - tag=`cat .next-version`
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag -f src/Cheetah.Presentation.Services.gRPC/Dockerfile .
+  artifacts:
+    paths:
+    - .next-version
+  needs:
+    - version
+
+build:
+  stage: build
+  script:
+    - tag=`cat .next-version`
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f src/Cheetah.Presentation.Web.Blazor.Server/Dockerfile .
+  artifacts:
+    paths:
+    - .next-version
+  needs:
+    - version
+
+
+push-to-repo-grpc:
+  stage: push
+  script:
+    - tag=`cat .next-version`
+    - docker push docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
+    - echo "RELEASE_URL=http://scg.ifb.local/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/artifacts/release" > build_info
+    - echo "RELEASE_DESC=\"Linux amd64 binary\"" >> build_info
+    - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
+    - echo "RELEASE_VERSION=$(<.next-version)" >> build_info
+    - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
+  artifacts:
+    paths:
+      - build_info
+      - .next-version
+    expire_in: 2 min
+  needs:
+    - build
+
+push-to-repo:
+  stage: push
+  script:
+    - tag=`cat .next-version`
+    - docker push docker.repoifb.local/services/$IMAGE_NAME:$tag
+    - echo "RELEASE_URL=http://scg.ifb.local/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/artifacts/release" > build_info
+    - echo "RELEASE_DESC=\"Linux amd64 binary\"" >> build_info
+    - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
+    - echo "RELEASE_VERSION=$(<.next-version)" >> build_info
+    - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME:$tag
+  artifacts:
+    paths:
+      - build_info
+      - .next-version
+    expire_in: 2 min
+  needs:
+    - build
+
+changelog:
+  stage: changelog
+  script:
+    - rm -f release_info
+    - mv build_info release_info
+    - . release_info
+    - cicdver changelog
+    - cicdver commit-and-tag CHANGELOG.md release_info
+  needs:
+    - push-to-repo
+
+deploy-to-k8s-grpc:
+  stage: deploy
+  environment: development
+  script:
+    - tag=`cat .next-version`
+    - helm repo update
+    - helm upgrade -i $IMAGE_NAME-grpc -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc jfrog/$IMAGE_NAME
+  needs:
+    - push-to-repo
+
+deploy-to-k8s:
+  stage: deploy
+  environment: development
+  script:
+    - tag=`cat .next-version`
+    - helm repo update
+    - helm upgrade -i $IMAGE_NAME -n $NAME_SPACE --set image.tag=$tag jfrog/$IMAGE_NAME
+  needs:
+    - push-to-repo
+
+checking-stability-grpc:
+  stage: stability
+  script:
+    - kubectl rollout status Deployment/$IMAGE_NAME-grpc -n $NAME_SPACE
+  timeout: 3 minute
+  needs:
+    - deploy-to-k8s
+
+checking-stability:
+  stage: stability
+  script:
+    - kubectl rollout status Deployment/$IMAGE_NAME -n $NAME_SPACE
+  timeout: 3 minute
+  needs:
+    - deploy-to-k8s
+
