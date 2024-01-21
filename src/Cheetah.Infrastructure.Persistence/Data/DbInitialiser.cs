@@ -24,6 +24,7 @@ public class DbInitializer : IDbInitializer
         {
             _db.Database.Migrate();
         }
+
         if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
         {
             await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
