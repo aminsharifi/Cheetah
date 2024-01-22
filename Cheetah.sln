@@ -51,9 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.WebAPI", "Cheetah.Presentation.Services.WebAPI\Cheetah.Presentation.Services.WebAPI.csproj", "{611F6329-5F85-42B7-8BAC-EDDE52297AE1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{ECB56F40-AEB3-4062-8004-DBB895D2397E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.WebAPI", "src\Cheetah.Presentation.Services.WebAPI\Cheetah.Presentation.Services.WebAPI.csproj", "{611F6329-5F85-42B7-8BAC-EDDE52297AE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,10 +99,6 @@ Global
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECB56F40-AEB3-4062-8004-DBB895D2397E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECB56F40-AEB3-4062-8004-DBB895D2397E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECB56F40-AEB3-4062-8004-DBB895D2397E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECB56F40-AEB3-4062-8004-DBB895D2397E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,7 +118,6 @@ Global
 		{BA5B8226-B742-4E75-A333-871DA96E15F3} = {34EA5201-210E-4794-B1FD-57F464B8514F}
 		{2AB23359-6C3E-4459-873B-FDBAB666294A} = {682F2031-CEDB-46F9-8B4B-62BE20B291C2}
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1} = {BA5B8226-B742-4E75-A333-871DA96E15F3}
-		{ECB56F40-AEB3-4062-8004-DBB895D2397E} = {BA5B8226-B742-4E75-A333-871DA96E15F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}
