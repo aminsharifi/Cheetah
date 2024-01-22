@@ -8,22 +8,22 @@ public static class InitialiserExtensions
     {
         if (builder.Environment.IsProduction())
         {
-            //builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
+            builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
 
-            //builder.Configuration.AddConsul(Environment.GetEnvironmentVariable("Key_Consul") ?? string.Empty,
-            //    options =>
-            //    {
-            //        options.ConsulConfigurationOptions =
-            //            cco =>
-            //            {
-            //                cco.Address =
-            //                    new Uri(Environment.GetEnvironmentVariable("Address_Consul") ?? string.Empty);
-            //                cco.Token = Environment.GetEnvironmentVariable("Token_Consul");
-            //            };
-            //        options.Optional = true;
-            //        options.PollWaitTime = TimeSpan.FromSeconds(5);
-            //        options.ReloadOnChange = true;
-            //    });
+            builder.Configuration.AddConsul(Environment.GetEnvironmentVariable("Key_Consul") ?? string.Empty,
+                options =>
+                {
+                    options.ConsulConfigurationOptions =
+                        cco =>
+                        {
+                            cco.Address =
+                                new Uri(Environment.GetEnvironmentVariable("Address_Consul") ?? string.Empty);
+                            cco.Token = Environment.GetEnvironmentVariable("Token_Consul");
+                        };
+                    options.Optional = true;
+                    options.PollWaitTime = TimeSpan.FromSeconds(5);
+                    options.ReloadOnChange = true;
+                });
         }
 
         #region Serilog
