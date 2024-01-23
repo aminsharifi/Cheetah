@@ -53,10 +53,6 @@ push-to-repo-grpc:
   script:
     - tag=`cat .next-version`
     - docker push docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
-    - echo "RELEASE_URL=http://scg.ifb.local/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/artifacts/release" > build_info
-    - echo "RELEASE_DESC=\"Linux amd64 binary\"" >> build_info
-    - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
-    - echo "RELEASE_VERSION=$(<.next-version)" >> build_info
     - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
   artifacts:
     paths:
@@ -101,7 +97,7 @@ deploy-to-k8s-grpc:
   script:
     - tag=`cat .next-version`
     - helm repo update
-    - helm upgrade -i $IMAGE_NAME-grpc -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc jfrog/$IMAGE_NAME
+    - helm upgrade -i $IMAGE_NAME-grpc -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc --set env.normal.Key_Consul=dotnet/cheetah/grpcsettings jfrog/$IMAGE_NAME
   needs:
     - push-to-repo
 
