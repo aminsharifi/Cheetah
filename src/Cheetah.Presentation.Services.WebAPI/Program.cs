@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 //var app = builder.Build();
 
-var app = await builder.InitialiseDatabaseAsync();
+var app = await builder.InitializeCommonSettingsAsync();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
