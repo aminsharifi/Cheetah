@@ -24,16 +24,30 @@ version:
   except:
     - tags
 
-build:
+build-grpc:
   stage: build
   script:
     - tag=`cat .next-version`
-    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f src/Cheetah.Presentation.Services.gRPC/Dockerfile .
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag -f /local/gRPC/Dockerfile .
   artifacts:
     paths:
     - .next-version
   needs:
     - version
+
+build:
+  stage: build
+  script:
+    - tag=`cat .next-version`
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f /local/Blazor/Dockerfile .
+  artifacts:
+    paths:
+    - .next-version
+  needs:
+    - version
+
+
+
 
 push-to-repo:
   stage: push
