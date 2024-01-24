@@ -43,15 +43,48 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{22FB4589-8ED9-4A79-B0B8-18E6478FF09B}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
-		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
 		editorconfig = editorconfig
 		LICENSE.txt = LICENSE.txt
-		.github\workflows\nuget-application.yml = .github\workflows\nuget-application.yml
-		.github\workflows\nuget-domain.yml = .github\workflows\nuget-domain.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.WebAPI", "src\Cheetah.Presentation.Services.WebAPI\Cheetah.Presentation.Services.WebAPI.csproj", "{611F6329-5F85-42B7-8BAC-EDDE52297AE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dockers", "dockers", "{1FD212CF-7881-475C-8F80-540144E9677B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "internet", "internet", "{9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "local", "local", "{5149CFBC-DCEB-4FBE-8652-9B0A795C15B2}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\local\nuget.config = dockers\local\nuget.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gRPC", "gRPC", "{A051E5A7-0DD8-49C3-88DD-A85A35ED9261}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\local\gRPC\Dockerfile = dockers\local\gRPC\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gRPC", "gRPC", "{6A60DE9A-ADA5-4EF4-BA10-E8C6E2F06D1F}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\internet\gRPC\Dockerfile = dockers\internet\gRPC\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{066490EF-E6BD-4A7D-8058-3C4DF2BE5EF7}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\internet\Blazor\Dockerfile = dockers\internet\Blazor\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{081E097B-66B6-4724-8678-9F16B41611A3}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\local\Blazor\Dockerfile = dockers\local\Blazor\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{17631744-F13A-42D2-A978-8D193F79713E}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\internet\GraphQL\Dockerfile = dockers\internet\GraphQL\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{B228BC1E-30BE-47C7-9D5C-1C9EDBF4E8F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,6 +151,15 @@ Global
 		{BA5B8226-B742-4E75-A333-871DA96E15F3} = {34EA5201-210E-4794-B1FD-57F464B8514F}
 		{2AB23359-6C3E-4459-873B-FDBAB666294A} = {682F2031-CEDB-46F9-8B4B-62BE20B291C2}
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1} = {BA5B8226-B742-4E75-A333-871DA96E15F3}
+		{1FD212CF-7881-475C-8F80-540144E9677B} = {22FB4589-8ED9-4A79-B0B8-18E6478FF09B}
+		{9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7} = {1FD212CF-7881-475C-8F80-540144E9677B}
+		{5149CFBC-DCEB-4FBE-8652-9B0A795C15B2} = {1FD212CF-7881-475C-8F80-540144E9677B}
+		{A051E5A7-0DD8-49C3-88DD-A85A35ED9261} = {5149CFBC-DCEB-4FBE-8652-9B0A795C15B2}
+		{6A60DE9A-ADA5-4EF4-BA10-E8C6E2F06D1F} = {9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}
+		{066490EF-E6BD-4A7D-8058-3C4DF2BE5EF7} = {9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}
+		{081E097B-66B6-4724-8678-9F16B41611A3} = {5149CFBC-DCEB-4FBE-8652-9B0A795C15B2}
+		{17631744-F13A-42D2-A978-8D193F79713E} = {9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}
+		{B228BC1E-30BE-47C7-9D5C-1C9EDBF4E8F1} = {5149CFBC-DCEB-4FBE-8652-9B0A795C15B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}
