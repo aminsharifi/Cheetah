@@ -1,14 +1,17 @@
-﻿using FluentAssertions.Common;
+﻿using Cheetah.Infrastructure.Persistence.Data.Configurations;
+using FluentAssertions.Common;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
-    public static async Task<WebApplication> InitialiseDatabaseAsync(this WebApplicationBuilder? builder)
+    public static async Task<WebApplication> InitializeCommonSettingsAsync(this WebApplicationBuilder? builder)
     {
         if (builder.Environment.IsProduction())
         {
-            try
+            var _CONSUL = builder.Configuration.GetValue("CONSUL", "True");
+            
+            if (_CONSUL == "True")
             {
                 builder.Host.ConfigureAppConfiguration((_, config) => { config.Sources.Clear(); });
 
@@ -26,10 +29,6 @@ public static class InitialiserExtensions
                         options.PollWaitTime = TimeSpan.FromSeconds(5);
                         options.ReloadOnChange = true;
                     });
-            }
-            catch (Exception ex)
-            {
-
             }
         }
 
