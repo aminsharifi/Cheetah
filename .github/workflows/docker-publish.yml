@@ -27,11 +27,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./src/Cheetah.Presentation.Web.Blazor.Server/StandardDockerfile
+          - dockerfile: ./dockers/internet/Blazor/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.Blazor.Server
-          - dockerfile: ./src/Cheetah.Presentation.Services.gRPC/StandardDockerfile
+          - dockerfile: ./dockers/internet/gRPC/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.gRPC
-          - dockerfile: ./src/Cheetah.Presentation.Services.GraphQL/Dockerfile
+          - dockerfile: ./dockers/internet/GraphQL/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.GraphQL
     permissions:
       contents: read
