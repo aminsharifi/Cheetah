@@ -52,7 +52,7 @@ builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
 
-var app = await builder.InitialiseDatabaseAsync();
+var app = await builder.InitializeCommonSettingsAsync();
 
 //Configure the HTTP request pipeline.   
 if (app.Environment.IsDevelopment())
