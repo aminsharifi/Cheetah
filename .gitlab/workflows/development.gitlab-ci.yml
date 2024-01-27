@@ -115,7 +115,7 @@ deploy-to-k8s:
 checking-stability-grpc:
   stage: stability
   script:
-    - kubectl rollout status Deployment/$IMAGE_NAME-grpc -n $NAME_SPACE
+    - kubectl rollout status Deployment/${IMAGE_NAME}grpc -n $NAME_SPACE
   timeout: 3 minute
   needs:
     - deploy-to-k8s-grpc
