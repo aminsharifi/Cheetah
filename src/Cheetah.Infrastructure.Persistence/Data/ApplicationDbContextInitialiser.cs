@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -33,6 +35,7 @@ public static class InitialiserExtensions
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
         #endregion
+
 
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -97,7 +100,7 @@ public static class InitialiserExtensions
 
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
 
-        await dbInitializer.Initialize();
+        await dbInitializer.Initialize();        
 
         return app;
     }
