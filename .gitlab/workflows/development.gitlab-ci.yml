@@ -40,7 +40,7 @@ build:
   stage: build
   script:
     - tag=`cat .next-version`
-    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f /dockers/local/Blazor/Dockerfile .
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f ./dockers/local/Blazor/Dockerfile .
   artifacts:
     paths:
     - .next-version
