@@ -3,7 +3,7 @@
 	<PropertyGroup>		
 		<UserSecretsId>77325be2-ba4e-4194-9f27-03ee80f90846</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<Version>8.0.102</Version>
+		<Version>8.0.103</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
