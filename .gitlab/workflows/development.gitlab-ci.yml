@@ -98,7 +98,7 @@ deploy-to-k8s-grpc:
   script:
     - tag=`cat .next-version`
     - helm repo update
-    - helm upgrade -i $IMAGE_NAME-grpc -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc --set env.normal.Key_Consul=dotnet/cheetah/grpcsettings jfrog/${IMAGE_NAME}grpc
+    - helm upgrade -i $IMAGE_NAME -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc --set env.normal.Key_Consul=dotnet/cheetah/grpcsettings jfrog/${IMAGE_NAME}grpc
   needs:
     - push-to-repo-grpc
 
