@@ -9,6 +9,14 @@ builder.Services.AddSingleton<IGlobalization>
 
 builder.Services.AddScoped<CNavigation>();
 
+if (builder.Environment.IsProduction())
+{
+    builder.WebHost.ConfigureKestrel(serverOptions =>
+    {
+        serverOptions.ListenAnyIP(1988, cfg => { cfg.Protocols = HttpProtocols.Http1; });
+    });    
+}
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
