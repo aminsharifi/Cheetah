@@ -25,5 +25,5 @@ var app = await builder.InitializeCommonSettingsAsync();
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<RequestService>();
 app.UseMiddleware<ExceptionMiddleware>();
-app.MapGet("/", () => Results.Ok());
+app.MapGet("/health", () => Results.Ok());
 app.Run();
