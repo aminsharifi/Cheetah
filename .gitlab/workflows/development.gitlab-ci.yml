@@ -29,7 +29,7 @@ build-grpc:
   stage: build
   script:
     - tag=`cat .next-version`
-    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag -f /local/gRPC/Dockerfile .
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag -f /dockers/local/gRPC/Dockerfile .
   artifacts:
     paths:
     - .next-version
@@ -40,7 +40,7 @@ build:
   stage: build
   script:
     - tag=`cat .next-version`
-    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f /local/Blazor/Dockerfile .
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME:$tag -f /dockers/local/Blazor/Dockerfile .
   artifacts:
     paths:
     - .next-version
