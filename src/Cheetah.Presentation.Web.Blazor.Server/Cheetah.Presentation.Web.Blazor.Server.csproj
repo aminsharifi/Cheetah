@@ -7,23 +7,23 @@
 		<UserSecretsId>6a47fed2-0064-4c27-a36d-b83508c5b544</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
-		<Version>8.0.104</Version>
+		<Version>8.0.105</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="8.1.1" />
-		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.64.0.3030" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+		<PackageReference Include="BootstrapBlazor" Version="8.1.9" />
+		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.66.0.3030" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
-		<PackageReference Include="MudBlazor" Version="6.12.0" />
+		<PackageReference Include="MudBlazor" Version="6.14.0" />
 	</ItemGroup>
 
 	<ItemGroup>

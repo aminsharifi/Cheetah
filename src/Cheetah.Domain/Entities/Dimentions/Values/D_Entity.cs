@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace Cheetah.Domain.Entities.Dimentions;
+﻿namespace Cheetah.Domain.Entities.Dimentions;
 
 public partial class D_Entity
 {

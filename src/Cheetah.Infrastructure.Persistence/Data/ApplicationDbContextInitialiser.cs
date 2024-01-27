@@ -1,7 +1,4 @@
-﻿using Cheetah.Infrastructure.Persistence.Data.Configurations;
-using FluentAssertions.Common;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {

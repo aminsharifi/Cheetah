@@ -1,5 +1,4 @@
-﻿
-namespace Cheetah.Presentation.Services.gRPC.Helper;
+﻿namespace Cheetah.Presentation.Services.gRPC.Helper;
 
 public static class CgRPC
 {
