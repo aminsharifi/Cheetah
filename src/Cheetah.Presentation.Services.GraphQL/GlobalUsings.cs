@@ -14,3 +14,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
 global using System.Text;
+global using Cheetah.Application.Business.Common.Interfaces;
+global using Cheetah.Infrastructure.Persistence.Identity;

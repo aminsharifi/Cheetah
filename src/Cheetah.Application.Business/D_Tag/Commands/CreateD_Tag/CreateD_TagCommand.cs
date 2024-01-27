@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Events;
-
-namespace Cheetah.Application.Business.D_Tag.Commands.CreateD_Tag;
+﻿namespace Cheetah.Application.Business.D_Tag.Commands.CreateD_Tag;
 
 public record CreateD_TagCommand(String? Name, String? DisplayName) : IRequest<Int64>;
 
