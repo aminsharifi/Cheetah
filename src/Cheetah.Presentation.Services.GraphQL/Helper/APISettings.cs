@@ -1,5 +1,4 @@
 ﻿namespace Cheetah.Application.Services.Helper;
-
 public class APISettings
 {
     public string SecretKey { get; set; }

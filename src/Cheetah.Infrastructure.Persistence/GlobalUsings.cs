@@ -16,6 +16,7 @@ global using Cheetah.Infrastructure.Persistence.Data.Interceptors;
 global using Cheetah.Infrastructure.Persistence.Identity;
 global using Cheetah.Infrastructure.Persistence.Repository;
 global using FluentAssertions;
+global using FluentAssertions.Common;
 global using MediatR;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Builder;

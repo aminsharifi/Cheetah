@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Cheetah.Domain.Helper
+﻿namespace Cheetah.Domain.Helper
 {
     public static class GetEntity
     {

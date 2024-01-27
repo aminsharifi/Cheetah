@@ -1,6 +1,4 @@
-﻿using ValidationException = Cheetah.Application.Business.Common.Exceptions.ValidationException;
-
-namespace Cheetah.Application.Business.Common.Behaviours;
+﻿namespace Cheetah.Application.Business.Common.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
    where TRequest : notnull
