@@ -1,0 +1,22 @@
+stages:  
+  - triggers
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TITLE =~ /^Change version.*/
+      when: never
+    - when: always
+
+development:
+  stage: triggers
+  trigger:
+    include: .gitlab/workflows/development.gitlab-ci.yml
+  only:
+    - develop
+
+# production:
+#   stage: triggers
+#   trigger:
+#     include: .gitlab/workflows/production.gitlab-ci.yml
+#   only:
+#     - main
