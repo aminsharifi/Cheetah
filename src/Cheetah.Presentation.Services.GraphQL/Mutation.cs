@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.Common.Interfaces;
-using Cheetah.Infrastructure.Persistence.Identity;
-
+﻿
 namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Mutation

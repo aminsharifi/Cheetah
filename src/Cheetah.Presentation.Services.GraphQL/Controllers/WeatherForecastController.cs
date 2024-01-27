@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace Cheetah.Application.Services.Controllers;
 [ApiController]
 [Route("[controller]")]

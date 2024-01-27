@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Cheetah.Domain.Common
+﻿namespace Cheetah.Domain.Common
 {
     public abstract record BaseEvent : INotification
     {
