@@ -25,8 +25,7 @@ public static class DependencyInjection
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddTransient<IIdentityService, IdentityService>();
-
-        services.AddScoped<ApplicationDbContextInitialiser>();
+        
 
 #if (UseApiOnly)
     services.AddAuthentication()

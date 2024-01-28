@@ -27,9 +27,12 @@ public class DbInitializer : IDbInitializer
 
         if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
         {
-            await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
-
             await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
+        }
+
+        if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin))))
+        {
+            await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
 
             ApplicationUser user = new()
             {
@@ -42,6 +45,7 @@ public class DbInitializer : IDbInitializer
 
             await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
         }
+
         return true;
     }
 }
