@@ -2,7 +2,7 @@
 
 FROM docker.repoifb.cmn/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 1988
+EXPOSE 5000
 
 FROM docker.repoifb.cmn/dotnet/sdk:8.0 AS build
 WORKDIR /
