@@ -101,14 +101,29 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
             return ReturnOutput;
         }
 
-        var InputEntity = await _db.D_Entities.Where(x => x.Name == simpleClass.Name).AsNoTracking().FirstAsync();
+        D_Entity d_Entity = new();
 
+        var _inputQuery = _db.D_Entities
+            .Where(x => x.Name == simpleClass.Name);
 
-        var gtype = DatabaseClass.GetDBType(InputEntity.Name);
+        if (await _inputQuery.AnyAsync())
+        {
+            d_Entity = await _inputQuery
+                .AsNoTracking()
+                .FirstAsync();
+        }
+        else
+        {
+            d_Entity.Id = d_Entity.ERPCode = -1;
+            d_Entity.Name = nameof(D_Entity);
+            d_Entity.DisplayName = "تمام جدول ها";
+        }
+
+        var gtype = DatabaseClass.GetDBType(d_Entity.Name);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var Result = await Task.FromResult(aa.ToList());
 
-        ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(InputEntity, Result);
+        ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(d_Entity, Result);
 
         return ReturnOutput;
     }
