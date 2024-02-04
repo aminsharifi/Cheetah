@@ -138,7 +138,7 @@
   <data name="BlazorServer_AddToConditions" xml:space="preserve">
     <value>اضافه کردن شرط‌ها</value>
   </data>
-  <data name="BlazorServer_AddToEndorsements" xml:space="preserve">
+  <data name="BlazorServer_AddToTasks" xml:space="preserve">
     <value>افزودن به لیست بررسی‌ها</value>
   </data>
   <data name="BlazorServer_AutomaticGenerated" xml:space="preserve">
@@ -192,7 +192,7 @@
   <data name="BlazorServer_EnableRecord" xml:space="preserve">
     <value>فعال</value>
   </data>
-  <data name="BlazorServer_EndorsementsList" xml:space="preserve">
+  <data name="BlazorServer_TasksList" xml:space="preserve">
     <value>لیست ‌تاییدها</value>
   </data>
   <data name="BlazorServer_ERPCode" xml:space="preserve">

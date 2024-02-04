@@ -5,7 +5,7 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
     public void Configure(EntityTypeBuilder<F_WorkItem> builder)
     {
         builder
-            .Property(e => e.EndorsementId)
+            .Property(e => e.TaskId)
             .HasColumnOrder(101);
 
         builder
@@ -16,10 +16,7 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
             .Property(e => e.CaseId)
             .HasColumnOrder(103);
 
-        builder
-            .Property(e => e.TagId)
-            .HasColumnOrder(104);
-
+        
         builder
             .Property(e => e.WorkItemStateId)
             .HasColumnOrder(105);

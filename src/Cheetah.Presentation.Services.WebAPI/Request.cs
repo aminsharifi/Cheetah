@@ -1,16 +1,16 @@
 ﻿namespace Cheetah.Presentation.Services.WebAPI;
 
-public class SetCaseEndorsementUser_Input
+public class SetCaseTaskUser_Input
 {
     public GRPC_BaseClass? Case { get; set; }
-    public GRPC_BaseClassWithName? Endorsement { get; set; }
+    public GRPC_BaseClassWithName? Task { get; set; }
     public GRPC_BaseClassWithName? User { get; set; }
 }
 
-public class SetCaseEndorsementUser_Output
+public class SetCaseTaskUser_Output
 {
     public GRPC_BaseClass? Case { get; set; }
-    public GRPC_BaseClassWithName? Endorsement { get; set; }
+    public GRPC_BaseClassWithName? Task { get; set; }
     public GRPC_BaseClassWithName? User { get; set; }
     public GRPC_BaseClassWithName? OutputState { get; set; }
 }
@@ -66,21 +66,21 @@ public class GetCase_Output
     public GRPC_BaseClass? Case { get; set; }
     public GRPC_BaseClassWithName? CaseState { get; set; }
     public GRPC_BaseClassWithName? Process { get; set; }
-    public List<GRPC_Endorsement>? Endorsements { get; set; }
+    public List<GRPC_Task>? Tasks { get; set; }
     public GRPC_BaseClassWithName? OutputState { get; set; }
 }
 
-public class GRPC_Endorsement
+public class GRPC_Task
 {
-    public GRPC_BaseClassWithName? Endorsement { get; set; }
+    public GRPC_BaseClassWithName? Task { get; set; }
     public List<GRPC_WorkItem>? WorkItems { get; set; }
 }
 
 public class GRPC_WorkItem
 {
     public GRPC_BaseClassWithDate? WorkItem { get; set; }
-    public GRPC_BaseClassWithName? User { get; set; }
-    public GRPC_BaseClassWithName? Tag { get; set; }
+    public GRPC_BaseClassWithName? User { get; set; }    
+    public List<Condition>? Conditions { get; set; }
     public GRPC_BaseClassWithName? WorkItemState { get; set; }
 }
 
@@ -111,11 +111,12 @@ public class RecordCartable
     public GRPC_BaseClassWithDate? Case { get; set; }
     public GRPC_BaseClassWithName? CaseState { get; set; }
     public GRPC_BaseClassWithName? Requestor { get; set; }
-    public GRPC_BaseClassWithName? Endorsement { get; set; }
+    public GRPC_BaseClassWithName? Task { get; set; }
     public GRPC_BaseClassWithDate? WorkItem { get; set; }
     public GRPC_BaseClassWithName? Assignee { get; set; }
     public GRPC_BaseClassWithName? Tag { get; set; }
     public List<GRPC_BaseClassWithName>? ValidUserActions { get; set; }
+    public List<GRPC_BaseClassWithName>? Conditions { get; set; }
 }
 
 public class GetAllByName_Input

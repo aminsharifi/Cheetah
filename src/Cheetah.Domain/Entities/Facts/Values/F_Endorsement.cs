@@ -1,10 +1,10 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
-public partial class F_Endorsement
+public partial class F_Task
 {
     #region Values
 
-    public static readonly F_Endorsement Sample_Scenario__Requestor =
-        new F_Endorsement
+    public static readonly F_Task Sample_Scenario__Requestor =
+        new F_Task
         {
             Id = 1,
             ERPCode = 1,
@@ -14,8 +14,8 @@ public partial class F_Endorsement
             RoleId = 100,
             ScenarioId = 1
         };
-    public static readonly F_Endorsement Sample_Scenario__RequestorManager =
-            new F_Endorsement
+    public static readonly F_Task Sample_Scenario__RequestorManager =
+            new F_Task
             {
                 Id = 2,
                 ERPCode = 2,

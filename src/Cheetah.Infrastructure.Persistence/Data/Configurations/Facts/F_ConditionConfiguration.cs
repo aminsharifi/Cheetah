@@ -22,10 +22,14 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
 
         builder
             .Property(e => e.CaseId)
-            .HasColumnOrder(105);
+            .HasColumnOrder(105);   
 
         builder
-            .Property(e => e.EndorsementItemId)
+            .Property(e => e.TaskItemId)
             .HasColumnOrder(109);
+
+        builder
+            .Property(e => e.WorkItemId)
+            .HasColumnOrder(110);
     }
 }

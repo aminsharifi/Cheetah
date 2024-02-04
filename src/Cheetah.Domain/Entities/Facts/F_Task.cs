@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
-public partial class F_Endorsement : BaseEntity
+public partial class F_Task : BaseEntity
 {
     #region Entity
 
@@ -9,9 +9,9 @@ public partial class F_Endorsement : BaseEntity
     public long? ScenarioId { get; set; }
     public virtual F_Scenario? Scenario { get; set; }
 
-    public long? EndorsementItemId { get; set; }
-    [ForeignKey(nameof(EndorsementItemId))]
-    public virtual F_EndorsementItem? EndorsementItem { get; set; }
+    public long? TaskItemId { get; set; }
+    [ForeignKey(nameof(TaskItemId))]
+    public virtual F_TaskItem? TaskItem { get; set; }
 
     #region For Variables
     public virtual long? ConditionId { get; set; }
@@ -20,11 +20,13 @@ public partial class F_Endorsement : BaseEntity
 
     #endregion
 
-    #region Collections
+    #region Collections    
 
-    [InverseProperty(nameof(F_EndorsementItem.Endorsement))]
-    public virtual ICollection<F_EndorsementItem>? EndorsementItems { get; set; } = new HashSet<F_EndorsementItem>();
+    [InverseProperty(nameof(F_TaskItem.ToTask))]
+    public virtual ICollection<F_TaskItem>? TaskItems { get; set; } = new HashSet<F_TaskItem>();
 
+    [InverseProperty(nameof(L_TaskItemTask.Task))]
+    public virtual ICollection<L_TaskItemTask>? TaskItemTasks { get; set; } = new HashSet<L_TaskItemTask>();
     #endregion
 
     public override void SetName()
@@ -34,9 +36,9 @@ public partial class F_Endorsement : BaseEntity
     }
 
     #region Functions
-    public F_Endorsement ShallowCopy()
+    public F_Task ShallowCopy()
     {
-        return (F_Endorsement)MemberwiseClone();
+        return (F_Task)MemberwiseClone();
     }
     #region Getter
     public bool IsRequestor()
