@@ -1,8 +1,8 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
 
-public class F_EndorsementConfiguration : IEntityTypeConfiguration<F_Endorsement>
+public class F_TaskConfiguration : IEntityTypeConfiguration<F_Task>
 {
-    public void Configure(EntityTypeBuilder<F_Endorsement> builder)
+    public void Configure(EntityTypeBuilder<F_Task> builder)
     {
         builder
          .Property(e => e.RoleId)
@@ -13,7 +13,7 @@ public class F_EndorsementConfiguration : IEntityTypeConfiguration<F_Endorsement
          .HasColumnOrder(101);
 
         builder
-         .Property(e => e.EndorsementItemId)
+         .Property(e => e.TaskItemId)
          .HasColumnOrder(102);
 
         builder

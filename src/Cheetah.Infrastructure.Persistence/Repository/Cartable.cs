@@ -12,6 +12,8 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             .Include(x => x.Conditions)
             .Include(x => x.CaseState)
             .Include(x => x.WorkItems)
+            .ThenInclude(x => x.Conditions)
+            .Include(x => x.WorkItems)
             .ThenInclude(x => x.WorkItemState)
             .Include(x => x.WorkItems)
             .ThenInclude(x => x.User)
@@ -107,13 +109,13 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             Case = _iCopyClass.GetSimpleClass(x.Case),
             WorkItem = _iCopyClass.GetSimpleClass(x),
             Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
-            Endorsement = _iCopyClass.GetSimpleClass(x.Endorsement),
-            Tag = _iCopyClass.GetSimpleClass(x.Tag),
+            Task = _iCopyClass.GetSimpleClass(x.Task),
             CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
-            ValidUserActions = x.Endorsement.EndorsementItems
+            ValidUserActions = x.Task.TaskItems
             .SelectMany(x => x.Conditions, (Parrent, Child) => _iCopyClass
             .GetSimpleClass(Child.Tag)
             ),
+            Conditions = x.Conditions.Select(x => _iCopyClass.GetSimpleClass(x)),
             Summary = string.Empty
         }
         );

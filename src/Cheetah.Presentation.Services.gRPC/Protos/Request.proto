@@ -16,20 +16,20 @@ service Request {
   rpc Inbox (Cartable_Input) returns (Cartable_Output);
   rpc Outbox (Cartable_Input) returns (Cartable_Output);
   rpc GetAllByName (GetAllByName_Input) returns (GetAllByName_Output);
-  rpc SetCaseEndorsementUser (SetCaseEndorsementUser_Input) returns (SetCaseEndorsementUser_Output);
+  rpc SetCaseTaskUser (SetCaseTaskUser_Input) returns (SetCaseTaskUser_Output);
 }
 
-message SetCaseEndorsementUser_Input
+message SetCaseTaskUser_Input
 {
     GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName Endorsement = 2;
+    GRPC_BaseClassWithName Task = 2;
     GRPC_BaseClassWithName User = 3;
 }
 
-message SetCaseEndorsementUser_Output
+message SetCaseTaskUser_Output
 {
     GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName Endorsement = 2;
+    GRPC_BaseClassWithName Task = 2;
     GRPC_BaseClassWithName User = 3;
     GRPC_BaseClassWithName OutputState = 4;
 }
@@ -85,21 +85,21 @@ message GetCase_Output
     GRPC_BaseClass Case = 1;
     GRPC_BaseClassWithName CaseState = 2;
     GRPC_BaseClassWithName Process = 3;
-    repeated GRPC_Endorsement Endorsements = 4;
+    repeated GRPC_Task Tasks = 4;
     GRPC_BaseClassWithName OutputState = 5;
 }
 
-message GRPC_Endorsement
+message GRPC_Task
 {
-    GRPC_BaseClassWithName Endorsement = 1;
+    GRPC_BaseClassWithName Task = 1;
     repeated GRPC_WorkItem WorkItems = 2;
 }
 
 message GRPC_WorkItem
 {
     GRPC_BaseClassWithDate WorkItem = 1;
-    GRPC_BaseClassWithName User = 2;
-    GRPC_BaseClassWithName Tag = 3;
+    GRPC_BaseClassWithName User = 2;    
+    repeated Condition Conditions = 3;
     GRPC_BaseClassWithName WorkItemState = 4;
 }
 
@@ -130,11 +130,12 @@ message RecordCartable
     GRPC_BaseClassWithDate Case  = 2;
     GRPC_BaseClassWithName CaseState = 3;
     GRPC_BaseClassWithName Requestor  = 4;
-    GRPC_BaseClassWithName Endorsement = 5;
+    GRPC_BaseClassWithName Task = 5;
     GRPC_BaseClassWithDate WorkItem  = 6;
     GRPC_BaseClassWithName Assignee = 7;
     GRPC_BaseClassWithName Tag = 8;
     repeated GRPC_BaseClassWithName ValidUserActions = 9;
+    repeated GRPC_BaseClassWithName Conditions = 10;
 }
 
 message GetAllByName_Input

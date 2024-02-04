@@ -11,16 +11,16 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
     public async Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
         simpleLinkClass.DisplayName = new StringBuilder()
-                 .Append(firstClass?.DisplayName ?? String.Empty)
-                 .Append("-")
-                 .Append(SecondClass?.DisplayName ?? String.Empty)
-                 .ToString();
+            .Append(firstClass?.DisplayName ?? String.Empty)
+            .Append("-")
+            .Append(SecondClass?.DisplayName ?? String.Empty)
+            .ToString();
 
         simpleLinkClass.Name = new StringBuilder()
-                          .Append(firstClass?.Name ?? String.Empty)
-                          .Append("-")
-                          .Append(SecondClass?.Name ?? String.Empty)
-                          .ToString();
+            .Append(firstClass?.Name ?? String.Empty)
+            .Append("-")
+            .Append(SecondClass?.Name ?? String.Empty)
+            .ToString();
         return simpleLinkClass;
     }
     public async Task<BaseEntity> Create(BaseEntity obj_DTO)
@@ -91,7 +91,6 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 
         return S_SimpleClass;
     }
-
     public async Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClass(BaseEntity simpleClass)
     {
         var ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(new SimpleClassDTO(), new List<BaseEntity>());
@@ -127,7 +126,6 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
 
         return ReturnOutput;
     }
-
     public async Task<IEnumerable<BaseEntity>> GetAllByName(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
@@ -135,7 +133,6 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
         var Result = await Task.FromResult(aa.ToList());
         return Result;
     }
-
     public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, String sd_Status, Int64? linkID)
     {
         if (!String.IsNullOrEmpty(type))

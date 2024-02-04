@@ -7,7 +7,7 @@ public partial class F_Scenario : BaseEntity
 
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
 
-    public virtual ICollection<F_Endorsement>? Endorsements { get; set; } = new HashSet<F_Endorsement>();
+    public virtual ICollection<F_Task>? Tasks { get; set; } = new HashSet<F_Task>();
 
     public virtual ICollection<L_ProcessScenario>? ProcessScenarios { get; set; } = new HashSet<L_ProcessScenario>();
 
@@ -24,7 +24,7 @@ public partial class F_Scenario : BaseEntity
         {
             item.SetName();
         }
-        foreach (var item in Endorsements)
+        foreach (var item in Tasks)
         {
             item.SetName();
         }

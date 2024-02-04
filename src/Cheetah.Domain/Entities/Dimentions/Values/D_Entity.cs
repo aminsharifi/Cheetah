@@ -147,13 +147,13 @@ public partial class D_Entity
             Display = false
         };
 
-    public static readonly D_Entity F_Endorsement =
+    public static readonly D_Entity F_Task =
         new D_Entity
         {
             Id = 203,
             ERPCode = 203,
             SortIndex = 203,
-            Name = nameof(F_Endorsement),
+            Name = nameof(F_Task),
             DisplayName = new StringBuilder().Append("لیست تخصیص‌ها")
                         .Append($"({TableType.Facts})").ToString(),
             Display = false

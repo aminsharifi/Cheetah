@@ -57,13 +57,13 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     #endregion
 
     #region Facts
-    public virtual DbSet<F_Endorsement> F_Endorsements { get; set; }
+    public virtual DbSet<F_Task> F_Tasks { get; set; }
     public virtual DbSet<F_Condition> F_Conditions { get; set; }
     public virtual DbSet<F_Case> F_Cases { get; set; }
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
     public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
-    public virtual DbSet<F_EndorsementItem> F_EndorsementItems { get; set; }
+    public virtual DbSet<F_TaskItem> F_TaskItems { get; set; }
 
     #endregion
 
@@ -72,8 +72,8 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
     public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
-    public virtual DbSet<L_EndorsementItemEndorsement> L_EndorsementItemEndorsements { get; set; }
-    public virtual DbSet<L_CaseEndorsementUser> L_CaseEndorsementUsers { get; set; }
+    public virtual DbSet<L_TaskItemTask> L_TaskItemTasks { get; set; }
+    public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
 
     #endregion
 

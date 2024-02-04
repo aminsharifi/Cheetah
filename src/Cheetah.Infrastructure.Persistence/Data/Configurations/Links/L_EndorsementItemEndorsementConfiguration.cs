@@ -1,8 +1,8 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Links;
 
-public class L_EndorsementItemEndorsementConfiguration : IEntityTypeConfiguration<L_EndorsementItemEndorsement>
+public class L_TaskItemTaskConfiguration : IEntityTypeConfiguration<L_TaskItemTask>
 {
-    public void Configure(EntityTypeBuilder<L_EndorsementItemEndorsement> builder)
+    public void Configure(EntityTypeBuilder<L_TaskItemTask> builder)
     {
         
     }
