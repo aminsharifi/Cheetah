@@ -254,21 +254,29 @@ public static class CgRPC
                 f_Condition.SortIndex = Condition.Base.SortIndex;
             }
 
-            if (Condition.Tag is not null)
-            {
-                f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
-            }
-            if (Condition.Operand is not null)
-            {
-                f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
-            }
-            if (Condition.Value is not null)
-            {
-                f_Condition.Value = Condition.Value;
-            }
+            f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
+
+            f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
+
+            f_Condition.Value = Condition?.Value;
 
             yield return f_Condition;
         }
     }
+    public static IEnumerable<Condition> GetCondition(this IEnumerable<F_Condition> f_conditions)
+    {
+        foreach (var f_condition in f_conditions)
+        {
+            var _condition = new Condition();
 
+            _condition.Base.Id = f_condition.Id;
+            _condition.Base.Name = f_condition.Name;
+            _condition.Base.ERPCode = f_condition.ERPCode;
+            _condition.Base.SortIndex = f_condition.SortIndex;
+            _condition.Tag = f_condition?.Tag?.GetBaseClassWithName();
+            _condition.Operand = f_condition?.Operand?.GetBaseClassWithName();
+            _condition.Value = f_condition?.Value;
+            yield return _condition;
+        }
+    }
 }

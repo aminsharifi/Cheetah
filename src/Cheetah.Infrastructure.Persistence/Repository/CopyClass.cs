@@ -103,9 +103,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
         F_Case Return_Case = new();
 
         Return_Case.ERPCode = obj?.ERPCode;
-
         Return_Case.Conditions = await CopyCondition(obj.Conditions);
-
         Return_Case.CreatorId = await GetSimpleClassId(_db.D_Users, obj.Creator, Return_Case.CreatorId);
 
         Return_Case.RequestorId = await GetSimpleClassId(_db.D_Users, obj.Requestor, Return_Case.RequestorId);
@@ -114,19 +112,19 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
 
         return Return_Case;
     }
-    public async Task<L_CaseEndorsementUser> DeepCopy(L_CaseEndorsementUser obj)
+    public async Task<L_CaseTaskUser> DeepCopy(L_CaseTaskUser obj)
     {
-        L_CaseEndorsementUser Return_CaseEndorsementUser = new();
+        L_CaseTaskUser Return_CaseTaskUser = new();
 
         //Case
-        Return_CaseEndorsementUser.FirstId = await GetSimpleClassId(_db.F_Cases, obj.Case);
+        Return_CaseTaskUser.FirstId = await GetSimpleClassId(_db.F_Cases, obj.Case);
 
-        //Endorsement
-        Return_CaseEndorsementUser.SecondId = await GetSimpleClassId(_db.F_Endorsements, obj.Endorsement);
+        //Task
+        Return_CaseTaskUser.SecondId = await GetSimpleClassId(_db.F_Tasks, obj.Task);
 
         //User
-        Return_CaseEndorsementUser.ThirdId = await GetSimpleClassId(_db.D_Users, obj.User);
+        Return_CaseTaskUser.ThirdId = await GetSimpleClassId(_db.D_Users, obj.User);
 
-        return Return_CaseEndorsementUser;
+        return Return_CaseTaskUser;
     }
 }

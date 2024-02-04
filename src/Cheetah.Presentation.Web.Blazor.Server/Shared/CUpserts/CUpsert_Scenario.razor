@@ -1,7 +1,7 @@
 ﻿@inherits CUpsert_GeneralCode
 
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
-                 Name="D_EndorsementPattern" Id="@Id" reference="@reference"
+                 Name="D_TaskPattern" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
@@ -144,18 +144,18 @@
                         <MudButton Variant="Variant.Filled" Color="Color.Success"
                                    StartIcon="@Icons.Material.Filled.PersonAdd"
                                    style="align-self: center;"
-                        @onclick="AddEndorsementPattern">
-                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddToEndorsements)))
+                                   @onclick="AddTaskPattern">
+                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddToTasks)))
                         </MudButton>
                     </center>
                     <div class="row">
-                        @if ((Record as F_Scenario).Endorsements.Any())
+                        @if ((Record as F_Scenario).Tasks.Any())
                         {
                             <Ctable>
                                 <caption>
                                     <div class="row my-1" style="justify-content: center;">
                                         <span class="col-2 text-success">
-                                            @(globalization.GetValue(nameof(Localization.BlazorServer_EndorsementsList)))
+                                            @(globalization.GetValue(nameof(Localization.BlazorServer_TasksList)))
                                         </span>
                                     </div>
                                 </caption>
@@ -186,7 +186,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
+                                    @foreach (var item in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
                                     {
                                         <tr style="width:90%">
                                             <td>
@@ -204,7 +204,7 @@
                                             </td>
                                             <td>
                                                 <InputSelect @bind-Value="item.RoleId" style="direction:rtl"
-                                                @oninput="(e => SelectedEndorsementChanged(e,item))">
+                                                @oninput="(e => SelectedTaskChanged(e,item))">
                                                     @if (item.RoleId < 1)
                                                     {
                                                         <option selected value="">
@@ -240,7 +240,7 @@
                                                 <center>
                                                     <button type="button" class="col-6 btn btn-primary"
                                                             style="align-self: center;"
-                                                    @onclick="(e => Add_EndorsementItems(e,item))">
+                                                    @onclick="(e => Add_TaskItems(e,item))">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
                                                             <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
                                                             <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
@@ -249,7 +249,7 @@
                                                     </button>
                                                 </center>
                                                 <div>
-                                                    @if (item.EndorsementItems.Any())
+                                                    @if (item.TaskItems.Any())
                                                     {
                                                         <Ctable>
                                                             <thead>
@@ -275,23 +275,23 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach (var EndorsementItem in item.EndorsementItems
+                                                                @foreach (var TaskItem in item.TaskItems
                                                                .OrderBy(x => x.SortIndex))
                                                                 {
                                                                     <tr style="width:90%">
                                                                         <td>
                                                                             <span class="col-12">
-                                                                                @((EndorsementItem.Id == 0) ? String.Empty : EndorsementItem.Id)
+                                                                                @((TaskItem.Id == 0) ? String.Empty : TaskItem.Id)
                                                                             </span>
                                                                         </td>
                                                                         <td>
-                                                                            <InputNumber class="col-12" @bind-Value="EndorsementItem.SortIndex"></InputNumber>
+                                                                            <InputNumber class="col-12" @bind-Value="TaskItem.SortIndex"></InputNumber>
                                                                         </td>
                                                                         <td>
                                                                             <center>
                                                                                 <button type="button" class="col-6 btn btn-primary"
                                                                                         style="align-self: center;"
-                                                                                @onclick="(e => Add_EndorsementItemsCondition(e,EndorsementItem))">
+                                                                                @onclick="(e => Add_TaskItemsCondition(e,TaskItem))">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
                                                                                         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
                                                                                         <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
@@ -323,7 +323,7 @@
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                    @foreach (var Condition in EndorsementItem.Conditions
+                                                                                    @foreach (var Condition in TaskItem.Conditions
                                                                                    .OrderBy(x => x.SortIndex))
                                                                                     {
                                                                                         <tr style="width:90%">
@@ -414,7 +414,7 @@
                                                                             <center>
                                                                                 <button type="button" class="col-6 btn btn-primary"
                                                                                         style="align-self: center;"
-                                                                                @onclick="(e => Add_EndorsementItemsEndorsement(e,EndorsementItem))">
+                                                                                @onclick="(e => Add_TaskItemsTask(e,TaskItem))">
                                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
                                                                                         <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
                                                                                         <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
@@ -440,40 +440,40 @@
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                    @foreach (var Endorsement in EndorsementItem.Endorsements
+                                                                                    @foreach (var Task in TaskItem.TaskItemTasks
                                                                                    .OrderBy(x => x.SortIndex))
                                                                                     {
                                                                                         <tr style="width:90%">
                                                                                             <td>
                                                                                                 <span class="col-12">
-                                                                                                    @((Endorsement.Id == 0) ? String.Empty : Endorsement.Id)
+                                                                                                    @((Task.Id == 0) ? String.Empty : Task.Id)
                                                                                                 </span>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <InputNumber class="col-12" @bind-Value="Endorsement.SortIndex"></InputNumber>
+                                                                                                <InputNumber class="col-12" @bind-Value="Task.SortIndex"></InputNumber>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <InputSelect @bind-Value="Endorsement.SecondId" style="direction:rtl"
-                                                                                                @oninput="(e => SelectedToEndorsementChanged(e,Endorsement))">
+                                                                                                <InputSelect @bind-Value="Task.SecondId" style="direction:rtl"
+                                                                                                @oninput="(e => SelectedToTaskChanged(e,Task))">
                                                                                                     <option selected value="">
                                                                                                         @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
                                                                                                     </option>
-                                                                                                    @foreach (var ToEndorsement in (Record as F_Scenario).Endorsements.OrderBy(x => x.SortIndex))
+                                                                                                    @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
                                                                                                     {
-                                                                                                        <option value="@ToEndorsement.Id">
-                                                                                                            @ToEndorsement.DisplayName
+                                                                                                        <option value="@ToTask.Id">
+                                                                                                            @ToTask.DisplayName
                                                                                                         </option>
                                                                                                     }
                                                                                                 </InputSelect>
                                                                                             </td>
                                                                                             <td>
                                                                                                 <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                                                             Checked="@Endorsement.EnableRecord"
+                                                                                                             Checked="@Task.EnableRecord"
                                                                                                              Color="Color.Primary"
                                                                                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                              UnCheckedColor="Color.Error"
                                                                                                              UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                @onclick="args=>Endorsement.EnableRecord = !Endorsement.EnableRecord" />
+                                                                                                @onclick="args=>Task.EnableRecord = !Task.EnableRecord" />
                                                                                             </td>
                                                                                         </tr>
                                                                                     }
@@ -481,9 +481,9 @@
                                                                             </Ctable>
                                                                         </td>
                                                                         <td>
-                                                                            <InputSelect @bind-Value="EndorsementItem.CaseStateId" style="direction:rtl"
-                                                                            @oninput="(e => SelectedCaseStateChanged(e,EndorsementItem))">
-                                                                                @if (EndorsementItem.CaseStateId is null || EndorsementItem.CaseStateId < 1)
+                                                                            <InputSelect @bind-Value="TaskItem.CaseStateId" style="direction:rtl"
+                                                                            @oninput="(e => SelectedCaseStateChanged(e,TaskItem))">
+                                                                                @if (TaskItem.CaseStateId is null || TaskItem.CaseStateId < 1)
                                                                                 {
                                                                                     <option selected value="">
                                                                                         @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
@@ -499,12 +499,12 @@
                                                                         </td>
                                                                         <td>
                                                                             <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                                         Checked="@EndorsementItem.EnableRecord"
+                                                                                         Checked="@TaskItem.EnableRecord"
                                                                                          Color="Color.Primary"
                                                                                          CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                          UnCheckedColor="Color.Error"
                                                                                          UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                            @onclick="args=>EndorsementItem.EnableRecord = !EndorsementItem.EnableRecord" />
+                                                                            @onclick="args=>TaskItem.EnableRecord = !TaskItem.EnableRecord" />
                                                                         </td>
                                                                     </tr>
                                                                 }
@@ -557,7 +557,7 @@
         AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
 
 
-        // simpleClassRepository.GetAllLink(nameof(L_TagEndorsement), nameof(LinkProperty.Second), Id);
+        // simpleClassRepository.GetAllLink(nameof(L_TagTask), nameof(LinkProperty.Second), Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {
@@ -605,26 +605,26 @@
         }
     }
 
-    private async Task Add_EndorsementItemsEndorsement(MouseEventArgs e, F_EndorsementItem cObject)
+    private async Task Add_TaskItemsTask(MouseEventArgs e, F_TaskItem cObject)
     {
-        var _Endorsement = new L_EndorsementItemEndorsement();
+        var _Task = new L_TaskItemTask();
 
-        ICollection<L_EndorsementItemEndorsement> _Endorsements = cObject.Endorsements;
+        ICollection<L_TaskItemTask> _Tasks = cObject.TaskItemTasks;
 
-        if (_Endorsements.Any())
+        if (_Tasks.Any())
         {
-            _Endorsement.SortIndex = _Endorsements.Max(x => x.SortIndex) + 1;
+            _Task.SortIndex = _Tasks.Max(x => x.SortIndex) + 1;
         }
         else
         {
-            _Endorsement = await simpleClassRepository
-            .GetLast(nameof(L_EndorsementItemEndorsement)) as L_EndorsementItemEndorsement;
+            _Task = await simpleClassRepository
+            .GetLast(nameof(L_TaskItemTask)) as L_TaskItemTask;
         }
 
-        cObject.Endorsements.Add(_Endorsement);
+        cObject.TaskItemTasks.Add(_Task);
     }
 
-    private async Task Add_EndorsementItemsCondition(MouseEventArgs e, F_EndorsementItem cObject)
+    private async Task Add_TaskItemsCondition(MouseEventArgs e, F_TaskItem cObject)
     {
         var _Condition = new F_Condition();
 
@@ -643,22 +643,22 @@
         cObject.Conditions.Add(_Condition);
     }
 
-    private async Task Add_EndorsementItems(MouseEventArgs e, F_Endorsement cObject)
+    private async Task Add_TaskItems(MouseEventArgs e, F_Task cObject)
     {
-        var _EndorsementItem = new F_EndorsementItem();
+        var _TaskItem = new F_TaskItem();
 
-        ICollection<F_EndorsementItem> _EndorsementItems = cObject.EndorsementItems;
+        ICollection<F_TaskItem> _TaskItems = cObject.TaskItems;
 
-        if (_EndorsementItems.Any())
+        if (_TaskItems.Any())
         {
-            _EndorsementItem.SortIndex = _EndorsementItems.Max(x => x.SortIndex) + 1;
+            _TaskItem.SortIndex = _TaskItems.Max(x => x.SortIndex) + 1;
         }
         else
         {
-            _EndorsementItem = await simpleClassRepository.GetLast(nameof(F_EndorsementItem)) as F_EndorsementItem;
+            _TaskItem = await simpleClassRepository.GetLast(nameof(F_TaskItem)) as F_TaskItem;
         }
 
-        cObject.EndorsementItems.Add(_EndorsementItem);
+        cObject.TaskItems.Add(_TaskItem);
     }
 
     private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
@@ -683,69 +683,69 @@
         cObject.Conditions.Add(Condition);
     }
 
-    private async Task AddEndorsementPattern()
+    private async Task AddTaskPattern()
     {
-        var d_Endorsement = new F_Endorsement();
+        var d_Task = new F_Task();
 
-        var eP_Endorsements = (Record as F_Scenario).Endorsements;
+        var eP_Tasks = (Record as F_Scenario).Tasks;
 
-        if (eP_Endorsements.Any())
+        if (eP_Tasks.Any())
         {
-            d_Endorsement.SortIndex = eP_Endorsements.Max(x => x.SortIndex) + 1;
+            d_Task.SortIndex = eP_Tasks.Max(x => x.SortIndex) + 1;
         }
         else
         {
-            d_Endorsement = await simpleClassRepository.GetLast(nameof(F_Endorsement)) as F_Endorsement;
+            d_Task = await simpleClassRepository.GetLast(nameof(F_Task)) as F_Task;
         }
 
-        d_Endorsement.Role = List_D_Role.First() as D_Role;
+        d_Task.Role = List_D_Role.First() as D_Role;
 
-        (Record as F_Scenario).Endorsements.Add(d_Endorsement);
+        (Record as F_Scenario).Tasks.Add(d_Task);
     }
 
-    private async Task SelectedEndorsementChanged(ChangeEventArgs e, F_Endorsement d_Endorsement)
+    private async Task SelectedTaskChanged(ChangeEventArgs e, F_Task d_Task)
     {
         if (Id > 0 && e.Value is not null)
         {
             var _D_Role = Int64.Parse(e.Value.ToString());
 
-            d_Endorsement.Role = List_D_Role
+            d_Task.Role = List_D_Role
             .First(x => x.Id == _D_Role) as D_Role;
         }
     }
 
-    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_EndorsementItem f_EndorsementItem)
+    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_TaskItem f_TaskItem)
     {
         if (Id > 0 && e.Value is not null)
         {
             var CaseStateId = Int64.Parse(e.Value.ToString());
 
-            f_EndorsementItem.CaseState = List_CaseState
+            f_TaskItem.CaseState = List_CaseState
             .First(x => x.Id == CaseStateId) as D_CaseState;
         }
     }
 
-    private async Task SelectedToEndorsementChanged(ChangeEventArgs e, L_EndorsementItemEndorsement endorsementSelector)
+    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_TaskItemTask TaskSelector)
     {
         if (Id > 0 && e.Value is not null)
         {
-            var ToEndorsementId = Int64.Parse(e.Value.ToString());
+            var ToTaskId = Int64.Parse(e.Value.ToString());
 
-            endorsementSelector.Endorsement = (Record as F_Scenario).Endorsements
-            .First(x => x.Id == ToEndorsementId) as F_Endorsement;
+            TaskSelector.Task = (Record as F_Scenario).Tasks
+            .First(x => x.Id == ToTaskId) as F_Task;
         }
         else
         {
-            endorsementSelector.Endorsement = null;
+            TaskSelector.Task = null;
         }
     }
-    private async Task SelectedConditionChanged(ChangeEventArgs e, F_Endorsement endorsement)
+    private async Task SelectedConditionChanged(ChangeEventArgs e, F_Task Task)
     {
         if (Id > 0 && e.Value is not null)
         {
             var conditionId = Int64.Parse(e.Value.ToString());
 
-            endorsement.Condition = (Record as F_Scenario).Conditions
+            Task.Condition = (Record as F_Scenario).Conditions
             .First(x => x.Id == conditionId) as F_Condition;
         }
     }

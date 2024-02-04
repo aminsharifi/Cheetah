@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using System.Collections.Generic;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -127,18 +129,18 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
             return output_Requests;
         }
 
-        #region Endorsements
+        #region Tasks
 
-        var Endorsements = l_Request?
+        var Tasks = l_Request?
             .SelectedScenario
-            .Endorsements
+            .Tasks
             .OrderBy(x => x.SortIndex)
             .ToList();
 
-        output_Requests.Endorsements.AddRange(
-            Endorsements.Select(x => new GRPC_Endorsement()
+        output_Requests.Tasks.AddRange(
+            Tasks.Select(x => new GRPC_Task()
             {
-                Endorsement = x.GetBaseClassWithName()
+                Task = x.GetBaseClassWithName()
             })
             );
 
@@ -146,19 +148,28 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         #region L_WorkItem
 
-        foreach (var Endorsement in output_Requests.Endorsements)
+        foreach (var Task in output_Requests.Tasks)
         {
-            Endorsement.WorkItems.AddRange(
+            Task.WorkItems.AddRange(
             l_Request?.WorkItems
-                .Where(x => x.EndorsementId == Endorsement.Endorsement.Id)
+                .Where(x => x.TaskId == Task.Task.Id)
                 .Select(x => new GRPC_WorkItem()
                 {
                     User = x.User.GetBaseClassWithName(),
-                    Tag = x.Tag.GetBaseClassWithName(),
                     WorkItemState = x.WorkItemState?.GetBaseClassWithName(),
                     WorkItem = x.GetBaseClassWithDate()
                 })
                 );
+
+            foreach (var workItem in Task.WorkItems)
+            {
+                workItem.Conditions.AddRange(
+                l_Request?.WorkItems
+                .Where(x => x.Id == workItem.WorkItem.Id)
+                .Single()
+                .Conditions.GetCondition()
+                );
+            }
         }
 
         #endregion
@@ -205,27 +216,27 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         return getAllByName_Output;
     }
 
-    [HttpGet(nameof(SetCaseEndorsementUser))]
-    public async Task<SetCaseEndorsementUser_Output> SetCaseEndorsementUser([FromQuery] SetCaseEndorsementUser_Input request)
+    [HttpGet(nameof(SetCaseTaskUser))]
+    public async Task<SetCaseTaskUser_Output> SetCaseTaskUser([FromQuery] SetCaseTaskUser_Input request)
     {
-        logger.LogInformation("started " + nameof(SetCaseEndorsementUser) + $": {request}");
+        logger.LogInformation("started " + nameof(SetCaseTaskUser) + $": {request}");
 
         #region Input
 
-        L_CaseEndorsementUser l_CaseEndorsementUser = new();
-        l_CaseEndorsementUser.Case = request.Case.GetSimpleClass<F_Case>();
-        l_CaseEndorsementUser.Endorsement = request.Endorsement.GetSimpleClass<F_Endorsement>();
-        l_CaseEndorsementUser.User = request.User.GetSimpleClass<D_User>();
+        L_CaseTaskUser l_CaseTaskUser = new();
+        l_CaseTaskUser.Case = request.Case.GetSimpleClass<F_Case>();
+        l_CaseTaskUser.Task = request.Task.GetSimpleClass<F_Task>();
+        l_CaseTaskUser.User = request.User.GetSimpleClass<D_User>();
 
         #endregion
 
-        var Outputresult = await iWorkItem.SetCaseEndorsementUser(l_CaseEndorsementUser);
+        var Outputresult = await iWorkItem.SetCaseTaskUser(l_CaseTaskUser);
 
         #region Output
 
         var OutputState = Outputresult.SimpleClassDTO;
 
-        SetCaseEndorsementUser_Output output_Request = new();
+        SetCaseTaskUser_Output output_Request = new();
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
@@ -234,10 +245,10 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
             return output_Request;
         }
 
-        var _list_CaseEndorsementUser = Outputresult.Result.Value;
+        var _list_CaseTaskUser = Outputresult.Result.Value;
 
         output_Request.Case = Outputresult.Result.Value.Case.GetBaseClass();
-        output_Request.Endorsement = Outputresult.Result.Value.Endorsement.GetBaseClassWithName();
+        output_Request.Task = Outputresult.Result.Value.Task.GetBaseClassWithName();
         output_Request.User = Outputresult.Result.Value.User.GetBaseClassWithName();
 
         #endregion
@@ -299,15 +310,16 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
                     Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
                     WorkItem = outputRequestItem.WorkItem.GetBaseClassWithDate(),
                     Assignee = outputRequestItem.User.GetBaseClassWithName(),
-                    Endorsement = outputRequestItem.Endorsement.GetBaseClassWithName(),
-                    Tag = outputRequestItem.Tag.GetBaseClassWithName()
+                    Task = outputRequestItem.Task.GetBaseClassWithName()
                 };
 
                 recordCartable.ValidUserActions
-                    .AddRange(outputRequestItem.ValidUserActions.Select(_ => _.GetBaseClassWithName()));
+                    .AddRange(outputRequestItem.ValidUserActions.Select(x => x.GetBaseClassWithName()));
+
+                recordCartable.Conditions
+                    .AddRange(outputRequestItem.Conditions.Select(x => x.GetBaseClassWithName()));
 
                 _OutputCartable.RecordCartables.Add(recordCartable);
-
             }
 
         }

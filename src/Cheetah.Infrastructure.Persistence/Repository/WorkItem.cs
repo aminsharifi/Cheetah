@@ -3,11 +3,11 @@
 namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
-    public CheetahResult<IQueryable<F_Endorsement>> GetAllEndorsement()
+    public CheetahResult<IQueryable<F_Task>> GetAllTask()
     {
-        #region Endorsements
-        var eP_Endorsements_Query =
-            _db.F_Endorsements
+        #region Tasks
+        var eP_Tasks_Query =
+            _db.F_Tasks
             .Where(x => x.EnableRecord == true)
             .AsNoTracking()
             .Include(x => x.Role)
@@ -15,7 +15,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
 
         #region Variables
-        var eP_Endorsements_Query2 = eP_Endorsements_Query
+        var eP_Tasks_Query2 = eP_Tasks_Query
             .Include(x => x.Condition)
             .ThenInclude(x => x.Tag)
             .Include(x => x.Condition)
@@ -23,25 +23,25 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         #endregion
 
-        #region EndorsementItem
+        #region TaskItem
 
-        var eP_Endorsements_Query3 = eP_Endorsements_Query2
-            .Include(x => x.EndorsementItems)
+        var eP_Tasks_Query3 = eP_Tasks_Query2
+            .Include(x => x.TaskItems)
             .ThenInclude(x => x.CaseState);
 
         #region Conditions
-        var eP_Endorsements_Query4 = eP_Endorsements_Query3
-            .Include(x => x.EndorsementItems)
+        var eP_Tasks_Query4 = eP_Tasks_Query3
+            .Include(x => x.TaskItems)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Tag)
-            .Include(x => x.EndorsementItems)
+            .Include(x => x.TaskItems)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Operand);
         #endregion
 
-        #region EndorsementItem
-        var eP_Endorsements_Query5 = eP_Endorsements_Query4
-            .Include(x => x.EndorsementItem.Endorsements);
+        #region TaskItem
+        var eP_Tasks_Query5 = eP_Tasks_Query4
+            .Include(x => x.TaskItem.TaskItemTasks);
 
 
         #endregion
@@ -50,9 +50,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         #endregion
 
-        var endorsements = OutputState<IQueryable<F_Endorsement>>.Success("خروجی", eP_Endorsements_Query5.AsQueryable<F_Endorsement>());
+        var Tasks = OutputState<IQueryable<F_Task>>.Success("خروجی", eP_Tasks_Query4.AsQueryable<F_Task>());
 
-        return endorsements;
+        return Tasks;
 
     }
     public async Task<CheetahResult<bool>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
@@ -85,7 +85,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 }
             }
 
-            var eP_Endorsements = await GetAllEndorsement().Result.Value
+            var eP_Tasks = await GetAllTask().Result.Value
                  .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId.Value)
                  .ToListAsync();
 
@@ -94,25 +94,25 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 Case = Current_Case
             };
 
-            foreach (var eP_Endorsement in eP_Endorsements)
+            foreach (var eP_Task in eP_Tasks)
             {
-                if (eP_Endorsement.Role.FixedRole)
+                if (eP_Task.Role.FixedRole)
                 {
                     F_WorkItem f_WorkItem = new()
                     {
                         Case = Current_Case,
-                        EndorsementId = eP_Endorsement.Id
+                        TaskId = eP_Task.Id
                     };
 
-                    if (eP_Endorsement.IsRequestor())
+                    if (eP_Task.IsRequestor())
                     {
                         f_WorkItem.UserId = Current_Case.RequestorId;
                     }
-                    else if (eP_Endorsement.IsRequestorManager())
+                    else if (eP_Task.IsRequestorManager())
                     {
                         f_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
                     }
-                    if (first_WorkItem.EndorsementId is null)
+                    if (first_WorkItem.TaskId is null)
                     {
                         first_WorkItem = f_WorkItem;
                     }
@@ -122,7 +122,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 else
                 {
                     var Positions = await _db.L_RolePositions
-                        .Where(x => x.FirstId == eP_Endorsement.RoleId)
+                        .Where(x => x.FirstId == eP_Task.RoleId)
                         .Where(x => x.EnableRecord == true)
                         .AsNoTracking()
                         .Select(x => x.SecondId)
@@ -144,9 +144,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                     long _Location = 0;
 
-                    if (!eP_Endorsement.Role.Independent)
+                    if (!eP_Task.Role.Independent)
                     {
-                        var _ConditionId = eP_Endorsement.ConditionId;
+                        var _ConditionId = eP_Task.ConditionId;
 
                         var _CurrentCondition = await _db.F_Conditions
                             .Where(x => x.Id == _ConditionId).SingleAsync();
@@ -160,13 +160,13 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                     {
                         var UserOccur = false;
 
-                        if (eP_Endorsement.Role.Independent)
+                        if (eP_Task.Role.Independent)
                         {
                             UserOccur = true;
                         }
                         else
                         {
-                            if (eP_Endorsement.ConditionId is not null)
+                            if (eP_Task.ConditionId is not null)
                             {
                                 if (D_User.UserLocations.Any(x => x.SecondId == _Location))
                                 {
@@ -179,17 +179,17 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                             F_WorkItem f_WorkItem = new()
                             {
                                 Case = Current_Case,
-                                EndorsementId = eP_Endorsement.Id,
+                                TaskId = eP_Task.Id,
                                 UserId = D_User.Id
                             };
                             Current_Case.WorkItems.Add(f_WorkItem);
                         }
                     }
                     if (!Current_Case.WorkItems
-                      .Where(x => x.EndorsementId == eP_Endorsement.Id)
+                      .Where(x => x.TaskId == eP_Task.Id)
                       .Any())
                     {
-                        throw new ArgumentNullException($"There aren't any related users for {eP_Endorsement.Name}");
+                        throw new ArgumentNullException($"There aren't any related users for {eP_Task.Name}");
                     }
                 }
             }
@@ -254,7 +254,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
               .Where(x => x.Id == f_WorkItem.Id)
               .Include(x => x.Case)
               .ThenInclude(x => x.WorkItems)
-              .ThenInclude(x => x.Endorsement)
+              .ThenInclude(x => x.Task)
               .Include(x => x.Case)
               .ThenInclude(x => x.Conditions)
               .FirstAsync();
@@ -336,21 +336,21 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
     {
         Current_WorkItem.Case.LastModified = DateTimeOffset.Now;
 
-        var WorkItemEndorsementId = Current_WorkItem.EndorsementId;
+        var WorkItemTaskId = Current_WorkItem.TaskId;
 
-        var WorkItemEndorsement = await _db.F_Endorsements
-            .Where(x => x.Id == Current_WorkItem.EndorsementId)
+        var WorkItemTask = await _db.F_Tasks
+            .Where(x => x.Id == Current_WorkItem.TaskId)
             .SingleAsync();
 
         var ActualConditions = Current_WorkItem.Case.Conditions;
 
-        var endorsementItems = await _db.F_EndorsementItems
-            .Where(x => x.EndorsementId == WorkItemEndorsementId)
+        var TaskItems = await _db.F_TaskItems
+            .Where(x => x.ToTaskId == WorkItemTaskId)
             .ToListAsync();
 
-        foreach (var endorsementItem in endorsementItems)
+        foreach (var TaskItem in TaskItems)
         {
-            var ExpectedConditions = endorsementItem.Conditions;
+            var ExpectedConditions = TaskItem.Conditions;
 
             foreach (var ExpectedCondition in ExpectedConditions)
             {
@@ -363,10 +363,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 {
 
                     Current_WorkItem.Case.CaseStateId =
-                        endorsementItem.CaseStateId;
+                        TaskItem.CaseStateId;
 
-                    Current_WorkItem.TagId =
-                        ExpectedCondition.TagId;
+                    Current_WorkItem.Conditions = ActualConditions;
 
                     Current_WorkItem.SetSent();
 
@@ -384,8 +383,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                         if (Current_WorkItem.CaseId.HasValue)
                         {
                             var OtherWorkItems = Current_WorkItem.Case.WorkItems
-                                .Where(x => x.Endorsement is not null)
-                                .Where(x => x.Endorsement.SortIndex <= WorkItemEndorsement.SortIndex)
+                                .Where(x => x.Task is not null)
+                                .Where(x => x.Task.SortIndex <= WorkItemTask.SortIndex)
                                 .Where(x => x.IsInbox() || x.IsFuture());
 
                             foreach (var OtherWorkItem in OtherWorkItems)
@@ -397,25 +396,25 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                         #region Set inbox
 
-                        var toEndorsements = endorsementItem.Endorsements
-                            .Select(x => x.Endorsement);
+                        var toTasks = TaskItem.TaskItemTasks
+                            .Select(x => x.Task);
 
-                        foreach (var toEndorsement in toEndorsements)
+                        foreach (var toTask in toTasks)
                         {
                             var _Current_WorkItems =
                                 Current_WorkItem.Case.WorkItems
-                                .Where(x => x.EndorsementId == toEndorsement.Id)
+                                .Where(x => x.TaskId == toTask.Id)
                                 .Where(x => !x.IsSent() && !x.IsExit());
 
 
-                            var _caseEndorsementUsers = await _db.L_CaseEndorsementUsers
+                            var _caseTaskUsers = await _db.L_CaseTaskUsers
                                 .Where(x => x.Case.Id == Current_WorkItem.CaseId)
-                                .Where(x => x.Endorsement.Id == toEndorsement.Id)
+                                .Where(x => x.Task.Id == toTask.Id)
                                 .ToListAsync();
 
-                            if (_caseEndorsementUsers.Any())
+                            if (_caseTaskUsers.Any())
                             {
-                                var _users = _caseEndorsementUsers.Select(x => x.User?.Id.Value);
+                                var _users = _caseTaskUsers.Select(x => x.User?.Id.Value);
 
                                 _Current_WorkItems
                                     .Where(x => _users.Any(y => y == x.UserId))
@@ -448,28 +447,28 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
     }
-    public async Task<CheetahResult<L_CaseEndorsementUser>> SetCaseEndorsementUser(L_CaseEndorsementUser CaseEndorsementUser)
+    public async Task<CheetahResult<L_CaseTaskUser>> SetCaseTaskUser(L_CaseTaskUser CaseTaskUser)
     {
-        var _CaseEndorsementUser = await _iCopyClass.DeepCopy(CaseEndorsementUser);
+        var _CaseTaskUser = await _iCopyClass.DeepCopy(CaseTaskUser);
 
-        var _selectedCaseEndorsementUsers = _db.L_CaseEndorsementUsers
-            .Where(x => x.Case.Id == CaseEndorsementUser.Case.Id)
-            .Where(x => x.Endorsement.Id == CaseEndorsementUser.Endorsement.Id);
+        var _selectedCaseTaskUsers = _db.L_CaseTaskUsers
+            .Where(x => x.Case.Id == CaseTaskUser.Case.Id)
+            .Where(x => x.Task.Id == CaseTaskUser.Task.Id);
 
-        var _result = _selectedCaseEndorsementUsers
+        var _result = _selectedCaseTaskUsers
             .Include(x => x.Case)
-            .Include(x => x.Endorsement)
+            .Include(x => x.Task)
             .Include(x => x.User);
 
-        if (!await _selectedCaseEndorsementUsers.AnyAsync())
+        if (!await _selectedCaseTaskUsers.AnyAsync())
         {
-            await _db.L_CaseEndorsementUsers.AddAsync(_CaseEndorsementUser);
+            await _db.L_CaseTaskUsers.AddAsync(_CaseTaskUser);
 
             await _db.SaveChangesAsync();
         }
 
-        var _caseEndorsementUsers = await _result.FirstOrDefaultAsync();
+        var _caseTaskUsers = await _result.FirstOrDefaultAsync();
 
-        return OutputState<L_CaseEndorsementUser>.Success("با موفقیت ایجاد شد", _caseEndorsementUsers);
+        return OutputState<L_CaseTaskUser>.Success("با موفقیت ایجاد شد", _caseTaskUsers);
     }
 }

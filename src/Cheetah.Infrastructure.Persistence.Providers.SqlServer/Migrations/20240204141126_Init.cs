@@ -47,9 +47,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 930, DateTimeKind.Unspecified).AddTicks(5061), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 930, DateTimeKind.Unspecified).AddTicks(5254), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("a349e660-f60f-4c9c-b0a5-383eba81b209")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 317, DateTimeKind.Unspecified).AddTicks(6944), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("531ea93b-9ab0-4f89-ae67-9eb3f4249729")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -71,9 +71,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 930, DateTimeKind.Unspecified).AddTicks(6838), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 930, DateTimeKind.Unspecified).AddTicks(6964), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("5a951242-95c3-4f9c-a021-acef78c3a582")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 317, DateTimeKind.Unspecified).AddTicks(8684), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("60353027-6c01-4510-89be-f516f399182c")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Display = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
@@ -96,9 +96,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(224), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(339), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("94c990e4-4381-4c50-abdc-6abb6b600a8f")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(1907), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("710d01f0-1dfb-46b1-bcc3-74c57d75e500")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -120,9 +120,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(1813), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(1949), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("433b0bb2-e683-40a1-91b4-fc62e9eaf051")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(3386), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("516e3797-e360-4d99-9577-55a2bdc45a45")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -144,9 +144,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(3370), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(3532), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("3ae783c5-fd58-40cb-bf81-e22077edc5b2")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(4793), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("5fdf2992-2ff1-4d57-93f1-4872d45722c2")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     ERP = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
@@ -171,9 +171,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(4962), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(5085), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("0fc224a9-2e3c-4784-b5d2-0a9fbbad8eba")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(6259), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("c9506894-5387-47e5-9e92-84beff298b71")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Independent = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
@@ -197,9 +197,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(8259), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(8377), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("d9f0b267-edbf-4842-8aa5-29b54af80741")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(9238), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("30709a3b-e738-4fdf-bf2c-b721291cbfbd")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -221,9 +221,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 932, DateTimeKind.Unspecified).AddTicks(1971), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 932, DateTimeKind.Unspecified).AddTicks(2083), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("95d44cfa-9e8e-4347-920f-3a612d784227")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 319, DateTimeKind.Unspecified).AddTicks(2536), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("e37c42b9-3289-4ebe-9e1c-d259f8d53848")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -259,9 +259,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 932, DateTimeKind.Unspecified).AddTicks(5948), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 932, DateTimeKind.Unspecified).AddTicks(6143), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("aaa90c59-b184-4777-bdbd-a1d660eb5fde")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 319, DateTimeKind.Unspecified).AddTicks(3882), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("d64ec243-f150-4655-a9fe-2b62a48f71b6")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -282,9 +282,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     SortIndex = table.Column<long>(type: "bigint", nullable: true, defaultValue: 0L),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 933, DateTimeKind.Unspecified).AddTicks(6591), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 933, DateTimeKind.Unspecified).AddTicks(6788), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("1b788d6c-b2fb-4b90-8733-a96e59e560c6")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 319, DateTimeKind.Unspecified).AddTicks(5286), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("339464f6-f9c7-46d7-b80b-04fff08905ce")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true, defaultValue: ""),
@@ -308,9 +308,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(3186), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(3332), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("8ffd2ed3-c180-4dac-acdf-6648f871fc66")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 320, DateTimeKind.Unspecified).AddTicks(1776), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("d66d96ad-88fb-4154-8a78-ce63fc02c8fe")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -353,13 +353,16 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(8604), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(8827), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("078a8c60-9b1d-4393-8df3-ac2b290173ab")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 321, DateTimeKind.Unspecified).AddTicks(3549), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("71bcb4c0-2363-41eb-913a-b5b85a36acdf")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstId = table.Column<long>(type: "bigint", nullable: true),
                     SecondId = table.Column<long>(type: "bigint", nullable: true),
+                    ThirdId = table.Column<long>(type: "bigint", nullable: true),
+                    FourthId = table.Column<long>(type: "bigint", nullable: true),
+                    FifthId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -391,9 +394,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(6631), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 931, DateTimeKind.Unspecified).AddTicks(6757), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("9ede2b65-043f-47e7-85e1-808e5503cbad")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(7815), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("ac0e0752-2961-440b-8a23-17fca912578f")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     TagTypeId = table.Column<long>(type: "bigint", nullable: true),
@@ -422,9 +425,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 932, DateTimeKind.Unspecified).AddTicks(180), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 932, DateTimeKind.Unspecified).AddTicks(336), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("da5d262f-e155-4c1b-abf2-0b568f7b15a7")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 319, DateTimeKind.Unspecified).AddTicks(922), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("493d35ef-3fb7-4d81-839d-e526ecfdefec")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     Domain = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
@@ -473,13 +476,16 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(5459), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(5684), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("95bb99dc-3477-4d61-8731-20c05237741a")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 321, DateTimeKind.Unspecified).AddTicks(1450), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("76146e45-cf59-492e-b0c0-aaaf5a3ea16e")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstId = table.Column<long>(type: "bigint", nullable: true),
                     SecondId = table.Column<long>(type: "bigint", nullable: true),
+                    ThirdId = table.Column<long>(type: "bigint", nullable: true),
+                    FourthId = table.Column<long>(type: "bigint", nullable: true),
+                    FifthId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -543,9 +549,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 933, DateTimeKind.Unspecified).AddTicks(9310), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 934, DateTimeKind.Unspecified).AddTicks(211), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("dcaca89a-3e19-43f2-9dd2-65a28f0172a0")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 319, DateTimeKind.Unspecified).AddTicks(7342), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("5194291f-51be-47fa-a976-527e892becfe")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     RequestorId = table.Column<long>(type: "bigint", nullable: true),
@@ -602,13 +608,16 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 937, DateTimeKind.Unspecified).AddTicks(4141), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 937, DateTimeKind.Unspecified).AddTicks(4364), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("3b9d8c5b-ca2b-4412-b4b4-6d3c6eedd8f2")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 322, DateTimeKind.Unspecified).AddTicks(3668), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("50317535-4459-4774-8866-54023eb8cdba")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstId = table.Column<long>(type: "bigint", nullable: true),
                     SecondId = table.Column<long>(type: "bigint", nullable: true),
+                    ThirdId = table.Column<long>(type: "bigint", nullable: true),
+                    FourthId = table.Column<long>(type: "bigint", nullable: true),
+                    FifthId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -725,12 +734,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 930, DateTimeKind.Unspecified).AddTicks(8554), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 930, DateTimeKind.Unspecified).AddTicks(8690), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("fa2d50f5-7c6a-4c95-adf6-28f0282d3f4d")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 318, DateTimeKind.Unspecified).AddTicks(391), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("f02bac6a-804f-4fbb-8472-9824e0c94f3a")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
-                    EndorsementItemId = table.Column<long>(type: "bigint", nullable: true),
+                    TaskItemId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -750,13 +759,16 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 937, DateTimeKind.Unspecified).AddTicks(1096), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 937, DateTimeKind.Unspecified).AddTicks(1779), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("34c0a2ea-1327-4988-85e9-2769f1afe8d5")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 321, DateTimeKind.Unspecified).AddTicks(7687), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("6af591cf-47fb-4c84-b622-723fb6067a5b")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstId = table.Column<long>(type: "bigint", nullable: true),
                     SecondId = table.Column<long>(type: "bigint", nullable: true),
+                    ThirdId = table.Column<long>(type: "bigint", nullable: true),
+                    FourthId = table.Column<long>(type: "bigint", nullable: true),
+                    FifthId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -788,9 +800,9 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 934, DateTimeKind.Unspecified).AddTicks(3314), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 934, DateTimeKind.Unspecified).AddTicks(4238), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("c4c238b5-08e8-4119-8ce3-545bef8e6efc")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 319, DateTimeKind.Unspecified).AddTicks(9952), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("faf3f59d-9cb5-466f-8f92-61d7b8314acd")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     TagId = table.Column<long>(type: "bigint", nullable: true),
@@ -798,7 +810,8 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ScenarioId = table.Column<long>(type: "bigint", nullable: true),
                     CaseId = table.Column<long>(type: "bigint", nullable: true),
-                    EndorsementItemId = table.Column<long>(type: "bigint", nullable: true),
+                    TaskItemId = table.Column<long>(type: "bigint", nullable: true),
+                    WorkItemId = table.Column<long>(type: "bigint", nullable: true),
                     D_UserId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -839,7 +852,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "F_Endorsement",
+                name: "F_Task",
                 schema: "Facts",
                 columns: table => new
                 {
@@ -849,35 +862,35 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 934, DateTimeKind.Unspecified).AddTicks(7129), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 934, DateTimeKind.Unspecified).AddTicks(7350), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("39f7a327-55dc-47a7-93e4-263349016877")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 320, DateTimeKind.Unspecified).AddTicks(3617), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("dfc2aaab-3d68-4d5e-b7f9-e693a87fc46e")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     RoleId = table.Column<long>(type: "bigint", nullable: true),
                     ScenarioId = table.Column<long>(type: "bigint", nullable: true),
-                    EndorsementItemId = table.Column<long>(type: "bigint", nullable: true),
+                    TaskItemId = table.Column<long>(type: "bigint", nullable: true),
                     ConditionId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_F_Endorsement", x => x.Id);
+                    table.PrimaryKey("PK_F_Task", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_F_Endorsement_D_Role_RoleId",
+                        name: "FK_F_Task_D_Role_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "Dimentions",
                         principalTable: "D_Role",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_F_Endorsement_F_Condition_ConditionId",
+                        name: "FK_F_Task_F_Condition_ConditionId",
                         column: x => x.ConditionId,
                         principalSchema: "Facts",
                         principalTable: "F_Condition",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_F_Endorsement_F_Scenario_ScenarioId",
+                        name: "FK_F_Task_F_Scenario_ScenarioId",
                         column: x => x.ScenarioId,
                         principalSchema: "Facts",
                         principalTable: "F_Scenario",
@@ -885,7 +898,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "F_EndorsementItem",
+                name: "F_TaskItem",
                 schema: "Facts",
                 columns: table => new
                 {
@@ -895,30 +908,30 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(413), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(608), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("8e3e1344-bc34-414a-a710-13e67b623886")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 320, DateTimeKind.Unspecified).AddTicks(5458), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("022b8c5c-0993-41a8-bd28-5e956784afa7")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     CaseStateId = table.Column<long>(type: "bigint", nullable: true),
-                    EndorsementId = table.Column<long>(type: "bigint", nullable: true),
+                    ToTaskId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_F_EndorsementItem", x => x.Id);
+                    table.PrimaryKey("PK_F_TaskItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_F_EndorsementItem_D_CaseState_CaseStateId",
+                        name: "FK_F_TaskItem_D_CaseState_CaseStateId",
                         column: x => x.CaseStateId,
                         principalSchema: "Dimentions",
                         principalTable: "D_CaseState",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_F_EndorsementItem_F_Endorsement_EndorsementId",
-                        column: x => x.EndorsementId,
+                        name: "FK_F_TaskItem_F_Task_ToTaskId",
+                        column: x => x.ToTaskId,
                         principalSchema: "Facts",
-                        principalTable: "F_Endorsement",
+                        principalTable: "F_Task",
                         principalColumn: "Id");
                 });
 
@@ -933,15 +946,14 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(6506), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(6744), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("603b6e0b-902f-429d-a6ca-c1d6363df6a5")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 320, DateTimeKind.Unspecified).AddTicks(7424), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("deeec64f-117f-48a2-942f-83590110e7d5")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
-                    EndorsementId = table.Column<long>(type: "bigint", nullable: true),
+                    TaskId = table.Column<long>(type: "bigint", nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
                     CaseId = table.Column<long>(type: "bigint", nullable: true),
-                    TagId = table.Column<long>(type: "bigint", nullable: true),
                     WorkItemStateId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -949,12 +961,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_F_WorkItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_F_WorkItem_D_Tag_TagId",
-                        column: x => x.TagId,
-                        principalSchema: "Dimentions",
-                        principalTable: "D_Tag",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_F_WorkItem_D_User_UserId",
                         column: x => x.UserId,
@@ -974,15 +980,15 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         principalTable: "F_Case",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_F_WorkItem_F_Endorsement_EndorsementId",
-                        column: x => x.EndorsementId,
+                        name: "FK_F_WorkItem_F_Task_TaskId",
+                        column: x => x.TaskId,
                         principalSchema: "Facts",
-                        principalTable: "F_Endorsement",
+                        principalTable: "F_Task",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "L_EndorsementUser",
+                name: "L_CaseTaskUser",
                 schema: "Links",
                 columns: table => new
                 {
@@ -992,35 +998,44 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(2316), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(2540), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("c92d0e8a-3186-4fea-9f13-00b062c28f25")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 320, DateTimeKind.Unspecified).AddTicks(9354), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("1a05e632-f968-4e21-ae01-ff77d1f98de8")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstId = table.Column<long>(type: "bigint", nullable: true),
                     SecondId = table.Column<long>(type: "bigint", nullable: true),
+                    ThirdId = table.Column<long>(type: "bigint", nullable: true),
+                    FourthId = table.Column<long>(type: "bigint", nullable: true),
+                    FifthId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_L_EndorsementUser", x => x.Id);
+                    table.PrimaryKey("PK_L_CaseTaskUser", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_L_EndorsementUser_D_User_SecondId",
-                        column: x => x.SecondId,
+                        name: "FK_L_CaseTaskUser_D_User_ThirdId",
+                        column: x => x.ThirdId,
                         principalSchema: "Dimentions",
                         principalTable: "D_User",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_L_EndorsementUser_F_Endorsement_FirstId",
+                        name: "FK_L_CaseTaskUser_F_Case_FirstId",
                         column: x => x.FirstId,
                         principalSchema: "Facts",
-                        principalTable: "F_Endorsement",
+                        principalTable: "F_Case",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_L_CaseTaskUser_F_Task_SecondId",
+                        column: x => x.SecondId,
+                        principalSchema: "Facts",
+                        principalTable: "F_Task",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "L_EndorsementItemEndorsement",
+                name: "L_TaskItemTask",
                 schema: "Links",
                 columns: table => new
                 {
@@ -1030,253 +1045,256 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     Name = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     DisplayName = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
                     Description = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true, defaultValue: ""),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 935, DateTimeKind.Unspecified).AddTicks(9222), new TimeSpan(0, -8, 0, 0, 0))),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", rowVersion: true, nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 936, DateTimeKind.Unspecified).AddTicks(3), new TimeSpan(0, -8, 0, 0, 0))),
-                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("3382c08d-e7f6-4c23-9886-293f66792592")),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, defaultValue: new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 26, 321, DateTimeKind.Unspecified).AddTicks(5605), new TimeSpan(0, 3, 30, 0, 0))),
+                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    GuidRecord = table.Column<Guid>(type: "uniqueidentifier", nullable: true, defaultValue: new Guid("81981e63-0572-4688-8a5f-db05605b3b33")),
                     EnableRecord = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ERPCode = table.Column<long>(type: "bigint", nullable: true),
                     FirstId = table.Column<long>(type: "bigint", nullable: true),
                     SecondId = table.Column<long>(type: "bigint", nullable: true),
+                    ThirdId = table.Column<long>(type: "bigint", nullable: true),
+                    FourthId = table.Column<long>(type: "bigint", nullable: true),
+                    FifthId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_L_EndorsementItemEndorsement", x => x.Id);
+                    table.PrimaryKey("PK_L_TaskItemTask", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_L_EndorsementItemEndorsement_F_EndorsementItem_FirstId",
+                        name: "FK_L_TaskItemTask_F_TaskItem_FirstId",
                         column: x => x.FirstId,
                         principalSchema: "Facts",
-                        principalTable: "F_EndorsementItem",
+                        principalTable: "F_TaskItem",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_L_EndorsementItemEndorsement_F_Endorsement_SecondId",
+                        name: "FK_L_TaskItemTask_F_Task_SecondId",
                         column: x => x.SecondId,
                         principalSchema: "Facts",
-                        principalTable: "F_Endorsement",
+                        principalTable: "F_Task",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_CaseState",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(5342), new TimeSpan(0, -8, 0, 0, 0)), null, "در دست بررسی", 1L, true, new Guid("f9b55a52-85ac-4ff6-b1f9-8888ef08a1bc"), null, "Ongoing", 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(5349), new TimeSpan(0, -8, 0, 0, 0)), null, "منتظر بازنگری", 2L, true, new Guid("73e8937a-3109-4525-9657-b910a139cdbb"), null, "Editing", 2L },
-                    { 3L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(5352), new TimeSpan(0, -8, 0, 0, 0)), null, "کامل شده", 3L, true, new Guid("a96b922c-816b-48f8-80c7-954d08a72625"), null, "Completed", 3L },
-                    { 4L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(5355), new TimeSpan(0, -8, 0, 0, 0)), null, "عدم تایید", 4L, true, new Guid("05fbc29d-ac25-4098-b269-2eae688612bf"), null, "Rejected", 4L },
-                    { 5L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(5358), new TimeSpan(0, -8, 0, 0, 0)), null, "ابطال شده", 5L, true, new Guid("ecf70062-cb86-40ff-b15c-2232c37f76e3"), null, "Aborted", 5L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(7046), new TimeSpan(0, 3, 30, 0, 0)), null, "در دست بررسی", 1L, true, new Guid("5f6db61d-79a8-4831-9dd5-f6134e57e8c3"), null, null, "Ongoing", 1L },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(7053), new TimeSpan(0, 3, 30, 0, 0)), null, "منتظر بازنگری", 2L, true, new Guid("940ebfd9-2099-4939-9395-49ee2c4bc223"), null, null, "Editing", 2L },
+                    { 3L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(7056), new TimeSpan(0, 3, 30, 0, 0)), null, "کامل شده", 3L, true, new Guid("eaeb1c0b-6652-40c1-abad-b976df40ad80"), null, null, "Completed", 3L },
+                    { 4L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(7058), new TimeSpan(0, 3, 30, 0, 0)), null, "عدم تایید", 4L, true, new Guid("98856ff9-eb82-49f9-b491-91ffff0536de"), null, null, "Rejected", 4L },
+                    { 5L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(7061), new TimeSpan(0, 3, 30, 0, 0)), null, "ابطال شده", 5L, true, new Guid("4b51a6d4-aedc-4f94-8247-946b01bf0171"), null, null, "Aborted", 5L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Entity",
-                columns: new[] { "Id", "Created", "CreatedBy", "Display", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "Display", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
                 values: new object[,]
                 {
-                    { 101L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 485, DateTimeKind.Unspecified).AddTicks(5278), new TimeSpan(0, -8, 0, 0, 0)), null, false, "نوع تگ‌ها(Dimentions)", 101L, true, new Guid("2a25a773-dfab-4f8e-9e96-401e7b6e3f1f"), null, "D_TagType", 101L },
-                    { 102L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4645), new TimeSpan(0, -8, 0, 0, 0)), null, false, "موقعیت‌ها(Dimentions)", 102L, true, new Guid("90d2730d-c665-479e-b303-4ec313ea8d83"), null, "D_Location", 102L },
-                    { 103L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4686), new TimeSpan(0, -8, 0, 0, 0)), null, false, "عملگرها(Dimentions)", 103L, true, new Guid("4549c53f-1458-4201-bbfb-35b89fabc26a"), null, "D_Operand", 103L },
-                    { 104L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4700), new TimeSpan(0, -8, 0, 0, 0)), null, true, "تگ‌ها(Dimentions)", 104L, true, new Guid("4c6865ba-f268-435f-8c9f-3cb178253f8e"), null, "D_Tag", 104L },
-                    { 105L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4707), new TimeSpan(0, -8, 0, 0, 0)), null, false, "سمت‌ها(Dimentions)", 105L, true, new Guid("da342a97-bbb4-4b69-bbd6-d77bc63fa652"), null, "D_Position", 105L },
-                    { 106L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4713), new TimeSpan(0, -8, 0, 0, 0)), null, false, "وضعیت فرآیندها(Dimentions)", 106L, true, new Guid("f8adba07-a42e-41f7-8fec-e2a8d0c46410"), null, "D_CaseState", 106L },
-                    { 107L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4719), new TimeSpan(0, -8, 0, 0, 0)), null, true, "فرآیند‌ها(Dimentions)", 107L, true, new Guid("e7abda66-a062-458a-ad42-77348e03ab54"), null, "D_Process", 107L },
-                    { 108L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4725), new TimeSpan(0, -8, 0, 0, 0)), null, true, "نقش‌ها(Dimentions)", 108L, true, new Guid("5ee01315-c82c-4fa7-b7e9-eda54e95524d"), null, "D_Role", 108L },
-                    { 109L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4731), new TimeSpan(0, -8, 0, 0, 0)), null, true, "کاربران(Dimentions)", 109L, true, new Guid("1df5db69-4729-49a8-8b73-e501b6b892ea"), null, "D_User", 109L },
-                    { 112L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4745), new TimeSpan(0, -8, 0, 0, 0)), null, false, "اطلاعات کاربرها(Facts)", 112L, true, new Guid("3d74d4bd-62e3-4f61-be9d-e09218e48b93"), null, "D_UserInformation", 112L },
-                    { 200L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4751), new TimeSpan(0, -8, 0, 0, 0)), null, false, "تمام تاییدها(Facts)", 200L, true, new Guid("301f96d5-929e-4bea-b287-e5c862b58280"), null, "F_WorkItem", 200L },
-                    { 202L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4758), new TimeSpan(0, -8, 0, 0, 0)), null, false, "ضمیمه‌ها(Facts)", 202L, true, new Guid("a69ae0f4-aba4-4fc6-9e7c-d111e1b28716"), null, "F_Attachment", 202L },
-                    { 203L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4762), new TimeSpan(0, -8, 0, 0, 0)), null, false, "لیست تخصیص‌ها(Facts)", 203L, true, new Guid("f53264ef-2f7a-49a1-ad58-ed70b793bb5c"), null, "F_Endorsement", 203L },
-                    { 204L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4767), new TimeSpan(0, -8, 0, 0, 0)), null, false, "لیست شرط‌ها(Facts)", 204L, true, new Guid("a18aa156-e321-4fb8-a219-0c8e77c12d60"), null, "F_Condition", 204L },
-                    { 205L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4773), new TimeSpan(0, -8, 0, 0, 0)), null, false, "اطلاعات درخواست‌ها(Facts)", 205L, true, new Guid("ef39a25a-7bf4-4109-a097-b03502ca7169"), null, "F_Case", 205L },
-                    { 206L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4779), new TimeSpan(0, -8, 0, 0, 0)), null, true, "سناریوها(Facts)", 206L, true, new Guid("e94d3ad8-bd71-48cb-a944-c1d074d72fe0"), null, "F_Scenario", 206L },
-                    { 300L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4783), new TimeSpan(0, -8, 0, 0, 0)), null, false, "نقش-سمت(Links)", 300L, true, new Guid("9cbfb815-e694-4a66-90ce-fcfdded2d146"), null, "L_RolePosition", 300L },
-                    { 301L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4821), new TimeSpan(0, -8, 0, 0, 0)), null, false, "فرآیند-سناریو(Links)", 301L, true, new Guid("07cd51bd-08b9-4778-92ff-cf971773ed1b"), null, "L_ProcessScenario", 301L },
-                    { 302L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4828), new TimeSpan(0, -8, 0, 0, 0)), null, false, "کاربر-موقعیت(Links)", 302L, true, new Guid("396a8843-e13c-4400-bdde-e919edc33248"), null, "L_UserLocation", 302L },
-                    { 303L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(4835), new TimeSpan(0, -8, 0, 0, 0)), null, false, "کاربر-سمت(Links)", 303L, true, new Guid("cf15f1e6-67eb-4b2e-8bd3-588078bbce1f"), null, "L_UserPosition", 303L }
+                    { 101L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 963, DateTimeKind.Unspecified).AddTicks(6974), new TimeSpan(0, 3, 30, 0, 0)), null, false, "نوع تگ‌ها(Dimentions)", 101L, true, new Guid("e891e011-c43e-4543-b2b7-aba7d0270590"), null, null, "D_TagType", 101L },
+                    { 102L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6689), new TimeSpan(0, 3, 30, 0, 0)), null, false, "موقعیت‌ها(Dimentions)", 102L, true, new Guid("8c11020f-e7bb-44e9-b363-f502a9edf901"), null, null, "D_Location", 102L },
+                    { 103L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6719), new TimeSpan(0, 3, 30, 0, 0)), null, false, "عملگرها(Dimentions)", 103L, true, new Guid("bffdcbcc-7c04-476e-9cf5-a172236e0d54"), null, null, "D_Operand", 103L },
+                    { 104L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6727), new TimeSpan(0, 3, 30, 0, 0)), null, true, "تگ‌ها(Dimentions)", 104L, true, new Guid("4a5edcfd-1035-43a6-b0c2-43bd91b26e37"), null, null, "D_Tag", 104L },
+                    { 105L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6733), new TimeSpan(0, 3, 30, 0, 0)), null, false, "سمت‌ها(Dimentions)", 105L, true, new Guid("7fc59d7a-b6f1-4596-b0bf-f96fbdf6bb52"), null, null, "D_Position", 105L },
+                    { 106L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6749), new TimeSpan(0, 3, 30, 0, 0)), null, false, "وضعیت فرآیندها(Dimentions)", 106L, true, new Guid("f8156609-dc7d-40fb-bbc2-0b724d1bd94d"), null, null, "D_CaseState", 106L },
+                    { 107L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6759), new TimeSpan(0, 3, 30, 0, 0)), null, true, "فرآیند‌ها(Dimentions)", 107L, true, new Guid("ef1d6c60-3b27-4baf-a69c-bf344481baf4"), null, null, "D_Process", 107L },
+                    { 108L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6764), new TimeSpan(0, 3, 30, 0, 0)), null, true, "نقش‌ها(Dimentions)", 108L, true, new Guid("603548f5-4e0b-4325-baf3-0e06cc764e94"), null, null, "D_Role", 108L },
+                    { 109L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6814), new TimeSpan(0, 3, 30, 0, 0)), null, true, "کاربران(Dimentions)", 109L, true, new Guid("3735ebb8-428e-4e61-9209-d45894b6eec5"), null, null, "D_User", 109L },
+                    { 112L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6821), new TimeSpan(0, 3, 30, 0, 0)), null, false, "اطلاعات کاربرها(Facts)", 112L, true, new Guid("ee948a24-1fa3-48ff-a93f-a5458629867f"), null, null, "D_UserInformation", 112L },
+                    { 200L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6827), new TimeSpan(0, 3, 30, 0, 0)), null, false, "تمام تاییدها(Facts)", 200L, true, new Guid("8738cf86-f8a1-489c-9a61-d90102162aed"), null, null, "F_WorkItem", 200L },
+                    { 202L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6832), new TimeSpan(0, 3, 30, 0, 0)), null, false, "ضمیمه‌ها(Facts)", 202L, true, new Guid("664a0fec-95c8-43bb-bbca-b6ea684fcfd8"), null, null, "F_Attachment", 202L },
+                    { 203L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6846), new TimeSpan(0, 3, 30, 0, 0)), null, false, "لیست تخصیص‌ها(Facts)", 203L, true, new Guid("3e38f5d4-9a0e-4954-a5f4-bbebc49da43b"), null, null, "F_Task", 203L },
+                    { 204L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6852), new TimeSpan(0, 3, 30, 0, 0)), null, false, "لیست شرط‌ها(Facts)", 204L, true, new Guid("878a84c7-2749-43bb-803e-fd35c5d24170"), null, null, "F_Condition", 204L },
+                    { 205L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6857), new TimeSpan(0, 3, 30, 0, 0)), null, false, "اطلاعات درخواست‌ها(Facts)", 205L, true, new Guid("348ae082-0d92-4471-9208-e3b00729ad30"), null, null, "F_Case", 205L },
+                    { 206L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6861), new TimeSpan(0, 3, 30, 0, 0)), null, true, "سناریوها(Facts)", 206L, true, new Guid("b4c3e8c7-f98b-4fde-b074-c5d72794d02e"), null, null, "F_Scenario", 206L },
+                    { 300L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6865), new TimeSpan(0, 3, 30, 0, 0)), null, false, "نقش-سمت(Links)", 300L, true, new Guid("7d885c77-99d4-4d96-a670-a556557c4942"), null, null, "L_RolePosition", 300L },
+                    { 301L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6871), new TimeSpan(0, 3, 30, 0, 0)), null, false, "فرآیند-سناریو(Links)", 301L, true, new Guid("c656e8d6-1f3a-4ef2-a247-3b31a97b43fd"), null, null, "L_ProcessScenario", 301L },
+                    { 302L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6876), new TimeSpan(0, 3, 30, 0, 0)), null, false, "کاربر-موقعیت(Links)", 302L, true, new Guid("5663b2a2-b1b9-49f2-b7d2-6004f82f6404"), null, null, "L_UserLocation", 302L },
+                    { 303L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(6881), new TimeSpan(0, 3, 30, 0, 0)), null, false, "کاربر-سمت(Links)", 303L, true, new Guid("b0082cfb-6d92-4b2c-a85f-d0d8408938d6"), null, null, "L_UserPosition", 303L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Location",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "EndorsementItemId", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
-                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(5860), new TimeSpan(0, -8, 0, 0, 0)), null, "ÝÇÑÓ", 1L, true, null, new Guid("99a822eb-4af1-4baf-8603-b58646e8ccc0"), null, "Fars", 1L });
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex", "TaskItemId" },
+                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(8004), new TimeSpan(0, 3, 30, 0, 0)), null, "ÝÇÑÓ", 1L, true, new Guid("19c53b00-feb8-4167-97a4-bfe523444df1"), null, null, "Fars", 1L, null });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Operand",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(7810), new TimeSpan(0, -8, 0, 0, 0)), null, "مساوی", 1L, true, new Guid("e9b71743-1dc3-45ac-97b9-0700850954ba"), null, "=", 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(7820), new TimeSpan(0, -8, 0, 0, 0)), null, "مخالف", 2L, true, new Guid("1924e203-98dc-4be5-a01f-f8b4c7c2f8ee"), null, "!=", 2L },
-                    { 3L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(7823), new TimeSpan(0, -8, 0, 0, 0)), null, "بزگتر از", 3L, true, new Guid("d8c56a1c-d13d-4539-bef0-0e12776f95b6"), null, ">", 3L },
-                    { 4L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(7826), new TimeSpan(0, -8, 0, 0, 0)), null, "بزرگتر و مساوی", 4L, true, new Guid("71702447-b68f-44f2-ac91-f7cd090590f5"), null, ">=", 4L },
-                    { 5L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(7830), new TimeSpan(0, -8, 0, 0, 0)), null, " کوچکتر از", 5L, true, new Guid("7a97012b-ff4a-4e9a-8876-693a1b2313cd"), null, "<", 5L },
-                    { 6L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(7832), new TimeSpan(0, -8, 0, 0, 0)), null, "کوچکتر و مساوی", 6L, true, new Guid("acb7c691-b021-48ba-abd6-f2b497a555b3"), null, "<=", 6L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(9881), new TimeSpan(0, 3, 30, 0, 0)), null, "مساوی", 1L, true, new Guid("51a4b1e3-6c7a-416c-9076-42a56caf6aea"), null, null, "=", 1L },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(9891), new TimeSpan(0, 3, 30, 0, 0)), null, "مخالف", 2L, true, new Guid("1e0cad5c-dd1f-4639-884e-8d0291cc507d"), null, null, "!=", 2L },
+                    { 3L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(9894), new TimeSpan(0, 3, 30, 0, 0)), null, "بزگتر از", 3L, true, new Guid("a680124a-a349-4aff-8572-3237b9a95f16"), null, null, ">", 3L },
+                    { 4L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(9896), new TimeSpan(0, 3, 30, 0, 0)), null, "بزرگتر و مساوی", 4L, true, new Guid("eac9c7eb-5406-4122-9bd3-5319003e62b7"), null, null, ">=", 4L },
+                    { 5L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(9903), new TimeSpan(0, 3, 30, 0, 0)), null, " کوچکتر از", 5L, true, new Guid("748c2e2b-b3ac-4b2a-8ef1-7949f366af82"), null, null, "<", 5L },
+                    { 6L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 964, DateTimeKind.Unspecified).AddTicks(9906), new TimeSpan(0, 3, 30, 0, 0)), null, "کوچکتر و مساوی", 6L, true, new Guid("15983e9a-c5a4-4da9-ac43-56795eafdc50"), null, null, "<=", 6L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Position",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
-                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(9086), new TimeSpan(0, -8, 0, 0, 0)), null, "کارشناس", 1L, true, new Guid("14142346-6da3-4eb3-8be8-df52f7baf63e"), null, "Expert", 1L });
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
+                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(1248), new TimeSpan(0, 3, 30, 0, 0)), null, "کارشناس", 1L, true, new Guid("0c3f5934-1958-4828-bed6-af3b2f5f2028"), null, null, "Expert", 1L });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Process",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERP", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "RemoveRequestorApproval", "ShowSupport", "SortIndex" },
-                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 486, DateTimeKind.Unspecified).AddTicks(9846), new TimeSpan(0, -8, 0, 0, 0)), null, "فرآیند نمونه", true, 1L, true, new Guid("ed2773ae-cf8c-4442-a838-0533cea79e03"), null, "SampleProcess", true, true, 1L });
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERP", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "RemoveRequestorApproval", "ShowSupport", "SortIndex" },
+                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(2049), new TimeSpan(0, 3, 30, 0, 0)), null, "فرآیند نمونه", true, 1L, true, new Guid("58b76451-8231-4df6-b5e7-de91d6b13854"), null, null, "SampleProcess", true, true, 1L });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Role",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FixedRole", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FixedRole", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
                 values: new object[,]
                 {
-                    { 100L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(826), new TimeSpan(0, -8, 0, 0, 0)), null, "درخواست کننده", 100L, true, true, new Guid("763e24a0-73c6-483d-87df-948b13f8e182"), null, "Requestor", 1L },
-                    { 101L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(963), new TimeSpan(0, -8, 0, 0, 0)), null, "مدیر درخواست کننده", 101L, true, true, new Guid("3bac8a9c-a9a4-4a84-87db-fd27bf6efe16"), null, "RequestorManager", 2L }
+                    { 100L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(2922), new TimeSpan(0, 3, 30, 0, 0)), null, "درخواست کننده", 100L, true, true, new Guid("0704432c-e353-4a7d-a77c-31ea08f0baeb"), null, null, "Requestor", 1L },
+                    { 101L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(3056), new TimeSpan(0, 3, 30, 0, 0)), null, "مدیر درخواست کننده", 101L, true, true, new Guid("5f8a7415-932a-40f7-80bb-6c2f70a18a0e"), null, null, "RequestorManager", 2L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_TagType",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(4675), new TimeSpan(0, -8, 0, 0, 0)), null, "عددی", 1L, true, new Guid("1a9e59e5-807f-42e2-84f2-d1529a0e2976"), null, "Numberic", 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(4713), new TimeSpan(0, -8, 0, 0, 0)), null, "دودویی", 2L, true, new Guid("70d16c68-e9a9-4593-8343-d230f0deb8a1"), null, "Boolean", 2L },
-                    { 3L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(4724), new TimeSpan(0, -8, 0, 0, 0)), null, "تاریخ", 3L, true, new Guid("63c162f1-79d2-4fba-8515-6eccd25134bb"), null, "Date", 3L },
-                    { 4L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(4728), new TimeSpan(0, -8, 0, 0, 0)), null, "حروف", 4L, true, new Guid("4e38ca8a-abad-49c7-95bc-f7007565f9e8"), null, "String", 4L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(6240), new TimeSpan(0, 3, 30, 0, 0)), null, "عددی", 1L, true, new Guid("ed22d0d1-567d-42c6-915d-b9c68bf6d265"), null, null, "Numberic", 1L },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(6244), new TimeSpan(0, 3, 30, 0, 0)), null, "دودویی", 2L, true, new Guid("f9dad26e-85f9-4a72-9ca1-b2e7805df361"), null, null, "Boolean", 2L },
+                    { 3L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(6246), new TimeSpan(0, 3, 30, 0, 0)), null, "تاریخ", 3L, true, new Guid("e029c0ae-c329-4344-9990-674e9fb1c829"), null, null, "Date", 3L },
+                    { 4L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(6249), new TimeSpan(0, 3, 30, 0, 0)), null, "حروف", 4L, true, new Guid("ca3edb25-a2a4-4a0b-adab-575d98a80c1f"), null, null, "String", 4L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_User",
-                columns: new[] { "Id", "Created", "CreatedBy", "DelegateId", "DisplayName", "Domain", "ERPCode", "EnableRecord", "GuidRecord", "IDPersonel", "LDAPDescription", "LastModifiedBy", "Name", "Parent_Id", "SortIndex", "UserInformationId" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DelegateId", "DisplayName", "Domain", "ERPCode", "EnableRecord", "GuidRecord", "IDPersonel", "LDAPDescription", "LastModified", "LastModifiedBy", "Name", "Parent_Id", "SortIndex", "UserInformationId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(8447), new TimeSpan(0, -8, 0, 0, 0)), null, null, "محمد شریفی", null, 1L, true, new Guid("bbc942bf-5bab-477d-baec-184ecd9d4a3c"), null, null, null, "m.sharifi", null, 1L, null },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(8489), new TimeSpan(0, -8, 0, 0, 0)), null, null, "امین شریفی", null, 2L, true, new Guid("bc40a64b-1373-40b8-b0cc-e4e16eee5a35"), null, null, null, "a.sharifi", null, 2L, null }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(8715), new TimeSpan(0, 3, 30, 0, 0)), null, null, "محمد شریفی", null, 1L, true, new Guid("fdfc8776-52a7-4436-ac09-ccd50716d616"), null, null, null, null, "m.sharifi", null, 1L, null },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(8744), new TimeSpan(0, 3, 30, 0, 0)), null, null, "امین شریفی", null, 2L, true, new Guid("58e6eb9a-3ced-4db3-bece-9745745a215d"), null, null, null, null, "a.sharifi", null, 2L, null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_WorkItemState",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(9847), new TimeSpan(0, -8, 0, 0, 0)), null, "صندوق ورودی", 1L, true, new Guid("83df011b-fbd7-4509-a37f-f73e0f111957"), null, "Inbox", 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(9855), new TimeSpan(0, -8, 0, 0, 0)), null, "ارسال شده", 2L, true, new Guid("67786412-44fd-4db3-bf37-84bdf5d788ac"), null, "Sent", 2L },
-                    { 3L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(9859), new TimeSpan(0, -8, 0, 0, 0)), null, "خارج شده", 3L, true, new Guid("fed94a08-269c-4a84-844a-5cab9323799e"), null, "Exit", 3L },
-                    { 4L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(9862), new TimeSpan(0, -8, 0, 0, 0)), null, "آینده", 4L, true, new Guid("2b4a263a-a43a-4152-89d6-71c08a6d25f7"), null, "Future", 4L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 966, DateTimeKind.Unspecified).AddTicks(173), new TimeSpan(0, 3, 30, 0, 0)), null, "صندوق ورودی", 1L, true, new Guid("622261a6-3163-4de6-8213-6120b50a26eb"), null, null, "Inbox", 1L },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 966, DateTimeKind.Unspecified).AddTicks(184), new TimeSpan(0, 3, 30, 0, 0)), null, "ارسال شده", 2L, true, new Guid("b4a324d2-d84e-42af-9f25-081f2486a8a0"), null, null, "Sent", 2L },
+                    { 3L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 966, DateTimeKind.Unspecified).AddTicks(187), new TimeSpan(0, 3, 30, 0, 0)), null, "خارج شده", 3L, true, new Guid("32d64651-18bc-4fea-86a5-0ba776de0fd9"), null, null, "Exit", 3L },
+                    { 4L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 966, DateTimeKind.Unspecified).AddTicks(190), new TimeSpan(0, 3, 30, 0, 0)), null, "آینده", 4L, true, new Guid("61b7b28e-a4d7-4827-8078-dcf88726233f"), null, null, "Future", 4L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Facts",
                 table: "F_Scenario",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
-                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(3956), new TimeSpan(0, -8, 0, 0, 0)), null, "سناریو نمونه", 1L, true, new Guid("3e6cb777-9cee-4b75-b118-022fbde22b2f"), null, "SampleScenario", 1L });
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex" },
+                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(2142), new TimeSpan(0, 3, 30, 0, 0)), null, "سناریو نمونه", 1L, true, new Guid("0e4ce563-94b8-4b76-9c80-f5544ce853a5"), null, null, "SampleScenario", 1L });
 
             migrationBuilder.InsertData(
                 schema: "Dimentions",
                 table: "D_Tag",
-                columns: new[] { "Id", "Created", "CreatedBy", "Description", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModifiedBy", "Name", "SortIndex", "TagTypeId" },
+                columns: new[] { "Id", "Created", "CreatedBy", "Description", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex", "TagTypeId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(2699), new TimeSpan(0, -8, 0, 0, 0)), null, "عددی", "مرکز", 1L, true, new Guid("ccc900c8-4021-4589-ba87-ebb6df41669f"), null, "D_Location", 1L, 1L },
-                    { 201L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(2994), new TimeSpan(0, -8, 0, 0, 0)), null, "دودویی", "تایید", 201L, true, new Guid("5e957543-c459-46ff-ad1c-8a642eaeef30"), null, "Approve", 2L, 2L },
-                    { 202L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(2999), new TimeSpan(0, -8, 0, 0, 0)), null, "دودویی", "عدم تایید", 202L, true, new Guid("49ab9698-fcea-490b-a34d-c5606a7216c4"), null, "Reject", 3L, 2L },
-                    { 203L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(3003), new TimeSpan(0, -8, 0, 0, 0)), null, "دودویی", "بازنگری", 203L, true, new Guid("aec2ebf6-3ecd-49d7-85b9-6dabc03522e7"), null, "Revise", 4L, 2L },
-                    { 301L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 487, DateTimeKind.Unspecified).AddTicks(3011), new TimeSpan(0, -8, 0, 0, 0)), null, "عددی", "مبلغ", 301L, true, new Guid("348062ec-01fc-4ee2-9945-f191a2b714c7"), null, "Price", 5L, 1L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(4819), new TimeSpan(0, 3, 30, 0, 0)), null, "عددی", "مرکز", 1L, true, new Guid("68c606b7-9641-44a8-a133-bc9b45ea1e18"), null, null, "D_Location", 1L, 1L },
+                    { 201L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(5069), new TimeSpan(0, 3, 30, 0, 0)), null, "دودویی", "تایید", 201L, true, new Guid("f49826d2-de62-4553-b48a-8d2b762adb55"), null, null, "Approve", 2L, 2L },
+                    { 202L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(5078), new TimeSpan(0, 3, 30, 0, 0)), null, "دودویی", "عدم تایید", 202L, true, new Guid("2d23f760-3bb7-4d58-a7cd-730dc4c2cd7e"), null, null, "Reject", 3L, 2L },
+                    { 203L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(5081), new TimeSpan(0, 3, 30, 0, 0)), null, "دودویی", "بازنگری", 203L, true, new Guid("b1126490-9bef-4d1f-88d7-a4dcf2ec23e8"), null, null, "Revise", 4L, 2L },
+                    { 301L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 965, DateTimeKind.Unspecified).AddTicks(5084), new TimeSpan(0, 3, 30, 0, 0)), null, "عددی", "مبلغ", 301L, true, new Guid("0f8afc39-afd2-4087-8e9a-5a6fba64e429"), null, null, "Price", 5L, 1L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Facts",
-                table: "F_Endorsement",
-                columns: new[] { "Id", "ConditionId", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "EndorsementItemId", "GuidRecord", "LastModifiedBy", "Name", "RoleId", "ScenarioId", "SortIndex" },
+                table: "F_Task",
+                columns: new[] { "Id", "ConditionId", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "RoleId", "ScenarioId", "SortIndex", "TaskItemId" },
                 values: new object[,]
                 {
-                    { 1L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(375), new TimeSpan(0, -8, 0, 0, 0)), null, "ثبت درخواست", 1L, true, null, new Guid("be60350a-ad99-4385-b77f-f8b7b20454bd"), null, "Sample_Scenario__Requestor", 100L, 1L, 1L },
-                    { 2L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(619), new TimeSpan(0, -8, 0, 0, 0)), null, "بررسی درخواست", 2L, true, null, new Guid("6d59ef28-9acd-4ca3-ad99-e70f83602295"), null, "Sample_Scenario__RequestorManager", 101L, 1L, 2L }
+                    { 1L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(3572), new TimeSpan(0, 3, 30, 0, 0)), null, "ثبت درخواست", 1L, true, new Guid("f14b40ca-e223-49f1-8b3a-aa702b655485"), null, null, "Sample_Scenario__Requestor", 100L, 1L, 1L, null },
+                    { 2L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(3797), new TimeSpan(0, 3, 30, 0, 0)), null, "بررسی درخواست", 2L, true, new Guid("88b76cb2-ac42-431d-a8fc-a326aef4cee3"), null, null, "Sample_Scenario__RequestorManager", 101L, 1L, 2L, null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Links",
                 table: "L_ProcessScenario",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FirstId", "GuidRecord", "LastModifiedBy", "Name", "SecondId", "SortIndex" },
-                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(2876), new TimeSpan(0, -8, 0, 0, 0)), null, "فرآیند نمونه-سناریو نمونه", 1L, true, 1L, new Guid("25140dff-e8ac-4d99-8fb4-e940fb43dcd7"), null, "SampleProcess_SampleScenario", 1L, 1L });
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FifthId", "FirstId", "FourthId", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SecondId", "SortIndex", "ThirdId" },
+                values: new object[] { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(4883), new TimeSpan(0, 3, 30, 0, 0)), null, "فرآیند نمونه-سناریو نمونه", 1L, true, null, 1L, null, new Guid("18cdb892-1a34-4b31-b7b5-62306a268181"), null, null, "SampleProcess_SampleScenario", 1L, 1L, null });
 
             migrationBuilder.InsertData(
                 schema: "Links",
                 table: "L_RolePosition",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FirstId", "GuidRecord", "LastModifiedBy", "Name", "SecondId", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FifthId", "FirstId", "FourthId", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SecondId", "SortIndex", "ThirdId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(4019), new TimeSpan(0, -8, 0, 0, 0)), null, "درخواست کننده-کارشناس", 1L, true, 100L, new Guid("6f93b1dc-6070-4d19-a782-efa6e71ab661"), null, "Requestor_Expert", 1L, 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(4063), new TimeSpan(0, -8, 0, 0, 0)), null, "مدیر درخواست کننده-کارشناس", 2L, true, 101L, new Guid("276c27cc-26eb-4719-9743-6d0476562b55"), null, "RequestorManager_Expert", 1L, 2L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(6046), new TimeSpan(0, 3, 30, 0, 0)), null, "درخواست کننده-کارشناس", 1L, true, null, 100L, null, new Guid("a3dcaed0-b62a-478e-b03f-468c6dd52a36"), null, null, "Requestor_Expert", 1L, 1L, null },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(6054), new TimeSpan(0, 3, 30, 0, 0)), null, "مدیر درخواست کننده-کارشناس", 2L, true, null, 101L, null, new Guid("bcf43dc4-50b3-4b79-9229-86e881895df5"), null, null, "RequestorManager_Expert", 1L, 2L, null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Links",
                 table: "L_UserLocation",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FirstId", "GuidRecord", "LastModifiedBy", "Name", "SecondId", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FifthId", "FirstId", "FourthId", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SecondId", "SortIndex", "ThirdId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(4995), new TimeSpan(0, -8, 0, 0, 0)), null, "محمد شریفی-فارس", 1L, true, 1L, new Guid("77c104f2-0a5f-4ba9-a08a-7c57c01c91d3"), null, "m_sharifi__Fars", 1L, 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(5002), new TimeSpan(0, -8, 0, 0, 0)), null, "امین شریفی-فارس", 2L, true, 2L, new Guid("4cfcc293-799b-4907-9ba4-84e3540b5e26"), null, "a_sharifi__Fars", 1L, 2L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(6938), new TimeSpan(0, 3, 30, 0, 0)), null, "محمد شریفی-فارس", 1L, true, null, 1L, null, new Guid("68c556e4-b322-4798-abb7-31866c544821"), null, null, "m_sharifi__Fars", 1L, 1L, null },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(6943), new TimeSpan(0, 3, 30, 0, 0)), null, "امین شریفی-فارس", 2L, true, null, 2L, null, new Guid("781eba4b-2d86-4770-93eb-97ee88f0ddcd"), null, null, "a_sharifi__Fars", 1L, 2L, null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Links",
                 table: "L_UserPosition",
-                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FirstId", "GuidRecord", "LastModifiedBy", "Name", "SecondId", "SortIndex" },
+                columns: new[] { "Id", "Created", "CreatedBy", "DisplayName", "ERPCode", "EnableRecord", "FifthId", "FirstId", "FourthId", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SecondId", "SortIndex", "ThirdId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(5887), new TimeSpan(0, -8, 0, 0, 0)), null, "محمد شریفی-کارشناس", 1L, true, 1L, new Guid("3b7a419f-1640-4d1d-973c-af646791a23f"), null, "Requestor_Expert", 1L, 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(5893), new TimeSpan(0, -8, 0, 0, 0)), null, "امین شریفی-کارشناس", 2L, true, 2L, new Guid("91a54290-50bf-44fb-bf33-8e5936a38a84"), null, "RequestorManager_Expert", 1L, 2L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(7792), new TimeSpan(0, 3, 30, 0, 0)), null, "محمد شریفی-کارشناس", 1L, true, null, 1L, null, new Guid("20193204-9b15-4190-870f-24277088e567"), null, null, "Requestor_Expert", 1L, 1L, null },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(7797), new TimeSpan(0, 3, 30, 0, 0)), null, "امین شریفی-کارشناس", 2L, true, null, 2L, null, new Guid("f859ffcc-ac0c-4f60-976c-6eeae187e924"), null, null, "RequestorManager_Expert", 1L, 2L, null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Facts",
                 table: "F_Condition",
-                columns: new[] { "Id", "CaseId", "Created", "CreatedBy", "D_UserId", "DisplayName", "ERPCode", "EnableRecord", "EndorsementItemId", "GuidRecord", "LastModifiedBy", "Name", "OperandId", "ScenarioId", "SortIndex", "TagId", "Value" },
-                values: new object[] { 1L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(8069), new TimeSpan(0, -8, 0, 0, 0)), null, null, "مبلغ", 1L, true, null, new Guid("5b78510b-8713-4fc7-a0fb-605b1bd51eed"), null, "Price", 3L, 1L, 1L, 301L, "0" });
+                columns: new[] { "Id", "CaseId", "Created", "CreatedBy", "D_UserId", "DisplayName", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "OperandId", "ScenarioId", "SortIndex", "TagId", "TaskItemId", "Value", "WorkItemId" },
+                values: new object[] { 1L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(90), new TimeSpan(0, 3, 30, 0, 0)), null, null, "مبلغ", 1L, true, new Guid("64904ab6-6b48-41ad-a052-3ad346a0fd27"), null, null, "Price", 3L, 1L, 1L, 301L, null, "0", null });
 
             migrationBuilder.InsertData(
                 schema: "Facts",
-                table: "F_EndorsementItem",
-                columns: new[] { "Id", "CaseStateId", "Created", "CreatedBy", "ERPCode", "EnableRecord", "EndorsementId", "GuidRecord", "LastModifiedBy", "Name", "SortIndex" },
+                table: "F_TaskItem",
+                columns: new[] { "Id", "CaseStateId", "Created", "CreatedBy", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SortIndex", "ToTaskId" },
                 values: new object[,]
                 {
-                    { 1L, 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(2689), new TimeSpan(0, -8, 0, 0, 0)), null, 1L, true, 1L, new Guid("348f1d82-f3a6-4dfc-b5c3-b2229db8096a"), null, "one", 1L },
-                    { 2L, 3L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(2909), new TimeSpan(0, -8, 0, 0, 0)), null, 2L, true, 2L, new Guid("890ec66c-cbdc-47cc-a0ce-1d7134482a81"), null, "two", 1L },
-                    { 3L, 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(2915), new TimeSpan(0, -8, 0, 0, 0)), null, 3L, true, 2L, new Guid("ead74cd3-0e98-4ee9-819e-b37444e13425"), null, "Three", 2L },
-                    { 4L, 4L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 484, DateTimeKind.Unspecified).AddTicks(2918), new TimeSpan(0, -8, 0, 0, 0)), null, 4L, true, 2L, new Guid("aa43b198-8dfb-423d-b129-9afe99785438"), null, "Four", 3L }
+                    { 1L, 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(5406), new TimeSpan(0, 3, 30, 0, 0)), null, 1L, true, new Guid("2a4cc53d-2e73-4037-9cdf-21b7d99142c1"), null, null, "one", 1L, 1L },
+                    { 2L, 3L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(5596), new TimeSpan(0, 3, 30, 0, 0)), null, 2L, true, new Guid("f8bed849-2b39-4528-b07d-cc4819e3c584"), null, null, "two", 1L, 2L },
+                    { 3L, 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(5605), new TimeSpan(0, 3, 30, 0, 0)), null, 3L, true, new Guid("9b577ddf-b5d1-4453-a451-d896616388d8"), null, null, "Three", 2L, 2L },
+                    { 4L, 4L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(5608), new TimeSpan(0, 3, 30, 0, 0)), null, 4L, true, new Guid("413153ca-d59d-4f30-89de-a700cf6b75aa"), null, null, "Four", 3L, 2L }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Facts",
                 table: "F_Condition",
-                columns: new[] { "Id", "CaseId", "Created", "CreatedBy", "D_UserId", "ERPCode", "EnableRecord", "EndorsementItemId", "GuidRecord", "LastModifiedBy", "Name", "OperandId", "ScenarioId", "SortIndex", "TagId", "Value" },
+                columns: new[] { "Id", "CaseId", "Created", "CreatedBy", "D_UserId", "ERPCode", "EnableRecord", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "OperandId", "ScenarioId", "SortIndex", "TagId", "TaskItemId", "Value", "WorkItemId" },
                 values: new object[,]
                 {
-                    { 2L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(8549), new TimeSpan(0, -8, 0, 0, 0)), null, null, 2L, true, 1L, new Guid("d82cc118-18c9-43da-bfd5-43c668cfda2c"), null, "One", 1L, null, 1L, 201L, "0" },
-                    { 3L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(8632), new TimeSpan(0, -8, 0, 0, 0)), null, null, 3L, true, 2L, new Guid("5a09b9af-01b0-45d1-8568-7519fcac0ca2"), null, "Two", 1L, null, 1L, 201L, "0" },
-                    { 4L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(8639), new TimeSpan(0, -8, 0, 0, 0)), null, null, 4L, true, 3L, new Guid("b1edb511-ee70-48cb-aff7-0c601033aa36"), null, "Three", 1L, null, 1L, 203L, "0" },
-                    { 5L, null, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 483, DateTimeKind.Unspecified).AddTicks(8647), new TimeSpan(0, -8, 0, 0, 0)), null, null, 5L, true, 4L, new Guid("203bee86-9029-4e68-9651-aa91d6aef2ca"), null, "Four", 1L, null, 1L, 202L, "1" }
+                    { 2L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(541), new TimeSpan(0, 3, 30, 0, 0)), null, null, 2L, true, new Guid("5c9c6123-3ef0-4fac-9cdb-1fa198b43555"), null, null, "One", 1L, null, 1L, 201L, 1L, "0", null },
+                    { 3L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(626), new TimeSpan(0, 3, 30, 0, 0)), null, null, 3L, true, new Guid("41e5755d-41f7-4c39-9db3-7505c97ac767"), null, null, "Two", 1L, null, 1L, 201L, 2L, "0", null },
+                    { 4L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(631), new TimeSpan(0, 3, 30, 0, 0)), null, null, 4L, true, new Guid("f70dc9ed-e253-41fa-a11d-cca94d482b66"), null, null, "Three", 1L, null, 1L, 203L, 3L, "0", null },
+                    { 5L, null, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 962, DateTimeKind.Unspecified).AddTicks(634), new TimeSpan(0, 3, 30, 0, 0)), null, null, 5L, true, new Guid("99fb919d-b9c4-4cf6-9d7d-6f5e28ca05c7"), null, null, "Four", 1L, null, 1L, 202L, 4L, "1", null }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
-                columns: new[] { "Id", "Created", "CreatedBy", "ERPCode", "EnableRecord", "FirstId", "GuidRecord", "LastModifiedBy", "Name", "SecondId", "SortIndex" },
+                table: "L_TaskItemTask",
+                columns: new[] { "Id", "Created", "CreatedBy", "ERPCode", "EnableRecord", "FifthId", "FirstId", "FourthId", "GuidRecord", "LastModified", "LastModifiedBy", "Name", "SecondId", "SortIndex", "ThirdId" },
                 values: new object[,]
                 {
-                    { 1L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 482, DateTimeKind.Unspecified).AddTicks(8432), new TimeSpan(0, -8, 0, 0, 0)), null, 1L, true, 1L, new Guid("ec2d988d-ac03-4059-b9e6-d2f9df9c4028"), null, "One", 2L, 1L },
-                    { 2L, new DateTimeOffset(new DateTime(2024, 1, 6, 15, 7, 52, 482, DateTimeKind.Unspecified).AddTicks(9193), new TimeSpan(0, -8, 0, 0, 0)), null, 2L, true, 3L, new Guid("aac263a7-6497-4a0b-b3ad-1cbb7b767603"), null, "Two", 1L, 2L }
+                    { 1L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(587), new TimeSpan(0, 3, 30, 0, 0)), null, 1L, true, null, 1L, null, new Guid("943a9000-7885-4adb-a123-1629eecd0b6c"), null, null, "One", 2L, 1L, null },
+                    { 2L, new DateTimeOffset(new DateTime(2024, 2, 4, 17, 41, 25, 961, DateTimeKind.Unspecified).AddTicks(1411), new TimeSpan(0, 3, 30, 0, 0)), null, 2L, true, null, 3L, null, new Guid("b60daea1-bda7-43b3-b6be-8f43544d0bf9"), null, null, "Two", 1L, 2L, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1414,12 +1432,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_D_Location_EndorsementItemId",
-                schema: "Dimentions",
-                table: "D_Location",
-                column: "EndorsementItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_D_Location_ERPCode",
                 schema: "Dimentions",
                 table: "D_Location",
@@ -1439,6 +1451,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 table: "D_Location",
                 column: "Name",
                 descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_D_Location_TaskItemId",
+                schema: "Dimentions",
+                table: "D_Location",
+                column: "TaskItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_D_Operand_Created",
@@ -1912,12 +1930,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_Condition_EndorsementItemId",
-                schema: "Facts",
-                table: "F_Condition",
-                column: "EndorsementItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_F_Condition_ERPCode",
                 schema: "Facts",
                 table: "F_Condition",
@@ -1957,110 +1969,16 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_ConditionId",
+                name: "IX_F_Condition_TaskItemId",
                 schema: "Facts",
-                table: "F_Endorsement",
-                column: "ConditionId");
+                table: "F_Condition",
+                column: "TaskItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_Created",
+                name: "IX_F_Condition_WorkItemId",
                 schema: "Facts",
-                table: "F_Endorsement",
-                column: "Created",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_EnableRecord",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "EnableRecord",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_EndorsementItemId",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "EndorsementItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_ERPCode",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "ERPCode",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_LastModified",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "LastModified",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_Name",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "Name",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_RoleId",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_Endorsement_ScenarioId",
-                schema: "Facts",
-                table: "F_Endorsement",
-                column: "ScenarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_CaseStateId",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "CaseStateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_Created",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "Created",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_EnableRecord",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "EnableRecord",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_EndorsementId",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "EndorsementId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_ERPCode",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "ERPCode",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_LastModified",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "LastModified",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_EndorsementItem_Name",
-                schema: "Facts",
-                table: "F_EndorsementItem",
-                column: "Name",
-                descending: new bool[0]);
+                table: "F_Condition",
+                column: "WorkItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_Scenario_Created",
@@ -2098,6 +2016,112 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_F_Task_ConditionId",
+                schema: "Facts",
+                table: "F_Task",
+                column: "ConditionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_Created",
+                schema: "Facts",
+                table: "F_Task",
+                column: "Created",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_EnableRecord",
+                schema: "Facts",
+                table: "F_Task",
+                column: "EnableRecord",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_ERPCode",
+                schema: "Facts",
+                table: "F_Task",
+                column: "ERPCode",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_LastModified",
+                schema: "Facts",
+                table: "F_Task",
+                column: "LastModified",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_Name",
+                schema: "Facts",
+                table: "F_Task",
+                column: "Name",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_RoleId",
+                schema: "Facts",
+                table: "F_Task",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_ScenarioId",
+                schema: "Facts",
+                table: "F_Task",
+                column: "ScenarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_Task_TaskItemId",
+                schema: "Facts",
+                table: "F_Task",
+                column: "TaskItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_CaseStateId",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "CaseStateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_Created",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "Created",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_EnableRecord",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "EnableRecord",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_ERPCode",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "ERPCode",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_LastModified",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "LastModified",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_Name",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "Name",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_F_TaskItem_ToTaskId",
+                schema: "Facts",
+                table: "F_TaskItem",
+                column: "ToTaskId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_F_WorkItem_CaseId",
                 schema: "Facts",
                 table: "F_WorkItem",
@@ -2116,12 +2140,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 table: "F_WorkItem",
                 column: "EnableRecord",
                 descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_F_WorkItem_EndorsementId",
-                schema: "Facts",
-                table: "F_WorkItem",
-                column: "EndorsementId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_WorkItem_ERPCode",
@@ -2145,10 +2163,10 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_F_WorkItem_TagId",
+                name: "IX_F_WorkItem_TaskId",
                 schema: "Facts",
                 table: "F_WorkItem",
-                column: "TagId");
+                column: "TaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_F_WorkItem_UserId",
@@ -2163,101 +2181,73 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 column: "WorkItemStateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_Created",
+                name: "IX_L_CaseTaskUser_Created",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
                 column: "Created",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_EnableRecord",
+                name: "IX_L_CaseTaskUser_EnableRecord",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
                 column: "EnableRecord",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_ERPCode",
+                name: "IX_L_CaseTaskUser_ERPCode",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
                 column: "ERPCode",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_FirstId",
+                name: "IX_L_CaseTaskUser_FifthId",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
+                column: "FifthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_CaseTaskUser_FirstId",
+                schema: "Links",
+                table: "L_CaseTaskUser",
                 column: "FirstId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_LastModified",
+                name: "IX_L_CaseTaskUser_FourthId",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
+                column: "FourthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_CaseTaskUser_LastModified",
+                schema: "Links",
+                table: "L_CaseTaskUser",
                 column: "LastModified",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_Name",
+                name: "IX_L_CaseTaskUser_Name",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
                 column: "Name",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementItemEndorsement_SecondId",
+                name: "IX_L_CaseTaskUser_SecondId",
                 schema: "Links",
-                table: "L_EndorsementItemEndorsement",
+                table: "L_CaseTaskUser",
                 column: "SecondId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_Created",
+                name: "IX_L_CaseTaskUser_ThirdId",
                 schema: "Links",
-                table: "L_EndorsementUser",
-                column: "Created",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_EnableRecord",
-                schema: "Links",
-                table: "L_EndorsementUser",
-                column: "EnableRecord",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_ERPCode",
-                schema: "Links",
-                table: "L_EndorsementUser",
-                column: "ERPCode",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_FirstId",
-                schema: "Links",
-                table: "L_EndorsementUser",
-                column: "FirstId",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_LastModified",
-                schema: "Links",
-                table: "L_EndorsementUser",
-                column: "LastModified",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_Name",
-                schema: "Links",
-                table: "L_EndorsementUser",
-                column: "Name",
-                descending: new bool[0]);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_L_EndorsementUser_SecondId",
-                schema: "Links",
-                table: "L_EndorsementUser",
-                column: "SecondId",
+                table: "L_CaseTaskUser",
+                column: "ThirdId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
@@ -2282,10 +2272,24 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_ProcessScenario_FifthId",
+                schema: "Links",
+                table: "L_ProcessScenario",
+                column: "FifthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_ProcessScenario_FirstId",
                 schema: "Links",
                 table: "L_ProcessScenario",
                 column: "FirstId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_ProcessScenario_FourthId",
+                schema: "Links",
+                table: "L_ProcessScenario",
+                column: "FourthId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
@@ -2310,6 +2314,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_ProcessScenario_ThirdId",
+                schema: "Links",
+                table: "L_ProcessScenario",
+                column: "ThirdId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_RolePosition_Created",
                 schema: "Links",
                 table: "L_RolePosition",
@@ -2331,10 +2342,24 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_RolePosition_FifthId",
+                schema: "Links",
+                table: "L_RolePosition",
+                column: "FifthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_RolePosition_FirstId",
                 schema: "Links",
                 table: "L_RolePosition",
                 column: "FirstId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_RolePosition_FourthId",
+                schema: "Links",
+                table: "L_RolePosition",
+                column: "FourthId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
@@ -2359,6 +2384,83 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_RolePosition_ThirdId",
+                schema: "Links",
+                table: "L_RolePosition",
+                column: "ThirdId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_Created",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "Created",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_EnableRecord",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "EnableRecord",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_ERPCode",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "ERPCode",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_FifthId",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "FifthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_FirstId",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "FirstId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_FourthId",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "FourthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_LastModified",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "LastModified",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_Name",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "Name",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_SecondId",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "SecondId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_TaskItemTask_ThirdId",
+                schema: "Links",
+                table: "L_TaskItemTask",
+                column: "ThirdId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_UserLocation_Created",
                 schema: "Links",
                 table: "L_UserLocation",
@@ -2380,10 +2482,24 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_UserLocation_FifthId",
+                schema: "Links",
+                table: "L_UserLocation",
+                column: "FifthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_UserLocation_FirstId",
                 schema: "Links",
                 table: "L_UserLocation",
                 column: "FirstId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserLocation_FourthId",
+                schema: "Links",
+                table: "L_UserLocation",
+                column: "FourthId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
@@ -2408,6 +2524,13 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_UserLocation_ThirdId",
+                schema: "Links",
+                table: "L_UserLocation",
+                column: "ThirdId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_UserPosition_Created",
                 schema: "Links",
                 table: "L_UserPosition",
@@ -2429,10 +2552,24 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
+                name: "IX_L_UserPosition_FifthId",
+                schema: "Links",
+                table: "L_UserPosition",
+                column: "FifthId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_L_UserPosition_FirstId",
                 schema: "Links",
                 table: "L_UserPosition",
                 column: "FirstId",
+                descending: new bool[0]);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserPosition_FourthId",
+                schema: "Links",
+                table: "L_UserPosition",
+                column: "FourthId",
                 descending: new bool[0]);
 
             migrationBuilder.CreateIndex(
@@ -2456,31 +2593,47 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 column: "SecondId",
                 descending: new bool[0]);
 
+            migrationBuilder.CreateIndex(
+                name: "IX_L_UserPosition_ThirdId",
+                schema: "Links",
+                table: "L_UserPosition",
+                column: "ThirdId",
+                descending: new bool[0]);
+
             migrationBuilder.AddForeignKey(
-                name: "FK_D_Location_F_EndorsementItem_EndorsementItemId",
+                name: "FK_D_Location_F_TaskItem_TaskItemId",
                 schema: "Dimentions",
                 table: "D_Location",
-                column: "EndorsementItemId",
+                column: "TaskItemId",
                 principalSchema: "Facts",
-                principalTable: "F_EndorsementItem",
+                principalTable: "F_TaskItem",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_F_Condition_F_EndorsementItem_EndorsementItemId",
+                name: "FK_F_Condition_F_TaskItem_TaskItemId",
                 schema: "Facts",
                 table: "F_Condition",
-                column: "EndorsementItemId",
+                column: "TaskItemId",
                 principalSchema: "Facts",
-                principalTable: "F_EndorsementItem",
+                principalTable: "F_TaskItem",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_F_Endorsement_F_EndorsementItem_EndorsementItemId",
+                name: "FK_F_Condition_F_WorkItem_WorkItemId",
                 schema: "Facts",
-                table: "F_Endorsement",
-                column: "EndorsementItemId",
+                table: "F_Condition",
+                column: "WorkItemId",
                 principalSchema: "Facts",
-                principalTable: "F_EndorsementItem",
+                principalTable: "F_WorkItem",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_F_Task_F_TaskItem_TaskItemId",
+                schema: "Facts",
+                table: "F_Task",
+                column: "TaskItemId",
+                principalSchema: "Facts",
+                principalTable: "F_TaskItem",
                 principalColumn: "Id");
         }
 
@@ -2503,14 +2656,74 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 table: "F_Condition");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_F_Condition_F_EndorsementItem_EndorsementItemId",
+                name: "FK_F_WorkItem_D_User_UserId",
+                schema: "Facts",
+                table: "F_WorkItem");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Condition_F_TaskItem_TaskItemId",
                 schema: "Facts",
                 table: "F_Condition");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_F_Endorsement_F_EndorsementItem_EndorsementItemId",
+                name: "FK_F_Task_F_TaskItem_TaskItemId",
                 schema: "Facts",
-                table: "F_Endorsement");
+                table: "F_Task");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_D_Tag_D_TagType_TagTypeId",
+                schema: "Dimentions",
+                table: "D_Tag");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Case_D_CaseState_CaseStateId",
+                schema: "Facts",
+                table: "F_Case");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Case_D_Process_ProcessId",
+                schema: "Facts",
+                table: "F_Case");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Case_F_Scenario_SelectedScenarioId",
+                schema: "Facts",
+                table: "F_Case");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Condition_F_Scenario_ScenarioId",
+                schema: "Facts",
+                table: "F_Condition");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Task_F_Scenario_ScenarioId",
+                schema: "Facts",
+                table: "F_Task");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Condition_D_Operand_OperandId",
+                schema: "Facts",
+                table: "F_Condition");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Condition_D_Tag_TagId",
+                schema: "Facts",
+                table: "F_Condition");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Condition_F_Case_CaseId",
+                schema: "Facts",
+                table: "F_Condition");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_WorkItem_F_Case_CaseId",
+                schema: "Facts",
+                table: "F_WorkItem");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_F_Condition_F_WorkItem_WorkItemId",
+                schema: "Facts",
+                table: "F_Condition");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -2536,15 +2749,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 schema: "Facts");
 
             migrationBuilder.DropTable(
-                name: "F_WorkItem",
-                schema: "Facts");
-
-            migrationBuilder.DropTable(
-                name: "L_EndorsementItemEndorsement",
-                schema: "Links");
-
-            migrationBuilder.DropTable(
-                name: "L_EndorsementUser",
+                name: "L_CaseTaskUser",
                 schema: "Links");
 
             migrationBuilder.DropTable(
@@ -2553,6 +2758,10 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "L_RolePosition",
+                schema: "Links");
+
+            migrationBuilder.DropTable(
+                name: "L_TaskItemTask",
                 schema: "Links");
 
             migrationBuilder.DropTable(
@@ -2568,10 +2777,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "D_WorkItemState",
-                schema: "Dimentions");
 
             migrationBuilder.DropTable(
                 name: "D_Location",
@@ -2590,31 +2795,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                 schema: "Dimentions");
 
             migrationBuilder.DropTable(
-                name: "F_EndorsementItem",
-                schema: "Facts");
-
-            migrationBuilder.DropTable(
-                name: "F_Endorsement",
-                schema: "Facts");
-
-            migrationBuilder.DropTable(
-                name: "D_Role",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
-                name: "F_Condition",
-                schema: "Facts");
-
-            migrationBuilder.DropTable(
-                name: "D_Operand",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
-                name: "D_Tag",
-                schema: "Dimentions");
-
-            migrationBuilder.DropTable(
-                name: "F_Case",
+                name: "F_TaskItem",
                 schema: "Facts");
 
             migrationBuilder.DropTable(
@@ -2631,6 +2812,38 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "F_Scenario",
+                schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "D_Operand",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "D_Tag",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "F_Case",
+                schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "F_WorkItem",
+                schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "D_WorkItemState",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "F_Task",
+                schema: "Facts");
+
+            migrationBuilder.DropTable(
+                name: "D_Role",
+                schema: "Dimentions");
+
+            migrationBuilder.DropTable(
+                name: "F_Condition",
                 schema: "Facts");
         }
     }

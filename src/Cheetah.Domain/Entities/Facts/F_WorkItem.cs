@@ -4,8 +4,9 @@ public partial class F_WorkItem : BaseEntity
 {
     #region Entities
 
-    public long? EndorsementId { get; set; }
-    public virtual F_Endorsement? Endorsement { get; set; }
+    public long? TaskId { get; set; }
+    [ForeignKey(nameof(TaskId))]    
+    public virtual F_Task? Task { get; set; }
 
     public long? UserId { get; set; }
     public virtual D_User? User { get; set; }
@@ -13,12 +14,14 @@ public partial class F_WorkItem : BaseEntity
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
 
-    public long? TagId { get; set; }
-    public virtual D_Tag? Tag { get; set; }
-
     public long? WorkItemStateId { get; set; }
     public virtual D_WorkItemState? WorkItemState { get; set; }
 
+    #endregion
+
+    #region Collection
+    [InverseProperty(nameof(F_Condition.WorkItem))]
+    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
     #endregion
 
     #region Functions
@@ -44,18 +47,6 @@ public partial class F_WorkItem : BaseEntity
     {
         return WorkItemStateId == D_WorkItemState.Future.Id;
     }
-    public bool IsApprove()
-    {
-        return TagId == D_Tag.Approve.Id;
-    }
-    public bool IsReject()
-    {
-        return TagId == D_Tag.Reject.Id;
-    }
-    public bool IsRevise()
-    {
-        return TagId == D_Tag.Revise.Id;
-    }
 
     #endregion
 
@@ -76,18 +67,6 @@ public partial class F_WorkItem : BaseEntity
     public void SetFuture()
     {
         WorkItemStateId = D_WorkItemState.Future.Id;
-    }
-    public void SetApprove()
-    {
-        TagId = D_Tag.Approve.Id;
-    }
-    public void SetReject()
-    {
-        TagId = D_Tag.Reject.Id;
-    }
-    public void SetRevise()
-    {
-        TagId = D_Tag.Revise.Id;
     }
 
     #endregion

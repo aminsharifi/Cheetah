@@ -15,9 +15,11 @@ public partial class F_Condition : BaseEntity
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
 
-    public long? EndorsementItemId { get; set; }
-    [ForeignKey(nameof(EndorsementItemId))]
-    public virtual F_EndorsementItem? EndorsementItem { get; set; }
+    public long? WorkItemId { get; set; }
+    public virtual F_WorkItem? WorkItem { get; set; }
+
+    public long? TaskItemId { get; set; }  
+    public virtual F_TaskItem? TaskItem { get; set; }
 
     [NotMapped]
     public bool BooleanValue
