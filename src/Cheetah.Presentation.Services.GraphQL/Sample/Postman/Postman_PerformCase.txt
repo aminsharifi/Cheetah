@@ -31,7 +31,7 @@
     }
     rqt_Assignments
     {     
-      prm_Endorsement
+      prm_Task
       {        
         id
         pIndex

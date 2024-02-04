@@ -5,7 +5,7 @@ query {
     {
      ua_Assignment {
       createTimeRecord
-      prm_Endorsement {
+      prm_Task {
         pDisplayName
         pName
       }

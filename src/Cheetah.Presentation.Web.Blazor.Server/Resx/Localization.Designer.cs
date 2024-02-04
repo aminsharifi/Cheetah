@@ -126,9 +126,9 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to افزودن به لیست بررسی‌ها.
         /// </summary>
-        internal static string BlazorServer_AddToEndorsements {
+        internal static string BlazorServer_AddToTasks {
             get {
-                return ResourceManager.GetString("BlazorServer_AddToEndorsements", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_AddToTasks", resourceCulture);
             }
         }
         
@@ -288,9 +288,9 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لیست ‌تاییدها.
         /// </summary>
-        internal static string BlazorServer_EndorsementsList {
+        internal static string BlazorServer_TasksList {
             get {
-                return ResourceManager.GetString("BlazorServer_EndorsementsList", resourceCulture);
+                return ResourceManager.GetString("BlazorServer_TasksList", resourceCulture);
             }
         }
         

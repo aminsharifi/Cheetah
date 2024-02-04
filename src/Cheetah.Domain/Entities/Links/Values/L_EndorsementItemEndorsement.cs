@@ -1,11 +1,11 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_EndorsementItemEndorsement
+public partial class L_TaskItemTask
 {
     #region Values
 
-    public static readonly L_EndorsementItemEndorsement One =
-        new L_EndorsementItemEndorsement
+    public static readonly L_TaskItemTask One =
+        new L_TaskItemTask
         {
             Id = 1,
             Name = nameof(One),
@@ -15,8 +15,8 @@ public partial class L_EndorsementItemEndorsement
             SecondId = 2
         };
 
-    public static readonly L_EndorsementItemEndorsement Two =
-        new L_EndorsementItemEndorsement
+    public static readonly L_TaskItemTask Two =
+        new L_TaskItemTask
         {
             Id = 2,
             Name = nameof(Two),

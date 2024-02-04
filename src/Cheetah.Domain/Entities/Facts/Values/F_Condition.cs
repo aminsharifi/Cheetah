@@ -26,7 +26,7 @@ public partial class F_Condition
             TagId = 201,
             OperandId = 1,
             Value = "0",
-            EndorsementItemId = 1
+            TaskItemId = 1
         };
 
     public static readonly F_Condition Two =
@@ -39,7 +39,7 @@ public partial class F_Condition
             TagId = 201,
             OperandId = 1,
             Value = "0",
-            EndorsementItemId = 2
+            TaskItemId = 2
         };
 
     public static readonly F_Condition Three =
@@ -52,7 +52,7 @@ public partial class F_Condition
             TagId = 203,
             OperandId = 1,
             Value = "0",
-            EndorsementItemId = 3
+            TaskItemId = 3
         };
 
     public static readonly F_Condition Four =
@@ -65,7 +65,7 @@ public partial class F_Condition
             TagId = 202,
             OperandId = 1,
             Value = "1",
-            EndorsementItemId = 4
+            TaskItemId = 4
         };
     #endregion
 }
