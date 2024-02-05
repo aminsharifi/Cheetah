@@ -4,7 +4,7 @@ public partial class L_ProcessScenario
 {
     #region Values
     public static readonly L_ProcessScenario SampleProcess_SampleScenario =
-        new L_ProcessScenario
+        new()
         {
             Id = 1,
             ERPCode = 1,

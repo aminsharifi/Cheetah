@@ -3,8 +3,8 @@ public partial class D_Position
 {
     #region Values
 
-    public static readonly Dimentions.D_Position Expert =
-         new Dimentions.D_Position
+    public static readonly D_Position Expert =
+         new()
          {
              Id = 1,
              ERPCode = 1,

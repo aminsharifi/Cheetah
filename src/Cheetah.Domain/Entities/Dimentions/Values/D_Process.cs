@@ -3,8 +3,8 @@
 public partial class D_Process
 {
     #region Values
-    public static readonly Dimentions.D_Process SampleProcess =
-          new Dimentions.D_Process
+    public static readonly D_Process SampleProcess =
+          new()
           {
               Id = 1,
               ERPCode = 1,

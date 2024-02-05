@@ -5,7 +5,7 @@ public partial class L_UserLocation
     #region Values
 
     public static readonly L_UserLocation m_sharifi__Fars =
-        new L_UserLocation
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -17,7 +17,7 @@ public partial class L_UserLocation
         };
 
     public static readonly L_UserLocation a_sharifi__Fars =
-        new L_UserLocation
+        new()
         {
             Id = 2,
             ERPCode = 2,

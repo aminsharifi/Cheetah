@@ -4,8 +4,8 @@ public partial class D_Operand
 {
     #region Values
 
-    public static readonly Dimentions.D_Operand Equals =
-        new Dimentions.D_Operand
+    public static readonly D_Operand Equals =
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -14,8 +14,8 @@ public partial class D_Operand
             DisplayName = "مساوی"
         };
 
-    public static readonly Dimentions.D_Operand NotEquals =
-        new Dimentions.D_Operand
+    public static readonly D_Operand NotEquals =
+        new()
         {
             Id = 2,
             ERPCode = 2,
@@ -24,8 +24,8 @@ public partial class D_Operand
             DisplayName = "مخالف"
         };
 
-    public static readonly Dimentions.D_Operand Greater =
-        new Dimentions.D_Operand
+    public static readonly D_Operand Greater =
+        new()
         {
             Id = 3,
             ERPCode = 3,
@@ -34,8 +34,8 @@ public partial class D_Operand
             DisplayName = "بزگتر از"
         };
 
-    public static readonly Dimentions.D_Operand EqualAndGreater =
-        new Dimentions.D_Operand
+    public static readonly D_Operand EqualAndGreater =
+        new()
         {
             Id = 4,
             ERPCode = 4,
@@ -44,8 +44,8 @@ public partial class D_Operand
             DisplayName = "بزرگتر و مساوی"
         };
 
-    public static readonly Dimentions.D_Operand LessThan =
-        new Dimentions.D_Operand
+    public static readonly D_Operand LessThan =
+        new()
         {
             Id = 5,
             ERPCode = 5,
@@ -54,8 +54,8 @@ public partial class D_Operand
             DisplayName = " کوچکتر از"
         };
 
-    public static readonly Dimentions.D_Operand LessThanOrEqual =
-        new Dimentions.D_Operand
+    public static readonly D_Operand LessThanOrEqual =
+        new()
         {
             Id = 6,
             ERPCode = 6,
@@ -64,5 +64,4 @@ public partial class D_Operand
             DisplayName = "کوچکتر و مساوی"
         };
     #endregion
-
 }

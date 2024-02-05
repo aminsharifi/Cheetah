@@ -4,7 +4,7 @@ public partial class F_Task
     #region Values
 
     public static readonly F_Task Sample_Scenario__Requestor =
-        new F_Task
+        new ()
         {
             Id = 1,
             ERPCode = 1,
@@ -15,7 +15,7 @@ public partial class F_Task
             ScenarioId = 1
         };
     public static readonly F_Task Sample_Scenario__RequestorManager =
-            new F_Task
+            new()
             {
                 Id = 2,
                 ERPCode = 2,
