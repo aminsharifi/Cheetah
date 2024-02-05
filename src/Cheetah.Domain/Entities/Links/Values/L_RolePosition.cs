@@ -5,7 +5,7 @@ public partial class L_RolePosition
     #region Values
 
     public static readonly L_RolePosition Requestor_Expert =
-        new L_RolePosition
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -17,7 +17,7 @@ public partial class L_RolePosition
         };
 
     public static readonly L_RolePosition RequestorManager_Expert =
-        new L_RolePosition
+        new()
         {
             Id = 2,
             ERPCode = 2,

@@ -5,7 +5,7 @@ public partial class F_Scenario
     #region Values
 
     public  static F_Scenario SampleScenario =
-         new F_Scenario
+         new ()
          {
              Id = 1,
              ERPCode = 1,

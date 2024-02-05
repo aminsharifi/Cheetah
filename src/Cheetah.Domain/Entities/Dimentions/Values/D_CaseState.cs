@@ -3,7 +3,7 @@
 public partial class D_CaseState : BaseEntity
 {
     #region Values
-    public static D_CaseState Ongoing = new D_CaseState
+    public static D_CaseState Ongoing = new()
     {
         Id = 1,
         ERPCode = 1,
@@ -12,7 +12,7 @@ public partial class D_CaseState : BaseEntity
         DisplayName = "در دست بررسی"
     };
 
-    public static readonly D_CaseState Editing = new D_CaseState
+    public static readonly D_CaseState Editing = new()
     {
         Id = 2,
         ERPCode = 2,
@@ -20,7 +20,7 @@ public partial class D_CaseState : BaseEntity
         Name = "Editing",
         DisplayName = "منتظر بازنگری"
     };
-    public static readonly D_CaseState Completed = new D_CaseState
+    public static readonly D_CaseState Completed = new()
     {
         Id = 3,
         ERPCode = 3,
@@ -28,7 +28,7 @@ public partial class D_CaseState : BaseEntity
         Name = "Completed",
         DisplayName = "کامل شده"
     };
-    public static readonly D_CaseState Rejected = new D_CaseState
+    public static readonly D_CaseState Rejected = new()
     {
         Id = 4,
         ERPCode = 4,
@@ -36,7 +36,7 @@ public partial class D_CaseState : BaseEntity
         Name = "Rejected",
         DisplayName = "عدم تایید"
     };
-    public static readonly D_CaseState Aborted = new D_CaseState
+    public static readonly D_CaseState Aborted = new()
     {
         Id = 5,
         ERPCode = 5,

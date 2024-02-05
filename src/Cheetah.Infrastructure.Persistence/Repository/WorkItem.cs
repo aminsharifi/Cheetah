@@ -344,7 +344,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         var ActualConditions = Current_WorkItem.Case.Conditions;
 
-        var TaskItems = await _db.F_TaskItems
+        var TaskItems = await _db.F_Actions
             .Where(x => x.ToTaskId == WorkItemTaskId)
             .ToListAsync();
 

@@ -25,7 +25,7 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
             .HasColumnOrder(105);   
 
         builder
-            .Property(e => e.TaskItemId)
+            .Property(e => e.ActionId)
             .HasColumnOrder(109);
 
         builder

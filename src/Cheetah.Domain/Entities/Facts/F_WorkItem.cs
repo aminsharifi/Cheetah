@@ -5,7 +5,6 @@ public partial class F_WorkItem : BaseEntity
     #region Entities
 
     public long? TaskId { get; set; }
-    [ForeignKey(nameof(TaskId))]    
     public virtual F_Task? Task { get; set; }
 
     public long? UserId { get; set; }

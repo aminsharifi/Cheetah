@@ -37,7 +37,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
 
     #region Identities
     public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
     #endregion
 
     #region Dimentions
@@ -51,7 +50,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<D_User> D_Users { get; set; }
     public virtual DbSet<D_Operand> D_Operands { get; set; }
     public virtual DbSet<D_WorkItemState> D_WorkItemStates { get; set; }
-
     public virtual DbSet<D_TagType> D_TagTypes { get; set; }
 
     #endregion
@@ -63,7 +61,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
     public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
-    public virtual DbSet<F_TaskItem> F_TaskItems { get; set; }
+    public virtual DbSet<F_Action> F_Actions { get; set; }
 
     #endregion
 
@@ -72,7 +70,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
     public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
-    public virtual DbSet<L_TaskItemTask> L_TaskItemTasks { get; set; }
+    public virtual DbSet<L_TaskAction> L_TaskActions { get; set; }
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
 
     #endregion
