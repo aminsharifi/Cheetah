@@ -63,8 +63,6 @@ public static class CgRPC
             LastUpdatedRecord = simpleClass.LastModified.CGetTimestamp()
         };
 
-
-
         return _GRPC_BaseClass;
     }
     public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this BaseEntity simpleClass)

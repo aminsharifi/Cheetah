@@ -13,6 +13,13 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Areas\Identity\Data\**" />
+	  <Content Remove="Areas\Identity\Data\**" />
+	  <EmbeddedResource Remove="Areas\Identity\Data\**" />
+	  <None Remove="Areas\Identity\Data\**" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="BootstrapBlazor" Version="8.1.9" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.66.0.3030" />
@@ -27,7 +34,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Areas\Identity\Data\" />
 		<Folder Include="wwwroot\imeges\" />
 		<Folder Include="wwwroot\dist\" />
 	</ItemGroup>

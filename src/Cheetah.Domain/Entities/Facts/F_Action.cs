@@ -13,9 +13,8 @@ public partial class F_Action : BaseEntity
 
     [InverseProperty(nameof(F_Condition.Action))]
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
-
-    [InverseProperty(nameof(L_TaskAction.Action))]
-    public virtual ICollection<L_TaskAction>? TaskActions { get; set; } = new HashSet<L_TaskAction>();
+    
+    public virtual ICollection<L_TaskAction>? TaskAction { get; set; } = new HashSet<L_TaskAction>();
 
     #endregion
 

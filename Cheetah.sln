@@ -24,9 +24,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure.Persistence", "Cheetah.Infrastructure.Persistence", "{2A785E5C-5A88-48D7-9472-5902E2283C7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Infrastructure.Persistence.Providers", "Cheetah.Infrastructure.Persistence.Providers", "{ACE38A6A-D0BF-461E-8E94-EA0472821142}"
-	ProjectSection(SolutionItems) = preProject
-		Migration.txt = Migration.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cheetah.Presentation.Web", "Cheetah.Presentation.Web", "{7AF10026-6966-4DEF-90E1-CCB50EA59800}"
 EndProject
