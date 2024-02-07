@@ -18,8 +18,8 @@ public partial class F_Condition : BaseEntity
     public long? WorkItemId { get; set; }
     public virtual F_WorkItem? WorkItem { get; set; }
 
-    public long? TaskItemId { get; set; }  
-    public virtual F_TaskItem? TaskItem { get; set; }
+    public long? ActionId { get; set; }  
+    public virtual F_Action? Action { get; set; }
 
     [NotMapped]
     public bool BooleanValue

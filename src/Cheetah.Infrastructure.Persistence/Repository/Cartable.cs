@@ -111,8 +111,8 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
             Task = _iCopyClass.GetSimpleClass(x.Task),
             CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
-            ValidUserActions = x.Task.TaskItems
-            .SelectMany(x => x.Conditions, (Parrent, Child) => _iCopyClass
+            ValidUserActions = x.Task.TaskActions
+            .SelectMany(x => x.Action.Conditions, (Parrent, Child) => _iCopyClass
             .GetSimpleClass(Child.Tag)
             ),
             Conditions = x.Conditions.Select(x => _iCopyClass.GetSimpleClass(x)),

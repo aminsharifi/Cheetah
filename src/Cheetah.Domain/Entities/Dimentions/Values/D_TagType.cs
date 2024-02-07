@@ -4,8 +4,8 @@ public partial class D_TagType
 {
     #region Values
 
-    public static readonly Dimentions.D_TagType Numberic =
-        new Dimentions.D_TagType
+    public static readonly D_TagType Numberic =
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -14,8 +14,8 @@ public partial class D_TagType
             DisplayName = "عددی"
         };
 
-    public static readonly Dimentions.D_TagType Boolean =
-        new Dimentions.D_TagType
+    public static readonly D_TagType Boolean =
+        new()
         {
             Id = 2,
             ERPCode = 2,
@@ -24,8 +24,8 @@ public partial class D_TagType
             DisplayName = "دودویی"
         };
 
-    public static readonly Dimentions.D_TagType Date =
-        new Dimentions.D_TagType
+    public static readonly D_TagType Date =
+        new()
         {
             Id = 3,
             ERPCode = 3,
@@ -34,8 +34,8 @@ public partial class D_TagType
             DisplayName = "تاریخ"
         };
 
-    public static readonly Dimentions.D_TagType String =
-        new Dimentions.D_TagType
+    public static readonly D_TagType String =
+        new()
         {
             Id = 4,
             ERPCode = 4,

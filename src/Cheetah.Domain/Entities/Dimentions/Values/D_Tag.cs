@@ -4,8 +4,8 @@ public partial class D_Tag
 {
     #region Values
 
-    public static readonly Dimentions.D_Tag D_Location =
-        new Dimentions.D_Tag
+    public static readonly D_Tag D_Location =
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -16,8 +16,8 @@ public partial class D_Tag
             TagTypeId = 1
         };
 
-    public static readonly Dimentions.D_Tag Approve =
-        new Dimentions.D_Tag
+    public static readonly D_Tag Approve =
+        new()
         {
             Id = 201,
             ERPCode = 201,
@@ -28,8 +28,8 @@ public partial class D_Tag
             TagTypeId = 2
         };
 
-    public static readonly Dimentions.D_Tag Reject =
-        new Dimentions.D_Tag
+    public static readonly D_Tag Reject =
+        new()
         {
             Id = 202,
             ERPCode = 202,
@@ -40,8 +40,8 @@ public partial class D_Tag
             TagTypeId = 2
         };
 
-    public static readonly Dimentions.D_Tag Revise =
-        new Dimentions.D_Tag
+    public static readonly D_Tag Revise =
+        new()
         {
             Id = 203,
             ERPCode = 203,
@@ -52,8 +52,8 @@ public partial class D_Tag
             TagTypeId = 2
         };
 
-    public static readonly Dimentions.D_Tag Price =
-        new Dimentions.D_Tag
+    public static readonly D_Tag Price =
+        new()
         {
             Id = 301,
             ERPCode = 301,

@@ -13,10 +13,6 @@ public class F_TaskConfiguration : IEntityTypeConfiguration<F_Task>
          .HasColumnOrder(101);
 
         builder
-         .Property(e => e.TaskItemId)
-         .HasColumnOrder(102);
-
-        builder
          .Property(e => e.ConditionId)
          .HasColumnOrder(103);
     }
