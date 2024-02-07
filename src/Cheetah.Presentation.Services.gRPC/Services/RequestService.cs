@@ -53,7 +53,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         #region Input
         var f_WorkItem = request.WorkItem.GetSimpleClass<F_WorkItem>();
 
-        f_WorkItem.Case = new F_Case();
+        f_WorkItem.Case = new();
 
         f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
         #endregion
