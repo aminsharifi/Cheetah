@@ -24,17 +24,17 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
         #region TaskItem
 
         var eP_Tasks_Query3 = eP_Tasks_Query2
-            .Include(x => x.TaskActions)
+            .Include(x => x.TaskAction)
             .ThenInclude(x => x.Action)
             .ThenInclude(x => x.CaseState);
 
         #region Conditions
         var eP_Tasks_Query4 = eP_Tasks_Query3
-            .Include(x => x.TaskActions)
+            .Include(x => x.TaskAction)
             .ThenInclude(x => x.Action)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Tag)
-            .Include(x => x.TaskActions)
+            .Include(x => x.TaskAction)
             .ThenInclude(x => x.Action)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Operand);
@@ -42,7 +42,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         #region TaskItem
         var eP_Tasks_Query5 = eP_Tasks_Query4
-            .Include(x => x.TaskActions)
+            .Include(x => x.TaskAction)
             .ThenInclude(x => x.Task);
 
         #endregion
@@ -398,7 +398,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                         #region Set inbox
 
-                        var toTasks = TaskItem?.TaskActions?
+                        var toTasks = TaskItem?.TaskAction?
                             .Select(x => x.Task);
 
                         foreach (var toTask in toTasks)

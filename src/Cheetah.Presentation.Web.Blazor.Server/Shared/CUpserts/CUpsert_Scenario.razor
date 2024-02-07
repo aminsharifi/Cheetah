@@ -79,7 +79,7 @@
     {
         var _Task = new L_TaskAction();
 
-        ICollection<L_TaskAction> _Tasks = cObject.TaskActions;
+        ICollection<L_TaskAction> _Tasks = cObject.TaskAction;
 
         if (_Tasks.Any())
         {
@@ -91,7 +91,7 @@
             .GetLast(nameof(L_TaskAction)) as L_TaskAction;
         }
 
-        cObject.TaskActions.Add(_Task);
+        cObject.TaskAction.Add(_Task);
     }
 
     private async Task Add_ActionsCondition(MouseEventArgs e, F_Action cObject)
@@ -117,7 +117,7 @@
     {
         F_Action _Action = new();
 
-        ICollection<L_TaskAction> _TaskItems = cObject.TaskActions;
+        ICollection<L_TaskAction> _TaskItems = cObject.TaskAction;
 
         if (_TaskItems.Any())
         {
