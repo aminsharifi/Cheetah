@@ -6,14 +6,14 @@ public partial class D_Entity
     public static readonly D_Entity D_TagType =
         new()
         {
-                   Id = 101,
-                   ERPCode = 101,
-                   SortIndex = 101,
-                   Name = nameof(D_TagType),
-                   DisplayName = new StringBuilder().Append("نوع تگ‌ها")
+            Id = 101,
+            ERPCode = 101,
+            SortIndex = 101,
+            Name = nameof(D_TagType),
+            DisplayName = new StringBuilder().Append("نوع تگ‌ها")
                             .Append($"({TableType.Dimentions})").ToString(),
-                   Display = false
-               };
+            Display = false
+        };
 
     public static readonly D_Entity D_Location =
         new()

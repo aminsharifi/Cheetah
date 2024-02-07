@@ -5,9 +5,9 @@ public class D_UserInformationConfiguration : IEntityTypeConfiguration<D_UserInf
     public void Configure(EntityTypeBuilder<D_UserInformation> builder)
     {
         builder
-                .Property(e => e.FirstName)
-                .HasColumnOrder(100)
-                .HasMaxLength(50);
+            .Property(e => e.FirstName)
+            .HasColumnOrder(100)
+            .HasMaxLength(50);
 
         builder
           .Property(e => e.LastName)
