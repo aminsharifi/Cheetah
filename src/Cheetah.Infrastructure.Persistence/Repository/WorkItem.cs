@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
     public CheetahResult<IQueryable<F_Task>> GetAllTask()
@@ -26,23 +24,26 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
         #region TaskItem
 
         var eP_Tasks_Query3 = eP_Tasks_Query2
-            .Include(x => x.TaskItems)
+            .Include(x => x.TaskActions)
+            .ThenInclude(x => x.Action)
             .ThenInclude(x => x.CaseState);
 
         #region Conditions
         var eP_Tasks_Query4 = eP_Tasks_Query3
-            .Include(x => x.TaskItems)
+            .Include(x => x.TaskActions)
+            .ThenInclude(x => x.Action)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Tag)
-            .Include(x => x.TaskItems)
+            .Include(x => x.TaskActions)
+            .ThenInclude(x => x.Action)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Operand);
         #endregion
 
         #region TaskItem
         var eP_Tasks_Query5 = eP_Tasks_Query4
-            .Include(x => x.TaskItem.TaskItemTasks);
-
+            .Include(x => x.TaskActions)
+            .ThenInclude(x => x.Task);
 
         #endregion
 
@@ -344,9 +345,10 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         var ActualConditions = Current_WorkItem.Case.Conditions;
 
-        var TaskItems = await _db.F_Actions
-            .Where(x => x.ToTaskId == WorkItemTaskId)
-            .ToListAsync();
+        var TaskItems = await _db.L_TaskActions
+           .Where(x => x.FirstId == WorkItemTaskId)
+           .Select(x => x.Action)
+           .ToListAsync();
 
         foreach (var TaskItem in TaskItems)
         {
@@ -396,7 +398,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                         #region Set inbox
 
-                        var toTasks = TaskItem.TaskItemTasks
+                        var toTasks = TaskItem?.TaskActions?
                             .Select(x => x.Task);
 
                         foreach (var toTask in toTasks)

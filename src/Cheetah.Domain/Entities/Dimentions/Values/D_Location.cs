@@ -1,4 +1,4 @@
-namespace Cheetah.Domain.Entities.Dimentions;
+ï»¿namespace Cheetah.Domain.Entities.Dimentions;
 public partial class D_Location
 {
     
@@ -11,7 +11,7 @@ public partial class D_Location
             ERPCode = 1,
             SortIndex = 1,
             Name = nameof(Fars),
-            DisplayName = "ÝÇÑÓ"
+            DisplayName = "Ù…ÙˆÙ‚Ø¹ÛŒØª"
         };
     #endregion
 }
