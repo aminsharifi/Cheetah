@@ -168,7 +168,7 @@ public partial class D_Entity
             Name = nameof(F_Condition),
             DisplayName = new StringBuilder().Append("لیست شرط‌ها")
                 .Append($"({TableType.Facts})").ToString(),
-            Display = false
+            Display = true
         };
 
     public static readonly D_Entity F_Case =
@@ -242,6 +242,5 @@ public partial class D_Entity
                         .Append($"({TableType.Links})").ToString(),
             Display = false
         };
-
     #endregion
 }

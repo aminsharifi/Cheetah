@@ -72,7 +72,8 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
     public virtual DbSet<L_TaskAction> L_TaskActions { get; set; }
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
-
+    public virtual DbSet<L_UserCondition> L_UserConditions { get; set; }
+    
     #endregion
 
     #endregion
