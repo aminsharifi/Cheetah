@@ -1,0 +1,276 @@
+﻿@inherits CUpsert_GeneralCode
+
+<CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
+                 Name="D_TaskPattern" Id="@Id" reference="@reference"
+                 ParentCallback="@ParentCallback" Title="@Title"
+                 LinkRecords="@LinkRecords">
+    <RowTemplate>
+        @if (!IsLoading)
+        {
+            <div class="col-sm-11 col-lg-5">
+                <span class="col-2">
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_Variable)))
+                </span>
+                <InputSelect class="col-12"
+                             @bind-Value="((F_Condition)Record).TagId" style="direction:rtl"
+                             @oninput="(e => SelectedParameterListChanged(e,(F_Condition)Record))">
+                    <option @if (item.TagId is null){"selected"} value="">
+
+                    </option>
+                    @foreach (var list_D_ParameterList in List_D_Tag)
+                    {
+                        <option value="@list_D_ParameterList.Id">
+                            @list_D_ParameterList.DisplayName (@list_D_ParameterList.Name)
+                        </option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="col-sm-11 col-lg-5">
+                <span class="col-2">
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+                </span>
+                <InputSelect class="col-12"
+                             @bind-Value="((F_Condition)Record).OperandId" style="direction:rtl"
+                             @oninput="(e => SelectedOperandChanged(e,(F_Condition)Record))">
+                    <option @if (((F_Condition)Record).TagId is null){"selected"} value="">
+
+                    </option>
+                    @foreach (var list_D_Operand in List_D_Operand)
+                    {
+                        <option value="@list_D_Operand.Id">
+                            @list_D_Operand.DisplayName
+                        </option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="col-sm-11 col-lg-5">
+                <span class="col-2">
+                    @(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                </span>
+                @if (((F_Condition)Record).Tag is not null && ((F_Condition)Record).Operand is not null)
+                {
+                    @if (((F_Condition)Record).Tag?.TagTypeId is not null)
+                    {
+                        @if (((F_Condition)Record).Tag?.TagTypeId == 1)
+                        {
+                            <InputNumber class="col-12" @bind-Value="((F_Condition)Record).FloatValue"></InputNumber>
+                        }
+                        else if (((F_Condition)Record).Tag?.TagTypeId == 2)
+                        {
+                            <InputCheckbox class="col-12" @bind-Value="((F_Condition)Record).BooleanValue"></InputCheckbox>
+                        }
+                        else if (((F_Condition)Record).Tag?.TagTypeId == 3)
+                        {
+                            <InputDate class="col-12" @bind-Value="((F_Condition)Record).Value"></InputDate>
+                        }
+                        else if (((F_Condition)Record).Tag?.TagTypeId == 4)
+                        {
+                            <InputText class="col-12" @bind-Value="((F_Condition)Record).Value"></InputText>
+
+                        }
+                    }
+                }
+            </div>
+        }
+    </RowTemplate>
+</CEditDimentions>
+@code {
+
+    public List<BaseEntity> List_D_Role { get; set; } = new();
+    public List<BaseEntity> List_D_Tag { get; set; } = new();
+    public List<BaseEntity> List_D_Operand { get; set; } = new();
+    public List<BaseEntity> List_CaseState { get; set; } = new();
+    public List<BaseEntity> List_D_TagType { get; set; } = new();
+
+    public override async Task ExtendedLoadDTO()
+    {
+        // List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
+        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<BaseEntity>;
+        List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<BaseEntity>;
+        List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<BaseEntity>;
+        List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<BaseEntity>;
+        AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
+        AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
+    }
+
+    private string GetMultiSelectionText(BaseEntity selectedValues)
+    {
+        return $"{string.Join(", ", selectedValues?.DisplayName)}";
+    }
+
+    private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
+    {
+        if (String.IsNullOrEmpty(e.ToString()))
+        {
+            f_Condition.OperandId = null;
+            f_Condition.Operand = null;
+        }
+        else
+        {
+            var _D_OperandId = Int64.Parse(e.Value.ToString());
+
+            f_Condition.Operand = List_D_Operand
+            .First(x => x.Id == _D_OperandId) as D_Operand;
+        }
+    }
+
+    private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var _D_ParameterListId = Int64.Parse(e.Value.ToString());
+
+            f_Condition.Tag = List_D_Tag
+            .First(x => x.Id == _D_ParameterListId) as D_Tag;
+        }
+    }
+
+    private async Task Add_ActionsTask(MouseEventArgs e, F_Action cObject)
+    {
+        var _Task = new L_TaskAction();
+
+        ICollection<L_TaskAction> _Tasks = cObject.TaskAction;
+
+        if (_Tasks.Any())
+        {
+            _Task.SortIndex = _Tasks.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            _Task = await simpleClassRepository
+            .GetLast(nameof(L_TaskAction)) as L_TaskAction;
+        }
+
+        cObject.TaskAction.Add(_Task);
+    }
+
+    private async Task Add_ActionsCondition(MouseEventArgs e, F_Action cObject)
+    {
+        var _Condition = new F_Condition();
+
+        ICollection<F_Condition> _Conditions = cObject.Conditions;
+
+        if (_Conditions.Any())
+        {
+            _Condition.SortIndex = _Conditions.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            _Condition = await simpleClassRepository
+            .GetLast(nameof(F_Condition)) as F_Condition;
+        }
+
+        cObject.Conditions.Add(_Condition);
+    }
+
+    private async Task Add_Actions(MouseEventArgs e, F_Task cObject)
+    {
+        F_Action _Action = new();
+
+        ICollection<L_TaskAction> _TaskItems = cObject.TaskAction;
+
+        if (_TaskItems.Any())
+        {
+            _Action.SortIndex = _TaskItems.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            _Action = await simpleClassRepository.GetLast(nameof(F_Action)) as F_Action;
+        }
+
+        throw new NotImplementedException("Add_Actions");
+        // cObject.TaskActions.Add(_Action);
+    }
+
+    private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
+    {
+        var Condition = new F_Condition();
+
+        var baseType = cObject.GetType().BaseType;
+
+        ICollection<F_Condition> Conditions = cObject.Conditions;
+
+        if (Conditions.Any())
+        {
+            Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
+        }
+
+        Condition.Tag = List_D_Tag.First() as D_Tag;
+        Condition.Operand = List_D_Operand.First() as D_Operand;
+        cObject.Conditions.Add(Condition);
+    }
+
+    private async Task AddTaskPattern()
+    {
+        var d_Task = new F_Task();
+
+        var eP_Tasks = (Record as F_Scenario).Tasks;
+
+        if (eP_Tasks.Any())
+        {
+            d_Task.SortIndex = eP_Tasks.Max(x => x.SortIndex) + 1;
+        }
+        else
+        {
+            d_Task = await simpleClassRepository.GetLast(nameof(F_Task)) as F_Task;
+        }
+
+        // d_Task.Role = List_D_Role.First() as D_Role;
+
+        (Record as F_Scenario).Tasks.Add(d_Task);
+    }
+
+    private async Task SelectedTaskChanged(ChangeEventArgs e, F_Task d_Task)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var _D_Role = Int64.Parse(e.Value.ToString());
+
+            // d_Task.Role = List_D_Role
+            // .First(x => x.Id == _D_Role) as D_Role;
+        }
+    }
+
+    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Action f_action)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var CaseStateId = Int64.Parse(e.Value.ToString());
+
+            f_action.CaseState = List_CaseState
+            .First(x => x.Id == CaseStateId) as D_CaseState;
+        }
+    }
+
+    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_TaskAction TaskSelector)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var ToTaskId = Int64.Parse(e.Value.ToString());
+
+            TaskSelector.Task = (Record as F_Scenario).Tasks
+            .First(x => x.Id == ToTaskId) as F_Task;
+        }
+        else
+        {
+            TaskSelector.Task = null;
+        }
+    }
+    private async Task SelectedConditionChanged(ChangeEventArgs e, F_Task Task)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var conditionId = Int64.Parse(e.Value.ToString());
+
+            Task.Condition = (Record as F_Scenario).Conditions
+            .First(x => x.Id == conditionId) as F_Condition;
+        }
+    }
+
+}

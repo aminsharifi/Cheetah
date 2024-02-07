@@ -1,4 +1,5 @@
 ﻿@inherits SharedPage
+
 @if (Name == nameof(F_Scenario))
 {
     <CUpsert_Scenario Name="@Name" IsInline="@IsInline"
@@ -24,14 +25,6 @@ else if (Name == nameof(D_Tag))
                  Title="@Title">
     </CUpsert_Tag>
 }
-else if (Name == nameof(D_Position))
-{
-    <CUpsert_Position Name="@Name" IsInline="@IsInline"
-                  ParentCallback="@ParentCallback" Id="@Id"
-                  reference="@reference" LoadData="@LoadData"
-                  Title="@Title">
-    </CUpsert_Position>
-}
 else if (Name == nameof(D_Process))
 {
     <CUpsert_Process Name="@Name" IsInline="@IsInline"
@@ -40,14 +33,6 @@ else if (Name == nameof(D_Process))
                  Title="@Title">
     </CUpsert_Process>
 }
-else if (Name == nameof(D_Role))
-{
-    <CUpsert_Role Name="@Name" IsInline="@IsInline"
-              ParentCallback="@ParentCallback" Id="@Id"
-              reference="@reference" LoadData="@LoadData"
-              Title="@Title">
-    </CUpsert_Role>
-}
 else if (Name == nameof(D_User))
 {
     <CUpsert_User Name="@Name" IsInline="@IsInline"
@@ -55,6 +40,14 @@ else if (Name == nameof(D_User))
               reference="@reference" LoadData="@LoadData"
               Title="@Title">
     </CUpsert_User>
+}
+else if (Name == nameof(F_Condition))
+{
+    <CUpsert_Condition Name="@Name" IsInline="@IsInline"
+                  ParentCallback="@ParentCallback" Id="@Id"
+                  reference="@reference" LoadData="@LoadData"
+                  Title="@Title">
+    </CUpsert_Condition>
 }
 else
 {

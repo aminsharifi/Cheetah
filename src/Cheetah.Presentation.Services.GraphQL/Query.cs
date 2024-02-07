@@ -24,19 +24,10 @@ public class Query
         return context.D_CaseStates;
     }
 
-    public IQueryable<D_Position> d_Positions([Service] ApplicationDbContext context)
-    {
-        return context.D_Positions;
-    }
 
     public IQueryable<D_Location> d_Locations([Service] ApplicationDbContext context)
     {
         return context.D_Locations;
-    }
-
-    public IQueryable<D_Role> d_Roles([Service] ApplicationDbContext context)
-    {
-        return context.D_Roles;
     }
 
     public IQueryable<D_User> d_Users([Service] ApplicationDbContext context)
@@ -135,19 +126,9 @@ public class Query
 
     #region Links
 
-    public IQueryable<L_RolePosition> l_RolePositions([Service] ApplicationDbContext context)
+    public IQueryable<L_UserCondition> l_UserConditions([Service] ApplicationDbContext context)
     {
-        return context.L_RolePositions;
-    }
-
-    public IQueryable<L_UserLocation> l_UserLocations([Service] ApplicationDbContext context)
-    {
-        return context.L_UserLocations;
-    }
-
-    public IQueryable<L_UserPosition> l_UserPositions([Service] ApplicationDbContext context)
-    {
-        return context.L_UserPositions;
+        return context.L_UserConditions;
     }
     #endregion
 }
