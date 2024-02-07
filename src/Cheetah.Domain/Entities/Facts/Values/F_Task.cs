@@ -4,14 +4,13 @@ public partial class F_Task
     #region Values
 
     public static readonly F_Task Sample_Scenario_Requestor =
-        new ()
+        new()
         {
             Id = 1,
             ERPCode = 1,
             SortIndex = 1,
             Name = nameof(Sample_Scenario_Requestor),
             DisplayName = "ثبت درخواست",
-            RoleId = 100,
             ScenarioId = 1
         };
     public static readonly F_Task Sample_Scenario_RequestorManager =
@@ -22,7 +21,6 @@ public partial class F_Task
                 SortIndex = 2,
                 Name = nameof(Sample_Scenario_RequestorManager),
                 DisplayName = "بررسی درخواست",
-                RoleId = 101,
                 ScenarioId = 1
             };
 

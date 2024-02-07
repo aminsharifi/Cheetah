@@ -44,9 +44,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<D_Tag> D_Tags { get; set; }
     public virtual DbSet<D_Process> D_Processes { get; set; }
     public virtual DbSet<D_CaseState> D_CaseStates { get; set; }
-    public virtual DbSet<D_Position> D_Positions { get; set; }
     public virtual DbSet<D_Location> D_Locations { get; set; }
-    public virtual DbSet<D_Role> D_Roles { get; set; }
     public virtual DbSet<D_User> D_Users { get; set; }
     public virtual DbSet<D_Operand> D_Operands { get; set; }
     public virtual DbSet<D_WorkItemState> D_WorkItemStates { get; set; }
@@ -66,9 +64,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     #endregion
 
     #region Links
-    public virtual DbSet<L_RolePosition> L_RolePositions { get; set; }
-    public virtual DbSet<L_UserLocation> L_UserLocations { get; set; }
-    public virtual DbSet<L_UserPosition> L_UserPositions { get; set; }
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
     public virtual DbSet<L_TaskAction> L_TaskActions { get; set; }
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
