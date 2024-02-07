@@ -86,7 +86,7 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
+        // List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
         List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<BaseEntity>;
         List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<BaseEntity>;
         List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<BaseEntity>;
@@ -221,7 +221,7 @@
             d_Task = await simpleClassRepository.GetLast(nameof(F_Task)) as F_Task;
         }
 
-        d_Task.Role = List_D_Role.First() as D_Role;
+        // d_Task.Role = List_D_Role.First() as D_Role;
 
         (Record as F_Scenario).Tasks.Add(d_Task);
     }
@@ -232,8 +232,8 @@
         {
             var _D_Role = Int64.Parse(e.Value.ToString());
 
-            d_Task.Role = List_D_Role
-            .First(x => x.Id == _D_Role) as D_Role;
+            // d_Task.Role = List_D_Role
+            // .First(x => x.Id == _D_Role) as D_Role;
         }
     }
 
