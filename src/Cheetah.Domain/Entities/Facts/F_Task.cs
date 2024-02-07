@@ -9,10 +9,6 @@ public partial class F_Task : BaseEntity
     public long? ScenarioId { get; set; }
     public virtual F_Scenario? Scenario { get; set; }
 
-    public long? TaskItemId { get; set; }
-    [ForeignKey(nameof(TaskItemId))]
-    public virtual F_TaskItem? TaskItem { get; set; }
-
     #region For Variables
     public virtual long? ConditionId { get; set; }
     public virtual F_Condition? Condition { get; set; }
@@ -20,13 +16,10 @@ public partial class F_Task : BaseEntity
 
     #endregion
 
-    #region Collections    
+    #region Collections
 
-    [InverseProperty(nameof(F_TaskItem.ToTask))]
-    public virtual ICollection<F_TaskItem>? TaskItems { get; set; } = new HashSet<F_TaskItem>();
-
-    [InverseProperty(nameof(L_TaskItemTask.Task))]
-    public virtual ICollection<L_TaskItemTask>? TaskItemTasks { get; set; } = new HashSet<L_TaskItemTask>();
+    [InverseProperty(nameof(L_TaskAction.Task))]
+    public virtual ICollection<L_TaskAction>? TaskActions { get; set; } = new HashSet<L_TaskAction>();
     #endregion
 
     public override void SetName()

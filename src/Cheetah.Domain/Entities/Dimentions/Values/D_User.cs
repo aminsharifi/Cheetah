@@ -4,7 +4,7 @@ public partial class D_User
     #region Values
 
     public static readonly D_User m_sharifi =
-        new D_User
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -14,7 +14,7 @@ public partial class D_User
         };
 
     public static readonly D_User a_sharifi =
-        new D_User
+        new()
         {
             Id = 2,
             ERPCode = 2,

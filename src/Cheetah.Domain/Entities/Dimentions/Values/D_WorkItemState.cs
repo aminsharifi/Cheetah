@@ -3,8 +3,8 @@ public partial class D_WorkItemState
 {
     #region Values
 
-    public static readonly Dimentions.D_WorkItemState Inbox =
-        new Dimentions.D_WorkItemState
+    public static readonly D_WorkItemState Inbox =
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -13,8 +13,8 @@ public partial class D_WorkItemState
             DisplayName = "صندوق ورودی"
         };
 
-    public static readonly Dimentions.D_WorkItemState Sent =
-        new Dimentions.D_WorkItemState
+    public static readonly D_WorkItemState Sent =
+        new()
         {
             Id = 2,
             ERPCode = 2,
@@ -23,8 +23,8 @@ public partial class D_WorkItemState
             DisplayName = "ارسال شده"
         };
 
-    public static readonly Dimentions.D_WorkItemState Exit =
-        new Dimentions.D_WorkItemState
+    public static readonly D_WorkItemState Exit =
+        new()
         {
             Id = 3,
             ERPCode = 3,
@@ -33,8 +33,8 @@ public partial class D_WorkItemState
             DisplayName = "خارج شده"
         };
 
-    public static readonly Dimentions.D_WorkItemState Future =
-        new Dimentions.D_WorkItemState
+    public static readonly D_WorkItemState Future =
+        new()
         {
             Id = 4,
             ERPCode = 4,

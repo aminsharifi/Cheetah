@@ -4,7 +4,7 @@ public partial class F_Condition
     #region Values
 
     public static readonly F_Condition Price =
-        new F_Condition
+        new()
         {
             Id = 1,
             ERPCode = 1,
@@ -17,7 +17,7 @@ public partial class F_Condition
             ScenarioId = 1
         };
     public static readonly F_Condition One =
-        new F_Condition
+        new ()
         {
             Id = 2,
             Name = nameof(One),
@@ -26,11 +26,11 @@ public partial class F_Condition
             TagId = 201,
             OperandId = 1,
             Value = "0",
-            TaskItemId = 1
+            ActionId = 1
         };
 
     public static readonly F_Condition Two =
-        new F_Condition
+        new()
         {
             Id = 3,
             Name = nameof(Two),
@@ -39,11 +39,11 @@ public partial class F_Condition
             TagId = 201,
             OperandId = 1,
             Value = "0",
-            TaskItemId = 2
+            ActionId = 2
         };
 
     public static readonly F_Condition Three =
-        new F_Condition
+        new()
         {
             Id = 4,
             Name = nameof(Three),
@@ -52,11 +52,11 @@ public partial class F_Condition
             TagId = 203,
             OperandId = 1,
             Value = "0",
-            TaskItemId = 3
+            ActionId = 3
         };
 
     public static readonly F_Condition Four =
-        new F_Condition
+        new()
         {
             Id = 5,
             Name = nameof(Four),
@@ -65,7 +65,7 @@ public partial class F_Condition
             TagId = 202,
             OperandId = 1,
             Value = "1",
-            TaskItemId = 4
+            ActionId = 4
         };
     #endregion
 }

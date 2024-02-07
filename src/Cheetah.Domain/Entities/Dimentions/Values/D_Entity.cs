@@ -4,19 +4,19 @@ public partial class D_Entity
 {
     #region Values
     public static readonly D_Entity D_TagType =
-        new D_Entity
-               {
-                   Id = 101,
-                   ERPCode = 101,
-                   SortIndex = 101,
-                   Name = nameof(D_TagType),
-                   DisplayName = new StringBuilder().Append("نوع تگ‌ها")
+        new()
+        {
+            Id = 101,
+            ERPCode = 101,
+            SortIndex = 101,
+            Name = nameof(D_TagType),
+            DisplayName = new StringBuilder().Append("نوع تگ‌ها")
                             .Append($"({TableType.Dimentions})").ToString(),
-                   Display = false
-               };
+            Display = false
+        };
 
     public static readonly D_Entity D_Location =
-        new D_Entity
+        new()
         {
             Id = 102,
             ERPCode = 102,
@@ -28,7 +28,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_Operand =
-        new D_Entity
+        new()
         {
             Id = 103,
             ERPCode = 103,
@@ -40,7 +40,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_Tag =
-        new D_Entity
+        new()
         {
             Id = 104,
             ERPCode = 104,
@@ -52,7 +52,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_Position =
-        new D_Entity
+        new()
         {
             Id = 105,
             ERPCode = 105,
@@ -64,7 +64,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_CaseState =
-        new D_Entity
+        new()
         {
             Id = 106,
             ERPCode = 106,
@@ -76,7 +76,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_Process =
-        new D_Entity
+        new()
         {
             Id = 107,
             ERPCode = 107,
@@ -88,7 +88,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_Role =
-        new D_Entity
+        new()
         {
             Id = 108,
             ERPCode = 108,
@@ -100,7 +100,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_User =
-        new D_Entity
+        new()
         {
             Id = 109,
             ERPCode = 109,
@@ -112,7 +112,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity D_UserInformation =
-        new D_Entity
+        new()
         {
             Id = 112,
             ERPCode = 112,
@@ -124,7 +124,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity F_WorkItem =
-        new D_Entity
+        new()
         {
             Id = 200,
             ERPCode = 200,
@@ -136,7 +136,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity F_Attachment =
-        new D_Entity
+        new()
         {
             Id = 202,
             ERPCode = 202,
@@ -148,7 +148,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity F_Task =
-        new D_Entity
+        new()
         {
             Id = 203,
             ERPCode = 203,
@@ -160,7 +160,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity F_Condition =
-        new D_Entity
+        new()
         {
             Id = 204,
             ERPCode = 204,
@@ -172,7 +172,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity F_Case =
-        new D_Entity
+        new()
         {
             Id = 205,
             ERPCode = 205,
@@ -184,7 +184,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity F_Scenario =
-        new D_Entity
+        new()
         {
             Id = 206,
             ERPCode = 206,
@@ -196,7 +196,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity L_RolePosition =
-        new D_Entity
+        new()
         {
             Id = 300,
             ERPCode = 300,
@@ -208,7 +208,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity L_ProcessScenario =
-        new D_Entity
+        new()
         {
             Id = 301,
             ERPCode = 301,
@@ -220,7 +220,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity L_UserLocation =
-        new D_Entity
+        new()
         {
             Id = 302,
             ERPCode = 302,
@@ -232,7 +232,7 @@ public partial class D_Entity
         };
 
     public static readonly D_Entity L_UserPosition =
-        new D_Entity
+        new()
         {
             Id = 303,
             ERPCode = 303,

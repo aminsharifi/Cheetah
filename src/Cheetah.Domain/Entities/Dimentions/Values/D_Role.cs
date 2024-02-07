@@ -3,8 +3,8 @@ public partial class D_Role
 {
     #region Values
 
-    public static readonly Dimentions.D_Role Requestor =
-           new Dimentions.D_Role
+    public static readonly D_Role Requestor =
+           new()
            {
                Id = 100,
                ERPCode = 100,
@@ -14,8 +14,8 @@ public partial class D_Role
                FixedRole = true
            };
 
-    public static readonly Dimentions.D_Role RequestorManager =
-         new Dimentions.D_Role
+    public static readonly D_Role RequestorManager =
+         new()
          {
              Id = 101,
              ERPCode = 101,

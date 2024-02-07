@@ -16,7 +16,7 @@ public static class DependencyInjection
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
 #if (UseSQLite)
-        options.UseSqlite(connectionString);
+                    options.UseSqlite(connectionString);
 #else
             options.UseSqlServer(connectionString);
 #endif
@@ -25,7 +25,7 @@ public static class DependencyInjection
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddTransient<IIdentityService, IdentityService>();
-        
+
 
 #if (UseApiOnly)
     services.AddAuthentication()

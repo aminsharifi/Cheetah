@@ -19,4 +19,8 @@
 		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence\Cheetah.Infrastructure.Persistence.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
+
 </Project>
