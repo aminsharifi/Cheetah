@@ -8,7 +8,6 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             _db.F_Tasks
             .Where(x => x.EnableRecord == true)
             .AsNoTracking()
-            .Include(x => x.Role)
             .OrderBy(x => x.SortIndex);
 
 
@@ -97,7 +96,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
             foreach (var eP_Task in eP_Tasks)
             {
-                if (eP_Task.Role.FixedRole)
+                //if (eP_Task.Role.FixedRole)
+                if (false)
                 {
                     F_WorkItem f_WorkItem = new()
                     {
@@ -105,14 +105,14 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                         TaskId = eP_Task.Id
                     };
 
-                    if (eP_Task.IsRequestor())
-                    {
-                        f_WorkItem.UserId = Current_Case.RequestorId;
-                    }
-                    else if (eP_Task.IsRequestorManager())
-                    {
-                        f_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
-                    }
+                    //if (eP_Task.IsRequestor())
+                    //{
+                    //    f_WorkItem.UserId = Current_Case.RequestorId;
+                    //}
+                    //else if (eP_Task.IsRequestorManager())
+                    //{
+                    //    f_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
+                    //}
                     if (first_WorkItem.TaskId is null)
                     {
                         first_WorkItem = f_WorkItem;
@@ -122,30 +122,31 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 }
                 else
                 {
-                    var Positions = await _db.L_RolePositions
-                        .Where(x => x.FirstId == eP_Task.RoleId)
-                        .Where(x => x.EnableRecord == true)
-                        .AsNoTracking()
-                        .Select(x => x.SecondId)
-                        .ToListAsync();
+                    //var Positions = await _db.L_RolePositions
+                    //    .Where(x => x.FirstId == eP_Task.RoleId)
+                    //    .Where(x => x.EnableRecord == true)
+                    //    .AsNoTracking()
+                    //    .Select(x => x.SecondId)
+                    //    .ToListAsync();
 
-                    var Users = await _db.L_UserPositions
-                        .Where(x => Positions.Contains(x.SecondId))
-                        .Where(x => x.EnableRecord == true)
-                        .AsNoTracking()
-                        .Select(x => x.FirstId)
-                        .ToListAsync();
+                    //var Users = await _db.L_UserPositions
+                    //    .Where(x => Positions.Contains(x.SecondId))
+                    //    .Where(x => x.EnableRecord == true)
+                    //    .AsNoTracking()
+                    //    .Select(x => x.FirstId)
+                    //    .ToListAsync();
 
                     var D_Users = await _db.D_Users
-                        .Where(x => Users.Contains(x.Id))
+                        //.Where(x => Users.Contains(x.Id))
                         .Where(x => x.EnableRecord == true)
                         .AsNoTracking()
-                        .Include(x => x.UserLocations)
+                        //.Include(x => x.UserLocations)
                         .ToListAsync();
 
                     long _Location = 0;
 
-                    if (!eP_Task.Role.Independent)
+                    //if (!eP_Task.Role.Independent)
+                    if (true)
                     {
                         var _ConditionId = eP_Task.ConditionId;
 
@@ -161,7 +162,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                     {
                         var UserOccur = false;
 
-                        if (eP_Task.Role.Independent)
+                        //if (eP_Task.Role.Independent)
+                        if (false)
                         {
                             UserOccur = true;
                         }
@@ -169,7 +171,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                         {
                             if (eP_Task.ConditionId is not null)
                             {
-                                if (D_User.UserLocations.Any(x => x.SecondId == _Location))
+                                //if (D_User.UserLocations.Any(x => x.SecondId == _Location))
+                                if (true)
                                 {
                                     UserOccur = true;
                                 }

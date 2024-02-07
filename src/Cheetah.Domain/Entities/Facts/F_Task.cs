@@ -3,9 +3,6 @@ public partial class F_Task : BaseEntity
 {
     #region Entity
 
-    public long? RoleId { get; set; }
-    public virtual D_Role? Role { get; set; }
-
     public long? ScenarioId { get; set; }
     public virtual F_Scenario? Scenario { get; set; }
 
@@ -32,16 +29,6 @@ public partial class F_Task : BaseEntity
     {
         return (F_Task)MemberwiseClone();
     }
-    #region Getter
-    public bool IsRequestor()
-    {
-        return RoleId == D_Role.Requestor.Id;
-    }
-    public bool IsRequestorManager()
-    {
-        return RoleId == D_Role.RequestorManager.Id;
-    }
-    #endregion
 
     #endregion
 }

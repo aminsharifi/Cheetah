@@ -33,8 +33,8 @@ public partial class D_User : BaseEntity<D_User>
 
     #region Collection
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
-    public virtual ICollection<L_UserLocation>? UserLocations { get; set; } = new HashSet<L_UserLocation>();
-    public virtual ICollection<L_UserPosition>? UserPositions { get; set; } = new HashSet<L_UserPosition>();
+    
+    public virtual ICollection<L_UserCondition>? UserConditions { get; set; } = new HashSet<L_UserCondition>();
 
     #endregion
 
