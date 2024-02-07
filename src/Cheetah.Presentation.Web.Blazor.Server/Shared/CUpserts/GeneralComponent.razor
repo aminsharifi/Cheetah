@@ -1,4 +1,5 @@
 ﻿@inherits SharedPage
+
 @if (Name == nameof(F_Scenario))
 {
     <CUpsert_Scenario Name="@Name" IsInline="@IsInline"
@@ -55,6 +56,14 @@ else if (Name == nameof(D_User))
               reference="@reference" LoadData="@LoadData"
               Title="@Title">
     </CUpsert_User>
+}
+else if (Name == nameof(F_Condition))
+{
+    <CUpsert_Condition Name="@Name" IsInline="@IsInline"
+                  ParentCallback="@ParentCallback" Id="@Id"
+                  reference="@reference" LoadData="@LoadData"
+                  Title="@Title">
+    </CUpsert_Condition>
 }
 else
 {

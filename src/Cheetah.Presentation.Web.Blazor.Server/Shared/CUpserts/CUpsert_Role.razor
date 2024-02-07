@@ -13,7 +13,6 @@
             <InputCheckbox class="col-1" @bind-Value="(Record as D_Role).Independent"></InputCheckbox>
         </div>
 
-
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
                        Title=@(globalization.GetValue(nameof(Localization.BlazorServer_PositionsInRole), new String[] { Record?.DisplayName}))>
