@@ -1,13 +1,33 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 public partial class F_Condition : BaseEntity
 {
-    public long? TagId { get; set; }
+    [NotMapped]
+    private long? _tagId;
+
+    public long? TagId
+    {
+        get { return _tagId; }
+        set { _tagId = value; SetName(); }
+    }
     public virtual D_Tag? Tag { get; set; }
 
-    public long? OperandId { get; set; }
+    [NotMapped]
+    private long? _operandId;
+    public long? OperandId
+    {
+        get { return _operandId; }
+        set { _operandId = value; SetName(); }
+    }
     public virtual D_Operand? Operand { get; set; }
 
-    public string? Value { get; set; }
+    [NotMapped]
+    private string? _value;
+
+    public string? Value
+    {
+        get { return _value; }
+        set { _value = value; SetName(); }
+    }
 
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
@@ -15,7 +35,7 @@ public partial class F_Condition : BaseEntity
     public long? WorkItemId { get; set; }
     public virtual F_WorkItem? WorkItem { get; set; }
 
-    public long? ActionId { get; set; }  
+    public long? ActionId { get; set; }
     public virtual F_Action? Action { get; set; }
 
     [NotMapped]
@@ -49,7 +69,7 @@ public partial class F_Condition : BaseEntity
     }
     public override void SetName()
     {
-        //DisplayName = Scenario?.DisplayName + "," + Tag?.DisplayName + "," + Operand?.DisplayName + "," + Value;
-        //Name = Scenario?.Name + "," + Tag?.Name + "," + Operand?.Name + "," + Value;
+        DisplayName = Tag?.DisplayName + " " + Operand?.DisplayName + " " + Value + " است.";
+        Name = Tag?.Name + " " + Operand?.Name + " " + Value + " است.";
     }
 }

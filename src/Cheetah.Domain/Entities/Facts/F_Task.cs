@@ -15,7 +15,7 @@ public partial class F_Task : BaseEntity
 
     #region Collections
 
-    public virtual ICollection<L_TaskAction>? TaskAction { get; set; } = new HashSet<L_TaskAction>();
+    public virtual ICollection<L_TaskAction>? TaskActions { get; set; } = new HashSet<L_TaskAction>();
     #endregion
 
     public override void SetName()
