@@ -131,7 +131,7 @@
     {
         var _Task = new L_TaskAction();
 
-        ICollection<L_TaskAction> _Tasks = cObject.TaskAction;
+        ICollection<L_TaskAction> _Tasks = cObject.TaskActions;
 
         if (_Tasks.Any())
         {
@@ -143,7 +143,7 @@
             .GetLast(nameof(L_TaskAction)) as L_TaskAction;
         }
 
-        cObject.TaskAction.Add(_Task);
+        cObject.TaskActions.Add(_Task);
     }
 
     private async Task Add_ActionsCondition(MouseEventArgs e, F_Action cObject)
@@ -163,25 +163,6 @@
         }
 
         cObject.Conditions.Add(_Condition);
-    }
-
-    private async Task Add_Actions(MouseEventArgs e, F_Task cObject)
-    {
-        F_Action _Action = new();
-
-        ICollection<L_TaskAction> _TaskItems = cObject.TaskAction;
-
-        if (_TaskItems.Any())
-        {
-            _Action.SortIndex = _TaskItems.Max(x => x.SortIndex) + 1;
-        }
-        else
-        {
-            _Action = await simpleClassRepository.GetLast(nameof(F_Action)) as F_Action;
-        }
-
-        throw new NotImplementedException("Add_Actions");
-        // cObject.TaskActions.Add(_Action);
     }
 
     private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)

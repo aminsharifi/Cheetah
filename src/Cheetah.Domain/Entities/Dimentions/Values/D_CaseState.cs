@@ -10,7 +10,7 @@ public partial class D_CaseState : BaseEntity
         ERPCode = 1,
         SortIndex = 1,
         Name = nameof(Initializing),
-        DisplayName = "مقدار دهی اولیه"
+        DisplayName = "مقداردهی اولیه"
     };
 
     public static D_CaseState Ongoing = new()

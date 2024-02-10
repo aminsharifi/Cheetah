@@ -10,9 +10,9 @@ public partial class F_Action : BaseEntity
     #endregion
 
     #region Collection    
-    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
-    
-    public virtual ICollection<L_TaskAction>? TaskAction { get; set; } = new HashSet<L_TaskAction>();
+    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();    
+    public virtual ICollection<L_TaskAction>? TaskActions { get; set; } = new HashSet<L_TaskAction>();
+    public virtual ICollection<L_ActionTask>? ActionTasks { get; set; } = new HashSet<L_ActionTask>();
 
     #endregion
 
