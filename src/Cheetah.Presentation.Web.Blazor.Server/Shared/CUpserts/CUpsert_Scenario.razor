@@ -10,136 +10,6 @@
             <div class="row">
                 <center>
                     <MudButton Variant="Variant.Filled" Color="Color.Success"
-                               StartIcon="@Icons.Material.Filled.NoteAdd"
-                               style="align-self: center;"
-                               @onclick="(e => AddConditions(e,(Record as F_Scenario)))">
-                        @(globalization.GetValue(nameof(Localization.BlazorServer_AddConditionAndVariable)))
-                    </MudButton>
-                </center>
-                <div class="row">
-                    @if ((Record as F_Scenario).Conditions.Any())
-                    {
-                        <Ctable>
-                            <caption>
-                                <div class="row my-1" style="justify-content: center;">
-                                    <span class="col-2 text-success">@(globalization.GetValue(nameof(Localization.BlazorServer_ConditionAndVariableList)))</span>
-                                </div>
-                            </caption>
-                            <thead>
-                                <tr style="width:90%">
-                                    <th data-sortable="true" style="width:8%" aria-sort="ascending">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
-                                    </th>
-                                    <th data-sortable="true" style="width:8%">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
-                                    </th>
-                                    <th data-sortable="true" style="width:16%">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Variable)))
-                                    </th>
-                                    <th data-sortable="true" style="width:16%">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Parameter)))
-                                    </th>
-                                    <th data-sortable="true" style="width:16%">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-                                    </th>
-                                    <th data-sortable="true" style="width:16%">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                                    </th>
-                                    <th data-sortable="true" style="width:8%">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (F_Condition item in (Record as F_Scenario).Conditions)
-                                {
-                                    <tr style="width:90%">
-                                        <td>
-                                            <span class="col-12">
-                                                @(item?.Id)
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <InputNumber class="col-12" @bind-Value="item.SortIndex"></InputNumber>
-                                        </td>
-                                        <td>
-                                            <InputText class="col-12" @bind-Value="item.Name"></InputText>
-                                        </td>
-                                        <td>
-                                            <InputSelect class="col-12"
-                                                         @bind-Value="item.TagId" style="direction:rtl"
-                                                         @oninput="(e => SelectedParameterListChanged(e,item))">
-                                                <option @if (item.TagId is null){"selected"} value="">
-
-                                                </option>
-                                                @foreach (var list_D_ParameterList in List_D_Tag)
-                                                {
-                                                    <option value="@list_D_ParameterList.Id">
-                                                        @list_D_ParameterList.DisplayName (@list_D_ParameterList.Name)
-                                                    </option>
-                                                }
-                                            </InputSelect>
-                                        </td>
-                                        <td>
-                                            <InputSelect class="col-12"
-                                                         @bind-Value="item.OperandId" style="direction:rtl"
-                                                         @oninput="(e => SelectedOperandChanged(e,item))">
-                                                <option @if (item.TagId is null){"selected"} value="">
-
-                                                </option>
-                                                @foreach (var list_D_Operand in List_D_Operand)
-                                                {
-                                                    <option value="@list_D_Operand.Id">
-                                                        @list_D_Operand.DisplayName
-                                                    </option>
-                                                }
-                                            </InputSelect>
-                                        </td>
-                                        <td>
-                                            @if (item.Tag is not null && item.Operand is not null)
-                                            {
-                                                @if (item.Tag?.TagTypeId is not null)
-                                                {
-                                                    @if (item.Tag?.TagTypeId == 1)
-                                                    {
-                                                        <InputNumber class="col-12" @bind-Value="item.FloatValue"></InputNumber>
-                                                    }
-                                                    else if (item.Tag?.TagTypeId == 2)
-                                                    {
-                                                        <InputCheckbox class="col-12" @bind-Value="item.BooleanValue"></InputCheckbox>
-                                                    }
-                                                    else if (item.Tag?.TagTypeId == 3)
-                                                    {
-                                                        <InputDate class="col-12" @bind-Value="item.Value"></InputDate>
-                                                    }
-                                                    else if (item.Tag?.TagTypeId == 4)
-                                                    {
-                                                        <InputText class="col-12" @bind-Value="item.Value"></InputText>
-
-                                                    }
-                                                }
-                                            }
-                                        </td>
-                                        <td>
-                                            <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                         Checked="@Record.EnableRecord"
-                                                         Color="Color.Primary"
-                                                         CheckedIcon="@Icons.Material.Filled.Verified"
-                                                         UnCheckedColor="Color.Error"
-                                                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                         @onclick="args=>item.EnableRecord = !item.EnableRecord" />
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </Ctable>
-                    }
-                </div>
-            </div>
-
-            <div class="row">
-                <center>
-                    <MudButton Variant="Variant.Filled" Color="Color.Success"
                                StartIcon="@Icons.Material.Filled.PersonAdd"
                                style="align-self: center;"
                                @onclick="AddTaskPattern">
@@ -200,21 +70,21 @@
                                             <InputText @bind-Value="_task.DisplayName"></InputText>
                                         </td>
                                         <td>
-                                 @*            <InputSelect @bind-Value="_task.RoleId" style="direction:rtl"
-                                                         @oninput="(e => SelectedTaskChanged(e,_task))">
-                                                @if (_task.RoleId < 1)
-                                                {
-                                                    <option selected value="">
-                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
-                                                    </option>
-                                                }
-                                                @foreach (var list_D_Role in List_D_Role)
-                                                {
-                                                    <option value="@list_D_Role.Id">
-                                                        @list_D_Role.DisplayName (@list_D_Role.Name)
-                                                    </option>
-                                                }
-                                            </InputSelect> *@
+                                            @*            <InputSelect @bind-Value="_task.RoleId" style="direction:rtl"
+                                @oninput="(e => SelectedTaskChanged(e,_task))">
+                                @if (_task.RoleId < 1)
+                                {
+                                <option selected value="">
+                                @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
+                                </option>
+                                }
+                                @foreach (var list_D_Role in List_D_Role)
+                                {
+                                <option value="@list_D_Role.Id">
+                                @list_D_Role.DisplayName (@list_D_Role.Name)
+                                </option>
+                                }
+                                </InputSelect> *@
                                         </td>
                                         <td>
                                             <InputSelect @bind-Value="_task.ConditionId" style="direction:rtl"
@@ -225,12 +95,12 @@
                                                         @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
                                                     </option>
                                                 }
-                                                @foreach (var condition in (Record as F_Scenario).Conditions)
+                                             @*    @foreach (var condition in (Record as F_Scenario).Conditions)
                                                 {
                                                     <option value="@condition.Id">
                                                         @condition.Name
                                                     </option>
-                                                }
+                                                } *@
                                             </InputSelect>
                                         </td>
                                     </tr>
@@ -280,7 +150,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
 
@@ -379,20 +249,20 @@
 
         var baseType = cObject.GetType().BaseType;
 
-        ICollection<F_Condition> Conditions = cObject.Conditions;
+        // ICollection<F_Condition> Conditions = cObject.Conditions;
 
-        if (Conditions.Any())
-        {
-            Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
-        }
-        else
-        {
-            Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
-        }
+        // if (Conditions.Any())
+        // {
+        //     Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
+        // }
+        // else
+        // {
+        //     Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
+        // }
 
-        Condition.Tag = List_D_Tag.First() as D_Tag;
-        Condition.Operand = List_D_Operand.First() as D_Operand;
-        cObject.Conditions.Add(Condition);
+        // Condition.Tag = List_D_Tag.First() as D_Tag;
+        // Condition.Operand = List_D_Operand.First() as D_Operand;
+        // cObject.Conditions.Add(Condition);
     }
 
     private async Task AddTaskPattern()
@@ -457,8 +327,8 @@
         {
             var conditionId = Int64.Parse(e.Value.ToString());
 
-            Task.Condition = (Record as F_Scenario).Conditions
-            .First(x => x.Id == conditionId) as F_Condition;
+            // Task.Condition = (Record as F_Scenario).Conditions
+            // .First(x => x.Id == conditionId) as F_Condition;
         }
     }
 

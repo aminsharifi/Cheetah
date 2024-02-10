@@ -9,9 +9,6 @@ public partial class F_Condition : BaseEntity
 
     public string? Value { get; set; }
 
-    public long? ScenarioId { get; set; }
-    public virtual F_Scenario? Scenario { get; set; }
-
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
 

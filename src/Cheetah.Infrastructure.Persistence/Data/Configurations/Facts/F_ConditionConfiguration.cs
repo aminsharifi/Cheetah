@@ -17,19 +17,15 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
             .HasColumnOrder(102);
 
         builder
-            .Property(e => e.ScenarioId)
-            .HasColumnOrder(103);
-
-        builder
             .Property(e => e.CaseId)
-            .HasColumnOrder(105);   
+            .HasColumnOrder(103);   
 
         builder
             .Property(e => e.ActionId)
-            .HasColumnOrder(109);
+            .HasColumnOrder(104);
 
         builder
             .Property(e => e.WorkItemId)
-            .HasColumnOrder(110);
+            .HasColumnOrder(105);
     }
 }
