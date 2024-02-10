@@ -190,20 +190,20 @@
 
         var baseType = cObject.GetType().BaseType;
 
-        ICollection<F_Condition> Conditions = cObject.Conditions;
+        // ICollection<F_Condition> Conditions = cObject.Conditions;
 
-        if (Conditions.Any())
-        {
-            Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
-        }
-        else
-        {
-            Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
-        }
+        // if (Conditions.Any())
+        // {
+        //     Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
+        // }
+        // else
+        // {
+        //     Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
+        // }
 
-        Condition.Tag = List_D_Tag.First() as D_Tag;
-        Condition.Operand = List_D_Operand.First() as D_Operand;
-        cObject.Conditions.Add(Condition);
+        // Condition.Tag = List_D_Tag.First() as D_Tag;
+        // Condition.Operand = List_D_Operand.First() as D_Operand;
+        // cObject.Conditions.Add(Condition);
     }
 
     private async Task AddTaskPattern()
@@ -268,8 +268,8 @@
         {
             var conditionId = Int64.Parse(e.Value.ToString());
 
-            Task.Condition = (Record as F_Scenario).Conditions
-            .First(x => x.Id == conditionId) as F_Condition;
+            // Task.Condition = (Record as F_Scenario).Conditions
+            // .First(x => x.Id == conditionId) as F_Condition;
         }
     }
 

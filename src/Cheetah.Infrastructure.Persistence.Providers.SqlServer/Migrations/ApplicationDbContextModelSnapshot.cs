@@ -39,7 +39,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 422, DateTimeKind.Unspecified).AddTicks(1412), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 951, DateTimeKind.Unspecified).AddTicks(8662), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -72,7 +72,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("b9089422-cb0c-4749-9688-b1a51bed9977"))
+                        .HasDefaultValue(new Guid("a169fe70-b3fd-45bf-a8f3-b55f67e8a4bb"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -119,57 +119,68 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 88, DateTimeKind.Unspecified).AddTicks(422), new TimeSpan(0, 3, 30, 0, 0)),
-                            DisplayName = "در دست بررسی",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(8751), new TimeSpan(0, 3, 30, 0, 0)),
+                            DisplayName = "مقدار دهی اولیه",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("55b989fd-46ce-425c-bae0-e5ae4b7e936e"),
-                            Name = "Ongoing",
+                            GuidRecord = new Guid("d0885ddc-dca6-48e2-864f-50f53ab5d986"),
+                            Name = "Initializing",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 88, DateTimeKind.Unspecified).AddTicks(432), new TimeSpan(0, 3, 30, 0, 0)),
-                            DisplayName = "منتظر بازنگری",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(8766), new TimeSpan(0, 3, 30, 0, 0)),
+                            DisplayName = "در دست بررسی",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("c8a62a80-5e28-4b10-8e35-921542268c74"),
-                            Name = "Editing",
+                            GuidRecord = new Guid("99397c6c-0153-4743-8d0e-1bda98ed4429"),
+                            Name = "Ongoing",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 88, DateTimeKind.Unspecified).AddTicks(435), new TimeSpan(0, 3, 30, 0, 0)),
-                            DisplayName = "کامل شده",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(8781), new TimeSpan(0, 3, 30, 0, 0)),
+                            DisplayName = "منتظر بازنگری",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("a9df030b-0874-46a4-854b-271233bd2a23"),
-                            Name = "Completed",
+                            GuidRecord = new Guid("629ae0fa-023f-40d5-a11e-e1b01596ff48"),
+                            Name = "Editing",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 88, DateTimeKind.Unspecified).AddTicks(437), new TimeSpan(0, 3, 30, 0, 0)),
-                            DisplayName = "عدم تایید",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(8786), new TimeSpan(0, 3, 30, 0, 0)),
+                            DisplayName = "کامل شده",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("519a98b7-e7c3-4323-9fd4-3d793358207f"),
-                            Name = "Rejected",
+                            GuidRecord = new Guid("53a0e017-7c71-45dd-90db-96b4d31fcfee"),
+                            Name = "Completed",
                             SortIndex = 4L
                         },
                         new
                         {
                             Id = 5L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 88, DateTimeKind.Unspecified).AddTicks(440), new TimeSpan(0, 3, 30, 0, 0)),
-                            DisplayName = "ابطال شده",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(8789), new TimeSpan(0, 3, 30, 0, 0)),
+                            DisplayName = "عدم تایید",
                             ERPCode = 5L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("12fe170a-b3c6-4416-8e3d-cdde1c8de396"),
-                            Name = "Aborted",
+                            GuidRecord = new Guid("2fde0fa7-9c5a-4b93-9f6d-b345166ac5d9"),
+                            Name = "Rejected",
                             SortIndex = 5L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(8792), new TimeSpan(0, 3, 30, 0, 0)),
+                            DisplayName = "ابطال شده",
+                            ERPCode = 6L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("585ec7e6-71fc-4ecf-9eb8-687299cd6ec3"),
+                            Name = "Aborted",
+                            SortIndex = 6L
                         });
                 });
 
@@ -186,7 +197,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 422, DateTimeKind.Unspecified).AddTicks(2995), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 952, DateTimeKind.Unspecified).AddTicks(1151), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -225,7 +236,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("503d3976-8790-4c25-bba2-bffae8cf0f21"))
+                        .HasDefaultValue(new Guid("72260a6c-2b78-471f-bc49-67019ef0c650"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -274,242 +285,170 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 101L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 89, DateTimeKind.Unspecified).AddTicks(1001), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 493, DateTimeKind.Unspecified).AddTicks(8376), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "نوع تگ‌ها(Dimentions)",
                             ERPCode = 101L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("cbe2b861-5e42-484f-8d75-6e2052565ebe"),
+                            GuidRecord = new Guid("4ee40b9a-cab7-4749-b917-0d08f3a555ad"),
                             Name = "D_TagType",
                             SortIndex = 101L
                         },
                         new
                         {
                             Id = 102L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(461), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2068), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
-                            DisplayName = "موقعیت‌ها(Dimentions)",
+                            DisplayName = "عملگرها(Dimentions)",
                             ERPCode = 102L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("bebc1dba-ad35-49c8-b8a1-07151559b73a"),
-                            Name = "D_Location",
+                            GuidRecord = new Guid("5434a20f-05c8-4314-8fc6-a19b364cc201"),
+                            Name = "D_Operand",
                             SortIndex = 102L
                         },
                         new
                         {
                             Id = 103L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(485), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "عملگرها(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2108), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = true,
+                            DisplayName = "تگ‌ها(Dimentions)",
                             ERPCode = 103L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("bd924598-1798-404c-93c1-bab38da7a1cd"),
-                            Name = "D_Operand",
+                            GuidRecord = new Guid("843b6f5b-522f-4906-8b4a-8f93d857d047"),
+                            Name = "D_Tag",
                             SortIndex = 103L
                         },
                         new
                         {
                             Id = 104L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(522), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = true,
-                            DisplayName = "تگ‌ها(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2116), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = false,
+                            DisplayName = "وضعیت فرآیندها(Dimentions)",
                             ERPCode = 104L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("f4cbe8b3-dfa8-48cb-8c0e-637381183a82"),
-                            Name = "D_Tag",
+                            GuidRecord = new Guid("8e5b91f0-f2d6-4ae1-ad2d-203b28d486b0"),
+                            Name = "D_CaseState",
                             SortIndex = 104L
                         },
                         new
                         {
                             Id = 105L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(537), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "سمت‌ها(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2130), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = true,
+                            DisplayName = "فرآیند‌ها(Dimentions)",
                             ERPCode = 105L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6900eeaf-546b-4f40-a178-9fa21d2c44e2"),
-                            Name = "D_Position",
+                            GuidRecord = new Guid("11742085-588a-4059-9c4d-eb61c78afbb1"),
+                            Name = "D_Process",
                             SortIndex = 105L
                         },
                         new
                         {
                             Id = 106L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(543), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "وضعیت فرآیندها(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2150), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = true,
+                            DisplayName = "کاربران(Dimentions)",
                             ERPCode = 106L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6af41bb6-80c7-4d24-83b2-09654686a674"),
-                            Name = "D_CaseState",
+                            GuidRecord = new Guid("a9b932e2-be82-485f-a3fc-43f969da1dab"),
+                            Name = "D_User",
                             SortIndex = 106L
                         },
                         new
                         {
                             Id = 107L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(549), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = true,
-                            DisplayName = "فرآیند‌ها(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2157), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = false,
+                            DisplayName = "اطلاعات کاربرها(Facts)",
                             ERPCode = 107L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("2927bcf9-472f-4570-b693-a72e6cf9b1cb"),
-                            Name = "D_Process",
+                            GuidRecord = new Guid("e0249e8a-47e8-43a4-871f-4206cdb54ac0"),
+                            Name = "D_UserInformation",
                             SortIndex = 107L
                         },
                         new
                         {
                             Id = 108L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(554), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = true,
-                            DisplayName = "نقش‌ها(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2164), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = false,
+                            DisplayName = "تمام تاییدها(Facts)",
                             ERPCode = 108L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("f867beb4-8a12-45b7-bf46-1ae87d455308"),
-                            Name = "D_Role",
+                            GuidRecord = new Guid("b9e3157f-6118-4756-b3d4-bc0375e924b0"),
+                            Name = "F_WorkItem",
                             SortIndex = 108L
                         },
                         new
                         {
                             Id = 109L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(565), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = true,
-                            DisplayName = "کاربران(Dimentions)",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2172), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = false,
+                            DisplayName = "ضمیمه‌ها(Facts)",
                             ERPCode = 109L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("09319b27-b39a-4481-858d-84c0b4bf09f0"),
-                            Name = "D_User",
+                            GuidRecord = new Guid("ee009a91-9ecc-4224-b81b-5449f1dc3dfc"),
+                            Name = "F_Attachment",
                             SortIndex = 109L
                         },
                         new
                         {
-                            Id = 112L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(570), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 110L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2177), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
-                            DisplayName = "اطلاعات کاربرها(Facts)",
+                            DisplayName = "لیست تخصیص‌ها(Facts)",
+                            ERPCode = 110L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("eaa08f44-4e15-4839-ac20-161f82c1a5fe"),
+                            Name = "F_Task",
+                            SortIndex = 110L
+                        },
+                        new
+                        {
+                            Id = 111L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2184), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = true,
+                            DisplayName = "لیست شرط‌ها(Facts)",
+                            ERPCode = 111L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("c7ef89ab-6523-4bbd-9b04-698b6330b0b7"),
+                            Name = "F_Condition",
+                            SortIndex = 111L
+                        },
+                        new
+                        {
+                            Id = 112L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2190), new TimeSpan(0, 3, 30, 0, 0)),
+                            Display = false,
+                            DisplayName = "اطلاعات درخواست‌ها(Facts)",
                             ERPCode = 112L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("ea259eac-d014-4c27-9349-2b2ce777ae84"),
-                            Name = "D_UserInformation",
+                            GuidRecord = new Guid("38f8dbab-56f4-48b0-a409-a3218c3bbc3f"),
+                            Name = "F_Case",
                             SortIndex = 112L
                         },
                         new
                         {
-                            Id = 200L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(583), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "تمام تاییدها(Facts)",
-                            ERPCode = 200L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("59966cd3-7489-401b-9508-83a185b021e7"),
-                            Name = "F_WorkItem",
-                            SortIndex = 200L
-                        },
-                        new
-                        {
-                            Id = 202L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(588), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "ضمیمه‌ها(Facts)",
-                            ERPCode = 202L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("11f6d3ba-2c5f-49c0-9bc9-51be414ac957"),
-                            Name = "F_Attachment",
-                            SortIndex = 202L
-                        },
-                        new
-                        {
-                            Id = 203L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(593), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "لیست تخصیص‌ها(Facts)",
-                            ERPCode = 203L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("7fbeaef9-6c22-40f6-a344-7bc3f599213e"),
-                            Name = "F_Task",
-                            SortIndex = 203L
-                        },
-                        new
-                        {
-                            Id = 204L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(598), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = true,
-                            DisplayName = "لیست شرط‌ها(Facts)",
-                            ERPCode = 204L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("3a8007bf-c752-4c0a-a8dc-1f57bab80c9c"),
-                            Name = "F_Condition",
-                            SortIndex = 204L
-                        },
-                        new
-                        {
-                            Id = 205L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(604), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "اطلاعات درخواست‌ها(Facts)",
-                            ERPCode = 205L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("ddabebea-84f8-45cb-9777-9618b1a9bd90"),
-                            Name = "F_Case",
-                            SortIndex = 205L
-                        },
-                        new
-                        {
-                            Id = 206L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(608), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 113L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2199), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = true,
                             DisplayName = "سناریوها(Facts)",
-                            ERPCode = 206L,
+                            ERPCode = 113L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("0d864fef-4ee9-462e-a16c-444b48566255"),
+                            GuidRecord = new Guid("1ddc8cdc-d063-4a99-b785-d28ffb0da01f"),
                             Name = "F_Scenario",
-                            SortIndex = 206L
+                            SortIndex = 113L
                         },
                         new
                         {
-                            Id = 300L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(614), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "نقش-سمت(Links)",
-                            ERPCode = 300L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("65105c56-f10c-41c0-bcc8-4a6b9a9e13ee"),
-                            Name = "L_RolePosition",
-                            SortIndex = 300L
-                        },
-                        new
-                        {
-                            Id = 301L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(618), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 114L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(2905), new TimeSpan(0, 3, 30, 0, 0)),
                             Display = false,
                             DisplayName = "فرآیند-سناریو(Links)",
-                            ERPCode = 301L,
+                            ERPCode = 114L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("04b10307-13d6-4642-8c77-e309bbc3c3a2"),
+                            GuidRecord = new Guid("8b078a43-fad8-45f5-b47b-96dbf0ce3465"),
                             Name = "L_ProcessScenario",
-                            SortIndex = 301L
-                        },
-                        new
-                        {
-                            Id = 302L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(624), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "کاربر-موقعیت(Links)",
-                            ERPCode = 302L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("300542e9-ef04-4c04-af2c-584df6dca1c1"),
-                            Name = "L_UserLocation",
-                            SortIndex = 302L
-                        },
-                        new
-                        {
-                            Id = 303L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(629), new TimeSpan(0, 3, 30, 0, 0)),
-                            Display = false,
-                            DisplayName = "کاربر-سمت(Links)",
-                            ERPCode = 303L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("4602c1a0-bcd7-4561-9f24-5b96c485f0b8"),
-                            Name = "L_UserPosition",
-                            SortIndex = 303L
+                            SortIndex = 114L
                         });
                 });
 
@@ -526,7 +465,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 422, DateTimeKind.Unspecified).AddTicks(4424), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 952, DateTimeKind.Unspecified).AddTicks(3043), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -559,7 +498,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("2e9b64e3-29fa-4d2e-bca9-5c5ce5547818"))
+                        .HasDefaultValue(new Guid("dcf4fe36-ca1b-4e88-af24-f86884cf0348"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -616,7 +555,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 422, DateTimeKind.Unspecified).AddTicks(5816), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 952, DateTimeKind.Unspecified).AddTicks(4881), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -649,7 +588,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("55711422-28d2-4797-a887-ee90e3025263"))
+                        .HasDefaultValue(new Guid("8966c40d-79a2-4a0c-b776-35e11ff11ba1"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -696,66 +635,66 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(2923), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(6113), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "مساوی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("4720f123-b24b-4a05-ae1c-10014b3d79fa"),
+                            GuidRecord = new Guid("d5882eee-1db7-4373-b827-34d69fd83efb"),
                             Name = "=",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(2930), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(6132), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "مخالف",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("1113deb4-af1a-442e-a5cb-45e680aa346e"),
+                            GuidRecord = new Guid("6b3c4d50-7f9e-484a-9fce-38c5427c64d9"),
                             Name = "!=",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(2932), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(6135), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "بزگتر از",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("ff547f08-44b1-4a39-9472-1398190650aa"),
+                            GuidRecord = new Guid("5f1187ad-3a3c-455f-a8a3-4fa8a51994c4"),
                             Name = ">",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(2935), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(6138), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "بزرگتر و مساوی",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("5eea79ea-567b-482d-8209-b93bbfd53b3f"),
+                            GuidRecord = new Guid("99d55a57-bebb-4b47-80a9-e64964a7a77d"),
                             Name = ">=",
                             SortIndex = 4L
                         },
                         new
                         {
                             Id = 5L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(2942), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(6141), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = " کوچکتر از",
                             ERPCode = 5L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("cb74b197-63f3-46a7-a6c3-a4a07379b31f"),
+                            GuidRecord = new Guid("28dd2aca-5a3a-48a4-a43a-b45873800cca"),
                             Name = "<",
                             SortIndex = 5L
                         },
                         new
                         {
                             Id = 6L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(2944), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(6145), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "کوچکتر و مساوی",
                             ERPCode = 6L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6662b152-2a5e-4464-b670-5f241859f9ad"),
+                            GuidRecord = new Guid("c8804073-7462-4130-9097-43fb9eba3f8f"),
                             Name = "<=",
                             SortIndex = 6L
                         });
@@ -774,7 +713,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 422, DateTimeKind.Unspecified).AddTicks(7157), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 952, DateTimeKind.Unspecified).AddTicks(6657), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -813,7 +752,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("b93d47d7-0ac7-4d53-9cef-bd5ece6c1656"))
+                        .HasDefaultValue(new Guid("98eb684e-74f1-463f-acd2-c3c08b99c585"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -872,12 +811,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(3961), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 495, DateTimeKind.Unspecified).AddTicks(7544), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "فرآیند نمونه",
                             ERP = true,
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("1fc20563-976e-4d38-94e2-c2f3b1354bde"),
+                            GuidRecord = new Guid("eab6cf22-5771-4234-9432-5efb0cfde8ce"),
                             Name = "SampleProcess",
                             RemoveRequestorApproval = true,
                             ShowSupport = true,
@@ -898,7 +837,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 422, DateTimeKind.Unspecified).AddTicks(8682), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 952, DateTimeKind.Unspecified).AddTicks(9031), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -931,7 +870,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("64b6fd98-9506-4491-9b49-af99d4b8afc2"))
+                        .HasDefaultValue(new Guid("d395053a-dcb4-497c-81a8-8c1819265f09"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -984,66 +923,117 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(5798), new TimeSpan(0, 3, 30, 0, 0)),
-                            Description = "عددی",
-                            DisplayName = "مرکز",
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(1943), new TimeSpan(0, 3, 30, 0, 0)),
+                            Description = "دودویی",
+                            DisplayName = "مقداردهی اولیه",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("c6f08016-acd0-4312-9720-fe488980baa8"),
-                            Name = "D_Location",
+                            GuidRecord = new Guid("2f9b3bef-c486-4c3f-b675-c33adba8bfb3"),
+                            Name = "Initializing",
                             SortIndex = 1L,
-                            TagTypeId = 1L
+                            TagTypeId = 2L
                         },
                         new
                         {
-                            Id = 201L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(6094), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 2L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4575), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "دودویی",
                             DisplayName = "تایید",
-                            ERPCode = 201L,
+                            ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("7d5dc063-6c76-4997-b182-d9f67d6b2c1a"),
+                            GuidRecord = new Guid("b1150804-3153-41c1-afc9-5ff6baf7a422"),
                             Name = "Approve",
                             SortIndex = 2L,
                             TagTypeId = 2L
                         },
                         new
                         {
-                            Id = 202L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(6098), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 3L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4580), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "دودویی",
                             DisplayName = "عدم تایید",
-                            ERPCode = 202L,
+                            ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("ca2d74b4-8357-4595-be80-2d1f150ccb04"),
+                            GuidRecord = new Guid("3654c067-a3b5-494f-bb0e-6aa88d5abad7"),
                             Name = "Reject",
                             SortIndex = 3L,
                             TagTypeId = 2L
                         },
                         new
                         {
-                            Id = 203L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(6101), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 4L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4590), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "دودویی",
                             DisplayName = "بازنگری",
-                            ERPCode = 203L,
+                            ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("3a248937-82bb-4539-bfb0-83fb8f143685"),
+                            GuidRecord = new Guid("c7811475-46d2-4edd-bd42-4a6a792fcf1b"),
                             Name = "Revise",
                             SortIndex = 4L,
                             TagTypeId = 2L
                         },
                         new
                         {
-                            Id = 301L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(6104), new TimeSpan(0, 3, 30, 0, 0)),
+                            Id = 5L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4594), new TimeSpan(0, 3, 30, 0, 0)),
+                            Description = "حروف",
+                            DisplayName = "موقعیت",
+                            ERPCode = 5L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("e22e8d24-c6ad-4d90-a61c-065dc8c642b6"),
+                            Name = "Location",
+                            SortIndex = 5L,
+                            TagTypeId = 4L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4598), new TimeSpan(0, 3, 30, 0, 0)),
+                            Description = "حروف",
+                            DisplayName = "نقش",
+                            ERPCode = 6L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("6dd00ec8-4d0a-44e2-a993-513695e9ddd0"),
+                            Name = "Role",
+                            SortIndex = 6L,
+                            TagTypeId = 4L
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4602), new TimeSpan(0, 3, 30, 0, 0)),
+                            Description = "حروف",
+                            DisplayName = "سمت",
+                            ERPCode = 7L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("85e1f90b-6e3e-4381-ac35-19dc889987aa"),
+                            Name = "Position",
+                            SortIndex = 7L,
+                            TagTypeId = 4L
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4607), new TimeSpan(0, 3, 30, 0, 0)),
+                            Description = "حروف",
+                            ERPCode = 8L,
+                            EnableRecord = true,
+                            GuidRecord = new Guid("10b34e52-916f-46a9-a1fa-66ba36d161f0"),
+                            Name = "Employees",
+                            SortIndex = 8L,
+                            TagTypeId = 4L
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(4611), new TimeSpan(0, 3, 30, 0, 0)),
                             Description = "عددی",
                             DisplayName = "مبلغ",
-                            ERPCode = 301L,
+                            ERPCode = 9L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("b9e943f8-e6ab-4e26-8c24-1c922092e385"),
+                            GuidRecord = new Guid("7d1d5c84-ca61-4739-8cdb-173fb9a14d8d"),
                             Name = "Price",
-                            SortIndex = 5L,
+                            SortIndex = 9L,
                             TagTypeId = 1L
                         });
                 });
@@ -1061,7 +1051,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(166), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 953, DateTimeKind.Unspecified).AddTicks(1288), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1094,7 +1084,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("6344b9b6-2c57-4600-8e09-4947f5a54b21"))
+                        .HasDefaultValue(new Guid("fe7d8e63-386d-46ff-a1a3-77029e651c55"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -1141,44 +1131,44 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(7391), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(3905), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "عددی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("96ab6fcc-32a6-4681-811a-83e94a075357"),
+                            GuidRecord = new Guid("c65f81a9-ec09-4745-b71c-479e5b6e9ed7"),
                             Name = "Numberic",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(7397), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(3915), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "دودویی",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("abd17670-0c54-4daa-84be-bdeff142c1b7"),
+                            GuidRecord = new Guid("0ca4e2b0-93fd-46f0-b194-f08d1de4ed45"),
                             Name = "Boolean",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(7400), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(3919), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "تاریخ",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("59f725e4-2534-40ed-b107-4f230d8e8bfa"),
+                            GuidRecord = new Guid("e5d6b371-7fc6-4b48-b9bd-fdd895350502"),
                             Name = "Date",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(7402), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(3922), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "حروف",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("69c77423-fded-40d7-9d84-06e3b08efd79"),
+                            GuidRecord = new Guid("f038ce78-1b56-4d0d-9e0e-a7fc93694f25"),
                             Name = "String",
                             SortIndex = 4L
                         });
@@ -1197,7 +1187,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(1895), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 953, DateTimeKind.Unspecified).AddTicks(3520), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1257,7 +1247,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("fb1adc9e-ae95-4a82-a9ac-9c589085faf0"))
+                        .HasDefaultValue(new Guid("3d4ee775-9056-46d7-aee5-447b8ca8b5e8"))
                         .HasColumnOrder(8);
 
                     b.Property<string>("IDPersonel")
@@ -1327,22 +1317,22 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 90, DateTimeKind.Unspecified).AddTicks(9980), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(9644), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "محمد شریفی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("bce7b7dc-d843-41d3-b265-03a756824944"),
+                            GuidRecord = new Guid("bba9654f-7538-406a-8781-d0a365e1d0be"),
                             Name = "m.sharifi",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 91, DateTimeKind.Unspecified).AddTicks(39), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 496, DateTimeKind.Unspecified).AddTicks(9686), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "امین شریفی",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("b8487c4f-2e81-478b-b6a2-31e289904e93"),
+                            GuidRecord = new Guid("d05e0f4f-0b2f-405a-a97e-8776b49fdb29"),
                             Name = "a.sharifi",
                             SortIndex = 2L
                         });
@@ -1385,7 +1375,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(3496), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 953, DateTimeKind.Unspecified).AddTicks(5688), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1423,7 +1413,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("ac8e3cf0-cf9f-4de3-afc1-538afc425eab"))
+                        .HasDefaultValue(new Guid("c98844eb-b0ac-4626-98be-56a555064c42"))
                         .HasColumnOrder(8);
 
                     b.Property<string>("InternalPhone")
@@ -1516,7 +1506,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(4849), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 953, DateTimeKind.Unspecified).AddTicks(7473), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1549,7 +1539,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("948d1a0a-ca30-4748-8112-fced2bc0184f"))
+                        .HasDefaultValue(new Guid("eda78870-c13b-4672-90fd-62da31cb13d7"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -1596,44 +1586,44 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 91, DateTimeKind.Unspecified).AddTicks(1413), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 497, DateTimeKind.Unspecified).AddTicks(1577), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "صندوق ورودی",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("51b7b8de-2027-4966-aef7-7ba30c887006"),
+                            GuidRecord = new Guid("c9f37128-c711-4d78-add6-a35245e31565"),
                             Name = "Inbox",
                             SortIndex = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 91, DateTimeKind.Unspecified).AddTicks(1418), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 497, DateTimeKind.Unspecified).AddTicks(1584), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "ارسال شده",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("4a6fcd75-b477-4017-8fd5-06982dea50d3"),
+                            GuidRecord = new Guid("c17f3d2f-f19b-4ffb-bdeb-a8522557c919"),
                             Name = "Sent",
                             SortIndex = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 91, DateTimeKind.Unspecified).AddTicks(1427), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 497, DateTimeKind.Unspecified).AddTicks(1588), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "خارج شده",
                             ERPCode = 3L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("8194f7dc-505a-4a6e-8f1f-0e1a4b35b10b"),
+                            GuidRecord = new Guid("31d0a70c-38f4-47b1-9d3e-5e93cf815aed"),
                             Name = "Exit",
                             SortIndex = 3L
                         },
                         new
                         {
                             Id = 4L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 91, DateTimeKind.Unspecified).AddTicks(1430), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 497, DateTimeKind.Unspecified).AddTicks(1591), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "آینده",
                             ERPCode = 4L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("6e90d8b0-e7bd-44db-a862-aeeff26e0fbe"),
+                            GuidRecord = new Guid("b819f914-095f-403c-89c5-90332062f6bf"),
                             Name = "Future",
                             SortIndex = 4L
                         });
@@ -1656,7 +1646,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(6324), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 954, DateTimeKind.Unspecified).AddTicks(3491), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1689,7 +1679,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("7c112dfc-2c98-4f90-9e0d-d73a36191a49"))
+                        .HasDefaultValue(new Guid("1c847350-c15e-4c9e-b2ff-cfdb9e0c7e76"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -1733,52 +1723,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.ToTable("F_Action", "Facts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CaseStateId = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(2581), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("00084a7d-37dd-41cb-8271-a1abf00e2c1c"),
-                            Name = "one",
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CaseStateId = 3L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(2830), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("4ac7614d-421e-4737-9106-8d8f3eb1af33"),
-                            Name = "two",
-                            SortIndex = 1L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CaseStateId = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(2836), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 3L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("e0bfa087-7080-4929-8d9c-cda341e038d0"),
-                            Name = "Three",
-                            SortIndex = 2L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CaseStateId = 4L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(2839), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 4L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("a23f3b5f-d1fe-457a-a60f-cd2a2c71acc8"),
-                            Name = "Four",
-                            SortIndex = 3L
-                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Attachment", b =>
@@ -1794,7 +1738,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(7772), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 954, DateTimeKind.Unspecified).AddTicks(5751), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1831,7 +1775,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("37c04705-f468-438c-8bd5-8735160ac628"))
+                        .HasDefaultValue(new Guid("e81f4c24-025d-4f08-9c53-0c8e4bfa72ce"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -1892,7 +1836,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 423, DateTimeKind.Unspecified).AddTicks(9710), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 954, DateTimeKind.Unspecified).AddTicks(8364), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -1929,7 +1873,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("054dfa9f-a908-45fb-a465-536706cdf182"))
+                        .HasDefaultValue(new Guid("474b4587-a56f-4403-821a-8934f7a7f30c"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2007,16 +1951,16 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
                     b.Property<long?>("ActionId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(109);
+                        .HasColumnOrder(104);
 
                     b.Property<long?>("CaseId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(105);
+                        .HasColumnOrder(103);
 
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 424, DateTimeKind.Unspecified).AddTicks(2213), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 955, DateTimeKind.Unspecified).AddTicks(3484), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2052,7 +1996,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("1bc308a9-f8cd-4dee-856c-87fd7aa6e820"))
+                        .HasDefaultValue(new Guid("8c2403c6-3b40-4b20-bd81-c4c8e9a86f2b"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2074,10 +2018,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(101);
 
-                    b.Property<long?>("ScenarioId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(103);
-
                     b.Property<long?>("SortIndex")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
@@ -2094,7 +2034,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
                     b.Property<long?>("WorkItemId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(110);
+                        .HasColumnOrder(105);
 
                     b.HasKey("Id");
 
@@ -2121,86 +2061,11 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
                     b.HasIndex("OperandId");
 
-                    b.HasIndex("ScenarioId");
-
                     b.HasIndex("TagId");
 
                     b.HasIndex("WorkItemId");
 
                     b.ToTable("F_Condition", "Facts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(5426), new TimeSpan(0, 3, 30, 0, 0)),
-                            DisplayName = "مبلغ",
-                            ERPCode = 1L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("65e4672e-16e5-4e8f-95cb-4b056dd513c2"),
-                            Name = "Price",
-                            OperandId = 3L,
-                            ScenarioId = 1L,
-                            SortIndex = 1L,
-                            TagId = 301L,
-                            Value = "0"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            ActionId = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(5908), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 2L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("b9cddc5c-5bb3-4b01-a0ac-252427151d89"),
-                            Name = "One",
-                            OperandId = 1L,
-                            SortIndex = 1L,
-                            TagId = 201L,
-                            Value = "0"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            ActionId = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(6000), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 3L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("cf7ea06e-2021-40b3-8b02-5e780eebc229"),
-                            Name = "Two",
-                            OperandId = 1L,
-                            SortIndex = 1L,
-                            TagId = 201L,
-                            Value = "0"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            ActionId = 3L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(6004), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 4L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("fb5eaa85-62e2-4c15-83ba-c406a033ab90"),
-                            Name = "Three",
-                            OperandId = 1L,
-                            SortIndex = 1L,
-                            TagId = 203L,
-                            Value = "0"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            ActionId = 4L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(6007), new TimeSpan(0, 3, 30, 0, 0)),
-                            ERPCode = 5L,
-                            EnableRecord = true,
-                            GuidRecord = new Guid("9b7ac375-cc44-43dd-a309-0d8dfc45979d"),
-                            Name = "Four",
-                            OperandId = 1L,
-                            SortIndex = 1L,
-                            TagId = 202L,
-                            Value = "1"
-                        });
                 });
 
             modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Scenario", b =>
@@ -2216,7 +2081,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 424, DateTimeKind.Unspecified).AddTicks(4006), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 955, DateTimeKind.Unspecified).AddTicks(8344), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2249,7 +2114,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("458726f1-45cb-4293-8043-a98232f64a51"))
+                        .HasDefaultValue(new Guid("7b7e71ed-b340-4745-90f9-538bc8c60be1"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2296,11 +2161,11 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(7266), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(4204), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "سناریو نمونه",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("ed38d303-e16d-4f5a-be55-ae8ab7742a16"),
+                            GuidRecord = new Guid("ad395346-3683-4b8c-a3af-7ede18e179b2"),
                             Name = "SampleScenario",
                             SortIndex = 1L
                         });
@@ -2323,7 +2188,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 424, DateTimeKind.Unspecified).AddTicks(5554), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 956, DateTimeKind.Unspecified).AddTicks(2580), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2356,7 +2221,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("8e8eca60-90be-4e3d-b92e-b9201c108269"))
+                        .HasDefaultValue(new Guid("de75e1e5-8d9c-460e-92ef-4eeda617aedf"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2411,11 +2276,11 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(8441), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(6180), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "ثبت درخواست",
                             ERPCode = 1L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("76a7c8d7-6bec-4718-af65-c7326da9665f"),
+                            GuidRecord = new Guid("df974c33-034e-4137-a992-b6f3df46c29a"),
                             Name = "Sample_Scenario_Requestor",
                             ScenarioId = 1L,
                             SortIndex = 1L
@@ -2423,11 +2288,11 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 2L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 87, DateTimeKind.Unspecified).AddTicks(8595), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 492, DateTimeKind.Unspecified).AddTicks(6417), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "بررسی درخواست",
                             ERPCode = 2L,
                             EnableRecord = true,
-                            GuidRecord = new Guid("dd9aaf49-15d8-493a-a249-1aa0db5b88aa"),
+                            GuidRecord = new Guid("bdca15e9-f261-4bdf-a5d5-39bfe490470f"),
                             Name = "Sample_Scenario_RequestorManager",
                             ScenarioId = 1L,
                             SortIndex = 2L
@@ -2451,7 +2316,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 424, DateTimeKind.Unspecified).AddTicks(7497), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 956, DateTimeKind.Unspecified).AddTicks(7014), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2484,7 +2349,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("d55f246d-5c25-4baf-855b-77a0dcb00716"))
+                        .HasDefaultValue(new Guid("fb2c80b8-ada5-4507-9185-5ed49c9b2c4f"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2561,7 +2426,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 424, DateTimeKind.Unspecified).AddTicks(9406), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 957, DateTimeKind.Unspecified).AddTicks(1150), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2606,7 +2471,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("75053e8b-70c3-45ee-bc1d-87c5cc7b8dc2"))
+                        .HasDefaultValue(new Guid("c217c2f8-3a06-4662-ab19-e1070e68fd2e"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2686,7 +2551,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 425, DateTimeKind.Unspecified).AddTicks(1544), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 957, DateTimeKind.Unspecified).AddTicks(5440), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2731,7 +2596,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e65edf93-9f53-4ed6-a042-4639f76429f3"))
+                        .HasDefaultValue(new Guid("5be2fb89-9726-4e32-a7e5-fdbb730cd39d"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2801,12 +2666,12 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         new
                         {
                             Id = 1L,
-                            Created = new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 86, DateTimeKind.Unspecified).AddTicks(6412), new TimeSpan(0, 3, 30, 0, 0)),
+                            Created = new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 491, DateTimeKind.Unspecified).AddTicks(7216), new TimeSpan(0, 3, 30, 0, 0)),
                             DisplayName = "فرآیند نمونه-سناریو نمونه",
                             ERPCode = 1L,
                             EnableRecord = true,
                             FirstId = 1L,
-                            GuidRecord = new Guid("1638fd42-778d-4027-96ef-3a56b7693fc0"),
+                            GuidRecord = new Guid("4bd3841c-5637-42d7-8f93-2e767cda7b6d"),
                             Name = "SampleProcess_SampleScenario",
                             SecondId = 1L,
                             SortIndex = 1L
@@ -2826,7 +2691,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 425, DateTimeKind.Unspecified).AddTicks(3740), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 957, DateTimeKind.Unspecified).AddTicks(9748), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2871,7 +2736,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("9933bd6d-4c84-4f1f-bc96-fe0400b06479"))
+                        .HasDefaultValue(new Guid("27cfd6dc-8522-4ceb-843e-5da757aeaef8"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -2951,7 +2816,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 7, 18, 8, 30, 425, DateTimeKind.Unspecified).AddTicks(5850), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2024, 2, 10, 13, 3, 18, 958, DateTimeKind.Unspecified).AddTicks(2917), new TimeSpan(0, 3, 30, 0, 0)))
                         .HasColumnOrder(6);
 
                     b.Property<string>("CreatedBy")
@@ -2996,7 +2861,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Property<Guid?>("GuidRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e889c717-e9a0-44d9-8cd4-c760f8332c48"))
+                        .HasDefaultValue(new Guid("154de2f4-12b0-491f-a70f-e99f3686bdd7"))
                         .HasColumnOrder(8);
 
                     b.Property<DateTimeOffset?>("LastModified")
@@ -3357,10 +3222,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .WithMany()
                         .HasForeignKey("OperandId");
 
-                    b.HasOne("Cheetah.Domain.Entities.Facts.F_Scenario", "Scenario")
-                        .WithMany("Conditions")
-                        .HasForeignKey("ScenarioId");
-
                     b.HasOne("Cheetah.Domain.Entities.Dimentions.D_Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId");
@@ -3374,8 +3235,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("Case");
 
                     b.Navigation("Operand");
-
-                    b.Navigation("Scenario");
 
                     b.Navigation("Tag");
 
@@ -3580,8 +3439,6 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah.Domain.Entities.Facts.F_Scenario", b =>
                 {
-                    b.Navigation("Conditions");
-
                     b.Navigation("ProcessScenarios");
 
                     b.Navigation("Tasks");
