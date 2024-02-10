@@ -18,8 +18,7 @@ public partial class F_WorkItem : BaseEntity
 
     #endregion
 
-    #region Collection
-    [InverseProperty(nameof(F_Condition.WorkItem))]
+    #region Collection    
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
     #endregion
 

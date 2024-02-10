@@ -24,9 +24,7 @@ public partial class F_Case : BaseEntity
     #endregion
 
     #region Collection
-    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
-
-    [InverseProperty(nameof(F_WorkItem.Case))]
+    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();    
     public virtual ICollection<F_WorkItem>? WorkItems { get; set; } = new HashSet<F_WorkItem>();
 
     #endregion
@@ -41,6 +39,10 @@ public partial class F_Case : BaseEntity
     public bool IsCreating()
     {
         return CaseStateId is null;
+    }
+    public bool IsInitializing()
+    {
+        return CaseStateId == D_CaseState.Initializing.Id;
     }
     public bool IsOngoing()
     {

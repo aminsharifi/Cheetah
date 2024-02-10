@@ -9,9 +9,7 @@ public partial class F_Action : BaseEntity
 
     #endregion
 
-    #region Collection
-
-    [InverseProperty(nameof(F_Condition.Action))]
+    #region Collection    
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
     
     public virtual ICollection<L_TaskAction>? TaskAction { get; set; } = new HashSet<L_TaskAction>();
