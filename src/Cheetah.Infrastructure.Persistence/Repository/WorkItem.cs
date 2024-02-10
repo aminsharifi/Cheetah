@@ -63,7 +63,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 .Where(x => x.FirstId == Current_Case.ProcessId)
                 .Where(x => x.EnableRecord == true)
                 .Include(x => x.Scenario)
-                .ThenInclude(x => x.Conditions)
+                //.ThenInclude(x => x.Conditions)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -73,16 +73,16 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             {
                 var ConditionOccures = false;
 
-                var Expected_Conditions = ProcessScenario.Scenario.Conditions
-                .Where(x => x.Value is not null);
+                //var Expected_Conditions = ProcessScenario.Scenario.Conditions
+                //.Where(x => x.Value is not null);
 
-                ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions).Result.Value;
+                //ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions).Result.Value;
 
-                if (ConditionOccures)
-                {
-                    Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
-                    break;
-                }
+                //if (ConditionOccures)
+                //{
+                //    Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
+                //    break;
+                //}
             }
 
             var eP_Tasks = await GetAllTask().Result.Value
