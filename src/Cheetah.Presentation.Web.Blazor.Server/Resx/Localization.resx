@@ -396,4 +396,7 @@
   <data name="BlazorServer_Welcome" xml:space="preserve">
     <value>{0} خوش آمدید</value>
   </data>
+  <data name="BlazorServer_Condition" xml:space="preserve">
+    <value>شرط</value>
+  </data>
 </root>
