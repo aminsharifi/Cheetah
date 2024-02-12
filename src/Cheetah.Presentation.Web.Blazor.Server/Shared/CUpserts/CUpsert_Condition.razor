@@ -127,11 +127,11 @@
         }
     }
 
-    private async Task Add_ActionsTask(MouseEventArgs e, F_Action cObject)
+    private async Task Add_ActionsTask(MouseEventArgs e, F_Flow cObject)
     {
-        var _Task = new L_TaskAction();
+        var _Task = new L_TaskFlow();
 
-        ICollection<L_TaskAction> _Tasks = cObject.TaskActions;
+        ICollection<L_TaskFlow> _Tasks = cObject.TaskFlows;
 
         if (_Tasks.Any())
         {
@@ -140,13 +140,13 @@
         else
         {
             _Task = await simpleClassRepository
-            .GetLast(nameof(L_TaskAction)) as L_TaskAction;
+            .GetLast(nameof(L_TaskFlow)) as L_TaskFlow;
         }
 
-        cObject.TaskActions.Add(_Task);
+        cObject.TaskFlows.Add(_Task);
     }
 
-    private async Task Add_ActionsCondition(MouseEventArgs e, F_Action cObject)
+    private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
     {
         var _Condition = new F_Condition();
 
@@ -218,7 +218,7 @@
         }
     }
 
-    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Action f_action)
+    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_action)
     {
         if (Id > 0 && e.Value is not null)
         {
@@ -229,7 +229,7 @@
         }
     }
 
-    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_TaskAction TaskSelector)
+    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_TaskFlow TaskSelector)
     {
         if (Id > 0 && e.Value is not null)
         {
