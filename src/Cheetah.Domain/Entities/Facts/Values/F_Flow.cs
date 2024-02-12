@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 
-public partial class F_Action
+public partial class F_Flow
 {
     #region Values
 
