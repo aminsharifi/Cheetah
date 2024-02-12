@@ -2,15 +2,13 @@
 
 public partial class F_Flow : BaseEntity
 {
-    #region Entities
-
+    #region Entities    
     public long? CaseStateId { get; set; }
     public virtual D_CaseState? CaseState { get; set; }
-
     #endregion
 
-    #region Collection    
-    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();    
+    #region Collection
+    public virtual ICollection<L_FlowCondition>? FlowConditions { get; set; } = new HashSet<L_FlowCondition>();
     public virtual ICollection<L_TaskFlow>? TaskFlows { get; set; } = new HashSet<L_TaskFlow>();
     public virtual ICollection<L_FlowTask>? FlowTasks { get; set; } = new HashSet<L_FlowTask>();
 

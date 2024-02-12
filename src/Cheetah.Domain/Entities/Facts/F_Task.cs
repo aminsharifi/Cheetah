@@ -4,12 +4,7 @@ public partial class F_Task : BaseEntity
     #region Entity
 
     public long? ScenarioId { get; set; }
-    public virtual F_Scenario? Scenario { get; set; }
-
-    #region For Variables
-    public virtual long? ConditionId { get; set; }
-    public virtual F_Condition? Condition { get; set; }
-    #endregion
+    public virtual F_Scenario? Scenario { get; set; }   
 
     #endregion
 

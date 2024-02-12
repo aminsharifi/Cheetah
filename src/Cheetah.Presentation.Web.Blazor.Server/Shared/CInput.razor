@@ -10,8 +10,8 @@
         }
         else if (CFieldType == Cheetah.Domain.FieldType.CInt)
         {
-            <InputNumber @attributes=CapturedAttributes
-                     @bind-Value="LValue" class="form-control"
+            <InputNumber @attributes=CapturedAttributes @bind:event="oninput"
+                         @bind-Value="LValue" class="form-control"
                          aria-describedby="basic-addon2" lang="fa" dir="rtl"
                          data-bs-toggle="tooltip" data-bs-placement="top"
                          data-bs-custom-class="custom-tooltip"
@@ -24,7 +24,20 @@
         else if (CFieldType == Cheetah.Domain.FieldType.CNInt)
         {
             <InputNumber @attributes=CapturedAttributes
-                     @bind-Value="NLValue" class="form-control"
+                         @bind-Value="NLValue" class="form-control"
+                         aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                         data-bs-toggle="tooltip" data-bs-placement="top"
+                         data-bs-custom-class="custom-tooltip"
+                         data-bs-delay='{"show":100, "hide":100}'
+                         data-bs-animation="true"
+                         data-bs-trigger="hover"
+                         data-bs-title="@CDescription">
+            </InputNumber>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CNFloat)
+        {
+            <InputNumber @attributes=CapturedAttributes
+                         @bind-Value="NFValue" class="form-control"
                          aria-describedby="basic-addon2" lang="fa" dir="rtl"
                          data-bs-toggle="tooltip" data-bs-placement="top"
                          data-bs-custom-class="custom-tooltip"
@@ -36,8 +49,8 @@
         }
         else if (CFieldType == Cheetah.Domain.FieldType.CString)
         {
-            <InputText @attributes=CapturedAttributes
-                   @bind-Value="SValue" class="form-control"
+            <InputText @attributes=CapturedAttributes 
+                       @bind-Value="SValue" class="form-control"
                        aria-describedby="basic-addon2" lang="fa" dir="rtl"
                        data-bs-toggle="tooltip" data-bs-placement="top"
                        data-bs-custom-class="custom-tooltip"
@@ -49,13 +62,17 @@
         }
         else if (CFieldType == Cheetah.Domain.FieldType.CBool)
         {
-            <div class="form-check form-switch">
-                <input type="checkbox" 
-                    @attributes=CapturedAttributes
-                    class="form-check-input" role="switch"
-                    value="@BValue" style="width:5em;height: 100%;border-radius: revert;margin-top: 0px;">
-                </input>
-            </div>
+            <InputCheckbox @attributes=CapturedAttributes
+                           @bind-Value="BValue"
+                           aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                           data-bs-toggle="tooltip" data-bs-placement="top"
+                           data-bs-custom-class="custom-tooltip"
+                           data-bs-delay='{"show":100, "hide":100}'
+                           data-bs-animation="true"
+                           data-bs-trigger="hover"
+                           data-bs-title="@CDescription">
+            </InputCheckbox>
+
         }
         else if (CFieldType == Cheetah.Domain.FieldType.CSelect)
         {
@@ -70,12 +87,11 @@
                 </NavLink>
             }
             <InputSelect @attributes=CapturedAttributes
-                     @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
+                         @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
                          disabled="@Disabled" class="col-6">
-                @if (LValue < 1)
-                {
-                    <option selected value="">لطفا یک مورد را انتخاب نمایید</option>
-                }
+
+                <option @((LValue is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
+
                 @foreach (var d_User in Records)
                 {
                     <option value="@d_User.Id">@d_User.Id|@d_User.Name|@d_User.DisplayName</option>
@@ -155,9 +171,26 @@
         }
     }
 
-    private Boolean? _Bvalue;
+
+
     [Parameter]
-    public Boolean? BValue
+    public EventCallback<float?> NFValueChanged { get; set; }
+    private float? _NFvalue;
+    [Parameter]
+    public float? NFValue
+    {
+        get => _NFvalue;
+        set
+        {
+            if (_NFvalue == value) return;
+            _NFvalue = value;
+            NFValueChanged.InvokeAsync(value);
+        }
+    }
+
+    private Boolean _Bvalue;
+    [Parameter]
+    public Boolean BValue
     {
         get => _Bvalue;
         set
@@ -168,7 +201,7 @@
         }
     }
     [Parameter]
-    public EventCallback<Boolean?> BValueChanged { get; set; }
+    public EventCallback<Boolean> BValueChanged { get; set; }
 
     //[Parameter]
     //public Expression<Func<object>> MessageValue { get; set; }

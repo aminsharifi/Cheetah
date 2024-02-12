@@ -10,33 +10,23 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             .AsNoTracking()
             .OrderBy(x => x.SortIndex);
 
-
-        #region Variables
-        var eP_Tasks_Query2 = eP_Tasks_Query
-            .Include(x => x.Condition)
-            .ThenInclude(x => x.Tag)
-            .Include(x => x.Condition)
-            .ThenInclude(x => x.Operand);
-
-        #endregion
-
         #region TaskItem
 
-        var eP_Tasks_Query3 = eP_Tasks_Query2
+        var eP_Tasks_Query3 = eP_Tasks_Query
             .Include(x => x.L_TaskFlows)
-            .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.CaseState);
+            .ThenInclude(x => x.Flow);
+            //.ThenInclude(x => x.CaseState);
 
         #region Conditions
         var eP_Tasks_Query4 = eP_Tasks_Query3
             .Include(x => x.L_TaskFlows)
             .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.Conditions)
-            .ThenInclude(x => x.Tag)
+            //.ThenInclude(x => x.Conditions)
+            //.ThenInclude(x => x.Tag)
             .Include(x => x.L_TaskFlows)
-            .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.Conditions)
-            .ThenInclude(x => x.Operand);
+            .ThenInclude(x => x.Flow);
+        //.ThenInclude(x => x.Conditions)
+        //.ThenInclude(x => x.Operand);
         #endregion
 
         #region TaskItem
@@ -148,7 +138,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                     //if (!eP_Task.Role.Independent)
                     if (true)
                     {
-                        var _ConditionId = eP_Task.ConditionId;
+                        //var _ConditionId = eP_Task.ConditionId;
+
+                        var _ConditionId = 1;
 
                         var _CurrentCondition = await _db.F_Conditions
                             .Where(x => x.Id == _ConditionId).SingleAsync();
@@ -169,7 +161,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                         }
                         else
                         {
-                            if (eP_Task.ConditionId is not null)
+                            //if (eP_Task.ConditionId is not null)
+                            if (true)
                             {
                                 //if (D_User.UserLocations.Any(x => x.SecondId == _Location))
                                 if (true)
@@ -355,7 +348,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         foreach (var TaskItem in TaskItems)
         {
-            var ExpectedConditions = TaskItem.Conditions;
+            var ExpectedConditions = TaskItem.FlowConditions.Select(x => x.Condition);
 
             foreach (var ExpectedCondition in ExpectedConditions)
             {
@@ -367,8 +360,8 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 if (CompareCondition(ActualConditions, ExpectedConditionList).Result.Value)
                 {
 
-                    Current_WorkItem.Case.CaseStateId =
-                        TaskItem.CaseStateId;
+                    //Current_WorkItem.Case.CaseStateId =
+                    //    TaskItem.CaseStateId;
 
                     Current_WorkItem.Conditions = ActualConditions;
 

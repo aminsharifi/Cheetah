@@ -12,7 +12,7 @@ public abstract class BaseEntity
     public String? DisplayName { get; set; }
     public String? Description { get; set; }
     public Guid? GuidRecord { get; set; } = Guid.NewGuid();
-    public Boolean? EnableRecord { get; set; } = true;
+    public Boolean EnableRecord { get; set; } = true;
     public Int64? ERPCode { get; set; }
     public DateTimeOffset? Created { get; set; } = DateTimeOffset.Now;
     public string? CreatedBy { get; set; }
