@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 
-public partial class F_Action : BaseEntity
+public partial class F_Flow : BaseEntity
 {
     #region Entities
 
@@ -11,15 +11,15 @@ public partial class F_Action : BaseEntity
 
     #region Collection    
     public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();    
-    public virtual ICollection<L_TaskAction>? TaskActions { get; set; } = new HashSet<L_TaskAction>();
-    public virtual ICollection<L_ActionTask>? ActionTasks { get; set; } = new HashSet<L_ActionTask>();
+    public virtual ICollection<L_TaskFlow>? TaskFlows { get; set; } = new HashSet<L_TaskFlow>();
+    public virtual ICollection<L_FlowTask>? FlowTasks { get; set; } = new HashSet<L_FlowTask>();
 
     #endregion
 
     #region Functions
-    public F_Action ShallowCopy()
+    public F_Flow ShallowCopy()
     {
-        return (F_Action)MemberwiseClone();
+        return (F_Flow)MemberwiseClone();
     }
 
     #endregion

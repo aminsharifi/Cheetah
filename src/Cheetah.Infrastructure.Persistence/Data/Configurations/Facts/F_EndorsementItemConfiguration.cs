@@ -1,8 +1,8 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
 
-public class F_ActionConfiguration : IEntityTypeConfiguration<F_Action>
+public class F_FlowConfiguration : IEntityTypeConfiguration<F_Flow>
 {
-    public void Configure(EntityTypeBuilder<F_Action> builder)
+    public void Configure(EntityTypeBuilder<F_Flow> builder)
     {
         builder
             .Property(e => e.CaseStateId)

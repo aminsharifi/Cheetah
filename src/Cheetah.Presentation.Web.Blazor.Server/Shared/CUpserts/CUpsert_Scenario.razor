@@ -75,7 +75,7 @@
                                                 </button>
                                             </center>
                                             <div>
-                                                @if (_task.TaskActions.Any())
+                                                @if (_task.L_TaskFlows.Any())
                                                 {
                                                     <Ctable>
                                                         <thead>
@@ -101,8 +101,8 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach (var _action in _task.TaskActions
-                                                           .Select(x => x.Action).OrderBy(x => x.SortIndex))
+                                                            @foreach (var _action in _task.L_TaskFlows
+                                                           .Select(x => x.Flow).OrderBy(x => x.SortIndex))
                                                             {
                                                                 <tr style="width:90%">
                                                                     <td>
@@ -265,7 +265,7 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                                @foreach (var Task in _action.ActionTasks
+                                                                                @foreach (var Task in _action.FlowTasks
                                                                                .OrderBy(x => x.SortIndex))
                                                                                 {
                                                                                     <tr style="width:90%">
@@ -424,15 +424,15 @@
             .First(x => x.Id == _D_ParameterListId) as D_Tag;
         }
     }
-    private async Task Add_ActionsTask(MouseEventArgs e, F_Action cObject)
+    private async Task Add_ActionsTask(MouseEventArgs e, F_Flow cObject)
     {
-        var _l_ActionTask = new L_ActionTask();
+        var _l_ActionTask = new L_FlowTask();
 
         // _l_TaskAction.Task =
 
         // _l_TaskAction.Action = new F_Action();
 
-        ICollection<L_ActionTask> _l_TaskActions = cObject.ActionTasks;
+        ICollection<L_FlowTask> _l_TaskActions = cObject.FlowTasks;
 
         if (_l_TaskActions.Any())
         {
@@ -441,12 +441,12 @@
         else
         {
             _l_ActionTask = await simpleClassRepository
-            .GetLast(nameof(L_ActionTask)) as L_ActionTask;
+            .GetLast(nameof(L_FlowTask)) as L_FlowTask;
         }
 
-        cObject.ActionTasks.Add(_l_ActionTask);
+        cObject.FlowTasks.Add(_l_ActionTask);
     }
-    private async Task Add_ActionsCondition(MouseEventArgs e, F_Action cObject)
+    private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
     {
         var _Condition = new F_Condition();
 
@@ -466,15 +466,15 @@
     }
     private async Task Add_Actions(MouseEventArgs e, F_Task cObject)
     {
-        L_TaskAction _l_TaskAction = new();
+        L_TaskFlow _l_TaskAction = new();
 
-        F_Action _f_Action = await simpleClassRepository.GetLast(nameof(F_Action)) as F_Action;
+        F_Flow _f_Action = await simpleClassRepository.GetLast(nameof(F_Flow)) as F_Flow;
 
         _l_TaskAction.Task = cObject;
 
-        _l_TaskAction.Action = _f_Action;
+        _l_TaskAction.Flow = _f_Action;
 
-        ICollection<L_TaskAction> _TaskItems = cObject.TaskActions;
+        ICollection<L_TaskFlow> _TaskItems = cObject.L_TaskFlows;
 
         if (_TaskItems.Any())
         {
@@ -485,7 +485,7 @@
             _l_TaskAction.SortIndex = 1;
         }
 
-        cObject.TaskActions.Add(_l_TaskAction);
+        cObject.L_TaskFlows.Add(_l_TaskAction);
     }
     private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
     {
@@ -537,7 +537,7 @@
             // .First(x => x.Id == _D_Role) as D_Role;
         }
     }
-    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Action f_action)
+    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_action)
     {
         if (Id > 0 && e.Value is not null)
         {
@@ -547,7 +547,7 @@
             .First(x => x.Id == CaseStateId) as D_CaseState;
         }
     }
-    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_ActionTask TaskSelector)
+    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)
     {
         if (Id > 0 && e.Value is not null)
         {
