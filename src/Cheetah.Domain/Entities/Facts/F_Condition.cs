@@ -35,8 +35,8 @@ public partial class F_Condition : BaseEntity
     public long? WorkItemId { get; set; }
     public virtual F_WorkItem? WorkItem { get; set; }
 
-    public long? ActionId { get; set; }
-    public virtual F_Action? Action { get; set; }
+    public long? FlowId { get; set; }
+    public virtual F_Flow? Flow { get; set; }
 
     [NotMapped]
     public bool BooleanValue

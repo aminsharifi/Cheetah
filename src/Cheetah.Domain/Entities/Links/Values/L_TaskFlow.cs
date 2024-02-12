@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_TaskAction
+public partial class L_TaskFlow
 {
     #region Values
 

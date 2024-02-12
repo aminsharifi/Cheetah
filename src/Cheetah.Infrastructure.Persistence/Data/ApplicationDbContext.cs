@@ -59,13 +59,15 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
     public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
-    public virtual DbSet<F_Action> F_Actions { get; set; }
+    public virtual DbSet<F_Flow> F_Flows { get; set; }
 
     #endregion
 
     #region Links
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
-    public virtual DbSet<L_TaskAction> L_TaskActions { get; set; }
+    public virtual DbSet<L_TaskFlow> L_TaskFlows { get; set; }
+    public virtual DbSet<L_FlowTask> L_FlowTasks { get; set; }
+    public virtual DbSet<L_TaskCondition> L_TaskConditions { get; set; }    
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
     public virtual DbSet<L_UserCondition> L_UserConditions { get; set; }
     

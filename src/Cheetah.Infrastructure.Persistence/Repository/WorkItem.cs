@@ -23,25 +23,25 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
         #region TaskItem
 
         var eP_Tasks_Query3 = eP_Tasks_Query2
-            .Include(x => x.TaskActions)
-            .ThenInclude(x => x.Action)
+            .Include(x => x.L_TaskFlows)
+            .ThenInclude(x => x.Flow)
             .ThenInclude(x => x.CaseState);
 
         #region Conditions
         var eP_Tasks_Query4 = eP_Tasks_Query3
-            .Include(x => x.TaskActions)
-            .ThenInclude(x => x.Action)
+            .Include(x => x.L_TaskFlows)
+            .ThenInclude(x => x.Flow)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Tag)
-            .Include(x => x.TaskActions)
-            .ThenInclude(x => x.Action)
+            .Include(x => x.L_TaskFlows)
+            .ThenInclude(x => x.Flow)
             .ThenInclude(x => x.Conditions)
             .ThenInclude(x => x.Operand);
         #endregion
 
         #region TaskItem
         var eP_Tasks_Query5 = eP_Tasks_Query4
-            .Include(x => x.TaskActions)
+            .Include(x => x.L_TaskFlows)
             .ThenInclude(x => x.Task);
 
         #endregion
@@ -348,9 +348,9 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         var ActualConditions = Current_WorkItem.Case.Conditions;
 
-        var TaskItems = await _db.L_TaskActions
+        var TaskItems = await _db.L_TaskFlows
            .Where(x => x.FirstId == WorkItemTaskId)
-           .Select(x => x.Action)
+           .Select(x => x.Flow)
            .ToListAsync();
 
         foreach (var TaskItem in TaskItems)
@@ -401,7 +401,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                         #region Set inbox
 
-                        var toTasks = TaskItem?.TaskActions?
+                        var toTasks = TaskItem?.TaskFlows?
                             .Select(x => x.Task);
 
                         foreach (var toTask in toTasks)
