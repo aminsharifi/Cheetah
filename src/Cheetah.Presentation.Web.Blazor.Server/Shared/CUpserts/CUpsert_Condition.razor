@@ -7,72 +7,51 @@
     <RowTemplate>
         @if (!IsLoading)
         {
-            <div class="col-sm-11 col-lg-5">
-                <span class="col-2">
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_Variable)))
-                </span>
-                <InputSelect class="col-12"
-                             @bind-Value="((F_Condition)Record).TagId" style="direction:rtl"
-                             @oninput="(e => SelectedParameterListChanged(e,(F_Condition)Record))">
-                    <option @if (item.TagId is null){"selected"} value="">
+            <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                    Records="@List_D_Tag"
+                    @bind-LValue="((F_Condition)Record).TagId"
+                    Record="@(((F_Condition)Record).Tag)"
+                    CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
+                    CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
+                    SelectedProcessesChanged="@SelectedTagChanged"
+                    reference="@reference"></CInput>
 
-                    </option>
-                    @foreach (var list_D_ParameterList in List_D_Tag)
-                    {
-                        <option value="@list_D_ParameterList.Id">
-                            @list_D_ParameterList.DisplayName (@list_D_ParameterList.Name)
-                        </option>
-                    }
-                </InputSelect>
-            </div>
+            <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                    Records="@List_D_Operand"
+                    @bind-LValue="((F_Condition)Record).OperandId"
+                    Record="@(((F_Condition)Record).Operand)"
+                    CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+                    CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+                    SelectedProcessesChanged="@SelectedOperandChanged"
+                    reference="@reference"></CInput>
 
-            <div class="col-sm-11 col-lg-5">
-                <span class="col-2">
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-                </span>
-                <InputSelect class="col-12"
-                             @bind-Value="((F_Condition)Record).OperandId" style="direction:rtl"
-                             @oninput="(e => SelectedOperandChanged(e,(F_Condition)Record))">
-                    <option @if (((F_Condition)Record).TagId is null){"selected"} value="">
-
-                    </option>
-                    @foreach (var list_D_Operand in List_D_Operand)
-                    {
-                        <option value="@list_D_Operand.Id">
-                            @list_D_Operand.DisplayName
-                        </option>
-                    }
-                </InputSelect>
-            </div>
-
-            <div class="col-sm-11 col-lg-5">
-                <span class="col-2">
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                </span>
-                @if (((F_Condition)Record).Tag is not null && ((F_Condition)Record).Operand is not null)
-                {
-                    @if (((F_Condition)Record).Tag?.TagTypeId is not null)
-                    {
-                        @if (((F_Condition)Record).Tag?.TagTypeId == 1)
-                        {
-                            <InputNumber class="col-12" @bind-Value="((F_Condition)Record).FloatValue"></InputNumber>
-                        }
-                        else if (((F_Condition)Record).Tag?.TagTypeId == 2)
-                        {
-                            <InputCheckbox class="col-12" @bind-Value="((F_Condition)Record).BooleanValue"></InputCheckbox>
-                        }
-                        else if (((F_Condition)Record).Tag?.TagTypeId == 3)
-                        {
-                            <InputDate class="col-12" @bind-Value="((F_Condition)Record).Value"></InputDate>
-                        }
-                        else if (((F_Condition)Record).Tag?.TagTypeId == 4)
-                        {
-                            <InputText class="col-12" @bind-Value="((F_Condition)Record).Value"></InputText>
-
-                        }
-                    }
-                }
-            </div>
+            @switch ((Record as F_Condition)?.Tag?.TagTypeId)
+            {
+                case var _boolean when _boolean == D_TagType.Boolean.Id:
+                    <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
+                            @bind-BValue="((F_Condition)Record).BooleanValue"
+                            CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                            CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                            reference="@reference"></CInput>
+                    break;
+                case var _string when _string == D_TagType.String.Id:
+                    <CInput CFieldType="@(Cheetah.Domain.FieldType.CString)"
+                            @bind-SValue="((F_Condition)Record).Value"
+                            CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                            CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                            reference="@reference"></CInput>
+                    break;
+                case var _numberic when _numberic == D_TagType.Numberic.Id:
+                    <CInput CFieldType="@(Cheetah.Domain.FieldType.CNFloat)"
+                            @bind-NFValue="((F_Condition)Record).FloatValue"
+                            CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                            CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                            reference="@reference"></CInput>
+                    break;
+                case var _date when _date == D_TagType.Date.Id:
+                    <span>not implemented</span>
+                    break;
+            }
         }
     </RowTemplate>
 </CEditDimentions>
@@ -83,7 +62,7 @@
     public List<BaseEntity> List_D_Operand { get; set; } = new();
     public List<BaseEntity> List_CaseState { get; set; } = new();
     public List<BaseEntity> List_D_TagType { get; set; } = new();
-
+    public long? TagTypeId { get; set; }
     public override async Task ExtendedLoadDTO()
     {
         // List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
@@ -100,6 +79,13 @@
         return $"{string.Join(", ", selectedValues?.DisplayName)}";
     }
 
+    private async Task SelectedOperandChanged(ChangeEventArgs e)
+    {
+        var _operandId = Int64.Parse(e.Value.ToString());
+        (Record as F_Condition).Operand = List_D_Operand
+        .First(x => x.Id == _operandId) as D_Operand;
+    }
+
     private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (String.IsNullOrEmpty(e.ToString()))
@@ -114,6 +100,16 @@
             f_Condition.Operand = List_D_Operand
             .First(x => x.Id == _D_OperandId) as D_Operand;
         }
+    }
+
+    private async Task SelectedTagChanged(ChangeEventArgs e)
+    {
+        var _tagId = Int64.Parse(e.Value.ToString());
+        var _tag = List_D_Tag
+        .First(x => x.Id == _tagId) as D_Tag;
+        (Record as F_Condition).Tag = _tag;
+        TagTypeId = _tag.TagTypeId;
+
     }
 
     private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
@@ -148,21 +144,21 @@
 
     private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
     {
-        var _Condition = new F_Condition();
+        // var _Condition = new F_Condition();
 
-        ICollection<F_Condition> _Conditions = cObject.Conditions;
+        // ICollection<F_Condition> _Conditions = cObject.Conditions;
 
-        if (_Conditions.Any())
-        {
-            _Condition.SortIndex = _Conditions.Max(x => x.SortIndex) + 1;
-        }
-        else
-        {
-            _Condition = await simpleClassRepository
-            .GetLast(nameof(F_Condition)) as F_Condition;
-        }
+        // if (_Conditions.Any())
+        // {
+        //     _Condition.SortIndex = _Conditions.Max(x => x.SortIndex) + 1;
+        // }
+        // else
+        // {
+        //     _Condition = await simpleClassRepository
+        //     .GetLast(nameof(F_Condition)) as F_Condition;
+        // }
 
-        cObject.Conditions.Add(_Condition);
+        // cObject.Conditions.Add(_Condition);
     }
 
     private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
@@ -202,9 +198,9 @@
             d_Task = await simpleClassRepository.GetLast(nameof(F_Task)) as F_Task;
         }
 
-        // d_Task.Role = List_D_Role.First() as D_Role;
+    // d_Task.Role = List_D_Role.First() as D_Role;
 
-        (Record as F_Scenario).Tasks.Add(d_Task);
+    (Record as F_Scenario).Tasks.Add(d_Task);
     }
 
     private async Task SelectedTaskChanged(ChangeEventArgs e, F_Task d_Task)
@@ -224,8 +220,8 @@
         {
             var CaseStateId = Int64.Parse(e.Value.ToString());
 
-            f_action.CaseState = List_CaseState
-            .First(x => x.Id == CaseStateId) as D_CaseState;
+            // f_action.CaseState = List_CaseState
+            // .First(x => x.Id == CaseStateId) as D_CaseState;
         }
     }
 
@@ -253,5 +249,4 @@
             // .First(x => x.Id == conditionId) as F_Condition;
         }
     }
-
 }

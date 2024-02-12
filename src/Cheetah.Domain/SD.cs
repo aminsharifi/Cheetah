@@ -40,6 +40,8 @@ public enum FieldType
     CID,
     CInt,
     CNInt,
+    CFloat,
+    CNFloat,
     CString,
     CBool,
     CSelect

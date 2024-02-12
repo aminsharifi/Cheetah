@@ -187,6 +187,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شرط.
+        /// </summary>
+        internal static string BlazorServer_Condition {
+            get {
+                return ResourceManager.GetString("BlazorServer_Condition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to لیست شرط‌ها/متغیرها.
         /// </summary>
         internal static string BlazorServer_ConditionAndVariableList {
@@ -282,15 +291,6 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         internal static string BlazorServer_EnableRecord {
             get {
                 return ResourceManager.GetString("BlazorServer_EnableRecord", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to لیست ‌تاییدها.
-        /// </summary>
-        internal static string BlazorServer_TasksList {
-            get {
-                return ResourceManager.GetString("BlazorServer_TasksList", resourceCulture);
             }
         }
         
@@ -831,6 +831,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         internal static string BlazorServer_Task {
             get {
                 return ResourceManager.GetString("BlazorServer_Task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لیست ‌تاییدها.
+        /// </summary>
+        internal static string BlazorServer_TasksList {
+            get {
+                return ResourceManager.GetString("BlazorServer_TasksList", resourceCulture);
             }
         }
         
