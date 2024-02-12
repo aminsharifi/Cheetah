@@ -21,10 +21,6 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
             .HasColumnOrder(103);   
 
         builder
-            .Property(e => e.FlowId)
-            .HasColumnOrder(104);
-
-        builder
             .Property(e => e.WorkItemId)
             .HasColumnOrder(105);
     }
