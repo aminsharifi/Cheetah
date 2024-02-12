@@ -4,4 +4,32 @@
                  Name="D_User" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
+    <RowTemplate>
+        <LinkComponent Records="@LinkRecords"
+                       reference="@reference"
+                       Title="شرط های کاربر">
+        </LinkComponent>
+    </RowTemplate>
 </CEditDimentions>
+@code {
+
+    public override async Task ExtendedLoadDTO()
+    {
+        AllRecords = await simpleClassRepository.GetAllByName(nameof(F_Condition));
+        AllLink = await simpleClassRepository.GetAllLink(nameof(L_UserCondition), nameof(LinkProperty.First), Id);
+
+        this.LinkRecords = new SimpleLinkClassDTO()
+            {
+                LinkType = nameof(L_UserCondition),
+                FirstType = nameof(D_User),
+                SecondType = nameof(F_Condition),
+                FixedId = Id,
+                Sd_Status = nameof(LinkProperty.First),
+                FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+                    new Tuple<long?, string>(x.Id, x.DisplayName),
+                    AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
+                        .ToDictionary(x => x.Key, x => x.Value)
+            };
+    }
+
+}
