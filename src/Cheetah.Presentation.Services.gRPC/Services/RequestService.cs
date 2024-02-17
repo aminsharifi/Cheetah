@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Services.gRPC.Services;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
@@ -25,6 +27,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
                 Condition = _condition,
                 SecondId = _condition.Id
             };
+
             f_Request.CaseConditions.Add(_CaseCondition);
         }
         #endregion

@@ -122,9 +122,6 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
         {
             Return_Case.CaseConditions.Add(new()
             {
-                Case = Return_Case,
-                FirstId = Return_Case.Id,
-                Condition = _condition,
                 SecondId = _condition.Id
             });
         }

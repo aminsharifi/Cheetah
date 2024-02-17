@@ -53,30 +53,45 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
     {
         try
         {
-            var pc_ProcessScenario = await _db.L_ProcessScenarios
+            var pc_ProcessScenarios = await _db.L_ProcessScenarios
                 .Where(x => x.FirstId == Current_Case.ProcessId)
                 .Where(x => x.EnableRecord == true)
                 .Include(x => x.Scenario)
-                //.ThenInclude(x => x.Conditions)
                 .AsNoTracking()
                 .ToListAsync();
 
-            var Actual_Conditions = Current_Case.CaseConditions.Select(x => x.Condition);
+            var Actual_ConditionsIds = Current_Case.CaseConditions.Select(x => x.SecondId.Value);
 
-            foreach (var ProcessScenario in pc_ProcessScenario)
+            var Actual_Conditions = await _db.F_Conditions
+                .Where(x => Actual_ConditionsIds.Where(z => z == x.Id).Any())
+                .AsNoTracking()
+                .ToListAsync();
+
+            var _emptyConditions = pc_ProcessScenarios.Where(x => !x.Scenario.ScenarioConditions.Any());
+
+            if (_emptyConditions.Any())
             {
-                var ConditionOccures = false;
+                Current_Case.SelectedScenarioId = _emptyConditions.First().SecondId;
+            }
+            else
+            {
+                foreach (var ProcessScenario in pc_ProcessScenarios)
+                {
+                    var ConditionOccures = false;
 
-                //var Expected_Conditions = ProcessScenario.Scenario.Conditions
-                //.Where(x => x.Value is not null);
+                    var Expected_Conditions = ProcessScenario
+                        .Scenario
+                        .ScenarioConditions
+                        .Select(x => x.Condition);
 
-                //ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions).Result.Value;
+                    ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions).Result.Value;
 
-                //if (ConditionOccures)
-                //{
-                //    Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
-                //    break;
-                //}
+                    if (ConditionOccures)
+                    {
+                        Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
+                        break;
+                    }
+                }
             }
 
             var eP_Tasks = await GetAllTask().Result.Value
@@ -228,7 +243,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             return _OutputState;
         }
 
-        _db.F_Cases.Add(GeneralRequest);
+        await _db.F_Cases.AddAsync(GeneralRequest);
 
         await SetWorkItemsAsync(GeneralRequest);
 
@@ -369,7 +384,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             .Where(x => x.Id == Current_WorkItem.TaskId)
             .SingleAsync();
 
-        var ActualConditions = Current_WorkItem.Case.CaseConditions.Select(x=>x.Condition);
+        var ActualConditions = Current_WorkItem.Case.CaseConditions.Select(x => x.Condition);
 
         var TaskItems = await _db.L_TaskFlows
            .Where(x => x.FirstId == WorkItemTaskId)
