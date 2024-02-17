@@ -14,14 +14,6 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
 
         builder
             .Property(e => e.Value)
-            .HasColumnOrder(102);
-
-        builder
-            .Property(e => e.CaseId)
-            .HasColumnOrder(103);   
-
-        builder
-            .Property(e => e.WorkItemId)
-            .HasColumnOrder(105);
+            .HasColumnOrder(102);  
     }
 }

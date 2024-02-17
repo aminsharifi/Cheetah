@@ -19,7 +19,8 @@ public partial class F_WorkItem : BaseEntity
     #endregion
 
     #region Collection    
-    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();
+    public virtual ICollection<L_WorkItemCondition>? WorkItemConditions { get; set; } = new HashSet<L_WorkItemCondition>();
+
     #endregion
 
     #region Functions
