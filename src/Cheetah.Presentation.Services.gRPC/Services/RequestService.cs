@@ -15,8 +15,18 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
         f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
         f_Request.Process = request.Process.GetSimpleClass<D_Process>();
-        f_Request.Conditions = request.Conditions.GetCondition().ToList();
-
+        var _conditions = request.Conditions.GetCondition().ToList();
+        foreach (var _condition in _conditions)
+        {
+            L_CaseCondition _CaseCondition = new()
+            {
+                Case = f_Request,
+                FirstId = f_Request.Id,
+                Condition = _condition,
+                SecondId = _condition.Id
+            };
+            f_Request.CaseConditions.Add(_CaseCondition);
+        }
         #endregion
 
         var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
@@ -55,7 +65,19 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         f_WorkItem.Case = new();
 
-        f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
+        //f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
+        var _conditions = request.Conditions.GetCondition();
+        foreach (var _condition in _conditions)
+        {
+            L_CaseCondition _caseCondition = new()
+            {
+                Case = f_WorkItem.Case,
+                FirstId = f_WorkItem.CaseId,
+                Condition = _condition,
+                SecondId = _condition.Id
+            };
+            f_WorkItem.Case.CaseConditions.Add(_caseCondition);
+        }
         #endregion
 
         var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase);
@@ -156,7 +178,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
                 l_Request?.WorkItems
                 .Where(x => x.Id == workItem.WorkItem.Id)
                 .Single()
-                .Conditions.GetCondition()
+                .WorkItemConditions.Select(x => x.Condition).GetCondition()
                 );
             }
         }

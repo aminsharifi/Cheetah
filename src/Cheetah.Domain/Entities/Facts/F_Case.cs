@@ -24,7 +24,8 @@ public partial class F_Case : BaseEntity
     #endregion
 
     #region Collection
-    public virtual ICollection<F_Condition>? Conditions { get; set; } = new HashSet<F_Condition>();    
+    public virtual ICollection<L_CaseCondition>? CaseConditions { get; set; } = new HashSet<L_CaseCondition>();
+
     public virtual ICollection<F_WorkItem>? WorkItems { get; set; } = new HashSet<F_WorkItem>();
 
     #endregion
