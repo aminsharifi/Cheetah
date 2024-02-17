@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Microsoft.VisualBasic;
+using System.Collections.ObjectModel;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD) : ICopyClass
 {
     public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input)
@@ -29,6 +32,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
             return null;
         }
 
+
         return await Q_input.Select(x => x.Id.Value).SingleAsync();
     }
 
@@ -36,15 +40,15 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
     {
         if (output is null or 0)
         {
-            output = await GetSimpleClassId(_db.D_Users, input);
+            output = await GetSimpleClassId(Q_input, input);
         }
 
         return output;
     }
 
-    public async Task<List<F_Condition>> CopyCondition(IEnumerable<F_Condition> Conditions)
+    public async Task<ICollection<F_Condition>> CopyCondition(IEnumerable<F_Condition> Conditions)
     {
-        List<F_Condition> list_condition = new List<F_Condition>();
+        Collection<F_Condition> list_condition = new();
 
         foreach (var item in Conditions)
         {
@@ -64,10 +68,15 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
                 _condition.OperandId = await GetSimpleClassId(_db.D_Operands, item.Operand);
             }
 
-            //if (item.User is not null)
-            //{
-            //    _condition.UserId = await GetSimpleClassId(_db.D_Users, item.User);
-            //}
+            var _find_Condition = _db.F_Conditions.Where(x => x.TagId == _condition.TagId)
+                .Where(x => x.OperandId == _condition.OperandId)
+                .Where(x => x.Value == _condition.Value);
+
+            if (await _find_Condition.AnyAsync())
+            {
+                _condition = await _find_Condition.SingleAsync();
+            }
+
             list_condition.Add(_condition);
         }
 
@@ -103,12 +112,22 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
         F_Case Return_Case = new();
 
         Return_Case.ERPCode = obj?.ERPCode;
-        Return_Case.Conditions = await CopyCondition(obj.Conditions);
         Return_Case.CreatorId = await GetSimpleClassId(_db.D_Users, obj.Creator, Return_Case.CreatorId);
-
         Return_Case.RequestorId = await GetSimpleClassId(_db.D_Users, obj.Requestor, Return_Case.RequestorId);
-
         Return_Case.ProcessId = await GetSimpleClassId(_db.D_Processes, obj.Process, Return_Case.ProcessId);
+
+        var _conditions = await CopyCondition(obj.CaseConditions.Select(x => x.Condition));
+
+        foreach (var _condition in _conditions)
+        {
+            Return_Case.CaseConditions.Add(new()
+            {
+                Case = Return_Case,
+                FirstId = Return_Case.Id,
+                Condition = _condition,
+                SecondId = _condition.Id
+            });
+        }
 
         return Return_Case;
     }

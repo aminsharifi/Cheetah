@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Cheetah.Domain.Entities.Links;
+using DNTPersianUtils.Core;
+using System.Linq;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
     public CheetahResult<IQueryable<F_Task>> GetAllTask()
@@ -15,7 +19,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
         var eP_Tasks_Query3 = eP_Tasks_Query
             .Include(x => x.L_TaskFlows)
             .ThenInclude(x => x.Flow);
-            //.ThenInclude(x => x.CaseState);
+        //.ThenInclude(x => x.CaseState);
 
         #region Conditions
         var eP_Tasks_Query4 = eP_Tasks_Query3
@@ -57,7 +61,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 .AsNoTracking()
                 .ToListAsync();
 
-            var Actual_Conditions = Current_Case.Conditions;
+            var Actual_Conditions = Current_Case.CaseConditions.Select(x => x.Condition);
 
             foreach (var ProcessScenario in pc_ProcessScenario)
             {
@@ -145,9 +149,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                         var _CurrentCondition = await _db.F_Conditions
                             .Where(x => x.Id == _ConditionId).SingleAsync();
 
-                        _Location = long.Parse(Current_Case.Conditions
-                            .Where(x => x.Name == _CurrentCondition.Name)
-                            .Select(x => x.Value).Single());
+                        _Location = 1;
                     }
 
                     foreach (var D_User in D_Users)
@@ -253,10 +255,38 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
               .ThenInclude(x => x.WorkItems)
               .ThenInclude(x => x.Task)
               .Include(x => x.Case)
-              .ThenInclude(x => x.Conditions)
+              .ThenInclude(x => x.CaseConditions)
+              .ThenInclude(x => x.Condition)
               .FirstAsync();
 
-        Current_WorkItem.Case.Conditions = await _iCopyClass.CopyCondition(f_WorkItem.Case.Conditions);
+        var _prevConditions = Current_WorkItem.Case.CaseConditions.Select(x => x.Condition);
+        var _conditions = await _iCopyClass.CopyCondition(f_WorkItem.Case.CaseConditions.Select(x => x.Condition));
+
+        foreach (var _prevCondition in _prevConditions)
+        {
+            if (!_conditions.Where(x => x.Id == _prevCondition.Id).Any())
+            {
+                var _markForDeleted = Current_WorkItem.Case.CaseConditions
+                    .Where(x => x.Condition == _prevCondition)
+                    .Single();
+                Current_WorkItem.Case.CaseConditions.Remove(_markForDeleted);
+            }
+        }
+
+        foreach (var _condition in _conditions)
+        {
+            if (!Current_WorkItem.Case.CaseConditions.Where(x => x.Condition == _condition).Any())
+            {
+                L_CaseCondition _caseCondition = new()
+                {
+                    Case = Current_WorkItem.Case,
+                    FirstId = Current_WorkItem.CaseId,
+                    Condition = _condition,
+                    SecondId = _condition.Id
+                };
+                Current_WorkItem.Case.CaseConditions.Add(_caseCondition);
+            }
+        }
 
         if (Current_WorkItem.LastModified is not null && Rebase == false)
         {
@@ -339,7 +369,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             .Where(x => x.Id == Current_WorkItem.TaskId)
             .SingleAsync();
 
-        var ActualConditions = Current_WorkItem.Case.Conditions;
+        var ActualConditions = Current_WorkItem.Case.CaseConditions.Select(x=>x.Condition);
 
         var TaskItems = await _db.L_TaskFlows
            .Where(x => x.FirstId == WorkItemTaskId)
@@ -363,7 +393,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                     //Current_WorkItem.Case.CaseStateId =
                     //    TaskItem.CaseStateId;
 
-                    Current_WorkItem.Conditions = ActualConditions;
+                    //Current_WorkItem.Conditions = ActualConditions;
 
                     Current_WorkItem.SetSent();
 
@@ -431,6 +461,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                                     .ForEach(x => x.SetInbox());
                             }
                             #endregion
+
                         }
 
                         Current_WorkItem.Case.WorkItems
