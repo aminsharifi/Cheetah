@@ -43,8 +43,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<D_Entity> D_Entities { get; set; }
     public virtual DbSet<D_Tag> D_Tags { get; set; }
     public virtual DbSet<D_Process> D_Processes { get; set; }
-    public virtual DbSet<D_CaseState> D_CaseStates { get; set; }
-    public virtual DbSet<D_Location> D_Locations { get; set; }
+    public virtual DbSet<D_CaseState> D_CaseStates { get; set; }   
     public virtual DbSet<D_User> D_Users { get; set; }
     public virtual DbSet<D_Operand> D_Operands { get; set; }
     public virtual DbSet<D_WorkItemState> D_WorkItemStates { get; set; }

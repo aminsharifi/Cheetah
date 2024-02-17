@@ -25,11 +25,6 @@ public class Query
     }
 
 
-    public IQueryable<D_Location> d_Locations([Service] ApplicationDbContext context)
-    {
-        return context.D_Locations;
-    }
-
     public IQueryable<D_User> d_Users([Service] ApplicationDbContext context)
     {
         return context.D_Users;
