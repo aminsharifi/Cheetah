@@ -9,10 +9,11 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             .Include(x => x.Requestor)
             .Include(x => x.Process)
             .Include(x => x.SelectedScenario)
-            .Include(x => x.Conditions)
+            .Include(x => x.CaseConditions)
+            .ThenInclude(x => x.Condition)
             .Include(x => x.CaseState)
             .Include(x => x.WorkItems)
-            .ThenInclude(x => x.Conditions)
+            .ThenInclude(x => x.WorkItemConditions)
             .Include(x => x.WorkItems)
             .ThenInclude(x => x.WorkItemState)
             .Include(x => x.WorkItems)
@@ -116,7 +117,7 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             //.SelectMany(x => x.Flow.Conditions, (Parrent, Child) => _iCopyClass
             //.GetSimpleClass(Child.Tag)
             //),
-            Conditions = x.Conditions.Select(x => _iCopyClass.GetSimpleClass(x)),
+            Conditions = x.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(x.Condition)),
             Summary = string.Empty
         }
         );

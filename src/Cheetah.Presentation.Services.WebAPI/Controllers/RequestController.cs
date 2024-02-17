@@ -21,7 +21,24 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
         f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
         f_Request.Process = request.Process.GetSimpleClass<D_Process>();
-        f_Request.Conditions = request.Conditions.GetCondition().ToList();
+        //f_Request.Conditions = request.Conditions.GetCondition().ToList();
+
+        var _conditions = request.Conditions.GetCondition();
+
+        foreach (var _condition in _conditions)
+        {
+            L_CaseCondition _caseCondition = new()
+            {
+                Case = f_Request,
+                FirstId = f_Request.Id,
+                Condition = _condition,
+                SecondId = _condition.Id
+            };
+            f_Request.CaseConditions.Add(_caseCondition);
+        }
+
+
+        //f_Request.Conditions = request.Conditions.GetCondition().ToList();
 
         #endregion
 
@@ -63,7 +80,23 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         f_WorkItem.Case = new F_Case();
 
-        f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
+        var _conditions = request.Conditions.GetCondition();
+
+        foreach (var _condition in _conditions)
+        {
+            if (!f_WorkItem.Case.CaseConditions.Where(x => x.Condition == _condition).Any())
+            {
+                L_CaseCondition _caseCondition = new()
+                {
+                    Case = f_WorkItem.Case,
+                    FirstId = f_WorkItem.CaseId,
+                    Condition = _condition,
+                    SecondId = _condition.Id
+                };
+                f_WorkItem.Case.CaseConditions.Add(_caseCondition);
+            }
+        }
+
         #endregion
 
         var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase.Value);
@@ -167,7 +200,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
                 l_Request?.WorkItems
                 .Where(x => x.Id == workItem.WorkItem.Id)
                 .Single()
-                .Conditions.GetCondition()
+                .WorkItemConditions.Select(x => x.Condition).GetCondition()
                 );
             }
         }

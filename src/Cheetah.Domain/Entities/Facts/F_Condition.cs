@@ -29,12 +29,6 @@ public partial class F_Condition : BaseEntity
         set { _value = value; SetName(); }
     }
 
-    public long? CaseId { get; set; }
-    public virtual F_Case? Case { get; set; }
-
-    public long? WorkItemId { get; set; }
-    public virtual F_WorkItem? WorkItem { get; set; }
-
     [NotMapped]
     public bool BooleanValue
     {
