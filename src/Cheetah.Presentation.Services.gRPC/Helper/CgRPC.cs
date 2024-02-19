@@ -283,6 +283,7 @@ public static class CgRPC
         _workItem = WorkItem.WorkItem.GetSimpleClass<F_WorkItem>();
         
         _workItem.User = WorkItem.User.GetSimpleClass<D_User>();
+
         var _conditions = WorkItem.Conditions.GetConditions();
 
         foreach (var _condition in _conditions)
