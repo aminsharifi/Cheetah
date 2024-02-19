@@ -15,10 +15,8 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
         f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
         f_Request.Process = request.Process.GetSimpleClass<D_Process>();
-        var _conditions = request.Conditions.GetConditions().ToList();
-        F_WorkItem _workItem = request.WorkItem.GetWorkItemClass();
 
-        f_Request.WorkItems.Add(_workItem);
+        var _conditions = request.Conditions.GetConditions().ToList();
 
         foreach (var _condition in _conditions)
         {
@@ -30,6 +28,11 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
             f_Request.CaseConditions.Add(_CaseCondition);
         }
+
+        F_WorkItem _workItem = request.WorkItem.GetWorkItemClass();
+
+        f_Request.WorkItems.Add(_workItem);
+
         #endregion
 
         var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
