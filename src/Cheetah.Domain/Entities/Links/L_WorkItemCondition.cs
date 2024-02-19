@@ -1,11 +1,9 @@
-﻿using Cheetah.Domain.Entities.Facts;
-
-namespace Cheetah.Domain.Entities.Links;
+﻿namespace Cheetah.Domain.Entities.Links;
 
 public partial class L_WorkItemCondition : SimpleLinkClass
 {
     [ForeignKey(nameof(FirstId))]
-    public virtual D_WorkItemState? Case { get; set; }
+    public virtual F_WorkItem? WorkItem { get; set; }
 
     [ForeignKey(nameof(SecondId))]
     public virtual F_Condition? Condition { get; set; }

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+﻿using Cheetah.Domain.Entities.Facts;
 using System.Collections.ObjectModel;
 
 namespace Cheetah.Infrastructure.Persistence.Repository;
@@ -52,7 +52,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
 
         foreach (var item in Conditions)
         {
-            var _condition = new F_Condition();
+            F_Condition _condition = new();
 
             _condition.Id = item?.Id;
             _condition.ERPCode = item?.ERPCode;
@@ -109,25 +109,53 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
 
     public async Task<F_Case> DeepCopy(F_Case obj)
     {
-        F_Case Return_Case = new();
+        F_Case _case = new();
 
-        Return_Case.ERPCode = obj?.ERPCode;
-        Return_Case.CreatorId = await GetSimpleClassId(_db.D_Users, obj.Creator, Return_Case.CreatorId);
-        Return_Case.RequestorId = await GetSimpleClassId(_db.D_Users, obj.Requestor, Return_Case.RequestorId);
-        Return_Case.ProcessId = await GetSimpleClassId(_db.D_Processes, obj.Process, Return_Case.ProcessId);
+        _case.ERPCode = obj?.ERPCode;
+        _case.CreatorId = await GetSimpleClassId(_db.D_Users, obj.Creator, _case.CreatorId);
+        _case.RequestorId = await GetSimpleClassId(_db.D_Users, obj.Requestor, _case.RequestorId);
+        _case.ProcessId = await GetSimpleClassId(_db.D_Processes, obj.Process, _case.ProcessId);
 
         var _conditions = await CopyCondition(obj.CaseConditions.Select(x => x.Condition));
 
         foreach (var _condition in _conditions)
         {
-            Return_Case.CaseConditions.Add(new()
+            _case.CaseConditions.Add(new()
             {
                 SecondId = _condition.Id
             });
         }
 
-        return Return_Case;
+        var _workItems = obj.WorkItems;
+
+        foreach (var _workItem in _workItems)
+        {
+            var _CopiedworkItem = await DeepCopy(_workItem);
+            _case.WorkItems.Add(_CopiedworkItem);
+        }
+
+        return _case;
     }
+
+    public async Task<F_WorkItem> DeepCopy(F_WorkItem obj)
+    {
+        F_WorkItem _workItem = new();
+
+        _workItem.UserId = await GetSimpleClassId(_db.D_Users, obj.User, _workItem.UserId);
+
+        var _conditions = await CopyCondition(obj.WorkItemConditions.Select(x => x.Condition));
+
+        foreach (var _condition in _conditions)
+        {
+            _workItem.WorkItemConditions.Add(new()
+            {
+                SecondId = _condition.Id
+            });
+        }
+
+        return _workItem;
+    }
+
     public async Task<L_CaseTaskUser> DeepCopy(L_CaseTaskUser obj)
     {
         L_CaseTaskUser Return_CaseTaskUser = new();
