@@ -186,14 +186,47 @@ public static class CgRPC
 
         return _SimpleClass;
     }
-    public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass) where T : BaseEntity
+    public static T GetSimpleClass<T>(this GRPC_BaseClassWithDate gRPC_BaseClass) where T : BaseEntity
     {
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+
         if (gRPC_BaseClass is null)
         {
-            return null;
+            return _SimpleClass;
         }
 
+
+        if (gRPC_BaseClass.Id is not null)
+        {
+            _SimpleClass.Id = gRPC_BaseClass.Id;
+        }
+        if (gRPC_BaseClass.ERPCode is not null)
+        {
+            _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
+        }
+        if (gRPC_BaseClass.SortIndex is not null)
+        {
+            _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
+        }
+        if (gRPC_BaseClass.CreateTimeRecord is not null)
+        {
+            _SimpleClass.Created = gRPC_BaseClass.CreateTimeRecord.ToDateTime();
+        }
+        if (gRPC_BaseClass.LastUpdatedRecord is not null)
+        {
+            _SimpleClass.LastModified = gRPC_BaseClass.LastUpdatedRecord.ToDateTime();
+        }
+
+        return _SimpleClass;
+    }
+    public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass) where T : BaseEntity
+    {
         var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+
+        if (gRPC_BaseClass is null)
+        {
+            return _SimpleClass;
+        }
 
         if (gRPC_BaseClass.Id is not null)
         {
@@ -216,12 +249,12 @@ public static class CgRPC
     }
     public static T GetSimpleClass<T>(this GRPC_BaseClass gRPC_BaseClass) where T : BaseEntity
     {
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+
         if (gRPC_BaseClass is null)
         {
-            return null;
+            return _SimpleClass;
         }
-
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
 
         if (gRPC_BaseClass.Id is not null)
         {
@@ -238,27 +271,56 @@ public static class CgRPC
 
         return _SimpleClass;
     }
-    public static IEnumerable<F_Condition> GetCondition(this IEnumerable<Condition> Conditions)
+    public static F_WorkItem GetWorkItemClass(this GRPC_WorkItem WorkItem)
+    {
+        if (WorkItem is null)
+        {
+            return null;
+        }
+
+        F_WorkItem _workItem = new();
+
+        _workItem = WorkItem.WorkItem.GetSimpleClass<F_WorkItem>();
+        
+        _workItem.User = WorkItem.User.GetSimpleClass<D_User>();
+        var _conditions = WorkItem.Conditions.GetConditions();
+
+        foreach (var _condition in _conditions)
+        {
+            _workItem.WorkItemConditions.Add(
+                new L_WorkItemCondition()
+                {
+                    Condition = _condition
+                });
+        }
+
+        return _workItem;
+    }
+    public static F_Condition GetCondition(this Condition Condition)
+    {
+        var f_Condition = new F_Condition();
+
+        if (Condition.Base is not null)
+        {
+            f_Condition.Id = Condition.Base.Id;
+            f_Condition.Name = Condition.Base.Name;
+            f_Condition.ERPCode = Condition.Base.ERPCode;
+            f_Condition.SortIndex = Condition.Base.SortIndex;
+        }
+
+        f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
+
+        f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
+
+        f_Condition.Value = Condition?.Value;
+
+        return f_Condition;
+    }
+    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<Condition> Conditions)
     {
         foreach (var Condition in Conditions)
         {
-            var f_Condition = new F_Condition();
-
-            if (Condition.Base is not null)
-            {
-                f_Condition.Id = Condition.Base.Id;
-                f_Condition.Name = Condition.Base.Name;
-                f_Condition.ERPCode = Condition.Base.ERPCode;
-                f_Condition.SortIndex = Condition.Base.SortIndex;
-            }
-
-            f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
-
-            f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
-
-            f_Condition.Value = Condition?.Value;
-
-            yield return f_Condition;
+            yield return GetCondition(Condition);
         }
     }
     public static IEnumerable<Condition> GetCondition(this IEnumerable<F_Condition> f_conditions)
