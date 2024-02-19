@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Application.Services.gRPC.Services;
+﻿namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
@@ -17,13 +15,15 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
         f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
         f_Request.Process = request.Process.GetSimpleClass<D_Process>();
-        var _conditions = request.Conditions.GetCondition().ToList();
+        var _conditions = request.Conditions.GetConditions().ToList();
+        F_WorkItem _workItem = request.WorkItem.GetWorkItemClass();
+
+        f_Request.WorkItems.Add(_workItem);
+
         foreach (var _condition in _conditions)
         {
             L_CaseCondition _CaseCondition = new()
             {
-                Case = f_Request,
-                FirstId = f_Request.Id,
                 Condition = _condition,
                 SecondId = _condition.Id
             };
@@ -64,12 +64,13 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         logger.LogInformation("{@Perform_Input_Request}", request);
 
         #region Input
-        var f_WorkItem = request.WorkItem.GetSimpleClass<F_WorkItem>();
+        var f_WorkItem = request.WorkItem.WorkItem.GetSimpleClass<F_WorkItem>();
 
         f_WorkItem.Case = new();
 
         //f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
-        var _conditions = request.Conditions.GetCondition();
+        var _conditions = request.WorkItem.Conditions.GetConditions();
+
         foreach (var _condition in _conditions)
         {
             L_CaseCondition _caseCondition = new()

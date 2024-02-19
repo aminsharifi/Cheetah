@@ -1,53 +1,37 @@
-﻿using Cheetah.Domain.Entities.Links;
-using DNTPersianUtils.Core;
-using System.Linq;
-
-namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
-    public CheetahResult<IQueryable<F_Task>> GetAllTask()
+    public IQueryable<F_Task> GetAllTask(Int64 ScenarioId)
     {
-        #region Tasks
-        var eP_Tasks_Query =
+        var _allTasks =
             _db.F_Tasks
+            .Where(x => x.ScenarioId == ScenarioId)
             .Where(x => x.EnableRecord == true)
-            .AsNoTracking()
-            .OrderBy(x => x.SortIndex);
+            .OrderBy(x => x.SortIndex)
+            .AsNoTracking();
 
-        #region TaskItem
+        var _allPerformers = _allTasks
+            .Include(x => x.L_TaskConditions)
+            .ThenInclude(x => x.Condition);
 
-        var eP_Tasks_Query3 = eP_Tasks_Query
-            .Include(x => x.L_TaskFlows)
-            .ThenInclude(x => x.Flow);
-        //.ThenInclude(x => x.CaseState);
-
-        #region Conditions
-        var eP_Tasks_Query4 = eP_Tasks_Query3
+        var _allFlows = _allPerformers
             .Include(x => x.L_TaskFlows)
             .ThenInclude(x => x.Flow)
-            //.ThenInclude(x => x.Conditions)
-            //.ThenInclude(x => x.Tag)
+            .ThenInclude(x => x.CaseState);
+
+        var _allConditions = _allFlows
             .Include(x => x.L_TaskFlows)
-            .ThenInclude(x => x.Flow);
-        //.ThenInclude(x => x.Conditions)
-        //.ThenInclude(x => x.Operand);
-        #endregion
+            .ThenInclude(x => x.Flow)
+            .ThenInclude(x => x.FlowConditions)
+            .ThenInclude(x => x.Condition);
 
-        #region TaskItem
-        var eP_Tasks_Query5 = eP_Tasks_Query4
-            .Include(x => x.L_TaskFlows)
-            .ThenInclude(x => x.Task);
+        var _allNextActions = _allConditions
+                   .Include(x => x.L_TaskFlows)
+                   .ThenInclude(x => x.Flow)
+                   .ThenInclude(x => x.FlowTasks)
+                   .ThenInclude(x => x.Task);
 
-        #endregion
-
-        #endregion
-
-        #endregion
-
-        var Tasks = OutputState<IQueryable<F_Task>>.Success("خروجی", eP_Tasks_Query4.AsQueryable<F_Task>());
-
-        return Tasks;
-
+        return _allNextActions;
     }
     public async Task<CheetahResult<bool>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
     {
@@ -56,25 +40,22 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             var pc_ProcessScenarios = await _db.L_ProcessScenarios
                 .Where(x => x.FirstId == Current_Case.ProcessId)
                 .Where(x => x.EnableRecord == true)
-                .Include(x => x.Scenario)
                 .AsNoTracking()
                 .ToListAsync();
 
-            var Actual_ConditionsIds = Current_Case.CaseConditions.Select(x => x.SecondId.Value);
-
-            var Actual_Conditions = await _db.F_Conditions
-                .Where(x => Actual_ConditionsIds.Where(z => z == x.Id).Any())
-                .AsNoTracking()
-                .ToListAsync();
-
-            var _emptyConditions = pc_ProcessScenarios.Where(x => !x.Scenario.ScenarioConditions.Any());
-
-            if (_emptyConditions.Any())
+            if (pc_ProcessScenarios.Count() == 1)
             {
-                Current_Case.SelectedScenarioId = _emptyConditions.First().SecondId;
+                Current_Case.SelectedScenarioId = pc_ProcessScenarios.First().SecondId;
             }
             else
             {
+                var Actual_ConditionsIds = Current_Case.CaseConditions.Select(x => x.SecondId.Value);
+
+                var Actual_Conditions = await _db.F_Conditions
+                    .Where(x => Actual_ConditionsIds.Where(z => z == x.Id).Any())
+                    .AsNoTracking()
+                    .ToListAsync();
+
                 foreach (var ProcessScenario in pc_ProcessScenarios)
                 {
                     var ConditionOccures = false;
@@ -94,125 +75,67 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 }
             }
 
-            var eP_Tasks = await GetAllTask().Result.Value
-                 .Where(x => x.ScenarioId == Current_Case.SelectedScenarioId.Value)
-                 .ToListAsync();
+            var _allTasks = await GetAllTask(Current_Case.SelectedScenarioId.Value)
+                .AsNoTracking()
+                .ToListAsync();
 
-            F_WorkItem first_WorkItem = new()
+            F_WorkItem _workItem = new()
             {
                 Case = Current_Case
             };
 
-            foreach (var eP_Task in eP_Tasks)
+            foreach (var _task in _allTasks)
             {
-                //if (eP_Task.Role.FixedRole)
-                if (false)
+                F_WorkItem f_WorkItem = new()
                 {
-                    F_WorkItem f_WorkItem = new()
-                    {
-                        Case = Current_Case,
-                        TaskId = eP_Task.Id
-                    };
+                    Case = Current_Case,
+                    TaskId = _task.Id
+                };
 
-                    //if (eP_Task.IsRequestor())
-                    //{
-                    //    f_WorkItem.UserId = Current_Case.RequestorId;
-                    //}
-                    //else if (eP_Task.IsRequestorManager())
-                    //{
-                    //    f_WorkItem.UserId = Current_Case.Requestor.Parent_Id;
-                    //}
-                    if (first_WorkItem.TaskId is null)
-                    {
-                        first_WorkItem = f_WorkItem;
-                    }
+                if (Current_Case.WorkItems.Count() == 1)
+                {
+                    _workItem = f_WorkItem;
 
                     Current_Case.WorkItems.Add(f_WorkItem);
                 }
                 else
                 {
-                    //var Positions = await _db.L_RolePositions
-                    //    .Where(x => x.FirstId == eP_Task.RoleId)
-                    //    .Where(x => x.EnableRecord == true)
-                    //    .AsNoTracking()
-                    //    .Select(x => x.SecondId)
-                    //    .ToListAsync();
+                    var _performerConditions =
+                        _task.L_TaskConditions
+                        .Where(x => x.EnableRecord)
+                        .Select(x => x.Condition.Id);
 
-                    //var Users = await _db.L_UserPositions
-                    //    .Where(x => Positions.Contains(x.SecondId))
-                    //    .Where(x => x.EnableRecord == true)
-                    //    .AsNoTracking()
-                    //    .Select(x => x.FirstId)
-                    //    .ToListAsync();
-
-                    var D_Users = await _db.D_Users
-                        //.Where(x => Users.Contains(x.Id))
-                        .Where(x => x.EnableRecord == true)
+                    var _users = await _db.L_UserConditions
+                        .Where(x => _performerConditions.Contains(x.FirstId))
+                        .Where(x => x.EnableRecord)
                         .AsNoTracking()
-                        //.Include(x => x.UserLocations)
+                        .Select(x => x.FirstId.Value)
                         .ToListAsync();
 
-                    long _Location = 0;
-
-                    //if (!eP_Task.Role.Independent)
-                    if (true)
+                    foreach (var _user in _users)
                     {
-                        //var _ConditionId = eP_Task.ConditionId;
-
-                        var _ConditionId = 1;
-
-                        var _CurrentCondition = await _db.F_Conditions
-                            .Where(x => x.Id == _ConditionId).SingleAsync();
-
-                        _Location = 1;
-                    }
-
-                    foreach (var D_User in D_Users)
-                    {
-                        var UserOccur = false;
-
-                        //if (eP_Task.Role.Independent)
-                        if (false)
+                        f_WorkItem = new()
                         {
-                            UserOccur = true;
-                        }
-                        else
-                        {
-                            //if (eP_Task.ConditionId is not null)
-                            if (true)
-                            {
-                                //if (D_User.UserLocations.Any(x => x.SecondId == _Location))
-                                if (true)
-                                {
-                                    UserOccur = true;
-                                }
-                            }
-                        }
-                        if (UserOccur)
-                        {
-                            F_WorkItem f_WorkItem = new()
-                            {
-                                Case = Current_Case,
-                                TaskId = eP_Task.Id,
-                                UserId = D_User.Id
-                            };
-                            Current_Case.WorkItems.Add(f_WorkItem);
-                        }
+                            Case = Current_Case,
+                            TaskId = _task.Id,
+                            UserId = _user
+                        };
+                        Current_Case.WorkItems.Add(f_WorkItem);
                     }
                     if (!Current_Case.WorkItems
-                      .Where(x => x.TaskId == eP_Task.Id)
+                      .Where(x => x.TaskId == _task.Id)
                       .Any())
                     {
-                        throw new ArgumentNullException($"There aren't any related users for {eP_Task.Name}");
+                        throw new ArgumentNullException($"There aren't any related users for {Current_Case.Name}");
                     }
                 }
             }
             if (Current_WorkItem is not null)
             {
-                first_WorkItem = Current_WorkItem;
+                _workItem = Current_WorkItem;
             }
 
-            await SetCurrentAssignment(first_WorkItem);
+            await SetCurrentAssignment(_workItem);
 
             return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
         }
@@ -275,32 +198,19 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
               .FirstAsync();
 
         var _prevConditions = Current_WorkItem.Case.CaseConditions.Select(x => x.Condition);
-        var _conditions = await _iCopyClass.CopyCondition(f_WorkItem.Case.CaseConditions.Select(x => x.Condition));
 
-        foreach (var _prevCondition in _prevConditions)
-        {
-            if (!_conditions.Where(x => x.Id == _prevCondition.Id).Any())
-            {
-                var _markForDeleted = Current_WorkItem.Case.CaseConditions
-                    .Where(x => x.Condition == _prevCondition)
-                    .Single();
-                Current_WorkItem.Case.CaseConditions.Remove(_markForDeleted);
-            }
-        }
+        var _conditions = await _iCopyClass.CopyCondition(Current_WorkItem.WorkItemConditions.Select(x => x.Condition));
 
         foreach (var _condition in _conditions)
         {
-            if (!Current_WorkItem.Case.CaseConditions.Where(x => x.Condition == _condition).Any())
+            L_WorkItemCondition _workItemCondition = new()
             {
-                L_CaseCondition _caseCondition = new()
-                {
-                    Case = Current_WorkItem.Case,
-                    FirstId = Current_WorkItem.CaseId,
-                    Condition = _condition,
-                    SecondId = _condition.Id
-                };
-                Current_WorkItem.Case.CaseConditions.Add(_caseCondition);
-            }
+                WorkItem = Current_WorkItem,
+                FirstId = Current_WorkItem.Id,
+                Condition = _condition,
+                SecondId = _condition.Id
+            };
+            Current_WorkItem.WorkItemConditions.Add(_workItemCondition);
         }
 
         if (Current_WorkItem.LastModified is not null && Rebase == false)
