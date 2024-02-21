@@ -11,8 +11,8 @@ package greet;
 service Request {
   // Sends a greeting
   rpc CreateRequest (CreateRequest_Input) returns (CreateRequest_Output);
-  rpc GetCase (GetCase_Input) returns (GetCase_Output);
   rpc PerformRequest (PerformRequest_Input) returns (PerformRequest_Output);
+  rpc GetCase (GetCase_Input) returns (GetCase_Output);
   rpc Inbox (Cartable_Input) returns (Cartable_Output);
   rpc Outbox (Cartable_Input) returns (Cartable_Output);
   rpc GetAllByName (GetAllByName_Input) returns (GetAllByName_Output);
@@ -43,12 +43,8 @@ message GetCase_Input
 
 message GetCase_Output
 {
-    GRPC_BaseClassWithName Process = 1;
-    GRPC_BaseClassWithDate Case = 2;
-    GRPC_BaseClassWithName Requestor  = 3;
-    GRPC_BaseClassWithName CaseState = 4;
-    repeated GRPC_Task Tasks = 5;
-    GRPC_BaseClassWithName OutputState = 6;
+    GRPC_Case Case = 1;    
+    GRPC_BaseClassWithName OutputState = 2;
 }
 
 message PerformRequest_Input
@@ -82,7 +78,7 @@ message Cartable_Output
     google.protobuf.Int64Value PageNumber = 1;
     google.protobuf.Int64Value PageSize  = 2;
     google.protobuf.Int64Value TotalItems  = 3;    
-    repeated RecordCartable RecordCartables = 4;
+    repeated GRPC_Case Cases = 4;
     GRPC_BaseClassWithName OutputState = 5;
 }
 
@@ -171,7 +167,11 @@ message GRPC_Condition
     google.protobuf.StringValue Value = 4;
 }
 
-message RecordCartable
+message GRPC_Case
 {
-    repeated GetCase_Output Cases = 1;    
+    GRPC_BaseClassWithName Process = 1;
+    GRPC_BaseClassWithDate Case = 2;
+    GRPC_BaseClassWithName Requestor  = 3;
+    GRPC_BaseClassWithName CaseState = 4;
+    repeated GRPC_Task Tasks = 5;
 }

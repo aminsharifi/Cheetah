@@ -132,13 +132,14 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         #region GetCase_Output
         var _requests = await iCartable.GetCaseAsync(_request);
         var _selectedRequests = _requests.FirstOrDefault();
-
-        GetCase_Output output_Requests = new()
+        GetCase_Output output_Requests = new();
+        GRPC_Case _gRPC_Case = new()
         {
             Case = _selectedRequests?.GetBaseClassWithDate(),
             CaseState = _selectedRequests?.CaseState?.GetBaseClassWithName(),
             Process = _selectedRequests?.Process?.GetBaseClassWithName()
         };
+        output_Requests.Case = _gRPC_Case;
 
         if (!_requests.Any())
         {
@@ -158,7 +159,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
             .OrderBy(x => x.SortIndex)
             .ToList();
 
-        output_Requests.Tasks.AddRange(
+        _gRPC_Case.Tasks.AddRange(
             Tasks.Select(x => new GRPC_Task()
             {
                 Task = x.GetBaseClassWithName()
@@ -169,7 +170,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #region L_WorkItem
 
-        foreach (var Task in output_Requests.Tasks)
+        foreach (var Task in _gRPC_Case.Tasks)
         {
             Task.WorkItems.AddRange(
             _selectedRequests?.WorkItems
@@ -196,6 +197,8 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #endregion
 
+
+      
         output_Requests.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
             .SimpleClassDTO.GetBaseClassWithName();
@@ -308,6 +311,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #region Output
         Cartable_Output _OutputCartable = new();
+        
 
         if (OutputRequest.Count() > 0)
         {
@@ -315,11 +319,10 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
             _OutputCartable.PageSize = OutputRequest.FirstOrDefault()?.PageSize.Value;
             _OutputCartable.PageNumber = OutputRequest.FirstOrDefault()?.PageNumber.Value;
 
-            RecordCartable recordCartable = new();
 
             foreach (var outputRequestItem in OutputRequest)
             {
-                GetCase_Output _getCase_Output = new()
+                GRPC_Case _Case = new()
                 {
                     Case = outputRequestItem.Case.GetBaseClassWithDate(),
                     CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
@@ -354,9 +357,9 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
                 _task.WorkItems.Add(_gRPC_WorkItem);
 
-                _getCase_Output.Tasks.Add(_task);
+                _Case.Tasks.Add(_task);
 
-                _OutputCartable.RecordCartables.Add(recordCartable);
+                _OutputCartable.Cases.Add(_Case);
             }
         }
         #endregion
