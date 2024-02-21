@@ -24,7 +24,7 @@ message CreateRequest_Input
      GRPC_BaseClassWithName Creator = 2;
      GRPC_BaseClassWithName Requestor = 3;
      GRPC_BaseClassWithName Process = 4;
-     repeated Condition Conditions = 5;
+     repeated GRPC_Condition Conditions = 5;
      GRPC_WorkItem WorkItem = 6;
 }
 
@@ -32,6 +32,23 @@ message CreateRequest_Output
 {
     GRPC_BaseClassWithDate Case = 1;
     GRPC_BaseClassWithName OutputState = 2;
+}
+
+message GetCase_Input
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName CaseState = 2;
+    GRPC_BaseClassWithName Process = 3;
+}
+
+message GetCase_Output
+{
+    GRPC_BaseClassWithName Process = 1;
+    GRPC_BaseClassWithDate Case = 2;
+    GRPC_BaseClassWithName Requestor  = 3;
+    GRPC_BaseClassWithName CaseState = 4;
+    repeated GRPC_Task Tasks = 5;
+    GRPC_BaseClassWithName OutputState = 6;
 }
 
 message PerformRequest_Input
@@ -48,53 +65,15 @@ message PerformRequest_Output
     GRPC_BaseClassWithName OutputState = 4;
 }
 
-message GetCase_Input
-{
-    GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName CaseState = 2;
-    GRPC_BaseClassWithName Process = 3;
-}
-
-message Condition
-{
-    GRPC_BaseClassWithName Tag = 1;
-    GRPC_BaseClassWithName Operand = 2;
-    google.protobuf.StringValue Value = 3;
-    GRPC_BaseClassWithName Base = 4;
-}
-
-message GetCase_Output
-{
-    GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName CaseState = 2;
-    GRPC_BaseClassWithName Process = 3;
-    repeated GRPC_Task Tasks = 4;
-    GRPC_BaseClassWithName OutputState = 5;
-}
-
-message GRPC_Task
-{
-    GRPC_BaseClassWithName Task = 1;
-    repeated GRPC_WorkItem WorkItems = 2;
-}
-
-message GRPC_WorkItem
-{
-    GRPC_BaseClassWithDate WorkItem = 1;
-    GRPC_BaseClassWithName User = 2;    
-    repeated Condition Conditions = 3;
-    GRPC_BaseClassWithName WorkItemState = 4;
-}
-
 message Cartable_Input
 {
     google.protobuf.Int64Value PageNumber = 1;
     google.protobuf.Int64Value PageSize  = 2;
     google.protobuf.Int64Value TotalItems  = 3;
     GRPC_BaseClassWithName Assignee = 4;
-    GRPC_BaseClassWithName CaseState = 5;
-    GRPC_BaseClassWithName Process = 6;
-    GRPC_BaseClass Case  = 7;
+    GRPC_BaseClassWithName Process = 5;
+    GRPC_BaseClass Case  = 6;
+    GRPC_BaseClassWithName CaseState = 7;
     GRPC_BaseClass WorkItem  = 8;
 }
 
@@ -107,20 +86,6 @@ message Cartable_Output
     GRPC_BaseClassWithName OutputState = 5;
 }
 
-message RecordCartable
-{
-    GRPC_BaseClassWithName Process = 1;
-    GRPC_BaseClassWithDate Case  = 2;
-    GRPC_BaseClassWithName CaseState = 3;
-    GRPC_BaseClassWithName Requestor  = 4;
-    GRPC_BaseClassWithName Task = 5;
-    GRPC_BaseClassWithDate WorkItem  = 6;
-    GRPC_BaseClassWithName Assignee = 7;
-    GRPC_BaseClassWithName Tag = 8;
-    repeated GRPC_BaseClassWithName ValidUserActions = 9;
-    repeated GRPC_BaseClassWithName Conditions = 10;
-}
-
 message GetAllByName_Input
 {
     GRPC_BaseClassWithName TableInput = 1;
@@ -131,6 +96,21 @@ message GetAllByName_Output
     GRPC_BaseClassWithName TableInput = 1;
     repeated GRPC_BaseClassWithName TableOutput = 2;
     GRPC_BaseClassWithName OutputState = 3;
+}
+
+message SetCaseTaskUser_Input
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName Task = 2;
+    GRPC_BaseClassWithName User = 3;
+}
+
+message SetCaseTaskUser_Output
+{
+    GRPC_BaseClass Case = 1;
+    GRPC_BaseClassWithName Task = 2;
+    GRPC_BaseClassWithName User = 3;
+    GRPC_BaseClassWithName OutputState = 4;
 }
 
 message GRPC_BaseClass
@@ -168,17 +148,30 @@ message GRPC_BaseClassWithNameAndDate
     google.protobuf.Timestamp   CreateTimeRecord = 6;
     google.protobuf.Timestamp   LastUpdatedRecord = 7;
 }
-message SetCaseTaskUser_Input
+message GRPC_Task
 {
-    GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName Task = 2;
-    GRPC_BaseClassWithName User = 3;
+    GRPC_BaseClassWithName Task = 1;
+    repeated GRPC_WorkItem WorkItems = 2;
 }
 
-message SetCaseTaskUser_Output
+message GRPC_WorkItem
 {
-    GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName Task = 2;
-    GRPC_BaseClassWithName User = 3;
-    GRPC_BaseClassWithName OutputState = 4;
+    GRPC_BaseClassWithDate WorkItem = 1;
+    GRPC_BaseClassWithName User = 2;    
+    GRPC_BaseClassWithName WorkItemState = 3;
+    repeated GRPC_Condition OccurredUserActions = 4;
+    repeated GRPC_Condition ValidUserActions = 5;
+}
+
+message GRPC_Condition
+{
+    GRPC_BaseClassWithName Condition = 1;
+    GRPC_BaseClassWithName Tag = 2;
+    GRPC_BaseClassWithName Operand = 3;
+    google.protobuf.StringValue Value = 4;
+}
+
+message RecordCartable
+{
+    repeated GetCase_Output Cases = 1;    
 }
