@@ -83,20 +83,18 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
 
         Int64 _PageNumber = 0;
 
-        var _Filterf_WorkItems = f_WorkItems;
-
         if (cartableDTO.PageSize is not null)
         {
             _PageSize = cartableDTO.PageSize.Value;
 
             _PageNumber = cartableDTO.PageNumber.Value;
 
-            _Filterf_WorkItems = f_WorkItems.Skip(Convert.ToInt32(_PageSize * (_PageNumber - 1))).Take(Convert.ToInt32(_PageSize));
+            f_WorkItems = f_WorkItems.Skip(Convert.ToInt32(_PageSize * (_PageNumber - 1))).Take(Convert.ToInt32(_PageSize));
         }
 
-        var _TotalItems = f_WorkItems.Count();
+        var Records = await f_WorkItems.ToListAsync();
 
-        var Records = await _Filterf_WorkItems.ToListAsync();
+        var _TotalItems = Records.Count();
 
         var Inbox = Records
         .Select(x =>
@@ -108,10 +106,10 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             Process = _iCopyClass.GetSimpleClass(x.Case.Process),
             User = _iCopyClass.GetSimpleClass(x.User),
             Case = _iCopyClass.GetSimpleClass(x.Case),
-            WorkItem = _iCopyClass.GetSimpleClass(x),
             Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
-            Task = _iCopyClass.GetSimpleClass(x.Task),
             CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
+            WorkItem = _iCopyClass.GetSimpleClass(x),
+            Task = _iCopyClass.GetSimpleClass(x.Task),
             //ValidUserActions = _db.L_TaskFlows.Where(y => y.FirstId == x.Task.Id)
             //.AsNoTracking()
             //.SelectMany(x => x.Flow.Conditions, (Parrent, Child) => _iCopyClass
@@ -130,8 +128,8 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
         {
             var inboxQuery = _db.F_WorkItems
                       .Where(x =>
-                      x.Case.EnableRecord == true &&
-                      x.EnableRecord == true &&
+                      x.Case.EnableRecord &&
+                      x.EnableRecord &&
                       x.WorkItemStateId == D_WorkItemState.Inbox.Id);
 
             var inbox = await GetCartable(cartableDTO, inboxQuery);
