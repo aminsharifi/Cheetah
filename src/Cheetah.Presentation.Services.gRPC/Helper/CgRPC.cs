@@ -281,10 +281,10 @@ public static class CgRPC
         F_WorkItem _workItem = new();
 
         _workItem = WorkItem.WorkItem.GetSimpleClass<F_WorkItem>();
-        
+
         _workItem.User = WorkItem.User.GetSimpleClass<D_User>();
 
-        var _conditions = WorkItem.Conditions.GetConditions();
+        var _conditions = WorkItem.OccurredUserActions.GetConditions();
 
         foreach (var _condition in _conditions)
         {
@@ -297,46 +297,54 @@ public static class CgRPC
 
         return _workItem;
     }
-    public static F_Condition GetCondition(this Condition Condition)
+    public static F_Condition GetCondition(this GRPC_Condition Condition)
     {
-        var f_Condition = new F_Condition();
+        F_Condition _condition = new();
 
-        if (Condition.Base is not null)
+        if (Condition.Condition is not null)
         {
-            f_Condition.Id = Condition.Base.Id;
-            f_Condition.Name = Condition.Base.Name;
-            f_Condition.ERPCode = Condition.Base.ERPCode;
-            f_Condition.SortIndex = Condition.Base.SortIndex;
+            _condition = new()
+            {
+                Id = Condition.Condition.Id,
+                Name = Condition.Condition.Name,
+                ERPCode = Condition.Condition.ERPCode,
+                SortIndex = Condition.Condition.SortIndex
+            };
         }
 
-        f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
-
-        f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
-
-        f_Condition.Value = Condition?.Value;
-
-        return f_Condition;
+        _condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
+        _condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
+        _condition.Value = Condition?.Value;
+        return _condition;
     }
-    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<Condition> Conditions)
+    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions)
     {
         foreach (var Condition in Conditions)
         {
             yield return GetCondition(Condition);
         }
     }
-    public static IEnumerable<Condition> GetCondition(this IEnumerable<F_Condition> f_conditions)
+    public static IEnumerable<GRPC_Condition> GetConditions(this IEnumerable<F_Condition> f_conditions)
     {
         foreach (var f_condition in f_conditions)
         {
-            var _condition = new Condition();
+            GRPC_BaseClassWithName _conditionBase = new()
+            {
+                Id = f_condition?.Id,
+                Name = f_condition?.Name,
+                DisplayName = f_condition?.DisplayName,
+                ERPCode = f_condition?.ERPCode,
+                SortIndex = f_condition?.SortIndex
+            };
 
-            _condition.Base.Id = f_condition.Id;
-            _condition.Base.Name = f_condition.Name;
-            _condition.Base.ERPCode = f_condition.ERPCode;
-            _condition.Base.SortIndex = f_condition.SortIndex;
-            _condition.Tag = f_condition?.Tag?.GetBaseClassWithName();
-            _condition.Operand = f_condition?.Operand?.GetBaseClassWithName();
-            _condition.Value = f_condition?.Value;
+            GRPC_Condition _condition = new()
+            {
+                Condition = _conditionBase,
+                Tag = f_condition?.Tag?.GetBaseClassWithName(),
+                Operand = f_condition?.Operand?.GetBaseClassWithName(),
+                Value = f_condition?.Value
+            };
+
             yield return _condition;
         }
     }

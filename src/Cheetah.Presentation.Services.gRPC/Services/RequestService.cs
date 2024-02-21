@@ -72,7 +72,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         f_WorkItem.Case = new();
 
         //f_WorkItem.Case.Conditions = request.Conditions.GetCondition().ToList();
-        var _conditions = request.WorkItem.Conditions.GetConditions();
+        var _conditions = request.WorkItem.OccurredUserActions.GetConditions();
 
         foreach (var _condition in _conditions)
         {
@@ -122,39 +122,41 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
     public override async Task<GetCase_Output> GetCase(GetCase_Input request, ServerCallContext context)
     {
         #region Input
-        var f_Request = request.Case.GetSimpleClass<F_Case>();
-        f_Request.CaseState = request.CaseState.GetSimpleClass<D_CaseState>();
-        f_Request.Process = request.Process.GetSimpleClass<D_Process>();
+        var _request = request.Case?.GetSimpleClass<F_Case>();
+        _request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
+        _request.Process = request.Process?.GetSimpleClass<D_Process>();
         #endregion
 
         #region Output
 
         #region GetCase_Output
-
-        var _l_Request = await iCartable.GetCaseAsync(f_Request);
-        var l_Request = _l_Request.FirstOrDefault();
+        var _requests = await iCartable.GetCaseAsync(_request);
+        var _selectedRequests = _requests.FirstOrDefault();
 
         GetCase_Output output_Requests = new()
         {
-            Case = l_Request?.GetBaseClass(),
-            CaseState = l_Request?.CaseState?.GetBaseClassWithName(),
-            Process = l_Request?.Process?.GetBaseClassWithName()
+            Case = _selectedRequests?.GetBaseClassWithDate(),
+            CaseState = _selectedRequests?.CaseState?.GetBaseClassWithName(),
+            Process = _selectedRequests?.Process?.GetBaseClassWithName()
         };
 
-        if (!_l_Request.Any())
+        if (!_requests.Any())
         {
-            output_Requests.OutputState = OutputState<Boolean>.NotFoundErrorCreateRequest(false).SimpleClassDTO.GetBaseClassWithName();
+            output_Requests.OutputState = OutputState<Boolean>
+                .NotFoundErrorCreateRequest(false)
+                .SimpleClassDTO
+                .GetBaseClassWithName();
+
             return output_Requests;
         }
 
         #region Tasks
 
-        var Tasks = l_Request?
+        var Tasks = _selectedRequests?
             .SelectedScenario
             .Tasks
             .OrderBy(x => x.SortIndex)
             .ToList();
-
 
         output_Requests.Tasks.AddRange(
             Tasks.Select(x => new GRPC_Task()
@@ -170,23 +172,23 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         foreach (var Task in output_Requests.Tasks)
         {
             Task.WorkItems.AddRange(
-            l_Request?.WorkItems
+            _selectedRequests?.WorkItems
                 .Where(x => x.TaskId == Task.Task.Id)
                 .Select(x => new GRPC_WorkItem()
                 {
+                    WorkItem = x.GetBaseClassWithDate(),
                     User = x.User.GetBaseClassWithName(),
-                    WorkItemState = x.WorkItemState?.GetBaseClassWithName(),
-                    WorkItem = x.GetBaseClassWithDate()
+                    WorkItemState = x.WorkItemState?.GetBaseClassWithName()
                 })
                 );
             foreach (var workItem in Task.WorkItems)
             {
-                workItem.Conditions.AddRange(
-                l_Request?.WorkItems
+                var _conditions = _selectedRequests?.WorkItems
                 .Where(x => x.Id == workItem.WorkItem.Id)
                 .Single()
-                .WorkItemConditions.Select(x => x.Condition).GetCondition()
-                );
+                .WorkItemConditions.Select(x => x.Condition).GetConditions();
+
+                workItem.OccurredUserActions.AddRange(_conditions);
             }
         }
 
@@ -194,7 +196,9 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #endregion
 
-        output_Requests.OutputState = OutputState<Boolean>.Success(nameof(GetCase), true).SimpleClassDTO.GetBaseClassWithName();
+        output_Requests.OutputState = OutputState<Boolean>
+            .Success(nameof(GetCase), true)
+            .SimpleClassDTO.GetBaseClassWithName();
 
         #endregion
 
@@ -279,19 +283,19 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #region Input
 
-        var assignee = request.Assignee.GetSimpleClass<SimpleClassDTO>();
-        var process = request.Process.GetSimpleClass<SimpleClassDTO>();
-        var caseState = request.CaseState.GetSimpleClass<SimpleClassDTO>();
-        var caseItem = request.Case.GetSimpleClass<SimpleClassDTO>();
-        var workItem = request.WorkItem.GetSimpleClass<SimpleClassDTO>();
+        var _assignee = request.Assignee?.GetSimpleClass<SimpleClassDTO>();
+        var _process = request.Process?.GetSimpleClass<SimpleClassDTO>();
+        var _caseState = request.CaseState?.GetSimpleClass<SimpleClassDTO>();
+        var _case = request.Case?.GetSimpleClass<SimpleClassDTO>();
+        var _workItem = request.WorkItem?.GetSimpleClass<SimpleClassDTO>();
 
         var cartableDTO = new CartableDTO()
         {
-            User = assignee,
-            Process = process,
-            Case = caseItem,
-            WorkItem = workItem,
-            CaseState = caseState,
+            User = _assignee,
+            Process = _process,
+            Case = _case,
+            WorkItem = _workItem,
+            CaseState = _caseState,
             PageSize = request.PageSize,
             PageNumber = request.PageNumber,
         };
@@ -311,35 +315,58 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
             _OutputCartable.PageSize = OutputRequest.FirstOrDefault()?.PageSize.Value;
             _OutputCartable.PageNumber = OutputRequest.FirstOrDefault()?.PageNumber.Value;
 
+            RecordCartable recordCartable = new();
+
             foreach (var outputRequestItem in OutputRequest)
             {
-                RecordCartable recordCartable = new()
+                GetCase_Output _getCase_Output = new()
                 {
-                    Process = outputRequestItem.Process.GetBaseClassWithName(),
                     Case = outputRequestItem.Case.GetBaseClassWithDate(),
                     CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
                     Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
-                    WorkItem = outputRequestItem.WorkItem.GetBaseClassWithDate(),
-                    Assignee = outputRequestItem.User.GetBaseClassWithName(),
-                    Task = outputRequestItem.Task.GetBaseClassWithName()
+                    Process = outputRequestItem.Process.GetBaseClassWithName()
                 };
 
-                recordCartable.ValidUserActions
-                    .AddRange(outputRequestItem.ValidUserActions.Select(x => x.GetBaseClassWithName()));
+                GRPC_Task _task = new();
 
-                recordCartable.Conditions
-                    .AddRange(outputRequestItem.Conditions.Select(x => x.GetBaseClassWithName()));
+                _task.Task = outputRequestItem.Task.GetBaseClassWithName();
+
+                GRPC_WorkItem _gRPC_WorkItem = new();
+
+                _gRPC_WorkItem.WorkItem = outputRequestItem.WorkItem.GetBaseClassWithDate();
+
+                _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName();
+
+                var _validUserActions = outputRequestItem
+                    ?.ValidUserActions;
+
+                if (_validUserActions is not null)
+                {
+                    //_gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions.Select(x => x.GetBaseClassWithName()));
+                }
+
+                var _conditions = outputRequestItem.Conditions;
+
+                if (_conditions is not null)
+                {
+                    //_gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.Select(x => x.GetBaseClassWithName()));
+                }
+
+                _task.WorkItems.Add(_gRPC_WorkItem);
+
+                _getCase_Output.Tasks.Add(_task);
 
                 _OutputCartable.RecordCartables.Add(recordCartable);
             }
-
         }
         #endregion
 
         logger.LogInformation("Ended " + nameof(Cartable));
         logger.LogInformation("{@OutputCartable}", _OutputCartable);
 
-        _OutputCartable.OutputState = OutputState<Boolean>.Success(nameof(Cartable), true).SimpleClassDTO.GetBaseClassWithName();
+        _OutputCartable.OutputState = OutputState<Boolean>
+            .Success(nameof(Cartable), true)
+            .SimpleClassDTO.GetBaseClassWithName();
 
         return _OutputCartable;
     }
