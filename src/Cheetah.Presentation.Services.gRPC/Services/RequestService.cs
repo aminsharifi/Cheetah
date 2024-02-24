@@ -4,10 +4,11 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
         IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
 {
+
+    #region Public methods
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
     {
-        logger.LogInformation("started " + nameof(CreateRequest));
-        logger.LogInformation("{@Create_Input_Request}", request);
+        logger.LogInformation("started " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", request);
 
         #region Input
 
@@ -47,153 +48,184 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #endregion
 
-        logger.LogInformation("Ended " + nameof(CreateRequest));
-        logger.LogInformation("{@Create_Output_Request}", output_Request);
+        logger.LogInformation("Ended " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", output_Request);
 
         return output_Request;
     }
-    public async Task<List<L_CaseCondition>> GetCaseCondition(List<F_Condition> Conditions)
-    {
-        List<L_CaseCondition> _caseConditions = new();
-
-        foreach (var _condition in Conditions)
-        {
-            L_CaseCondition _CaseCondition = new()
-            {
-                Condition = _condition,
-                SecondId = _condition.Id
-            };
-
-            _caseConditions.Add(_CaseCondition);
-        }
-        return _caseConditions;
-    }
-
     public override async Task<GetCase_Output> GetCase(GetCase_Input request, ServerCallContext context)
     {
+        logger.LogInformation("started " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", request);
+
         #region Input
         var _request = request.Case?.GetSimpleClass<F_Case>();
         _request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
         _request.Process = request.Process?.GetSimpleClass<D_Process>();
         #endregion
 
+        var _requests = await iCartable.GetCaseAsync(_request);
+
         #region Output
 
-        #region GetCase_Output
-        var _requests = await iCartable.GetCaseAsync(_request);
-        GetCase_Output output_Requests = new();
+        GetCase_Output output_Request = new();
 
         if (!_requests.Any())
         {
-            output_Requests.OutputState = OutputState<Boolean>
+            output_Request.OutputState = OutputState<Boolean>
                 .NotFoundErrorCreateRequest(false)
                 .SimpleClassDTO
                 .GetBaseClassWithName();
 
-            return output_Requests;
+            return output_Request;
         }
 
         var _selectedRequests = _requests.FirstOrDefault();
 
-        output_Requests.Case = await GetCase(_selectedRequests);
+        output_Request.Case = await GetCase(_selectedRequests);
 
-        #endregion
-
-        output_Requests.OutputState = OutputState<Boolean>
+        output_Request.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
             .SimpleClassDTO.GetBaseClassWithName();
 
         #endregion
 
-        return output_Requests;
+        logger.LogInformation("Ended " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", output_Request);
+
+        return output_Request;
     }
-    public async Task<GRPC_Case> GetCase(F_Case Case)
+    public override async Task<Cartable_Output> Inbox(Cartable_Input request, ServerCallContext context)
     {
-        GRPC_Case _gRPC_Case = new()
-        {
-            Base = Case?.GetBaseClassWithDate(),
-            CaseState = Case?.CaseState?.GetBaseClassWithName(),
-            Process = Case?.Process?.GetBaseClassWithName(),
-            Creator = Case?.Creator.GetBaseClassWithName(),
-            Requestor = Case?.Requestor.GetBaseClassWithName()
-        };
+        logger.LogInformation("started " + nameof(Inbox) + " {@" + nameof(Inbox) + "}", request);
 
-        #region Tasks
+        var output_Request = await Cartable(request, CartableProperty.Inbox);
 
-        var Tasks = Case?
-            .SelectedScenario
-            .Tasks
-            .OrderBy(x => x.SortIndex)
-            .ToList();
+        logger.LogInformation("Ended " + nameof(Inbox) + " {@" + nameof(Inbox) + "}", output_Request);
 
-        _gRPC_Case.Tasks.AddRange(
-            Tasks.Select(x => new GRPC_Task()
-            {
-                Base = x.GetBaseClassWithName()
-            })
-            );
+        return output_Request;
+    }
+    public override async Task<Cartable_Output> Outbox(Cartable_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(Outbox) + " {@" + nameof(Outbox) + "}", request);
+
+        var output_Request = await Cartable(request, CartableProperty.Outbox);
+
+        logger.LogInformation("Ended " + nameof(Outbox) + " {@" + nameof(Outbox) + "}", output_Request);
+
+        return output_Request;
+    }
+    public override async Task<PerformRequest_Output> PerformRequest(PerformRequest_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", request);
+
+        #region Input
+
+        var f_WorkItem = request.WorkItem.GetWorkItemClass();
 
         #endregion
 
-        #region L_WorkItem
+        var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase);
 
-        foreach (var Task in _gRPC_Case.Tasks)
+        #region Output
+
+        var OutputState = Outputresult.SimpleClassDTO;
+
+        PerformRequest_Output output_Request = new();
+
+        output_Request.OutputState = OutputState.GetBaseClassWithName();
+
+        if (Outputresult.Result.IsFailed)
         {
-            Task.WorkItems.AddRange(
-            Case?.WorkItems
-                .Where(x => x.TaskId == Task.Base.Id)
-                .Select(x => new GRPC_WorkItem()
-                {
-                    Base = x.GetBaseClassWithDate(),
-                    User = x.User.GetBaseClassWithName(),
-                    WorkItemState = x.WorkItemState?.GetBaseClassWithName()
-                })
-                );
-            foreach (var workItem in Task.WorkItems)
-            {
-                var _conditions = await GetConditions(workItem);
-                workItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
-                workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
-            }
+            return output_Request;
         }
 
+        var _resultOfCase = Outputresult.Result.Value;
+
+        output_Request.Case = await GetCase(_resultOfCase);
+
+        output_Request.OutputState = OutputState.GetBaseClassWithName();
+
         #endregion
 
-        return _gRPC_Case;
+        logger.LogInformation("Ended " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", output_Request);
+
+        return output_Request;
     }
-    public async Task<GRPC_WorkItem> GetConditions(GRPC_WorkItem gRPC_WorkItem)
+    public override async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request, ServerCallContext context)
     {
-        var _workItemId = gRPC_WorkItem.Base.Id;
+        logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
 
-        var _workItem = await db
-        .F_WorkItems
-           .Where(x => x.Id == _workItemId)
-           .AsNoTracking()
-           .SingleAsync();
+        #region Input
 
-        #region OccurredUserActions
+        GetAllByName_Output output_Request = new();
 
-        var _occurredUserActions = _workItem
-            .WorkItemConditions
-            .Select(x => x.Condition)
-        .GetConditions();
+        if (String.IsNullOrWhiteSpace(request.TableInput.Name))
+        {
+            return output_Request;
+        }
 
-        gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
+        output_Request.TableInput = request.TableInput;
+
         #endregion
 
-        #region ValidUserActions
-        var _validUserActions = _workItem
-            .Task.L_TaskFlows
-            .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
-        .GetConditions();
+        var TableRecords = await simpleClassRepository.GetAllBySimpleClass(output_Request.TableInput.GetSimpleClass<SimpleClassDTO>());
 
-        gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
+        #region Output
+
+        output_Request.TableInput = TableRecords.Item1.GetBaseClassWithName();
+
+        output_Request.TableOutput.AddRange(TableRecords.Item2.Select(x => x.GetBaseClassWithName()));
+
+        output_Request.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
+
         #endregion
-        return gRPC_WorkItem;
+
+        logger.LogInformation("Ended " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", output_Request);
+
+        return output_Request;
     }
+    public override async Task<SetCaseTaskUser_Output> SetCaseTaskUser(SetCaseTaskUser_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", request);
 
-    #region Cartable
-    public async Task<Cartable_Output> Cartable(Cartable_Input request, CartableProperty cartableProperty)
+        #region Input
+
+        L_CaseTaskUser l_CaseTaskUser = new();
+        l_CaseTaskUser.Case = request.Case.GetSimpleClass<F_Case>();
+        l_CaseTaskUser.Task = request.Task.GetSimpleClass<F_Task>();
+        l_CaseTaskUser.User = request.User.GetSimpleClass<D_User>();
+
+        #endregion
+
+        var Outputresult = await iWorkItem.SetCaseTaskUser(l_CaseTaskUser);
+
+        #region Output
+
+        var OutputState = Outputresult.SimpleClassDTO;
+
+        SetCaseTaskUser_Output output_Request = new();
+
+        output_Request.OutputState = OutputState.GetBaseClassWithName();
+
+        if (Outputresult.Result.IsFailed)
+        {
+            return output_Request;
+        }
+
+        var _list_CaseTaskUser = Outputresult.Result.Value;
+
+        output_Request.Case = Outputresult.Result.Value.Case.GetBaseClass();
+        output_Request.Task = Outputresult.Result.Value.Task.GetBaseClassWithName();
+        output_Request.User = Outputresult.Result.Value.User.GetBaseClassWithName();
+
+        #endregion
+
+        logger.LogInformation("Ended " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", output_Request);
+
+        return output_Request;
+    }
+    #endregion 
+
+    #region Private methods
+    private async Task<Cartable_Output> Cartable(Cartable_Input request, CartableProperty cartableProperty)
     {
         logger.LogInformation("started " + nameof(Cartable));
         logger.LogInformation("{@InputCartable}", request);
@@ -280,123 +312,105 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         return _OutputCartable;
     }
-    public override Task<Cartable_Output> Inbox(Cartable_Input request, ServerCallContext context)
+    private async Task<List<L_CaseCondition>> GetCaseCondition(List<F_Condition> Conditions)
     {
-        return Cartable(request, CartableProperty.Inbox);
+        List<L_CaseCondition> _caseConditions = new();
+
+        foreach (var _condition in Conditions)
+        {
+            L_CaseCondition _CaseCondition = new()
+            {
+                Condition = _condition,
+                SecondId = _condition.Id
+            };
+
+            _caseConditions.Add(_CaseCondition);
+        }
+        return _caseConditions;
     }
-    public override Task<Cartable_Output> Outbox(Cartable_Input request, ServerCallContext context)
+    private async Task<GRPC_Case> GetCase(F_Case Case)
     {
-        return Cartable(request, CartableProperty.Outbox);
-    }
-    #endregion 
+        GRPC_Case _gRPC_Case = new()
+        {
+            Base = Case?.GetBaseClassWithDate(),
+            CaseState = Case?.CaseState?.GetBaseClassWithName(),
+            Process = Case?.Process?.GetBaseClassWithName(),
+            Creator = Case?.Creator.GetBaseClassWithName(),
+            Requestor = Case?.Requestor.GetBaseClassWithName()
+        };
 
-    public override async Task<PerformRequest_Output> PerformRequest(PerformRequest_Input request, ServerCallContext context)
-    {
-        logger.LogInformation("started " + nameof(PerformRequest));
-        logger.LogInformation("{@Perform_Input_Request}", request);
+        #region Tasks
 
-        #region Input
+        var Tasks = Case?
+            .SelectedScenario
+            .Tasks
+            .OrderBy(x => x.SortIndex)
+            .ToList();
 
-        var f_WorkItem = request.WorkItem.GetWorkItemClass();
+        _gRPC_Case.Tasks.AddRange(
+            Tasks.Select(x => new GRPC_Task()
+            {
+                Base = x.GetBaseClassWithName()
+            })
+            );
 
         #endregion
 
-        var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase);
+        #region L_WorkItem
 
-        #region Output
-
-        var OutputState = Outputresult.SimpleClassDTO;
-
-        PerformRequest_Output output_Request = new();
-
-        output_Request.OutputState = OutputState.GetBaseClassWithName();
-
-        if (Outputresult.Result.IsFailed)
+        foreach (var Task in _gRPC_Case.Tasks)
         {
-            return output_Request;
+            Task.WorkItems.AddRange(
+            Case?.WorkItems
+                .Where(x => x.TaskId == Task.Base.Id)
+                .Select(x => new GRPC_WorkItem()
+                {
+                    Base = x.GetBaseClassWithDate(),
+                    User = x.User.GetBaseClassWithName(),
+                    WorkItemState = x.WorkItemState?.GetBaseClassWithName()
+                })
+                );
+            foreach (var workItem in Task.WorkItems)
+            {
+                var _conditions = await GetConditions(workItem);
+                workItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
+                workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
+            }
         }
 
-        var _resultOfCase = Outputresult.Result.Value;
-
-        output_Request.Case = await GetCase(_resultOfCase);
-
-        output_Request.OutputState = OutputState.GetBaseClassWithName();
-
         #endregion
 
-        logger.LogInformation("Ended " + nameof(PerformRequest));
-        logger.LogInformation("{@Perform_Output_Request}", output_Request);
-
-        return output_Request;
+        return _gRPC_Case;
     }
-    public override async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request, ServerCallContext context)
+    private async Task<GRPC_WorkItem> GetConditions(GRPC_WorkItem gRPC_WorkItem)
     {
-        GetAllByName_Output getAllByName_Output = new();
+        var _workItemId = gRPC_WorkItem.Base.Id;
 
-        if (String.IsNullOrWhiteSpace(request.TableInput.Name))
-        {
-            return getAllByName_Output;
-        }
+        var _workItem = await db
+        .F_WorkItems
+           .Where(x => x.Id == _workItemId)
+           .AsNoTracking()
+           .SingleAsync();
 
-        #region Input
+        #region OccurredUserActions
 
-        getAllByName_Output.TableInput = request.TableInput;
+        var _occurredUserActions = _workItem
+            .WorkItemConditions
+            .Select(x => x.Condition)
+        .GetConditions();
 
+        gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
         #endregion
 
-        var TableRecords = await simpleClassRepository.GetAllBySimpleClass(getAllByName_Output.TableInput.GetSimpleClass<SimpleClassDTO>());
+        #region ValidUserActions
+        var _validUserActions = _workItem
+            .Task.L_TaskFlows
+            .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
+        .GetConditions();
 
-        #region Output
-
-        getAllByName_Output.TableInput = TableRecords.Item1.GetBaseClassWithName();
-
-        getAllByName_Output.TableOutput.AddRange(TableRecords.Item2.Select(x => x.GetBaseClassWithName()));
-
-        getAllByName_Output.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
-
+        gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
         #endregion
-
-        return getAllByName_Output;
+        return gRPC_WorkItem;
     }
-    public override async Task<SetCaseTaskUser_Output> SetCaseTaskUser(SetCaseTaskUser_Input request, ServerCallContext context)
-    {
-        logger.LogInformation("started " + nameof(SetCaseTaskUser) + $": {request}");
-
-        #region Input
-
-        L_CaseTaskUser l_CaseTaskUser = new();
-        l_CaseTaskUser.Case = request.Case.GetSimpleClass<F_Case>();
-        l_CaseTaskUser.Task = request.Task.GetSimpleClass<F_Task>();
-        l_CaseTaskUser.User = request.User.GetSimpleClass<D_User>();
-
-        #endregion
-
-        var Outputresult = await iWorkItem.SetCaseTaskUser(l_CaseTaskUser);
-
-        #region Output
-
-        var OutputState = Outputresult.SimpleClassDTO;
-
-        SetCaseTaskUser_Output output_Request = new();
-
-        output_Request.OutputState = OutputState.GetBaseClassWithName();
-
-        if (Outputresult.Result.IsFailed)
-        {
-            return output_Request;
-        }
-
-        var _list_CaseTaskUser = Outputresult.Result.Value;
-
-        output_Request.Case = Outputresult.Result.Value.Case.GetBaseClass();
-        output_Request.Task = Outputresult.Result.Value.Task.GetBaseClassWithName();
-        output_Request.User = Outputresult.Result.Value.User.GetBaseClassWithName();
-
-        #endregion
-
-        logger.LogInformation("Ended " + nameof(CreateRequest));
-        logger.LogInformation("{@Create_Output_Request}", output_Request);
-
-        return output_Request;
-    }
+    #endregion
 }
