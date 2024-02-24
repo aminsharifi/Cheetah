@@ -1,4 +1,5 @@
-﻿using Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Application.Business.Repository;
+using Cheetah.Domain.Entities.Facts;
 using System.Collections.ObjectModel;
 
 namespace Cheetah.Infrastructure.Persistence.Repository;
@@ -139,7 +140,15 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
 
     public async Task<F_WorkItem> DeepCopy(F_WorkItem obj)
     {
-        F_WorkItem _workItem = new();
+        var _workItem = await _db.F_WorkItems
+           .Where(x => x.Id == obj.Id)
+           .Include(x => x.Case)
+           .ThenInclude(x => x.WorkItems)
+           .ThenInclude(x => x.Task)
+           .Include(x => x.Case)
+           .ThenInclude(x => x.CaseConditions)
+           .ThenInclude(x => x.Condition)
+           .FirstAsync();
 
         _workItem.UserId = await GetSimpleClassId(_db.D_Users, obj.User, _workItem.UserId);
 
