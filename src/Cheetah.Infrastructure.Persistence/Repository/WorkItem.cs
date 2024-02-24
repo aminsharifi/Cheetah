@@ -40,39 +40,19 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         return _OutputState;
     }
-    public async Task<CheetahResult<F_WorkItem>> PerformWorkItemAsync(F_WorkItem f_WorkItem, Boolean Rebase = false)
+    public async Task<CheetahResult<F_Case>> PerformWorkItemAsync(F_WorkItem f_WorkItem, Boolean Rebase = false)
     {
-        CheetahResult<F_WorkItem> _OutputState = new();
+        CheetahResult<F_Case> _OutputState = new();
 
-        var Current_WorkItem = await _db.F_WorkItems
-              .Where(x => x.Id == f_WorkItem.Id)
-              .Include(x => x.Case)
-              .ThenInclude(x => x.WorkItems)
-              .ThenInclude(x => x.Task)
-              .Include(x => x.Case)
-              .ThenInclude(x => x.CaseConditions)
-              .ThenInclude(x => x.Condition)
-              .FirstAsync();
+        F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopy(f_WorkItem);
 
-        var _prevConditions = Current_WorkItem.Case.CaseConditions.Select(x => x.Condition);
+        _db.F_WorkItems.Update(Current_WorkItem);
 
-        var _conditions = await _iCopyClass.CopyCondition(Current_WorkItem.WorkItemConditions.Select(x => x.Condition));
+        await _db.SaveChangesAsync();
 
-        foreach (var _condition in _conditions)
+        if (Current_WorkItem.LastModified is not null && !Rebase)
         {
-            L_WorkItemCondition _workItemCondition = new()
-            {
-                WorkItem = Current_WorkItem,
-                FirstId = Current_WorkItem.Id,
-                Condition = _condition,
-                SecondId = _condition.Id
-            };
-            Current_WorkItem.WorkItemConditions.Add(_workItemCondition);
-        }
-
-        if (Current_WorkItem.LastModified is not null && Rebase == false)
-        {
-            _OutputState = OutputState<F_WorkItem>.PreviouslySentErrorCreateRequest(Current_WorkItem.Id, Current_WorkItem);
+            _OutputState = OutputState<F_Case>.PreviouslySentErrorCreateRequest(Current_WorkItem.Id, Current_WorkItem.Case);
 
             return _OutputState;
         }
@@ -86,13 +66,11 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 .ToList().ForEach(x => x.SetExit());
 
             await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
-        }
-
-        _db.F_WorkItems.Update(_currentAssignment.Result.Value);
+        }        
 
         await _db.SaveChangesAsync();
 
-        _OutputState = OutputState<F_WorkItem>.SuccessPerformWorkItem(Current_WorkItem.Id, Current_WorkItem);
+        _OutputState = OutputState<F_Case>.SuccessPerformWorkItem(Current_WorkItem.Id, Current_WorkItem.Case);
 
         return _OutputState;
     }
@@ -306,15 +284,24 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
            .Where(x => x.FirstId == _currentTaskId)
            .Include(x => x.Task)
            .Include(x => x.Flow)
+           .AsNoTracking()
            .ToListAsync();
 
-        var ActualConditions = Current_WorkItem.WorkItemConditions.Select(x => x.Condition);
+        var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
+        
+        var _actual_Conditions = await _db.F_Conditions
+            .Where(x => _actualConditionsIds.Where(z => z == x.Id).Any())
+            .AsNoTracking()
+            .ToListAsync();
 
         foreach (var _taskFlow in _taskFlows)
         {
-            var ExpectedConditions = _taskFlow.Flow.FlowConditions.Select(x => x.Condition);
+            var ExpectedConditions = _taskFlow.
+                Flow.FlowConditions.
+                Select(x => x.Condition)
+                .ToList();
 
-            if (CompareCondition(ActualConditions, ExpectedConditions))
+            if (CompareCondition(_actual_Conditions, ExpectedConditions))
             {
                 Current_WorkItem.Case.CaseStateId = _taskFlow.Flow.CaseStateId;
 
