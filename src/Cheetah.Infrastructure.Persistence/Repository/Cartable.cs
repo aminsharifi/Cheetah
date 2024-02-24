@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿using Cheetah.Application.Business.Repository;
+
+namespace Cheetah.Infrastructure.Persistence.Repository;
 
 public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICartable
 {
@@ -107,15 +109,13 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             User = _iCopyClass.GetSimpleClass(x.User),
             Case = _iCopyClass.GetSimpleClass(x.Case),
             Requestor = _iCopyClass.GetSimpleClass(x.Case.Requestor),
+            Creator = _iCopyClass.GetSimpleClass(x.Case.Creator),
             CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
             WorkItem = _iCopyClass.GetSimpleClass(x),
+            WorkItemState = _iCopyClass.GetSimpleClass(x.WorkItemState),
             Task = _iCopyClass.GetSimpleClass(x.Task),
-            //ValidUserActions = _db.L_TaskFlows.Where(y => y.FirstId == x.Task.Id)
-            //.AsNoTracking()
-            //.SelectMany(x => x.Flow.Conditions, (Parrent, Child) => _iCopyClass
-            //.GetSimpleClass(Child.Tag)
-            //),
-            Conditions = x.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(x.Condition)),
+            ValidUserActions = x.Task.L_TaskFlows.SelectMany(a => a.Flow.FlowConditions, (a, b) => _iCopyClass.GetSimpleClass(b.Condition)),
+            OccurredUserActions = x.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(x.Condition)),
             Summary = string.Empty
         }
         );

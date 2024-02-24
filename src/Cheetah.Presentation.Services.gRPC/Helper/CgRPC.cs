@@ -280,7 +280,7 @@ public static class CgRPC
 
         F_WorkItem _workItem = new();
 
-        _workItem = WorkItem.WorkItem.GetSimpleClass<F_WorkItem>();
+        _workItem = WorkItem.Base.GetSimpleClass<F_WorkItem>();
 
         _workItem.User = WorkItem.User.GetSimpleClass<D_User>();
 
@@ -301,14 +301,14 @@ public static class CgRPC
     {
         F_Condition _condition = new();
 
-        if (Condition.Condition is not null)
+        if (Condition.Base is not null)
         {
             _condition = new()
             {
-                Id = Condition.Condition.Id,
-                Name = Condition.Condition.Name,
-                ERPCode = Condition.Condition.ERPCode,
-                SortIndex = Condition.Condition.SortIndex
+                Id = Condition.Base.Id,
+                Name = Condition.Base.Name,
+                ERPCode = Condition.Base.ERPCode,
+                SortIndex = Condition.Base.SortIndex
             };
         }
 
@@ -339,7 +339,7 @@ public static class CgRPC
 
             GRPC_Condition _condition = new()
             {
-                Condition = _conditionBase,
+                Base = _conditionBase,
                 Tag = f_condition?.Tag?.GetBaseClassWithName(),
                 Operand = f_condition?.Operand?.GetBaseClassWithName(),
                 Value = f_condition?.Value

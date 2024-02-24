@@ -70,7 +70,7 @@ public class Query
     public IQueryable<CartableDTO> inbox(
        [Service] ApplicationDbContext context)
     {
-        var inbox = workItem(context).Where(x => !x.Conditions.Any());
+        var inbox = workItem(context).Where(x => !x.OccurredUserActions.Any());
         return inbox;
     }
     #endregion
@@ -80,7 +80,7 @@ public class Query
     public IQueryable<CartableDTO> outbox(
         [Service] ApplicationDbContext context)
     {
-        var Outbox = workItem(context).Where(x => !x.Conditions.Any());
+        var Outbox = workItem(context).Where(x => !x.OccurredUserActions.Any());
         return Outbox;
     }
     #endregion

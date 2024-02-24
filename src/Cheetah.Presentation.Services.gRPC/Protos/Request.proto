@@ -30,7 +30,7 @@ message CreateRequest_Input
 
 message CreateRequest_Output
 {
-    GRPC_BaseClassWithDate Case = 1;
+    GRPC_Case Case = 1;
     GRPC_BaseClassWithName OutputState = 2;
 }
 
@@ -43,12 +43,8 @@ message GetCase_Input
 
 message GetCase_Output
 {
-    GRPC_BaseClassWithName Process = 1;
-    GRPC_BaseClassWithDate Case = 2;
-    GRPC_BaseClassWithName Requestor  = 3;
-    GRPC_BaseClassWithName CaseState = 4;
-    repeated GRPC_Task Tasks = 5;
-    GRPC_BaseClassWithName OutputState = 6;
+    GRPC_Case Case = 1;    
+    GRPC_BaseClassWithName OutputState = 2;
 }
 
 message PerformRequest_Input
@@ -59,9 +55,7 @@ message PerformRequest_Input
 
 message PerformRequest_Output
 {
-    GRPC_BaseClass Case = 1;
-    GRPC_BaseClassWithName Process = 2;
-    GRPC_BaseClassWithName CaseState = 3;
+    GRPC_Case Case = 1;
     GRPC_BaseClassWithName OutputState = 4;
 }
 
@@ -82,7 +76,7 @@ message Cartable_Output
     google.protobuf.Int64Value PageNumber = 1;
     google.protobuf.Int64Value PageSize  = 2;
     google.protobuf.Int64Value TotalItems  = 3;    
-    repeated RecordCartable RecordCartables = 4;
+    repeated GRPC_Case Cases = 4;
     GRPC_BaseClassWithName OutputState = 5;
 }
 
@@ -122,9 +116,9 @@ message GRPC_BaseClass
 
 message GRPC_BaseClassWithName
 {
-    google.protobuf.Int64Value  Id = 1;
-    google.protobuf.Int64Value  ERPCode = 2;
-    google.protobuf.Int64Value  SortIndex = 3;
+    google.protobuf.Int64Value Id = 1;
+    google.protobuf.Int64Value ERPCode = 2;
+    google.protobuf.Int64Value SortIndex = 3;
     google.protobuf.StringValue Name = 4;
     google.protobuf.StringValue DisplayName = 5;
 }
@@ -134,29 +128,30 @@ message GRPC_BaseClassWithDate
     google.protobuf.Int64Value Id = 1;
     google.protobuf.Int64Value ERPCode = 2;
     google.protobuf.Int64Value SortIndex = 3;
-    google.protobuf.Timestamp  CreateTimeRecord = 4;
-    google.protobuf.Timestamp  LastUpdatedRecord = 5;
+    google.protobuf.Timestamp CreateTimeRecord = 4;
+    google.protobuf.Timestamp LastUpdatedRecord = 5;
 }
 
 message GRPC_BaseClassWithNameAndDate
 {
-    google.protobuf.Int64Value  Id = 1;
-    google.protobuf.Int64Value  ERPCode = 2;
-    google.protobuf.Int64Value  SortIndex = 3;
+    google.protobuf.Int64Value Id = 1;
+    google.protobuf.Int64Value ERPCode = 2;
+    google.protobuf.Int64Value SortIndex = 3;
     google.protobuf.StringValue Name = 4;
     google.protobuf.StringValue DisplayName = 5;
-    google.protobuf.Timestamp   CreateTimeRecord = 6;
-    google.protobuf.Timestamp   LastUpdatedRecord = 7;
+    google.protobuf.Timestamp CreateTimeRecord = 6;
+    google.protobuf.Timestamp LastUpdatedRecord = 7;
 }
+
 message GRPC_Task
 {
-    GRPC_BaseClassWithName Task = 1;
+    GRPC_BaseClassWithName Base = 1;
     repeated GRPC_WorkItem WorkItems = 2;
 }
 
 message GRPC_WorkItem
 {
-    GRPC_BaseClassWithDate WorkItem = 1;
+    GRPC_BaseClassWithDate Base = 1;
     GRPC_BaseClassWithName User = 2;    
     GRPC_BaseClassWithName WorkItemState = 3;
     repeated GRPC_Condition OccurredUserActions = 4;
@@ -165,13 +160,18 @@ message GRPC_WorkItem
 
 message GRPC_Condition
 {
-    GRPC_BaseClassWithName Condition = 1;
+    GRPC_BaseClassWithName Base = 1;
     GRPC_BaseClassWithName Tag = 2;
     GRPC_BaseClassWithName Operand = 3;
     google.protobuf.StringValue Value = 4;
 }
 
-message RecordCartable
+message GRPC_Case
 {
-    repeated GetCase_Output Cases = 1;    
+    GRPC_BaseClassWithDate Base = 1;
+    GRPC_BaseClassWithName Process = 2;
+    GRPC_BaseClassWithName Creator = 3;
+    GRPC_BaseClassWithName Requestor = 4;
+    repeated GRPC_Task Tasks = 5;
+    GRPC_BaseClassWithName CaseState = 6;
 }

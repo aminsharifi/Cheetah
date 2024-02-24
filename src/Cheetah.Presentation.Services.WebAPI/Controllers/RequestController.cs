@@ -113,7 +113,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         {
             return output_Request;
         }
-        f_WorkItem = Outputresult.Result.Value;
+        //f_WorkItem = Outputresult.Result.Value;
 
         output_Request = new()
         {
@@ -350,7 +350,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
                     .AddRange(outputRequestItem.ValidUserActions.Select(x => x.GetBaseClassWithName()));
 
                 recordCartable.Conditions
-                    .AddRange(outputRequestItem.Conditions.Select(x => x.GetBaseClassWithName()));
+                    .AddRange(outputRequestItem.OccurredUserActions.Select(x => x.GetBaseClassWithName()));
 
                 _OutputCartable.RecordCartables.Add(recordCartable);
             }
