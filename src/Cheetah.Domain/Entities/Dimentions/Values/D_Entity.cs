@@ -3,6 +3,7 @@
 public partial class D_Entity
 {
     #region Values
+
     public static readonly D_Entity D_TagType =
         new()
         {
@@ -158,6 +159,7 @@ public partial class D_Entity
                  .Append($"({TableType.Facts})").ToString(),
             Display = true
         };
+
     public static readonly D_Entity L_ProcessScenario =
         new()
         {
@@ -166,8 +168,20 @@ public partial class D_Entity
             SortIndex = 114,
             Name = nameof(L_ProcessScenario),
             DisplayName = new StringBuilder().Append("فرآیند-سناریو")
-                        .Append($"({TableType.Links})").ToString(),
+            .Append($"({TableType.Links})").ToString(),
             Display = false
+        };
+
+    public static readonly D_Entity F_ConditionGroup =
+        new()
+        {
+            Id = 115,
+            ERPCode = 115,
+            SortIndex = 115,
+            Name = nameof(F_ConditionGroup),
+            DisplayName = new StringBuilder().Append("گروه شرط‌ها")
+            .Append($"({TableType.Facts})").ToString(),
+            Display = true
         };
 
     #endregion
