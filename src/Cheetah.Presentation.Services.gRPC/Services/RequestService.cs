@@ -4,7 +4,6 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
         IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
 {
-
     #region Public methods
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
     {
@@ -44,17 +43,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         f_Request = Outputresult.Result.Value;
 
-        GetCase_Input _getCase_Input = new()
-        {
-            Case = new GRPC_BaseClass()
-            {
-                Id = f_Request.Id
-            }
-        };
-
-        GetCase_Output _getCase_Output = await GetCase(_getCase_Input, context);
-
-        output_Request.Case = _getCase_Output.Case;
+        output_Request.Case = await GetCase(f_Request);
 
         #endregion
 
@@ -340,18 +329,24 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
     }
     private async Task<GRPC_Case> GetCase(F_Case Case)
     {
+        F_Case _case = db
+            .F_Cases
+            .Where(x => x.Id == Case.Id)
+            .AsNoTracking()
+            .FirstOrDefault();
+
         GRPC_Case _gRPC_Case = new()
         {
-            Base = Case?.GetBaseClassWithDate(),
-            CaseState = Case?.CaseState?.GetBaseClassWithName(),
-            Process = Case?.Process?.GetBaseClassWithName(),
-            Creator = Case?.Creator.GetBaseClassWithName(),
-            Requestor = Case?.Requestor.GetBaseClassWithName()
+            Base = _case?.GetBaseClassWithDate(),
+            CaseState = _case?.CaseState?.GetBaseClassWithName(),
+            Process = _case?.Process?.GetBaseClassWithName(),
+            Creator = _case?.Creator.GetBaseClassWithName(),
+            Requestor = _case?.Requestor.GetBaseClassWithName()
         };
 
         #region Tasks
 
-        var Tasks = Case?
+        var Tasks = _case?
             .SelectedScenario
             .Tasks
             .OrderBy(x => x.SortIndex)
@@ -371,7 +366,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         foreach (var Task in _gRPC_Case.Tasks)
         {
             Task.WorkItems.AddRange(
-            Case?.WorkItems
+            _case?.WorkItems
                 .Where(x => x.TaskId == Task.Base.Id)
                 .Select(x => new GRPC_WorkItem()
                 {
