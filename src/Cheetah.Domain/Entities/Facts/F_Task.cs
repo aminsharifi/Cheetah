@@ -9,7 +9,6 @@ public partial class F_Task : BaseEntity
     #endregion
 
     #region Collections
-
     public virtual ICollection<L_TaskFlow>? L_TaskFlows { get; set; } = new HashSet<L_TaskFlow>();
     public virtual ICollection<L_TaskCondition>? L_TaskConditions { get; set; } = new HashSet<L_TaskCondition>();    
     #endregion
