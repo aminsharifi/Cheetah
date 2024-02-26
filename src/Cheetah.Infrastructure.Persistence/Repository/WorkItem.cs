@@ -66,7 +66,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 .ToList().ForEach(x => x.SetExit());
 
             await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
-        }        
+        }
 
         await _db.SaveChangesAsync();
 
@@ -244,29 +244,28 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         var ConditionOccur = 0;
 
-        for (int i = 0; i < cnt_con; i++)
+        foreach (var _expected_Condition in Expected_Conditions)
         {
-            var Condition = Expected_Conditions.ToArray()[i];
+            var Operand_Name = _expected_Condition.Operand.Name;
 
-            if (Actual_Conditions.Any(x => x.TagId == Condition.TagId))
+            switch (Operand_Name)
             {
-                var Scenario_Value = float.Parse(Condition.Value);
-                var Current_Value = float.Parse(Actual_Conditions
-                    .Single(x => x.TagId == Condition.TagId).Value);
+                //case string Greater when Current_Value > Scenario_Value && Greater == D_Operand.Greater.Name:
+                //case string EqualAndGreater when Current_Value >= Scenario_Value && EqualAndGreater == D_Operand.EqualAndGreater.Name:
+                //case string LessThan when Current_Value < Scenario_Value && LessThan == D_Operand.LessThan.Name:
+                //case string LessThanOrEqual when Current_Value <= Scenario_Value && LessThanOrEqual == D_Operand.LessThanOrEqual.Name:
 
-                var Operand_Name = Condition.Operand.Name;
+                case string Equals when Actual_Conditions
+                .Where(x => x.TagId == _expected_Condition.TagId)
+                .Where(x => x.Value == _expected_Condition.Value)
+                .Any() && Equals == D_Operand.Equals.Name:
 
-                switch (Operand_Name)
-                {
-                    case string Greater when Current_Value > Scenario_Value && Greater == D_Operand.Greater.Name:
-                    case string EqualAndGreater when Current_Value >= Scenario_Value && EqualAndGreater == D_Operand.EqualAndGreater.Name:
-                    case string LessThan when Current_Value < Scenario_Value && LessThan == D_Operand.LessThan.Name:
-                    case string LessThanOrEqual when Current_Value <= Scenario_Value && LessThanOrEqual == D_Operand.LessThanOrEqual.Name:
-                    case string Equals when Current_Value == Scenario_Value && Equals == D_Operand.Equals.Name:
-                    case string NotEquals when Current_Value != Scenario_Value && NotEquals == D_Operand.NotEquals.Name:
-                        ConditionOccur++;
-                        break;
-                }
+                case string NotEquals when Actual_Conditions
+                .Where(x => x.TagId == _expected_Condition.TagId)
+                .Where(x => x.Value != _expected_Condition.Value)
+                .Any() && NotEquals == D_Operand.NotEquals.Name:
+                    ConditionOccur++;
+                    break;
             }
         }
 
@@ -288,7 +287,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
            .ToListAsync();
 
         var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
-        
+
         var _actual_Conditions = await _db.F_Conditions
             .Where(x => _actualConditionsIds.Where(z => z == x.Id).Any())
             .AsNoTracking()
