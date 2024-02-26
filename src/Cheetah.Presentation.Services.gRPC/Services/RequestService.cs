@@ -44,7 +44,17 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         f_Request = Outputresult.Result.Value;
 
-        output_Request.Case = await GetCase(f_Request);
+        GetCase_Input _getCase_Input = new()
+        {
+            Case = new GRPC_BaseClass()
+            {
+                Id = f_Request.Id
+            }
+        };
+
+        GetCase_Output _getCase_Output = await GetCase(_getCase_Input, context);
+
+        output_Request.Case = _getCase_Output.Case;
 
         #endregion
 
