@@ -1,7 +1,6 @@
 # Cheetah
-
+<img src="https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Cheetah.jpg" width="150px" />
 Cheetah is a free and open-source lightweight BPMS engine.
-![Cheetah BPMS](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Cheetah.jpg)
 
 ## Authors
 
