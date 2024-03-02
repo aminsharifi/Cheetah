@@ -67,7 +67,7 @@
 
     private async Task SelectedOperandChanged(ChangeEventArgs e)
     {
-        if (Id > 0 && e.Value is not null)
+        if (e.Value is not null)
         {
             var _operandId = Int64.Parse(e.Value.ToString());
 
@@ -81,7 +81,7 @@
 
     private async Task SelectedTagChanged(ChangeEventArgs e)
     {
-        if (Id > 0 && e.Value is not null)
+        if (e.Value is not null)
         {
             var _tagId = Int64.Parse(e.Value.ToString());
             var _tag = List_D_Tag.First(x => x.Id == _tagId) as D_Tag;
