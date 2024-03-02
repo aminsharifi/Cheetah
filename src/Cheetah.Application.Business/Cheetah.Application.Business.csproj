@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<EnablePackageValidation>True</EnablePackageValidation>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>8.0.106</Version>
+		<Version>8.0.107</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
