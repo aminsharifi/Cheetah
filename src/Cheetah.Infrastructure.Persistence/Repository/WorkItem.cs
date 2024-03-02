@@ -108,22 +108,22 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
             .AsNoTracking();
 
         var _allPerformers = _allTasks
-            .Include(x => x.L_TaskConditions)
+            .Include(x => x.TaskConditions)
             .ThenInclude(x => x.Condition);
 
         var _allFlows = _allPerformers
-            .Include(x => x.L_TaskFlows)
+            .Include(x => x.TaskFlows)
             .ThenInclude(x => x.Flow)
             .ThenInclude(x => x.CaseState);
 
         var _allConditions = _allFlows
-            .Include(x => x.L_TaskFlows)
+            .Include(x => x.TaskFlows)
             .ThenInclude(x => x.Flow)
             .ThenInclude(x => x.FlowConditions)
             .ThenInclude(x => x.Condition);
 
         var _allNextActions = _allConditions
-                   .Include(x => x.L_TaskFlows)
+                   .Include(x => x.TaskFlows)
                    .ThenInclude(x => x.Flow)
                    .ThenInclude(x => x.FlowTasks)
                    .ThenInclude(x => x.Task);
@@ -188,7 +188,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                 else
                 {
                     var _performerConditions =
-                        _task.L_TaskConditions
+                        _task.TaskConditions
                         .Where(x => x.EnableRecord)
                         .Select(x => x.Condition.Id);
 

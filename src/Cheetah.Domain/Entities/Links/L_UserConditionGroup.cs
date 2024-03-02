@@ -10,4 +10,5 @@ public partial class L_UserConditionGroup : SimpleLinkClass
     {
         return (L_UserConditionGroup)MemberwiseClone();
     }
+    public virtual ICollection<L_UserConditionGroup>? UserConditionGroups { get; set; } = new HashSet<L_UserConditionGroup>();
 }

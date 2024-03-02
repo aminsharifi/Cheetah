@@ -6,12 +6,12 @@ public class L_ScenarioConditionConfiguration : IEntityTypeConfiguration<L_Scena
     {
         builder
             .HasOne(x => x.Scenario)
-            .WithOne()
-            .HasForeignKey<L_ScenarioCondition>(x => x.FirstId);
+            .WithMany(x => x.ScenarioConditions)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Condition)
-            .WithOne()
-            .HasForeignKey<L_ScenarioCondition>(x => x.SecondId);
+            .WithMany(x => x.ScenarioConditions)
+            .HasForeignKey(x => x.SecondId);
     }
 }
