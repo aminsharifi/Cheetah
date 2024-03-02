@@ -75,6 +75,16 @@ public partial class D_Tag
         Description = D_TagType.String.DisplayName,
         TagTypeId = D_TagType.String.Id
     };
-
+    public static readonly D_Tag Skill =
+      new()
+      {
+          Id = 13,
+          ERPCode = 13,
+          SortIndex = 13,
+          Name = nameof(Skill),
+          DisplayName = "حرفه",
+          Description = D_TagType.String.DisplayName,
+          TagTypeId = D_TagType.String.Id
+      };
     #endregion
 }

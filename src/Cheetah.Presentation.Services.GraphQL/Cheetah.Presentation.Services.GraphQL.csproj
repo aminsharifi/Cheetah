@@ -5,7 +5,7 @@
 		<UserSecretsId>baa8d58c-8416-45e1-895e-1a8c4f9ae025</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-		<Version>8.0.109</Version>
+		<Version>8.0.110</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
