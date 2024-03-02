@@ -2,8 +2,7 @@
 
 public partial class L_ConditionGroupCondition : SimpleLinkClass
 {
-    [ForeignKey(nameof(FirstId))]
-    public virtual F_ConditionGroup? Case { get; set; }
+    public virtual F_ConditionGroup? ConditionGroup { get; set; }
 
     [ForeignKey(nameof(SecondId))]
     public virtual F_Condition? Condition { get; set; }

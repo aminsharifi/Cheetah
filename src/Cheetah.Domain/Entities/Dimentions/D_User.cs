@@ -21,11 +21,9 @@ public partial class D_User : BaseEntity<D_User>
 
     #region S_User
     public long? DelegateId { get; set; }
-    [ForeignKey(nameof(DelegateId))]
     public virtual D_User? Delegate { get; set; }
 
     public long? UserInformationId { get; set; }
-    [ForeignKey(nameof(UserInformationId))]
     public virtual D_UserInformation? UserInformation { get; set; }
     #endregion
 
