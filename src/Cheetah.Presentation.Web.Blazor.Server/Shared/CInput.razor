@@ -92,9 +92,9 @@
 
                 <option @((LValue is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
 
-                @foreach (var d_User in Records)
+                @foreach (var record in Records)
                 {
-                    <option value="@d_User.Id">@d_User.Id|@d_User.Name|@d_User.DisplayName</option>
+                    <option value="@record.Id">@record.Id|@record.Name|@record.DisplayName</option>
                 }
             </InputSelect>
         }
