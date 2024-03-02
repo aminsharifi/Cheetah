@@ -11,8 +11,8 @@ public partial class L_ProcessScenario
             SortIndex = 1,
             Name = nameof(SampleProcess_SampleScenario),
             DisplayName = "فرآیند نمونه-سناریو نمونه",
-            FirstId = 1,
-            SecondId = 1
+            FirstId = D_Process.SampleProcess.Id,
+            SecondId = F_Scenario.SampleScenario.Id
         };
     #endregion
 }
