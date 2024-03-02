@@ -114,7 +114,7 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             WorkItem = _iCopyClass.GetSimpleClass(x),
             WorkItemState = _iCopyClass.GetSimpleClass(x.WorkItemState),
             Task = _iCopyClass.GetSimpleClass(x.Task),
-            ValidUserActions = x.Task.L_TaskFlows.SelectMany(a => a.Flow.FlowConditions, (a, b) => _iCopyClass.GetSimpleClass(b.Condition)),
+            ValidUserActions = x.Task.TaskFlows.SelectMany(a => a.Flow.FlowConditions, (a, b) => _iCopyClass.GetSimpleClass(b.Condition)),
             OccurredUserActions = x.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(x.Condition)),
             Summary = string.Empty
         }

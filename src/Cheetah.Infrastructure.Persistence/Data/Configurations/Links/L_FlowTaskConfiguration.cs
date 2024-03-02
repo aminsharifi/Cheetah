@@ -6,12 +6,12 @@ public class L_FlowTaskConfiguration : IEntityTypeConfiguration<L_FlowTask>
     {
         builder
             .HasOne(x => x.Flow)
-            .WithOne()
-            .HasForeignKey<L_FlowTask>(x => x.FirstId);
+            .WithMany(x => x.FlowTasks)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Task)
-            .WithOne()
-            .HasForeignKey<L_FlowTask>(x => x.SecondId);
+            .WithMany(x => x.FlowTasks)
+            .HasForeignKey(x => x.SecondId);
     }
 }

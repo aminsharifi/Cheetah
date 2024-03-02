@@ -5,13 +5,13 @@ public class L_FlowConditionConfiguration : IEntityTypeConfiguration<L_FlowCondi
     public void Configure(EntityTypeBuilder<L_FlowCondition> builder)
     {
         builder
-       .HasOne(x => x.Flow)
-       .WithOne()
-       .HasForeignKey<L_FlowCondition>(x => x.FirstId);
+            .HasOne(x => x.Flow)
+            .WithMany(x => x.FlowConditions)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Condition)
-            .WithOne()
-            .HasForeignKey<L_FlowCondition>(x => x.SecondId);
+            .WithMany(x => x.FlowConditions)
+            .HasForeignKey(x => x.SecondId);
     }
 }

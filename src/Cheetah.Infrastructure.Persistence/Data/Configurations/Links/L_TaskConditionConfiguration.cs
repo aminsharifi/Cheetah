@@ -5,13 +5,13 @@ public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondi
     public void Configure(EntityTypeBuilder<L_TaskCondition> builder)
     {
         builder
-       .HasOne(x => x.Task)
-       .WithOne()
-       .HasForeignKey<L_TaskCondition>(x => x.FirstId);
+            .HasOne(x => x.Task)
+            .WithMany(x=>x.TaskConditions)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Condition)
-            .WithOne()
-            .HasForeignKey<L_TaskCondition>(x => x.SecondId);
+            .WithMany(x=>x.TaskConditions)
+            .HasForeignKey(x => x.SecondId);
     }
 }

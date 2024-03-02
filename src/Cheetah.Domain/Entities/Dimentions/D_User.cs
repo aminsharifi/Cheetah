@@ -30,8 +30,9 @@ public partial class D_User : BaseEntity<D_User>
     #endregion
 
     #region Collection
-    public virtual ICollection<L_UserCondition>? L_UserConditions { get; set; } = new HashSet<L_UserCondition>();
-    public virtual ICollection<L_UserConditionGroup>? L_UserConditionGroups { get; set; } = new HashSet<L_UserConditionGroup>();
+    public virtual ICollection<L_UserCondition>? UserConditions { get; set; } = new HashSet<L_UserCondition>();
+    public virtual ICollection<L_UserConditionGroup>? UserConditionGroups { get; set; } = new HashSet<L_UserConditionGroup>();
+    public virtual ICollection<L_CaseTaskUser>? CaseTaskUsers { get; set; } = new HashSet<L_CaseTaskUser>();
     #endregion
 
     #endregion
