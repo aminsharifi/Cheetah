@@ -69,4 +69,14 @@ public partial class F_Condition : BaseEntity
             DisplayName = Tag?.DisplayName + " " + Operand?.DisplayName + " " + Value + " است.";
         }
     }
+
+    #region Collections    
+    public virtual ICollection<L_TaskCondition>? TaskConditions { get; set; } = new HashSet<L_TaskCondition>();
+    public virtual ICollection<L_WorkItemCondition>? WorkItemConditions { get; set; } = new HashSet<L_WorkItemCondition>();
+    public virtual ICollection<L_UserCondition>? UserConditions { get; set; } = new HashSet<L_UserCondition>();
+    public virtual ICollection<L_ScenarioCondition>? ScenarioConditions { get; set; } = new HashSet<L_ScenarioCondition>();
+    public virtual ICollection<L_FlowCondition>? FlowConditions { get; set; } = new HashSet<L_FlowCondition>();
+    public virtual ICollection<L_ConditionGroupCondition>? ConditionGroupConditions { get; set; } = new HashSet<L_ConditionGroupCondition>();
+    public virtual ICollection<L_CaseCondition>? CaseConditions { get; set; } = new HashSet<L_CaseCondition>();
+    #endregion
 }

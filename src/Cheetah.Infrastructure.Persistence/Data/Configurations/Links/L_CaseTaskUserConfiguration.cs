@@ -6,17 +6,17 @@ public class L_CaseTaskUserConfiguration : IEntityTypeConfiguration<L_CaseTaskUs
     {
         builder
             .HasOne(x => x.Case)
-            .WithOne()
-            .HasForeignKey<L_CaseTaskUser>(x => x.FirstId);
+            .WithMany(x => x.CaseTaskUsers)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Task)
-            .WithOne()
-            .HasForeignKey<L_CaseTaskUser>(x => x.SecondId);
+            .WithMany(x => x.CaseTaskUsers)
+            .HasForeignKey(x => x.SecondId);
 
         builder
             .HasOne(x => x.User)
-            .WithOne()
-            .HasForeignKey<L_CaseTaskUser>(x => x.ThirdId);
+            .WithMany(x => x.CaseTaskUsers)
+            .HasForeignKey(x => x.ThirdId);
     }
 }
