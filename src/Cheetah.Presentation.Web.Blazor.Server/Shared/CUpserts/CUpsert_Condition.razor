@@ -1,160 +1,92 @@
-﻿@inherits CUpsert_GeneralCode
+﻿@using System.Collections.ObjectModel
+@inherits CUpsert_GeneralCode
 
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
                  Name="D_TaskPattern" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        @if (!IsLoading)
+        <CInput @bind-LValue="(Record as F_Condition).TagId"
+                Records="@List_D_Tag"
+                Record="@((Record as F_Condition).Tag)"
+                CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
+                CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
+                SelectedProcessesChanged="@SelectedTagChanged"
+                CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                reference="@reference"></CInput>
+
+        <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                Records="@List_D_Operand"
+                @bind-LValue="(Record as F_Condition).OperandId"
+                Record="@((Record as F_Condition).Operand)"
+                CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+                CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+                SelectedProcessesChanged="@SelectedOperandChanged"
+                reference="@reference"></CInput>
+
+        @switch (TagTypeId)
         {
-            <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
-                    Records="@List_D_Tag"
-                    @bind-LValue="((F_Condition)Record).TagId"
-                    Record="@(((F_Condition)Record).Tag)"
-                    CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
-                    CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
-                    SelectedProcessesChanged="@SelectedTagChanged"
-                    reference="@reference"></CInput>
-
-            <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
-                    Records="@List_D_Operand"
-                    @bind-LValue="((F_Condition)Record).OperandId"
-                    Record="@(((F_Condition)Record).Operand)"
-                    CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-                    CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-                    SelectedProcessesChanged="@SelectedOperandChanged"
-                    reference="@reference"></CInput>
-
-            @switch ((Record as F_Condition)?.Tag?.TagTypeId)
-            {
-                case var _boolean when _boolean == D_TagType.Boolean.Id:
-                    <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
-                            @bind-BValue="((F_Condition)Record).BooleanValue"
-                            CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                            CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                            reference="@reference"></CInput>
-                    break;
-                case var _string when _string == D_TagType.String.Id:
-                    <CInput CFieldType="@(Cheetah.Domain.FieldType.CString)"
-                            @bind-SValue="((F_Condition)Record).Value"
-                            CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                            CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                            reference="@reference"></CInput>
-                    break;
-                case var _numberic when _numberic == D_TagType.Numberic.Id:
-                    <CInput CFieldType="@(Cheetah.Domain.FieldType.CNFloat)"
-                            @bind-NFValue="((F_Condition)Record).FloatValue"
-                            CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                            CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                            reference="@reference"></CInput>
-                    break;
-                case var _date when _date == D_TagType.Date.Id:
-                    <span>not implemented</span>
-                    break;
-            }
+            case var _boolean when _boolean == D_TagType.Boolean.Id:
+                <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
+                        @bind-BValue="(Record as F_Condition).BooleanValue"
+                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        reference="@reference"></CInput>
+                break;
+            case var _string when _string == D_TagType.String.Id:
+                <CInput CFieldType="@(Cheetah.Domain.FieldType.CString)"
+                        @bind-SValue="(Record as F_Condition).Value"
+                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        reference="@reference"></CInput>
+                break;
+            case var _numberic when _numberic == D_TagType.Numberic.Id:
+                <CInput CFieldType="@(Cheetah.Domain.FieldType.CNFloat)"
+                        @bind-NFValue="(Record as F_Condition).FloatValue"
+                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        reference="@reference"></CInput>
+                break;
+            case var _date when _date == D_TagType.Date.Id:
+                <span>not implemented</span>
+                break;
         }
     </RowTemplate>
 </CEditDimentions>
 @code {
-    public List<D_Tag> List_D_Tag { get; set; } = new();
-    public List<D_Operand> List_D_Operand { get; set; } = new();
+
+    public IEnumerable<BaseEntity> List_D_Tag { get; set; }
+    public IEnumerable<BaseEntity> List_D_Operand { get; set; }
+    public Int64? TagTypeId = D_TagType.String.Id;
+
     public override async Task ExtendedLoadDTO()
     {
-
-        List_D_Tag = await _db.D_Tags.AsNoTracking().ToListAsync();
-        List_D_Operand = await _db.D_Operands.AsNoTracking().ToListAsync();
+        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag));
+        List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand));
     }
 
     private async Task SelectedOperandChanged(ChangeEventArgs e)
     {
-        var _operandId = Int64.Parse(e.Value.ToString());
-        (Record as F_Condition).Operand = List_D_Operand
-        .First(x => x.Id == _operandId) as D_Operand;
-    }
-
-    private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
-    {
-        if (String.IsNullOrEmpty(e.ToString()))
+        if (Id > 0 && e.Value is not null)
         {
-            f_Condition.OperandId = null;
-            f_Condition.Operand = null;
-        }
-        else
-        {
-            var _D_OperandId = Int64.Parse(e.Value.ToString());
+            var _operandId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.Operand = List_D_Operand
-            .First(x => x.Id == _D_OperandId) as D_Operand;
+            var _selectedOperand = List_D_Operand
+            .First(x => x.Id == _operandId) as D_Operand;
+            (Record as F_Condition).Operand = _selectedOperand;
+
+            TagTypeId = D_TagType.String.Id;
         }
     }
 
     private async Task SelectedTagChanged(ChangeEventArgs e)
     {
-        var _tagId = Int64.Parse(e.Value.ToString());
-        var _tag = List_D_Tag
-        .First(x => x.Id == _tagId) as D_Tag;
-        (Record as F_Condition).Tag = _tag;
-    }
-
-    private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
-    {
         if (Id > 0 && e.Value is not null)
         {
-            var _D_ParameterListId = Int64.Parse(e.Value.ToString());
+            var _tagId = Int64.Parse(e.Value.ToString());
+            var _tag = List_D_Tag.First(x => x.Id == _tagId) as D_Tag;
 
-            f_Condition.Tag = List_D_Tag
-            .First(x => x.Id == _D_ParameterListId) as D_Tag;
-        }
-    }
-
-    private async Task Add_ActionsTask(MouseEventArgs e, F_Flow cObject)
-    {
-        var _Task = new L_TaskFlow();
-
-        ICollection<L_TaskFlow> _Tasks = cObject.TaskFlows;
-
-        if (_Tasks.Any())
-        {
-            _Task.SortIndex = _Tasks.Max(x => x.SortIndex) + 1;
-        }
-        else
-        {
-            _Task = await simpleClassRepository
-            .GetLast(nameof(L_TaskFlow)) as L_TaskFlow;
-        }
-
-        cObject.TaskFlows.Add(_Task);
-    }
-
-    private async Task AddTaskPattern()
-    {
-        var d_Task = new F_Task();
-
-        var eP_Tasks = (Record as F_Scenario).Tasks;
-
-        if (eP_Tasks.Any())
-        {
-            d_Task.SortIndex = eP_Tasks.Max(x => x.SortIndex) + 1;
-        }
-        else
-        {
-            d_Task = await simpleClassRepository.GetLast(nameof(F_Task)) as F_Task;
-        }
-        (Record as F_Scenario).Tasks.Add(d_Task);
-    }
-
-    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_TaskFlow TaskSelector)
-    {
-        if (Id > 0 && e.Value is not null)
-        {
-            var ToTaskId = Int64.Parse(e.Value.ToString());
-
-            TaskSelector.Task = (Record as F_Scenario).Tasks
-            .First(x => x.Id == ToTaskId) as F_Task;
-        }
-        else
-        {
-            TaskSelector.Task = null;
+            (Record as F_Condition).Tag = _tag;
         }
     }
 }
