@@ -49,6 +49,13 @@ public class D_UserConfiguration : IEntityTypeConfiguration<D_User>
         builder
             .Property(e => e.UserInformationId)
             .HasColumnOrder(110);
+
+        builder
+            .HasOne(e => e.Delegate)
+            .WithOne()
+            .HasForeignKey<D_User>(x => x.DelegateId);
+
+
         #endregion
 
         #endregion
