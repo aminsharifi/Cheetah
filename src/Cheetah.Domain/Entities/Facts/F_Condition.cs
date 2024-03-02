@@ -60,7 +60,13 @@ public partial class F_Condition : BaseEntity
     }
     public override void SetName()
     {
-        DisplayName = Tag?.DisplayName + " " + Operand?.DisplayName + " " + Value + " است.";
-        Name = Tag?.Name + " " + Operand?.Name + " " + Value;
+        if (Tag?.Name is not null && Operand?.Name is not null && Value is not null)
+        {
+            Name = Tag?.Name + " " + Operand?.Name + " " + Value;
+        }        
+        if (Tag?.DisplayName is not null && Operand?.DisplayName is not null && Value is not null)
+        {
+            DisplayName = Tag?.DisplayName + " " + Operand?.DisplayName + " " + Value + " است.";
+        }
     }
 }

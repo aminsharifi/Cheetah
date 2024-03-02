@@ -2,42 +2,7 @@
 
 public partial class D_Tag
 {
-    #region Values
-    public static readonly D_Tag Approve =
-        new()
-        {
-            Id = 1,
-            ERPCode = 1,
-            SortIndex = 1,
-            Name = nameof(Approve),
-            DisplayName = "تایید",
-            Description = D_TagType.Boolean.DisplayName,
-            TagTypeId = D_TagType.Boolean.Id
-        };
-
-    public static readonly D_Tag Reject =
-        new()
-        {
-            Id = 2,
-            ERPCode = 2,
-            SortIndex = 2,
-            Name = nameof(Reject),
-            DisplayName = "عدم تایید",
-            Description = D_TagType.Boolean.DisplayName,
-            TagTypeId = D_TagType.Boolean.Id
-        };
-
-    public static readonly D_Tag Revise =
-        new()
-        {
-            Id = 3,
-            ERPCode = 3,
-            SortIndex = 3,
-            Name = nameof(Revise),
-            DisplayName = "بازنگری",
-            Description = D_TagType.Boolean.DisplayName,
-            TagTypeId = D_TagType.Boolean.Id
-        };
+    #region Values  
 
     public static readonly D_Tag Location =
         new()
@@ -98,6 +63,18 @@ public partial class D_Tag
             Description = D_TagType.Numberic.DisplayName,
             TagTypeId = D_TagType.Numberic.Id
         };
+
+    public static readonly D_Tag ReviewState =
+    new()
+    {
+        Id = 12,
+        ERPCode = 12,
+        SortIndex = 12,
+        Name = nameof(ReviewState),
+        DisplayName = "وضعیت بررسی",
+        Description = D_TagType.String.DisplayName,
+        TagTypeId = D_TagType.String.Id
+    };
 
     #endregion
 }
