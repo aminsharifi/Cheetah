@@ -6,12 +6,12 @@ public class L_CaseConditionConfiguration : IEntityTypeConfiguration<L_CaseCondi
     {
         builder
             .HasOne(x => x.Case)
-            .WithOne()
-            .HasForeignKey<L_CaseCondition>(x => x.FirstId);
+            .WithMany(x=>x.CaseConditions)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Condition)
-            .WithOne()
-            .HasForeignKey<L_CaseCondition>(x => x.SecondId);
+            .WithMany(x => x.CaseConditions)
+            .HasForeignKey(x => x.SecondId);
     }
 }

@@ -169,7 +169,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach (var _taskCondition in _task.L_TaskConditions
+                                                @foreach (var _taskCondition in _task.TaskConditions
                                                .OrderBy(x => x.SortIndex))
                                                 {
                                                     <tr style="width:90%">
@@ -247,7 +247,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var _action in _task.L_TaskFlows
+                                                    @foreach (var _action in _task.TaskFlows
                                                    .Select(x => x.Flow).OrderBy(x => x.SortIndex))
                                                     {
                                                         <tr style="width:90%">
@@ -541,7 +541,7 @@
     {
         L_TaskCondition _TaskCondition = new();
 
-        ICollection<L_TaskCondition> _taskConditions = cObject.L_TaskConditions;
+        ICollection<L_TaskCondition> _taskConditions = cObject.TaskConditions;
 
         if (_taskConditions.Any())
         {
@@ -553,7 +553,7 @@
             .GetLast(nameof(L_TaskCondition)) as L_TaskCondition;
         }
 
-        cObject.L_TaskConditions.Add(_TaskCondition);
+        cObject.TaskConditions.Add(_TaskCondition);
     }
     private async Task Add_ScenarioCondition(MouseEventArgs e, F_Scenario cObject)
     {
@@ -600,7 +600,7 @@
 
         _l_TaskAction.Flow = _f_Action;
 
-        ICollection<L_TaskFlow> _TaskItems = cObject.L_TaskFlows;
+        ICollection<L_TaskFlow> _TaskItems = cObject.TaskFlows;
 
         if (_TaskItems.Any())
         {
@@ -611,7 +611,7 @@
             _l_TaskAction.SortIndex = 1;
         }
 
-        cObject.L_TaskFlows.Add(_l_TaskAction);
+        cObject.TaskFlows.Add(_l_TaskAction);
     }
     private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
     {

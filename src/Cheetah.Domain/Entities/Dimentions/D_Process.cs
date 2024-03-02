@@ -14,6 +14,6 @@ public partial class D_Process : BaseEntity
     #endregion
 
     #region Relations
-    public virtual ICollection<L_ProcessScenario>? ProcessScenario { get; set; } = new HashSet<L_ProcessScenario>();
+    public virtual ICollection<L_ProcessScenario>? ProcessScenarios { get; set; } = new HashSet<L_ProcessScenario>();
     #endregion
 }

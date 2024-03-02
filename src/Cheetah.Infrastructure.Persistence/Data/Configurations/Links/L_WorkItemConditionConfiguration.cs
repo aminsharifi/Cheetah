@@ -6,12 +6,12 @@ public class L_WorkItemConditionConfiguration : IEntityTypeConfiguration<L_WorkI
     {
         builder
             .HasOne(x => x.WorkItem)
-            .WithOne()
-            .HasForeignKey<L_WorkItemCondition>(x => x.FirstId);
+            .WithMany(x=>x.WorkItemConditions)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Condition)
-            .WithOne()
-            .HasForeignKey<L_WorkItemCondition>(x => x.SecondId);
+            .WithMany(x=>x.WorkItemConditions)
+            .HasForeignKey(x => x.SecondId);
     }
 }

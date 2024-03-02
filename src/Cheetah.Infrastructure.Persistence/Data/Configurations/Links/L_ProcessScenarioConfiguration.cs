@@ -6,12 +6,12 @@ public class L_ProcessScenarioConfiguration : IEntityTypeConfiguration<L_Process
     {
         builder
             .HasOne(x => x.Process)
-            .WithOne()
-            .HasForeignKey<L_ProcessScenario>(x => x.FirstId);
+            .WithMany(x=>x.ProcessScenarios)
+            .HasForeignKey(x => x.FirstId);
 
         builder
             .HasOne(x => x.Scenario)
-            .WithOne()
-            .HasForeignKey<L_ProcessScenario>(x => x.SecondId);
+            .WithMany(x => x.ProcessScenarios)
+            .HasForeignKey(x => x.SecondId);
     }
 }
