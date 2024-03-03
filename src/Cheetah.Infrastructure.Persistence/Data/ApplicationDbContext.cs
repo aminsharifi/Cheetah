@@ -68,7 +68,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<L_FlowTask> L_FlowTasks { get; set; }
     public virtual DbSet<L_TaskCondition> L_TaskConditions { get; set; }    
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
-    public virtual DbSet<L_UserConditionGroup> L_UserConditions { get; set; }
+    public virtual DbSet<L_UserCondition> L_UserConditions { get; set; }
     
     #endregion
 
