@@ -5,6 +5,7 @@ public abstract class ValueObject
 {
     protected static bool EqualOperator(ValueObject left, ValueObject right)
     {
+        //^ is XOR
         if (left is null ^ right is null)
         {
             return false;
