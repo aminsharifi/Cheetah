@@ -20,6 +20,11 @@ public class DbInitializer : IDbInitializer
 
     public async Task<Boolean> Initialize()
     {
+        //if (await _userManager?.Users?.AnyAsync(x=>x.UserName == "Delete"))
+        //{
+        //    await _db.Database.EnsureCreatedAsync();
+        //}
+
         if (_db.Database.GetPendingMigrations().Count() > 0)
         {
             _db.Database.Migrate();

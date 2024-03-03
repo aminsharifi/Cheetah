@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
 
 public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
 {
@@ -14,6 +16,10 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
 
         builder
             .Property(e => e.Value)
-            .HasColumnOrder(102);  
+            .HasColumnOrder(102);
+
+        builder.Ignore(x=>x.BooleanValue);
+
+        builder.Ignore(x => x.FloatValue);        
     }
 }

@@ -14,7 +14,10 @@ public static class BaseEntityConfiguration
                 entityType.SetSchema(entityType.ClrType.Namespace.Split('.').Last());
                 var entity = modelBuilder.Entity(entityType.ClrType);
 
-                if (entityType.ClrType.BaseType.Name == nameof(BaseEntity) || entityType.ClrType.BaseType?.BaseType?.Name == nameof(BaseEntity))
+                if (entityType.ClrType.BaseType.Name == nameof(BaseEntity)
+                    ||
+                    entityType.ClrType.BaseType?.BaseType?.Name == nameof(BaseEntity)
+                    )
                 {
                     entity.HasKey(nameof(BaseEntity.Id));
 
@@ -75,8 +78,11 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.ERPCode))
                         .HasColumnOrder(10);
-                }
 
+                    entity
+                        .Ignore(nameof(BaseEntity.DomainEvents));
+
+                }
                 if (entityType.ClrType.BaseType.Name == nameof(SimpleLinkClass))
                 {
                     entity
@@ -109,6 +115,13 @@ public static class BaseEntityConfiguration
                         .IsUnique(false);
 
                     entity.Property(nameof(SimpleLinkClass.FifthId)).HasColumnOrder(104);
+                }
+                else if (entityType.ClrType.BaseType?.BaseType?.Name == nameof(BaseEntity))
+                {
+                    entity
+                        .HasOne(nameof(D_User.Parent))
+                        .WithMany(nameof(D_User.Childs))
+                        .HasForeignKey(nameof(D_User.Parent_Id));
                 }
             }
         }
