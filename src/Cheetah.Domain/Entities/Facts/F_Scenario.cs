@@ -9,8 +9,6 @@ public partial class F_Scenario : BaseEntity
     public virtual ICollection<L_ProcessScenario>? ProcessScenarios { get; set; } = new HashSet<L_ProcessScenario>();
     public virtual ICollection<L_ScenarioCondition>? ScenarioConditions { get; set; } = new HashSet<L_ScenarioCondition>();
 
-
-
     #endregion
 
     public F_Scenario ShallowCopy()

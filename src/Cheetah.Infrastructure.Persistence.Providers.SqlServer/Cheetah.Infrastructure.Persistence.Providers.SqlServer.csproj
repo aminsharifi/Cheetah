@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<EnablePackageValidation>True</EnablePackageValidation>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>8.0.112</Version>
+		<Version>8.0.113</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -17,10 +17,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence\Cheetah.Infrastructure.Persistence.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
 </Project>

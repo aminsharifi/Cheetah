@@ -1,7 +1,7 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 public partial class F_Condition : BaseEntity
 {
-    [NotMapped]
+    //[NotMapped]
     private long? _tagId;
 
     public long? TagId
@@ -11,7 +11,7 @@ public partial class F_Condition : BaseEntity
     }
     public virtual D_Tag? Tag { get; set; }
 
-    [NotMapped]
+    //[NotMapped]
     private long? _operandId;
     public long? OperandId
     {
@@ -20,7 +20,7 @@ public partial class F_Condition : BaseEntity
     }
     public virtual D_Operand? Operand { get; set; }
 
-    [NotMapped]
+    //[NotMapped]
     private string? _value;
 
     public string? Value
@@ -29,7 +29,7 @@ public partial class F_Condition : BaseEntity
         set { _value = value; SetName(); }
     }
 
-    [NotMapped]
+    //[NotMapped]
     public bool BooleanValue
     {
         get
@@ -42,7 +42,7 @@ public partial class F_Condition : BaseEntity
         }
     }
 
-    [NotMapped]
+    //[NotMapped]
     public float? FloatValue
     {
         get
@@ -58,6 +58,7 @@ public partial class F_Condition : BaseEntity
     {
         return (F_Condition)MemberwiseClone();
     }
+
     public override void SetName()
     {
         if (Tag?.Name is not null && Operand?.Name is not null && Value is not null)
