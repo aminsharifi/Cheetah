@@ -8,7 +8,6 @@ global using FluentResults;
 global using MediatR;
 global using Serilog.Events;
 global using Serilog.Formatting;
-global using System.ComponentModel.DataAnnotations.Schema;
 global using System.Globalization;
 global using System.Net;
 global using System.Reflection;

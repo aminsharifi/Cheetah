@@ -46,6 +46,7 @@
             <igc-radial-gauge-range start-value="60" end-value="100" brush="green"></igc-radial-gauge-range>
         </igc-radial-gauge>
         <button @onclick="OnClick">Update Value</button>
+        <button @onclick="DeleteDataBase">*</button>
     </div>
 </div>
 
@@ -62,5 +63,11 @@
     async void OnClick()
     {
         await JSRuntime.InvokeVoidAsync("updateValue", GaugeValue == 100 ? GaugeValue = 0 : GaugeValue += 10);
+    }
+    async void DeleteDataBase()
+    {
+        await _db.Database.EnsureDeletedAsync();
+
+        await _IDbInitializer.Initialize();
     }
 }
