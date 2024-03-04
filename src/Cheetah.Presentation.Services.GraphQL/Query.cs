@@ -121,7 +121,7 @@ public class Query
 
     #region Links
 
-    public IQueryable<L_UserConditionGroup> l_UserConditions([Service] ApplicationDbContext context)
+    public IQueryable<L_UserCondition> l_UserConditions([Service] ApplicationDbContext context)
     {
         return context.L_UserConditions;
     }
