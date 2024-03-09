@@ -4,6 +4,8 @@ public class L_FlowTaskConfiguration : IEntityTypeConfiguration<L_FlowTask>
 {
     public void Configure(EntityTypeBuilder<L_FlowTask> builder)
     {
+        builder.HasComment("Exit tasks of each flow");
+
         builder
             .HasOne(x => x.Flow)
             .WithMany(x => x.FlowTasks)

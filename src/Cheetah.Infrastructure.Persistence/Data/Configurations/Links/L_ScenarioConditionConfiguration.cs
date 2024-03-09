@@ -4,6 +4,8 @@ public class L_ScenarioConditionConfiguration : IEntityTypeConfiguration<L_Scena
 {
     public void Configure(EntityTypeBuilder<L_ScenarioCondition> builder)
     {
+        builder.HasComment("Conditionals of each scenario");
+
         builder
             .HasOne(x => x.Scenario)
             .WithMany(x => x.ScenarioConditions)

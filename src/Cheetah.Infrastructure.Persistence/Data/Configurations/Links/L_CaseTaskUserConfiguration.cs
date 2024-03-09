@@ -4,6 +4,8 @@ public class L_CaseTaskUserConfiguration : IEntityTypeConfiguration<L_CaseTaskUs
 {
     public void Configure(EntityTypeBuilder<L_CaseTaskUser> builder)
     {
+        builder.HasComment("Manual choosing performer");
+
         builder
             .HasOne(x => x.Case)
             .WithMany(x => x.CaseTaskUsers)

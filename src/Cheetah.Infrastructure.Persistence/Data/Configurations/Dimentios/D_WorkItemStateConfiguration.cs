@@ -4,6 +4,6 @@ public class D_WorkItemStateConfiguration : IEntityTypeConfiguration<D_WorkItemS
 {
     public void Configure(EntityTypeBuilder<D_WorkItemState> builder)
     {
-        
+        builder.HasComment("State of the WorkItem");
     }
 }

@@ -4,6 +4,8 @@ public class D_UserInformationConfiguration : IEntityTypeConfiguration<D_UserInf
 {
     public void Configure(EntityTypeBuilder<D_UserInformation> builder)
     {
+        builder.HasComment("Additional user information");
+
         builder
             .Property(e => e.FirstName)
             .HasColumnOrder(100)

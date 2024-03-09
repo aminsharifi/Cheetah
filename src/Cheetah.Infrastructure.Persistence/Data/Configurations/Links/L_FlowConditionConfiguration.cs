@@ -4,6 +4,8 @@ public class L_FlowConditionConfiguration : IEntityTypeConfiguration<L_FlowCondi
 {
     public void Configure(EntityTypeBuilder<L_FlowCondition> builder)
     {
+        builder.HasComment("Conditionals of each flow");
+
         builder
             .HasOne(x => x.Flow)
             .WithMany(x => x.FlowConditions)

@@ -4,6 +4,8 @@ public class L_ProcessScenarioConfiguration : IEntityTypeConfiguration<L_Process
 {
     public void Configure(EntityTypeBuilder<L_ProcessScenario> builder)
     {
+        builder.HasComment("Related scenarios of each flow");
+
         builder
             .HasOne(x => x.Process)
             .WithMany(x=>x.ProcessScenarios)

@@ -21,14 +21,18 @@ public static class BaseEntityConfiguration
                 {
                     entity.HasKey(nameof(BaseEntity.Id));
 
-                    entity.Property(nameof(BaseEntity.Id))
-                        .HasColumnOrder(1).UseIdentityColumn();
+                    entity
+                        .Property(nameof(BaseEntity.Id))
+                        .HasColumnOrder(1)
+                        .UseIdentityColumn()
+                        .HasComment("The unique key of each record");
 
 
                     entity.Property(nameof(BaseEntity.SortIndex))
                         .HasColumnOrder(2)
                         .HasDefaultValue((long)0)
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasComment("The sort index of the record");
 
                     entity.HasIndex(nameof(BaseEntity.Name))
                         .IsDescending();
@@ -36,51 +40,71 @@ public static class BaseEntityConfiguration
                     entity.Property(nameof(BaseEntity.Name))
                         .HasColumnOrder(3)
                         .HasDefaultValue(string.Empty)
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasComment("English name of each record");
 
                     entity.Property(nameof(BaseEntity.DisplayName))
                         .HasColumnOrder(4)
                         .HasDefaultValue(string.Empty)
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasComment("The localized name of each record");
 
                     entity.Property(nameof(BaseEntity.Description))
                         .HasColumnOrder(5)
                         .HasDefaultValue(string.Empty)
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasComment("Additional description of each record");
 
                     entity.HasIndex(nameof(BaseEntity.Created)).IsDescending();
 
                     entity.Property(nameof(BaseEntity.Created))
                         .HasColumnOrder(6)
                         .HasDefaultValue(DateTimeOffset.Now)
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasComment("Record creation date");
 
                     entity.Property(nameof(BaseEntity.LastModified))
                         .HasColumnOrder(7)
-                        .IsConcurrencyToken(true);
+                        .IsConcurrencyToken(true)
+                        .HasComment("The date the record was last updated");
 
                     entity.HasIndex(nameof(BaseEntity.LastModified))
                         .IsDescending();
 
                     entity.Property(nameof(BaseEntity.GuidRecord))
                         .HasColumnOrder(8)
-                        .HasDefaultValue(Guid.NewGuid());
+                        .HasDefaultValue(Guid.NewGuid())
+                        .HasComment("Unique GUID identifier");
 
                     entity.HasIndex(nameof(BaseEntity.EnableRecord))
                         .IsDescending();
 
                     entity.Property(nameof(BaseEntity.EnableRecord))
                         .HasColumnOrder(9)
-                        .HasDefaultValue(true);
+                        .HasDefaultValue(true)
+                        .HasComment("Active status of the record");
 
                     entity.HasIndex(nameof(BaseEntity.ERPCode))
                         .IsDescending();
 
                     entity.Property(nameof(BaseEntity.ERPCode))
-                        .HasColumnOrder(10);
+                        .HasColumnOrder(10)
+                        .HasComment("ID of this record in ERP");
 
-                    entity
-                        .Ignore(nameof(BaseEntity.DomainEvents));
+                    entity.Property(nameof(BaseEntity.LastModifiedBy))
+                        .HasColumnOrder(11)
+                        .HasDefaultValue(string.Empty)
+                        .HasMaxLength(512)
+                        .HasComment("By which user has it been updated?");
+
+                    entity.Property(nameof(BaseEntity.CreatedBy))
+                        .HasColumnOrder(12)
+                        .HasDefaultValue(string.Empty)
+                        .HasMaxLength(512)
+                        .HasComment("Created by what user?");
+
+
+                    entity.Ignore(nameof(BaseEntity.DomainEvents));
 
                 }
                 if (entityType.ClrType.BaseType.Name == nameof(SimpleLinkClass))

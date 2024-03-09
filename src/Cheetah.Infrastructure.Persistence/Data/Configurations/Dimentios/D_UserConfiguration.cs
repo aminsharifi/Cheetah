@@ -4,6 +4,8 @@ public class D_UserConfiguration : IEntityTypeConfiguration<D_User>
 {
     public void Configure(EntityTypeBuilder<D_User> builder)
     {
+        builder.HasComment("Cheetah's user");
+
         #region Simple Prob
 
         builder
