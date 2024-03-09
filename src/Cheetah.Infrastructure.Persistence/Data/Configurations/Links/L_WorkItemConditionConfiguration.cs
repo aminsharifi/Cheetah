@@ -4,6 +4,8 @@ public class L_WorkItemConditionConfiguration : IEntityTypeConfiguration<L_WorkI
 {
     public void Configure(EntityTypeBuilder<L_WorkItemCondition> builder)
     {
+        builder.HasComment("Conditionals of each workitem");
+
         builder
             .HasOne(x => x.WorkItem)
             .WithMany(x=>x.WorkItemConditions)

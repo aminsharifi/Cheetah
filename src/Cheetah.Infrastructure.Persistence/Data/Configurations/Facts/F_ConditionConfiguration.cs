@@ -6,6 +6,8 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
 {
     public void Configure(EntityTypeBuilder<F_Condition> builder)
     {
+        builder.HasComment("Condition of each tag");
+
         builder
             .Property(e => e.TagId)
             .HasColumnOrder(100);

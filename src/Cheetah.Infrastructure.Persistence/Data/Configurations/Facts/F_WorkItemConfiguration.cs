@@ -4,6 +4,8 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
 {
     public void Configure(EntityTypeBuilder<F_WorkItem> builder)
     {
+        builder.HasComment("Numeric, Text, Date, binary");
+
         builder
             .Property(e => e.TaskId)
             .HasColumnOrder(101);
