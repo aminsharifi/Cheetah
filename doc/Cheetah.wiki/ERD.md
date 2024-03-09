@@ -5,20 +5,20 @@
 
 ## * All Cheetah tables have the same set of fields as described below:
 
-| Field Name      | Field Type			| Default Value		 | Description							 |
-| ---             | ---					| ---				 | ---									 |
-| Id              | [bigint]			| IDENTITY(1,1)		 | The unique key of each record         |
-| SortIndex       | [bigint]			| 0					 | The sort index of the record          |
-| Name            | [nvarchar](512)     | string.Empty		 | English name of each record           |
-| DisplayName     | [nvarchar](512)     | string.Empty		 | The localized name of each record     |
-| Description     | [nvarchar](512)     | string.Empty		 | Additional description of each record |
-| Created         | [datetimeoffset](7) | DateTimeOffset.Now | Record creation date                  |
-| LastModified    | [datetimeoffset](7) | DateTimeOffset.Now | The date the record was last updated  |
-| GuidRecord      | [uniqueidentifier]  | NewGuid()		     | Unique GUID identifier                |
-| EnableRecord    | [bit]				| True			     | Active status of the record           |
-| ERPCode         | [bigint]			| 0				     | ID of this record in ERP              |
-| CreatedBy       | [nvarchar](512)     | string.Empty	     | Created by which user?                |
-| LastModifiedBy  | [nvarchar](512)     | string.Empty	     | By which user has it been updated?    |
+| Field Name      | Field Type		  | Default Value		 | Description							 |
+| ---             | ---				  | ---				     | ---									 |
+| Id              | bigint			  | IDENTITY(1,1)		 | The unique key of each record         |
+| SortIndex       | bigint			  | 0					 | The sort index of the record          |
+| Name            | nvarchar(512)     | string.Empty		 | English name of each record           |
+| DisplayName     | nvarchar(512)     | string.Empty		 | The localized name of each record     |
+| Description     | nvarchar(512)     | string.Empty		 | Additional description of each record |
+| Created         | datetimeoffset(7) | DateTimeOffset.Now   | Record creation date                  |
+| LastModified    | datetimeoffset(7) | DateTimeOffset.Now   | The date the record was last updated  |
+| GuidRecord      | uniqueidentifier  | NewGuid()		     | Unique GUID identifier                |
+| EnableRecord    | bit				  | True			     | Active status of the record           |
+| ERPCode         | bigint			  | 0				     | ID of this record in ERP              |
+| CreatedBy       | nvarchar(512)     | string.Empty	     | Created by which user?                |
+| LastModifiedBy  | nvarchar(512)     | string.Empty	     | By which user has it been updated?    |
 
 
 
