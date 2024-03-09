@@ -27,6 +27,8 @@ ORM: Entity Framework Core
 
 ## Screenshots
 
+![Cheetah ERD](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Cheetah_ERD.png)
+
 ![Blazor Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Blazor_Table.png)
 
 ![Blazor Upsert Table](https://raw.githubusercontent.com/aminsharifi/Cheetah/master/res/images/Blazor_Upsert_Table.png)
