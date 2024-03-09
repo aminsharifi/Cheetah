@@ -4,6 +4,8 @@ public class L_UserConditionConfiguration : IEntityTypeConfiguration<L_UserCondi
 {
     public void Configure(EntityTypeBuilder<L_UserCondition> builder)
     {
+        builder.HasComment("Conditionals of each user");
+
         builder
             .HasOne(x => x.User)
             .WithMany(x=>x.UserConditions)

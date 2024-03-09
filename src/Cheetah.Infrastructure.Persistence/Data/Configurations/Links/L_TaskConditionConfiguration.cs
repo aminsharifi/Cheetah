@@ -4,6 +4,8 @@ public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondi
 {
     public void Configure(EntityTypeBuilder<L_TaskCondition> builder)
     {
+        builder.HasComment("Conditionals of each task");
+
         builder
             .HasOne(x => x.Task)
             .WithMany(x=>x.TaskConditions)
