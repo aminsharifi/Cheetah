@@ -4,6 +4,8 @@ public class L_ConditionGroupConditionConfiguration : IEntityTypeConfiguration<L
 {
     public void Configure(EntityTypeBuilder<L_ConditionGroupCondition> builder)
     {
+       
+
         builder
             .HasOne(x => x.ConditionGroup)
             .WithMany(x=>x.ConditionGroupConditions)

@@ -4,6 +4,7 @@ public class F_CaseConfiguration : IEntityTypeConfiguration<F_Case>
 {
     public void Configure(EntityTypeBuilder<F_Case> builder)
     {
+        builder.HasComment("Each request create one record in this table");
         builder
             .Property(e => e.RequestorId)
             .HasColumnOrder(106);
