@@ -17,12 +17,12 @@
 | Response Message Class Name | CreateRequest_Output|
 | Response Message            | {GRPC_Case Case = 1;GRPC_BaseClassWithName OutputState = 2;} |
 
-## * gRPC Messages
+## * CRUD Matrix
      
 | Table Name     | Operation | Description                                                            |
 | ---            | ---       | ---                                                                    |
 | D_User         | Read      | creator & requestor, workItem's performer, L_UserConditions            |
-| D_Process      | ---       | current process                                                        |
+| D_Process      | Read      | current process                                                        |
 | F_Condition    | Read      | workItem's condition, TaskConditions, FlowConditions, L_UserConditions |
 | D_Tag          | Read      | condition's tag                                                        |
 | D_Operand      | Read      | operand's tag                                                          |
@@ -32,7 +32,8 @@
 | F_Flow         | Read      | taskFlows, flowConditions, flowTasks                                   |
 | D_CaseState    | Read      | state of case                                                          |
 | F_WorkItem     | Write     | case's workItems, L_WorkItemCondition                                  |
-| L_CaseTaskUser | Read      | Read                                                                   |
+| WorkItemState  | Read      | workItem's state                                                       |
+| L_CaseTaskUser | Read      | Read manual user selection                                             |
 
 
 ## * gRPC Sample Input Message:
