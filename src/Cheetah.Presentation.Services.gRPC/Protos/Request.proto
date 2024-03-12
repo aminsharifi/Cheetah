@@ -11,11 +11,11 @@ package greet;
 service Request {
   // Sends a greeting
   rpc CreateRequest (CreateRequest_Input) returns (CreateRequest_Output);
+  rpc GetAllByName (GetAllByName_Input) returns (GetAllByName_Output);
   rpc GetCase (GetCase_Input) returns (GetCase_Output);
-  rpc PerformRequest (PerformRequest_Input) returns (PerformRequest_Output);
   rpc Inbox (Cartable_Input) returns (Cartable_Output);
   rpc Outbox (Cartable_Input) returns (Cartable_Output);
-  rpc GetAllByName (GetAllByName_Input) returns (GetAllByName_Output);
+  rpc PerformRequest (PerformRequest_Input) returns (PerformRequest_Output);
   rpc SetCaseTaskUser (SetCaseTaskUser_Input) returns (SetCaseTaskUser_Output);
 }
 message CreateRequest_Input
@@ -33,7 +33,17 @@ message CreateRequest_Output
     GRPC_Case Case = 1;
     GRPC_BaseClassWithName OutputState = 2;
 }
+message GetAllByName_Input
+{
+    GRPC_BaseClassWithName TableInput = 1;
+}
 
+message GetAllByName_Output
+{
+    GRPC_BaseClassWithName TableInput = 1;
+    repeated GRPC_BaseClassWithName TableOutput = 2;
+    GRPC_BaseClassWithName OutputState = 3;
+}
 message GetCase_Input
 {
     GRPC_BaseClass Case = 1;
@@ -43,7 +53,7 @@ message GetCase_Input
 
 message GetCase_Output
 {
-    GRPC_Case Case = 1;    
+    GRPC_Case Case = 1;
     GRPC_BaseClassWithName OutputState = 2;
 }
 
@@ -56,7 +66,7 @@ message PerformRequest_Input
 message PerformRequest_Output
 {
     GRPC_Case Case = 1;
-    GRPC_BaseClassWithName OutputState = 4;
+    GRPC_BaseClassWithName OutputState = 2;
 }
 
 message Cartable_Input
@@ -78,18 +88,6 @@ message Cartable_Output
     google.protobuf.Int64Value TotalItems  = 3;    
     repeated GRPC_Case Cases = 4;
     GRPC_BaseClassWithName OutputState = 5;
-}
-
-message GetAllByName_Input
-{
-    GRPC_BaseClassWithName TableInput = 1;
-}
-
-message GetAllByName_Output
-{
-    GRPC_BaseClassWithName TableInput = 1;
-    repeated GRPC_BaseClassWithName TableOutput = 2;
-    GRPC_BaseClassWithName OutputState = 3;
 }
 
 message SetCaseTaskUser_Input

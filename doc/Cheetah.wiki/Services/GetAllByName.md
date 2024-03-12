@@ -1,4 +1,4 @@
-* rpc General Info
+## * rpc General Info
 
 | Title               | Value           |
 | ---                 | ---             |
@@ -7,8 +7,8 @@
 | Project Version     | 8.2.100         |
 | Service Name        | GetAllByName    |
 
-* Grpc Messages
-
+## * Grpc Messages
+    
 | Title | Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 | --- | --- |
 | Request Message Class Name  | GetAllByName_Input |
@@ -16,18 +16,19 @@
 | Response Message Class Name | GetAllByName_Output |
 | Response Message            | {GRPC_BaseClassWithName TableInput = 1;repeated GRPC_BaseClassWithName TableOutput = 2;GRPC_BaseClassWithName OutputState = 3;} |
 
-* Grpc Custom Messages:
+## * CRUD Matrix
+     
+| Table Name     | Operation | Description                                                            |
+| ---            | ---       | ---                                                                    |
+| D_Entity       | Read      | ---                                                                    |
 
-| Message Name   | Message Implementation |
-| ---            | ---                    |
-| GRPC_BaseClass | {google.protobuf.Int64Value Id = 1;google.protobuf.Int64Value ERPCode = 2;google.protobuf.StringValue Name = 3;google.protobuf.StringValue DisplayName = 4;google.protobuf.Timestamp CreateTimeRecord = 5; google.protobuf.Timestamp LastUpdatedRecord = 6;} |
 
 ## * gRPC Sample Input Message:
 
 ```javascript
 {
     "TableInput": {
-        "Name": {"value": "D_Tag"}
+        "Name": {"value": "D_CaseState"}
     }
 }
 ```
@@ -48,41 +49,75 @@
                 "value": "1"
             },
             "Name": {
-                "value": "D_Location"
+                "value": "Initializing"
             },
             "DisplayName": {
-                "value": "مرکز"
+                "value": "مقداردهی اولیه"
             }
         },
         {
             "Id": {
-                "value": "201"
+                "value": "2"
             },
             "ERPCode": {
-                "value": "201"
+                "value": "2"
             },
             "SortIndex": {
-                "value": "201"
+                "value": "2"
             },
             "Name": {
-                "value": "Approve"
+                "value": "Ongoing"
             },
             "DisplayName": {
-                "value": "تایید"
+                "value": "در دست بررسی"
             }
         },
         {
             "Id": {
-                "value": "202"
+                "value": "3"
             },
             "ERPCode": {
-                "value": "202"
+                "value": "3"
             },
             "SortIndex": {
-                "value": "202"
+                "value": "3"
             },
             "Name": {
-                "value": "Reject"
+                "value": "Editing"
+            },
+            "DisplayName": {
+                "value": "منتظر بازنگری"
+            }
+        },
+        {
+            "Id": {
+                "value": "4"
+            },
+            "ERPCode": {
+                "value": "4"
+            },
+            "SortIndex": {
+                "value": "4"
+            },
+            "Name": {
+                "value": "Completed"
+            },
+            "DisplayName": {
+                "value": "کامل شده"
+            }
+        },
+        {
+            "Id": {
+                "value": "5"
+            },
+            "ERPCode": {
+                "value": "5"
+            },
+            "SortIndex": {
+                "value": "5"
+            },
+            "Name": {
+                "value": "Rejected"
             },
             "DisplayName": {
                 "value": "عدم تایید"
@@ -90,53 +125,19 @@
         },
         {
             "Id": {
-                "value": "203"
+                "value": "6"
             },
             "ERPCode": {
-                "value": "203"
+                "value": "6"
             },
             "SortIndex": {
-                "value": "203"
+                "value": "6"
             },
             "Name": {
-                "value": "Edit"
+                "value": "Aborted"
             },
             "DisplayName": {
-                "value": "رد"
-            }
-        },
-        {
-            "Id": {
-                "value": "301"
-            },
-            "ERPCode": {
-                "value": "301"
-            },
-            "SortIndex": {
-                "value": "301"
-            },
-            "Name": {
-                "value": "Price"
-            },
-            "DisplayName": {
-                "value": "مبلغ"
-            }
-        },
-        {
-            "Id": {
-                "value": "302"
-            },
-            "ERPCode": {
-                "value": "302"
-            },
-            "SortIndex": {
-                "value": "302"
-            },
-            "Name": {
-                "value": "SendRequest"
-            },
-            "DisplayName": {
-                "value": "ارسال درخواست"
+                "value": "ابطال شده"
             }
         }
     ],
@@ -151,10 +152,10 @@
             "value": "104"
         },
         "Name": {
-            "value": "D_Tag"
+            "value": "D_CaseState"
         },
         "DisplayName": {
-            "value": "تگ‌ها(Dimentions)"
+            "value": "وضعیت فرآیندها(Dimentions)"
         }
     },
     "OutputState": {
