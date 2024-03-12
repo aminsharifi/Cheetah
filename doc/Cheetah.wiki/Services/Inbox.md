@@ -4,7 +4,7 @@
 | ---                 | ---             |
 | Broker Name         | gRPC proto3     |
 | Broker Server Name  | localhost: 5000 |
-| Project Version     | 1.0.15          |
+| Project Version     | 8.2.100         |
 | Service Name        | Inbox           |
 
 * Grpc Messages
