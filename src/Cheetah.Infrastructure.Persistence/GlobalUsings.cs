@@ -32,6 +32,7 @@ global using Microsoft.Extensions.Hosting;
 global using Microsoft.IdentityModel.Tokens;
 global using Serilog;
 global using System.Collections.Immutable;
+global using System.Collections.ObjectModel;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Reflection;

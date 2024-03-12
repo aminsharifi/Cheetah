@@ -5,7 +5,7 @@
 		<DocumentationFile></DocumentationFile>
 		<EnablePackageValidation>True</EnablePackageValidation>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>8.0.115</Version>
+		<Version>8.2.100</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>

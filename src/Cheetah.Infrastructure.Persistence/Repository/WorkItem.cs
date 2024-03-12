@@ -354,12 +354,12 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                             _Current_WorkItems
                                 .Where(x => _users.Any(y => y == x.UserId))
-                                .ToImmutableList()
+                                .ToList()
                                 .ForEach(x => x.SetInbox());
 
                             _Current_WorkItems
                                 .Where(x => !_users.Any(y => y == x.UserId))
-                                .ToImmutableList()
+                                .ToList()
                                 .ForEach(x => x.SetExit());
                         }
                         else
