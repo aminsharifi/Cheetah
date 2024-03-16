@@ -17,6 +17,13 @@
 | Response Message Class Name | GetCase_Output |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 | Response Message            | {GRPC_Case Case = 1;GRPC_BaseClassWithName OutputState = 2;} |
 
+## * Description
+
+This service is for receiving a case
+Case ID is the tracking number of the request, which is optional.
+The Case State is the state of the request that is not mandatory
+The output of the service is the cases in the individual's cartable
+
 ## * CRUD Matrix
      
 | Table Name     | Operation | Description                                                            |

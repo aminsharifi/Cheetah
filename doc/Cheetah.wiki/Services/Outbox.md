@@ -1,4 +1,4 @@
-* rpc General Info
+## * rpc General Info
 
 | Title               | Value           |
 | ---                 | ---             |
@@ -7,7 +7,7 @@
 | Project Version     | 8.2.100         |
 | Service Name        | Outbox          |
 
-* Grpc Messages
+## * Grpc Messages
 
 | Title | Value |
 | ---   | ---   |
@@ -15,6 +15,17 @@
 | Request Message             | {google.protobuf.Int64Value PageNumber = 1;google.protobuf.Int64Value PageSize  = 2;google.protobuf.Int64Value TotalItems  = 3;GRPC_BaseClassWithName Assignee = 4;GRPC_BaseClassWithName Process = 5;GRPC_BaseClass Case  = 6;GRPC_BaseClassWithName CaseState = 7;GRPC_BaseClass WorkItem  = 8;} |
 | Response Message Class Name | Cartable_Output |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 | Response Message            | {google.protobuf.Int64Value PageNumber = 1;google.protobuf.Int64Value PageSize  = 2;google.protobuf.Int64Value TotalItems  = 3;repeated GRPC_Case Cases = 4;GRPC_BaseClassWithName OutputState = 5;} |
+
+## * Description
+
+This service is for receiving tasks in each user's outbox
+Assignee is the person whose works in the inbox we want to be displayed.
+Page size is the number of records displayed on a page.
+PageNumber is the desired page number
+Case State is the state of the request, which is optional
+Case Id is the tracking number of the request, which is optional
+The process can be considered as an optional element.
+The output of the service is the cases inside the individual's cartable
 
 ## * CRUD Matrix
      
