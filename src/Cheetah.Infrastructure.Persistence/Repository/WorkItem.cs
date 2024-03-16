@@ -190,14 +190,40 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
                     var _performerConditions =
                         _task.TaskConditions
                         .Where(x => x.EnableRecord)
-                        .Select(x => x.Condition.Id);
+                        .Select(x => x.SecondId);
 
-                    var _userIds = await _db.L_UserConditions
+                    var _CaseCondition =
+                        Current_Case.CaseConditions
+                        .Where(x => x.EnableRecord)
+                        .Select(x => x.SecondId);
+
+
+                    var _taskUserConditions = await _db.L_UserConditions
                         .Where(x => _performerConditions.Contains(x.SecondId))
                         .Where(x => x.EnableRecord)
                         .AsNoTracking()
-                        .Select(x => x.FirstId.Value)
+                        .Select(x=>x.FirstId)
                         .ToListAsync();
+
+
+                    var _CaseUserConditions = await _db.L_UserConditions
+                        .Where(x => _taskUserConditions.Contains(x.FirstId))
+                        .Where(x => _CaseCondition.Contains(x.SecondId))
+                        .Where(x => x.EnableRecord)
+                        .AsNoTracking()
+                        .Select(x => x.FirstId)
+                        .ToListAsync();
+
+                    var _userIds = new List<Int64?>();
+
+                    if (_CaseUserConditions.Any())
+                    {
+                        _userIds = _CaseUserConditions;
+                    }
+                    else
+                    {
+                        _userIds = _taskUserConditions;
+                    }
 
                     foreach (var _userId in _userIds)
                     {
