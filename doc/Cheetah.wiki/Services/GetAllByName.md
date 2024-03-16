@@ -16,6 +16,12 @@
 | Response Message Class Name | GetAllByName_Output |
 | Response Message            | {GRPC_BaseClassWithName TableInput = 1;repeated GRPC_BaseClassWithName TableOutput = 2;GRPC_BaseClassWithName OutputState = 3;} |
 
+## * Description
+
+This service is for retrieving Dimension's tables.
+TableInput's name is the name of the table from which we want to extract its values.
+The output of the service is the records of the tables
+
 ## * CRUD Matrix
      
 | Table Name     | Operation | Description                                                            |

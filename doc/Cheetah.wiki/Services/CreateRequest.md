@@ -17,6 +17,17 @@
 | Response Message Class Name | CreateRequest_Output|
 | Response Message            | {GRPC_Case Case = 1;GRPC_BaseClassWithName OutputState = 2;} |
 
+## * Description
+
+This service is used to create a new request
+ERPCode, which is in Case, is actually the request ID in the base system
+The creator is the person who creates the request.
+The requestor is the person for whom the application is made.
+The process is specified in the service.
+If the process has conditions, these conditions are defined; Conditions are used for two purposes, first to determine the scenario and second to determine the user
+A workitem is created for each person that is in the flow; In this workitem, it is determined which user the work belongs to, and with OccurredUserActions, it is determined what actions the user has performed.
+The output of the service is the created case.
+
 ## * CRUD Matrix
      
 | Table Name     | Operation | Description                                                            |
@@ -53,6 +64,14 @@
     {
         "Name": {"value": "Admission"}
     },
+    "Conditions":
+    [
+        {
+            "Tag": {"Name":{"value": "StockType"}},
+            "Operand": {"Name": {"value": "="}},
+            "Value":{"value": "FirstStock"}
+        }
+    ],
     "WorkItem":
     {
         "OccurredUserActions":
