@@ -16,6 +16,14 @@
 | Response Message Class Name | PerformRequest_Output |
 | Response Message            | {GRPC_Case Case = 1;GRPC_BaseClassWithName OutputState = 2;} |
 
+## * Description
+
+This service is used to send Work Items.
+WorkItem's ID is the unique identifier of each user-task.
+OccurredUserActions are actions taken by the user.
+User is the user who did this work.
+Rebase is used to resubmit work.
+
 ## * CRUD Matrix
      
 | Table Name     | Operation | Description                                                            |
