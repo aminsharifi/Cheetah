@@ -6,6 +6,7 @@ public class LookupDto
     public String? Name { get; set; }
     public String? DisplayName { get; set; }
 
+    /*
     private class Mapping : Profile
     {
         public Mapping()
@@ -13,4 +14,5 @@ public class LookupDto
             CreateMap<D_CaseState, LookupDto>();
         }
     }
+    */
 }

@@ -32,10 +32,11 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
             GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == CaseStateId);
         }
 
-        if (request.Id is not null)
+        if (request.Id != 0)
         {
             GeneralRequest = GeneralRequest.Where(x => x.Id == request.Id);
         }
+
         if (request.ERPCode is not null)
         {
             GeneralRequest = GeneralRequest.Where(x => x.ERPCode == request.ERPCode);

@@ -15,7 +15,7 @@ public static class APIConverter
         }
         _GRPC_BaseClass = new()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0
         };
@@ -152,7 +152,7 @@ public static class APIConverter
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {
@@ -188,7 +188,7 @@ public static class APIConverter
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {
@@ -216,7 +216,7 @@ public static class APIConverter
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {
@@ -237,7 +237,7 @@ public static class APIConverter
 
             if (Condition.Base is not null)
             {
-                f_Condition.Id = Condition.Base.Id;
+                f_Condition.Id = Condition.Base.Id.Value;
                 f_Condition.Name = Condition.Base.Name;
                 f_Condition.ERPCode = Condition.Base.ERPCode;
                 f_Condition.SortIndex = Condition.Base.SortIndex;

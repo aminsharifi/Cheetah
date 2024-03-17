@@ -1,10 +1,10 @@
-﻿global using Cheetah.Domain.Common;
+﻿global using Ardalis.SharedKernel;
+global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Entities.Links;
 global using Cheetah.Domain.Resx;
 global using Cheetah.Resx;
-global using FluentResults;
 global using MediatR;
 global using Serilog.Events;
 global using Serilog.Formatting;

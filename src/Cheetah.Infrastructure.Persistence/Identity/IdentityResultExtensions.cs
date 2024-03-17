@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Identity;
+﻿using Ardalis.Result;
+
+namespace Cheetah.Infrastructure.Persistence.Identity;
 
 public static class IdentityResultExtensions
 {
@@ -6,6 +8,6 @@ public static class IdentityResultExtensions
     {
         return result.Succeeded
             ? Result.Success()
-            : Result.Failure(result.Errors.Select(e => e.Description));
+            : Result.Error(result.Errors.Select(e => e.Description).FirstOrDefault());
     }
 }

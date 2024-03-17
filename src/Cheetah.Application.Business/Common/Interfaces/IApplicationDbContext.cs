@@ -2,7 +2,7 @@
 
 public interface IApplicationDbContext
 {
-    DbSet<Cheetah.Domain.Entities.Dimentions.D_Tag> D_Tags { get; }
+    //DbSet<D_Tag> D_Tags { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
