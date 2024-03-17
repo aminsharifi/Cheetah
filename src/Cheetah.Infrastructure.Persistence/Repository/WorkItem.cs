@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
-public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
+public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
     {
@@ -16,7 +16,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
         var CaseID = await DuplicateCase.Select(x => x.Id).FirstOrDefaultAsync();
 
-        if (CaseID is not null)
+        if (CaseID != 0)
         {
             _OutputState = OutputState<F_Case>.DuplicateErrorCreateRequest(CaseID, GeneralRequest);
 
@@ -376,7 +376,7 @@ public class WorkItem(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _ita
 
                         if (_caseTaskUsers.Any())
                         {
-                            var _users = _caseTaskUsers.Select(x => x.User?.Id.Value);
+                            var _users = _caseTaskUsers.Select(x => x.User?.Id);
 
                             _Current_WorkItems
                                 .Where(x => _users.Any(y => y == x.UserId))

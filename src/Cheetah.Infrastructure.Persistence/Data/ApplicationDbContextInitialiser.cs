@@ -85,27 +85,23 @@ public static class InitialiserExtensions
         builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
         builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
         builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
-        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         #endregion
 
         #region Build & Config
 
         var app = builder.Build();
-
         app.UseSerilogRequestLogging();
-
         app.UseAuthentication();
-
         app.UseAuthorization();
 
         #endregion
 
         #region DB Initials
+
         using var scope = app.Services.CreateScope();
-
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-
         await dbInitializer.Initialize();
+
         #endregion
 
         return app;

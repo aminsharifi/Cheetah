@@ -1,11 +1,13 @@
-﻿namespace Cheetah.Domain;
+﻿using Ardalis.Result;
+
+namespace Cheetah.Domain;
 
 public static class OutputState<T>
 {
     #region Success
     public static CheetahResult<T> Success(String DisplayName, T input)
     {
-        var _Result = Result.Ok(input);
+        var _Result = Result.Success(input);
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
         _OutputState.SimpleClassDTO.Id = 0;
@@ -41,7 +43,7 @@ public static class OutputState<T>
 
         var DisplayName = GlobalizationService.GetValue(_Name, new Object[] { CaseID });
 
-        var _Result = Result.Fail(_Name);
+        var _Result = Result.Conflict(_Name);
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
@@ -58,7 +60,7 @@ public static class OutputState<T>
 
         var DisplayName = GlobalizationService.GetValue(_Name);
 
-        var _Result = Result.Fail(_Name);
+        var _Result = Result.NotFound(_Name);
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
@@ -75,7 +77,7 @@ public static class OutputState<T>
 
         var DisplayName = GlobalizationService.GetValue(_Name, new Object[] { workItemId });
 
-        var _Result = Result.Fail(_Name);
+        var _Result = Result.Error(_Name);
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 

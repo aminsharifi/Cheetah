@@ -4,7 +4,7 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-LValue="(Record as D_Tag).TagTypeId"
+        <CInput @bind-NLValue="(Record as D_Tag).TagTypeId"
                 Records="@d_ParameterType"
                 Record="@((Record as D_Tag).TagType)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))

@@ -1,4 +1,11 @@
-﻿namespace Cheetah.Application.Services.gRPC.Middleware;
+﻿using Ardalis.Result;
+using Grpc.Core.Interceptors;
+using Newtonsoft.Json;
+using Serilog;
+using Serilog.Context;
+using System.Net;
+
+namespace Cheetah.Application.Services.gRPC.Middleware;
 
 public class ServerLoggerInterceptor(ILogger<ServerLoggerInterceptor> _logger) : Interceptor
 {
@@ -36,11 +43,15 @@ public class ServerLoggerInterceptor(ILogger<ServerLoggerInterceptor> _logger) :
 public class ExceptionMiddleware : IMiddleware
 {
 
-    public async Task<ErrorResult> HandleException(Exception exception)
+    public async Task<Result> HandleException(Exception exception)
     {
         string errorId = Guid.NewGuid().ToString();
         LogContext.PushProperty("ErrorId", errorId);
         LogContext.PushProperty("StackTrace", exception.StackTrace);
+
+        return Result.Success();
+
+        /*
 
         var errorResult = new ErrorResult
         {
@@ -80,6 +91,8 @@ public class ExceptionMiddleware : IMiddleware
         }
 
         return errorResult;
+
+        */
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -91,12 +104,13 @@ public class ExceptionMiddleware : IMiddleware
         catch (Exception exception)
         {
             var errorResult = await HandleException(exception);
-            Log.Error($"{errorResult.Exception} Request failed with Status Code {context.Response.StatusCode} and Error Id {errorResult.ErrorId}.");
+            Log.Error($"{errorResult.ValidationErrors.FirstOrDefault()} Request failed with Status Code {context.Response.StatusCode} and Error Id {0}.");
             var response = context.Response;
             if (!response.HasStarted)
             {
                 response.ContentType = "application/json";
-                response.StatusCode = errorResult.StatusCode;
+                //response.StatusCode = errorResult.StatusCode;
+                response.StatusCode = 1;
                 await response.WriteAsync(JsonConvert.SerializeObject(errorResult));
             }
             else

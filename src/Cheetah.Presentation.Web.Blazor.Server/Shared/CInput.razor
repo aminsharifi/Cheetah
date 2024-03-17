@@ -87,10 +87,10 @@
                 </NavLink>
             }
             <InputSelect @attributes=CapturedAttributes
-                         @bind-Value="LValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
+                         @bind-Value="NLValue" style="direction:rtl" @oninput="SelectedProcessesChanged"
                          disabled="@Disabled" class="col-6">
 
-                <option @((LValue is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
+                <option @((NLValue is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
 
                 @foreach (var record in Records)
                 {
@@ -140,6 +140,8 @@
     [Parameter]
     public EventCallback<String> SValueChanged { get; set; }
 
+    [Parameter]
+    public EventCallback<long?> NLValueChanged { get; set; }
     private long? _NLvalue;
     [Parameter]
     public long? NLValue
@@ -152,15 +154,13 @@
             NLValueChanged.InvokeAsync(value);
         }
     }
-    [Parameter]
-    public EventCallback<long?> NLValueChanged { get; set; }
 
 
     [Parameter]
-    public EventCallback<long?> LValueChanged { get; set; }
-    private long? _Lvalue;
+    public EventCallback<long> LValueChanged { get; set; }
+    private long _Lvalue;
     [Parameter]
-    public long? LValue
+    public long LValue
     {
         get => _Lvalue;
         set
@@ -170,8 +170,6 @@
             LValueChanged.InvokeAsync(value);
         }
     }
-
-
 
     [Parameter]
     public EventCallback<float?> NFValueChanged { get; set; }

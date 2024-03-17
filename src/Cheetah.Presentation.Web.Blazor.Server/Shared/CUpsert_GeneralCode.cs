@@ -54,7 +54,7 @@ public class CUpsert_GeneralCode : SharedPage
     {
         try
         {
-            var IsNew = (Record.Id == 0 || Record.Id is null);
+            var IsNew = (Record.Id == 0);
 
             //await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
 
