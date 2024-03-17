@@ -1,4 +1,4 @@
-﻿global using AutoMapper;
+﻿global using Cheetah.Application.Business.Common.Interfaces;
 global using Cheetah.Application.Business.Repository;
 global using Cheetah.Application.Services.Helper;
 global using Cheetah.Domain;
@@ -8,11 +8,10 @@ global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Entities.Links;
 global using Cheetah.Infrastructure.Persistence;
 global using Cheetah.Infrastructure.Persistence.Data;
+global using Cheetah.Infrastructure.Persistence.Identity;
 global using Cheetah.Presentation.Services.GraphQL;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
 global using System.Text;
-global using Cheetah.Application.Business.Common.Interfaces;
-global using Cheetah.Infrastructure.Persistence.Identity;

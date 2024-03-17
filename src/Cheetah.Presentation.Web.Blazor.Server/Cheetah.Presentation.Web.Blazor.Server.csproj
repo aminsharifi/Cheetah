@@ -20,15 +20,15 @@
 	  <None Remove="Areas\Identity\Data\**" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="BootstrapBlazor" Version="8.3.3" />
+		<PackageReference Include="BootstrapBlazor" Version="8.3.4" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.67.0.3030" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
 		<PackageReference Include="MudBlazor" Version="6.17.0" />
 	</ItemGroup>
 

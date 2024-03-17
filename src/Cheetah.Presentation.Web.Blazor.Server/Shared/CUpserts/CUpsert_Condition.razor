@@ -6,7 +6,7 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-LValue="(Record as F_Condition).TagId"
+        <CInput @bind-NLValue="(Record as F_Condition).TagId"
                 Records="@List_D_Tag"
                 Record="@((Record as F_Condition).Tag)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
@@ -17,7 +17,7 @@
 
         <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
                 Records="@List_D_Operand"
-                @bind-LValue="(Record as F_Condition).OperandId"
+                @bind-NLValue="(Record as F_Condition).OperandId"
                 Record="@((Record as F_Condition).Operand)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))

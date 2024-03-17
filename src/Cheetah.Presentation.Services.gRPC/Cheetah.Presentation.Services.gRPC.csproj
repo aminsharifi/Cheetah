@@ -30,4 +30,8 @@
 		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Middleware\" />
+	</ItemGroup>
+
 </Project>

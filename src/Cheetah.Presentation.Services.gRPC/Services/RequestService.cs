@@ -2,7 +2,7 @@
 
 public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
-        IMapper mapper, ICopyClass iCopyClass) : Request.RequestBase
+        ICopyClass iCopyClass) : Request.RequestBase
 {
     #region Public methods
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
@@ -36,7 +36,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (Outputresult.Result.IsFailed)
+        if (!Outputresult.Result.IsSuccess)
         {
             return output_Request;
         }
@@ -131,7 +131,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (Outputresult.Result.IsFailed)
+        if (!Outputresult.Result.IsSuccess)
         {
             return output_Request;
         }
@@ -204,7 +204,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (Outputresult.Result.IsFailed)
+        if (!Outputresult.Result.IsSuccess)
         {
             return output_Request;
         }

@@ -1,14 +1,14 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
-public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _itableCRUD) : ICopyClass
+public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopyClass
 {
     public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input)
     {
         var Find = false;
 
-        if (input.Id is not null and > 0)
+        if (input.Id > 0)
         {
             Find = true;
-            return input.Id.Value;
+            return input.Id;
         }
         Q_input = Q_input.AsNoTracking();
 
@@ -30,7 +30,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
         }
 
 
-        return await Q_input.Select(x => x.Id.Value).SingleAsync();
+        return await Q_input.Select(x => x.Id).SingleAsync();
     }
 
     public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input, Int64? output)
@@ -51,7 +51,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
         {
             F_Condition _condition = new();
 
-            _condition.Id = item?.Id;
+            _condition.Id = item.Id;
             _condition.ERPCode = item?.ERPCode;
             _condition.Name = item?.Name;
             _condition.Value = item?.Value;
@@ -89,7 +89,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
             return _SimpleClass;
         }
 
-        _SimpleClass.Id = simpleClass?.Id;
+        _SimpleClass.Id = simpleClass.Id;
 
         _SimpleClass.ERPCode = simpleClass?.ERPCode;
 
@@ -138,7 +138,7 @@ public class CopyClass(ApplicationDbContext _db, IMapper _mapper, ITableCRUD _it
     {
         F_WorkItem _workItem = new();
 
-        if (obj.Id != null)
+        if (obj.Id != 0)
         {
             _workItem = await _db.F_WorkItems
                .Where(x => x.Id == obj.Id)
