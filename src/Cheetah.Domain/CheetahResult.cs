@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain;
+﻿using Ardalis.Result;
+
+namespace Cheetah.Domain;
 
 public class CheetahResult<T>
 {

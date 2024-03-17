@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Common.Interfaces;
+﻿using Ardalis.Result;
+
+namespace Cheetah.Application.Business.Common.Interfaces;
 
 public interface IIdentityService
 {

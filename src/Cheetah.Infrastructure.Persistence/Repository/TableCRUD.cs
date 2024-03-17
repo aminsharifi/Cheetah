@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Repository;
 
-public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
+public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {
     public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
     {
@@ -25,7 +25,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
     }
     public async Task<BaseEntity> Create(BaseEntity obj_DTO)
     {
-        obj_DTO.Id = null;
+        //obj_DTO.Id = null;
         await _db.AddAsync(obj_DTO);
         await _db.SaveChangesAsync();
         return obj_DTO;
@@ -113,7 +113,7 @@ public class TableCRUD(ApplicationDbContext _db, IMapper _mapper) : ITableCRUD
         }
         else
         {
-            d_Entity.Id = d_Entity.ERPCode = -1;
+            d_Entity.ERPCode = d_Entity.Id  = - 1;
             d_Entity.Name = nameof(D_Entity);
             d_Entity.DisplayName = "تمام جدول ها";
         }

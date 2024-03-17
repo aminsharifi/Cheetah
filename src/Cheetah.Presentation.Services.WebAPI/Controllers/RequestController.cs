@@ -6,7 +6,7 @@ namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 [Route("[controller]")]
 public class RequestController(ILogger<RequestController> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
-        IMapper mapper, ICopyClass iCopyClass) : ControllerBase
+        ICopyClass iCopyClass) : ControllerBase
 {
     [HttpGet(nameof(CreateRequest))]
     public async Task<CreateRequest_Output> CreateRequest([FromQuery] CreateRequest_Input request)
@@ -52,7 +52,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (Outputresult.Result.IsFailed)
+        if (!Outputresult.Result.IsSuccess)
         {
             return output_Request;
         }
@@ -109,7 +109,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (Outputresult.Result.IsFailed)
+        if (!Outputresult.Result.IsSuccess)
         {
             return output_Request;
         }
@@ -273,7 +273,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (Outputresult.Result.IsFailed)
+        if (!Outputresult.Result.IsSuccess)
         {
             return output_Request;
         }

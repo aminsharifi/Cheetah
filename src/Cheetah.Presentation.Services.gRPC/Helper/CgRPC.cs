@@ -20,7 +20,7 @@ public static class CgRPC
         }
         _GRPC_BaseClass = new()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0
         };
@@ -37,7 +37,7 @@ public static class CgRPC
         }
         _GRPC_BaseClass = new()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
             Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
@@ -56,7 +56,7 @@ public static class CgRPC
         }
         _GRPC_BaseClass = new()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
             CreateTimeRecord = simpleClass.Created.CGetTimestamp(),
@@ -75,7 +75,7 @@ public static class CgRPC
         }
         _GRPC_BaseClass = new()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
             Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
@@ -97,7 +97,7 @@ public static class CgRPC
 
         _GRPC_BaseClass = new GRPC_BaseClass()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0
         };
@@ -115,7 +115,7 @@ public static class CgRPC
 
         _GRPC_BaseClass = new GRPC_BaseClassWithName()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
             Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
@@ -135,7 +135,7 @@ public static class CgRPC
 
         _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate()
         {
-            Id = simpleClass.Id.HasValue ? simpleClass.Id.Value : 0,
+            Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
             Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
@@ -186,7 +186,7 @@ public static class CgRPC
         {
             _condition = new()
             {
-                Id = Condition.Base.Id,
+                Id = Condition.Base.Id.Value,
                 Name = Condition.Base.Name,
                 ERPCode = Condition.Base.ERPCode,
                 SortIndex = Condition.Base.SortIndex
@@ -243,7 +243,7 @@ public static class CgRPC
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {
@@ -280,7 +280,7 @@ public static class CgRPC
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {
@@ -312,7 +312,7 @@ public static class CgRPC
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {
@@ -340,7 +340,7 @@ public static class CgRPC
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id;
+            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
         if (gRPC_BaseClass.ERPCode is not null)
         {

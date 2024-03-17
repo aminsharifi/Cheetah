@@ -13,14 +13,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Ardalis.Result" Version="8.0.0" />
+		<PackageReference Include="Ardalis.SharedKernel" Version="1.4.0" />
+		<PackageReference Include="Ardalis.SmartEnum" Version="8.0.0" />
+		<PackageReference Include="Autofac" Version="8.0.0" />
 		<PackageReference Include="DNTPersianUtils.Core" Version="5.9.0" />
-		<PackageReference Include="FluentResults" Version="3.15.2" />
-		<PackageReference Include="MediatR" Version="12.2.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Serilog" Version="3.1.1" />
-		<PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
-		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.3" />
-		<PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00968" />
+		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

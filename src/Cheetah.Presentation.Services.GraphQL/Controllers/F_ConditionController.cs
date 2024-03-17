@@ -4,10 +4,8 @@
 public class F_ConditionController : ControllerBase
 {
     private readonly ITableCRUD simpleClassRepository;
-    private readonly IMapper _mapper;
-    public F_ConditionController(ITableCRUD iP_ParameterListRepository, IMapper mapper)
+    public F_ConditionController(ITableCRUD iP_ParameterListRepository)
     {
-        this._mapper = mapper;
         this.simpleClassRepository = iP_ParameterListRepository;
     }
 

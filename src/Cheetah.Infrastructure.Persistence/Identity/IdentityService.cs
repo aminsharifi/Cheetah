@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Identity;
+﻿using Ardalis.Result;
+
+namespace Cheetah.Infrastructure.Persistence.Identity;
 
 public class IdentityService : IIdentityService
 {

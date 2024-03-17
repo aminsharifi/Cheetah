@@ -4,11 +4,10 @@
 /// Base Class is a generic class for the Parent-Child classes
 /// </summary>
 /// <typeparam name="I">Generic class</typeparam>
-public abstract class BaseEntity
+public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
 {
-    public Int64? Id { get; set; }
     public Int64? SortIndex { get; set; }
-    public String? Name { get; set; }
+    public String Name { get; set; }
     public String? DisplayName { get; set; }
     public String? Description { get; set; }
     public Guid? GuidRecord { get; set; } = Guid.NewGuid();
@@ -19,7 +18,7 @@ public abstract class BaseEntity
     public DateTimeOffset? LastModified { get; set; }
     public string? LastModifiedBy { get; set; }
 
-    public BaseEntity() 
+    public BaseEntity()
     {
         /*
          
@@ -27,7 +26,11 @@ public abstract class BaseEntity
          
         */
     }
-
+    public BaseEntity(String name, String displayName)
+    {
+        Name = name;
+        DisplayName = displayName;
+    }
     public virtual void SetName()
     {
 
