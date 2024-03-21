@@ -1,8 +1,12 @@
-﻿namespace Cheetah.Application.Services.gRPC.Services;
+﻿using Cheetah.Application.Business.Tags.Create;
+using MediatR;
+using System.Threading;
+
+namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
-        ICopyClass iCopyClass) : Request.RequestBase
+        ICopyClass iCopyClass, IMediator _mediator) : Request.RequestBase
 {
     #region Public methods
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
@@ -150,6 +154,8 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
     }
     public override async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request, ServerCallContext context)
     {
+        var result = await _mediator.Send(new CreateTagCommand(Name: "Tag3", DisplayName: "تگ 3"));
+
         logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
 
         #region Input
