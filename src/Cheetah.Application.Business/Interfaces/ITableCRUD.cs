@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.Repository;
+﻿namespace Cheetah.Application.Business.Interfaces;
 public interface ITableCRUD
 {
     public Task<Int32> delete(string type, Int64? id);

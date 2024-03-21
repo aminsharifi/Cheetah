@@ -56,8 +56,7 @@ void ConfigureMediatR()
     var mediatRAssemblies = new[]
     {
         Assembly.GetAssembly(typeof(D_Tag)), // Core
-        Assembly.GetAssembly(typeof(CreateTagCommand)), // UseCases
-        
+        Assembly.GetAssembly(typeof(CreateTagCommand)), // UseCases        
     };
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
     builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

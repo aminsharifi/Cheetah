@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Services;
 public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopyClass
 {
     public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input)

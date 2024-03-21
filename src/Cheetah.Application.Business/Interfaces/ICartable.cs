@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.Repository;
+﻿namespace Cheetah.Application.Business.Interfaces;
 public interface ICartable
 {
     public Task<List<CartableDTO>> Inbox(CartableDTO cartableDTO);
