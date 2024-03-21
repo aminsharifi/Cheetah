@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Cheetah.Domain.Interfaces;
-using Cheetah.Domain.Services;
 using Module = Autofac.Module;
 
 /// <summary>
@@ -10,7 +9,7 @@ public class DefaultCoreModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterType<DeleteTagService>()
-            .As<IDeleteTagService>().InstancePerLifetimeScope();
+        //builder.RegisterType<DeleteTagService>()
+        //    .As<IDeleteTagService>().InstancePerLifetimeScope();
     }
 }

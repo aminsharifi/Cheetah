@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Services;
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {

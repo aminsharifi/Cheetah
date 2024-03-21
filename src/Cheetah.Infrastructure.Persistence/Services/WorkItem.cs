@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Repository;
+﻿namespace Cheetah.Infrastructure.Persistence.Services;
 public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
