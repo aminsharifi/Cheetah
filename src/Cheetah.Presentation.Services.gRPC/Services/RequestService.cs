@@ -154,7 +154,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
     }
     public override async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request, ServerCallContext context)
     {
-        //var result = await _mediator.Send(new CreateTagCommand(Name: "Tag1", DisplayName: "تگ 1"));
+        var result = await _mediator.Send(new CreateTagCommand(Name: "Tag3", DisplayName: "تگ 3"));
 
         logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
 

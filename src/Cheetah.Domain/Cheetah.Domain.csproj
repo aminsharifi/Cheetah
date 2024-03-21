@@ -39,8 +39,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Entities\Dimentions\TagAggregate\Events\" />
-	  <Folder Include="Entities\Dimentions\TagAggregate\Handlers\" />
+	  <Folder Include="Entities\Facts\CaseAggregate\Events\" />
+	  <Folder Include="Entities\Facts\CaseAggregate\Handlers\" />
+	  <Folder Include="Entities\Facts\CaseAggregate\Specifications\" />
 	  <Folder Include="Services\" />
 	</ItemGroup>
 </Project>

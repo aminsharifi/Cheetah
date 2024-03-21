@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.Repository;
+﻿namespace Cheetah.Application.Business.Interfaces;
 public interface ICopyClass
 {
     public Task<ICollection<F_Condition>> CopyCondition(IEnumerable<F_Condition> Conditions);
