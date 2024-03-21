@@ -37,4 +37,10 @@
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Entities\Dimentions\TagAggregate\Events\" />
+	  <Folder Include="Entities\Dimentions\TagAggregate\Handlers\" />
+	  <Folder Include="Services\" />
+	</ItemGroup>
 </Project>
