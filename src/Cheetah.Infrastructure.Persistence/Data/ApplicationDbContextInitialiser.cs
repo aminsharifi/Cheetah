@@ -1,4 +1,9 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Ardalis.SharedKernel;
+using Cheetah.Application.Business.Tags.Create;
+using Microsoft.Extensions.Logging;
+using Serilog.Extensions.Logging;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -87,6 +92,26 @@ public static class InitialiserExtensions
         builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
         #endregion
 
+        #region MediatR
+        var logger = Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateLogger();
+
+        var microsoftLogger = new SerilogLoggerFactory(logger).CreateLogger("Programm");
+
+        builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
+
+        var mediatRAssemblies = new[]
+        {
+            Assembly.GetAssembly(typeof(D_Tag)), // Core
+            Assembly.GetAssembly(typeof(CreateTagCommand)), // UseCases
+        };
+        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
+        builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+        #endregion
+
         #region Build & Config
 
         var app = builder.Build();
@@ -106,4 +131,5 @@ public static class InitialiserExtensions
 
         return app;
     }
+
 }

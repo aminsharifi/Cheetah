@@ -1,5 +1,4 @@
-﻿global using Cheetah.Application.Business.Repository;
-global using Cheetah.Application.Services.gRPC.Services;
+﻿global using Cheetah.Application.Services.gRPC.Services;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;

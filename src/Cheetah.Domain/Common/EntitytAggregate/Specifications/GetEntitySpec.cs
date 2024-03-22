@@ -1,19 +1,21 @@
-﻿using Ardalis.Specification;
+﻿using Ardalis.GuardClauses;
+using Ardalis.Specification;
 
 namespace Cheetah.Domain.Entities.Dimentions.TagAggregate.Specifications;
 
-public class GetEntityIdSpec : Specification<BaseEntity>
-{
-    public GetEntityIdSpec(BaseEntity input)
-    {
-        Query.AsNoTracking();
 
+public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
+{
+    public GetEntitySpec(BaseEntity input)
+    {
         var Find = false;
+
+        Query.AsNoTracking();
 
         if (input.Id > 0)
         {
             Find = true;
-            //return input.Id;
+            return;
         }        
 
         if (!String.IsNullOrEmpty(input.Name))
@@ -30,7 +32,7 @@ public class GetEntityIdSpec : Specification<BaseEntity>
 
         if (!Find)
         {
-            //return 0;
+            Guard.Against.NotFound(nameof(BaseEntity),"There isn't enough info");
         }
     }
 }

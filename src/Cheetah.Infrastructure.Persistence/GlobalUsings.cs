@@ -1,5 +1,5 @@
 ﻿global using Cheetah.Application.Business.Common.Interfaces;
-global using Cheetah.Application.Business.Repository;
+global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Constants;
@@ -34,4 +34,3 @@ global using System.Security.Authentication;
 global using System.Security.Claims;
 global using System.Text;
 global using Winton.Extensions.Configuration.Consul;
-global using Cheetah.Application.Business.Interfaces;
