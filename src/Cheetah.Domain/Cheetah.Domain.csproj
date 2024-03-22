@@ -42,6 +42,5 @@
 	  <Folder Include="Entities\Facts\CaseAggregate\Events\" />
 	  <Folder Include="Entities\Facts\CaseAggregate\Handlers\" />
 	  <Folder Include="Entities\Facts\CaseAggregate\Specifications\" />
-	  <Folder Include="Services\" />
 	</ItemGroup>
 </Project>

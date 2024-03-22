@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Services.gRPC.Services;
+﻿using Cheetah.Application.Business.Interfaces;
+
+namespace Cheetah.Application.Services.gRPC.Services;
 
 public class GreeterService(ILogger<GreeterService> _logger,
         ITableCRUD _isimpleClassRepository, 

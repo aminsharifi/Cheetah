@@ -39,8 +39,6 @@ public class CopyClass(IRepository<BaseEntity> _repository) : ICopyClass
             return input.Id;
         }
 
-        
-        
         //Q_input = Q_input.AsNoTracking();
 
 
