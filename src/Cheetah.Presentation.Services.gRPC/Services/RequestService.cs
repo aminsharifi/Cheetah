@@ -1,6 +1,7 @@
-﻿using Cheetah.Application.Business.Tags.Create;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Application.Business.Tags.Create;
+using Cheetah.Application.Business.Tags.Get;
 using MediatR;
-using System.Threading;
 
 namespace Cheetah.Application.Services.gRPC.Services;
 
@@ -154,7 +155,10 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
     }
     public override async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request, ServerCallContext context)
     {
+
         var result = await _mediator.Send(new CreateTagCommand(Name: "Tag3", DisplayName: "تگ 3"));
+
+        var result2 = await _mediator.Send(new GetTagIdQuery(new D_Tag() { Name = "Role" }));
 
         logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
 

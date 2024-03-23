@@ -1,7 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-
-namespace Cheetah.Application.Business.Cases.Create;
+﻿namespace Cheetah.Application.Business.Cases.Create;
 
 /// <summary>
 /// Create a new Contributor.

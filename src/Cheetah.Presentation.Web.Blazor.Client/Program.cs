@@ -1,7 +1,6 @@
-using Cheetah.Application.Business.Repository;
+using Cheetah.Application.Business.Interfaces;
 using Cheetah.Presentation.Web.Blazor.Client;
 using Cheetah.Presentation.Web.Blazor.Client.Service;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
