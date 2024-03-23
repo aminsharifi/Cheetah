@@ -1,5 +1,10 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
-public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopyClass
+﻿using Cheetah.Application.Business.Cases.Get;
+using Cheetah.Application.Business.CaseTaskUser.Get;
+using Cheetah.Application.Business.Conditions.Get;
+using Cheetah.Application.Business.WorkItem.Get;
+
+namespace Cheetah.Infrastructure.Persistence.Services;
+public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD, IMediator _mediator) : ICopyClass
 {
     public async Task<Int64?> GetSimpleClassId(IQueryable<BaseEntity> Q_input, BaseEntity input)
     {
@@ -45,6 +50,7 @@ public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopy
 
     public async Task<ICollection<F_Condition>> CopyCondition(IEnumerable<F_Condition> Conditions)
     {
+
         Collection<F_Condition> list_condition = new();
 
         foreach (var item in Conditions)
@@ -106,6 +112,10 @@ public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopy
 
     public async Task<F_Case> DeepCopy(F_Case obj)
     {
+        var _copyCaseQuery = await _mediator.Send(new CopyCaseQuery(obj));
+
+        return _copyCaseQuery;
+
         F_Case _case = new();
 
         _case.ERPCode = obj?.ERPCode;
@@ -136,6 +146,10 @@ public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopy
 
     public async Task<F_WorkItem> DeepCopy(F_WorkItem obj)
     {
+        var _copyWorkItem = await _mediator.Send(new CopyWorkItemQuery(obj));
+
+        return _copyWorkItem;
+
         F_WorkItem _workItem = new();
 
         if (obj.Id != 0)
@@ -168,6 +182,10 @@ public class CopyClass(ApplicationDbContext _db, ITableCRUD _itableCRUD) : ICopy
 
     public async Task<L_CaseTaskUser> DeepCopy(L_CaseTaskUser obj)
     {
+        var _copyCaseTaskUser = await _mediator.Send(new CopyCaseTaskUserQuery(obj));
+
+        return _copyCaseTaskUser;
+
         L_CaseTaskUser Return_CaseTaskUser = new();
 
         //Case

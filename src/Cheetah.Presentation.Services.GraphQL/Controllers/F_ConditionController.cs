@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Services.Controllers;
+﻿using Cheetah.Application.Business.Interfaces;
+
+namespace Cheetah.Application.Services.Controllers;
 [Route("[controller]")]
 [ApiController]
 public class F_ConditionController : ControllerBase
