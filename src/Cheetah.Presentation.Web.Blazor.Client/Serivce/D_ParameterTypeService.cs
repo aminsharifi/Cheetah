@@ -1,5 +1,7 @@
 ﻿
 
+using Cheetah.Application.Business.Interfaces;
+
 namespace Cheetah.Presentation.Web.Blazor.Client.Service;
 
 public class D_ParameterTypeService : ITableCRUD

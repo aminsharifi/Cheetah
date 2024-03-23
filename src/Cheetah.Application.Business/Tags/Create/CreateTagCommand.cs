@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Cheetah.Application.Business.Tags.Create;
+﻿namespace Cheetah.Application.Business.Tags.Create;
 
 /// <summary>
 /// Create a new Contributor.

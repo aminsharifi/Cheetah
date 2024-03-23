@@ -1,8 +1,9 @@
 ﻿using Ardalis.SharedKernel;
+using Cheetah.Domain.Helper;
 
 namespace Cheetah.Infrastructure.Persistence;
 
-public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>, IApplicationDbContext
+public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)

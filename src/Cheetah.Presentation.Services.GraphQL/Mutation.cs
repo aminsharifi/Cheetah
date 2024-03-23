@@ -1,20 +1,22 @@
-﻿namespace Cheetah.Presentation.Services.GraphQL;
+﻿using Cheetah.Application.Business.Interfaces;
+
+namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Mutation
 {   
     #region GetTokenAsync
     
-    public async Task<IdentityService> GetTokenAsync(
-        [Service] IIdentityService identityService,
-        [Service] ITableCRUD iSimpleClassRepository,
-        string email, string password)
-    {
-        var MyIdentityService = new IdentityService();
+    //public async Task<IdentityService> GetTokenAsync(
+    //    [Service] IIdentityService identityService,
+    //    [Service] ITableCRUD iSimpleClassRepository,
+    //    string email, string password)
+    //{
+    //    var MyIdentityService = new IdentityService();
 
-        MyIdentityService.AccessToken = await identityService.Authenticate(email, password);
+    //    MyIdentityService.AccessToken = await identityService.Authenticate(email, password);
 
-        return MyIdentityService;
-    }
+    //    return MyIdentityService;
+    //}
     #endregion
 
     #region CreateRequestAsync

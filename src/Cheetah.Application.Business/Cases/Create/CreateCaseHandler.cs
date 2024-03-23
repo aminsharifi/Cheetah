@@ -1,12 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using Cheetah.Application.Business.Cases.Create;
-using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Dimentions.TagAggregate.Events;
-using MediatR;
-
-namespace Cheetah.Application.Business.Tags.Create;
+﻿namespace Cheetah.Application.Business.Tags.Create;
 
 public class CreateCaseHandler(IMediator _mediator, ICopyClass _iCopyClass,IRepository<D_Tag> _repository)
   : ICommandHandler<CreateCaseCommand, Result<long>>
