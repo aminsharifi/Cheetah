@@ -1,10 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Dimentions.TagAggregate.Events;
-using MediatR;
-
-namespace Cheetah.Application.Business.Tags.Create;
+﻿namespace Cheetah.Application.Business.Tags.Create;
 
 public class CreateTagHandler(IMediator _mediator, IRepository<D_Tag> _repository)
   : ICommandHandler<CreateTagCommand, Result<long>>

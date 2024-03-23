@@ -1,6 +1,5 @@
 ﻿using Ardalis.SharedKernel;
 using Cheetah.Application.Business.Tags.Create;
-using Microsoft.Extensions.Logging;
 using Serilog.Extensions.Logging;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
@@ -78,8 +77,8 @@ public static class InitialiserExtensions
             .AddDefaultUI()
             .AddDefaultTokenProviders();
 
-        builder.Services.AddAuthorization(options =>
-         options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        //builder.Services.AddAuthorization(options =>
+        // options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
         #endregion
 
         #region Other services
