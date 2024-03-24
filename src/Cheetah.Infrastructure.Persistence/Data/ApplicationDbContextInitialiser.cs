@@ -1,5 +1,5 @@
 ﻿using Ardalis.SharedKernel;
-using Cheetah.Application.Business.Tags.Create;
+using Cheetah.Application.Business.Tag.Create;
 using Serilog.Extensions.Logging;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
