@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.Tags.Get;
+﻿namespace Cheetah.Application.Business.Operand.Get;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
