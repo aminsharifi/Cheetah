@@ -13,7 +13,7 @@ public class GetConditionSpec : Specification<F_Condition>
     public GetConditionSpec(IEnumerable<long> includeId)
     {
         Query
-            .Where(x => includeId.Where(z => z == x.Id).Any())
+            .Where(x => includeId.Contains(x.Id))
             .AsNoTracking();
     }
 }

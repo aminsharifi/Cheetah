@@ -1,18 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using Azure.Core;
-using Cheetah.Application.Business.Case.Create;
-using Cheetah.Application.Business.CaseTaskUser.Create;
-using Cheetah.Application.Business.CaseTaskUser.Get;
-using Cheetah.Application.Business.Condition.Get;
-using Cheetah.Application.Business.ProcessScenario.Get;
-using Cheetah.Application.Business.Task.Get;
-using Cheetah.Application.Business.TaskFlow.Get;
-using Cheetah.Application.Business.UserCondition.Get;
-
-namespace Cheetah.Infrastructure.Persistence.Services;
-public class WorkItem(ApplicationDbContext _db,
-    ITableCRUD _itableCRUD, ICopyClass _iCopyClass,
-    IMediator _mediator) : IWorkItem
+﻿namespace Cheetah.Infrastructure.Persistence.Services;
+public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F_WorkItem> workItemRepository) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
     {
@@ -43,16 +30,8 @@ public class WorkItem(ApplicationDbContext _db,
 
         await SetWorkItemsAsync(GeneralRequest);
 
-        await _db.SaveChangesAsync();
-
-        var log = new LoggerConfiguration()
-                     .WriteTo.Console()
-                     .WriteTo.File("Serilog.txt")
-                     .CreateLogger();
 
         _OutputState = OutputState<F_Case>.SuccessCreateRequest(GeneralRequest.Id, GeneralRequest);
-
-        log.Information($"CreateRequestAsync-{GeneralRequest.Id}");
 
         return _OutputState;
     }
@@ -62,9 +41,14 @@ public class WorkItem(ApplicationDbContext _db,
 
         F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopy(f_WorkItem);
 
+        await workItemRepository.UpdateAsync(Current_WorkItem);
+
+        /*
         _db.F_WorkItems.Update(Current_WorkItem);
 
         await _db.SaveChangesAsync();
+
+        */
 
         if (Current_WorkItem.LastModified is not null && !Rebase)
         {
@@ -84,7 +68,7 @@ public class WorkItem(ApplicationDbContext _db,
             await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
         }
 
-        await _db.SaveChangesAsync();
+        //await _db.SaveChangesAsync();
 
         _OutputState = OutputState<F_Case>.SuccessPerformWorkItem(Current_WorkItem.Id, Current_WorkItem.Case);
 
@@ -107,13 +91,15 @@ public class WorkItem(ApplicationDbContext _db,
             new GetByCaseAndTaskQuery(caseId: CaseTaskUser.Case.Id,
             taskId: CaseTaskUser.Task.Id))).Value;
 
-        if (_selectedCaseTaskUsers is null)
+        if (_selectedCaseTaskUsers.Any())
         {
-            _selectedCaseTaskUsers = (await _mediator.Send(
+            var _addedCaseTaskUsers = (await _mediator.Send(
             new CreateCaseTaskUserQuery(CaseTaskUser))).Value;
+            
+            _selectedCaseTaskUsers.Append(_addedCaseTaskUsers);
         }
 
-        return OutputState<L_CaseTaskUser>.Success("با موفقیت ایجاد شد", _selectedCaseTaskUsers);
+        return OutputState<L_CaseTaskUser>.Success("با موفقیت ایجاد شد", CaseTaskUser);
     }
     public async Task<IEnumerable<F_Task>> GetAllTask(Int64 ScenarioId)
     {
@@ -176,7 +162,6 @@ public class WorkItem(ApplicationDbContext _db,
                     Current_Case.CaseConditions
                     .Where(x => x.EnableRecord)
                     .Select(x => x.SecondId);
-
 
                 //var _taskUserConditions = await _db.L_UserConditions
                 //    .Where(x => _performerConditions.Contains(x.SecondId))
@@ -294,10 +279,14 @@ public class WorkItem(ApplicationDbContext _db,
 
         var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
 
+        var _actual_Conditions = (await _mediator.Send(
+            new GetIncludedConditionsQuery(_actualConditionsIds))).Value;
+        /*
         var _actual_Conditions = await _db.F_Conditions
             .Where(x => _actualConditionsIds.Where(z => z == x.Id).Any())
             .AsNoTracking()
             .ToListAsync();
+        */
 
         foreach (var _taskFlow in _taskFlows)
         {
@@ -349,11 +338,16 @@ public class WorkItem(ApplicationDbContext _db,
                             .Where(x => x.TaskId == toTask.Id)
                             .Where(x => !x.IsSent() && !x.IsExit());
 
-
+                        /*
                         var _caseTaskUsers = await _db.L_CaseTaskUsers
                             .Where(x => x.Case.Id == Current_WorkItem.CaseId)
                             .Where(x => x.Task.Id == toTask.Id)
                             .ToListAsync();
+                        */
+
+                        var _caseTaskUsers = (await _mediator.Send(
+                            new GetByCaseAndTaskQuery(
+                                caseId: Current_WorkItem.CaseId.Value, taskId: toTask.Id))).Value;
 
                         if (_caseTaskUsers.Any())
                         {

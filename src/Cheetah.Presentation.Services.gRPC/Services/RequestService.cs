@@ -1,9 +1,4 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Tag.Create;
-using Cheetah.Application.Business.Tag.Get;
-using MediatR;
-
-namespace Cheetah.Application.Services.gRPC.Services;
+﻿namespace Cheetah.Application.Services.gRPC.Services;
 
 public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
