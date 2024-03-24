@@ -1,6 +1,6 @@
 ﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Tags.Create;
-using Cheetah.Application.Business.Tags.Get;
+using Cheetah.Application.Business.Tag.Create;
+using Cheetah.Application.Business.Tag.Get;
 using MediatR;
 
 namespace Cheetah.Application.Services.gRPC.Services;

@@ -1,12 +1,26 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
-public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyClass _iCopyClass) : IWorkItem
+﻿using Ardalis.GuardClauses;
+using Azure.Core;
+using Cheetah.Application.Business.Case.Create;
+using Cheetah.Application.Business.CaseTaskUser.Create;
+using Cheetah.Application.Business.CaseTaskUser.Get;
+using Cheetah.Application.Business.Condition.Get;
+using Cheetah.Application.Business.ProcessScenario.Get;
+using Cheetah.Application.Business.Task.Get;
+using Cheetah.Application.Business.TaskFlow.Get;
+using Cheetah.Application.Business.UserCondition.Get;
+
+namespace Cheetah.Infrastructure.Persistence.Services;
+public class WorkItem(ApplicationDbContext _db,
+    ITableCRUD _itableCRUD, ICopyClass _iCopyClass,
+    IMediator _mediator) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
     {
-        var GeneralRequest = await _iCopyClass.DeepCopy(request);
-
         CheetahResult<F_Case> _OutputState = new();
 
+        var GeneralRequest = (await _mediator.Send(new CreateCaseCommand(request))).Value;
+
+        /*
         var DuplicateCase = _db.F_Cases
             .Where(x => x.ProcessId == GeneralRequest.ProcessId)
             .Where(x => x.ERPCode == GeneralRequest.ERPCode)
@@ -24,6 +38,8 @@ public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyCla
         }
 
         await _db.F_Cases.AddAsync(GeneralRequest);
+
+        */
 
         await SetWorkItemsAsync(GeneralRequest);
 
@@ -78,184 +94,146 @@ public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyCla
     {
         var _CaseTaskUser = await _iCopyClass.DeepCopy(CaseTaskUser);
 
-        var _selectedCaseTaskUsers = _db.L_CaseTaskUsers
-            .Where(x => x.Case.Id == CaseTaskUser.Case.Id)
-            .Where(x => x.Task.Id == CaseTaskUser.Task.Id);
+        //var _selectedCaseTaskUsers = _db.L_CaseTaskUsers
+        //    .Where(x => x.Case.Id == CaseTaskUser.Case.Id)
+        //    .Where(x => x.Task.Id == CaseTaskUser.Task.Id);
 
-        var _result = _selectedCaseTaskUsers
-            .Include(x => x.Case)
-            .Include(x => x.Task)
-            .Include(x => x.User);
+        //var _result = _selectedCaseTaskUsers
+        //    .Include(x => x.Case)
+        //    .Include(x => x.Task)
+        //    .Include(x => x.User);
 
-        if (!await _selectedCaseTaskUsers.AnyAsync())
+        var _selectedCaseTaskUsers = (await _mediator.Send(
+            new GetByCaseAndTaskQuery(caseId: CaseTaskUser.Case.Id,
+            taskId: CaseTaskUser.Task.Id))).Value;
+
+        if (_selectedCaseTaskUsers is null)
         {
-            await _db.L_CaseTaskUsers.AddAsync(_CaseTaskUser);
-
-            await _db.SaveChangesAsync();
+            _selectedCaseTaskUsers = (await _mediator.Send(
+            new CreateCaseTaskUserQuery(CaseTaskUser))).Value;
         }
 
-        var _caseTaskUsers = await _result.FirstOrDefaultAsync();
-
-        return OutputState<L_CaseTaskUser>.Success("با موفقیت ایجاد شد", _caseTaskUsers);
+        return OutputState<L_CaseTaskUser>.Success("با موفقیت ایجاد شد", _selectedCaseTaskUsers);
     }
-    public IQueryable<F_Task> GetAllTask(Int64 ScenarioId)
+    public async Task<IEnumerable<F_Task>> GetAllTask(Int64 ScenarioId)
     {
-        var _allTasks =
-            _db.F_Tasks
-            .Where(x => x.ScenarioId == ScenarioId)
-            .Where(x => x.EnableRecord == true)
-            .OrderBy(x => x.SortIndex)
-            .AsNoTracking();
+        var _allTasks = (await _mediator.Send(new GetTasksFromScenarioQuery(ScenarioId))).Value;
 
-        var _allPerformers = _allTasks
-            .Include(x => x.TaskConditions)
-            .ThenInclude(x => x.Condition);
-
-        var _allFlows = _allPerformers
-            .Include(x => x.TaskFlows)
-            .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.CaseState);
-
-        var _allConditions = _allFlows
-            .Include(x => x.TaskFlows)
-            .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.FlowConditions)
-            .ThenInclude(x => x.Condition);
-
-        var _allNextActions = _allConditions
-                   .Include(x => x.TaskFlows)
-                   .ThenInclude(x => x.Flow)
-                   .ThenInclude(x => x.FlowTasks)
-                   .ThenInclude(x => x.Task);
-
-        return _allNextActions;
+        return _allTasks;
     }
     public async Task<CheetahResult<bool>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
     {
-        try
-        {
-            var pc_ProcessScenarios = await _db.L_ProcessScenarios
-                .Where(x => x.FirstId == Current_Case.ProcessId)
-                .Where(x => x.EnableRecord == true)
-                .AsNoTracking()
-                .ToListAsync();
+        var pc_ProcessScenarios = (await _mediator.Send(new GetProcessScenarioQuery(Current_Case.ProcessId.Value))).Value;
 
-            if (pc_ProcessScenarios.Count() == 1)
+        if (pc_ProcessScenarios.Count() == 1)
+        {
+            Current_Case.SelectedScenarioId = pc_ProcessScenarios.First().SecondId;
+        }
+        else
+        {
+            var Actual_ConditionsIds = Current_Case.CaseConditions.Select(x => x.SecondId.Value);
+
+            var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(Actual_ConditionsIds))).Value;
+
+            foreach (var ProcessScenario in pc_ProcessScenarios)
             {
-                Current_Case.SelectedScenarioId = pc_ProcessScenarios.First().SecondId;
+                var ConditionOccures = false;
+
+                var Expected_Conditions = ProcessScenario
+                    .Scenario
+                    .ScenarioConditions
+                    .Select(x => x.Condition);
+
+                ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
+
+                if (ConditionOccures)
+                {
+                    Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
+                    break;
+                }
+            }
+        }
+
+        var _allTasks = await GetAllTask(Current_Case.SelectedScenarioId.Value);
+
+        F_WorkItem _workItem = new();
+
+        foreach (var _task in _allTasks)
+        {
+            if (Current_Case.WorkItems.First().TaskId is null)
+            {
+                Current_Case.WorkItems.First().TaskId = _task.Id;
+                _workItem = Current_Case.WorkItems.First();
             }
             else
             {
-                var Actual_ConditionsIds = Current_Case.CaseConditions.Select(x => x.SecondId.Value);
+                var _performerConditions =
+                    _task.TaskConditions
+                    .Where(x => x.EnableRecord)
+                    .Select(x => x.SecondId);
 
-                var Actual_Conditions = await _db.F_Conditions
-                    .Where(x => Actual_ConditionsIds.Where(z => z == x.Id).Any())
-                    .AsNoTracking()
-                    .ToListAsync();
+                var _CaseCondition =
+                    Current_Case.CaseConditions
+                    .Where(x => x.EnableRecord)
+                    .Select(x => x.SecondId);
 
-                foreach (var ProcessScenario in pc_ProcessScenarios)
+
+                //var _taskUserConditions = await _db.L_UserConditions
+                //    .Where(x => _performerConditions.Contains(x.SecondId))
+                //    .Where(x => x.EnableRecord)
+                //    .AsNoTracking()
+                //    .Select(x => x.FirstId)
+                //    .ToListAsync();
+
+                var _taskUserConditions = (await _mediator.Send(new GetUserByConditionQuery(_performerConditions))).Value;
+
+                //var _CaseUserConditions = await _db.L_UserConditions
+                //    .Where(x => _taskUserConditions.Contains(x.FirstId))
+                //    .Where(x => _CaseCondition.Contains(x.SecondId))
+                //    .Where(x => x.EnableRecord)
+                //    .AsNoTracking()
+                //    .Select(x => x.FirstId)
+                //    .ToListAsync();
+
+                var _CaseUserConditions = (await _mediator.Send(new GetUserByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
+
+                var _userIds = new List<Int64?>();
+
+                if (_CaseUserConditions.Any())
                 {
-                    var ConditionOccures = false;
-
-                    var Expected_Conditions = ProcessScenario
-                        .Scenario
-                        .ScenarioConditions
-                        .Select(x => x.Condition);
-
-                    ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
-
-                    if (ConditionOccures)
-                    {
-                        Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
-                        break;
-                    }
-                }
-            }
-
-            var _allTasks = await GetAllTask(Current_Case.SelectedScenarioId.Value)
-                .AsNoTracking()
-                .ToListAsync();
-
-            F_WorkItem _workItem = new();
-
-            foreach (var _task in _allTasks)
-            {
-                if (Current_Case.WorkItems.First().TaskId is null)
-                {
-                    Current_Case.WorkItems.First().TaskId = _task.Id;
-                    _workItem = Current_Case.WorkItems.First();
+                    _userIds = _CaseUserConditions.ToList();
                 }
                 else
                 {
-                    var _performerConditions =
-                        _task.TaskConditions
-                        .Where(x => x.EnableRecord)
-                        .Select(x => x.SecondId);
+                    _userIds = _taskUserConditions.ToList();
+                }
 
-                    var _CaseCondition =
-                        Current_Case.CaseConditions
-                        .Where(x => x.EnableRecord)
-                        .Select(x => x.SecondId);
-
-
-                    var _taskUserConditions = await _db.L_UserConditions
-                        .Where(x => _performerConditions.Contains(x.SecondId))
-                        .Where(x => x.EnableRecord)
-                        .AsNoTracking()
-                        .Select(x=>x.FirstId)
-                        .ToListAsync();
-
-
-                    var _CaseUserConditions = await _db.L_UserConditions
-                        .Where(x => _taskUserConditions.Contains(x.FirstId))
-                        .Where(x => _CaseCondition.Contains(x.SecondId))
-                        .Where(x => x.EnableRecord)
-                        .AsNoTracking()
-                        .Select(x => x.FirstId)
-                        .ToListAsync();
-
-                    var _userIds = new List<Int64?>();
-
-                    if (_CaseUserConditions.Any())
+                foreach (var _userId in _userIds)
+                {
+                    F_WorkItem _WorkItemForEachTask = new()
                     {
-                        _userIds = _CaseUserConditions;
-                    }
-                    else
-                    {
-                        _userIds = _taskUserConditions;
-                    }
+                        TaskId = _task.Id,
+                        UserId = _userId
+                    };
 
-                    foreach (var _userId in _userIds)
-                    {
-                        F_WorkItem _WorkItemForEachTask = new()
-                        {
-                            TaskId = _task.Id,
-                            UserId = _userId
-                        };
-
-                        Current_Case.WorkItems.Add(_WorkItemForEachTask);
-                    }
-                    if (!Current_Case.WorkItems
-                      .Where(x => x.TaskId == _task.Id)
-                      .Any())
-                    {
-                        throw new ArgumentNullException($"There aren't any related users for {Current_Case.Name}");
-                    }
+                    Current_Case.WorkItems.Add(_WorkItemForEachTask);
+                }
+                if (!Current_Case.WorkItems
+                  .Where(x => x.TaskId == _task.Id)
+                  .Any())
+                {
+                    throw new ArgumentNullException($"There aren't any related users for {Current_Case.Name}");
                 }
             }
-            if (Current_WorkItem is not null)
-            {
-                _workItem = Current_WorkItem;
-            }
-
-            await SetCurrentAssignment(_workItem);
-
-            return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
         }
-        catch (Exception ex)
+        if (Current_WorkItem is not null)
         {
-            throw;
+            _workItem = Current_WorkItem;
         }
+
+        await SetCurrentAssignment(_workItem);
+
+        return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
     }
     public bool CompareCondition(IEnumerable<F_Condition> Actual_Conditions, IEnumerable<F_Condition> Expected_Conditions)
     {
@@ -305,12 +283,14 @@ public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyCla
 
         var _currentTaskId = Current_WorkItem.TaskId;
 
-        var _taskFlows = await _db.L_TaskFlows
-           .Where(x => x.FirstId == _currentTaskId)
-           .Include(x => x.Task)
-           .Include(x => x.Flow)
-           .AsNoTracking()
-           .ToListAsync();
+        //var _taskFlows = await _db.L_TaskFlows
+        //   .Where(x => x.FirstId == _currentTaskId)
+        //   .Include(x => x.Task)
+        //   .Include(x => x.Flow)
+        //   .AsNoTracking()
+        //   .ToListAsync();
+
+        var _taskFlows = (await _mediator.Send(new GetFlowsByTaskQuery(_currentTaskId.Value))).Value;
 
         var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
 
@@ -355,6 +335,7 @@ public class WorkItem(ApplicationDbContext _db, ITableCRUD _itableCRUD, ICopyCla
                         }
                     }
                     #endregion
+
 
                     #region Set inbox
 
