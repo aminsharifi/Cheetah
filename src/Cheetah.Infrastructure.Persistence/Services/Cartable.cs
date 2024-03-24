@@ -22,14 +22,14 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
 
         if (request.Process is not null)
         {
-            var _ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, request.Process);
-            GeneralRequest = GeneralRequest.Where(x => x.ProcessId == _ProcessId);
+            //var _ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, request.Process);
+            //GeneralRequest = GeneralRequest.Where(x => x.ProcessId == _ProcessId);
         }
 
         if (request.CaseState is not null)
         {
-            var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, request.CaseState);
-            GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == CaseStateId);
+            //var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, request.CaseState);
+            //GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == CaseStateId);
         }
 
         if (request.Id != 0)
@@ -51,21 +51,21 @@ public class Cartable(ApplicationDbContext _db, ICopyClass _iCopyClass) : ICarta
 
         if (cartableDTO.User is not null)
         {
-            var UserID = await _iCopyClass.GetSimpleClassId(_db.D_Users, cartableDTO.User);
+            //var UserID = await _iCopyClass.GetSimpleClassId(_db.D_Users, cartableDTO.User);
 
-            f_WorkItems = f_WorkItems.Where(x => x.UserId == UserID);
+            //f_WorkItems = f_WorkItems.Where(x => x.UserId == UserID);
         }
         if (cartableDTO.Process is not null)
         {
-            var ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, cartableDTO.Process);
+            //var ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, cartableDTO.Process);
 
-            f_WorkItems = f_WorkItems.Where(x => x.Case.ProcessId == ProcessId);
+            //f_WorkItems = f_WorkItems.Where(x => x.Case.ProcessId == ProcessId);
         }
         if (cartableDTO.CaseState is not null)
         {
-            var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, cartableDTO.CaseState);
+            //var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, cartableDTO.CaseState);
 
-            f_WorkItems = f_WorkItems.Where(x => x.Case.CaseStateId == CaseStateId);
+            //f_WorkItems = f_WorkItems.Where(x => x.Case.CaseStateId == CaseStateId);
         }
 
         if (cartableDTO.Case is not null)
