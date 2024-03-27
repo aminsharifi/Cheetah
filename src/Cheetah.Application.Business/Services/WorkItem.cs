@@ -1,37 +1,32 @@
 ﻿namespace Cheetah.Infrastructure.Persistence.Services;
-public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F_WorkItem> workItemRepository) : IWorkItem
+public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
+    IRepository<F_WorkItem> workItemRepository, IRepository<F_Case> caseRepository) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
     {
         CheetahResult<F_Case> _OutputState = new();
 
-        var GeneralRequest = (await _mediator.Send(new CreateCaseCommand(request))).Value;
+        var GeneralRequest = (await _mediator.Send(new CopyCaseQuery(request))).Value;
 
-        /*
-        var DuplicateCase = _db.F_Cases
-            .Where(x => x.ProcessId == GeneralRequest.ProcessId)
-            .Where(x => x.ERPCode == GeneralRequest.ERPCode)
-            .Where(x => x.CaseStateId == D_CaseState.Ongoing.Id || x.CaseStateId == D_CaseState.Editing.Id)
-            .Where(x => x.EnableRecord == true)
-            .AsNoTracking();
+        var _getCaseSpec = new GetCaseSpec(processId: GeneralRequest.ProcessId.Value,
+        eRPCode: GeneralRequest.ERPCode.Value);
 
-        var CaseID = await DuplicateCase.Select(x => x.Id).FirstOrDefaultAsync();
-
-        if (CaseID != 0)
+        if (await caseRepository.AnyAsync(_getCaseSpec))
         {
-            _OutputState = OutputState<F_Case>.DuplicateErrorCreateRequest(CaseID, GeneralRequest);
+            var _caseID = (await caseRepository.FirstOrDefaultAsync(_getCaseSpec)).Id;
+
+            _OutputState = OutputState<F_Case>.DuplicateErrorCreateRequest(_caseID, GeneralRequest);
 
             return _OutputState;
         }
+        else
+        {
+            var _retGeneralRequest = await SetWorkItemsAsync(GeneralRequest);
 
-        await _db.F_Cases.AddAsync(GeneralRequest);
+            await caseRepository.AddAsync(GeneralRequest);
 
-        */
-
-        await SetWorkItemsAsync(GeneralRequest);
-
-
-        _OutputState = OutputState<F_Case>.SuccessCreateRequest(GeneralRequest.Id, GeneralRequest);
+            _OutputState = OutputState<F_Case>.SuccessCreateRequest(GeneralRequest.Id, GeneralRequest);
+        }
 
         return _OutputState;
     }
@@ -95,7 +90,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
         {
             var _addedCaseTaskUsers = (await _mediator.Send(
             new CreateCaseTaskUserQuery(CaseTaskUser))).Value;
-            
+
             _selectedCaseTaskUsers.Append(_addedCaseTaskUsers);
         }
 
@@ -142,7 +137,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
 
         var _allTasks = await GetAllTask(Current_Case.SelectedScenarioId.Value);
 
-        F_WorkItem _workItem = new();
+        F_WorkItem _workItem = new() { Case = Current_Case };
 
         foreach (var _task in _allTasks)
         {
@@ -150,6 +145,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
             {
                 Current_Case.WorkItems.First().TaskId = _task.Id;
                 _workItem = Current_Case.WorkItems.First();
+                _workItem.Case = Current_Case;
             }
             else
             {
@@ -198,7 +194,8 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
                     F_WorkItem _WorkItemForEachTask = new()
                     {
                         TaskId = _task.Id,
-                        UserId = _userId
+                        UserId = _userId,
+                        Case = Current_Case
                     };
 
                     Current_Case.WorkItems.Add(_WorkItemForEachTask);
@@ -217,6 +214,8 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
         }
 
         await SetCurrentAssignment(_workItem);
+
+        //await caseRepository.UpdateAsync(Current_Case);
 
         return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
     }
@@ -345,30 +344,38 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
                             .ToListAsync();
                         */
 
-                        var _caseTaskUsers = (await _mediator.Send(
+                        var _selectedUser = false;
+
+                        if (Current_WorkItem.CaseId is not null or 0)
+                        {
+                            var _caseTaskUsers = (await _mediator.Send(
                             new GetByCaseAndTaskQuery(
                                 caseId: Current_WorkItem.CaseId.Value, taskId: toTask.Id))).Value;
 
-                        if (_caseTaskUsers.Any())
-                        {
-                            var _users = _caseTaskUsers.Select(x => x.User?.Id);
+                            if (_caseTaskUsers.Any())
+                            {
+                                var _users = _caseTaskUsers.Select(x => x.User?.Id);
 
-                            _Current_WorkItems
-                                .Where(x => _users.Any(y => y == x.UserId))
-                                .ToList()
-                                .ForEach(x => x.SetInbox());
+                                _Current_WorkItems
+                                    .Where(x => _users.Any(y => y == x.UserId))
+                                    .ToList()
+                                    .ForEach(x => x.SetInbox());
 
-                            _Current_WorkItems
-                                .Where(x => !_users.Any(y => y == x.UserId))
-                                .ToList()
-                                .ForEach(x => x.SetExit());
+                                _Current_WorkItems
+                                    .Where(x => !_users.Any(y => y == x.UserId))
+                                    .ToList()
+                                    .ForEach(x => x.SetExit());
+                                _selectedUser = true;
+                            }
                         }
-                        else
+
+                        if (!_selectedUser)
                         {
                             _Current_WorkItems
-                                .ToList()
-                                .ForEach(x => x.SetInbox());
+                                 .ToList()
+                                 .ForEach(x => x.SetInbox());
                         }
+
                         #endregion
 
                     }
@@ -378,7 +385,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator, IRepository<F
                 }
             }
         }
-
+        //await workItemRepository.UpdateAsync(Current_WorkItem);
         return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
     }
 }
