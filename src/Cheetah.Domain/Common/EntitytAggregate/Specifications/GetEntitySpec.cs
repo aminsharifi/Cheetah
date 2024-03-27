@@ -8,7 +8,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
 {
     public GetEntitySpec(BaseEntity input)
     {
-        var Find = false;
+        var Find = false;        
 
         Query.AsNoTracking();
 
