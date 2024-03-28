@@ -18,7 +18,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         var _conditions = request.Conditions.GetConditions().ToList();
 
-        f_Request.CaseConditions = await GetCaseCondition(_conditions);
+        f_Request.CaseConditions = GetCaseCondition(_conditions);
 
         F_WorkItem _workItem = request.WorkItem.GetWorkItemClass();
 
@@ -43,7 +43,9 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         f_Request = Outputresult.Result.Value;
 
-        output_Request.Case = await GetCase(f_Request);
+        var _requests = (await iCartable.GetCaseAsync(f_Request)).FirstOrDefault();
+
+        output_Request.Case = await GetCase(_requests);
 
         #endregion
 
@@ -293,7 +295,15 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
                 _gRPC_WorkItem.WorkItemState = outputRequestItem.WorkItemState.GetBaseClassWithName();
 
-                var _conditions = await GetConditions(_gRPC_WorkItem);
+                var _workItemId = _gRPC_WorkItem.Base.Id;
+
+                var _retriveworkItem = await db
+                .F_WorkItems
+                   .Where(x => x.Id == _workItemId)
+                   .AsNoTracking()
+                   .SingleAsync();
+
+                var _conditions = GetConditions(_retriveworkItem);
                 _gRPC_WorkItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
                 _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
 
@@ -316,7 +326,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         return _OutputCartable;
     }
-    private async Task<List<L_CaseCondition>> GetCaseCondition(List<F_Condition> Conditions)
+    private List<L_CaseCondition> GetCaseCondition(List<F_Condition> Conditions)
     {
         List<L_CaseCondition> _caseConditions = new();
 
@@ -332,14 +342,8 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         }
         return _caseConditions;
     }
-    private async Task<GRPC_Case> GetCase(F_Case Case)
+    private async Task<GRPC_Case> GetCase(F_Case _case)
     {
-        F_Case _case = db
-            .F_Cases
-            .Where(x => x.Id == Case.Id)
-            .AsNoTracking()
-            .FirstOrDefault();
-
         GRPC_Case _gRPC_Case = new()
         {
             Base = _case?.GetBaseClassWithDate(),
@@ -382,7 +386,11 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
                 );
             foreach (var workItem in Task.WorkItems)
             {
-                var _conditions = await GetConditions(workItem);
+                var _WorkItem = _case?.WorkItems
+                    .Where(x => x.Id == workItem.Base.Id)
+                    .SingleOrDefault();
+
+                var _conditions = GetConditions(_WorkItem);
                 workItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
                 workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
             }
@@ -392,19 +400,13 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         return _gRPC_Case;
     }
-    private async Task<GRPC_WorkItem> GetConditions(GRPC_WorkItem gRPC_WorkItem)
+    private GRPC_WorkItem GetConditions(F_WorkItem workItem)
     {
-        var _workItemId = gRPC_WorkItem.Base.Id;
-
-        var _workItem = await db
-        .F_WorkItems
-           .Where(x => x.Id == _workItemId)
-           .AsNoTracking()
-           .SingleAsync();
+        GRPC_WorkItem gRPC_WorkItem = new();
 
         #region OccurredUserActions
 
-        var _occurredUserActions = _workItem
+        var _occurredUserActions = workItem
             .WorkItemConditions
             .Select(x => x.Condition)
         .GetConditions();
@@ -413,7 +415,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         #endregion
 
         #region ValidUserActions
-        var _validUserActions = _workItem
+        var _validUserActions = workItem
             .Task.TaskFlows
             .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
         .GetConditions();

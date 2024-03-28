@@ -8,12 +8,12 @@ public class GetTagIdHandler(IReadRepository<D_Tag> _repository)
 {
     public async Task<Result<long>> Handle(GetTagIdQuery request, CancellationToken cancellationToken)
     {
-        var spec = new GetEntitySpec<D_Tag>(request.input);
-        
+        var spec = new GetIdEntitySpec<D_Tag>(request.input);
+
         var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
 
         Guard.Against.Null(entity);
 
-        return entity.Id;
+        return entity;
     }
 }
