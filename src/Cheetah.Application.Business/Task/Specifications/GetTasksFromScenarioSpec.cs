@@ -1,9 +1,14 @@
-﻿namespace Cheetah.Application.Business.Task.Specifications;
+﻿using System.Diagnostics;
+
+namespace Cheetah.Application.Business.Task.Specifications;
 
 public class GetTasksFromScenarioSpec : Specification<F_Task>
 {
     public GetTasksFromScenarioSpec(long ScenarioId)
     {
+        Query
+            .EnableCache(nameof(GetTasksFromScenarioSpec), ScenarioId);
+
         Query
             .Where(x => x.ScenarioId == ScenarioId)
             .Where(x => x.EnableRecord == true)
