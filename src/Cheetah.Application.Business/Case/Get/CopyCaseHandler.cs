@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Case.Get;
+﻿using Cheetah.Domain.Interfaces;
+
+namespace Cheetah.Application.Business.Case.Get;
 
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,
@@ -21,8 +23,8 @@ public class CopyCaseHandler(
         }
         else
         {
-            var _userSpec = new GetEntitySpec<D_User>(request.input.Creator);
-            _case.CreatorId = (await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken)).Id;
+            var _userSpec = new GetIdEntitySpec<D_User>(request.input.Creator);
+            _case.CreatorId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         }
 
         if (request.input.RequestorId is not null or 0)
@@ -31,8 +33,8 @@ public class CopyCaseHandler(
         }
         else
         {
-            var _userSpec = new GetEntitySpec<D_User>(request.input.Requestor);
-            _case.RequestorId = (await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken)).Id;
+            var _userSpec = new GetIdEntitySpec<D_User>(request.input.Requestor);
+            _case.RequestorId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         }
 
         if (request.input.ProcessId is not null or 0)
@@ -41,8 +43,8 @@ public class CopyCaseHandler(
         }
         else
         {
-            var _processSpec = new GetEntitySpec<D_Process>(request.input.Process);
-            _case.ProcessId = (await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken)).Id;
+            var _processSpec = new GetIdEntitySpec<D_Process>(request.input.Process);
+            _case.ProcessId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
         }
 
         var _conditions = request.input.CaseConditions.Select(x => x.Condition);
