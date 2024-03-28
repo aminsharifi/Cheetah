@@ -1,14 +1,13 @@
-﻿using Ardalis.GuardClauses;
-using Ardalis.Specification;
-
-namespace Cheetah.Domain.Entities.Dimentions.TagAggregate.Specifications;
-
+﻿namespace Cheetah.Application.Business.Entity.Specifications;
 
 public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
 {
     public GetEntitySpec(BaseEntity input)
     {
-        var Find = false;        
+        var Find = false;
+
+        Query
+            .EnableCache(nameof(GetEntitySpec<T>), input);
 
         Query.AsNoTracking();
 

@@ -17,8 +17,8 @@ public class CopyWorkItemHandler(
         }
         else
         {
-            var _userSpec = new GetEntitySpec<D_User>(request.input.User);
-            _workItem.UserId = (await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken)).Id;
+            var _userSpec = new GetIdEntitySpec<D_User>(request.input.User);
+            _workItem.UserId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         }
 
         var _conditions = request.input.WorkItemConditions.Select(x => x.Condition);

@@ -8,12 +8,12 @@ public class GetOperandHandler(IReadRepository<D_Operand> _repository)
 {
     public async Task<Result<long>> Handle(GetOperandIdQuery request, CancellationToken cancellationToken)
     {
-        var spec = new GetEntitySpec<D_Operand>(request.input);
-        
+        var spec = new GetIdEntitySpec<D_Operand>(request.input);
+
         var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
 
         if (entity == null) return Result.NotFound();
 
-        return entity.Id;
+        return entity;
     }
 }
