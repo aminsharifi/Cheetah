@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Cheetah.Domain.Interfaces;
+﻿namespace Cheetah.Domain.Interfaces;
 
 public interface IDeleteTagService
 {

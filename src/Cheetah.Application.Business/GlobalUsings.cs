@@ -29,3 +29,4 @@ global using Cheetah.Domain.Entities.Dimentions.TagAggregate.Events;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Entities.Links;
 global using MediatR;
+global using System.Text;

@@ -8,12 +8,12 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
 
         var GeneralRequest = (await _mediator.Send(new CopyCaseQuery(request))).Value;
 
-        var _getCaseSpec = new GetCaseSpec(processId: GeneralRequest.ProcessId.Value,
+        var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.ProcessId.Value,
         eRPCode: GeneralRequest.ERPCode.Value);
 
         if (await caseRepository.AnyAsync(_getCaseSpec))
         {
-            var _caseID = (await caseRepository.FirstOrDefaultAsync(_getCaseSpec)).Id;
+            var _caseID = await caseRepository.FirstOrDefaultAsync(_getCaseSpec);
 
             _OutputState = OutputState<F_Case>.DuplicateErrorCreateRequest(_caseID, GeneralRequest);
 

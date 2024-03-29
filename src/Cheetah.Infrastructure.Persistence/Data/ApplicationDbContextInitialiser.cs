@@ -1,8 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using Cheetah.Application.Business.Tag.Create;
-using Serilog.Extensions.Logging;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {

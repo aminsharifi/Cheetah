@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace Cheetah.Application.Business.Condition.Specifications;
+﻿namespace Cheetah.Application.Business.Condition.Specifications;
 
 public class GetConditionSpec : Specification<F_Condition>
 {

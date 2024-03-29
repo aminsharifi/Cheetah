@@ -1,8 +1,7 @@
 ﻿namespace Cheetah.Application.Business.ProcessScenario.Get;
 
 public class GetProcessScenarioHandler(
-    IReadRepository<L_ProcessScenario> _processScenarioRepository,
-    IMediator _mediator) : IQueryHandler<GetProcessScenarioQuery, Result<IEnumerable<L_ProcessScenario>>>
+    IReadRepository<L_ProcessScenario> _processScenarioRepository) : IQueryHandler<GetProcessScenarioQuery, Result<IEnumerable<L_ProcessScenario>>>
 {
     public async Task<Result<IEnumerable<L_ProcessScenario>>> Handle(GetProcessScenarioQuery request, CancellationToken cancellationToken)
     {
