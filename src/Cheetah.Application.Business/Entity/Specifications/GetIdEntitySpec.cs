@@ -1,7 +1,4 @@
-﻿using System.Text;
-using System.Xml.Linq;
-
-namespace Cheetah.Application.Business.Entity.Specifications;
+﻿namespace Cheetah.Application.Business.Entity.Specifications;
 
 public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecification<T> where T : BaseEntity
 {

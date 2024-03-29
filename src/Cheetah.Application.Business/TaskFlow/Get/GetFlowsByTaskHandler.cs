@@ -1,8 +1,7 @@
 ﻿namespace Cheetah.Application.Business.TaskFlow.Get;
 
 public class GetFlowsByTaskHandler(
-    IReadRepository<L_TaskFlow> _taskFlowRepository,
-    IMediator _mediator) : IQueryHandler<GetFlowsByTaskQuery, Result<IEnumerable<L_TaskFlow>>>
+    IReadRepository<L_TaskFlow> _taskFlowRepository) : IQueryHandler<GetFlowsByTaskQuery, Result<IEnumerable<L_TaskFlow>>>
 {
     public async Task<Result<IEnumerable<L_TaskFlow>>> Handle(GetFlowsByTaskQuery request, CancellationToken cancellationToken)
     {

@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Cheetah.Domain;
+﻿namespace Cheetah.Domain;
 
 public static class OutputState<T>
 {
