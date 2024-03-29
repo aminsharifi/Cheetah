@@ -1,8 +1,7 @@
 ﻿namespace Cheetah.Application.Business.UserCondition.Get;
 
 public class GetUserByCaseConditionHandler(
-    IReadRepository<L_UserCondition> _userConditionRepository,
-    IMediator _mediator) : IQueryHandler<GetUserByCaseConditionQuery, Result<IEnumerable<long?>>>
+    IReadRepository<L_UserCondition> _userConditionRepository) : IQueryHandler<GetUserByCaseConditionQuery, Result<IEnumerable<long?>>>
 {
     public async Task<Result<IEnumerable<long?>>> Handle(GetUserByCaseConditionQuery request, CancellationToken cancellationToken)
     {

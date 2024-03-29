@@ -3,7 +3,8 @@
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
 /// </summary>
-public class CopyConditionHandler(IReadRepository<F_Condition> _repository, IMediator _mediator)
+public class CopyConditionHandler(IReadRepository<F_Condition> _repository, 
+    IMediator _mediator)
   : IQueryHandler<CopyConditionQuery, Result<F_Condition>>
 {
     public async Task<Result<F_Condition>> Handle(CopyConditionQuery request, CancellationToken cancellationToken)

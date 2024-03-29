@@ -45,7 +45,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         var _requests = (await iCartable.GetCaseAsync(f_Request)).FirstOrDefault();
 
-        output_Request.Case = await GetCase(_requests);
+        output_Request.Case = GetCase(_requests);
 
         #endregion
 
@@ -81,7 +81,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         var _selectedRequests = _requests.FirstOrDefault();
 
-        output_Request.Case = await GetCase(_selectedRequests);
+        output_Request.Case = GetCase(_selectedRequests);
 
         output_Request.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
@@ -140,7 +140,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         var _resultOfCase = Outputresult.Result.Value;
 
-        output_Request.Case = await GetCase(_resultOfCase);
+        output_Request.Case = GetCase(_resultOfCase);
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
@@ -342,7 +342,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         }
         return _caseConditions;
     }
-    private async Task<GRPC_Case> GetCase(F_Case _case)
+    private GRPC_Case GetCase(F_Case _case)
     {
         GRPC_Case _gRPC_Case = new()
         {
