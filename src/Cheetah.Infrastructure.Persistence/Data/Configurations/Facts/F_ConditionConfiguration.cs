@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Facts;
 
 public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
 {

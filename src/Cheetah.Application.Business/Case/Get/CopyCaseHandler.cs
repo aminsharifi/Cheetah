@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Interfaces;
-
-namespace Cheetah.Application.Business.Case.Get;
+﻿namespace Cheetah.Application.Business.Case.Get;
 
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,

@@ -1,4 +1,5 @@
-﻿global using Ardalis.SharedKernel;
+﻿global using Ardalis.Result;
+global using Ardalis.SharedKernel;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
@@ -9,7 +10,6 @@ global using MediatR;
 global using Serilog.Events;
 global using Serilog.Formatting;
 global using System.Globalization;
-global using System.Net;
 global using System.Reflection;
 global using System.Resources;
 global using System.Text;

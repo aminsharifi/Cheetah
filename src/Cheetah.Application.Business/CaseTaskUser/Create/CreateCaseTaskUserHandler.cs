@@ -1,7 +1,6 @@
 ﻿namespace Cheetah.Application.Business.CaseTaskUser.Create;
 
-public class CreateCaseTaskUserHandler(IRepository<L_CaseTaskUser> _repository,
-    IMediator _mediator)
+public class CreateCaseTaskUserHandler(IRepository<L_CaseTaskUser> _repository)
   : IQueryHandler<CreateCaseTaskUserQuery, Result<L_CaseTaskUser>>
 {
     public async Task<Result<L_CaseTaskUser>> Handle(CreateCaseTaskUserQuery request, CancellationToken cancellationToken)

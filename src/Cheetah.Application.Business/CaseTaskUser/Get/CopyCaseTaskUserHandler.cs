@@ -3,8 +3,7 @@
 public class CopyCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository,
     IReadRepository<F_Case> _caseRepository,
     IReadRepository<F_Task> _taskRepository,
-    IReadRepository<D_User> _userRepository,
-    IMediator _mediator)
+    IReadRepository<D_User> _userRepository)
   : IQueryHandler<CopyCaseTaskUserQuery, Result<L_CaseTaskUser>>
 {
     public async Task<Result<L_CaseTaskUser>> Handle(CopyCaseTaskUserQuery request, CancellationToken cancellationToken)
@@ -16,18 +15,18 @@ public class CopyCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository
         L_CaseTaskUser Return_CaseTaskUser = new();
 
         #region Case
-        var _caseSpec = new GetEntitySpec<F_Case>(request.input.Case);
-        Return_CaseTaskUser.FirstId = (await _caseRepository.FirstOrDefaultAsync(_caseSpec, cancellationToken)).Id;
+        var _caseSpec = new GetIdEntitySpec<F_Case>(request.input.Case);
+        Return_CaseTaskUser.FirstId = await _caseRepository.FirstOrDefaultAsync(_caseSpec, cancellationToken);
         #endregion
 
         #region Task
-        var _taskSpec = new GetEntitySpec<F_Task>(request.input.Task);
-        Return_CaseTaskUser.SecondId = (await _taskRepository.FirstOrDefaultAsync(_taskSpec, cancellationToken)).Id;
+        var _taskSpec = new GetIdEntitySpec<F_Task>(request.input.Task);
+        Return_CaseTaskUser.SecondId = await _taskRepository.FirstOrDefaultAsync(_taskSpec, cancellationToken);
         #endregion
 
         #region User
-        var _userSpec = new GetEntitySpec<D_User>(request.input.User);
-        Return_CaseTaskUser.ThirdId = (await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken)).Id;
+        var _userSpec = new GetIdEntitySpec<D_User>(request.input.User);
+        Return_CaseTaskUser.ThirdId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         #endregion
 
         return Return_CaseTaskUser;

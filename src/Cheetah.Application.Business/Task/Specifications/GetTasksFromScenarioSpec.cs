@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Cheetah.Application.Business.Task.Specifications;
+﻿namespace Cheetah.Application.Business.Task.Specifications;
 
 public class GetTasksFromScenarioSpec : Specification<F_Task>
 {

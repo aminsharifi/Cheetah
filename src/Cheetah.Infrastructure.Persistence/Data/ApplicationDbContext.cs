@@ -1,7 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using Cheetah.Domain.Helper;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
