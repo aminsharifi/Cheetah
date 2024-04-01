@@ -43,7 +43,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         f_Request = Outputresult.Result.Value;
 
-        var _requests = (await iCartable.GetCaseAsync(f_Request)).FirstOrDefault();
+        var _requests = (await iCartable.GetCaseAsync(f_Request)).Value.FirstOrDefault();
 
         output_Request.Case = GetCase(_requests);
 
@@ -69,7 +69,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         GetCase_Output output_Request = new();
 
-        if (!_requests.Any())
+        if (!_requests.Value.Any())
         {
             output_Request.OutputState = OutputState<Boolean>
                 .NotFoundErrorCreateRequest(false)
@@ -79,7 +79,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
             return output_Request;
         }
 
-        var _selectedRequests = _requests.FirstOrDefault();
+        var _selectedRequests = _requests.Value.FirstOrDefault();
 
         output_Request.Case = GetCase(_selectedRequests);
 
@@ -172,7 +172,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #endregion
 
-        var TableRecords = await simpleClassRepository.GetAllBySimpleClass(output_Request.TableInput.GetSimpleClass<SimpleClassDTO>());
+        var TableRecords = await simpleClassRepository.GetAllBySimpleClassAsync(output_Request.TableInput.GetSimpleClass<SimpleClassDTO>());
 
         #region Output
 
@@ -201,7 +201,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         #endregion
 
-        var Outputresult = await iWorkItem.SetCaseTaskUser(l_CaseTaskUser);
+        var Outputresult = await iWorkItem.SetCaseTaskUserAsync(l_CaseTaskUser);
 
         #region Output
 
@@ -258,21 +258,21 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         #endregion
 
         var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
-           await iCartable.Inbox(cartableDTO) :
-           await iCartable.Outbox(cartableDTO)).ToList<CartableDTO>();
+           await iCartable.InboxAsync(cartableDTO) :
+           await iCartable.OutboxAsync(cartableDTO));
 
         #region Output
         Cartable_Output _OutputCartable = new();
 
 
-        if (OutputRequest.Count() > 0)
+        if (OutputRequest.Value.Any())
         {
-            _OutputCartable.TotalItems = OutputRequest.FirstOrDefault()?.TotalItems.Value;
-            _OutputCartable.PageSize = OutputRequest.FirstOrDefault()?.PageSize.Value;
-            _OutputCartable.PageNumber = OutputRequest.FirstOrDefault()?.PageNumber.Value;
+            _OutputCartable.TotalItems = OutputRequest.Value.FirstOrDefault()?.TotalItems.Value;
+            _OutputCartable.PageSize = OutputRequest.Value.FirstOrDefault()?.PageSize.Value;
+            _OutputCartable.PageNumber = OutputRequest.Value.FirstOrDefault()?.PageNumber.Value;
 
 
-            foreach (var outputRequestItem in OutputRequest)
+            foreach (var outputRequestItem in OutputRequest.Value)
             {
                 GRPC_Case _Case = new()
                 {

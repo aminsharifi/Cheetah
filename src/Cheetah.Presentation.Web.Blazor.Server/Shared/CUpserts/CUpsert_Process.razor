@@ -14,8 +14,8 @@
 @code {
     public override async Task ExtendedLoadDTO()
     {
-        AllRecords = await simpleClassRepository.GetAllByName(nameof(F_Scenario));
-        AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.First), Id);
+        AllRecords = await simpleClassRepository.GetAllByNameAsync(nameof(F_Scenario));
+        AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.First), Id);
 
         this.LinkRecords = new SimpleLinkClassDTO()
             {

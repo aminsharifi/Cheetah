@@ -81,13 +81,13 @@
     private async Task UpsertTask(EditContext editContext)
     {
 
-        var FirstDB = await simpleClassRepository.Get(type: FirstName,
+        var FirstDB = await simpleClassRepository.GetAsync(type: FirstName,
         id: Record.FirstId, Tracking: false);
 
-        var SecondDB = await simpleClassRepository.Get(type: SecondName,
+        var SecondDB = await simpleClassRepository.GetAsync(type: SecondName,
         id: Record.SecondId, Tracking: false);
 
-        Record = await simpleClassRepository.AddLinkName(Record, FirstDB, SecondDB);
+        Record = simpleClassRepository.AddLinkName(Record, FirstDB, SecondDB);
 
         var formIsValid = editContext.Validate();
 
@@ -97,12 +97,12 @@
             {
                 if (Record.Id > 0)
                 {
-                    Record = await simpleClassRepository.Update(Record) as SimpleLinkClass;
+                    Record = await simpleClassRepository.UpdateAsync(Record) as SimpleLinkClass;
                     Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
                 }
                 else
                 {
-                    Record = await simpleClassRepository.Create(Record) as SimpleLinkClass;
+                    Record = await simpleClassRepository.CreateAsync(Record) as SimpleLinkClass;
                     Snackbar.Add("ردیف با موفقیت ایجاد شد", Severity.Error);
                 }
                 _CNavigation.BackNavigation(_NavigationManager);

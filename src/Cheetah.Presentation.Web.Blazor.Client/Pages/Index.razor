@@ -37,7 +37,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        P_ParameterList = await _IP_ParameterListRepository.GetAllByName(nameof(D_Tag)) as IEnumerable
+        P_ParameterList = await _IP_ParameterListRepository.GetAllByNameAsync(nameof(D_Tag)) as IEnumerable
         <SimpleClassDTO>
             ;
         IsProcessing = false;
