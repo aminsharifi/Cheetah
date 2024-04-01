@@ -22,6 +22,7 @@ global using Cheetah.Application.Business.TaskFlow.Specifications;
 global using Cheetah.Application.Business.UserCondition.Get;
 global using Cheetah.Application.Business.UserCondition.Specifications;
 global using Cheetah.Application.Business.WorkItem.Get;
+global using Cheetah.Application.Business.WorkItem.Specifications;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
