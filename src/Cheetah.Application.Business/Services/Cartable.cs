@@ -8,12 +8,12 @@ public class Cartable(ISender iSender) : ICartable
 
         return _GetDetailCases;
     }
-    public async Task<Result<IEnumerable<CartableDTO>>> Inbox(CartableDTO cartableDTO)
+    public async Task<Result<IEnumerable<CartableDTO>>> InboxAsync(CartableDTO cartableDTO)
     {
         var _GetCartableQuery = await iSender.Send(new GetCartableQuery(cartableDTO, CartableProperty.Inbox));
         return _GetCartableQuery;
     }
-    public async Task<Result<IEnumerable<CartableDTO>>> Outbox(CartableDTO cartableDTO)
+    public async Task<Result<IEnumerable<CartableDTO>>> OutboxAsync(CartableDTO cartableDTO)
     {
         var _GetCartableQuery = await iSender.Send(new GetCartableQuery(cartableDTO, CartableProperty.Outbox));
         return _GetCartableQuery;

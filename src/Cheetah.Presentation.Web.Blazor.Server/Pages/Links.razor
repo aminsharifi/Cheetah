@@ -58,7 +58,7 @@
         }
         if (reference is null || firstRender)
         {
-            var _D_Entity = await simpleClassRepository.GetAllByName("D_Entity");
+            var _D_Entity = await simpleClassRepository.GetAllByNameAsync("D_Entity");
             var PDisplayName = _D_Entity.Where(x => x.Name == Name).Single().DisplayName;
             reference = _CNavigation.LoadNavigation(Address: $"Links/{Name}/{type}/{Id}", RowDescription: PDisplayName,
                 RowId: null, Reference: reference);
@@ -70,7 +70,7 @@
 
     private async Task LoadRecords()
     {
-        Records = await simpleClassRepository.GetAllLink(Name, type, Id.Value);
+        Records = await simpleClassRepository.GetAllLinkAsync(Name, type, Id.Value);
     }
 
     public async Task ConfirmDelete_Click()

@@ -147,7 +147,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         #region GetCase_Output
 
         var _l_Request = await iCartable.GetCaseAsync(f_Request);
-        var l_Request = _l_Request.FirstOrDefault();
+        var l_Request = _l_Request.Value.FirstOrDefault();
 
         GetCase_Output output_Requests = new()
         {
@@ -156,7 +156,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
             Process = l_Request?.Process?.GetBaseClassWithName()
         };
 
-        if (!_l_Request.Any())
+        if (!_l_Request.Value.Any())
         {
             output_Requests.OutputState = OutputState<Boolean>.NotFoundErrorCreateRequest(false)
                 .SimpleClassDTO.GetBaseClassWithName();
@@ -234,7 +234,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         #endregion
 
         var TableRecords = await simpleClassRepository
-            .GetAllBySimpleClass(getAllByName_Output.TableInput.GetSimpleClass<SimpleClassDTO>());
+            .GetAllBySimpleClassAsync(getAllByName_Output.TableInput.GetSimpleClass<SimpleClassDTO>());
 
         #region Output
 
@@ -264,7 +264,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         #endregion
 
-        var Outputresult = await iWorkItem.SetCaseTaskUser(l_CaseTaskUser);
+        var Outputresult = await iWorkItem.SetCaseTaskUserAsync(l_CaseTaskUser);
 
         #region Output
 
@@ -322,19 +322,19 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         #endregion
 
         var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
-           await iCartable.Inbox(cartableDTO) :
-           await iCartable.Outbox(cartableDTO)).ToList<CartableDTO>();
+           await iCartable.InboxAsync(cartableDTO) :
+           await iCartable.OutboxAsync(cartableDTO));
 
         #region Output
         Cartable_Output _OutputCartable = new();
 
-        if (OutputRequest.Count() > 0)
+        if (OutputRequest.Value.Any())
         {
-            _OutputCartable.TotalItems = OutputRequest.FirstOrDefault()?.TotalItems.Value;
-            _OutputCartable.PageSize = OutputRequest.FirstOrDefault()?.PageSize.Value;
-            _OutputCartable.PageNumber = OutputRequest.FirstOrDefault()?.PageNumber.Value;
+            _OutputCartable.TotalItems = OutputRequest.Value.FirstOrDefault()?.TotalItems.Value;
+            _OutputCartable.PageSize = OutputRequest.Value.FirstOrDefault()?.PageSize.Value;
+            _OutputCartable.PageNumber = OutputRequest.Value.FirstOrDefault()?.PageNumber.Value;
 
-            foreach (var outputRequestItem in OutputRequest)
+            foreach (var outputRequestItem in OutputRequest.Value)
             {
                 RecordCartable recordCartable = new()
                 {

@@ -1,5 +1,5 @@
 ﻿namespace Cheetah.Application.Business.Services;
-public class CopyClass(IMediator _mediator) : ICopyClass
+public class CopyClass(ISender iSender) : ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)
     {
@@ -25,9 +25,9 @@ public class CopyClass(IMediator _mediator) : ICopyClass
         return _SimpleClass;
     }
 
-    public async Task<F_Case> DeepCopy(F_Case obj)
+    public async Task<F_Case> DeepCopyAsync(F_Case obj)
     {
-        var _copyCaseQuery = await _mediator.Send(new CopyCaseQuery(obj));
+        var _copyCaseQuery = await iSender.Send(new CopyCaseQuery(obj));
 
         return _copyCaseQuery;
 
@@ -61,9 +61,9 @@ public class CopyClass(IMediator _mediator) : ICopyClass
         */
     }
 
-    public async Task<F_WorkItem> DeepCopy(F_WorkItem obj)
+    public async Task<F_WorkItem> DeepCopyAsync(F_WorkItem obj)
     {
-        var _copyWorkItem = await _mediator.Send(new CopyWorkItemQuery(obj));
+        var _copyWorkItem = await iSender.Send(new CopyWorkItemQuery(obj));
 
         return _copyWorkItem;
 
@@ -99,9 +99,9 @@ public class CopyClass(IMediator _mediator) : ICopyClass
         */
     }
 
-    public async Task<L_CaseTaskUser> DeepCopy(L_CaseTaskUser obj)
+    public async Task<L_CaseTaskUser> DeepCopyAsync(L_CaseTaskUser obj)
     {
-        var _copyCaseTaskUser = await _mediator.Send(new CopyCaseTaskUserQuery(obj));
+        var _copyCaseTaskUser = await iSender.Send(new CopyCaseTaskUserQuery(obj));
 
         return _copyCaseTaskUser;
 

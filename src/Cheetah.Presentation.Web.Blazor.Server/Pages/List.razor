@@ -122,7 +122,7 @@
 
     private async Task FirstLoadRecords()
     {
-        var _D_Entity = await simpleClassRepository.GetAllByName(nameof(D_Entity));
+        var _D_Entity = await simpleClassRepository.GetAllByNameAsync(nameof(D_Entity));
 
         keyValuePair.Clear();
 
@@ -149,10 +149,10 @@
         {
             LoadData = false;
 
-            Records = await simpleClassRepository.GetAllByName(Name);
+            Records = await simpleClassRepository.GetAllByNameAsync(Name);
 
             if (!String.IsNullOrEmpty(FilterTableName))
-                Record = await simpleClassRepository.Get(FilterTableName, Id);
+                Record = await simpleClassRepository.GetAsync(FilterTableName, Id);
         }
         catch (Exception ex)
         {

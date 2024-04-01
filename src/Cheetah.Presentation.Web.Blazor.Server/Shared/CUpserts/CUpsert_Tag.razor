@@ -20,7 +20,7 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        d_ParameterType = await simpleClassRepository.GetAllByName(nameof(D_TagType));
+        d_ParameterType = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType));
     }
 
     private async Task SelectedProcessesChanged(ChangeEventArgs e)

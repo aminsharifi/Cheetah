@@ -462,13 +462,13 @@
     public override async Task ExtendedLoadDTO()
     {
         // List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
-        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag)) as List<BaseEntity>;
-        List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand)) as List<BaseEntity>;
-        List_CaseState = await simpleClassRepository.GetAllByName(nameof(D_CaseState)) as List<BaseEntity>;
-        List_D_TagType = await simpleClassRepository.GetAllByName(nameof(D_TagType)) as List<BaseEntity>;
-        List_F_Condition = await simpleClassRepository.GetAllByName(nameof(F_Condition)) as List<BaseEntity>;
-        AllRecords = await simpleClassRepository.GetAllByName(nameof(D_Process));
-        AllLink = await simpleClassRepository.GetAllLink(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
+        List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)) as List<BaseEntity>;
+        List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)) as List<BaseEntity>;
+        List_CaseState = await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)) as List<BaseEntity>;
+        List_D_TagType = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType)) as List<BaseEntity>;
+        List_F_Condition = await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)) as List<BaseEntity>;
+        AllRecords = await simpleClassRepository.GetAllByNameAsync(nameof(D_Process));
+        AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
 
 
         // simpleClassRepository.GetAllLink(nameof(L_TagTask), nameof(LinkProperty.Second), Id);
@@ -532,7 +532,7 @@
         else
         {
             _l_ActionTask = await simpleClassRepository
-            .GetLast(nameof(L_FlowTask)) as L_FlowTask;
+            .GetLastAsync(nameof(L_FlowTask)) as L_FlowTask;
         }
 
         cObject.FlowTasks.Add(_l_ActionTask);
@@ -550,7 +550,7 @@
         else
         {
             _TaskCondition = await simpleClassRepository
-            .GetLast(nameof(L_TaskCondition)) as L_TaskCondition;
+            .GetLastAsync(nameof(L_TaskCondition)) as L_TaskCondition;
         }
 
         cObject.TaskConditions.Add(_TaskCondition);
@@ -568,7 +568,7 @@
         else
         {
             _ScenarioCondition = await simpleClassRepository
-            .GetLast(nameof(L_ScenarioCondition)) as L_ScenarioCondition;
+            .GetLastAsync(nameof(L_ScenarioCondition)) as L_ScenarioCondition;
         }
 
         cObject.ScenarioConditions.Add(_ScenarioCondition);
@@ -576,7 +576,7 @@
     private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
     {
         var _flowCondition = await simpleClassRepository
-            .GetLast(nameof(L_FlowCondition)) as L_FlowCondition;
+            .GetLastAsync(nameof(L_FlowCondition)) as L_FlowCondition;
 
         _flowCondition.FirstId = cObject.Id;
         _flowCondition.Flow = cObject;
@@ -594,7 +594,7 @@
     {
         L_TaskFlow _l_TaskAction = new();
 
-        F_Flow _f_Action = await simpleClassRepository.GetLast(nameof(F_Flow)) as F_Flow;
+        F_Flow _f_Action = await simpleClassRepository.GetLastAsync(nameof(F_Flow)) as F_Flow;
 
         _l_TaskAction.Task = cObject;
 
@@ -646,7 +646,7 @@
         }
         else
         {
-            d_Task = await simpleClassRepository.GetLast(nameof(F_Task)) as F_Task;
+            d_Task = await simpleClassRepository.GetLastAsync(nameof(F_Task)) as F_Task;
         }
 
         // d_Task.Role = List_D_Role.First() as D_Role;

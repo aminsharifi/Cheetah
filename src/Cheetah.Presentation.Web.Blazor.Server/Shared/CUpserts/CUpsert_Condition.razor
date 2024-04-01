@@ -61,8 +61,8 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        List_D_Tag = await simpleClassRepository.GetAllByName(nameof(D_Tag));
-        List_D_Operand = await simpleClassRepository.GetAllByName(nameof(D_Operand));
+        List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag));
+        List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand));
     }
 
     private async Task SelectedOperandChanged(ChangeEventArgs e)
