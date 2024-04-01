@@ -87,7 +87,7 @@
     {
         try
         {
-            Record = await simpleClassRepository.Get(Name, Id) as SimpleLinkClass;
+            Record = await simpleClassRepository.GetAsync(Name, Id) as SimpleLinkClass;
 
             if (type == nameof(LinkProperty.First))
             {
@@ -104,7 +104,7 @@
                     LinkId = Record.SecondId;
             }
 
-            var _D_Entity = await simpleClassRepository.GetAllByName(nameof(D_Entity));
+            var _D_Entity = await simpleClassRepository.GetAllByNameAsync(nameof(D_Entity));
 
             var FirstClassName = Record.GetType().GetProperties()[0].PropertyType.Name;
 
@@ -114,9 +114,9 @@
 
             SecondClassRecord = _D_Entity.Where(x => x.Name == SecondClassName).Single();
 
-            FirstClass = await simpleClassRepository.GetAllByName(FirstClassName);
+            FirstClass = await simpleClassRepository.GetAllByNameAsync(FirstClassName);
 
-            SecondClass = await simpleClassRepository.GetAllByName(SecondClassName);
+            SecondClass = await simpleClassRepository.GetAllByNameAsync(SecondClassName);
 
             Title = new UpsertStatus().GetPageTitle(Record.Id).Value;            
         }
