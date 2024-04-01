@@ -14,7 +14,7 @@ public class F_ConditionController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var D_ParameterList = await simpleClassRepository.GetAllByName(nameof(F_Condition)) as IEnumerable<BaseEntity>;
+        var D_ParameterList = await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)) as IEnumerable<BaseEntity>;
         var simpleClassDTO = new List<SimpleClassDTO>();
         foreach (var SimpleClassDTO in D_ParameterList)
         {
@@ -41,7 +41,7 @@ public class F_ConditionController : ControllerBase
             });
         }
 
-        var _Record = await simpleClassRepository.Get(nameof(F_Condition), id.Value);
+        var _Record = await simpleClassRepository.GetAsync(nameof(F_Condition), id.Value);
 
         if (_Record == null)
         {

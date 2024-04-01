@@ -8,7 +8,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         return 1;
     }
-    public async Task<SimpleLinkClass> AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
+    public SimpleLinkClass AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
         simpleLinkClass.DisplayName = new StringBuilder()
             .Append(firstClass?.DisplayName ?? String.Empty)
@@ -23,14 +23,14 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             .ToString();
         return simpleLinkClass;
     }
-    public async Task<BaseEntity> Create(BaseEntity obj_DTO)
+    public async Task<BaseEntity> CreateAsync(BaseEntity obj_DTO)
     {
         //obj_DTO.Id = null;
         await _db.AddAsync(obj_DTO);
         await _db.SaveChangesAsync();
         return obj_DTO;
     }
-    public async Task<Int32> delete(String type, Int64? id)
+    public async Task<Int32> deleteAsync(String type, Int64? id)
     {
         if (!String.IsNullOrEmpty(type))
         {
@@ -46,7 +46,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         return -1;
     }
-    public async Task<BaseEntity> Get(String type, Int64? id, Boolean Tracking = true)
+    public async Task<BaseEntity> GetAsync(String type, Int64? id, Boolean Tracking = true)
     {
         if (!String.IsNullOrEmpty(type))
         {
@@ -58,7 +58,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             }
             if (id == 0)
             {
-                return await GetLast(type);
+                return await GetLastAsync(type);
             }
             else
             {
@@ -71,7 +71,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         return null;
     }
-    public async Task<BaseEntity> Get(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
+    public async Task<BaseEntity> GetAsync(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
     {
         //_db.ChangeTracker.QueryTrackingBehavior = Tracking;
         var gtype = DatabaseClass.GetDBType(type);
@@ -91,7 +91,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         return S_SimpleClass;
     }
-    public async Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClass(BaseEntity simpleClass)
+    public async Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClassAsync(BaseEntity simpleClass)
     {
         var ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(new SimpleClassDTO(), new List<BaseEntity>());
 
@@ -126,14 +126,14 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         return ReturnOutput;
     }
-    public async Task<IEnumerable<BaseEntity>> GetAllByName(String type)
+    public async Task<IEnumerable<BaseEntity>> GetAllByNameAsync(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var Result = await Task.FromResult(aa.ToList());
         return Result;
     }
-    public async Task<IEnumerable<SimpleLinkClass>> GetAllLink(String type, String sd_Status, Int64? linkID)
+    public async Task<IEnumerable<SimpleLinkClass>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID)
     {
         if (!String.IsNullOrEmpty(type))
         {
@@ -149,7 +149,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
         return new List<SimpleLinkClass>();
     }
-    public async Task<Dictionary<String, String>> GetAllTableName(String SchemaName)
+    public async Task<Dictionary<String, String>> GetAllTableNameAsync(String SchemaName)
     {
         if (!String.IsNullOrEmpty(SchemaName))
         {
@@ -163,7 +163,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         return new Dictionary<string, string>();
     }
-    public async Task<BaseEntity> GetLast(String type)
+    public async Task<BaseEntity> GetLastAsync(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
@@ -177,20 +177,20 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         return 1;
     }
-    public async Task<BaseEntity> Update(BaseEntity obj_DTO)
+    public async Task<BaseEntity> UpdateAsync(BaseEntity obj_DTO)
     {
         _db.Update(obj_DTO);
         await _db.SaveChangesAsync();
         _db.ChangeTracker.Clear();
         return obj_DTO;
     }
-    public async Task<Int32> UpdateLink(SimpleLinkClassDTO obj_DTO)
+    public async Task<Int32> UpdateLinkAsync(SimpleLinkClassDTO obj_DTO)
     {
         var gtype = DatabaseClass.GetDBType(obj_DTO.LinkType);
 
         var simpleLinkClass = new List<SimpleLinkClass>();
 
-        var fixedInstance = await Get(
+        var fixedInstance = await GetAsync(
             type: obj_DTO.Sd_Status == nameof(LinkProperty.First) ? obj_DTO.FirstType : obj_DTO.SecondType,
             id: obj_DTO.FixedId, Tracking: false);
 
@@ -204,7 +204,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             }
             else
             {
-                instance = await GetLast(obj_DTO.LinkType) as SimpleLinkClass;
+                instance = await GetLastAsync(obj_DTO.LinkType) as SimpleLinkClass;
             }
 
             Type firstType, secondType;
@@ -226,23 +226,23 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
                 instance.SecondId = obj_DTO.FixedId;
             }
 
-            var floatedInstance = await Get(
+            var floatedInstance = await GetAsync(
             type: obj_DTO.Sd_Status == nameof(LinkProperty.First) ? obj_DTO.SecondType : obj_DTO.FirstType,
             id: link.Key.Item1, Tracking: false);
 
             if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
-                instance = await AddLinkName(instance, fixedInstance, floatedInstance);
+                instance =  AddLinkName(instance, fixedInstance, floatedInstance);
             }
             else
             {
-                instance = await AddLinkName(instance, floatedInstance, fixedInstance);
+                instance = AddLinkName(instance, floatedInstance, fixedInstance);
             }
 
             simpleLinkClass.Add(instance);
         }
 
-        var allLink = await GetAllLink
+        var allLink = await GetAllLinkAsync
         (
             obj_DTO.LinkType,
             obj_DTO.Sd_Status,

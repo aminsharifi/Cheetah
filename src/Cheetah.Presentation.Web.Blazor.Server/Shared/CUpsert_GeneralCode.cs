@@ -7,7 +7,7 @@ public class CUpsert_GeneralCode : SharedPage
     {
         try
         {
-            Record = await simpleClassRepository.Get(Name, Id);
+            Record = await simpleClassRepository.GetAsync(Name, Id);
 
             await ExtendedLoadDTO();
 
@@ -62,12 +62,12 @@ public class CUpsert_GeneralCode : SharedPage
 
             if (IsNew)
             {
-                Record = await simpleClassRepository.Create(Record);
+                Record = await simpleClassRepository.CreateAsync(Record);
                 LinkRecords.FixedId = Record.Id;
             }
             else
             {
-                Record = await simpleClassRepository.Update(Record);
+                Record = await simpleClassRepository.UpdateAsync(Record);
             }
 
             if (LinkRecords.Sd_Status != null)
@@ -106,7 +106,7 @@ public class CUpsert_GeneralCode : SharedPage
 
     public async Task UpdateLink()
     {
-        await simpleClassRepository.UpdateLink(LinkRecords);
+        await simpleClassRepository.UpdateLinkAsync(LinkRecords);
     }
     #endregion
 }

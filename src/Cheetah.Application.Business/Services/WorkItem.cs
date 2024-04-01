@@ -1,12 +1,13 @@
 ﻿namespace Cheetah.Application.Business.Services;
-public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
-    IRepository<F_WorkItem> workItemRepository, IRepository<F_Case> caseRepository) : IWorkItem
+public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
+    IRepository<F_WorkItem> workItemRepository,
+    IRepository<F_Case> caseRepository) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
     {
         CheetahResult<F_Case> _OutputState = new();
 
-        var GeneralRequest = (await _mediator.Send(new CopyCaseQuery(request))).Value;
+        var GeneralRequest = (await iSender.Send(new CopyCaseQuery(request))).Value;
 
         var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.ProcessId.Value,
         eRPCode: GeneralRequest.ERPCode.Value);
@@ -34,7 +35,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
     {
         CheetahResult<F_Case> _OutputState = new();
 
-        F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopy(f_WorkItem);
+        F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopyAsync(f_WorkItem);
 
         await workItemRepository.UpdateAsync(Current_WorkItem);
 
@@ -52,7 +53,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
             return _OutputState;
         }
 
-        var _currentAssignment = await SetCurrentAssignment(Current_WorkItem);
+        var _currentAssignment = await SetCurrentAssignmentAsync(Current_WorkItem);
 
         if (Current_WorkItem.Case.IsEditing())
         {
@@ -69,9 +70,9 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
 
         return _OutputState;
     }
-    public async Task<CheetahResult<L_CaseTaskUser>> SetCaseTaskUser(L_CaseTaskUser CaseTaskUser)
+    public async Task<CheetahResult<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser)
     {
-        var _CaseTaskUser = await _iCopyClass.DeepCopy(CaseTaskUser);
+        var _CaseTaskUser = await _iCopyClass.DeepCopyAsync(CaseTaskUser);
 
         //var _selectedCaseTaskUsers = _db.L_CaseTaskUsers
         //    .Where(x => x.Case.Id == CaseTaskUser.Case.Id)
@@ -82,13 +83,13 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
         //    .Include(x => x.Task)
         //    .Include(x => x.User);
 
-        var _selectedCaseTaskUsers = (await _mediator.Send(
+        var _selectedCaseTaskUsers = (await iSender.Send(
             new GetByCaseAndTaskQuery(caseId: CaseTaskUser.Case.Id,
             taskId: CaseTaskUser.Task.Id))).Value;
 
         if (_selectedCaseTaskUsers.Any())
         {
-            var _addedCaseTaskUsers = (await _mediator.Send(
+            var _addedCaseTaskUsers = (await iSender.Send(
             new CreateCaseTaskUserQuery(CaseTaskUser))).Value;
 
             _selectedCaseTaskUsers.Append(_addedCaseTaskUsers);
@@ -98,13 +99,13 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
     }
     public async Task<IEnumerable<F_Task>> GetAllTask(Int64 ScenarioId)
     {
-        var _allTasks = (await _mediator.Send(new GetTasksFromScenarioQuery(ScenarioId))).Value;
+        var _allTasks = (await iSender.Send(new GetTasksFromScenarioQuery(ScenarioId))).Value;
 
         return _allTasks;
     }
     public async Task<CheetahResult<bool>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
     {
-        var pc_ProcessScenarios = (await _mediator.Send(new GetProcessScenarioQuery(Current_Case.ProcessId.Value))).Value;
+        var pc_ProcessScenarios = (await iSender.Send(new GetProcessScenarioQuery(Current_Case.ProcessId.Value))).Value;
 
         if (pc_ProcessScenarios.Count() == 1)
         {
@@ -114,7 +115,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
         {
             var Actual_ConditionsIds = Current_Case.CaseConditions.Select(x => x.SecondId.Value);
 
-            var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(Actual_ConditionsIds))).Value;
+            var Actual_Conditions = (await iSender.Send(new GetIncludedConditionsQuery(Actual_ConditionsIds))).Value;
 
             foreach (var ProcessScenario in pc_ProcessScenarios)
             {
@@ -166,7 +167,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
                 //    .Select(x => x.FirstId)
                 //    .ToListAsync();
 
-                var _taskUserConditions = (await _mediator.Send(new GetUserByConditionQuery(_performerConditions))).Value;
+                var _taskUserConditions = (await iSender.Send(new GetUserByConditionQuery(_performerConditions))).Value;
 
                 //var _CaseUserConditions = await _db.L_UserConditions
                 //    .Where(x => _taskUserConditions.Contains(x.FirstId))
@@ -176,7 +177,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
                 //    .Select(x => x.FirstId)
                 //    .ToListAsync();
 
-                var _CaseUserConditions = (await _mediator.Send(new GetUserByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
+                var _CaseUserConditions = (await iSender.Send(new GetUserByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
 
                 var _userIds = new List<Int64?>();
 
@@ -213,7 +214,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
             _workItem = Current_WorkItem;
         }
 
-        await SetCurrentAssignment(_workItem);
+        await SetCurrentAssignmentAsync(_workItem);
 
         //await caseRepository.UpdateAsync(Current_Case);
 
@@ -261,7 +262,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
 
         return _isTheSame;
     }
-    public async Task<CheetahResult<F_WorkItem>> SetCurrentAssignment(F_WorkItem Current_WorkItem)
+    public async Task<CheetahResult<F_WorkItem>> SetCurrentAssignmentAsync(F_WorkItem Current_WorkItem)
     {
         Current_WorkItem.Case.LastModified = DateTimeOffset.Now;
 
@@ -274,11 +275,11 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
         //   .AsNoTracking()
         //   .ToListAsync();
 
-        var _taskFlows = (await _mediator.Send(new GetFlowsByTaskQuery(_currentTaskId.Value))).Value;
+        var _taskFlows = (await iSender.Send(new GetFlowsByTaskQuery(_currentTaskId.Value))).Value;
 
         var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
 
-        var _actual_Conditions = (await _mediator.Send(
+        var _actual_Conditions = (await iSender.Send(
             new GetIncludedConditionsQuery(_actualConditionsIds))).Value;
         /*
         var _actual_Conditions = await _db.F_Conditions
@@ -348,7 +349,7 @@ public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
 
                         if (Current_WorkItem.CaseId is not null or 0)
                         {
-                            var _caseTaskUsers = (await _mediator.Send(
+                            var _caseTaskUsers = (await iSender.Send(
                             new GetByCaseAndTaskQuery(
                                 caseId: Current_WorkItem.CaseId.Value, taskId: toTask.Id))).Value;
 
