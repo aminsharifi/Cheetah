@@ -3,7 +3,7 @@
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,
     IReadRepository<D_Process> _processRepository,
-    IMediator _mediator) : IQueryHandler<CopyCaseQuery, Result<F_Case>>
+    ISender _ISender) : IQueryHandler<CopyCaseQuery, Result<F_Case>>
 {
     public async Task<Result<F_Case>> Handle(CopyCaseQuery request, CancellationToken cancellationToken)
     {
@@ -49,7 +49,7 @@ public class CopyCaseHandler(
 
         foreach (var _condition in _conditions)
         {
-            var _getCondition = await _mediator.Send(new CopyConditionQuery(_condition));
+            var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
 
             _case.CaseConditions.Add(new()
             {
@@ -61,7 +61,7 @@ public class CopyCaseHandler(
 
         foreach (var _workItem in _workItems)
         {
-            var _CopiedworkItem = await _mediator.Send(new CopyWorkItemQuery(_workItem));
+            var _CopiedworkItem = await _ISender.Send(new CopyWorkItemQuery(_workItem));
 
             _case.WorkItems.Add(_CopiedworkItem);
         }

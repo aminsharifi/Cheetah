@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
+﻿namespace Cheetah.Application.Business.Services;
 public class WorkItem(ICopyClass _iCopyClass, IMediator _mediator,
     IRepository<F_WorkItem> workItemRepository, IRepository<F_Case> caseRepository) : IWorkItem
 {

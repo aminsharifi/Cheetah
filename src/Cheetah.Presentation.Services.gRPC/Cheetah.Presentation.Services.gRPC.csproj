@@ -23,7 +23,7 @@
 	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="8.0.0" />
-		<PackageReference Include="Grpc.AspNetCore" Version="2.61.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.62.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.0" />
 	</ItemGroup>
 
