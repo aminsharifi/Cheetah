@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
+﻿namespace Cheetah.Application.Business.Services;
 public class CopyClass(IMediator _mediator) : ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)

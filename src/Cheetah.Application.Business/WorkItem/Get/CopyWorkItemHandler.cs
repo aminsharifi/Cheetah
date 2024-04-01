@@ -2,7 +2,7 @@
 
 public class CopyWorkItemHandler(
     IReadRepository<D_User> _userRepository,
-    IMediator _mediator)
+    ISender _ISender)
   : IQueryHandler<CopyWorkItemQuery, Result<F_WorkItem>>
 {
     public async Task<Result<F_WorkItem>> Handle(CopyWorkItemQuery request, CancellationToken cancellationToken)
@@ -25,7 +25,7 @@ public class CopyWorkItemHandler(
 
         foreach (var _condition in _conditions)
         {
-            var _getCondition = await _mediator.Send(new CopyConditionQuery(_condition));
+            var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
 
             _workItem.WorkItemConditions.Add(new()
             {
