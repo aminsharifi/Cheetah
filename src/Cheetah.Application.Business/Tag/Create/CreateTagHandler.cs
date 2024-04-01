@@ -1,6 +1,7 @@
 ﻿namespace Cheetah.Application.Business.Tag.Create;
 
-public class CreateTagHandler(IMediator _mediator, IRepository<D_Tag> _repository)
+public class CreateTagHandler(IPublisher _IPublisher, 
+    IRepository<D_Tag> _repository)
   : ICommandHandler<CreateTagCommand, Result<long>>
 {
     public async Task<Result<long>> Handle(CreateTagCommand request,
@@ -11,7 +12,7 @@ public class CreateTagHandler(IMediator _mediator, IRepository<D_Tag> _repositor
         var createdItem = await _repository.AddAsync(newContributor, cancellationToken);
 
         var domainEvent = new TagCreatedEvent(createdItem.Id);
-        await _mediator.Publish(domainEvent);
+        await _IPublisher.Publish(domainEvent);
 
         return createdItem.Id;
     }
