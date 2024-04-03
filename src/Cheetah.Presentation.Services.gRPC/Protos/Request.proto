@@ -19,6 +19,8 @@ service Request {
   rpc SetCaseTaskUser (SetCaseTaskUser_Input) returns (SetCaseTaskUser_Output);
   rpc SyncEntity (SyncEntity_Input) returns (GRPC_BaseClassWithName);
   rpc SyncLink (SyncLink_Input) returns (GRPC_BaseClassWithName);
+  rpc SyncCondition (SyncCondition_Input) returns (GRPC_BaseClassWithName);
+
 }
 message CreateRequest_Input
 {
@@ -119,6 +121,13 @@ message SyncLink_Input
     repeated LinkEntity Records = 2;
     google.protobuf.Int64Value Crud = 3;
 }
+message SyncCondition_Input
+{
+    GRPC_BaseClassWithName Base = 1;
+    repeated GRPC_Condition Records  = 2;
+    google.protobuf.Int64Value Crud = 3;
+}
+
 message LinkEntity
 {
     GRPC_BaseClass First = 1;
