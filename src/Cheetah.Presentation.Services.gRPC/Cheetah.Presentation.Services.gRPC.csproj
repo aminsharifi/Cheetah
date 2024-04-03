@@ -13,9 +13,11 @@
 	<ItemGroup>
 		<None Remove="Protos\greet.proto" />
 		<None Remove="Protos\Request.proto" />
+		<None Remove="Protos\Sync.proto" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Protobuf Include="Protos\Sync.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\Request.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 	</ItemGroup>
