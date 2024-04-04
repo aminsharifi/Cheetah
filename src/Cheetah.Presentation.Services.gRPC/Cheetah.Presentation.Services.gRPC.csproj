@@ -13,11 +13,9 @@
 	<ItemGroup>
 		<None Remove="Protos\greet.proto" />
 		<None Remove="Protos\Request.proto" />
-		<None Remove="Protos\Sync.proto" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\Sync.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\Request.proto" GrpcServices="Server" />
 		<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 	</ItemGroup>
@@ -26,7 +24,7 @@
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="8.0.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.62.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
 	</ItemGroup>
 
 	<ItemGroup>
