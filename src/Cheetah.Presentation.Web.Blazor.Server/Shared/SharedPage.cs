@@ -37,7 +37,7 @@ public class SharedPage : MyComponentBase
     public IEnumerable<SimpleLinkClass> AllLink { get; set; } = new List<SimpleLinkClass>();
 
     [Parameter]
-    public SimpleLinkClassDTO LinkRecords { get; set; } = new();
+    public LinkClassDTO LinkRecords { get; set; } = new();
 
 
     [Parameter]
