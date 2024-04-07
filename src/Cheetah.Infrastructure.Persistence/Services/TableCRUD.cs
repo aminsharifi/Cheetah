@@ -2,7 +2,7 @@
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {
-    public async Task<Int32> AddLink(SimpleLinkClassDTO obj_DTO)
+    public async Task<Int32> AddLink(LinkClassDTO obj_DTO)
     {
         await _db.AddAsync(obj_DTO);
 
@@ -171,7 +171,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         instance.SortIndex = aa.Any() ? aa.Max(x => x.SortIndex) + 1 : 1;
         return instance;
     }
-    public async Task<Int32> RemoveLink(SimpleLinkClassDTO obj_DTO)
+    public async Task<Int32> RemoveLink(LinkClassDTO obj_DTO)
     {
         _db.Remove(obj_DTO);
 
@@ -184,7 +184,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         _db.ChangeTracker.Clear();
         return obj_DTO;
     }
-    public async Task<Int32> UpdateLinkAsync(SimpleLinkClassDTO obj_DTO)
+    public async Task<Int32> UpdateLinkAsync(LinkClassDTO obj_DTO)
     {
         var gtype = DatabaseClass.GetDBType(obj_DTO.LinkType);
 

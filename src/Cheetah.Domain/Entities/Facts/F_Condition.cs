@@ -47,7 +47,10 @@ public partial class F_Condition : BaseEntity
     {
         get
         {
-            return float.Parse(Value ??= "0");
+            float _returnvalue;
+            float.TryParse(Value, out _returnvalue);
+
+            return _returnvalue;
         }
         set
         {
@@ -64,7 +67,7 @@ public partial class F_Condition : BaseEntity
         if (Tag?.Name is not null && Operand?.Name is not null && Value is not null)
         {
             Name = Tag?.Name + " " + Operand?.Name + " " + Value;
-        }        
+        }
         if (Tag?.DisplayName is not null && Operand?.DisplayName is not null && Value is not null)
         {
             DisplayName = Tag?.DisplayName + " " + Operand?.DisplayName + " " + Value + " است.";

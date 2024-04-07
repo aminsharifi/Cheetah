@@ -2,7 +2,7 @@
 
 public class RequestService(ILogger<RequestService> logger, ApplicationDbContext db,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
-        ICopyClass iCopyClass, IMediator _mediator) : Request.RequestBase
+        ICopyClass iCopyClass, ISync iSync, IMediator _mediator) : Request.RequestBase
 {
     #region Public methods
     public override async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request, ServerCallContext context)
@@ -227,6 +227,95 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         logger.LogInformation("Ended " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", output_Request);
 
         return output_Request;
+    }
+    public override async Task<SyncEntity_Output> SyncEntity(SyncEntity_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", request);
+
+        #region Input
+
+        //L_CaseTaskUser l_CaseTaskUser = new();
+        var output_Request = request.Base.GetSimpleClass<SimpleClassDTO>();
+
+        #endregion
+
+        var Outputresult = await iSync.SyncEntityAsync(output_Request, request.Records.Select
+            (x => x.GetSimpleClass<SimpleClassDTO>()), (CrudOperation)request.Crud.Value);
+
+        #region Output
+
+        var _Result = new SyncEntity_Output();
+        _Result.Result = Outputresult.Value.GetBaseClassWithName();
+        _Result.OutputState = new GRPC_BaseClassWithName { Id = 0 };
+
+        #endregion
+
+        logger.LogInformation("Ended " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", output_Request);
+
+        return _Result;
+    }
+    public override async Task<SyncLink_Output> SyncLink(SyncLink_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", request);
+
+        #region Input
+
+        foreach (var record in request.Records)
+        {
+            record.First.Id = await db.D_Users
+                .Where(x => x.ERPCode == record.First.ERPCode)
+                .AsNoTracking()
+                .Select(x => x.Id)
+                .FirstAsync();
+
+            record.Second.Id = await db.F_Conditions
+                .Where(x => x.ERPCode == record.Second.ERPCode)
+                .AsNoTracking()
+                .Select(x => x.Id)
+                .FirstAsync();
+        }
+
+        #endregion
+
+        await iSync.SyncLinkAsync(request.Base.GetSimpleClass<SimpleClassDTO>(),
+            request.Records.Select(x => new SimpleLinkClassDTO() { FirstId = x.First.Id, SecondId = x.Second.Id }),
+            (CrudOperation)request.Crud.Value);
+
+        #region Output
+
+        var _Result = new SyncLink_Output();
+        _Result.Result = request.Base;
+        _Result.OutputState = new GRPC_BaseClassWithName { Id = 0 };
+
+        #endregion
+
+        logger.LogInformation("Ended " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", _Result);
+
+        return _Result;
+    }
+    public override async Task<SyncCondition_Output> SyncCondition(SyncCondition_Input request, ServerCallContext context)
+    {
+        logger.LogInformation("started " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", request);
+
+        #region Input
+
+        var _Conditions = request.Records.GetConditions().ToList();
+
+        #endregion
+
+        await iSync.SyncConditionAsync(request.Base.GetSimpleClass<SimpleClassDTO>(), _Conditions, (CrudOperation)request.Crud.Value);
+
+        #region Output
+
+        var _Result = new SyncCondition_Output();
+        _Result.Result = request.Base;
+        _Result.OutputState = new GRPC_BaseClassWithName { Id = 0 };
+
+        #endregion
+
+        logger.LogInformation("Ended " + nameof(SetCaseTaskUser) + " {@" + nameof(SetCaseTaskUser) + "}", _Result);
+
+        return _Result;
     }
     #endregion 
 
