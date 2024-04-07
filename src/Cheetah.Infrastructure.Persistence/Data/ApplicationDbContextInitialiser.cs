@@ -85,6 +85,7 @@ public static class InitialiserExtensions
         builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
         builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
         builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
+        builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 
         #endregion
 

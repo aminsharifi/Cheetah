@@ -17,9 +17,9 @@ service Request {
   rpc Outbox (Cartable_Input) returns (Cartable_Output);
   rpc PerformRequest (PerformRequest_Input) returns (PerformRequest_Output);
   rpc SetCaseTaskUser (SetCaseTaskUser_Input) returns (SetCaseTaskUser_Output);
-  rpc SyncEntity (SyncEntity_Input) returns (GRPC_BaseClassWithName);
-  rpc SyncLink (SyncLink_Input) returns (GRPC_BaseClassWithName);
-  rpc SyncCondition (SyncCondition_Input) returns (GRPC_BaseClassWithName);
+  rpc SyncEntity (SyncEntity_Input) returns (SyncEntity_Output);
+  rpc SyncLink (SyncLink_Input) returns (SyncLink_Output);
+  rpc SyncCondition (SyncCondition_Input) returns (SyncCondition_Output);
 
 }
 message CreateRequest_Input
@@ -115,17 +115,34 @@ message SyncEntity_Input
     repeated GRPC_BaseClassWithNameAndDate Records = 2;
     google.protobuf.Int64Value Crud = 3;
 }
+message SyncEntity_Output
+{
+    GRPC_BaseClassWithName Result = 1;
+    GRPC_BaseClassWithName OutputState = 2;
+}  
+
 message SyncLink_Input
 {
     GRPC_BaseClassWithName Base = 1;
     repeated LinkEntity Records = 2;
     google.protobuf.Int64Value Crud = 3;
 }
+message SyncLink_Output
+{
+    GRPC_BaseClassWithName Result = 1;
+    GRPC_BaseClassWithName OutputState = 2;
+}
 message SyncCondition_Input
 {
     GRPC_BaseClassWithName Base = 1;
     repeated GRPC_Condition Records  = 2;
     google.protobuf.Int64Value Crud = 3;
+}
+
+message SyncCondition_Output
+{
+    GRPC_BaseClassWithName Result = 1;
+    GRPC_BaseClassWithName OutputState = 2;
 }
 
 message LinkEntity
