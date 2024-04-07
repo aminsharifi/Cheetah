@@ -126,7 +126,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<int> UpdateLinkAsync(SimpleLinkClassDTO obj_DTO)
+    public Task<int> UpdateLinkAsync(LinkClassDTO obj_DTO)
     {
         throw new NotImplementedException();
     }

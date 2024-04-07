@@ -186,7 +186,7 @@ public static class CgRPC
         {
             _condition = new()
             {
-                Id = Condition.Base.Id.Value,
+                //Id = Condition.Base.Id.Value,
                 Name = Condition.Base.Name,
                 ERPCode = Condition.Base.ERPCode,
                 SortIndex = Condition.Base.SortIndex
@@ -256,6 +256,10 @@ public static class CgRPC
         if (gRPC_BaseClass.Name is not null)
         {
             _SimpleClass.Name = gRPC_BaseClass.Name;
+        }
+        if (gRPC_BaseClass.DisplayName is not null)
+        {
+            _SimpleClass.DisplayName = gRPC_BaseClass.DisplayName;
         }
         if (gRPC_BaseClass.CreateTimeRecord is not null)
         {
