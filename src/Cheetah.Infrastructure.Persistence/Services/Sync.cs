@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using Cheetah.Application.Business.Condition.Get;
+using System.Linq;
 
 namespace Cheetah.Infrastructure.Persistence.Services;
 
@@ -7,7 +8,7 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
 {
     public async Task<Result<SimpleClassDTO>> SyncLinkAsync(SimpleClassDTO Base, IEnumerable<SimpleLinkClassDTO> Records, CrudOperation Crud)
     {
-        var _ERPCodes = Records.Select(x => Guard.Against.Null(x.ERPCode, $"Id of {x.Name} can not be null"));
+        _ = Records.Select(x => Guard.Against.Null(x.ERPCode, $"Id of {x.Name} can not be null"));
 
         var _IsRead = (Crud is CrudOperation.Read);
 
@@ -37,24 +38,27 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
                         FirstId = item.FirstId,
                         SecondId = item.SecondId
                     }));
+                await _db.SaveChangesAsync();
             }
         }
-        else if (Crud == CrudOperation.Delete || _IsRead)
+        if (Crud == CrudOperation.Delete || _IsRead)
         {
+            var _FilterdRecords = Records.Where(y => !y.EnableRecord).Select(y => y.ERPCode);
+
             if (Base.Name == nameof(L_UserCondition))
             {
                 _ = await _db.L_UserConditions
-                    .Where(x => Records.Where(y => y.ERPCode == x.ERPCode && !y.EnableRecord).Any())
-                    .Where(x => x.EnableRecord)
+                    .Where(x => _FilterdRecords.Contains(x.ERPCode))
                     .ExecuteUpdateAsync(setters => setters.SetProperty(field => field.EnableRecord, false));
+
             }
         }
-        await _db.SaveChangesAsync();
+
         return Base;
     }
     public async Task<Result<SimpleClassDTO>> SyncConditionAsync(SimpleClassDTO Base, IEnumerable<F_Condition> Records, CrudOperation Crud)
     {
-        var _ERPCodes = Records.Select(x => Guard.Against.Null(x.ERPCode, $"Id of {x.Name} can not be null"));
+        _ = Records.Select(x => Guard.Against.Null(x.ERPCode, $"Id of {x.Name} can not be null"));
 
         var _IsRead = (Crud is CrudOperation.Read);
 
@@ -64,7 +68,7 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
             {
                 var _AllConditionsERPCode = await _db.F_Conditions.Select(x => x.ERPCode).ToListAsync();
 
-                var _MostBeAdd = Records.Where(x => !_AllConditionsERPCode.Any(y => y == x.ERPCode));
+                var _MostBeAdd = Records.Where(x => !_AllConditionsERPCode.Contains(x.ERPCode));
 
                 foreach (var _condition in _MostBeAdd)
                 {
@@ -72,43 +76,37 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
                     await _db.F_Conditions.AddAsync(_getCondition);
                 }
             }
+            await _db.SaveChangesAsync();
         }
         if (Crud == CrudOperation.Update || _IsRead)
         {
             if (Base.Name == nameof(F_Condition))
             {
-                foreach (var _condition in Records)
+                foreach (var Record in Records)
                 {
                     var _exist = await _db.F_Conditions
-                        .Where(x => x.ERPCode == _condition.ERPCode)
+                        .Where(x => x.ERPCode == Record.ERPCode)
                         .SingleOrDefaultAsync();
 
                     if (_exist is not null)
                     {
-                        var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
-
-                        _exist.ERPCode = _getCondition.Value.ERPCode;
-                        _exist.Name = _getCondition.Value.Name;
-                        _exist.Description = _getCondition.Value.Description;
-                        _exist.TagId = _getCondition.Value.TagId;
-                        _exist.OperandId = _getCondition.Value.OperandId;
-                        _exist.Value = _getCondition.Value.Value;
-                        _exist.EnableRecord = _getCondition.Value.EnableRecord;
-
+                        _exist.Name = Record.Name;
+                        _exist.DisplayName = Record.Name;
+                        _exist.Description = Record.Description;
+                        _exist.EnableRecord = Record.EnableRecord;
                         _db.F_Conditions.Update(_exist);
                     }
                 }
             }
+            await _db.SaveChangesAsync();
         }
         if (Crud == CrudOperation.Delete || _IsRead)
         {
+            var _FilterdRecords = Records.Where(y => !y.EnableRecord).Select(y => y.ERPCode);
             _ = await _db.F_Conditions
-          .Where(x => Records.Any(y => y.ERPCode == x.ERPCode && !y.EnableRecord))
-          .Where(x => !x.EnableRecord)
-          .ExecuteUpdateAsync(setters => setters.SetProperty(field => field.EnableRecord, false));
+                .Where(x => _FilterdRecords.Contains(x.ERPCode))
+                .ExecuteUpdateAsync(setters => setters.SetProperty(field => field.EnableRecord, false));
         }
-
-        await _db.SaveChangesAsync();
         return Base;
     }
 
@@ -131,7 +129,6 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
         {
             _ = await SyncEntityDeleteAsync(Base, Records);
         }
-        await _db.SaveChangesAsync();
         return Base;
     }
     public async Task<Result<SimpleClassDTO>> SyncEntityCreateAsync(SimpleClassDTO Base, IEnumerable<SimpleClassDTO> Records)
@@ -171,6 +168,7 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
                 }));
             }
         }
+        await _db.SaveChangesAsync();
         return Base;
     }
     public async Task<Result<SimpleClassDTO>> SyncEntityUpdateAsync(SimpleClassDTO Base, IEnumerable<SimpleClassDTO> Records)
@@ -178,42 +176,56 @@ public class Sync(ApplicationDbContext _db, ISender _ISender) : ISync
         if (Base.Name == nameof(D_User))
         {
             var _users = await _db.D_Users
-                .Where(x => Records.Any(y => y.ERPCode == x.ERPCode))
+                .Where(x => Records.Select(y => y.ERPCode).Contains(x.ERPCode))
                 .AsNoTracking()
                 .ToListAsync();
 
-            if (_users.Any())
+            foreach (var user in _users)
             {
-                _db.D_Users.UpdateRange(_users);
+                var _Record = Records.Where(x => x.ERPCode == user.ERPCode).Single();
+
+                user.Name = _Record.Name;
+                user.DisplayName = _Record.DisplayName;
+                user.Description = _Record.Description;
+                user.EnableRecord = _Record.EnableRecord;
+                _db.D_Users.Update(user);
             }
         }
         else if (Base.Name == nameof(D_Tag))
         {
             var _tags = await _db.D_Tags
-                .Where(x => Records.Any(y => y.ERPCode == x.ERPCode))
+                .Where(x => Records.Select(y => y.ERPCode).Contains(x.ERPCode))
                 .AsNoTracking()
                 .ToListAsync();
 
-            if (_tags.Any())
+            foreach (var _tag in _tags)
             {
-                _db.D_Tags.UpdateRange(_tags);
+                var _Record = Records.Where(x => x.ERPCode == _tag.ERPCode).Single();
+
+                _tag.Name = _Record.Name;
+                _tag.DisplayName = _Record.DisplayName;
+                _tag.Description = _Record.Description;
+                _tag.EnableRecord = _Record.EnableRecord;
+                _db.D_Tags.Update(_tag);
             }
         }
-
+        await _db.SaveChangesAsync();
         return Base;
     }
     public async Task<Result<SimpleClassDTO>> SyncEntityDeleteAsync(SimpleClassDTO Base, IEnumerable<SimpleClassDTO> Records)
     {
+        var _FilterdRecords = Records.Where(y => !y.EnableRecord).Select(y => y.ERPCode);
+
         if (Base.Name == nameof(D_User))
         {
             _ = await _db.D_Users
-                .Where(x => Records.Any(y => y.ERPCode == x.ERPCode && !y.EnableRecord))
+                .Where(x => _FilterdRecords.Contains(x.ERPCode))
                 .ExecuteUpdateAsync(setters => setters.SetProperty(field => field.EnableRecord, false));
         }
         else if (Base.Name == nameof(D_Tag))
         {
             _ = await _db.D_Tags
-                  .Where(x => Records.Any(y => y.ERPCode == x.ERPCode))
+                  .Where(x => _FilterdRecords.Contains(x.ERPCode))
                   .ExecuteUpdateAsync(setters => setters.SetProperty(field => field.EnableRecord, false));
         }
         return Base;
