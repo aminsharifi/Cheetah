@@ -278,7 +278,14 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
         #endregion
 
         await iSync.SyncLinkAsync(request.Base.GetSimpleClass<SimpleClassDTO>(),
-            request.Records.Select(x => new SimpleLinkClassDTO() { FirstId = x.First.Id, SecondId = x.Second.Id }),
+            request.Records
+            .Select(x => new SimpleLinkClassDTO()
+            {
+                FirstId = x.First.Id,
+                SecondId = x.Second.Id,
+                ERPCode = x.ERPCode,
+                EnableRecord = (x.EnableRecord is true)
+            }),
             (CrudOperation)request.Crud.Value);
 
         #region Output
