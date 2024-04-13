@@ -317,7 +317,7 @@ public class RequestService(ILogger<RequestService> logger, ApplicationDbContext
 
         return _Result;
     }
-    #endregion 
+    #endregion
 
     #region Private methods
     private async Task<Cartable_Output> Cartable(Cartable_Input request, CartableProperty cartableProperty)
