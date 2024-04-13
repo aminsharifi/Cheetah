@@ -149,6 +149,8 @@ message LinkEntity
 {
     GRPC_BaseClass First = 1;
     GRPC_BaseClass Second = 2;
+    google.protobuf.Int64Value ERPCode = 3;
+    google.protobuf.BoolValue EnableRecord = 4;
 }
 
 message GRPC_BaseClass
@@ -156,6 +158,7 @@ message GRPC_BaseClass
     google.protobuf.Int64Value Id = 1;
     google.protobuf.Int64Value ERPCode = 2;
     google.protobuf.Int64Value SortIndex = 3;
+    google.protobuf.BoolValue EnableRecord = 4;
 }
 
 message GRPC_BaseClassWithName
@@ -165,6 +168,7 @@ message GRPC_BaseClassWithName
     google.protobuf.Int64Value SortIndex = 3;
     google.protobuf.StringValue Name = 4;
     google.protobuf.StringValue DisplayName = 5;
+    google.protobuf.BoolValue EnableRecord = 6;
 }
 
 message GRPC_BaseClassWithDate
@@ -174,6 +178,7 @@ message GRPC_BaseClassWithDate
     google.protobuf.Int64Value SortIndex = 3;
     google.protobuf.Timestamp CreateTimeRecord = 4;
     google.protobuf.Timestamp LastUpdatedRecord = 5;
+    google.protobuf.BoolValue EnableRecord = 6;
 }
 
 message GRPC_BaseClassWithNameAndDate
@@ -185,6 +190,7 @@ message GRPC_BaseClassWithNameAndDate
     google.protobuf.StringValue DisplayName = 5;
     google.protobuf.Timestamp CreateTimeRecord = 6;
     google.protobuf.Timestamp LastUpdatedRecord = 7;
+    google.protobuf.BoolValue EnableRecord = 8;
 }
 
 message GRPC_Task
