@@ -25,7 +25,6 @@ public class Sync(ISender _ISender,
                 .Where(y => y.SecondId == x.SecondId)
                 .Any());
 
-
                 _ = await userConditionRepository.AddRangeAsync(_MostBeAdd.Select(
                     item => new L_UserCondition()
                     {
@@ -196,6 +195,7 @@ public class Sync(ISender _ISender,
             var _FilterdRecords = await tagRepository.ListAsync(_GetEntitiesByERPCodeSpec);
 
             List<D_Tag> _Users = new();
+
             Parallel.ForEach(_FilterdRecords, _FilterdRecord =>
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Get;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class CopyWorkItemHandler(
     IReadRepository<D_User> _userRepository,
@@ -23,7 +25,7 @@ public class CopyWorkItemHandler(
 
         var _conditions = request.input.WorkItemConditions.Select(x => x.Condition);
 
-        foreach (var _condition in _conditions)
+        await Parallel.ForEachAsync(_conditions, async (_condition, cancellation) =>
         {
             var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
 
@@ -31,7 +33,7 @@ public class CopyWorkItemHandler(
             {
                 SecondId = _getCondition.Value.Id
             });
-        }
+        });
         return _workItem;
     }
 }
