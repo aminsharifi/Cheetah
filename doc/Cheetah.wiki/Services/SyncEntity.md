@@ -32,13 +32,20 @@
     {
         "Name": {"value": "D_User"}
     },
-    "Crud": {"value": 0},
+    "Crud": {"value": 1},
     "Records":
     [
         {
-            "ERPCode": {"value": 4},
-            "Name": {"value": "Sample4"},
-            "DisplayName": {"value": "نمونه4"}
+            "ERPCode": {"value": 15},
+            "Name": {"value": "Sample15"},
+            "DisplayName": {"value": "نمونه15"},
+            "EnableRecord": {"value": true}
+        },
+        {
+            "ERPCode": {"value": 16},
+            "Name": {"value": "Sample 16"},
+            "DisplayName": {"value": "نمونه 16"},
+            "EnableRecord": {"value": false}
         }
     ]
 }
@@ -63,6 +70,9 @@
         },
         "DisplayName": {
             "value": ""
+        },
+        "EnableRecord": {
+            "value": false
         }
     },
     "OutputState": {
@@ -72,7 +82,8 @@
         "ERPCode": null,
         "SortIndex": null,
         "Name": null,
-        "DisplayName": null
+        "DisplayName": null,
+        "EnableRecord": null
     }
 }
 ```
