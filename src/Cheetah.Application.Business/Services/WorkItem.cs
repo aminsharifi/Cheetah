@@ -22,7 +22,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
         }
         else
         {
-            var _retGeneralRequest = await SetWorkItemsAsync(GeneralRequest);
+            _ = await SetWorkItemsAsync(GeneralRequest);
 
             await caseRepository.AddAsync(GeneralRequest);
 
@@ -39,12 +39,6 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
         await workItemRepository.UpdateAsync(Current_WorkItem);
 
-        /*
-        _db.F_WorkItems.Update(Current_WorkItem);
-
-        await _db.SaveChangesAsync();
-
-        */
 
         if (Current_WorkItem.LastModified is not null && !Rebase)
         {
@@ -64,25 +58,12 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
             await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
         }
 
-        //await _db.SaveChangesAsync();
-
         _OutputState = OutputState<F_Case>.SuccessPerformWorkItem(Current_WorkItem.Id, Current_WorkItem.Case);
 
         return _OutputState;
     }
     public async Task<CheetahResult<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser)
     {
-        var _CaseTaskUser = await _iCopyClass.DeepCopyAsync(CaseTaskUser);
-
-        //var _selectedCaseTaskUsers = _db.L_CaseTaskUsers
-        //    .Where(x => x.Case.Id == CaseTaskUser.Case.Id)
-        //    .Where(x => x.Task.Id == CaseTaskUser.Task.Id);
-
-        //var _result = _selectedCaseTaskUsers
-        //    .Include(x => x.Case)
-        //    .Include(x => x.Task)
-        //    .Include(x => x.User);
-
         var _selectedCaseTaskUsers = (await iSender.Send(
             new GetByCaseAndTaskQuery(caseId: CaseTaskUser.Case.Id,
             taskId: CaseTaskUser.Task.Id))).Value;
@@ -160,22 +141,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     .Where(x => x.EnableRecord)
                     .Select(x => x.SecondId);
 
-                //var _taskUserConditions = await _db.L_UserConditions
-                //    .Where(x => _performerConditions.Contains(x.SecondId))
-                //    .Where(x => x.EnableRecord)
-                //    .AsNoTracking()
-                //    .Select(x => x.FirstId)
-                //    .ToListAsync();
-
                 var _taskUserConditions = (await iSender.Send(new GetUserByConditionQuery(_performerConditions))).Value;
-
-                //var _CaseUserConditions = await _db.L_UserConditions
-                //    .Where(x => _taskUserConditions.Contains(x.FirstId))
-                //    .Where(x => _CaseCondition.Contains(x.SecondId))
-                //    .Where(x => x.EnableRecord)
-                //    .AsNoTracking()
-                //    .Select(x => x.FirstId)
-                //    .ToListAsync();
 
                 var _CaseUserConditions = (await iSender.Send(new GetUserByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
 
@@ -190,7 +156,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     _userIds = _taskUserConditions.ToList();
                 }
 
-                foreach (var _userId in _userIds)
+                Parallel.ForEach(_userIds, _userId =>
                 {
                     F_WorkItem _WorkItemForEachTask = new()
                     {
@@ -200,7 +166,8 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     };
 
                     Current_Case.WorkItems.Add(_WorkItemForEachTask);
-                }
+                });
+
                 if (!Current_Case.WorkItems
                   .Where(x => x.TaskId == _task.Id)
                   .Any())
@@ -215,8 +182,6 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
         }
 
         await SetCurrentAssignmentAsync(_workItem);
-
-        //await caseRepository.UpdateAsync(Current_Case);
 
         return OutputState<Boolean>.Success("با موفقیت ایجاد شد.", true);
     }
@@ -233,17 +198,12 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
         var ConditionOccur = 0;
 
-        foreach (var _expected_Condition in Expected_Conditions)
+        Parallel.ForEach(Expected_Conditions, _expected_Condition =>
         {
             var Operand_Name = _expected_Condition.Operand.Name;
 
             switch (Operand_Name)
             {
-                //case string Greater when Current_Value > Scenario_Value && Greater == D_Operand.Greater.Name:
-                //case string EqualAndGreater when Current_Value >= Scenario_Value && EqualAndGreater == D_Operand.EqualAndGreater.Name:
-                //case string LessThan when Current_Value < Scenario_Value && LessThan == D_Operand.LessThan.Name:
-                //case string LessThanOrEqual when Current_Value <= Scenario_Value && LessThanOrEqual == D_Operand.LessThanOrEqual.Name:
-
                 case string Equals when Actual_Conditions
                 .Where(x => x.TagId == _expected_Condition.TagId)
                 .Where(x => x.Value == _expected_Condition.Value)
@@ -256,7 +216,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     ConditionOccur++;
                     break;
             }
-        }
+        });
 
         var _isTheSame = (ConditionOccur == cnt_con);
 
@@ -268,32 +228,19 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
         var _currentTaskId = Current_WorkItem.TaskId;
 
-        //var _taskFlows = await _db.L_TaskFlows
-        //   .Where(x => x.FirstId == _currentTaskId)
-        //   .Include(x => x.Task)
-        //   .Include(x => x.Flow)
-        //   .AsNoTracking()
-        //   .ToListAsync();
-
         var _taskFlows = (await iSender.Send(new GetFlowsByTaskQuery(_currentTaskId.Value))).Value;
 
         var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
 
         var _actual_Conditions = (await iSender.Send(
             new GetIncludedConditionsQuery(_actualConditionsIds))).Value;
-        /*
-        var _actual_Conditions = await _db.F_Conditions
-            .Where(x => _actualConditionsIds.Where(z => z == x.Id).Any())
-            .AsNoTracking()
-            .ToListAsync();
-        */
 
-        foreach (var _taskFlow in _taskFlows)
+        await Parallel.ForEachAsync(_taskFlows, async (_taskFlow,cancellation) =>
         {
             var ExpectedConditions = _taskFlow.
-                Flow.FlowConditions.
-                Select(x => x.Condition)
-                .ToList();
+            Flow.FlowConditions.
+            Select(x => x.Condition)
+            .ToList();
 
             if (CompareCondition(_actual_Conditions, ExpectedConditions))
             {
@@ -325,25 +272,17 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     }
                     #endregion
 
-
                     #region Set inbox
 
                     var toTasks = _taskFlow?.Flow?.FlowTasks
                         .Select(x => x.Task);
 
-                    foreach (var toTask in toTasks)
+                    await Parallel.ForEachAsync(toTasks, async (toTask, cancellationToken) =>
                     {
                         var _Current_WorkItems =
-                            Current_WorkItem.Case.WorkItems
-                            .Where(x => x.TaskId == toTask.Id)
-                            .Where(x => !x.IsSent() && !x.IsExit());
-
-                        /*
-                        var _caseTaskUsers = await _db.L_CaseTaskUsers
-                            .Where(x => x.Case.Id == Current_WorkItem.CaseId)
-                            .Where(x => x.Task.Id == toTask.Id)
-                            .ToListAsync();
-                        */
+                         Current_WorkItem.Case.WorkItems
+                         .Where(x => x.TaskId == toTask.Id)
+                         .Where(x => !x.IsSent() && !x.IsExit());
 
                         var _selectedUser = false;
 
@@ -376,17 +315,16 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                                  .ToList()
                                  .ForEach(x => x.SetInbox());
                         }
+                    });
 
-                        #endregion
+                    #endregion
 
-                    }
                     Current_WorkItem.Case.WorkItems
                     .Where(x => x.WorkItemStateId is null)
                     .ToList().ForEach(x => x.SetFuture());
                 }
             }
-        }
-        //await workItemRepository.UpdateAsync(Current_WorkItem);
+        });
         return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
     }
 }

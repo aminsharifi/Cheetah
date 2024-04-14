@@ -47,24 +47,24 @@ public class CopyCaseHandler(
 
         var _conditions = request.input.CaseConditions.Select(x => x.Condition);
 
-        foreach (var _condition in _conditions)
+        await Parallel.ForEachAsync(_conditions, async (_condition, _cancellatoin) =>
         {
             var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
-
             _case.CaseConditions.Add(new()
             {
                 SecondId = _getCondition.Value.Id
             });
-        }
+        });
+
 
         var _workItems = request.input.WorkItems;
 
-        foreach (var _workItem in _workItems)
+        await Parallel.ForEachAsync(_workItems, async (_workItem, _cancellatoin) =>
         {
             var _CopiedworkItem = await _ISender.Send(new CopyWorkItemQuery(_workItem));
 
             _case.WorkItems.Add(_CopiedworkItem);
-        }
+        });
 
         return _case;
     }
