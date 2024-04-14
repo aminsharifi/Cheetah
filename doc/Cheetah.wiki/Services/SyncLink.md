@@ -32,12 +32,20 @@
     {
         "Name": {"value": "L_UserCondition"}
     },
-    "Crud": {"value": "0"},
+    "Crud": {"value": "1"},
     "Records":
     [
         {
-            "First": {"ERPCode": {"value": "4"}},
-            "Second": {"ERPCode": {"value": "30"}}
+            "ERPCode": {"value": "12"},
+            "First": {"ERPCode": {"value": "16"}},
+            "Second": {"ERPCode": {"value": "17"}},
+            "EnableRecord": {"value": false}
+        },
+        {
+            "ERPCode": {"value": "13"},
+            "First": {"ERPCode": {"value": "15"}},
+            "Second": {"ERPCode": {"value": "17"}},
+            "EnableRecord": {"value": true}
         }
     ]
 }
@@ -54,7 +62,8 @@
         "Name": {
             "value": "L_UserCondition"
         },
-        "DisplayName": null
+        "DisplayName": null,
+        "EnableRecord": null
     },
     "OutputState": {
         "Id": {
@@ -63,7 +72,8 @@
         "ERPCode": null,
         "SortIndex": null,
         "Name": null,
-        "DisplayName": null
+        "DisplayName": null,
+        "EnableRecord": null
     }
 }
 ```

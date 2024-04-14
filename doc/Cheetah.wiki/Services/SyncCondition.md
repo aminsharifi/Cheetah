@@ -32,20 +32,33 @@
     {
         "Name": {"value": "F_Condition"}
     },
-    "Crud": {"value": 0},
+    "Crud": {"value": 1},
     "Records":
     [
         {
             "Base":
             {
-                "Name": {"value": "مدیر شاخص"},
-                "DisplayName": {"value": "مدیر شاخص"},
-                "ERPCode": {"value": "30"}
+                "Name": {"value": "16"},
+                "DisplayName": {"value": "16"},
+                "ERPCode": {"value": "16"},
+                "EnableRecord": {"value": true}
             },
             "Tag": {"Name":{"value": "Role"}},
             "Operand": {"Name": {"value": "="}},
-            "Value":{"value": "مدیر شاخص"}
-        }    
+            "Value":{"value": "Role 16"}
+        },
+        {
+            "Base":
+            {
+                "Name": {"value": "17"},
+                "DisplayName": {"value": "17"},
+                "ERPCode": {"value": "17"},
+                "EnableRecord": {"value": false}
+            },
+            "Tag": {"Name":{"value": "Role"}},
+            "Operand": {"Name": {"value": "="}},
+            "Value":{"value": "Role 17"}
+        }
     ]
 }
 ```
@@ -61,7 +74,8 @@
         "Name": {
             "value": "F_Condition"
         },
-        "DisplayName": null
+        "DisplayName": null,
+        "EnableRecord": null
     },
     "OutputState": {
         "Id": {
@@ -70,7 +84,8 @@
         "ERPCode": null,
         "SortIndex": null,
         "Name": null,
-        "DisplayName": null
+        "DisplayName": null,
+        "EnableRecord": null
     }
 }
 ```
