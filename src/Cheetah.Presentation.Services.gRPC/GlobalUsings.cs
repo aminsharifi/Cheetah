@@ -15,3 +15,4 @@ global using Grpc.Core;
 global using MediatR;
 global using Microsoft.AspNetCore.Server.Kestrel.Core;
 global using Microsoft.EntityFrameworkCore;
+global using Cheetah.Infrastructure.Persistence;
