@@ -83,6 +83,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{1763
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{B228BC1E-30BE-47C7-9D5C-1C9EDBF4E8F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Presentation.Services.Shared", "src\Cheetah.Presentation.Services.Shared\Cheetah.Presentation.Services.Shared.csproj", "{C3A898C8-1BEC-40D2-BAA1-2555596409D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{611F6329-5F85-42B7-8BAC-EDDE52297AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A898C8-1BEC-40D2-BAA1-2555596409D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A898C8-1BEC-40D2-BAA1-2555596409D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A898C8-1BEC-40D2-BAA1-2555596409D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A898C8-1BEC-40D2-BAA1-2555596409D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{081E097B-66B6-4724-8678-9F16B41611A3} = {5149CFBC-DCEB-4FBE-8652-9B0A795C15B2}
 		{17631744-F13A-42D2-A978-8D193F79713E} = {9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}
 		{B228BC1E-30BE-47C7-9D5C-1C9EDBF4E8F1} = {5149CFBC-DCEB-4FBE-8652-9B0A795C15B2}
+		{C3A898C8-1BEC-40D2-BAA1-2555596409D9} = {BA5B8226-B742-4E75-A333-871DA96E15F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}

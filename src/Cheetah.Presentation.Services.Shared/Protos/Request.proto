@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 
 option csharp_namespace = "Cheetah_GrpcService";
 
@@ -20,7 +21,12 @@ service Request {
   rpc SyncEntity (SyncEntity_Input) returns (SyncEntity_Output);
   rpc SyncLink (SyncLink_Input) returns (SyncLink_Output);
   rpc SyncCondition (SyncCondition_Input) returns (SyncCondition_Output);
+  rpc Health(google.protobuf.Empty) returns (Health_Output);
 
+}
+message Health_Output
+{
+    google.protobuf.StringValue DisplayName = 1;
 }
 message CreateRequest_Input
 {
