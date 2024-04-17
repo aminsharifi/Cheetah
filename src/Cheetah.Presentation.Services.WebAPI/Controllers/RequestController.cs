@@ -1,23 +1,61 @@
 ﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah_GrpcService;
+using MediatR;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RequestController(ILogger<RequestController> logger, ApplicationDbContext db,
-        ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
-        ICopyClass iCopyClass) : ControllerBase
+public class RequestController : ControllerBase
 {
-    [HttpGet(nameof(CreateRequest))]
-    public async Task<CreateRequest_Output> CreateRequest([FromQuery] CreateRequest_Input request)
+    public Shared.Services.RequestService G_RequestService;
+    public ILogger<Shared.Services.RequestService> logger;
+    public ApplicationDbContext db;
+    public ITableCRUD simpleClassRepository;
+    public ICartable iCartable;
+    public IWorkItem iWorkItem;
+    public ICopyClass iCopyClass;
+    public ISync iSync;
+    public IMediator _mediator;
+    public RequestController(ILogger<Shared.Services.RequestService> GLogger,
+        ApplicationDbContext GDb,
+        ITableCRUD GSimpleClassRepository, ICartable GICartable, IWorkItem GIWorkItem,
+        ICopyClass GICopyClass, ISync GISync, IMediator GMediator)
     {
-        logger.LogInformation("started " + nameof(CreateRequest));
+        logger = GLogger;
+        db = GDb;
+        simpleClassRepository = GSimpleClassRepository;
+        iCartable = GICartable;
+        iWorkItem = GIWorkItem;
+        iCopyClass = GICopyClass;
+        iSync = GISync;
+        _mediator = GMediator;
+
+        G_RequestService = new Shared.Services.RequestService(
+        logger, simpleClassRepository, iCartable, iWorkItem, iCopyClass, iSync, _mediator);
+    }
+
+    [HttpPost(nameof(CreateRequest))]
+    public async Task<Cheetah_GrpcService.CreateRequest_Output> CreateRequest([FromBody] Cheetah_GrpcService.CreateRequest_Input request)
+    {
+        return await G_RequestService.CreateRequest(request);
+    }
+
+    [HttpGet(nameof(Health))]
+    public Health_Output Health()
+    {
+        return G_RequestService.Health();
+    }
+
+    [HttpPost(nameof(SimpleCreateRequest))]
+    public async Task<CreateRequest_Output> SimpleCreateRequest([FromBody] CreateRequest_Input request)
+    {
+        logger.LogInformation("started " + nameof(SimpleCreateRequest));
         logger.LogInformation("{@Create_Input_Request}", request);
 
         #region Input
 
         F_Case f_Request = request.Case.GetSimpleClass<F_Case>();
-
         f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
         f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
         f_Request.Process = request.Process.GetSimpleClass<D_Process>();
@@ -63,14 +101,14 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         #endregion
 
-        logger.LogInformation("Ended " + nameof(CreateRequest));
+        logger.LogInformation("Ended " + nameof(SimpleCreateRequest));
         logger.LogInformation("{@Create_Output_Request}", output_Request);
 
         return output_Request;
     }
 
-    [HttpGet(nameof(PerformRequest))]
-    public async Task<PerformRequest_Output> PerformRequest([FromQuery] PerformRequest_Input request)
+    [HttpPost(nameof(PerformRequest))]
+    public async Task<PerformRequest_Output> PerformRequest([FromBody] PerformRequest_Input request)
     {
         logger.LogInformation("started " + nameof(PerformRequest));
         logger.LogInformation("{@Perform_Input_Request}", request);
@@ -132,8 +170,8 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         return output_Request;
     }
 
-    [HttpGet(nameof(GetCase))]
-    public async Task<GetCase_Output> GetCase([FromQuery] GetCase_Input request)
+    [HttpPost(nameof(GetCase))]
+    public async Task<GetCase_Output> GetCase([FromBody] GetCase_Input request)
     {
         #region Input
         var f_Request = request.Case.GetSimpleClass<F_Case>();
@@ -173,7 +211,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         output_Requests.Tasks.AddRange(
             Tasks.Select(x => new GRPC_Task()
             {
-                Task = x.GetBaseClassWithName()
+                Base = x.GetBaseClassWithName()
             })
             );
 
@@ -183,25 +221,25 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         foreach (var Task in output_Requests.Tasks)
         {
-            Task.WorkItems.AddRange(
-            l_Request?.WorkItems
-                .Where(x => x.TaskId == Task.Task.Id)
-                .Select(x => new GRPC_WorkItem()
-                {
-                    User = x.User.GetBaseClassWithName(),
-                    WorkItemState = x.WorkItemState?.GetBaseClassWithName(),
-                    WorkItem = x.GetBaseClassWithDate()
-                })
-                );
+            //Task.WorkItems.AddRange(
+            //l_Request?.WorkItems
+            //    .Where(x => x.TaskId == Task.Task.Id)
+            //    .Select(x => new GRPC_WorkItem()
+            //    {
+            //        User = x.User.GetBaseClassWithName(),
+            //        WorkItemState = x.WorkItemState?.GetBaseClassWithName(),
+            //        WorkItem = x.GetBaseClassWithDate()
+            //    })
+            //    );
 
             foreach (var workItem in Task.WorkItems)
             {
-                workItem.Conditions.AddRange(
-                l_Request?.WorkItems
-                .Where(x => x.Id == workItem.WorkItem.Id)
-                .Single()
-                .WorkItemConditions.Select(x => x.Condition).GetCondition()
-                );
+                //workItem.Conditions.AddRange(
+                //l_Request?.WorkItems
+                //.Where(x => x.Id == workItem.WorkItem.Id)
+                //.Single()
+                //.WorkItemConditions.Select(x => x.Condition).GetCondition()
+                //);
             }
         }
 
@@ -216,8 +254,8 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         return output_Requests;
     }
 
-    [HttpGet(nameof(GetAllByName))]
-    public async Task<GetAllByName_Output> GetAllByName([FromQuery] GetAllByName_Input request)
+    [HttpPost(nameof(GetAllByName))]
+    public async Task<GetAllByName_Output> GetAllByName([FromBody] GetAllByName_Input request)
     {
         GetAllByName_Output getAllByName_Output = new();
 
@@ -249,8 +287,8 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
         return getAllByName_Output;
     }
 
-    [HttpGet(nameof(SetCaseTaskUser))]
-    public async Task<SetCaseTaskUser_Output> SetCaseTaskUser([FromQuery] SetCaseTaskUser_Input request)
+    [HttpPost(nameof(SetCaseTaskUser))]
+    public async Task<SetCaseTaskUser_Output> SetCaseTaskUser([FromBody] SetCaseTaskUser_Input request)
     {
         logger.LogInformation("started " + nameof(SetCaseTaskUser) + $": {request}");
 
@@ -286,7 +324,7 @@ public class RequestController(ILogger<RequestController> logger, ApplicationDbC
 
         #endregion
 
-        logger.LogInformation("Ended " + nameof(CreateRequest));
+        logger.LogInformation("Ended " + nameof(SimpleCreateRequest));
         logger.LogInformation("{@Create_Output_Request}", output_Request);
 
         return output_Request;
