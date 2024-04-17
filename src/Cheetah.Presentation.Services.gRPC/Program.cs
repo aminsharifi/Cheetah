@@ -1,7 +1,4 @@
-using Ardalis.ListStartupServices;
 using Cheetah.Application.Services.gRPC.Middleware;
-using Serilog;
-using Serilog.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
