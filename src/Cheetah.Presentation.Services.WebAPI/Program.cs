@@ -1,4 +1,14 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+
 var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsProduction())
+{
+    builder.WebHost.ConfigureKestrel(serverOptions =>
+    {
+        serverOptions.ListenAnyIP(1991, cfg => { cfg.Protocols = HttpProtocols.Http1; });
+    });
+}
 
 // Add services to the container.
 
@@ -27,5 +37,5 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
-
+app.MapGet("/health", () => Results.Ok());
 app.Run();
