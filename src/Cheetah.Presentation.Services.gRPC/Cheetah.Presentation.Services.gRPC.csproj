@@ -3,22 +3,12 @@
 	<PropertyGroup>		
 		<UserSecretsId>77325be2-ba4e-4194-9f27-03ee80f90846</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<Version>8.5.100</Version>
+		<Version>8.5.201</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="Protos\greet.proto" />
-		<None Remove="Protos\Request.proto" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Protobuf Include="Protos\Request.proto" GrpcServices="Server" />
-		<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
@@ -28,8 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.Npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
+		<ProjectReference Include="..\Cheetah.Presentation.Services.Shared\Cheetah.Presentation.Services.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

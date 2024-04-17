@@ -1,20 +1,5 @@
 ﻿namespace Cheetah.Presentation.Services.WebAPI;
 
-public class SetCaseTaskUser_Input
-{
-    public GRPC_BaseClass? Case { get; set; }
-    public GRPC_BaseClassWithName? Task { get; set; }
-    public GRPC_BaseClassWithName? User { get; set; }
-}
-
-public class SetCaseTaskUser_Output
-{
-    public GRPC_BaseClass? Case { get; set; }
-    public GRPC_BaseClassWithName? Task { get; set; }
-    public GRPC_BaseClassWithName? User { get; set; }
-    public GRPC_BaseClassWithName? OutputState { get; set; }
-}
-
 public class CreateRequest_Input
 {
     public GRPC_BaseClass? Case { get; set; }
@@ -70,20 +55,6 @@ public class GetCase_Output
     public GRPC_BaseClassWithName? OutputState { get; set; }
 }
 
-public class GRPC_Task
-{
-    public GRPC_BaseClassWithName? Task { get; set; }
-    public List<GRPC_WorkItem>? WorkItems { get; set; }
-}
-
-public class GRPC_WorkItem
-{
-    public GRPC_BaseClassWithDate? WorkItem { get; set; }
-    public GRPC_BaseClassWithName? User { get; set; }    
-    public List<Condition>? Conditions { get; set; }
-    public GRPC_BaseClassWithName? WorkItemState { get; set; }
-}
-
 public class Cartable_Input
 {
     public Int64? PageNumber { get; set; }
@@ -131,11 +102,71 @@ public class GetAllByName_Output
     public GRPC_BaseClassWithName? OutputState { get; set; }
 }
 
+public class SetCaseTaskUser_Input
+{
+    public GRPC_BaseClass Case { get; set; }
+    public GRPC_BaseClassWithName Task { get; set; }
+    public GRPC_BaseClassWithName User { get; set; }
+}
+
+public class SetCaseTaskUser_Output
+{
+    public GRPC_BaseClass Case { get; set; }
+    public GRPC_BaseClassWithName Task { get; set; }
+    public GRPC_BaseClassWithName User { get; set; }
+    public GRPC_BaseClassWithName OutputState { get; set; }
+}
+
+public class SyncEntity_Input
+{
+    public GRPC_BaseClassWithName Base { get; set; }
+    public List<GRPC_BaseClassWithNameAndDate> Records { get; set; }
+    public long Crud { get; set; }
+}
+public class SyncEntity_Output
+{
+    public GRPC_BaseClassWithName Result { get; set; }
+    public GRPC_BaseClassWithName OutputState { get; set; }
+}
+
+public class SyncLink_Input
+{
+    public GRPC_BaseClassWithName Base { get; set; }
+    public List<LinkEntity>? Records { get; set; }
+    public long Crud { get; set; }
+}
+public class SyncLink_Output
+{
+    public GRPC_BaseClassWithName Result { get; set; }
+    public GRPC_BaseClassWithName OutputState { get; set; }
+}
+public class SyncCondition_Input
+{
+    public GRPC_BaseClassWithName Base { get; set; }
+    public List<GRPC_Condition> Records { get; set; }
+    public long Crud { get; set; }
+}
+
+public class SyncCondition_Output
+{
+    public GRPC_BaseClassWithName Result { get; set; }
+    public GRPC_BaseClassWithName OutputState { get; set; }
+}
+
+public class LinkEntity
+{
+    public GRPC_BaseClass First { get; set; }
+    public GRPC_BaseClass Second { get; set; }
+    public long ERPCode { get; set; }
+    public Boolean EnableRecord { get; set; }
+}
+
 public class GRPC_BaseClass
 {
     public Int64? Id { get; set; }
     public Int64? ERPCode { get; set; }
     public Int64? SortIndex { get; set; }
+    public Boolean EnableRecord { get; set; }
 }
 
 public class GRPC_BaseClassWithName
@@ -145,6 +176,7 @@ public class GRPC_BaseClassWithName
     public Int64? SortIndex { get; set; }
     public String? Name { get; set; }
     public String? DisplayName { get; set; }
+    public Boolean EnableRecord { get; set; }
 }
 
 public class GRPC_BaseClassWithDate
@@ -154,6 +186,7 @@ public class GRPC_BaseClassWithDate
     public Int64? SortIndex { get; set; }
     public DateTimeOffset? CreateTimeRecord { get; set; }
     public DateTimeOffset? LastUpdatedRecord { get; set; }
+    public Boolean EnableRecord { get; set; }
 }
 
 public class GRPC_BaseClassWithNameAndDate
@@ -165,4 +198,38 @@ public class GRPC_BaseClassWithNameAndDate
     public String? DisplayName { get; set; }
     public DateTimeOffset? CreateTimeRecord { get; set; }
     public DateTimeOffset? LastUpdatedRecord { get; set; }
+    public Boolean EnableRecord { get; set; }
+}
+
+public class GRPC_Task
+{
+    public GRPC_BaseClassWithName Base { get; set; }
+    public List<GRPC_WorkItem>? WorkItems { get; set; }
+}
+
+public class GRPC_WorkItem
+{
+    public GRPC_BaseClassWithDate Base { get; set; }
+    public GRPC_BaseClassWithName User { get; set; }
+    public GRPC_BaseClassWithName WorkItemState { get; set; }
+    public List<GRPC_Condition>? OccurredUserActions { get; set; }
+    public List<GRPC_Condition>? ValidUserActions { get; set; }
+}
+
+public class GRPC_Condition
+{
+    public GRPC_BaseClassWithName Base { get; set; }
+    public GRPC_BaseClassWithName Tag { get; set; }
+    public GRPC_BaseClassWithName Operand { get; set; }
+    public string Value { get; set; }
+}
+
+public class GRPC_Case
+{
+    public GRPC_BaseClassWithDate Base { get; set; }
+    public GRPC_BaseClassWithName Process { get; set; }
+    public GRPC_BaseClassWithName Creator { get; set; }
+    public GRPC_BaseClassWithName Requestor { get; set; }
+    public List<GRPC_Task>? Tasks { get; set; }
+    public GRPC_BaseClassWithName CaseState { get; set; }
 }
