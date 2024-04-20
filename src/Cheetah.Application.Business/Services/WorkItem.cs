@@ -1,7 +1,8 @@
 ﻿namespace Cheetah.Application.Business.Services;
 public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
     IRepository<F_WorkItem> workItemRepository,
-    IRepository<F_Case> caseRepository) : IWorkItem
+    IRepository<F_Case> caseRepository,
+    IRepository<F_Task> taskRepository) : IWorkItem
 {
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
     {
@@ -65,8 +66,8 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
     public async Task<CheetahResult<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser)
     {
         var _selectedCaseTaskUsers = (await iSender.Send(
-            new GetByCaseAndTaskQuery(caseId: CaseTaskUser.Case.Id,
-            taskId: CaseTaskUser.Task.Id))).Value;
+            new GetByCaseAndTaskQuery(caseId: CaseTaskUser.FirstId,
+            taskId: CaseTaskUser.SecondId.Value))).Value;
 
         if (_selectedCaseTaskUsers.Any())
         {
@@ -235,7 +236,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
         var _actual_Conditions = (await iSender.Send(
             new GetIncludedConditionsQuery(_actualConditionsIds))).Value;
 
-        await Parallel.ForEachAsync(_taskFlows, async (_taskFlow,cancellation) =>
+        await Parallel.ForEachAsync(_taskFlows, async (_taskFlow, cancellation) =>
         {
             var ExpectedConditions = _taskFlow.
             Flow.FlowConditions.
@@ -261,13 +262,19 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     if (Current_WorkItem.CaseId.HasValue)
                     {
                         var OtherWorkItems = Current_WorkItem.Case.WorkItems
-                            .Where(x => x.Task is not null)
-                            .Where(x => x.Task.SortIndex <= _taskFlow.Task.SortIndex)
+                            .Where(x => x.TaskId is not null)
                             .Where(x => x.IsInbox() || x.IsFuture());
 
                         foreach (var OtherWorkItem in OtherWorkItems)
                         {
-                            OtherWorkItem.SetExit();
+                            var _sortIndex = await taskRepository
+                            .FirstOrDefaultAsync(new GetSortIndexTask(OtherWorkItem.TaskId));
+
+                            if (_sortIndex <= _taskFlow.Task.SortIndex)
+                            {
+                                OtherWorkItem.SetExit();
+                            }
+
                         }
                     }
                     #endregion
@@ -294,7 +301,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
                             if (_caseTaskUsers.Any())
                             {
-                                var _users = _caseTaskUsers.Select(x => x.User?.Id);
+                                var _users = _caseTaskUsers.Select(x => x.ThirdId);
 
                                 _Current_WorkItems
                                     .Where(x => _users.Any(y => y == x.UserId))

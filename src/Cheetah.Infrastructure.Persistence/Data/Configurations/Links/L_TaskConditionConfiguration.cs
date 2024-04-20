@@ -12,8 +12,6 @@ public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondi
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.Condition)
-            .WithMany(x=>x.TaskConditions)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
     }
 }

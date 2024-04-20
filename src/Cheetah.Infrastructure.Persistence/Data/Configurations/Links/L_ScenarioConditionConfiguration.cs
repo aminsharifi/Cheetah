@@ -12,8 +12,6 @@ public class L_ScenarioConditionConfiguration : IEntityTypeConfiguration<L_Scena
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.Condition)
-            .WithMany(x => x.ScenarioConditions)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
     }
 }

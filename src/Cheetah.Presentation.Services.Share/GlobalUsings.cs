@@ -1,6 +1,7 @@
 ﻿global using Ardalis.SharedKernel;
 global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Interfaces;
+global using Cheetah.Application.Business.Task.Get;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
