@@ -177,7 +177,7 @@ public static class CgRPC
             _workItem.WorkItemConditions.Add(
                 new L_WorkItemCondition()
                 {
-                    Condition = _condition
+                    SecondId = _condition.Id
                 });
         }
 

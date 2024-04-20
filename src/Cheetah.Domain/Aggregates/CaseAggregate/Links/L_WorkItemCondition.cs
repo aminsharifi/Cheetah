@@ -4,8 +4,6 @@ public partial class L_WorkItemCondition : SimpleLinkClass
 {
     public virtual F_WorkItem? WorkItem { get; set; }
 
-    public virtual F_Condition? Condition { get; set; }
-
     public L_WorkItemCondition ShallowCopy()
     {
         return (L_WorkItemCondition)MemberwiseClone();

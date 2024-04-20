@@ -12,8 +12,6 @@ public class L_FlowConditionConfiguration : IEntityTypeConfiguration<L_FlowCondi
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.Condition)
-            .WithMany(x => x.FlowConditions)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
     }
 }

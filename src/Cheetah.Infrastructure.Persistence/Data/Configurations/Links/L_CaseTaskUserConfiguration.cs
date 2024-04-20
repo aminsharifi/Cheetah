@@ -12,13 +12,9 @@ public class L_CaseTaskUserConfiguration : IEntityTypeConfiguration<L_CaseTaskUs
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.Task)
-            .WithMany(x => x.CaseTaskUsers)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
 
         builder
-            .HasOne(x => x.User)
-            .WithMany(x => x.CaseTaskUsers)
-            .HasForeignKey(x => x.ThirdId);
+            .HasIndex(x => x.ThirdId);
     }
 }
