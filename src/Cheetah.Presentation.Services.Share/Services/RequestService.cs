@@ -58,7 +58,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         var _requests = _iCartable.Value.FirstOrDefault();
 
-        output_Request.Case = GetCase(_requests);
+        output_Request.Case = await GetCase(_requests);
 
         #endregion
 
@@ -94,7 +94,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         var _selectedRequests = _requests.Value.FirstOrDefault();
 
-        output_Request.Case = GetCase(_selectedRequests);
+        output_Request.Case = await GetCase(_selectedRequests);
 
         output_Request.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
@@ -153,7 +153,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         var _resultOfCase = Outputresult.Result.Value;
 
-        output_Request.Case = GetCase(_resultOfCase);
+        output_Request.Case = await GetCase(_resultOfCase);
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
@@ -341,7 +341,6 @@ public class RequestService(ILogger<RequestService> logger,
         {
             L_CaseCondition _CaseCondition = new()
             {
-                Condition = _condition,
                 SecondId = _condition.Id
             };
 
@@ -349,7 +348,7 @@ public class RequestService(ILogger<RequestService> logger,
         }
         return _caseConditions;
     }
-    private GRPC_Case GetCase(F_Case _case)
+    private async Task<GRPC_Case> GetCase(F_Case _case)
     {
         GRPC_Case _gRPC_Case = new()
         {
@@ -362,11 +361,9 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Tasks
 
-        var Tasks = _case?
-            .SelectedScenario
-            .Tasks
-            .OrderBy(x => x.SortIndex)
-            .ToList();
+        var _getTasks = await _mediator.Send(new GetTasksFromScenarioQuery(_case.SelectedScenarioId));
+
+        var Tasks = _getTasks.Value.ToList();
 
         _gRPC_Case.Tasks.AddRange(
             Tasks.Select(x => new GRPC_Task()
@@ -411,12 +408,14 @@ public class RequestService(ILogger<RequestService> logger,
     {
         GRPC_WorkItem gRPC_WorkItem = new();
 
+        /*
         #region OccurredUserActions
 
         var _occurredUserActions = workItem
             .WorkItemConditions
             .Select(x => x.Condition)
         .GetConditions();
+
 
         gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
         #endregion
@@ -429,6 +428,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
         #endregion
+        */
 
         return gRPC_WorkItem;
     }

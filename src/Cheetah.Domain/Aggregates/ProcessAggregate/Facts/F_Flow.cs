@@ -4,7 +4,6 @@ public partial class F_Flow : BaseEntity
 {
     #region Entities    
     public long? CaseStateId { get; set; }
-    public virtual D_CaseState? CaseState { get; set; }
     #endregion
 
     #region Collection

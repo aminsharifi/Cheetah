@@ -669,8 +669,10 @@
         {
             var CaseStateId = Int64.Parse(e.Value.ToString());
 
-            f_Flow.CaseState = List_CaseState
-            .First(x => x.Id == CaseStateId) as D_CaseState;
+            f_Flow.CaseStateId = CaseStateId;
+
+            // f_Flow.CaseState = List_CaseState
+            // .First(x => x.Id == CaseStateId) as D_CaseState;
         }
     }
     private async Task SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)

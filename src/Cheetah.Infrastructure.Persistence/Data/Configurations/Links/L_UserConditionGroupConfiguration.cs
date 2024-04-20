@@ -10,8 +10,6 @@ public class L_UserConditionGroupConfiguration : IEntityTypeConfiguration<L_User
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.ConditionGroup)
-            .WithMany(x=>x.UserConditionGroups)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
     }
 }
