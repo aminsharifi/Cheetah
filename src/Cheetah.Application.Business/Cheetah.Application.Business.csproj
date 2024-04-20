@@ -12,7 +12,8 @@
 	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="User\Specifications\" />
+	  <Folder Include="User\User\" />
+	  <Folder Include="User\User\Specifications\" />
 	</ItemGroup>
 
 </Project>

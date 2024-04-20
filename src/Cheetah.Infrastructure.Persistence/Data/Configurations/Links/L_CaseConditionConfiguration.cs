@@ -12,8 +12,6 @@ public class L_CaseConditionConfiguration : IEntityTypeConfiguration<L_CaseCondi
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.Condition)
-            .WithMany(x => x.CaseConditions)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
     }
 }

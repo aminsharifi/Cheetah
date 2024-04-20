@@ -5,14 +5,12 @@ public partial class F_WorkItem : BaseEntity
     #region Entities
 
     public long? TaskId { get; set; }
-    public virtual F_Task? Task { get; set; }
-
     public long? UserId { get; set; }
-    public virtual D_User? User { get; set; }
 
+    [NotMapped]
+    public virtual D_User? User { get; set; }
     public long? CaseId { get; set; }
     public virtual F_Case? Case { get; set; }
-
     public long? WorkItemStateId { get; set; }
     public virtual D_WorkItemState? WorkItemState { get; set; }
 

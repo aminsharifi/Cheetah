@@ -12,8 +12,6 @@ public class L_UserConditionConfiguration : IEntityTypeConfiguration<L_UserCondi
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasOne(x => x.Condition)
-            .WithMany(x=>x.UserConditions)
-            .HasForeignKey(x => x.SecondId);
+            .HasIndex(x => x.SecondId);
     }
 }
