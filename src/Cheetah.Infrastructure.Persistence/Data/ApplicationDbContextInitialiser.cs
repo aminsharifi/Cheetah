@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Application.Business.Case.Get;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -102,7 +104,7 @@ public static class InitialiserExtensions
         var mediatRAssemblies = new[]
         {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(CreateTagCommand)), // UseCases
+            Assembly.GetAssembly(typeof(GetDetailCasesHandler)), // UseCases
         };
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
         builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

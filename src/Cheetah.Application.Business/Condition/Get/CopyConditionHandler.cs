@@ -3,7 +3,9 @@
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
 /// </summary>
-public class CopyConditionHandler(IReadRepository<F_Condition> _repository,
+public class CopyConditionHandler(
+    IReadRepository<F_Condition> _repository,
+    IReadRepository<D_Tag> _tagRepository,
     ISender _ISender)
   : IQueryHandler<CopyConditionQuery, Result<F_Condition>>
 {
@@ -14,7 +16,9 @@ public class CopyConditionHandler(IReadRepository<F_Condition> _repository,
 
         F_Condition _condition = new();
 
-        _condition.TagId = await _ISender.Send(new GetTagIdQuery(request.input.Tag));
+        var _getIdEntitySpec = new GetIdEntitySpec<D_Tag>(request.input.Tag);
+        var _tagId = await _tagRepository.FirstOrDefaultAsync(_getIdEntitySpec);
+        _condition.TagId = _tagId;
         _condition.OperandId = await _ISender.Send(new GetOperandIdQuery(request.input.Operand));
 
         var spec = new GetConditionSpec(tagId: _condition.TagId.Value,

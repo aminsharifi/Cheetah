@@ -41,8 +41,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.Npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
+	  <ProjectReference Include="..\Cheetah.Presentation.Services.Share\Cheetah.Presentation.Services.Share.csproj" />
 	</ItemGroup>
 
 </Project>

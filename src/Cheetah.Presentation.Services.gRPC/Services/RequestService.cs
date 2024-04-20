@@ -3,30 +3,16 @@
 public class RequestService : Request.RequestBase
 {
     public Presentation.Services.Shared.Services.RequestService G_RequestService;
-    public ILogger<Presentation.Services.Shared.Services.RequestService> logger;
-    public ApplicationDbContext db;
-    public ITableCRUD simpleClassRepository;
-    public ICartable iCartable;
-    public IWorkItem iWorkItem;
-    public ICopyClass iCopyClass;
-    public ISync iSync;
-    public IMediator _mediator;
     public RequestService(ILogger<Presentation.Services.Shared.Services.RequestService> GLogger,
-        ApplicationDbContext GDb,
         ITableCRUD GSimpleClassRepository, ICartable GICartable, IWorkItem GIWorkItem,
-        ICopyClass GICopyClass, ISync GISync, IMediator GMediator)
+        ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
+        IReadRepository<D_User> _userRepository,
+        IReadRepository<F_Condition> _conditionRepository,
+        IReadRepository<F_WorkItem> _workItemRepository)
     {
-        logger = GLogger;
-        db = GDb;
-        simpleClassRepository = GSimpleClassRepository;
-        iCartable = GICartable;
-        iWorkItem = GIWorkItem;
-        iCopyClass = GICopyClass;
-        iSync = GISync;
-        _mediator = GMediator;
-
-        G_RequestService = new Presentation.Services.Shared.Services.RequestService(db,
-        logger, simpleClassRepository, iCartable, iWorkItem, iCopyClass, iSync, _mediator);
+        G_RequestService = new Presentation.Services.Shared.Services.RequestService(
+        GLogger, GSimpleClassRepository, GICartable, GIWorkItem, GICopyClass, GISync, GMediator,
+        _userRepository, _conditionRepository, _workItemRepository);
     }
 
     #region Public methods
@@ -35,7 +21,7 @@ public class RequestService : Request.RequestBase
         return await G_RequestService.CreateRequest(request);
     }
     public override async Task<GetCase_Output> GetCase(GetCase_Input request, ServerCallContext context)
-    {        
+    {
         return await G_RequestService.GetCase(request);
     }
     public override async Task<Cartable_Output> Inbox(Cartable_Input request, ServerCallContext context)
@@ -71,5 +57,5 @@ public class RequestService : Request.RequestBase
         return await G_RequestService.SyncCondition(request);
     }
     #endregion
-      
+
 }

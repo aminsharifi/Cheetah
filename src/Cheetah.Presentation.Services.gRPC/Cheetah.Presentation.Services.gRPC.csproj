@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Cheetah.Presentation.Services.Shared\Cheetah.Presentation.Services.Shared.csproj" />
+		<ProjectReference Include="..\Cheetah.Presentation.Services.Share\Cheetah.Presentation.Services.Share.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
