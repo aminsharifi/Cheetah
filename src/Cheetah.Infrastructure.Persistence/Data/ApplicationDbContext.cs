@@ -78,7 +78,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<F_Condition> F_Conditions { get; set; }
     public virtual DbSet<F_Case> F_Cases { get; set; }
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
-    public virtual DbSet<F_Attachment> F_Attachments { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
     public virtual DbSet<F_Flow> F_Flows { get; set; }
 

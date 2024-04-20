@@ -13,6 +13,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Aggregates\CaseAggregate\Events\**" />
+	  <Compile Remove="Aggregates\CaseAggregate\Handlers\**" />
+	  <Compile Remove="Aggregates\CaseAggregate\Specifications\**" />
+	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
+	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
+	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Specifications\**" />
+	  <None Remove="Aggregates\CaseAggregate\Events\**" />
+	  <None Remove="Aggregates\CaseAggregate\Handlers\**" />
+	  <None Remove="Aggregates\CaseAggregate\Specifications\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Ardalis.Result" Version="8.0.0" />
 		<PackageReference Include="Ardalis.SharedKernel" Version="1.5.0" />
 		<PackageReference Include="Ardalis.SmartEnum" Version="8.0.0" />
@@ -39,8 +51,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Entities\Facts\CaseAggregate\Events\" />
-	  <Folder Include="Entities\Facts\CaseAggregate\Handlers\" />
-	  <Folder Include="Entities\Facts\CaseAggregate\Specifications\" />
+	  <Folder Include="Aggregates\CaseAggregate\Links\Values\" />
 	</ItemGroup>
 </Project>

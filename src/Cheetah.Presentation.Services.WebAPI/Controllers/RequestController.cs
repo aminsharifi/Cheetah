@@ -1,35 +1,21 @@
-﻿
-namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class RequestController : ControllerBase
 {
     public Shared.Services.RequestService G_RequestService;
-    public ILogger<Shared.Services.RequestService> logger;
-    public ApplicationDbContext db;
-    public ITableCRUD simpleClassRepository;
-    public ICartable iCartable;
-    public IWorkItem iWorkItem;
-    public ICopyClass iCopyClass;
-    public ISync iSync;
-    public IMediator _mediator;
-    public RequestController(ILogger<Shared.Services.RequestService> GLogger,
-        ApplicationDbContext GDb,
+    public RequestController(ILogger<Shared.Services.RequestService> GLogger,       
         ITableCRUD GSimpleClassRepository, ICartable GICartable, IWorkItem GIWorkItem,
-        ICopyClass GICopyClass, ISync GISync, IMediator GMediator)
+        ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
+        IReadRepository<D_User> _userRepository,
+        IReadRepository<F_Condition> _conditionRepository,
+        IReadRepository<F_WorkItem> _workItemRepository
+        )
     {
-        logger = GLogger;
-        db = GDb;
-        simpleClassRepository = GSimpleClassRepository;
-        iCartable = GICartable;
-        iWorkItem = GIWorkItem;
-        iCopyClass = GICopyClass;
-        iSync = GISync;
-        _mediator = GMediator;
-
-        G_RequestService = new Shared.Services.RequestService(GDb,
-        logger, simpleClassRepository, iCartable, iWorkItem, iCopyClass, iSync, _mediator);
+        G_RequestService = new Shared.Services.RequestService(
+        GLogger, GSimpleClassRepository, GICartable, GIWorkItem, GICopyClass, GISync, GMediator,
+        _userRepository, _conditionRepository, _workItemRepository);
     }   
 
     [HttpGet(nameof(Health))]

@@ -5,19 +5,6 @@ public class GetDetailCasesSpec : Specification<F_Case>
     public GetDetailCasesSpec(F_Case request)
     {
         Query
-            .Include(x => x.Creator)
-            .Include(x => x.Requestor)
-            .Include(x => x.Process)
-            .Include(x => x.SelectedScenario)
-            .Include(x => x.CaseConditions)
-            .ThenInclude(x => x.Condition)
-            .Include(x => x.CaseState)
-            .Include(x => x.WorkItems)
-            .ThenInclude(x => x.WorkItemConditions)
-            .Include(x => x.WorkItems)
-            .ThenInclude(x => x.WorkItemState)
-            .Include(x => x.WorkItems)
-            .ThenInclude(x => x.User)
             .AsNoTracking();
 
         if (request.Process is not null)
