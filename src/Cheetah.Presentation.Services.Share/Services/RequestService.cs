@@ -1,8 +1,12 @@
 ﻿namespace Cheetah.Presentation.Services.Shared.Services;
 
-public class RequestService(ApplicationDbContext db, ILogger<RequestService> logger,
+public class RequestService(ILogger<RequestService> logger,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
-        ICopyClass iCopyClass, ISync iSync, IMediator _mediator) : Request.RequestBase
+        ICopyClass iCopyClass, ISync iSync, IMediator _mediator,
+        IReadRepository<D_User> _userRepository,
+        IReadRepository<F_Condition> _conditionRepository,
+        IReadRepository<F_WorkItem> _workItemRepository
+        ) : Request.RequestBase
 {
     #region Public methods
     public Health_Output Health()
@@ -18,6 +22,7 @@ public class RequestService(ApplicationDbContext db, ILogger<RequestService> log
         #region Input
 
         F_Case f_Request = request.Case.GetSimpleClass<F_Case>();
+
         f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
         f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
         f_Request.Process = request.Process.GetSimpleClass<D_Process>();
@@ -49,7 +54,9 @@ public class RequestService(ApplicationDbContext db, ILogger<RequestService> log
 
         f_Request = Outputresult.Result.Value;
 
-        var _requests = (await iCartable.GetCaseAsync(f_Request)).Value.FirstOrDefault();
+        var _iCartable = await iCartable.GetCaseAsync(f_Request);
+
+        var _requests = _iCartable.Value.FirstOrDefault();
 
         output_Request.Case = GetCase(_requests);
 
@@ -158,11 +165,6 @@ public class RequestService(ApplicationDbContext db, ILogger<RequestService> log
     }
     public async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request)
     {
-
-        var result = await _mediator.Send(new CreateTagCommand(Name: "Tag3", DisplayName: "تگ 3"));
-
-        var result2 = await _mediator.Send(new GetTagIdQuery(new D_Tag() { Name = "Role" }));
-
         logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
 
         #region Input
@@ -266,19 +268,16 @@ public class RequestService(ApplicationDbContext db, ILogger<RequestService> log
 
         #region Input
 
+
         foreach (var record in request.Records)
         {
-            record.First.Id = await db.D_Users
-                .Where(x => x.ERPCode == record.First.ERPCode)
-                .AsNoTracking()
-                .Select(x => x.Id)
-                .FirstAsync();
+            GetIdEntitySpec<D_User> _getIdUserSpec = new(record.First.GetSimpleClass<D_User>());
 
-            record.Second.Id = await db.F_Conditions
-                .Where(x => x.ERPCode == record.Second.ERPCode)
-                .AsNoTracking()
-                .Select(x => x.Id)
-                .FirstAsync();
+            record.First.Id = await _userRepository.FirstOrDefaultAsync(_getIdUserSpec);
+
+            GetIdEntitySpec<F_Condition> _getIdConditionSpec = new(record.First.GetSimpleClass<F_Condition>());
+
+            record.First.Id = await _conditionRepository.FirstOrDefaultAsync(_getIdConditionSpec);
         }
 
         #endregion
@@ -430,6 +429,7 @@ public class RequestService(ApplicationDbContext db, ILogger<RequestService> log
 
         gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
         #endregion
+
         return gRPC_WorkItem;
     }
     private async Task<Cartable_Output> Cartable(Cartable_Input request, CartableProperty cartableProperty)
@@ -498,11 +498,9 @@ public class RequestService(ApplicationDbContext db, ILogger<RequestService> log
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
-                var _retriveworkItem = await db
-                .F_WorkItems
-                   .Where(x => x.Id == _workItemId)
-                   .AsNoTracking()
-                   .SingleAsync();
+                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_gRPC_WorkItem.Base.GetSimpleClass<F_WorkItem>());
+
+                var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
                 var _conditions = GetConditions(_retriveworkItem);
                 _gRPC_WorkItem.ValidUserActions.AddRange(_conditions.ValidUserActions);

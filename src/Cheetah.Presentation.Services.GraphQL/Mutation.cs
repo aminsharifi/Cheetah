@@ -1,46 +1,28 @@
-﻿using Cheetah.Application.Business.Interfaces;
+﻿using Ardalis.SharedKernel;
+using MediatR;
 
 namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Mutation
-{   
-    #region GetTokenAsync
-    
-    //public async Task<IdentityService> GetTokenAsync(
-    //    [Service] IIdentityService identityService,
-    //    [Service] ITableCRUD iSimpleClassRepository,
-    //    string email, string password)
-    //{
-    //    var MyIdentityService = new IdentityService();
-
-    //    MyIdentityService.AccessToken = await identityService.Authenticate(email, password);
-
-    //    return MyIdentityService;
-    //}
-    #endregion
-
-    #region CreateRequestAsync
-    
-    public async Task<CheetahResult<F_Case>> CreateRequestAsync(
-        [Service] IWorkItem iWorkItem,
-        [Service] ApplicationDbContext _db,
-        F_Case request)
+{
+    public async Task<F_Case> CreateRequestAsync(
+        [Service] ILogger<Shared.Services.RequestService> GLogger,
+        [Service] ITableCRUD GSimpleClassRepository,
+        [Service] ICartable GICartable,
+        [Service] IWorkItem GIWorkItem,
+        [Service] ICopyClass GICopyClass,
+        [Service] ISync GISync,
+        [Service] IMediator GMediator,
+        [Service] IReadRepository<D_User> _userRepository,
+        [Service] IReadRepository<F_Condition> _conditionRepository,
+        [Service] IReadRepository<F_WorkItem> _workItemRepository,
+        F_Case request
+        )
     {
-        return await iWorkItem.CreateRequestAsync(request);
+        //  Shared.Services.RequestService G_RequestService = new Shared.Services.RequestService(
+        //GLogger, GSimpleClassRepository, GICartable, GIWorkItem, GICopyClass, GISync, GMediator,
+        //_userRepository, _conditionRepository, _workItemRepository);
+        //  return await G_RequestService.CreateRequest(request);
+        return new F_Case();
     }
-    #endregion
-
-    #region PerformWorkItemAsync
-    
-    public async Task<F_Case> PerformWorkItemAsync(
-           [Service] IWorkItem iWorkItem,
-           [Service] ApplicationDbContext _db,
-           F_WorkItem request)
-    {
-        await iWorkItem.PerformWorkItemAsync(request);
-
-        return await _db.F_Cases.SingleAsync(x => x.Id == request.CaseId);
-    }
-    #endregion
-
 }

@@ -83,7 +83,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{1763
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{B228BC1E-30BE-47C7-9D5C-1C9EDBF4E8F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Presentation.Services.Shared", "src\Cheetah.Presentation.Services.Shared\Cheetah.Presentation.Services.Shared.csproj", "{C3A898C8-1BEC-40D2-BAA1-2555596409D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Services.Share", "src\Cheetah.Presentation.Services.Share\Cheetah.Presentation.Services.Share.csproj", "{C3A898C8-1BEC-40D2-BAA1-2555596409D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

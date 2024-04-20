@@ -4,7 +4,6 @@ global using Ardalis.Specification;
 global using Ardalis.Specification.EntityFrameworkCore;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Application.Business.Services;
-global using Cheetah.Application.Business.Tag.Create;
 global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;

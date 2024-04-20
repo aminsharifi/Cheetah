@@ -1,8 +1,7 @@
 ﻿namespace Cheetah.Application.Business.Case.Get;
 
 public class GetDetailCasesHandler(
-    IReadRepository<F_Case> caseRepository,
-    ISender _ISender) : IQueryHandler<GetDetailCasesQuery, Result<IEnumerable<F_Case>>>
+    IReadRepository<F_Case> caseRepository) : IQueryHandler<GetDetailCasesQuery, Result<IEnumerable<F_Case>>>
 {
     public async Task<Result<IEnumerable<F_Case>>> Handle(GetDetailCasesQuery request, CancellationToken cancellationToken)
     {

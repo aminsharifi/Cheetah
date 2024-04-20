@@ -9,11 +9,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Tag\Queries\**" />
-	  <EmbeddedResource Remove="Tag\Queries\**" />
-	  <None Remove="Tag\Queries\**" />
-	</ItemGroup>
-	<ItemGroup>
 	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
