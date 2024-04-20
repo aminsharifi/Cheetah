@@ -43,8 +43,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddGraphQLServer()
     .AddMutationType<Mutation>()
-    .AddQueryType<Query>()    
-    .AddAuthorization()
+    .AddQueryType<Query>()
+    //.AddAuthorization()
     .BindRuntimeType<char, StringType>();
 
 builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
@@ -57,8 +57,8 @@ var app = await builder.InitializeCommonSettingsAsync();
 //Configure the HTTP request pipeline.   
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    //app.UseSwagger();
+    //app.UseSwaggerUI();    
 }
 
 app.UseHttpsRedirection();
