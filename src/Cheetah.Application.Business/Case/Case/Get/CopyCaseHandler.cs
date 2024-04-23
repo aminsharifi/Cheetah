@@ -8,67 +8,50 @@ public class CopyCaseHandler(
 {
     public async Task<Result<F_Case>> Handle(CopyCaseQuery request, CancellationToken cancellationToken)
     {
-        Guard.Against.Null(request.input.Creator);
-        Guard.Against.Null(request.input.Requestor);
-        Guard.Against.Null(request.input.Process);
+        Guard.Against.Null(request.Creator);
+        Guard.Against.Null(request.Requestor);
+        Guard.Against.Null(request.Process);
+        Guard.Against.Null(request.WorkItemUser);
+        Guard.Against.Null(request.WorkItemConditions);
 
         F_Case _case = new();
 
-        _case.ERPCode = request.input?.ERPCode;
+        _case.ERPCode = request.Case?.ERPCode;
 
-        if (request.input.CreatorId is not null or 0)
-        {
-            _case.CreatorId = request.input.CreatorId;
-        }
-        else
-        {
-            var _userSpec = new GetIdEntitySpec<D_User>(request.input.Creator);
-            _case.CreatorId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
-        }
+        var _creatorSpec = new GetIdEntitySpec<D_User>(request.Creator);
+        _case.CreatorId = await _userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
 
-        if (request.input.RequestorId is not null or 0)
-        {
-            _case.RequestorId = request.input.RequestorId;
-        }
-        else
-        {
-            var _userSpec = new GetIdEntitySpec<D_User>(request.input.Requestor);
-            _case.RequestorId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
-        }
+        var _requestorSpec = new GetIdEntitySpec<D_User>(request.Requestor);
+        _case.RequestorId = await _userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
 
-        if (request.input.ProcessId is not null or 0)
-        {
-            _case.ProcessId = request.input.ProcessId;
-        }
-        else
-        {
-            var _processSpec = new GetIdEntitySpec<D_Process>(request.input.Process);
-            _case.ProcessId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
-        }
+        var _processSpec = new GetIdEntitySpec<D_Process>(request.Process);
+        _case.ProcessId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
 
-        var _conditions =
-            request.input.CaseConditions
-            .Select(x => _conditionRepository
-            .FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult());
+        F_WorkItem _workItem = new();
 
-        await Parallel.ForEachAsync(_conditions, async (_condition, _cancellatoin) =>
+        var _WorkItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
+        _workItem.UserId = await _userRepository.FirstOrDefaultAsync(_WorkItemUserSpec, cancellationToken);
+
+        await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
         {
-            var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
+            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition));
             _case.CaseConditions.Add(new()
             {
-                SecondId = _getCondition.Value.Id
+                SecondId = _getCondition.Value
             });
         });
 
-
-        var _workItems = request.input.WorkItems;
-
-        await Parallel.ForEachAsync(_workItems, async (_workItem, _cancellatoin) =>
+        await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
         {
-            var _CopiedworkItem = await _ISender.Send(new CopyWorkItemQuery(_workItem));
-
-            _case.WorkItems.Add(_CopiedworkItem);
+            var _getCondition = await _conditionRepository
+            .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition));
+            _case.CaseConditions.Add(new()
+            {
+                SecondId = _getCondition.Value
+            });
         });
+
+        _case.WorkItems.Add(_workItem);
 
         return _case;
     }

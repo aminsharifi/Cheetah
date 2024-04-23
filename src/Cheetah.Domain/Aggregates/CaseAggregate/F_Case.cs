@@ -3,26 +3,13 @@ public partial class F_Case : BaseEntity, IAggregateRoot
 {
     #region S_User
     public long? RequestorId { get; set; }
-
-    [NotMapped]
-    public virtual D_User? Requestor { get; set; }
-
     public long? CreatorId { get; set; }
-
-    [NotMapped]
-    public virtual D_User? Creator { get; set; }
-
     #endregion
 
-    #region Enitty       
-
+    #region Enitty
     public long? CaseStateId { get; set; }
     public virtual D_CaseState? CaseState { get; set; }
     public long? ProcessId { get; set; }
-
-    [NotMapped]
-    public virtual D_Process? Process { get; set; }
-
     public long? SelectedScenarioId { get; set; }
 
     #endregion
@@ -31,7 +18,6 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     public virtual ICollection<L_CaseCondition>? CaseConditions { get; set; } = new HashSet<L_CaseCondition>();
     public virtual ICollection<F_WorkItem>? WorkItems { get; set; } = new HashSet<F_WorkItem>();
     public virtual ICollection<L_CaseTaskUser>? CaseTaskUsers { get; set; } = new HashSet<L_CaseTaskUser>();
-
 
     #endregion
 
