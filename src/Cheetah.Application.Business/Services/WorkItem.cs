@@ -2,13 +2,16 @@
 public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
     IRepository<F_WorkItem> workItemRepository,
     IRepository<F_Case> caseRepository,
-    IRepository<F_Task> taskRepository) : IWorkItem
+    IRepository<F_Task> taskRepository,
+    IRepository<D_User> userRepository) : IWorkItem
 {
-    public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case request)
+    public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case Case, D_User Creator, D_User Requestor, D_Process Process,
+        List<F_Condition> CaseConditions, D_User WorkItemUser, List<F_Condition> WorkItemConditions)
     {
         CheetahResult<F_Case> _OutputState = new();
 
-        var GeneralRequest = (await iSender.Send(new CopyCaseQuery(request))).Value;
+        var GeneralRequest = (await iSender.Send(new CopyCaseQuery(Case, Creator, Requestor, Process,
+            CaseConditions, WorkItemUser, WorkItemConditions))).Value;
 
         var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.ProcessId.Value,
         eRPCode: GeneralRequest.ERPCode.Value);
@@ -32,11 +35,11 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
         return _OutputState;
     }
-    public async Task<CheetahResult<F_Case>> PerformWorkItemAsync(F_WorkItem f_WorkItem, Boolean Rebase = false)
+    public async Task<CheetahResult<F_Case>> PerformWorkItemAsync(F_WorkItem WorkItem, D_User User, Boolean Rebase = false)
     {
         CheetahResult<F_Case> _OutputState = new();
 
-        F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopyAsync(f_WorkItem);
+        F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopyAsync(WorkItem, User);
 
         await workItemRepository.UpdateAsync(Current_WorkItem);
 

@@ -4,6 +4,5 @@ global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Infrastructure.Persistence.Data;
-global using Cheetah_GrpcService;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;

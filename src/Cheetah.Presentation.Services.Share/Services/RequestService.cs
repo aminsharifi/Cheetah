@@ -21,23 +21,16 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Input
 
-        F_Case f_Request = request.Case.GetSimpleClass<F_Case>();
-
-        f_Request.Creator = request.Creator.GetSimpleClass<D_User>();
-        f_Request.Requestor = request.Requestor.GetSimpleClass<D_User>();
-        f_Request.Process = request.Process.GetSimpleClass<D_Process>();
-
-        var _conditions = request.Conditions.GetConditions().ToList();
-
-        f_Request.CaseConditions = GetCaseCondition(_conditions);
-
-        F_WorkItem _workItem = request.WorkItem.GetWorkItemClass();
-
-        f_Request.WorkItems.Add(_workItem);
-
+        F_Case _case = request.Case.GetSimpleClass<F_Case>();
+        D_User _creator = request.Creator.GetSimpleClass<D_User>();
+        D_User _requestor = request.Requestor.GetSimpleClass<D_User>();
+        D_Process _process = request.Process.GetSimpleClass<D_Process>();
+        List<F_Condition> _caseConditions = request.Conditions.GetConditions().ToList();
+        D_User _workItem = request.WorkItem.User.GetSimpleClass<D_User>();
+        var WorkItemConditions = new List<F_Condition>();
         #endregion
 
-        var Outputresult = await iWorkItem.CreateRequestAsync(f_Request);
+        var Outputresult = await iWorkItem.CreateRequestAsync(_case, _creator, _requestor, _process, _caseConditions, _workItem, WorkItemConditions);
 
         #region Output
 
@@ -52,13 +45,13 @@ public class RequestService(ILogger<RequestService> logger,
             return output_Request;
         }
 
-        f_Request = Outputresult.Result.Value;
+        _case = Outputresult.Result.Value;
 
-        var _iCartable = await iCartable.GetCaseAsync(f_Request);
+        var _iCartable = await iCartable.GetCaseAsync(_case, _process);
 
         var _requests = _iCartable.Value.FirstOrDefault();
 
-        output_Request.Case = await GetCase(_requests);
+        output_Request.Case = await GetCase(_requests, _process, _creator, _requestor);
 
         #endregion
 
@@ -73,10 +66,10 @@ public class RequestService(ILogger<RequestService> logger,
         #region Input
         var _request = request.Case?.GetSimpleClass<F_Case>();
         _request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
-        _request.Process = request.Process?.GetSimpleClass<D_Process>();
+        D_Process _process = request.Process?.GetSimpleClass<D_Process>();
         #endregion
 
-        var _requests = await iCartable.GetCaseAsync(_request);
+        var _requests = await iCartable.GetCaseAsync(_request, _process);
 
         #region Output
 
@@ -94,7 +87,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         var _selectedRequests = _requests.Value.FirstOrDefault();
 
-        output_Request.Case = await GetCase(_selectedRequests);
+        //output_Request.Case = await GetCase(_selectedRequests);
 
         output_Request.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
@@ -132,11 +125,12 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Input
 
-        var f_WorkItem = request.WorkItem.GetWorkItemClass();
+        var _workItem = request.WorkItem.GetWorkItemClass();
+        var _user = request.WorkItem.User.GetSimpleClass<D_User>();
 
         #endregion
 
-        var Outputresult = await iWorkItem.PerformWorkItemAsync(f_WorkItem, request.Rebase);
+        var Outputresult = await iWorkItem.PerformWorkItemAsync(_workItem, _user, request.Rebase);
 
         #region Output
 
@@ -153,7 +147,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         var _resultOfCase = Outputresult.Result.Value;
 
-        output_Request.Case = await GetCase(_resultOfCase);
+        //output_Request.Case = await GetCase(_resultOfCase);
 
         output_Request.OutputState = OutputState.GetBaseClassWithName();
 
@@ -348,15 +342,15 @@ public class RequestService(ILogger<RequestService> logger,
         }
         return _caseConditions;
     }
-    private async Task<GRPC_Case> GetCase(F_Case _case)
+    private async Task<GRPC_Case> GetCase(F_Case _case, D_Process? Process, D_User? Creator, D_User? Requestor)
     {
         GRPC_Case _gRPC_Case = new()
         {
             Base = _case?.GetBaseClassWithDate(),
             CaseState = _case?.CaseState?.GetBaseClassWithName(),
-            Process = _case?.Process?.GetBaseClassWithName(),
-            Creator = _case?.Creator.GetBaseClassWithName(),
-            Requestor = _case?.Requestor.GetBaseClassWithName()
+            Process = Process?.GetBaseClassWithName(),
+            Creator = Creator.GetBaseClassWithName(),
+            Requestor = Requestor.GetBaseClassWithName()
         };
 
         #region Tasks
@@ -384,17 +378,19 @@ public class RequestService(ILogger<RequestService> logger,
                 .Select(x => new GRPC_WorkItem()
                 {
                     Base = x.GetBaseClassWithDate(),
-                    User = x.User.GetBaseClassWithName(),
                     WorkItemState = x.WorkItemState?.GetBaseClassWithName()
                 })
                 );
+
+            F_Task _task = Task.Base.GetSimpleClass<F_Task>();
+
             foreach (var workItem in Task.WorkItems)
             {
                 var _WorkItem = _case?.WorkItems
                     .Where(x => x.Id == workItem.Base.Id)
                     .SingleOrDefault();
 
-                var _conditions = GetConditions(_WorkItem);
+                var _conditions = GetConditions(_WorkItem, _task);
                 workItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
                 workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
             }
@@ -404,13 +400,14 @@ public class RequestService(ILogger<RequestService> logger,
 
         return _gRPC_Case;
     }
-    private GRPC_WorkItem GetConditions(F_WorkItem workItem)
+    private GRPC_WorkItem GetConditions(F_WorkItem workItem, F_Task Task)
     {
         GRPC_WorkItem gRPC_WorkItem = new();
 
-        /*
+
         #region OccurredUserActions
 
+        /*
         var _occurredUserActions = workItem
             .WorkItemConditions
             .Select(x => x.Condition)
@@ -418,17 +415,18 @@ public class RequestService(ILogger<RequestService> logger,
 
 
         gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
+        */
+
         #endregion
 
         #region ValidUserActions
-        var _validUserActions = workItem
-            .Task.TaskFlows
+        var _validUserActions = Task.TaskFlows
             .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
         .GetConditions();
 
         gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
         #endregion
-        */
+
 
         return gRPC_WorkItem;
     }
@@ -502,7 +500,9 @@ public class RequestService(ILogger<RequestService> logger,
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
-                var _conditions = GetConditions(_retriveworkItem);
+                var _f_task = _task.Base.GetSimpleClass<F_Task>();
+
+                var _conditions = GetConditions(_retriveworkItem, _f_task);
                 _gRPC_WorkItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
                 _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
 
