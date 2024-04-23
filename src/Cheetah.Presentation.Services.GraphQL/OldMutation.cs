@@ -3,9 +3,9 @@
 namespace Cheetah.Presentation.Services.GraphQL;
 
 public class OldMutation
-{   
+{
     #region GetTokenAsync
-    
+
     //public async Task<IdentityService> GetTokenAsync(
     //    [Service] IIdentityService identityService,
     //    [Service] ITableCRUD iSimpleClassRepository,
@@ -20,26 +20,28 @@ public class OldMutation
     #endregion
 
     #region CreateRequestAsync
-    
+
     public async Task<CheetahResult<F_Case>> CreateRequestAsync(
         [Service] IWorkItem iWorkItem,
         [Service] ApplicationDbContext _db,
         F_Case request)
     {
-        return await iWorkItem.CreateRequestAsync(request);
+        return new CheetahResult<F_Case>();
+        //return await iWorkItem.CreateRequestAsync(request);
     }
     #endregion
 
     #region PerformWorkItemAsync
-    
+
     public async Task<F_Case> PerformWorkItemAsync(
            [Service] IWorkItem iWorkItem,
            [Service] ApplicationDbContext _db,
            F_WorkItem request)
     {
-        await iWorkItem.PerformWorkItemAsync(request);
+        return new F_Case();
+        //await iWorkItem.PerformWorkItemAsync(request);
 
-        return await _db.F_Cases.SingleAsync(x => x.Id == request.CaseId);
+        //return await _db.F_Cases.SingleAsync(x => x.Id == request.CaseId);
     }
     #endregion
 

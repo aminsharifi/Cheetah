@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Entities.Facts;
-using DNTPersianUtils.Core;
-
-namespace Cheetah.Presentation.Services.WebAPI.Helper;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Helper;
 
 public static class APIConverter
 {
@@ -229,41 +226,59 @@ public static class APIConverter
 
         return _SimpleClass;
     }
-    public static IEnumerable<F_Condition> GetCondition(this IEnumerable<Condition> Conditions)
+
+    #region Condition method
+    public static F_Condition GetCondition(this GRPC_Condition Condition)
+    {
+        F_Condition _condition = new();
+
+        if (Condition.Base is not null)
+        {
+            _condition = new()
+            {
+                //Id = Condition.Base.Id.Value,
+                Name = Condition.Base.Name,
+                ERPCode = Condition.Base.ERPCode,
+                SortIndex = Condition.Base.SortIndex,
+                EnableRecord = (Condition.Base.EnableRecord is true)
+            };
+        }
+
+        _condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
+        _condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
+        _condition.Value = Condition?.Value;
+        return _condition;
+    }
+    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions)
     {
         foreach (var Condition in Conditions)
         {
-            var f_Condition = new F_Condition();
-
-            if (Condition.Base is not null)
-            {
-                f_Condition.Id = Condition.Base.Id.Value;
-                f_Condition.Name = Condition.Base.Name;
-                f_Condition.ERPCode = Condition.Base.ERPCode;
-                f_Condition.SortIndex = Condition.Base.SortIndex;
-            }
-            f_Condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
-            f_Condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
-            f_Condition.Value = Condition?.Value;
-            yield return f_Condition;
+            yield return GetCondition(Condition);
         }
     }
-    public static IEnumerable<Condition> GetCondition(this IEnumerable<F_Condition> conditions)
+    public static IEnumerable<GRPC_Condition> GetConditions(this IEnumerable<F_Condition> f_conditions)
     {
-        foreach (var condition in conditions)
+        foreach (var f_condition in f_conditions)
         {
-            Condition _condition = new();
-            _condition.Base = new()
+            GRPC_BaseClassWithName _conditionBase = new()
             {
-                Id = condition?.Id,
-                Name = condition?.Name,
-                ERPCode = condition?.ERPCode,
-                SortIndex = condition?.SortIndex
+                Id = f_condition?.Id,
+                Name = f_condition?.Name,
+                DisplayName = f_condition?.DisplayName,
+                ERPCode = f_condition?.ERPCode,
+                SortIndex = f_condition?.SortIndex
             };
-            _condition.Tag = condition?.Tag?.GetBaseClassWithName();
-            _condition.Operand = condition?.Operand?.GetBaseClassWithName();
-            _condition.Value = condition?.Value;
+
+            GRPC_Condition _condition = new()
+            {
+                Base = _conditionBase,
+                Tag = f_condition?.Tag?.GetBaseClassWithName(),
+                Operand = f_condition?.Operand?.GetBaseClassWithName(),
+                Value = f_condition?.Value
+            };
+
             yield return _condition;
         }
     }
+    #endregion
 }
