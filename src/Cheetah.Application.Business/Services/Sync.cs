@@ -77,9 +77,12 @@ public class Sync(ISender _ISender,
 
                 await Parallel.ForEachAsync(_MostBeAdd, async (_condition, CancellationToken) =>
                 {
-                    var _getCondition = await _ISender.Send(new CopyConditionQuery(_condition));
+                    var _exist = await _ISender.Send(new IsConditionExistsQuery(_condition));
 
-                    _Conditions.Add(_getCondition);
+                    if (!_exist)
+                    {
+                        _Conditions.Add(_condition);
+                    }
                 });
 
                 _ = await conditionRepository.AddRangeAsync(_Conditions);

@@ -1,9 +1,7 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 public partial class F_Condition : BaseEntity, IAggregateRoot
-{
-    //[NotMapped]
+{    
     private long? _tagId;
-
     public long? TagId
     {
         get { return _tagId; }
@@ -11,7 +9,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     }
     public virtual D_Tag? Tag { get; set; }
 
-    //[NotMapped]
     private long? _operandId;
     public long? OperandId
     {
@@ -20,7 +17,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     }
     public virtual D_Operand? Operand { get; set; }
 
-    //[NotMapped]
     private string? _value;
 
     public string? Value
@@ -29,7 +25,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         set { _value = value; SetName(); }
     }
 
-    //[NotMapped]
     public bool BooleanValue
     {
         get
@@ -42,7 +37,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         }
     }
 
-    //[NotMapped]
     public float? FloatValue
     {
         get
