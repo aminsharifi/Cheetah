@@ -8,10 +8,11 @@ public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondi
 
         builder
             .HasOne(x => x.Task)
-            .WithMany(x=>x.TaskConditions)
+            .WithMany(x => x.TaskConditions)
             .HasForeignKey(x => x.FirstId);
 
         builder
             .HasIndex(x => x.SecondId);
+
     }
 }

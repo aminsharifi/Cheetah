@@ -1,29 +1,19 @@
-﻿using Cheetah.Application.Business.Entity.Specifications;
-using Cheetah.Application.Business.Task.Get;
-using Cheetah.Domain;
-using Cheetah.Domain.Entities.Links;
-using Cheetah.Presentation.Services.WebAPI.Helper;
-
-namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class RequestController : ControllerBase
 {
-    public ILogger<RequestController> _logger;    
+    public ILogger<RequestController> _logger;
     public ICartable _iCartable;
     public IWorkItem _iWorkItem;
     public ICopyClass _iCopyClass;
     public ISync _iSync;
     public IMediator _mediator;
-    public IReadRepository<D_User> _userRepository;
-    public IReadRepository<F_Condition> _conditionRepository;
     public IReadRepository<F_WorkItem> _workItemRepository;
-    public RequestController(ILogger<RequestController> GLogger,       
+    public RequestController(ILogger<RequestController> GLogger,
         ICartable GICartable, IWorkItem GIWorkItem,
         ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
-        IReadRepository<D_User> UserRepository,
-        IReadRepository<F_Condition> ConditionRepository,
         IReadRepository<F_WorkItem> WorkItemRepository
         )
     {
@@ -33,10 +23,8 @@ public class RequestController : ControllerBase
         _iCopyClass = GICopyClass;
         _iSync = GISync;
         _mediator = GMediator;
-        _userRepository = UserRepository;
-        _conditionRepository = ConditionRepository;
         _workItemRepository = WorkItemRepository;
-    }   
+    }
 
     [HttpGet(nameof(Health))]
     public String Health()
@@ -51,13 +39,13 @@ public class RequestController : ControllerBase
 
         #region Input
 
-        F_Case _case = request.Case.GetSimpleClass<F_Case>();
-        D_User _creator = request.Creator.GetSimpleClass<D_User>();
-        D_User _requestor = request.Requestor.GetSimpleClass<D_User>();
-        D_Process _process = request.Process.GetSimpleClass<D_Process>();
-        List<F_Condition> _caseConditions = request.Conditions.GetConditions().ToList();        
-        List<F_Condition> _workItemConditions = request.Conditions.GetConditions().ToList();
-        D_User _workItemUser = request.WorkItem.User.GetSimpleClass<D_User>();
+        SimpleClassDTO _case = request.Case.GetSimpleClass<SimpleClassDTO>();
+        SimpleClassDTO _creator = request.Creator.GetSimpleClass<SimpleClassDTO>();
+        SimpleClassDTO _requestor = request.Requestor.GetSimpleClass<SimpleClassDTO>();
+        SimpleClassDTO _process = request.Process.GetSimpleClass<SimpleClassDTO>();
+        List<GRPC_Condition> _caseConditions = request.Conditions;
+        List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
+        SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>();
 
         #endregion
 
@@ -76,13 +64,19 @@ public class RequestController : ControllerBase
             return output_Request;
         }
 
-        _case = Outputresult.Result.Value;
+        long _createdCaseId = Outputresult.Result.Value;
 
-        var _getCartable = await _iCartable.GetCaseAsync(_case, _process);
+        GetCase_Input _getCase_Input = new()
+        {
+            Case = new GRPC_BaseClass()
+            {
+                Id = _createdCaseId
+            }
+        };
 
-        var _requests = _getCartable.Value.FirstOrDefault();
+        GetCase_Output _getCase_Output = await GetCase(_getCase_Input);
 
-        output_Request.Case = await GetCase(_requests, _process, _creator, _requestor);
+        output_Request.Case = _getCase_Output.Case;
 
         #endregion
 
@@ -94,7 +88,68 @@ public class RequestController : ControllerBase
     [HttpPost(nameof(GetCase))]
     public async Task<GetCase_Output> GetCase([FromBody] GetCase_Input request)
     {
-        return await GetCase(request);
+        _logger.LogInformation("started " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", request);
+
+        #region Input
+        SimpleClassDTO _request = request.Case?.GetSimpleClass<SimpleClassDTO>();
+        //_request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
+        SimpleClassDTO _process = request.Process?.GetSimpleClass<SimpleClassDTO>();
+        #endregion
+
+        var _requests = await _iCartable.GetCaseAsync(_request, _process);
+
+        #region Output
+
+        GetCase_Output output_Request = new();
+
+        if (!_requests.Value.Any())
+        {
+            output_Request.OutputState = OutputState<Boolean>
+                .NotFoundErrorCreateRequest(false)
+                .SimpleClassDTO
+                .GetBaseClassWithName();
+
+            return output_Request;
+        }
+
+        var _selectedRequests = _requests.Value.FirstOrDefault();
+
+        output_Request.Case = new();
+
+        output_Request.Case.Base = _selectedRequests.GetBaseClassWithDate();
+        output_Request.Case.CaseState = _selectedRequests.CaseState.GetBaseClassWithName();
+        output_Request.Case.RequestorId = _selectedRequests.RequestorId;
+        output_Request.Case.CreatorId = _selectedRequests.CreatorId;
+        output_Request.Case.ProcessId = _selectedRequests.ProcessId;
+
+        foreach (var WorkItem in _selectedRequests.WorkItems)
+        {
+            GRPC_Task _gRPC_Task = new();
+            GRPC_WorkItem _gRPC_WorkItem = new();
+            _gRPC_Task.WorkItems = new();
+            output_Request.Case.Tasks = new();
+            _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate();
+            _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName();
+            _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
+            _gRPC_WorkItem.OccurredUserActions = new();
+            foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
+            {
+                GRPC_Condition _occurredUserAction = new() { Base = new() { Id = WorkItemCondition.SecondId } };
+                _gRPC_WorkItem.OccurredUserActions.Add(_occurredUserAction);
+            }
+            _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
+            output_Request.Case.Tasks.Add(_gRPC_Task);
+        }
+
+        output_Request.OutputState = OutputState<Boolean>
+            .Success(nameof(GetCase), true)
+            .SimpleClassDTO.GetBaseClassWithName();
+
+        #endregion
+
+        _logger.LogInformation("Ended " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", output_Request);
+
+        return output_Request;
     }
     [HttpPost(nameof(Inbox))]
     public async Task<Cartable_Output> Inbox([FromBody] Cartable_Input request)
@@ -143,9 +198,9 @@ public class RequestController : ControllerBase
         {
             Base = _case?.GetBaseClassWithDate(),
             CaseState = _case?.CaseState?.GetBaseClassWithName(),
-            Process = Process?.GetBaseClassWithName(),
-            Creator = Creator.GetBaseClassWithName(),
-            Requestor = Requestor.GetBaseClassWithName()
+            //Process = Process?.GetBaseClassWithName(),
+            //Creator = Creator.GetBaseClassWithName(),
+            //Requestor = Requestor.GetBaseClassWithName()
         };
 
         #region Tasks
@@ -185,8 +240,7 @@ public class RequestController : ControllerBase
                     .Where(x => x.Id == workItem.Base.Id)
                     .SingleOrDefault();
 
-                var _conditions = GetConditions(_WorkItem, _task);
-                workItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
+                var _conditions = GetConditions(_WorkItem, _task);                
                 workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
             }
         }
@@ -199,29 +253,29 @@ public class RequestController : ControllerBase
     {
         GRPC_WorkItem gRPC_WorkItem = new();
 
-
-        #region OccurredUserActions
-
         /*
-        var _occurredUserActions = workItem
-            .WorkItemConditions
-            .Select(x => x.Condition)
-        .GetConditions();
+                #region OccurredUserActions
 
 
-        gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
-        */
+                var _occurredUserActions = workItem
+                    .WorkItemConditions
+                    .Select(x => x.Condition)
+                .GetConditions();
 
-        #endregion
 
-        #region ValidUserActions
-        var _validUserActions = Task.TaskFlows
-            .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
-        .GetConditions();
+                gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
 
-        gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
-        #endregion
 
+                #endregion
+
+                #region ValidUserActions
+                var _validUserActions = Task.TaskFlows
+                    .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
+                .GetConditions();
+
+                gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
+                #endregion
+         */
 
         return gRPC_WorkItem;
     }
@@ -272,9 +326,9 @@ public class RequestController : ControllerBase
                 {
                     Base = outputRequestItem.Case.GetBaseClassWithDate(),
                     CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
-                    Creator = outputRequestItem.Creator.GetBaseClassWithName(),
-                    Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
-                    Process = outputRequestItem.Process.GetBaseClassWithName()
+                    //Creator = outputRequestItem.Creator.GetBaseClassWithName(),
+                    //Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
+                    //Process = outputRequestItem.Process.GetBaseClassWithName()
                 };
 
                 GRPC_Task _task = new();
@@ -297,8 +351,7 @@ public class RequestController : ControllerBase
 
                 var _f_task = _task.Base.GetSimpleClass<F_Task>();
 
-                var _conditions = GetConditions(_retriveworkItem, _f_task);
-                _gRPC_WorkItem.ValidUserActions.AddRange(_conditions.ValidUserActions);
+                var _conditions = GetConditions(_retriveworkItem, _f_task);                
                 _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
 
 

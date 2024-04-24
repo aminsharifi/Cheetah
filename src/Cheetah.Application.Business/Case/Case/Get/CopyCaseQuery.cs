@@ -1,4 +1,4 @@
 ﻿namespace Cheetah.Application.Business.Case.Get;
 
-public record CopyCaseQuery(F_Case Case, D_User Creator, D_User Requestor, D_Process Process, 
-    List<F_Condition> CaseConditions, D_User WorkItemUser, List<F_Condition> WorkItemConditions) : IQuery<Result<F_Case>>;
+public record CopyCaseQuery(SimpleClassDTO Case, SimpleClassDTO Creator, SimpleClassDTO Requestor, SimpleClassDTO Process, 
+    List<GRPC_Condition> CaseConditions, SimpleClassDTO WorkItemUser, List<GRPC_Condition> WorkItemConditions) : IQuery<Result<F_Case>>;

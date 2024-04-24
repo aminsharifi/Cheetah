@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Case.Get;
+﻿using Cheetah.Presentation.Services.WebAPI.Helper;
+
+namespace Cheetah.Application.Business.Case.Get;
 
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,
@@ -34,8 +36,9 @@ public class CopyCaseHandler(
 
         await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
         {
-            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition));
-            _case.CaseConditions.Add(new()
+            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition()));
+
+            _workItem.WorkItemConditions.Add(new()
             {
                 SecondId = _getCondition.Value
             });
@@ -44,7 +47,7 @@ public class CopyCaseHandler(
         await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
         {
             var _getCondition = await _conditionRepository
-            .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition));
+            .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition()));
             _case.CaseConditions.Add(new()
             {
                 SecondId = _getCondition.Value

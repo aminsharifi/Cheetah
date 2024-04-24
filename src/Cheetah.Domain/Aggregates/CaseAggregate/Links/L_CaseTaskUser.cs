@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Cheetah.Domain.Entities.Links;
+﻿namespace Cheetah.Domain.Entities.Links;
 
 public partial class L_CaseTaskUser : SimpleLinkClass
 {

@@ -2,16 +2,10 @@
 
 public class GetDetailCasesSpec : Specification<F_Case>
 {
-    public GetDetailCasesSpec(F_Case request)
+    public GetDetailCasesSpec(SimpleClassDTO request)
     {
         Query
-            .AsNoTracking();       
-
-        if (request.CaseState is not null)
-        {
-            //var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, request.CaseState);
-            //GeneralRequest = GeneralRequest.Where(x => x.CaseStateId == CaseStateId);
-        }
+            .AsNoTracking();
 
         if (request.Id != 0)
         {

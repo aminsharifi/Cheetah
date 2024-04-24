@@ -3,34 +3,34 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
     IRepository<F_WorkItem> workItemRepository,
     IRepository<F_Case> caseRepository,
     IRepository<F_Task> taskRepository,
-    IRepository<D_User> userRepository) : IWorkItem
+    IRepository<D_User> userRepository,
+    IRepository<F_Condition> conditionRepository) : IWorkItem
 {
-    public async Task<CheetahResult<F_Case>> CreateRequestAsync(F_Case Case, D_User Creator, D_User Requestor, D_Process Process,
-        List<F_Condition> CaseConditions, D_User WorkItemUser, List<F_Condition> WorkItemConditions)
+    public async Task<CheetahResult<long>> CreateRequestAsync(SimpleClassDTO Case, SimpleClassDTO Creator,
+        SimpleClassDTO Requestor, SimpleClassDTO Process,
+        List<GRPC_Condition> CaseConditions, SimpleClassDTO WorkItemUser, List<GRPC_Condition> WorkItemConditions)
     {
-        CheetahResult<F_Case> _OutputState = new();
+        var GeneralRequest = await iSender.Send(new CopyCaseQuery(Case, Creator, Requestor, Process,
+            CaseConditions, WorkItemUser, WorkItemConditions));
 
-        var GeneralRequest = (await iSender.Send(new CopyCaseQuery(Case, Creator, Requestor, Process,
-            CaseConditions, WorkItemUser, WorkItemConditions))).Value;
-
-        var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.ProcessId.Value,
-        eRPCode: GeneralRequest.ERPCode.Value);
-
+        var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.Value.ProcessId.Value,
+        eRPCode: GeneralRequest.Value.ERPCode.Value);
+        CheetahResult<long> _OutputState;
         if (await caseRepository.AnyAsync(_getCaseSpec))
         {
             var _caseID = await caseRepository.FirstOrDefaultAsync(_getCaseSpec);
 
-            _OutputState = OutputState<F_Case>.DuplicateErrorCreateRequest(_caseID, GeneralRequest);
+            _OutputState = OutputState<long>.DuplicateErrorCreateRequest(_caseID, _caseID.Value);
 
             return _OutputState;
         }
         else
         {
-            _ = await SetWorkItemsAsync(GeneralRequest);
+            await SetWorkItemsAsync(GeneralRequest);
 
-            await caseRepository.AddAsync(GeneralRequest);
+            var _createdCase = await caseRepository.AddAsync(GeneralRequest);
 
-            _OutputState = OutputState<F_Case>.SuccessCreateRequest(GeneralRequest.Id, GeneralRequest);
+            _OutputState = OutputState<long>.SuccessCreateRequest(GeneralRequest.Value.Id, _createdCase.Id);
         }
 
         return _OutputState;
@@ -106,10 +106,11 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
             {
                 var ConditionOccures = false;
 
-                var Expected_Conditions = ProcessScenario
-                    .Scenario
-                    .ScenarioConditions
-                    .Select(x => x.Condition);
+
+                var Expected_ConditionsIds = ProcessScenario
+                    .Scenario.ScenarioConditions.Select(x => x.SecondId);
+
+                var Expected_Conditions = (await iSender.Send(new GetIncludedConditionsQuery(Actual_ConditionsIds))).Value;
 
                 ConditionOccures = CompareCondition(Actual_Conditions, Expected_Conditions);
 
@@ -234,17 +235,19 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
         var _taskFlows = (await iSender.Send(new GetFlowsByTaskQuery(_currentTaskId.Value))).Value;
 
-        var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
+        var _actualConditionsIds = Current_WorkItem.WorkItemConditions
+            .Select(x => x.SecondId.Value);
 
         var _actual_Conditions = (await iSender.Send(
             new GetIncludedConditionsQuery(_actualConditionsIds))).Value;
 
-        await Parallel.ForEachAsync(_taskFlows, async (_taskFlow, cancellation) =>
+        foreach (var _taskFlow in _taskFlows)
         {
-            var ExpectedConditions = _taskFlow.
-            Flow.FlowConditions.
-            Select(x => x.Condition)
-            .ToList();
+            var ExpectedConditionsIds = _taskFlow.Flow.FlowConditions
+                .Select(x => x.SecondId.Value);
+
+            var ExpectedConditions = (await iSender.Send(
+        new GetIncludedConditionsQuery(ExpectedConditionsIds))).Value;
 
             if (CompareCondition(_actual_Conditions, ExpectedConditions))
             {
@@ -334,7 +337,7 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
                     .ToList().ForEach(x => x.SetFuture());
                 }
             }
-        });
+        }
         return OutputState<F_WorkItem>.Success("با موفقیت ایجاد شد", Current_WorkItem);
     }
 }
