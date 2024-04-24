@@ -3,7 +3,7 @@
 public class Cartable(ISender iSender) : ICartable
 {  
 
-    public async Task<Result<IEnumerable<F_Case>>> GetCaseAsync(F_Case Case, D_Process Process)
+    public async Task<Result<IEnumerable<F_Case>>> GetCaseAsync(SimpleClassDTO Case, SimpleClassDTO Process)
     {
         var _GetDetailCases = await iSender.Send(new GetDetailCasesQuery(Case));
 

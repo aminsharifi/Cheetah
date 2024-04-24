@@ -1,8 +1,13 @@
 ﻿global using Ardalis.SharedKernel;
+global using Cheetah.Application.Business.Entity;
+global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Interfaces;
+global using Cheetah.Application.Business.Task.Get;
+global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Infrastructure.Persistence.Data;
+global using Cheetah.Presentation.Services.WebAPI.Helper;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;

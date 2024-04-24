@@ -4,8 +4,6 @@ public partial class L_ScenarioCondition : SimpleLinkClass
 {
     public virtual F_Scenario? Scenario { get; set; }
 
-    public virtual F_Condition? Condition { get; set; }
-
     public L_ScenarioCondition ShallowCopy()
     {
         return (L_ScenarioCondition)MemberwiseClone();

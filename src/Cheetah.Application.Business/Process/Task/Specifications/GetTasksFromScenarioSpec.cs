@@ -9,28 +9,10 @@ public class GetTasksFromScenarioSpec : Specification<F_Task>
 
         Query
             .Where(x => x.ScenarioId == ScenarioId)
-            .Where(x => x.EnableRecord == true)
+            .Where(x => x.EnableRecord)
             .OrderBy(x => x.SortIndex)
             .AsNoTracking();
 
-        Query
-            .Include(x => x.TaskConditions)
-            .ThenInclude(x => x.Condition);
-
-        Query
-            .Include(x => x.TaskFlows)
-            .ThenInclude(x => x.Flow);
-
-        Query
-            .Include(x => x.TaskFlows)
-            .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.FlowConditions)
-            .ThenInclude(x => x.Condition);
-
-        Query
-            .Include(x => x.TaskFlows)
-            .ThenInclude(x => x.Flow)
-            .ThenInclude(x => x.FlowTasks)
-            .ThenInclude(x => x.Task);
+        Query.Include(x => x.TaskConditions);
     }
 }
