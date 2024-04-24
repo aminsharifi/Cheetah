@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI;
+﻿namespace Cheetah.Application.Business.Entity;
 public class CreateRequest_Input
 {
     public GRPC_BaseClass? Case { get; set; }
@@ -31,7 +31,7 @@ public class GetCase_Input
 }
 public class GetCase_Output
 {
-    public GRPC_BaseClass? Case { get; set; }
+    public GRPC_Case? Case { get; set; }
     public GRPC_BaseClassWithName? OutputState { get; set; }
 }
 public class PerformRequest_Input
@@ -148,8 +148,7 @@ public class GRPC_WorkItem
     public GRPC_BaseClassWithDate? Base { get; set; }
     public GRPC_BaseClassWithName? User { get; set; }
     public GRPC_BaseClassWithName? WorkItemState { get; set; }
-    public List<GRPC_Condition>? OccurredUserActions { get; set; }
-    public List<GRPC_Condition>? ValidUserActions { get; set; }
+    public List<GRPC_Condition?>? OccurredUserActions { get; set; }
 }
 public class GRPC_Condition
 {
@@ -161,9 +160,9 @@ public class GRPC_Condition
 public class GRPC_Case
 {
     public GRPC_BaseClassWithDate? Base { get; set; }
-    public GRPC_BaseClassWithName? Process { get; set; }
-    public GRPC_BaseClassWithName? Creator { get; set; }
-    public GRPC_BaseClassWithName? Requestor { get; set; }
+    public long? ProcessId { get; set; }
+    public long? CreatorId { get; set; }
+    public long? RequestorId { get; set; }
     public List<GRPC_Task>? Tasks { get; set; }
     public GRPC_BaseClassWithName? CaseState { get; set; }
 }

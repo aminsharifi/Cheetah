@@ -9,6 +9,7 @@ global using Cheetah.Application.Business.CaseTaskUser.Get;
 global using Cheetah.Application.Business.CaseTaskUser.Specifications;
 global using Cheetah.Application.Business.Condition.Get;
 global using Cheetah.Application.Business.Condition.Specifications;
+global using Cheetah.Application.Business.Entity;
 global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Application.Business.Operand.Get;
