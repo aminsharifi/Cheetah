@@ -37,10 +37,10 @@ public class GetCartableHandler(
                 WorkItemState = _iCopyClass.GetSimpleClass(x.WorkItemState),
                 Task = _iCopyClass.GetSimpleClass(
                     _taskRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Task>(x.TaskId)).GetAwaiter().GetResult()),
-                ValidUserActions =
-                (_ISender.Send(new GetFlowsByTaskQuery(x.TaskId)).GetAwaiter().GetResult().Value)
-                .SelectMany(a => a.Flow.FlowConditions,
-                (a, b) => _iCopyClass.GetSimpleClass(b.Condition)),
+                //ValidUserActions =
+                //(_ISender.Send(new GetFlowsByTaskQuery(x.TaskId)).GetAwaiter().GetResult().Value)
+                //.SelectMany(a => a.Flow.FlowConditions,
+                //(a, b) => _iCopyClass.GetSimpleClass(b.Condition)),
                 OccurredUserActions = x.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(
                     _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult())),
                 Summary = string.Empty

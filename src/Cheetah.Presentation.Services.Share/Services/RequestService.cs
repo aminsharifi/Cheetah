@@ -17,6 +17,8 @@ public class RequestService(ILogger<RequestService> logger,
     }
     public async Task<CreateRequest_Output> CreateRequest(CreateRequest_Input request)
     {
+        return new CreateRequest_Output();
+        /*
         logger.LogInformation("started " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", request);
 
         #region Input
@@ -30,11 +32,13 @@ public class RequestService(ILogger<RequestService> logger,
         var WorkItemConditions = new List<F_Condition>();
         #endregion
 
-        var Outputresult = await iWorkItem.CreateRequestAsync(_case, _creator, _requestor, _process, _caseConditions, _workItem, WorkItemConditions);
+        //var Outputresult = await iWorkItem.CreateRequestAsync(_case, _creator, _requestor, _process, _caseConditions, _workItem, WorkItemConditions);
 
         #region Output
 
-        var OutputState = Outputresult.SimpleClassDTO;
+        //var OutputState = Outputresult.SimpleClassDTO;
+
+        SimpleClassDTO OutputState = new();
 
         CreateRequest_Output output_Request = new();
 
@@ -58,14 +62,17 @@ public class RequestService(ILogger<RequestService> logger,
         logger.LogInformation("Ended " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", output_Request);
 
         return output_Request;
+        */
     }
     public async Task<GetCase_Output> GetCase(GetCase_Input request)
     {
+        return new GetCase_Output();
+        /*
         logger.LogInformation("started " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", request);
 
         #region Input
-        var _request = request.Case?.GetSimpleClass<F_Case>();
-        _request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
+        var _request = request.Case?.GetSimpleClass<SimpleClassDTO>();
+        //_request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
         D_Process _process = request.Process?.GetSimpleClass<D_Process>();
         #endregion
 
@@ -98,6 +105,7 @@ public class RequestService(ILogger<RequestService> logger,
         logger.LogInformation("Ended " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", output_Request);
 
         return output_Request;
+        */
     }
     public async Task<Cartable_Output> Inbox(Cartable_Input request)
     {
@@ -404,29 +412,30 @@ public class RequestService(ILogger<RequestService> logger,
     {
         GRPC_WorkItem gRPC_WorkItem = new();
 
-
-        #region OccurredUserActions
-
         /*
-        var _occurredUserActions = workItem
-            .WorkItemConditions
-            .Select(x => x.Condition)
-        .GetConditions();
+            #region OccurredUserActions
 
 
-        gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
-        */
+            var _occurredUserActions = workItem
+                .WorkItemConditions
+                .Select(x => x.Condition)
+            .GetConditions();
 
-        #endregion
 
-        #region ValidUserActions
-        var _validUserActions = Task.TaskFlows
-            .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
-        .GetConditions();
+            gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
 
-        gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
-        #endregion
 
+            #endregion
+
+            #region ValidUserActions
+            var _validUserActions = Task.TaskFlows
+                .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
+            .GetConditions();
+
+            gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
+            #endregion
+
+             */
 
         return gRPC_WorkItem;
     }
