@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())
@@ -37,5 +35,8 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
+app.MapGet("/health", () => Results.Ok());
+app.MapGet("/", () => Results.Ok());
 
 app.Run();
