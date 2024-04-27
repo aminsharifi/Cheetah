@@ -106,7 +106,6 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
             {
                 var ConditionOccures = false;
 
-
                 var Expected_ConditionsIds = ProcessScenario
                     .Scenario.ScenarioConditions.Select(x => x.SecondId);
 
