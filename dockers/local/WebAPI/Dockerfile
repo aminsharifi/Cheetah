@@ -18,10 +18,10 @@ RUN dotnet restore "src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentatio
 
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Services.WebAPI"
-RUN dotnet build "./Cheetah.Presentation.Services.WebAPI.csproj"  -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
+RUN dotnet build "Cheetah.Presentation.Services.WebAPI.csproj"  -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 FROM build AS publish
-RUN dotnet publish "./Cheetah.Presentation.Services.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
+RUN dotnet publish "Cheetah.Presentation.Services.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 
 FROM base AS final
