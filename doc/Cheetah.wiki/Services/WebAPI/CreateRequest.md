@@ -2,7 +2,7 @@
 
 | Title               | Value           |
 | ---                 | ---             |
-| Broker Name         | gRPC proto3     |
+| Broker Name         | WebAPI		    |
 | Broker Server Name  | localhost: 1991 |
 | Project Version     | 8.2.100         |
 | Service Name        | CreateRequest   |
