@@ -5,7 +5,7 @@ WORKDIR /app
 EXPOSE 1991
 
 FROM docker.repoifb.cmn/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /
 COPY ["dockers/local/nuget.config", "."]
 COPY ["src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentation.Services.WebAPI.csproj", "src/Cheetah.Presentation.Services.WebAPI/"]
 COPY ["src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/"]
@@ -18,7 +18,7 @@ RUN dotnet restore "src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentatio
 
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Services.WebAPI"
-RUN dotnet build  -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
+RUN dotnet build -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 FROM build AS publish
 RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
