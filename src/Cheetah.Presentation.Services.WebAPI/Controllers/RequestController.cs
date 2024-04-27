@@ -92,7 +92,6 @@ public class RequestController : ControllerBase
 
         #region Input
         SimpleClassDTO _request = request.Case?.GetSimpleClass<SimpleClassDTO>();
-        //_request.CaseState = request.CaseState?.GetSimpleClass<D_CaseState>();
         SimpleClassDTO _process = request.Process?.GetSimpleClass<SimpleClassDTO>();
         #endregion
 
@@ -122,12 +121,13 @@ public class RequestController : ControllerBase
         output_Request.Case.CreatorId = _selectedRequests.CreatorId;
         output_Request.Case.ProcessId = _selectedRequests.ProcessId;
 
+        output_Request.Case.Tasks = new();
+
         foreach (var WorkItem in _selectedRequests.WorkItems)
         {
             GRPC_Task _gRPC_Task = new();
             GRPC_WorkItem _gRPC_WorkItem = new();
             _gRPC_Task.WorkItems = new();
-            output_Request.Case.Tasks = new();
             _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate();
             _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName();
             _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
@@ -151,15 +151,29 @@ public class RequestController : ControllerBase
 
         return output_Request;
     }
+
     [HttpPost(nameof(Inbox))]
     public async Task<Cartable_Output> Inbox([FromBody] Cartable_Input request)
     {
-        return await Inbox(request);
+        _logger.LogInformation("started " + nameof(Inbox) + " {@" + nameof(Inbox) + "}", request);
+
+        var output_Request = await Cartable(request, CartableProperty.Inbox);
+
+        _logger.LogInformation("Ended " + nameof(Inbox) + " {@" + nameof(Inbox) + "}", output_Request);
+
+        return output_Request;
+
     }
     [HttpPost(nameof(Outbox))]
     public async Task<Cartable_Output> Outbox([FromBody] Cartable_Input request)
     {
-        return await Outbox(request);
+        _logger.LogInformation("started " + nameof(Outbox) + " {@" + nameof(Outbox) + "}", request);
+
+        var output_Request = await Cartable(request, CartableProperty.Outbox);
+
+        _logger.LogInformation("Ended " + nameof(Outbox) + " {@" + nameof(Outbox) + "}", output_Request);
+
+        return output_Request;
     }
     [HttpPost(nameof(PerformRequest))]
     public async Task<PerformRequest_Output> PerformRequest([FromBody] PerformRequest_Input request)
@@ -240,7 +254,7 @@ public class RequestController : ControllerBase
                     .Where(x => x.Id == workItem.Base.Id)
                     .SingleOrDefault();
 
-                var _conditions = GetConditions(_WorkItem, _task);                
+                var _conditions = GetConditions(_WorkItem, _task);
                 workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
             }
         }
@@ -351,7 +365,7 @@ public class RequestController : ControllerBase
 
                 var _f_task = _task.Base.GetSimpleClass<F_Task>();
 
-                var _conditions = GetConditions(_retriveworkItem, _f_task);                
+                var _conditions = GetConditions(_retriveworkItem, _f_task);
                 _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
 
 
