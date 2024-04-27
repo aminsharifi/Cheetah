@@ -3,7 +3,7 @@
 | Title               | Value           |
 | ---                 | ---             |
 | Broker Name         | gRPC proto3     |
-| Broker Server Name  | localhost: 5000 |
+| Broker Server Name  | localhost: 1991 |
 | Project Version     | 8.2.100         |
 | Service Name        | CreateRequest   |
 
