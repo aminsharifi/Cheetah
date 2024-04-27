@@ -51,25 +51,25 @@ The output of the service is the created case.
 
 ```javascript
 {    
-    "Case": {"ERPCode": -216},
+    "Case": {"ERPCode": -215},
     "Creator":
     {
-        "ERPCode": 1 //m.sharifi
+        "ERPCode": -1 //m.sharifi
     },
     "Requestor": 
     {
-        "ERPCode":1 //m.sharifi
+        "ERPCode":-1 //m.sharifi
     },
     "Process": 
     {
-        "Name": "SampleProcess"
+        "Name": "Admission"
     },
     "Conditions":
     [
         {
-            "Tag": {"Name": "StockType"},
+            "Tag": {"Name": "Role"},
             "Operand": {"Name": "="},
-            "Value":"FirstStock"
+            "Value":"AdmissionManager"
         }
     ],
     "WorkItem":
