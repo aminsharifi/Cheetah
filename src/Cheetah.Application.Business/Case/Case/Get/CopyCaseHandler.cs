@@ -44,15 +44,18 @@ public class CopyCaseHandler(
             });
         });
 
-        await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
+        if (request.CaseConditions is not null)
         {
-            var _getCondition = await _conditionRepository
-            .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition()));
-            _case.CaseConditions.Add(new()
+            await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
             {
-                SecondId = _getCondition.Value
+                var _getCondition = await _conditionRepository
+                .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition()));
+                _case.CaseConditions.Add(new()
+                {
+                    SecondId = _getCondition.Value
+                });
             });
-        });
+        }
 
         _case.WorkItems.Add(_workItem);
 
