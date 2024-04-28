@@ -1,10 +1,14 @@
-﻿namespace Cheetah.Application.Business.Services;
-public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace Cheetah.Application.Business.Services;
+public class WorkItem(ICopyClass _iCopyClass,
+    ISender iSender, IMemoryCache _cache,
     IRepository<F_WorkItem> workItemRepository,
     IRepository<F_Case> caseRepository,
     IRepository<F_Task> taskRepository,
     IRepository<D_User> userRepository,
-    IRepository<F_Condition> conditionRepository) : IWorkItem
+    IRepository<F_Condition> conditionRepository,
+    IRepository<D_Process> processRepository) : IWorkItem
 {
     public async Task<CheetahResult<long>> CreateRequestAsync(SimpleClassDTO Case, SimpleClassDTO Creator,
         SimpleClassDTO Requestor, SimpleClassDTO Process,
@@ -15,6 +19,8 @@ public class WorkItem(ICopyClass _iCopyClass, ISender iSender,
 
         var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.Value.ProcessId.Value,
         eRPCode: GeneralRequest.Value.ERPCode.Value);
+
+
         CheetahResult<long> _OutputState;
         if (await caseRepository.AnyAsync(_getCaseSpec))
         {

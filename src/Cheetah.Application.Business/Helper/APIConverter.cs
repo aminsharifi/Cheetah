@@ -14,7 +14,8 @@ public static class APIConverter
         {
             Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-            SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0
+            SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -33,7 +34,8 @@ public static class APIConverter
             ERPCode = simpleClass.ERPCode,
             SortIndex = simpleClass.SortIndex,
             Name = simpleClass.Name,
-            DisplayName = simpleClass.DisplayName
+            DisplayName = simpleClass.DisplayName,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -52,7 +54,8 @@ public static class APIConverter
             ERPCode = simpleClass.ERPCode,
             SortIndex = simpleClass.SortIndex,
             CreateTimeRecord = simpleClass.Created,
-            LastUpdatedRecord = simpleClass.LastModified
+            LastUpdatedRecord = simpleClass.LastModified,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -73,7 +76,8 @@ public static class APIConverter
             Name = simpleClass.Name,
             DisplayName = simpleClass.DisplayName,
             CreateTimeRecord = simpleClass.Created,
-            LastUpdatedRecord = simpleClass.LastModified
+            LastUpdatedRecord = simpleClass.LastModified,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -87,11 +91,12 @@ public static class APIConverter
             return _GRPC_BaseClass;
         }
 
-        _GRPC_BaseClass = new GRPC_BaseClass()
+        _GRPC_BaseClass = new ()
         {
             Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex
+            SortIndex = simpleClass.SortIndex,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -111,7 +116,8 @@ public static class APIConverter
             ERPCode = simpleClass.ERPCode,
             SortIndex = simpleClass.SortIndex,
             Name = simpleClass.Name,
-            DisplayName = simpleClass.DisplayName
+            DisplayName = simpleClass.DisplayName,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -133,7 +139,8 @@ public static class APIConverter
             Name = simpleClass.Name,
             DisplayName = simpleClass.DisplayName,
             CreateTimeRecord = simpleClass.Created,
-            LastUpdatedRecord = simpleClass.LastModified
+            LastUpdatedRecord = simpleClass.LastModified,
+            EnableRecord = simpleClass.EnableRecord
         };
 
         return _GRPC_BaseClass;
@@ -171,6 +178,10 @@ public static class APIConverter
         {
             _SimpleClass.LastModified = gRPC_BaseClass.LastUpdatedRecord;
         }
+        if (gRPC_BaseClass.EnableRecord is not null)
+        {
+            _SimpleClass.EnableRecord = gRPC_BaseClass.EnableRecord.Value;
+        }
 
         return _SimpleClass;
     }
@@ -199,6 +210,10 @@ public static class APIConverter
         {
             _SimpleClass.Name = gRPC_BaseClass.Name;
         }
+        if (gRPC_BaseClass.EnableRecord is not null)
+        {
+            _SimpleClass.EnableRecord = gRPC_BaseClass.EnableRecord.Value;
+        }
 
         return _SimpleClass;
     }
@@ -222,6 +237,10 @@ public static class APIConverter
         if (gRPC_BaseClass.SortIndex is not null)
         {
             _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
+        }
+        if (gRPC_BaseClass.EnableRecord is not null)
+        {
+            _SimpleClass.EnableRecord = gRPC_BaseClass.EnableRecord.Value;
         }
 
         return _SimpleClass;
