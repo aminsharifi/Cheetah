@@ -5,7 +5,7 @@ public class GetProcessScenarioSpec : Specification<L_ProcessScenario>
     public GetProcessScenarioSpec(long processId)
     {
         Query
-            .EnableCache(nameof(GetConditionSpec), processId);
+            .EnableCache(nameof(GetProcessScenarioSpec), processId);
 
         Query
             .Where(x => x.FirstId == processId)

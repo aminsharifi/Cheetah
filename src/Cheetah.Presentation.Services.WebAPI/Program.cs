@@ -25,7 +25,7 @@ var app = await builder.InitializeCommonSettingsAsync();
 app.UseSwagger();
 
 app.UseSwaggerUI();
-  
+
 //}
 
 app.UseHttpsRedirection();
@@ -36,7 +36,6 @@ app.UseAuthentication();
 
 app.MapControllers();
 
-app.MapGet("/health", () => Results.Ok());
-app.MapGet("/", () => Results.Ok());
+app.MapGet("/", () => Results.Ok("Ok!"));
 
 app.Run();

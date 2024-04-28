@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Application.Business.Helper;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 // inherit from Ardalis.Specification type
 public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
@@ -15,7 +17,7 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
     {
         if (specification.CacheEnabled)
         {
-            string key = $"{specification.CacheKey}-FirstOrDefaultAsync";
+            string key = $"SpecCache-{specification.CacheKey}";
 
             return await _cache.GetOrCreate(key, entry =>
             {
@@ -30,7 +32,7 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
     {
         if (specification.CacheEnabled)
         {
-            string key = $"{specification.CacheKey}-FirstOrDefaultAsync";
+            string key = $"SpecCache-{specification.CacheKey}";
 
             return await _cache.GetOrCreate(key, entry =>
             {
@@ -45,7 +47,7 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
     {
         if (specification.CacheEnabled)
         {
-            string key = $"{specification.CacheKey}-FirstOrDefaultAsync";
+            string key = $"SpecCache-{specification.CacheKey}";
 
             List<T> _result;
 
@@ -53,9 +55,39 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
             {
                 var queryResultCache = await ApplySpecification(specification).ToListAsync(cancellationToken);
 
-                _result =  specification.PostProcessingAction == null ? queryResultCache : specification.PostProcessingAction(queryResultCache).ToList();
+                _result = specification.PostProcessingAction == null ? queryResultCache : specification.PostProcessingAction(queryResultCache).ToList();
 
-                _cache.Set(key, _result);
+                try
+                {
+                    var _startIndex = specification.CacheKey.IndexOf("-+");
+                    if (_startIndex > 0)
+                    {
+                        var _len = specification.CacheKey.Length;
+                        var _ids = specification.CacheKey.Remove(0, _startIndex + 1).FromString();
+                        var _key = specification.CacheKey.Remove(_startIndex, (_len - _startIndex));
+
+                        foreach (var _id in _ids)
+                        {
+                            foreach (var item in _result)
+                            {
+                                if ((item as BaseEntity).Id == _id)
+                                {
+                                    var _value = (item as BaseEntity);
+                                    var aaaa = _key + "-" + _id;
+                                    _cache.Set(_key + "-" + _id, _value);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _cache.Set(key, _result);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
 
             return _result;

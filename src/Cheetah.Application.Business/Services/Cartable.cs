@@ -1,12 +1,13 @@
-﻿namespace Cheetah.Application.Business.Services;
+﻿using Microsoft.Extensions.Caching.Memory;
 
-public class Cartable(ISender iSender) : ICartable
-{  
+namespace Cheetah.Application.Business.Services;
+
+public class Cartable(ISender iSender, IMemoryCache _cache, IRepository<D_Process> processRepository) : ICartable
+{
 
     public async Task<Result<IEnumerable<F_Case>>> GetCaseAsync(SimpleClassDTO Case, SimpleClassDTO Process)
     {
         var _GetDetailCases = await iSender.Send(new GetDetailCasesQuery(Case));
-
         return _GetDetailCases;
     }
 

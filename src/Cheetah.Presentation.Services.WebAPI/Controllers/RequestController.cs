@@ -26,12 +26,6 @@ public class RequestController : ControllerBase
         _workItemRepository = WorkItemRepository;
     }
 
-    [HttpGet(nameof(Health))]
-    public String Health()
-    {
-        return "Ok!";
-    }
-
     [HttpPost(nameof(CreateRequest))]
     public async Task<CreateRequest_Output> CreateRequest([FromBody] CreateRequest_Input request)
     {
@@ -84,7 +78,6 @@ public class RequestController : ControllerBase
 
         return output_Request;
     }
-
     [HttpPost(nameof(GetCase))]
     public async Task<GetCase_Output> GetCase([FromBody] GetCase_Input request)
     {
@@ -123,21 +116,26 @@ public class RequestController : ControllerBase
 
         output_Request.Case.Tasks = new();
 
-        foreach (var WorkItem in _selectedRequests.WorkItems)
+        var _distincTaskIds = _selectedRequests.WorkItems.Select(x => x.TaskId).Distinct();
+
+        foreach (var _distincTaskId in _distincTaskIds)
         {
-            GRPC_Task _gRPC_Task = new();
-            GRPC_WorkItem _gRPC_WorkItem = new();
+            GRPC_Task _gRPC_Task = new() { Base = new() { Id = _distincTaskId } };
             _gRPC_Task.WorkItems = new();
-            _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate();
-            _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName();
-            _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
-            _gRPC_WorkItem.OccurredUserActions = new();
-            foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
+            foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _distincTaskId))
             {
-                GRPC_Condition _occurredUserAction = new() { Base = new() { Id = WorkItemCondition.SecondId } };
-                _gRPC_WorkItem.OccurredUserActions.Add(_occurredUserAction);
+                GRPC_WorkItem _gRPC_WorkItem = new();
+                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate();
+                _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName();
+                _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
+                _gRPC_WorkItem.OccurredUserActions = new();
+                foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
+                {
+                    GRPC_Condition _occurredUserAction = new() { Base = new() { Id = WorkItemCondition.SecondId } };
+                    _gRPC_WorkItem.OccurredUserActions.Add(_occurredUserAction);
+                }
+                _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
             }
-            _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
             output_Request.Case.Tasks.Add(_gRPC_Task);
         }
 
@@ -151,7 +149,6 @@ public class RequestController : ControllerBase
 
         return output_Request;
     }
-
     [HttpPost(nameof(Inbox))]
     public async Task<Cartable_Output> Inbox([FromBody] Cartable_Input request)
     {
@@ -326,6 +323,7 @@ public class RequestController : ControllerBase
         #region Output
         Cartable_Output _OutputCartable = new();
 
+        _OutputCartable.Cases = new();
 
         if (OutputRequest.Value.Any())
         {
@@ -333,21 +331,20 @@ public class RequestController : ControllerBase
             _OutputCartable.PageSize = OutputRequest.Value.FirstOrDefault()?.PageSize.Value;
             _OutputCartable.PageNumber = OutputRequest.Value.FirstOrDefault()?.PageNumber.Value;
 
-
             foreach (var outputRequestItem in OutputRequest.Value)
             {
                 GRPC_Case _Case = new()
                 {
                     Base = outputRequestItem.Case.GetBaseClassWithDate(),
                     CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
-                    //Creator = outputRequestItem.Creator.GetBaseClassWithName(),
-                    //Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
-                    //Process = outputRequestItem.Process.GetBaseClassWithName()
+                    CreatorId = outputRequestItem.Creator.Id,
+                    RequestorId = outputRequestItem.Requestor.Id,
+                    ProcessId = outputRequestItem.Process.Id
                 };
 
                 GRPC_Task _task = new();
-
                 _task.Base = outputRequestItem.Task.GetBaseClassWithName();
+                var _f_task = _task.Base.GetSimpleClass<F_Task>();
 
                 GRPC_WorkItem _gRPC_WorkItem = new();
 
@@ -363,13 +360,18 @@ public class RequestController : ControllerBase
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
-                var _f_task = _task.Base.GetSimpleClass<F_Task>();
-
                 var _conditions = GetConditions(_retriveworkItem, _f_task);
-                _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
 
+                _task.WorkItems = new();
+
+                if (_conditions.OccurredUserActions is not null)
+                {
+                    _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
+                }
 
                 _task.WorkItems.Add(_gRPC_WorkItem);
+
+                _Case.Tasks = new();
 
                 _Case.Tasks.Add(_task);
 

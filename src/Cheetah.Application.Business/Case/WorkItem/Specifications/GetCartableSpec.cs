@@ -22,24 +22,23 @@ public class GetCartableSpec : Specification<F_WorkItem>
             x.Case.EnableRecord &&
             x.EnableRecord);
 
-        //Query
         if (cartableDTO.User is not null)
         {
-            //var UserID = await _iCopyClass.GetSimpleClassId(_db.D_Users, cartableDTO.User);
+            var UserID = cartableDTO.User.Id;
 
-            //f_WorkItems = f_WorkItems.Where(x => x.UserId == UserID);
+            Query.Where(x => x.UserId == UserID);
         }
         if (cartableDTO.Process is not null)
         {
-            //var ProcessId = await _iCopyClass.GetSimpleClassId(_db.D_Processes, cartableDTO.Process);
+            var ProcessId = cartableDTO.Process.Id;
 
-            //f_WorkItems = f_WorkItems.Where(x => x.Case.ProcessId == ProcessId);
+            Query.Where(x => x.Case.ProcessId == ProcessId);
         }
         if (cartableDTO.CaseState is not null)
         {
-            //var CaseStateId = await _iCopyClass.GetSimpleClassId(_db.D_CaseStates, cartableDTO.CaseState);
+            var CaseStateId = cartableDTO.CaseState.Id;
 
-            //f_WorkItems = f_WorkItems.Where(x => x.Case.CaseStateId == CaseStateId);
+            Query.Where(x => x.Case.CaseStateId == CaseStateId);
         }
 
         if (cartableDTO.Case is not null)
