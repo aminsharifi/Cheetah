@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Cheetah.Application.Business.Helper;
+﻿namespace Cheetah.Application.Business.Helper;
 
 public static class GenerateCacheKey
 {

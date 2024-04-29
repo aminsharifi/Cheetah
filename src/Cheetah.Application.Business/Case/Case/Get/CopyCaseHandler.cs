@@ -1,7 +1,4 @@
-﻿using Cheetah.Presentation.Services.WebAPI.Helper;
-using MapsterMapper;
-
-namespace Cheetah.Application.Business.Case.Get;
+﻿namespace Cheetah.Application.Business.Case.Get;
 
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,

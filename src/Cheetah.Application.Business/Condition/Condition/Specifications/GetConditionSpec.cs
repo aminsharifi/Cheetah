@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.Helper;
-
-namespace Cheetah.Application.Business.Condition.Specifications;
+﻿namespace Cheetah.Application.Business.Condition.Specifications;
 
 public class GetConditionSpec : Specification<F_Condition>
 {   

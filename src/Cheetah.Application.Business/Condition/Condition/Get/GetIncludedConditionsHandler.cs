@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-
-namespace Cheetah.Application.Business.Condition.Get;
+﻿namespace Cheetah.Application.Business.Condition.Get;
 
 public class GetIncludedConditionsHandler(
     IReadRepository<F_Condition> _conditionRepository,
