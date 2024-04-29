@@ -1,6 +1,4 @@
-﻿using MapsterMapper;
-
-namespace Cheetah.Presentation.Services.WebAPI.Helper;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Helper;
 
 public static class APIConverter
 {

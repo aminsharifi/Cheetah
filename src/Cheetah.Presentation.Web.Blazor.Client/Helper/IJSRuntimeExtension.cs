@@ -1,6 +1,4 @@
-﻿using Microsoft.JSInterop;
-
-namespace Cheetah.Web.Blazor.Client.Helper;
+﻿namespace Cheetah.Web.Blazor.Client.Helper;
 
 public static class IJSRuntimeExtension
 {

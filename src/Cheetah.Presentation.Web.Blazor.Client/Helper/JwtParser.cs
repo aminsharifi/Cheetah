@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using System.Text.Json;
-
-namespace Cheetah.Web.Blazor.Client.Helper;
+﻿namespace Cheetah.Web.Blazor.Client.Helper;
 
 public static class JwtParser
 {

@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.Interfaces;
-
-namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
+﻿namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
 
 public class MyComponentBase : ComponentBase
 {
