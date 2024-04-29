@@ -2,8 +2,8 @@
 
 | Title               | Value           |
 | ---                 | ---             |
-| Broker Name         | gRPC proto3     |
-| Broker Server Name  | localhost: 5000 |
+| Broker Name         | WebAPI		    |
+| Broker Server Name  | localhost: 1991 |
 | Project Version     | 8.2.100         |
 | Service Name        | GetCase         |
 
@@ -47,8 +47,7 @@ The output of the service is the cases in the individual's cartable
 
 ```javascript
 {
-    "Case": {"Id": {"value": -12}},
-    "CaseState": {"ERPCode": {"value": 2}}
+      "Case": {"ERPCode": -252}
 }
 ```
 
@@ -56,3297 +55,416 @@ The output of the service is the cases in the individual's cartable
 
 ```javascript
 {
-    "Case": {
-        "Tasks": [
+    "case": {
+        "base": {
+            "createTimeRecord": "2024-04-28T16:06:32.0694403+03:30",
+            "lastUpdatedRecord": "2024-04-28T16:06:32.7334726+03:30",
+            "id": 42,
+            "erpCode": -252,
+            "sortIndex": 0,
+            "enableRecord": true
+        },
+        "processId": 2,
+        "creatorId": 1,
+        "requestorId": 1,
+        "tasks": [
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 3,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            }
-                        ],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "51"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239488",
-                                "nanos": 277230400
-                            },
-                            "LastUpdatedRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 253488800
-                            }
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.0695649+03:30",
+                            "lastUpdatedRecord": "2024-04-28T16:06:32.9658094+03:30",
+                            "id": 411,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "1"
-                            },
-                            "ERPCode": {
-                                "value": "1"
-                            },
-                            "SortIndex": {
-                                "value": "1"
-                            },
-                            "Name": {
-                                "value": "m.sharifi"
-                            },
-                            "DisplayName": {
-                                "value": "محمد شریفی"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 1,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "2"
-                            },
-                            "ERPCode": {
-                                "value": "2"
-                            },
-                            "SortIndex": {
-                                "value": "2"
-                            },
-                            "Name": {
-                                "value": "Sent"
-                            },
-                            "DisplayName": {
-                                "value": "ارسال شده"
+                        "workItemState": {
+                            "name": "Sent",
+                            "displayName": "ارسال شده",
+                            "id": 2,
+                            "erpCode": 2,
+                            "sortIndex": 2,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": [
+                            {
+                                "base": {
+                                    "name": null,
+                                    "displayName": null,
+                                    "id": 23,
+                                    "erpCode": null,
+                                    "sortIndex": null,
+                                    "enableRecord": null
+                                },
+                                "tag": null,
+                                "operand": null,
+                                "value": null
                             }
-                        }
+                        ]
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "3"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "1"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "ثبت درخواست"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 4,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "52"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 134263200
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.510404+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 412,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "2"
-                            },
-                            "ERPCode": {
-                                "value": "2"
-                            },
-                            "SortIndex": {
-                                "value": "2"
-                            },
-                            "Name": {
-                                "value": "a.sharifi"
-                            },
-                            "DisplayName": {
-                                "value": "امین شریفی"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 7,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "1"
-                            },
-                            "ERPCode": {
-                                "value": "1"
-                            },
-                            "SortIndex": {
-                                "value": "1"
-                            },
-                            "Name": {
-                                "value": "Inbox"
-                            },
-                            "DisplayName": {
-                                "value": "صندوق ورودی"
-                            }
-                        }
-                    },
-                    {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "53"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 134279200
-                            },
-                            "LastUpdatedRecord": null
+                        "workItemState": {
+                            "name": "Inbox",
+                            "displayName": "صندوق ورودی",
+                            "id": 1,
+                            "erpCode": 1,
+                            "sortIndex": 1,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "7"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "7"
-                            },
-                            "Name": {
-                                "value": "AdmissionManager"
-                            },
-                            "DisplayName": {
-                                "value": "مدیر پذیرش"
-                            }
-                        },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "1"
-                            },
-                            "ERPCode": {
-                                "value": "1"
-                            },
-                            "SortIndex": {
-                                "value": "1"
-                            },
-                            "Name": {
-                                "value": "Inbox"
-                            },
-                            "DisplayName": {
-                                "value": "صندوق ورودی"
-                            }
-                        }
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "4"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "2"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "پخش درخواست"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 5,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "22"
-                                    },
-                                    "ERPCode": {
-                                        "value": "22"
-                                    },
-                                    "SortIndex": {
-                                        "value": "22"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Revise"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Revise است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Revise"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "22"
-                                    },
-                                    "ERPCode": {
-                                        "value": "22"
-                                    },
-                                    "SortIndex": {
-                                        "value": "22"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Revise"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Revise است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Revise"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "54"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 140673100
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.5599576+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 413,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "5"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "5"
-                            },
-                            "Name": {
-                                "value": "AdmissionSpecialist1"
-                            },
-                            "DisplayName": {
-                                "value": "کارشناس پذیرش 1"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 5,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
                     },
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "22"
-                                    },
-                                    "ERPCode": {
-                                        "value": "22"
-                                    },
-                                    "SortIndex": {
-                                        "value": "22"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Revise"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Revise است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Revise"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "22"
-                                    },
-                                    "ERPCode": {
-                                        "value": "22"
-                                    },
-                                    "SortIndex": {
-                                        "value": "22"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Revise"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Revise است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Revise"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "55"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 140687500
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.559964+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 414,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "6"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "6"
-                            },
-                            "Name": {
-                                "value": "AdmissionSpecialist2"
-                            },
-                            "DisplayName": {
-                                "value": "کارشناس پذیرش 2"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 6,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "5"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "3"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "کارشناس پذیرش"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 6,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "56"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 143259400
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.5978211+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 415,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "2"
-                            },
-                            "ERPCode": {
-                                "value": "2"
-                            },
-                            "SortIndex": {
-                                "value": "2"
-                            },
-                            "Name": {
-                                "value": "a.sharifi"
-                            },
-                            "DisplayName": {
-                                "value": "امین شریفی"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 7,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
-                    },
-                    {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "57"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 143285200
-                            },
-                            "LastUpdatedRecord": null
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "7"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "7"
-                            },
-                            "Name": {
-                                "value": "AdmissionManager"
-                            },
-                            "DisplayName": {
-                                "value": "مدیر پذیرش"
-                            }
-                        },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "6"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "4"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "تایید کارشناس پذیرش و بررسی مدیر"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 7,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "58"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 145792200
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.6278327+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 416,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "2"
-                            },
-                            "ERPCode": {
-                                "value": "2"
-                            },
-                            "SortIndex": {
-                                "value": "2"
-                            },
-                            "Name": {
-                                "value": "a.sharifi"
-                            },
-                            "DisplayName": {
-                                "value": "امین شریفی"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 7,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
-                    },
-                    {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "59"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 145798300
-                            },
-                            "LastUpdatedRecord": null
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "7"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "7"
-                            },
-                            "Name": {
-                                "value": "AdmissionManager"
-                            },
-                            "DisplayName": {
-                                "value": "مدیر پذیرش"
-                            }
-                        },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "7"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "5"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "رد کارشناس پذیرش و بررسی مدیر"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 8,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "23"
-                                    },
-                                    "ERPCode": {
-                                        "value": "23"
-                                    },
-                                    "SortIndex": {
-                                        "value": "23"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = SendRequest"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی SendRequest است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "SendRequest"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "60"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 150794300
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.6729164+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 417,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "1"
-                            },
-                            "ERPCode": {
-                                "value": "1"
-                            },
-                            "SortIndex": {
-                                "value": "1"
-                            },
-                            "Name": {
-                                "value": "m.sharifi"
-                            },
-                            "DisplayName": {
-                                "value": "محمد شریفی"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 1,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    },
+                    {
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.6729251+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 418,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 2,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "8"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "6"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "ویرایش درخواست"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 9,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "61"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 156445700
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.7018244+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 419,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "AdmissionVice"
-                            },
-                            "DisplayName": {
-                                "value": "معاونت پذیرش"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 4,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "9"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "7"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "بررسی معاونت پذیرش"
-                    }
-                }
+                ]
             },
             {
-                "WorkItems": [
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 10,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
                     {
-                        "OccurredUserActions": [],
-                        "ValidUserActions": [
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "20"
-                                    },
-                                    "ERPCode": {
-                                        "value": "20"
-                                    },
-                                    "SortIndex": {
-                                        "value": "20"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Approve"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Approve است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Approve"
-                                }
-                            },
-                            {
-                                "Base": {
-                                    "Id": {
-                                        "value": "21"
-                                    },
-                                    "ERPCode": {
-                                        "value": "21"
-                                    },
-                                    "SortIndex": {
-                                        "value": "21"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState = Reject"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی مساوی Reject است."
-                                    }
-                                },
-                                "Tag": {
-                                    "Id": {
-                                        "value": "12"
-                                    },
-                                    "ERPCode": {
-                                        "value": "12"
-                                    },
-                                    "SortIndex": {
-                                        "value": "12"
-                                    },
-                                    "Name": {
-                                        "value": "ReviewState"
-                                    },
-                                    "DisplayName": {
-                                        "value": "وضعیت بررسی"
-                                    }
-                                },
-                                "Operand": {
-                                    "Id": {
-                                        "value": "1"
-                                    },
-                                    "ERPCode": {
-                                        "value": "1"
-                                    },
-                                    "SortIndex": {
-                                        "value": "1"
-                                    },
-                                    "Name": {
-                                        "value": "="
-                                    },
-                                    "DisplayName": {
-                                        "value": "مساوی"
-                                    }
-                                },
-                                "Value": {
-                                    "value": "Reject"
-                                }
-                            }
-                        ],
-                        "Base": {
-                            "Id": {
-                                "value": "62"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "0"
-                            },
-                            "CreateTimeRecord": {
-                                "seconds": "1710239489",
-                                "nanos": 159171200
-                            },
-                            "LastUpdatedRecord": null
+                        "base": {
+                            "createTimeRecord": "2024-04-28T16:06:32.7307685+03:30",
+                            "lastUpdatedRecord": null,
+                            "id": 420,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
-                        "User": {
-                            "Id": {
-                                "value": "3"
-                            },
-                            "ERPCode": {
-                                "value": "0"
-                            },
-                            "SortIndex": {
-                                "value": "3"
-                            },
-                            "Name": {
-                                "value": "AdmissionBoard"
-                            },
-                            "DisplayName": {
-                                "value": "هیات پذیرش"
-                            }
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 3,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
                         },
-                        "WorkItemState": {
-                            "Id": {
-                                "value": "4"
-                            },
-                            "ERPCode": {
-                                "value": "4"
-                            },
-                            "SortIndex": {
-                                "value": "4"
-                            },
-                            "Name": {
-                                "value": "Future"
-                            },
-                            "DisplayName": {
-                                "value": "آینده"
-                            }
-                        }
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
                     }
-                ],
-                "Base": {
-                    "Id": {
-                        "value": "10"
-                    },
-                    "ERPCode": {
-                        "value": "0"
-                    },
-                    "SortIndex": {
-                        "value": "8"
-                    },
-                    "Name": {
-                        "value": ""
-                    },
-                    "DisplayName": {
-                        "value": "بررسی هیات پذیرش"
-                    }
-                }
+                ]
             }
         ],
-        "Base": {
-            "Id": {
-                "value": "6"
-            },
-            "ERPCode": {
-                "value": "-12"
-            },
-            "SortIndex": {
-                "value": "0"
-            },
-            "CreateTimeRecord": {
-                "seconds": "1710239488",
-                "nanos": 252519600
-            },
-            "LastUpdatedRecord": {
-                "seconds": "1710239489",
-                "nanos": 163820400
-            }
-        },
-        "Process": {
-            "Id": {
-                "value": "2"
-            },
-            "ERPCode": {
-                "value": "0"
-            },
-            "SortIndex": {
-                "value": "2"
-            },
-            "Name": {
-                "value": "Admission"
-            },
-            "DisplayName": {
-                "value": "پذیرش"
-            }
-        },
-        "Creator": {
-            "Id": {
-                "value": "1"
-            },
-            "ERPCode": {
-                "value": "1"
-            },
-            "SortIndex": {
-                "value": "1"
-            },
-            "Name": {
-                "value": "m.sharifi"
-            },
-            "DisplayName": {
-                "value": "محمد شریفی"
-            }
-        },
-        "Requestor": {
-            "Id": {
-                "value": "1"
-            },
-            "ERPCode": {
-                "value": "1"
-            },
-            "SortIndex": {
-                "value": "1"
-            },
-            "Name": {
-                "value": "m.sharifi"
-            },
-            "DisplayName": {
-                "value": "محمد شریفی"
-            }
-        },
-        "CaseState": {
-            "Id": {
-                "value": "2"
-            },
-            "ERPCode": {
-                "value": "2"
-            },
-            "SortIndex": {
-                "value": "2"
-            },
-            "Name": {
-                "value": "Ongoing"
-            },
-            "DisplayName": {
-                "value": "در دست بررسی"
-            }
+        "caseState": {
+            "name": "Ongoing",
+            "displayName": "در دست بررسی",
+            "id": 2,
+            "erpCode": 2,
+            "sortIndex": 2,
+            "enableRecord": true
         }
     },
-    "OutputState": {
-        "Id": {
-            "value": "0"
-        },
-        "ERPCode": {
-            "value": "0"
-        },
-        "SortIndex": {
-            "value": "0"
-        },
-        "Name": {
-            "value": ""
-        },
-        "DisplayName": {
-            "value": "GetCase"
-        }
+    "outputState": {
+        "name": null,
+        "displayName": "GetCase",
+        "id": 0,
+        "erpCode": 0,
+        "sortIndex": null,
+        "enableRecord": true
     }
 }
 ```

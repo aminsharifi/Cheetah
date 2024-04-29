@@ -2,8 +2,8 @@
 
 | Title               | Value           |
 | ---                 | ---             |
-| Broker Name         | gRPC proto3     |
-| Broker Server Name  | localhost: 5000 |
+| Broker Name         | WebAPI		    |
+| Broker Server Name  | localhost: 1991 |
 | Project Version     | 8.2.100         |
 | Service Name        | Outbox          |
 
@@ -49,14 +49,15 @@ The output of the service is the cases inside the individual's cartable
 
 ```javascript
 {
-    "Assignee": { "Name": {"value": "m.sharifi"}},
-    "Process": { "Name": {"value":"Admission"}},
-    "PageNumber": {"value": 1},
-    "PageSize": {"value":20},  
-    "CaseState": {
-        "ERPCode": {"value":2}
+    "Assignee": { "Name": "m.sharifi"},
+    "Process": { "Name": "Admission"},
+    "PageNumber": 1,
+    "PageSize": 20,
+    "CaseState":
+    {
+        "ERPCode": 2 
     },
-    "Case": {"Id": {"value": 1}}
+    "Case": {"Id": 42}
 }
 ```
 
@@ -64,429 +65,80 @@ The output of the service is the cases inside the individual's cartable
 
 ```javascript
 {
-    "Cases": [
+    "pageNumber": 1,
+    "pageSize": 20,
+    "totalItems": 1,
+    "cases": [
         {
-            "Tasks": [
+            "base": {
+                "createTimeRecord": "2024-04-28T16:06:32.0694403+03:30",
+                "lastUpdatedRecord": "2024-04-28T16:06:32.7334726+03:30",
+                "id": 42,
+                "erpCode": -252,
+                "sortIndex": null,
+                "enableRecord": true
+            },
+            "processId": 2,
+            "creatorId": 1,
+            "requestorId": 1,
+            "tasks": [
                 {
-                    "WorkItems": [
+                    "base": {
+                        "name": "",
+                        "displayName": "ثبت درخواست",
+                        "id": 3,
+                        "erpCode": null,
+                        "sortIndex": null,
+                        "enableRecord": true
+                    },
+                    "workItems": [
                         {
-                            "OccurredUserActions": [
-                                {
-                                    "Base": {
-                                        "Id": {
-                                            "value": "23"
-                                        },
-                                        "ERPCode": {
-                                            "value": "23"
-                                        },
-                                        "SortIndex": {
-                                            "value": "23"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState = SendRequest"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی مساوی SendRequest است."
-                                        }
-                                    },
-                                    "Tag": {
-                                        "Id": {
-                                            "value": "12"
-                                        },
-                                        "ERPCode": {
-                                            "value": "12"
-                                        },
-                                        "SortIndex": {
-                                            "value": "12"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی"
-                                        }
-                                    },
-                                    "Operand": {
-                                        "Id": {
-                                            "value": "1"
-                                        },
-                                        "ERPCode": {
-                                            "value": "1"
-                                        },
-                                        "SortIndex": {
-                                            "value": "1"
-                                        },
-                                        "Name": {
-                                            "value": "="
-                                        },
-                                        "DisplayName": {
-                                            "value": "مساوی"
-                                        }
-                                    },
-                                    "Value": {
-                                        "value": "SendRequest"
-                                    }
-                                },
-                                {
-                                    "Base": {
-                                        "Id": {
-                                            "value": "23"
-                                        },
-                                        "ERPCode": {
-                                            "value": "23"
-                                        },
-                                        "SortIndex": {
-                                            "value": "23"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState = SendRequest"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی مساوی SendRequest است."
-                                        }
-                                    },
-                                    "Tag": {
-                                        "Id": {
-                                            "value": "12"
-                                        },
-                                        "ERPCode": {
-                                            "value": "12"
-                                        },
-                                        "SortIndex": {
-                                            "value": "12"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی"
-                                        }
-                                    },
-                                    "Operand": {
-                                        "Id": {
-                                            "value": "1"
-                                        },
-                                        "ERPCode": {
-                                            "value": "1"
-                                        },
-                                        "SortIndex": {
-                                            "value": "1"
-                                        },
-                                        "Name": {
-                                            "value": "="
-                                        },
-                                        "DisplayName": {
-                                            "value": "مساوی"
-                                        }
-                                    },
-                                    "Value": {
-                                        "value": "SendRequest"
-                                    }
-                                }
-                            ],
-                            "ValidUserActions": [
-                                {
-                                    "Base": {
-                                        "Id": {
-                                            "value": "23"
-                                        },
-                                        "ERPCode": {
-                                            "value": "23"
-                                        },
-                                        "SortIndex": {
-                                            "value": "23"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState = SendRequest"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی مساوی SendRequest است."
-                                        }
-                                    },
-                                    "Tag": {
-                                        "Id": {
-                                            "value": "12"
-                                        },
-                                        "ERPCode": {
-                                            "value": "12"
-                                        },
-                                        "SortIndex": {
-                                            "value": "12"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی"
-                                        }
-                                    },
-                                    "Operand": {
-                                        "Id": {
-                                            "value": "1"
-                                        },
-                                        "ERPCode": {
-                                            "value": "1"
-                                        },
-                                        "SortIndex": {
-                                            "value": "1"
-                                        },
-                                        "Name": {
-                                            "value": "="
-                                        },
-                                        "DisplayName": {
-                                            "value": "مساوی"
-                                        }
-                                    },
-                                    "Value": {
-                                        "value": "SendRequest"
-                                    }
-                                },
-                                {
-                                    "Base": {
-                                        "Id": {
-                                            "value": "23"
-                                        },
-                                        "ERPCode": {
-                                            "value": "23"
-                                        },
-                                        "SortIndex": {
-                                            "value": "23"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState = SendRequest"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی مساوی SendRequest است."
-                                        }
-                                    },
-                                    "Tag": {
-                                        "Id": {
-                                            "value": "12"
-                                        },
-                                        "ERPCode": {
-                                            "value": "12"
-                                        },
-                                        "SortIndex": {
-                                            "value": "12"
-                                        },
-                                        "Name": {
-                                            "value": "ReviewState"
-                                        },
-                                        "DisplayName": {
-                                            "value": "وضعیت بررسی"
-                                        }
-                                    },
-                                    "Operand": {
-                                        "Id": {
-                                            "value": "1"
-                                        },
-                                        "ERPCode": {
-                                            "value": "1"
-                                        },
-                                        "SortIndex": {
-                                            "value": "1"
-                                        },
-                                        "Name": {
-                                            "value": "="
-                                        },
-                                        "DisplayName": {
-                                            "value": "مساوی"
-                                        }
-                                    },
-                                    "Value": {
-                                        "value": "SendRequest"
-                                    }
-                                }
-                            ],
-                            "Base": {
-                                "Id": {
-                                    "value": "1"
-                                },
-                                "ERPCode": {
-                                    "value": "0"
-                                },
-                                "SortIndex": {
-                                    "value": "0"
-                                },
-                                "CreateTimeRecord": {
-                                    "seconds": "1709535045",
-                                    "nanos": 384871900
-                                },
-                                "LastUpdatedRecord": {
-                                    "seconds": "1709535046",
-                                    "nanos": 272126800
-                                }
+                            "base": {
+                                "createTimeRecord": "2024-04-28T16:06:32.0695649+03:30",
+                                "lastUpdatedRecord": "2024-04-28T16:06:32.9658094+03:30",
+                                "id": 411,
+                                "erpCode": null,
+                                "sortIndex": null,
+                                "enableRecord": true
                             },
-                            "User": {
-                                "Id": {
-                                    "value": "1"
-                                },
-                                "ERPCode": {
-                                    "value": "1"
-                                },
-                                "SortIndex": {
-                                    "value": "0"
-                                },
-                                "Name": {
-                                    "value": "m.sharifi"
-                                },
-                                "DisplayName": {
-                                    "value": "محمد شریفی"
-                                }
+                            "user": {
+                                "name": "m.sharifi",
+                                "displayName": "محمد شریفی",
+                                "id": 1,
+                                "erpCode": -1,
+                                "sortIndex": null,
+                                "enableRecord": true
                             },
-                            "WorkItemState": {
-                                "Id": {
-                                    "value": "2"
-                                },
-                                "ERPCode": {
-                                    "value": "2"
-                                },
-                                "SortIndex": {
-                                    "value": "0"
-                                },
-                                "Name": {
-                                    "value": "Sent"
-                                },
-                                "DisplayName": {
-                                    "value": "ارسال شده"
-                                }
-                            }
+                            "workItemState": {
+                                "name": "Sent",
+                                "displayName": "ارسال شده",
+                                "id": 2,
+                                "erpCode": 2,
+                                "sortIndex": null,
+                                "enableRecord": true
+                            },
+                            "occurredUserActions": null
                         }
-                    ],
-                    "Base": {
-                        "Id": {
-                            "value": "3"
-                        },
-                        "ERPCode": {
-                            "value": "0"
-                        },
-                        "SortIndex": {
-                            "value": "0"
-                        },
-                        "Name": {
-                            "value": ""
-                        },
-                        "DisplayName": {
-                            "value": "ثبت درخواست"
-                        }
-                    }
+                    ]
                 }
             ],
-            "Base": {
-                "Id": {
-                    "value": "1"
-                },
-                "ERPCode": {
-                    "value": "-1"
-                },
-                "SortIndex": {
-                    "value": "0"
-                },
-                "CreateTimeRecord": {
-                    "seconds": "1709535045",
-                    "nanos": 59103800
-                },
-                "LastUpdatedRecord": {
-                    "seconds": "1709535046",
-                    "nanos": 158548100
-                }
-            },
-            "Process": {
-                "Id": {
-                    "value": "2"
-                },
-                "ERPCode": {
-                    "value": "0"
-                },
-                "SortIndex": {
-                    "value": "0"
-                },
-                "Name": {
-                    "value": "Admission"
-                },
-                "DisplayName": {
-                    "value": "پذیرش"
-                }
-            },
-            "Creator": {
-                "Id": {
-                    "value": "1"
-                },
-                "ERPCode": {
-                    "value": "1"
-                },
-                "SortIndex": {
-                    "value": "0"
-                },
-                "Name": {
-                    "value": "m.sharifi"
-                },
-                "DisplayName": {
-                    "value": "محمد شریفی"
-                }
-            },
-            "Requestor": {
-                "Id": {
-                    "value": "1"
-                },
-                "ERPCode": {
-                    "value": "1"
-                },
-                "SortIndex": {
-                    "value": "0"
-                },
-                "Name": {
-                    "value": "m.sharifi"
-                },
-                "DisplayName": {
-                    "value": "محمد شریفی"
-                }
-            },
-            "CaseState": {
-                "Id": {
-                    "value": "2"
-                },
-                "ERPCode": {
-                    "value": "2"
-                },
-                "SortIndex": {
-                    "value": "0"
-                },
-                "Name": {
-                    "value": "Ongoing"
-                },
-                "DisplayName": {
-                    "value": "در دست بررسی"
-                }
+            "caseState": {
+                "name": "Ongoing",
+                "displayName": "در دست بررسی",
+                "id": 2,
+                "erpCode": 2,
+                "sortIndex": null,
+                "enableRecord": true
             }
         }
     ],
-    "PageNumber": {
-        "value": "1"
-    },
-    "PageSize": {
-        "value": "20"
-    },
-    "TotalItems": {
-        "value": "1"
-    },
-    "OutputState": {
-        "Id": {
-            "value": "0"
-        },
-        "ERPCode": {
-            "value": "0"
-        },
-        "SortIndex": {
-            "value": "0"
-        },
-        "Name": {
-            "value": ""
-        },
-        "DisplayName": {
-            "value": "Cartable"
-        }
+    "outputState": {
+        "name": null,
+        "displayName": "Cartable",
+        "id": 0,
+        "erpCode": 0,
+        "sortIndex": null,
+        "enableRecord": true
     }
 }
-
 ```
