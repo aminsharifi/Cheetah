@@ -51,7 +51,7 @@ The output of the service is the created case.
 
 ```javascript
 {    
-    "Case": {"ERPCode": -215},
+    "Case": {"ERPCode": -268},
     "Creator":
     {
         "ERPCode": -1 //m.sharifi
@@ -64,14 +64,6 @@ The output of the service is the created case.
     {
         "Name": "Admission"
     },
-    "Conditions":
-    [
-        {
-            "Tag": {"Name": "Role"},
-            "Operand": {"Name": "="},
-            "Value":"AdmissionManager"
-        }
-    ],
     "WorkItem":
     {
         "OccurredUserActions":
@@ -92,28 +84,88 @@ The output of the service is the created case.
 {
     "case": {
         "base": {
-            "createTimeRecord": "2024-04-27T11:05:27.3645267+03:30",
-            "lastUpdatedRecord": "2024-04-27T11:05:27.8561377+03:30",
-            "id": 68,
-            "erpCode": -216,
+            "created": "2024-04-29T14:43:31.1930148+03:30",
+            "lastModified": "2024-04-29T14:43:31.4719914+03:30",
+            "id": 58,
+            "erpCode": -268,
             "sortIndex": 0,
-            "enableRecord": null
+            "enableRecord": true
         },
-        "processId": 1,
+        "processId": 2,
         "creatorId": 1,
         "requestorId": 1,
         "tasks": [
             {
-                "base": null,
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 3,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
                 "workItems": [
                     {
                         "base": {
-                            "createTimeRecord": "2024-04-27T11:05:27.8534311+03:30",
-                            "lastUpdatedRecord": null,
-                            "id": 255,
+                            "created": "2024-04-29T14:43:31.1931274+03:30",
+                            "lastModified": "2024-04-29T14:43:31.4916358+03:30",
+                            "id": 571,
                             "erpCode": null,
                             "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 1,
+                            "erpCode": null,
+                            "sortIndex": null,
                             "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Sent",
+                            "displayName": "ارسال شده",
+                            "id": 2,
+                            "erpCode": 2,
+                            "sortIndex": 2,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": [
+                            {
+                                "base": {
+                                    "name": null,
+                                    "displayName": null,
+                                    "id": 23,
+                                    "erpCode": null,
+                                    "sortIndex": null,
+                                    "enableRecord": null
+                                },
+                                "tag": null,
+                                "operand": null,
+                                "value": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 4,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.291656+03:30",
+                            "lastModified": null,
+                            "id": 572,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
                         },
                         "user": {
                             "name": null,
@@ -129,7 +181,295 @@ The output of the service is the created case.
                             "id": 1,
                             "erpCode": 1,
                             "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 5,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.3157296+03:30",
+                            "lastModified": null,
+                            "id": 573,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 5,
+                            "erpCode": null,
+                            "sortIndex": null,
                             "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    },
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.31574+03:30",
+                            "lastModified": null,
+                            "id": 574,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 6,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 6,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.3650578+03:30",
+                            "lastModified": null,
+                            "id": 575,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 7,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 7,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.3988775+03:30",
+                            "lastModified": null,
+                            "id": 576,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 7,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 8,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.4249779+03:30",
+                            "lastModified": null,
+                            "id": 577,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 1,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    },
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.4249868+03:30",
+                            "lastModified": null,
+                            "id": 578,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 2,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 9,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.4480379+03:30",
+                            "lastModified": null,
+                            "id": 579,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 4,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
+                        },
+                        "occurredUserActions": []
+                    }
+                ]
+            },
+            {
+                "base": {
+                    "name": null,
+                    "displayName": null,
+                    "id": 10,
+                    "erpCode": null,
+                    "sortIndex": null,
+                    "enableRecord": null
+                },
+                "workItems": [
+                    {
+                        "base": {
+                            "created": "2024-04-29T14:43:31.4718532+03:30",
+                            "lastModified": null,
+                            "id": 580,
+                            "erpCode": null,
+                            "sortIndex": 0,
+                            "enableRecord": true
+                        },
+                        "user": {
+                            "name": null,
+                            "displayName": null,
+                            "id": 3,
+                            "erpCode": null,
+                            "sortIndex": null,
+                            "enableRecord": null
+                        },
+                        "workItemState": {
+                            "name": "Future",
+                            "displayName": "آینده",
+                            "id": 4,
+                            "erpCode": 4,
+                            "sortIndex": 4,
+                            "enableRecord": true
                         },
                         "occurredUserActions": []
                     }
@@ -142,16 +482,16 @@ The output of the service is the created case.
             "id": 2,
             "erpCode": 2,
             "sortIndex": 2,
-            "enableRecord": null
+            "enableRecord": true
         }
     },
     "outputState": {
         "name": null,
-        "displayName": "درخواست با شماره رهیگری 68 با موفقیت در چیتا ثبت شد",
+        "displayName": "درخواست با شماره رهیگری 58 با موفقیت در چیتا ثبت شد",
         "id": 0,
         "erpCode": 0,
         "sortIndex": null,
-        "enableRecord": null
+        "enableRecord": true
     }
 }
 ```

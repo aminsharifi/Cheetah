@@ -1,16 +1,19 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
-public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+namespace Cheetah.Infrastructure.Persistence;
+    public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
     {
+        
         _dispatcher = dispatcher;
     }
-
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.ConfigureSimpleClass();
+        builder.ConfigureSimpleClass(Database);
 
         builder = builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
