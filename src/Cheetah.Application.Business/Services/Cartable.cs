@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-
-namespace Cheetah.Application.Business.Services;
+﻿namespace Cheetah.Application.Business.Services;
 
 public class Cartable(ISender iSender, IMemoryCache _cache, IRepository<D_Process> processRepository) : ICartable
 {

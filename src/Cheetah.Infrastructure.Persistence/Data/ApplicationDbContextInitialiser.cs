@@ -1,8 +1,4 @@
-﻿using Cheetah.Application.Business.Case.Get;
-using Mapster;
-using MapsterMapper;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {

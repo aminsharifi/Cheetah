@@ -1,5 +1,3 @@
-using Cheetah.Application.Services.gRPC.Middleware;
-
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())

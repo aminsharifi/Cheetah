@@ -9,6 +9,7 @@ global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Infrastructure.Persistence.Data;
 global using Cheetah.Presentation.Services.WebAPI.Helper;
+global using MapsterMapper;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Server.Kestrel.Core;
