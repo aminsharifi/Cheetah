@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Get;
+﻿using Cheetah.Domain.Entities.Facts;
+using System.Diagnostics;
+
+namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class GetCartableHandler(
     IReadRepository<F_WorkItem> _WorkItemRepository,
@@ -8,6 +11,7 @@ public class GetCartableHandler(
     IReadRepository<F_Case> _caseRepository,
     IReadRepository<D_CaseState> _caseStateRepository,
     IReadRepository<F_Task> _taskRepository,
+    IReadRepository<F_Scenario> _scenarioRepository,
     ISender _ISender, ICopyClass _iCopyClass)
   : IQueryHandler<GetCartableQuery, Result<IEnumerable<CartableDTO>>>
 {
@@ -29,6 +33,15 @@ public class GetCartableHandler(
 
             request.cartableDTO.Process = new() { Id = _processId.Value };
         }
+        
+        if (request.cartableDTO.Scenario is not null)
+        {
+            GetIdEntitySpec<F_Scenario> _getIdEntitySpec = new(request.cartableDTO.Scenario);
+
+            var _processId = await _scenarioRepository.FirstOrDefaultAsync(_getIdEntitySpec);
+
+            request.cartableDTO.Scenario = new() { Id = _processId.Value };
+        }
         if (request.cartableDTO.CaseState is not null)
         {
             GetIdEntitySpec<D_CaseState> _getIdEntitySpec = new(request.cartableDTO.CaseState);
@@ -49,13 +62,11 @@ public class GetCartableHandler(
             {
                 PageSize = request.cartableDTO.PageSize,
                 PageNumber = request.cartableDTO.PageNumber,
-                TotalItems = _totalItems,
-                Process = _iCopyClass
-                .GetSimpleClass(
-                    _processRepository
-                    .FirstOrDefaultAsync(new GetEntitySpec<D_Process>(x.Case.ProcessId)).GetAwaiter().GetResult()),
+                TotalItems = _totalItems,          
                 User = _iCopyClass.GetSimpleClass(
-                _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(x.UserId)).GetAwaiter().GetResult()),
+                _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(x.UserId)).GetAwaiter().GetResult()),                
+                Process = _iCopyClass.GetSimpleClass(
+                _processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(x.Case.ProcessId)).GetAwaiter().GetResult()),
                 Case = _iCopyClass.GetSimpleClass(x.Case),
                 Requestor = _iCopyClass.GetSimpleClass(
                     _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(x.Case.RequestorId)).GetAwaiter().GetResult()),
@@ -76,7 +87,7 @@ public class GetCartableHandler(
                     _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult())),
                 Summary = string.Empty
             }
-            );
+            );     
         return Inbox.ToList();
     }
 }

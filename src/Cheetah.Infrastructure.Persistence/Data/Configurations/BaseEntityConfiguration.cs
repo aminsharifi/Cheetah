@@ -1,8 +1,10 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
 public static class BaseEntityConfiguration
 {
-    public static void ConfigureSimpleClass(this ModelBuilder modelBuilder)
+    public static void ConfigureSimpleClass(this ModelBuilder modelBuilder, DatabaseFacade database)
     {
         var _entityTypes = modelBuilder.Model.GetEntityTypes();
 
@@ -59,13 +61,15 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.Created))
                         .HasColumnOrder(6)
-                        .HasDefaultValue(DateTimeOffset.Now)
+                        .HasDefaultValueSql((database.IsSqlServer()) ? "GETDATE()" : "GETDATE()")
                         .ValueGeneratedOnAdd()
                         .HasComment("Record creation date");
+
 
                     entity.Property(nameof(BaseEntity.LastModified))
                         .HasColumnOrder(7)
                         .IsConcurrencyToken(true)
+                        .HasDefaultValueSql((database.IsSqlServer()) ? "GETDATE()" : "GETDATE()")
                         .HasComment("The date the record was last updated");
 
                     entity.HasIndex(nameof(BaseEntity.LastModified))
@@ -73,8 +77,9 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.GuidRecord))
                         .HasColumnOrder(8)
-                        .HasDefaultValue(Guid.NewGuid())
+                        .HasDefaultValueSql((database.IsSqlServer()) ? "NEWSEQUENTIALID ()" : "newsequentialid()")
                         .HasComment("Unique GUID identifier");
+
 
                     entity.HasIndex(nameof(BaseEntity.EnableRecord))
                         .IsDescending();
