@@ -130,8 +130,8 @@ public class GRPC_BaseClassWithName : GRPC_BaseClass
 }
 public class GRPC_BaseClassWithDate : GRPC_BaseClass
 {
-    public DateTimeOffset? CreateTimeRecord { get; set; }
-    public DateTimeOffset? LastUpdatedRecord { get; set; }
+    public DateTimeOffset? Created { get; set; }
+    public DateTimeOffset? LastModified { get; set; }
 }
 public class GRPC_BaseClassWithNameAndDate : GRPC_BaseClassWithDate
 {
