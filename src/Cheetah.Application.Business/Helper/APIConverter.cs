@@ -1,298 +1,99 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Helper;
+﻿using MapsterMapper;
+
+namespace Cheetah.Presentation.Services.WebAPI.Helper;
 
 public static class APIConverter
 {
-    public static GRPC_BaseClass GetBaseClass(this BaseEntity simpleClass)
+    public static GRPC_BaseClass GetBaseClass(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClass _GRPC_BaseClass = new();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-        _GRPC_BaseClass = new()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-            SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClass _GRPC_BaseClass = mapper.Map<GRPC_BaseClass>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithName GetBaseClassWithName(this BaseEntity simpleClass)
+    public static GRPC_BaseClassWithName GetBaseClassWithName(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithName _GRPC_BaseClass = new();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-        _GRPC_BaseClass = new()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex,
-            Name = simpleClass.Name,
-            DisplayName = simpleClass.DisplayName,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClassWithName _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithName>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithDate GetBaseClassWithDate(this BaseEntity simpleClass)
+    public static GRPC_BaseClassWithDate GetBaseClassWithDate(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithDate _GRPC_BaseClass = new();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-        _GRPC_BaseClass = new()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex,
-            CreateTimeRecord = simpleClass.Created,
-            LastUpdatedRecord = simpleClass.LastModified,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClassWithDate _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithDate>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this BaseEntity simpleClass)
+    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = new();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-        _GRPC_BaseClass = new()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex,
-            Name = simpleClass.Name,
-            DisplayName = simpleClass.DisplayName,
-            CreateTimeRecord = simpleClass.Created,
-            LastUpdatedRecord = simpleClass.LastModified,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithNameAndDate>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClass GetBaseClass(this SimpleClassDTO simpleClass)
+
+    public static GRPC_BaseClass GetBaseClass(this SimpleClassDTO simpleClass, IMapper mapper)
     {
-        var _GRPC_BaseClass = new GRPC_BaseClass();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-
-        _GRPC_BaseClass = new ()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClass _GRPC_BaseClass = mapper.Map<GRPC_BaseClass>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithName GetBaseClassWithName(this SimpleClassDTO simpleClass)
+    public static GRPC_BaseClassWithName GetBaseClassWithName(this SimpleClassDTO simpleClass, IMapper mapper)
     {
-        var _GRPC_BaseClass = new GRPC_BaseClassWithName();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-
-        _GRPC_BaseClass = new GRPC_BaseClassWithName()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex,
-            Name = simpleClass.Name,
-            DisplayName = simpleClass.DisplayName,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClassWithName _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithName>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this SimpleClassDTO simpleClass)
+    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this SimpleClassDTO simpleClass, IMapper mapper)
     {
-        var _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-
-        _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode,
-            SortIndex = simpleClass.SortIndex,
-            Name = simpleClass.Name,
-            DisplayName = simpleClass.DisplayName,
-            CreateTimeRecord = simpleClass.Created,
-            LastUpdatedRecord = simpleClass.LastModified,
-            EnableRecord = simpleClass.EnableRecord
-        };
+        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithNameAndDate>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static T GetSimpleClass<T>(this GRPC_BaseClassWithNameAndDate gRPC_BaseClass) where T : BaseEntity
+    public static T GetSimpleClass<T>(this GRPC_BaseClassWithNameAndDate gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
-        if (gRPC_BaseClass is null)
-        {
-            return null;
-        }
+        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
 
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
-
-        if (gRPC_BaseClass.Id is not null)
-        {
-            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
-        }
-        if (gRPC_BaseClass.ERPCode is not null)
-        {
-            _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
-        }
-        if (gRPC_BaseClass.SortIndex is not null)
-        {
-            _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
-        }
-        if (gRPC_BaseClass.Name is not null)
-        {
-            _SimpleClass.Name = gRPC_BaseClass.Name;
-        }
-        if (gRPC_BaseClass.CreateTimeRecord is not null)
-        {
-            _SimpleClass.Created = gRPC_BaseClass.CreateTimeRecord;
-        }
-        if (gRPC_BaseClass.LastUpdatedRecord is not null)
-        {
-            _SimpleClass.LastModified = gRPC_BaseClass.LastUpdatedRecord;
-        }
-        if (gRPC_BaseClass.EnableRecord is not null)
-        {
-            _SimpleClass.EnableRecord = gRPC_BaseClass.EnableRecord.Value;
-        }
-
-        return _SimpleClass;
+        return _GRPC_BaseClass;
     }
-    public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass) where T : BaseEntity
+    public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
-        if (gRPC_BaseClass is null)
-        {
-            return null;
-        }
+        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
 
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
-
-        if (gRPC_BaseClass.Id is not null)
-        {
-            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
-        }
-        if (gRPC_BaseClass.ERPCode is not null)
-        {
-            _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
-        }
-        if (gRPC_BaseClass.SortIndex is not null)
-        {
-            _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
-        }
-        if (gRPC_BaseClass.Name is not null)
-        {
-            _SimpleClass.Name = gRPC_BaseClass.Name;
-        }
-        if (gRPC_BaseClass.EnableRecord is not null)
-        {
-            _SimpleClass.EnableRecord = gRPC_BaseClass.EnableRecord.Value;
-        }
-
-        return _SimpleClass;
+        return _GRPC_BaseClass;
     }
-    public static T GetSimpleClass<T>(this GRPC_BaseClass gRPC_BaseClass) where T : BaseEntity
+    public static T GetSimpleClass<T>(this GRPC_BaseClass gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
-        if (gRPC_BaseClass is null)
-        {
-            return null;
-        }
+        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
 
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
-
-        if (gRPC_BaseClass.Id is not null)
-        {
-            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
-        }
-        if (gRPC_BaseClass.ERPCode is not null)
-        {
-            _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
-        }
-        if (gRPC_BaseClass.SortIndex is not null)
-        {
-            _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
-        }
-        if (gRPC_BaseClass.EnableRecord is not null)
-        {
-            _SimpleClass.EnableRecord = gRPC_BaseClass.EnableRecord.Value;
-        }
-
-        return _SimpleClass;
+        return _GRPC_BaseClass;
     }
 
     #region Condition method
-    public static F_Condition GetCondition(this GRPC_Condition Condition)
+    public static F_Condition GetCondition(this GRPC_Condition Condition, IMapper mapper)
     {
-        F_Condition _condition = new();
-
-        if (Condition.Base is not null)
-        {
-            _condition = new()
-            {
-                //Id = Condition.Base.Id.Value,
-                Name = Condition.Base.Name,
-                ERPCode = Condition.Base.ERPCode,
-                SortIndex = Condition.Base.SortIndex,
-                EnableRecord = (Condition.Base.EnableRecord is true)
-            };
-        }
-
-        _condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
-        _condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
+        F_Condition _condition = Condition.Base is null ? new() : mapper.Map<F_Condition>(Condition.Base);
+        _condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>(mapper);
+        _condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>(mapper);
         _condition.Value = Condition?.Value;
         return _condition;
     }
-    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions)
+    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions, IMapper mapper)
     {
         foreach (var Condition in Conditions)
         {
-            yield return GetCondition(Condition);
+            yield return GetCondition(Condition, mapper);
         }
     }
-    public static IEnumerable<GRPC_Condition> GetConditions(this IEnumerable<F_Condition> f_conditions)
+    public static IEnumerable<GRPC_Condition> GetConditions(this IEnumerable<F_Condition> f_conditions, IMapper mapper)
     {
         foreach (var f_condition in f_conditions)
         {
-            GRPC_BaseClassWithName _conditionBase = new()
-            {
-                Id = f_condition?.Id,
-                Name = f_condition?.Name,
-                DisplayName = f_condition?.DisplayName,
-                ERPCode = f_condition?.ERPCode,
-                SortIndex = f_condition?.SortIndex
-            };
+
+            GRPC_BaseClassWithName _conditionBase = mapper.Map<GRPC_BaseClassWithName>(f_condition);
 
             GRPC_Condition _condition = new()
             {
                 Base = _conditionBase,
-                Tag = f_condition?.Tag?.GetBaseClassWithName(),
-                Operand = f_condition?.Operand?.GetBaseClassWithName(),
+                Tag = f_condition?.Tag?.GetBaseClassWithName(mapper),
+                Operand = f_condition?.Operand?.GetBaseClassWithName(mapper),
                 Value = f_condition?.Value
             };
 
