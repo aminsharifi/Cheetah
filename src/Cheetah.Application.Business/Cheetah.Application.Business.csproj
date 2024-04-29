@@ -16,6 +16,7 @@
 	  <Folder Include="User\User\Specifications\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <PackageReference Include="Mapster" Version="7.4.0" />
 	  <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 
