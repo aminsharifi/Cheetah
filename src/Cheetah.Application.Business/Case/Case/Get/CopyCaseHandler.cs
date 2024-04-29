@@ -1,4 +1,5 @@
 ﻿using Cheetah.Presentation.Services.WebAPI.Helper;
+using MapsterMapper;
 
 namespace Cheetah.Application.Business.Case.Get;
 
@@ -6,7 +7,7 @@ public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,
     IReadRepository<D_Process> _processRepository,
     IReadRepository<F_Condition> _conditionRepository,
-    ISender _ISender) : IQueryHandler<CopyCaseQuery, Result<F_Case>>
+    ISender _ISender, IMapper _IMapper) : IQueryHandler<CopyCaseQuery, Result<F_Case>>
 {
     public async Task<Result<F_Case>> Handle(CopyCaseQuery request, CancellationToken cancellationToken)
     {
@@ -36,7 +37,7 @@ public class CopyCaseHandler(
 
         await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
         {
-            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition()));
+            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition(_IMapper)));
 
             _workItem.WorkItemConditions.Add(new()
             {
@@ -49,7 +50,7 @@ public class CopyCaseHandler(
             await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
             {
                 var _getCondition = await _conditionRepository
-                .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition()));
+                .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition(_IMapper)));
                 _case.CaseConditions.Add(new()
                 {
                     SecondId = _getCondition.Value

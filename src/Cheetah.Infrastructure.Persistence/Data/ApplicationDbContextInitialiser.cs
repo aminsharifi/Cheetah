@@ -1,4 +1,6 @@
 ﻿using Cheetah.Application.Business.Case.Get;
+using Mapster;
+using MapsterMapper;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
 
@@ -111,6 +113,11 @@ public static class InitialiserExtensions
         builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
         #endregion
 
+        #region Mapster
+        var mapperConfig = new Mapper(GetConfiguredMappingConfig());
+        builder.Services.AddSingleton<IMapper>(mapperConfig);
+        #endregion
+
         #region Build & Config
 
         var app = builder.Build();
@@ -130,5 +137,26 @@ public static class InitialiserExtensions
 
         return app;
     }
+    /// <summary>
+    /// Mapster(Mapper) global configuration settings
+    /// To learn more about Mapster,
+    /// see https://github.com/MapsterMapper/Mapster
+    /// </summary>
+    /// <returns></returns>
+    private static TypeAdapterConfig GetConfiguredMappingConfig()
+    {
+        var config = TypeAdapterConfig.GlobalSettings;
 
+        var mediatRAssemblies = new[]
+       {
+            Assembly.GetAssembly(typeof(D_Tag)), // Core
+            Assembly.GetAssembly(typeof(GetDetailCasesHandler)), // UseCases
+        };
+
+        IList<IRegister> registers = config.Scan(mediatRAssemblies);
+
+        config.Apply(registers);
+
+        return config;
+    }
 }

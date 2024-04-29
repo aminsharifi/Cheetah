@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using MapsterMapper;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -11,10 +13,11 @@ public class RequestController : ControllerBase
     public ISync _iSync;
     public IMediator _mediator;
     public IReadRepository<F_WorkItem> _workItemRepository;
+    public IMapper _mapper;
     public RequestController(ILogger<RequestController> GLogger,
         ICartable GICartable, IWorkItem GIWorkItem,
         ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
-        IReadRepository<F_WorkItem> WorkItemRepository
+        IReadRepository<F_WorkItem> WorkItemRepository, IMapper GMapper
         )
     {
         _logger = GLogger;
@@ -24,6 +27,7 @@ public class RequestController : ControllerBase
         _iSync = GISync;
         _mediator = GMediator;
         _workItemRepository = WorkItemRepository;
+        _mapper = GMapper;
     }
 
     [HttpPost(nameof(CreateRequest))]
@@ -33,13 +37,13 @@ public class RequestController : ControllerBase
 
         #region Input
 
-        SimpleClassDTO _case = request.Case.GetSimpleClass<SimpleClassDTO>();
-        SimpleClassDTO _creator = request.Creator.GetSimpleClass<SimpleClassDTO>();
-        SimpleClassDTO _requestor = request.Requestor.GetSimpleClass<SimpleClassDTO>();
-        SimpleClassDTO _process = request.Process.GetSimpleClass<SimpleClassDTO>();
+        SimpleClassDTO _case = request.Case.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _creator = request.Creator.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _requestor = request.Requestor.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _process = request.Process.GetSimpleClass<SimpleClassDTO>(_mapper);
         List<GRPC_Condition> _caseConditions = request.Conditions;
         List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
-        SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>();
+        SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>(_mapper);
 
         #endregion
 
@@ -51,7 +55,7 @@ public class RequestController : ControllerBase
 
         CreateRequest_Output output_Request = new();
 
-        output_Request.OutputState = OutputState.GetBaseClassWithName();
+        output_Request.OutputState = OutputState.GetBaseClassWithName(_mapper);
 
         if (!Outputresult.Result.IsSuccess)
         {
@@ -84,8 +88,8 @@ public class RequestController : ControllerBase
         _logger.LogInformation("started " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", request);
 
         #region Input
-        SimpleClassDTO _request = request.Case?.GetSimpleClass<SimpleClassDTO>();
-        SimpleClassDTO _process = request.Process?.GetSimpleClass<SimpleClassDTO>();
+        SimpleClassDTO _request = request.Case?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _process = request.Process?.GetSimpleClass<SimpleClassDTO>(_mapper);
         #endregion
 
         var _requests = await _iCartable.GetCaseAsync(_request, _process);
@@ -99,7 +103,7 @@ public class RequestController : ControllerBase
             output_Request.OutputState = OutputState<Boolean>
                 .NotFoundErrorCreateRequest(false)
                 .SimpleClassDTO
-                .GetBaseClassWithName();
+                .GetBaseClassWithName(_mapper);
 
             return output_Request;
         }
@@ -108,8 +112,8 @@ public class RequestController : ControllerBase
 
         output_Request.Case = new();
 
-        output_Request.Case.Base = _selectedRequests.GetBaseClassWithDate();
-        output_Request.Case.CaseState = _selectedRequests.CaseState.GetBaseClassWithName();
+        output_Request.Case.Base = _selectedRequests.GetBaseClassWithDate(_mapper);
+        output_Request.Case.CaseState = _selectedRequests.CaseState.GetBaseClassWithName(_mapper);
         output_Request.Case.RequestorId = _selectedRequests.RequestorId;
         output_Request.Case.CreatorId = _selectedRequests.CreatorId;
         output_Request.Case.ProcessId = _selectedRequests.ProcessId;
@@ -125,8 +129,8 @@ public class RequestController : ControllerBase
             foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _distincTaskId))
             {
                 GRPC_WorkItem _gRPC_WorkItem = new();
-                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate();
-                _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName();
+                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate(_mapper);
+                _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName(_mapper);
                 _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
                 _gRPC_WorkItem.OccurredUserActions = new();
                 foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
@@ -141,7 +145,7 @@ public class RequestController : ControllerBase
 
         output_Request.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
-            .SimpleClassDTO.GetBaseClassWithName();
+            .SimpleClassDTO.GetBaseClassWithName(_mapper);
 
         #endregion
 
@@ -207,8 +211,8 @@ public class RequestController : ControllerBase
     {
         GRPC_Case _gRPC_Case = new()
         {
-            Base = _case?.GetBaseClassWithDate(),
-            CaseState = _case?.CaseState?.GetBaseClassWithName(),
+            Base = _case?.GetBaseClassWithDate(_mapper),
+            CaseState = _case?.CaseState?.GetBaseClassWithName(_mapper),
             //Process = Process?.GetBaseClassWithName(),
             //Creator = Creator.GetBaseClassWithName(),
             //Requestor = Requestor.GetBaseClassWithName()
@@ -223,7 +227,7 @@ public class RequestController : ControllerBase
         _gRPC_Case.Tasks.AddRange(
             Tasks.Select(x => new GRPC_Task()
             {
-                Base = x.GetBaseClassWithName()
+                Base = x.GetBaseClassWithName(_mapper)
             })
             );
 
@@ -238,12 +242,12 @@ public class RequestController : ControllerBase
                 .Where(x => x.TaskId == Task.Base.Id)
                 .Select(x => new GRPC_WorkItem()
                 {
-                    Base = x.GetBaseClassWithDate(),
-                    WorkItemState = x.WorkItemState?.GetBaseClassWithName()
+                    Base = x.GetBaseClassWithDate(_mapper),
+                    WorkItemState = x.WorkItemState?.GetBaseClassWithName(_mapper)
                 })
                 );
 
-            F_Task _task = Task.Base.GetSimpleClass<F_Task>();
+            F_Task _task = Task.Base.GetSimpleClass<F_Task>(_mapper);
 
             foreach (var workItem in Task.WorkItems)
             {
@@ -297,11 +301,11 @@ public class RequestController : ControllerBase
 
         #region Input
 
-        var _assignee = request.Assignee?.GetSimpleClass<SimpleClassDTO>();
-        var _process = request.Process?.GetSimpleClass<SimpleClassDTO>();
-        var _caseState = request.CaseState?.GetSimpleClass<SimpleClassDTO>();
-        var _case = request.Case?.GetSimpleClass<SimpleClassDTO>();
-        var _workItem = request.WorkItem?.GetSimpleClass<SimpleClassDTO>();
+        var _assignee = request.Assignee?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        var _process = request.Process?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        var _caseState = request.CaseState?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        var _case = request.Case?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        var _workItem = request.WorkItem?.GetSimpleClass<SimpleClassDTO>(_mapper);
 
         var cartableDTO = new CartableDTO()
         {
@@ -335,28 +339,28 @@ public class RequestController : ControllerBase
             {
                 GRPC_Case _Case = new()
                 {
-                    Base = outputRequestItem.Case.GetBaseClassWithDate(),
-                    CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
+                    Base = outputRequestItem.Case.GetBaseClassWithDate(_mapper),
+                    CaseState = outputRequestItem.CaseState.GetBaseClassWithName(_mapper),
                     CreatorId = outputRequestItem.Creator.Id,
                     RequestorId = outputRequestItem.Requestor.Id,
                     ProcessId = outputRequestItem.Process.Id
                 };
 
                 GRPC_Task _task = new();
-                _task.Base = outputRequestItem.Task.GetBaseClassWithName();
-                var _f_task = _task.Base.GetSimpleClass<F_Task>();
+                _task.Base = outputRequestItem.Task.GetBaseClassWithName(_mapper);
+                var _f_task = _task.Base.GetSimpleClass<F_Task>(_mapper);
 
                 GRPC_WorkItem _gRPC_WorkItem = new();
 
-                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.GetBaseClassWithDate();
+                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.GetBaseClassWithDate(_mapper);
 
-                _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName();
+                _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName(_mapper);
 
-                _gRPC_WorkItem.WorkItemState = outputRequestItem.WorkItemState.GetBaseClassWithName();
+                _gRPC_WorkItem.WorkItemState = outputRequestItem.WorkItemState.GetBaseClassWithName(_mapper);
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
-                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_gRPC_WorkItem.Base.GetSimpleClass<F_WorkItem>());
+                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_gRPC_WorkItem.Base.GetSimpleClass<F_WorkItem>(_mapper));
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
@@ -385,7 +389,7 @@ public class RequestController : ControllerBase
 
         _OutputCartable.OutputState = OutputState<Boolean>
             .Success(nameof(Cartable), true)
-            .SimpleClassDTO.GetBaseClassWithName();
+            .SimpleClassDTO.GetBaseClassWithName(_mapper);
 
         return _OutputCartable;
     }
