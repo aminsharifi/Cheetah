@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.Helper;
-
-namespace Cheetah.Application.Business.ProcessScenario.Specifications;
+﻿namespace Cheetah.Application.Business.ProcessScenario.Specifications;
 
 public class GetProcessSpec : Specification<D_Process>
 {

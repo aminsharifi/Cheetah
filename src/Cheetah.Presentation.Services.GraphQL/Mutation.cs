@@ -1,7 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using MediatR;
-
-namespace Cheetah.Presentation.Services.GraphQL;
+﻿namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Mutation
 {

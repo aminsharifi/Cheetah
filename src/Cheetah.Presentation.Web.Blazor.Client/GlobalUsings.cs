@@ -1,8 +1,11 @@
-﻿global using Cheetah.Domain;
+﻿global using Cheetah.Application.Business.Interfaces;
+global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
 global using Cheetah.Domain.Entities.Dimentions;
-global using Cheetah.Domain.Entities.Facts;
+global using Cheetah.Presentation.Web.Blazor.Client;
+global using Cheetah.Presentation.Web.Blazor.Client.Service;
 global using Microsoft.AspNetCore.Components.Web;
+global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 global using Microsoft.JSInterop;
 global using Newtonsoft.Json;
-global using Cheetah.Application.Business.Interfaces;
+global using System.Security.Claims;

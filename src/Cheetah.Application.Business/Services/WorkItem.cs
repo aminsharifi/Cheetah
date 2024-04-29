@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-
-namespace Cheetah.Application.Business.Services;
+﻿namespace Cheetah.Application.Business.Services;
 public class WorkItem(ICopyClass _iCopyClass,
     ISender iSender, IMemoryCache _cache,
     IRepository<F_WorkItem> workItemRepository,

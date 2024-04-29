@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Cheetah.Domain.Interfaces;
 using Module = Autofac.Module;
 
 /// <summary>

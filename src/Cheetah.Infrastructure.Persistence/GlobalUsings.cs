@@ -2,6 +2,7 @@
 global using Ardalis.SharedKernel;
 global using Ardalis.Specification;
 global using Ardalis.Specification.EntityFrameworkCore;
+global using Cheetah.Application.Business.Case.Get;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Application.Business.Services;
 global using Cheetah.Domain;
@@ -14,6 +15,8 @@ global using Cheetah.Infrastructure.Persistence.Data;
 global using Cheetah.Infrastructure.Persistence.Data.Configurations;
 global using Cheetah.Infrastructure.Persistence.Identity;
 global using Cheetah.Infrastructure.Persistence.Services;
+global using Mapster;
+global using MapsterMapper;
 global using MediatR;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Builder;

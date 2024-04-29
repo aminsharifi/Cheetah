@@ -1,11 +1,4 @@
-﻿using Ardalis.Result;
-using Grpc.Core.Interceptors;
-using Newtonsoft.Json;
-using Serilog;
-using Serilog.Context;
-using System.Net;
-
-namespace Cheetah.Application.Services.gRPC.Middleware;
+﻿namespace Cheetah.Application.Services.gRPC.Middleware;
 
 public class ServerLoggerInterceptor(ILogger<ServerLoggerInterceptor> _logger) : Interceptor
 {
