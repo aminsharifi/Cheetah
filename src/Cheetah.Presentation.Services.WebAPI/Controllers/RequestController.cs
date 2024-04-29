@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Cheetah.Domain.Entities.Links;
+using MapsterMapper;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -11,13 +14,16 @@ public class RequestController : ControllerBase
     public ISync _iSync;
     public IMediator _mediator;
     public IReadRepository<F_WorkItem> _workItemRepository;
+    public IReadRepository<F_Task> _taskRepository;
     public IMapper _mapper;
     public RequestController(ILogger<RequestController> GLogger,
         ICartable GICartable, IWorkItem GIWorkItem,
         ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
-        IReadRepository<F_WorkItem> WorkItemRepository, IMapper GMapper
+        IReadRepository<F_WorkItem> WorkItemRepository, IMapper GMapper,
+        IReadRepository<F_Task> GtaskRepository
         )
     {
+        _taskRepository = GtaskRepository;
         _logger = GLogger;
         _iCartable = GICartable;
         _iWorkItem = GIWorkItem;
@@ -108,38 +114,7 @@ public class RequestController : ControllerBase
 
         var _selectedRequests = _requests.Value.FirstOrDefault();
 
-        output_Request.Case = new();
-
-        output_Request.Case.Base = _selectedRequests.GetBaseClassWithDate(_mapper);
-        output_Request.Case.CaseState = _selectedRequests.CaseState.GetBaseClassWithName(_mapper);
-        output_Request.Case.RequestorId = _selectedRequests.RequestorId;
-        output_Request.Case.CreatorId = _selectedRequests.CreatorId;
-        output_Request.Case.ProcessId = _selectedRequests.ProcessId;
-
-        output_Request.Case.Tasks = new();
-
-        var _distincTaskIds = _selectedRequests.WorkItems.Select(x => x.TaskId).Distinct();
-
-        foreach (var _distincTaskId in _distincTaskIds)
-        {
-            GRPC_Task _gRPC_Task = new() { Base = new() { Id = _distincTaskId } };
-            _gRPC_Task.WorkItems = new();
-            foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _distincTaskId))
-            {
-                GRPC_WorkItem _gRPC_WorkItem = new();
-                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate(_mapper);
-                _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName(_mapper);
-                _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
-                _gRPC_WorkItem.OccurredUserActions = new();
-                foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
-                {
-                    GRPC_Condition _occurredUserAction = new() { Base = new() { Id = WorkItemCondition.SecondId } };
-                    _gRPC_WorkItem.OccurredUserActions.Add(_occurredUserAction);
-                }
-                _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
-            }
-            output_Request.Case.Tasks.Add(_gRPC_Task);
-        }
+        output_Request.Case = await GetCase(_selectedRequests);
 
         output_Request.OutputState = OutputState<Boolean>
             .Success(nameof(GetCase), true)
@@ -205,92 +180,69 @@ public class RequestController : ControllerBase
         return await SyncCondition(request);
     }
     #region Private methods
-    private async Task<GRPC_Case> GetCase(F_Case _case, D_Process? Process, D_User? Creator, D_User? Requestor)
+    private async Task<GRPC_Case> GetCase(F_Case _selectedRequests)
     {
-        GRPC_Case _gRPC_Case = new()
+        GRPC_Case _gRPC_Case = new();
+
+        _gRPC_Case.Base = _selectedRequests.GetBaseClassWithDate(_mapper);
+        _gRPC_Case.CaseState = _selectedRequests.CaseState.GetBaseClassWithName(_mapper);
+        _gRPC_Case.RequestorId = _selectedRequests.RequestorId;
+        _gRPC_Case.CreatorId = _selectedRequests.CreatorId;
+        _gRPC_Case.ProcessId = _selectedRequests.ProcessId;
+
+        _gRPC_Case.Tasks = new();
+
+        var _distincTaskIds = _selectedRequests.WorkItems.Select(x => x.TaskId).Distinct();
+
+        var _getTasks = await _mediator.Send(new GetTasksFromScenarioQuery(_selectedRequests.SelectedScenarioId));
+
+        var _Tasks = _getTasks.Value.ToList();
+
+        foreach (var _Task in _Tasks)
         {
-            Base = _case?.GetBaseClassWithDate(_mapper),
-            CaseState = _case?.CaseState?.GetBaseClassWithName(_mapper),
-            //Process = Process?.GetBaseClassWithName(),
-            //Creator = Creator.GetBaseClassWithName(),
-            //Requestor = Requestor.GetBaseClassWithName()
-        };
+            GRPC_Task _gRPC_Task = new() { Base = _Task.GetBaseClassWithName(_mapper) };
 
-        #region Tasks
+            var _taskConditionsIds = _Task.TaskConditions.Select(x => x.SecondId);
 
-        var _getTasks = await _mediator.Send(new GetTasksFromScenarioQuery(_case.SelectedScenarioId));
+            var _taskConditions = await GetConditions(_taskConditionsIds);
 
-        var Tasks = _getTasks.Value.ToList();
+            _gRPC_Task.ValidUserActions = new();
 
-        _gRPC_Case.Tasks.AddRange(
-            Tasks.Select(x => new GRPC_Task()
+            _gRPC_Task.ValidUserActions.AddRange(_taskConditions);
+
+
+            _gRPC_Task.WorkItems = new();
+            foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _Task.Id))
             {
-                Base = x.GetBaseClassWithName(_mapper)
-            })
-            );
+                GRPC_WorkItem _gRPC_WorkItem = new();
+                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate(_mapper);
+                _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName(_mapper);
+                _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
+                _gRPC_WorkItem.OccurredUserActions = new();
 
-        #endregion
 
-        #region L_WorkItem
+                var _workItemConditionsIds = WorkItem.WorkItemConditions.Select(x => x.SecondId);
 
-        foreach (var Task in _gRPC_Case.Tasks)
-        {
-            Task.WorkItems.AddRange(
-            _case?.WorkItems
-                .Where(x => x.TaskId == Task.Base.Id)
-                .Select(x => new GRPC_WorkItem()
+                var _workItemConditions = await GetConditions(_workItemConditionsIds);
+
+                _gRPC_WorkItem.OccurredUserActions.AddRange(_workItemConditions);
+
+                foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
                 {
-                    Base = x.GetBaseClassWithDate(_mapper),
-                    WorkItemState = x.WorkItemState?.GetBaseClassWithName(_mapper)
-                })
-                );
-
-            F_Task _task = Task.Base.GetSimpleClass<F_Task>(_mapper);
-
-            foreach (var workItem in Task.WorkItems)
-            {
-                var _WorkItem = _case?.WorkItems
-                    .Where(x => x.Id == workItem.Base.Id)
-                    .SingleOrDefault();
-
-                var _conditions = GetConditions(_WorkItem, _task);
-                workItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
+                    GRPC_Condition _occurredUserAction = new() { Base = new() { Id = WorkItemCondition.SecondId } };
+                    _gRPC_WorkItem.OccurredUserActions.Add(_occurredUserAction);
+                }
+                _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
             }
+            _gRPC_Case.Tasks.Add(_gRPC_Task);
         }
-
-        #endregion
-
         return _gRPC_Case;
     }
-    private GRPC_WorkItem GetConditions(F_WorkItem workItem, F_Task Task)
+    private async Task<IEnumerable<GRPC_Condition>> GetConditions(IEnumerable<long?> ConditionIds)
     {
-        GRPC_WorkItem gRPC_WorkItem = new();
-
-        /*
-                #region OccurredUserActions
-
-
-                var _occurredUserActions = workItem
-                    .WorkItemConditions
-                    .Select(x => x.Condition)
-                .GetConditions();
-
-
-                gRPC_WorkItem.OccurredUserActions.AddRange(_occurredUserActions);
-
-
-                #endregion
-
-                #region ValidUserActions
-                var _validUserActions = Task.TaskFlows
-                    .SelectMany(x => x.Flow.FlowConditions, (x, y) => y.Condition)
-                .GetConditions();
-
-                gRPC_WorkItem.ValidUserActions.AddRange(_validUserActions);
-                #endregion
-         */
-
-        return gRPC_WorkItem;
+        var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(
+            ConditionIds.Select(x => x.Value)))).Value;
+        return Actual_Conditions.GetConditions(_mapper);
     }
     private async Task<Cartable_Output> Cartable(Cartable_Input request, CartableProperty cartableProperty)
     {
@@ -345,7 +297,22 @@ public class RequestController : ControllerBase
                 };
 
                 GRPC_Task _task = new();
+
+                _task.ValidUserActions = new();
+
+                var _taskValidUserActions = outputRequestItem.ValidUserActions.ToList();
+
+                foreach (var _taskValidUserAction in _taskValidUserActions)
+                {
+                    GRPC_Condition _GRPC_Condition = new();
+
+                    _GRPC_Condition.Base = _mapper.Map<GRPC_BaseClassWithName>(_taskValidUserAction);
+
+                    _task.ValidUserActions.Add(_GRPC_Condition);
+                }
+
                 _task.Base = outputRequestItem.Task.GetBaseClassWithName(_mapper);
+
                 var _f_task = _task.Base.GetSimpleClass<F_Task>(_mapper);
 
                 GRPC_WorkItem _gRPC_WorkItem = new();
@@ -362,13 +329,16 @@ public class RequestController : ControllerBase
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
-                var _conditions = GetConditions(_retriveworkItem, _f_task);
+                var _workItemConditionIds = _retriveworkItem.WorkItemConditions.Select(x => x.SecondId);
+
+                var _workItemConditions = await GetConditions(_workItemConditionIds);
 
                 _task.WorkItems = new();
 
-                if (_conditions.OccurredUserActions is not null)
+                if (_workItemConditions is not null)
                 {
-                    _gRPC_WorkItem.OccurredUserActions.AddRange(_conditions.OccurredUserActions);
+                    _gRPC_WorkItem.OccurredUserActions = new();
+                    _gRPC_WorkItem.OccurredUserActions.AddRange(_workItemConditions);
                 }
 
                 _task.WorkItems.Add(_gRPC_WorkItem);

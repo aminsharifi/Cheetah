@@ -1,4 +1,5 @@
 ﻿global using Ardalis.SharedKernel;
+global using Cheetah.Application.Business.Condition.Get;
 global using Cheetah.Application.Business.Entity;
 global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Interfaces;
