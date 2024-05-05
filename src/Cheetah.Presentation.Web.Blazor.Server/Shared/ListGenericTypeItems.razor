@@ -81,10 +81,10 @@
         if (string.IsNullOrWhiteSpace(_searchString))
             return true;
 
-        if (x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        if (x.Name is not null && x.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
             return true;
 
-        if (x.DisplayName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        if (x.DisplayName is not null && x.DisplayName.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
             return true;
 
         if (x.Id.ToString().Contains(_searchString, StringComparison.OrdinalIgnoreCase))
