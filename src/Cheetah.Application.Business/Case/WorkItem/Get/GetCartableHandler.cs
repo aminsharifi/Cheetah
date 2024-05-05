@@ -81,14 +81,7 @@ public class GetCartableHandler(
 
             _inboxList[i].User = _iCopyClass.GetSimpleClass(_user);
 
-            if (_Record.Case.RequestorId == 103)
-            {
-
-            }
-
             var _requestor = await _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.RequestorId));
-
-
 
             _inboxList[i].Requestor = _iCopyClass.GetSimpleClass(_requestor);
 
@@ -101,7 +94,6 @@ public class GetCartableHandler(
             _inboxList[i].Task = _iCopyClass.GetSimpleClass(_task);
 
             var _flows = await _ISender.Send(new GetFlowsByTaskQuery(_Record.TaskId));
-
 
             var _validUserActions = _flows.Value.SelectMany(a => a.Flow.FlowConditions,
             (a, b) => _iCopyClass.GetSimpleClass(

@@ -183,8 +183,7 @@
                                                         </td>
                                                         <td>
                                                             <InputSelect class="col-12"
-                                                                         @bind-Value="_taskCondition.SecondId" style="direction:rtl"
-                                                                         @oninput="(e => SelectedTaskConditionsChanged(e,_taskCondition))">
+                                                                         @bind-Value="_taskCondition.SecondId" style="direction:rtl">
                                                                 <option @((_taskCondition.Condition is null)? selected : '' ) value="">
                                                                     لطفا یک مورد را انتخاب نمایید
                                                                 </option>
@@ -305,8 +304,7 @@
                                                                                 </td>
                                                                                 <td>
                                                                                     <InputSelect class="col-12"
-                                                                                                 @bind-Value="_flowCondition.SecondId" style="direction:rtl"
-                                                                                                 @oninput="(e => SelectedFlowConditionsChanged(e,_flowCondition))">
+                                                                                                 @bind-Value="_flowCondition.SecondId" style="direction:rtl">
                                                                                         <option @((_flowCondition.Condition is null)? selected : '' ) value="">
                                                                                             لطفا یک مورد را انتخاب نمایید
                                                                                         </option>
@@ -461,7 +459,6 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        // List_D_Role = await simpleClassRepository.GetAllByName(nameof(D_Role)) as List<BaseEntity>;
         List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)) as List<BaseEntity>;
         List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)) as List<BaseEntity>;
         List_CaseState = await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)) as List<BaseEntity>;
@@ -469,9 +466,6 @@
         List_F_Condition = await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)) as List<BaseEntity>;
         AllRecords = await simpleClassRepository.GetAllByNameAsync(nameof(D_Process));
         AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
-
-
-        // simpleClassRepository.GetAllLink(nameof(L_TagTask), nameof(LinkProperty.Second), Id);
 
         this.LinkRecords = new LinkClassDTO()
             {
@@ -518,10 +512,6 @@
     private async Task Add_ActionsTask(MouseEventArgs e, F_Flow cObject)
     {
         L_FlowTask _l_ActionTask = new();
-
-        // _l_TaskAction.Task =
-
-        // _l_TaskAction.Action = new F_Action();
 
         ICollection<L_FlowTask> _l_TaskActions = cObject.FlowTasks;
 
@@ -613,27 +603,7 @@
 
         cObject.TaskFlows.Add(_l_TaskAction);
     }
-    private async Task AddConditions(MouseEventArgs e, F_Scenario cObject)
-    {
-        var Condition = new F_Condition();
-
-        var baseType = cObject.GetType().BaseType;
-
-        // ICollection<F_Condition> Conditions = cObject.Conditions;
-
-        // if (Conditions.Any())
-        // {
-        //     Condition.SortIndex = Conditions.Max(x => x.SortIndex) + 1;
-        // }
-        // else
-        // {
-        //     Condition = await simpleClassRepository.GetLast(nameof(F_Condition)) as F_Condition;
-        // }
-
-        // Condition.Tag = List_D_Tag.First() as D_Tag;
-        // Condition.Operand = List_D_Operand.First() as D_Operand;
-        // cObject.Conditions.Add(Condition);
-    }
+   
     private async Task AddTaskPattern()
     {
         var d_Task = new F_Task();
@@ -647,22 +617,11 @@
         else
         {
             d_Task = await simpleClassRepository.GetLastAsync(nameof(F_Task)) as F_Task;
-        }
-
-        // d_Task.Role = List_D_Role.First() as D_Role;
+        }        
 
         (Record as F_Scenario).Tasks.Add(d_Task);
     }
-    private async Task SelectedTaskChanged(ChangeEventArgs e, F_Task d_Task)
-    {
-        if (Id > 0 && e.Value is not null)
-        {
-            var _D_Role = Int64.Parse(e.Value.ToString());
-
-            // d_Task.Role = List_D_Role
-            // .First(x => x.Id == _D_Role) as D_Role;
-        }
-    }
+ 
     private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
     {
         if (Id > 0 && e.Value is not null)
@@ -670,9 +629,6 @@
             var CaseStateId = Int64.Parse(e.Value.ToString());
 
             f_Flow.CaseStateId = CaseStateId;
-
-            // f_Flow.CaseState = List_CaseState
-            // .First(x => x.Id == CaseStateId) as D_CaseState;
         }
     }
     private async Task SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)
@@ -689,21 +645,6 @@
             TaskSelector.Task = null;
         }
     }
-
-    private async Task SelectedFlowConditionsChanged(ChangeEventArgs e, L_FlowCondition FlowCondition)
-    {
-        if (Id > 0 && e.Value is not null)
-        {
-            var _flowConditionId = Int64.Parse(e.Value.ToString());
-
-           //  FlowCondition.Condition = List_F_Condition
-           // .First(x => x.Id == _flowConditionId) as F_Condition;
-        }
-        else
-        {
-            // FlowCondition.Condition = null;
-        }
-    }
     private async Task SelectedScenarioConditionsChanged(ChangeEventArgs e, L_ScenarioCondition ScenarioCondition)
     {
         if (Id > 0 && e.Value is not null)
@@ -712,36 +653,6 @@
 
             ScenarioCondition.SecondId = (List_F_Condition
            .First(x => x.Id == _flowConditionId) as F_Condition).Id;
-        }
-        else
-        {
-            // ScenarioCondition.Condition = null;
-        }
-    }
-
-    private async Task SelectedTaskConditionsChanged(ChangeEventArgs e, L_TaskCondition TaskCondition)
-    {
-        if (Id > 0 && e.Value is not null)
-        {
-            var _flowConditionId = Int64.Parse(e.Value.ToString());
-
-           //  TaskCondition.Condition = List_F_Condition
-           // .First(x => x.Id == _flowConditionId) as F_Condition;
-        }
-        else
-        {
-            // TaskCondition.Condition = null;
-        }
-    }
-
-    private async Task SelectedConditionChanged(ChangeEventArgs e, F_Task Task)
-    {
-        if (Id > 0 && e.Value is not null)
-        {
-            var conditionId = Int64.Parse(e.Value.ToString());
-
-            // Task.Condition = (Record as F_Scenario).Conditions
-            // .First(x => x.Id == conditionId) as F_Condition;
         }
     }
 }
