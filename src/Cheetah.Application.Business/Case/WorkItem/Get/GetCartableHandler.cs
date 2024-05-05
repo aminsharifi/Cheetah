@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Entities.Facts;
-using System.Diagnostics;
-
-namespace Cheetah.Application.Business.WorkItem.Get;
+﻿namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class GetCartableHandler(
     IReadRepository<F_WorkItem> _WorkItemRepository,
@@ -33,7 +30,7 @@ public class GetCartableHandler(
 
             request.cartableDTO.Process = new() { Id = _processId.Value };
         }
-        
+
         if (request.cartableDTO.Scenario is not null)
         {
             GetIdEntitySpec<F_Scenario> _getIdEntitySpec = new(request.cartableDTO.Scenario);
@@ -62,32 +59,64 @@ public class GetCartableHandler(
             {
                 PageSize = request.cartableDTO.PageSize,
                 PageNumber = request.cartableDTO.PageNumber,
-                TotalItems = _totalItems,          
-                User = _iCopyClass.GetSimpleClass(
-                _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(x.UserId)).GetAwaiter().GetResult()),                
-                Process = _iCopyClass.GetSimpleClass(
-                _processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(x.Case.ProcessId)).GetAwaiter().GetResult()),
+                TotalItems = _totalItems,
                 Case = _iCopyClass.GetSimpleClass(x.Case),
-                Requestor = _iCopyClass.GetSimpleClass(
-                    _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(x.Case.RequestorId)).GetAwaiter().GetResult()),
-                Creator = _iCopyClass.GetSimpleClass(
-                    _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(x.Case.CreatorId)).GetAwaiter().GetResult()),
                 CaseState = _iCopyClass.GetSimpleClass(x.Case.CaseState),
                 WorkItem = _iCopyClass.GetSimpleClass(x),
                 WorkItemState = _iCopyClass.GetSimpleClass(x.WorkItemState),
-                Task = _iCopyClass.GetSimpleClass(
-                    _taskRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Task>(x.TaskId)).GetAwaiter().GetResult()),
-                ValidUserActions =
-                (_ISender.Send(new GetFlowsByTaskQuery(x.TaskId)).GetAwaiter().GetResult().Value)
-                .SelectMany(a => a.Flow.FlowConditions,
-                (a, b) => _iCopyClass.GetSimpleClass(
-                    _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(b.SecondId)).GetAwaiter().GetResult())),
-
-                OccurredUserActions = x.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(
-                    _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult())),
                 Summary = string.Empty
             }
-            );     
-        return Inbox.ToList();
+            );
+
+        var _inboxList = Inbox.ToList();
+
+        for (int i = 0; i < _inboxList.LongCount(); i++)
+        {
+            var _Record = Records.First(x => x.Id == _inboxList[i].WorkItem.Id);
+
+            var _process = await _processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(_Record.Case.ProcessId));
+            _inboxList[i].Process = _iCopyClass.GetSimpleClass(_process);
+
+            var _user = await _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.UserId));
+
+            _inboxList[i].User = _iCopyClass.GetSimpleClass(_user);
+
+            if (_Record.Case.RequestorId == 103)
+            {
+
+            }
+
+            var _requestor = await _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.RequestorId));
+
+
+
+            _inboxList[i].Requestor = _iCopyClass.GetSimpleClass(_requestor);
+
+            var _creator = await _userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.CreatorId));
+
+            _inboxList[i].Creator = _iCopyClass.GetSimpleClass(_creator);
+
+            var _task = await _taskRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Task>(_Record.TaskId));
+
+            _inboxList[i].Task = _iCopyClass.GetSimpleClass(_task);
+
+            var _flows = await _ISender.Send(new GetFlowsByTaskQuery(_Record.TaskId));
+
+
+            var _validUserActions = _flows.Value.SelectMany(a => a.Flow.FlowConditions,
+            (a, b) => _iCopyClass.GetSimpleClass(
+                _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(b.SecondId)).GetAwaiter().GetResult()));
+
+            _inboxList[i].ValidUserActions = _validUserActions;
+
+
+            var _occurredUserActions = _Record.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(
+                _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult()));
+
+            _inboxList[i].OccurredUserActions = _occurredUserActions;
+
+        }
+
+        return _inboxList;
     }
 }
