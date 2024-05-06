@@ -6,7 +6,8 @@ public class WorkItem(ICopyClass _iCopyClass,
     IRepository<F_Task> taskRepository,
     IRepository<D_User> userRepository,
     IRepository<F_Condition> conditionRepository,
-    IRepository<D_Process> processRepository) : IWorkItem
+    IRepository<D_Process> processRepository
+    ) : IWorkItem
 {
     public async Task<CheetahResult<long>> CreateRequestAsync(SimpleClassDTO Case, SimpleClassDTO Creator,
         SimpleClassDTO Requestor, SimpleClassDTO Process,
@@ -18,8 +19,8 @@ public class WorkItem(ICopyClass _iCopyClass,
         var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.Value.ProcessId.Value,
         eRPCode: GeneralRequest.Value.ERPCode.Value);
 
-
         CheetahResult<long> _OutputState;
+
         if (await caseRepository.AnyAsync(_getCaseSpec))
         {
             var _caseID = await caseRepository.FirstOrDefaultAsync(_getCaseSpec);
@@ -39,23 +40,25 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         return _OutputState;
     }
-    public async Task<CheetahResult<F_Case>> PerformWorkItemAsync(F_WorkItem WorkItem, D_User User, Boolean Rebase = false)
+    public async Task<CheetahResult<long>> PerformWorkItemAsync(
+        SimpleClassDTO WorkItem, SimpleClassDTO WorkItemUser,
+        List<GRPC_Condition> WorkItemConditions, Boolean Rebase = false)
     {
-        CheetahResult<F_Case> _OutputState = new();
+        CheetahResult<long> _OutputState = new();
 
-        F_WorkItem Current_WorkItem = await _iCopyClass.DeepCopyAsync(WorkItem, User);
-
-        await workItemRepository.UpdateAsync(Current_WorkItem);
-
+        F_WorkItem Current_WorkItem = await iSender.Send(new CopyWorkItemQuery(
+            WorkItem, WorkItemUser, WorkItemConditions, Rebase));
 
         if (Current_WorkItem.LastModified is not null && !Rebase)
         {
-            _OutputState = OutputState<F_Case>.PreviouslySentErrorCreateRequest(Current_WorkItem.Id, Current_WorkItem.Case);
-
+            _OutputState = OutputState<long>
+                .DuplicateErrorCreateRequest(Current_WorkItem.Id, WorkItem.Id);
             return _OutputState;
         }
 
-        var _currentAssignment = await SetCurrentAssignmentAsync(Current_WorkItem);
+        var _setCurrentAssignmentAsync = await SetCurrentAssignmentAsync(Current_WorkItem);
+
+        Current_WorkItem = _setCurrentAssignmentAsync.Result;
 
         if (Current_WorkItem.Case.IsEditing())
         {
@@ -66,7 +69,9 @@ public class WorkItem(ICopyClass _iCopyClass,
             await SetWorkItemsAsync(Current_WorkItem.Case, Current_WorkItem);
         }
 
-        _OutputState = OutputState<F_Case>.SuccessPerformWorkItem(Current_WorkItem.Id, Current_WorkItem.Case);
+        await workItemRepository.UpdateAsync(_setCurrentAssignmentAsync.Result);
+
+        _OutputState = OutputState<long>.SuccessPerformWorkItem(Current_WorkItem.Id, WorkItem.Id);
 
         return _OutputState;
     }
@@ -232,19 +237,15 @@ public class WorkItem(ICopyClass _iCopyClass,
     }
     public async Task<CheetahResult<F_WorkItem>> SetCurrentAssignmentAsync(F_WorkItem Current_WorkItem)
     {
-        Current_WorkItem.Case.LastModified = DateTimeOffset.Now;
-
         var _currentTaskId = Current_WorkItem.TaskId;
 
-        var _taskFlows = (await iSender.Send(new GetFlowsByTaskQuery(_currentTaskId.Value))).Value;
+        var _taskFlows = await iSender.Send(new GetFlowsByTaskQuery(_currentTaskId.Value));
 
-        var _actualConditionsIds = Current_WorkItem.WorkItemConditions
-            .Select(x => x.SecondId.Value);
+        var _actualConditionsIds = Current_WorkItem.WorkItemConditions.Select(x => x.SecondId.Value);
 
-        var _actual_Conditions = (await iSender.Send(
-            new GetIncludedConditionsQuery(_actualConditionsIds))).Value;
+        var _actual_Conditions = await iSender.Send(new GetIncludedConditionsQuery(_actualConditionsIds));
 
-        foreach (var _taskFlow in _taskFlows)
+        foreach (var _taskFlow in _taskFlows.Value)
         {
             var ExpectedConditionsIds = _taskFlow.Flow.FlowConditions
                 .Select(x => x.SecondId.Value);
@@ -252,7 +253,7 @@ public class WorkItem(ICopyClass _iCopyClass,
             var ExpectedConditions = (await iSender.Send(
         new GetIncludedConditionsQuery(ExpectedConditionsIds))).Value;
 
-            if (CompareCondition(_actual_Conditions, ExpectedConditions))
+            if (CompareCondition(_actual_Conditions.Value, ExpectedConditions))
             {
                 Current_WorkItem.Case.CaseStateId = _taskFlow.Flow.CaseStateId;
 
@@ -270,6 +271,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
                     if (Current_WorkItem.CaseId.HasValue)
                     {
+
                         var OtherWorkItems = Current_WorkItem.Case.WorkItems
                             .Where(x => x.TaskId is not null)
                             .Where(x => x.IsInbox() || x.IsFuture());

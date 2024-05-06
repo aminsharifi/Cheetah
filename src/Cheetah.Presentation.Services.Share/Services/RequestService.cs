@@ -129,6 +129,7 @@ public class RequestService(ILogger<RequestService> logger,
     }
     public async Task<PerformRequest_Output> PerformRequest(PerformRequest_Input request)
     {
+        /*
         logger.LogInformation("started " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", request);
 
         #region Input
@@ -162,8 +163,9 @@ public class RequestService(ILogger<RequestService> logger,
         #endregion
 
         logger.LogInformation("Ended " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", output_Request);
-
         return output_Request;
+         */
+        return new PerformRequest_Output();
     }
     public async Task<GetAllByName_Output> GetAllByName(GetAllByName_Input request)
     {

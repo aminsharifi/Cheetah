@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-
-namespace Cheetah.Infrastructure.Persistence;
-    public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+﻿namespace Cheetah.Infrastructure.Persistence;
+public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
@@ -24,11 +21,6 @@ namespace Cheetah.Infrastructure.Persistence;
             foreach (var filedInfo in filedInfos)
             {
                 var simpleClass = filedInfo.GetValue(null) as BaseEntity;
-
-                if (simpleClass == null)
-                {
-                    var aa = 12;
-                }
 
                 builder.Entity(simpleClass.GetType()).HasData(simpleClass);
             }
