@@ -120,7 +120,7 @@ public static class InitialiserExtensions
         app.UseSerilogRequestLogging();
         app.UseAuthentication();
         app.UseAuthorization();
-
+        
         #endregion
 
         #region DB Initials

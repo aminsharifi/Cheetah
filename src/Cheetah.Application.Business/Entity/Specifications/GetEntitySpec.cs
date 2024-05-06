@@ -10,25 +10,26 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
         Query.EnableCache(nameof(GetEntitySpec<T>), input);
         Query.AsNoTracking();
     }
-    public GetEntitySpec(BaseEntity input)
+    public GetEntitySpec(BaseEntity input, Boolean? EnableTrack = false)
     {
         var Find = false;
 
         Query
             .EnableCache(nameof(GetEntitySpec<T>), input);
-
-        Query.AsNoTracking();
-
+        if (EnableTrack == false)
+        {
+            Query.AsNoTracking();
+        }
         if (input.Id > 0)
         {
             Find = true;
-            return;
+            Query.Where(x => x.Id == input.Id);
         }
 
         if (!String.IsNullOrEmpty(input.Name))
         {
             Find = true;
-            Query.Where(x => x.Name == input.Name);
+            Query.Where(x => x.Name.ToLower() == input.Name.ToLower());
         }
 
         if (input.ERPCode is not null and > 0)
