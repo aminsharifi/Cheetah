@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Entities.Links;
-using MapsterMapper;
-
-namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -152,7 +149,52 @@ public class RequestController : ControllerBase
     [HttpPost(nameof(PerformRequest))]
     public async Task<PerformRequest_Output> PerformRequest([FromBody] PerformRequest_Input request)
     {
-        return await PerformRequest(request);
+        _logger.LogInformation("started " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", request);
+
+        #region Input
+
+        SimpleClassDTO _workItem = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>(_mapper);
+        List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
+        Boolean _rebase = request.Rebase ?? false;
+        #endregion
+
+        var Outputresult = await _iWorkItem.PerformWorkItemAsync
+            (_workItem, _workItemUser, _workItemConditions, _rebase);
+
+        #region Output
+
+        var OutputState = Outputresult.SimpleClassDTO;
+
+        PerformRequest_Output output_Request = new();
+
+        output_Request.OutputState = OutputState.GetBaseClassWithName(_mapper);
+
+        if (!Outputresult.Result.IsSuccess)
+        {
+            return output_Request;
+        }
+
+        long _createdCaseId = Outputresult.Result.Value;
+
+        GetCase_Input _getCase_Input = new()
+        {
+            Case = new GRPC_BaseClass()
+            {
+                Id = _createdCaseId
+            }
+        };
+
+        GetCase_Output _getCase_Output = await GetCase(_getCase_Input);
+
+        output_Request.Case = _getCase_Output.Case;
+
+        #endregion
+
+        _logger.LogInformation("Ended " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", output_Request);
+
+        return output_Request;
+
     }
     [HttpPost(nameof(GetAllByName))]
     public async Task<GetAllByName_Output> GetAllByName([FromBody] GetAllByName_Input request)
@@ -202,14 +244,26 @@ public class RequestController : ControllerBase
         {
             GRPC_Task _gRPC_Task = new() { Base = _Task.GetBaseClassWithName(_mapper) };
 
+            var _taskFlowConditionsIds = _Task.TaskFlows
+                .SelectMany(parent => parent.Flow.FlowConditions, (parent, child) => child.SecondId);
+
+            var _taskFlowConditions = await GetConditions(_taskFlowConditionsIds);
+
+            _gRPC_Task.ValidUserActions = new();
+
+            _gRPC_Task.ValidUserActions.AddRange(_taskFlowConditions);
+
+            #region Performers
+
             var _taskConditionsIds = _Task.TaskConditions.Select(x => x.SecondId);
 
             var _taskConditions = await GetConditions(_taskConditionsIds);
 
-            _gRPC_Task.ValidUserActions = new();
+            _gRPC_Task.Performers = new();
 
-            _gRPC_Task.ValidUserActions.AddRange(_taskConditions);
+            _gRPC_Task.Performers.AddRange(_taskConditions);
 
+            #endregion
 
             _gRPC_Task.WorkItems = new();
             foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _Task.Id))

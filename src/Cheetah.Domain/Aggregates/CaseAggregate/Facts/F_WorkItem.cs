@@ -52,7 +52,7 @@ public partial class F_WorkItem : BaseEntity
     public void SetSent()
     {
         WorkItemStateId = D_WorkItemState.Sent.Id;
-        LastModified = DateTimeOffset.Now;
+        //LastModified = DateTimeOffset.Now;
     }
     public void SetExit()
     {
