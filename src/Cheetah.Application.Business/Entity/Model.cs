@@ -141,6 +141,7 @@ public class GRPC_BaseClassWithNameAndDate : GRPC_BaseClassWithDate
 public class GRPC_Task
 {
     public GRPC_BaseClassWithName? Base { get; set; }
+    public List<GRPC_Condition?>? Performers { get; set; }
     public List<GRPC_Condition?>? ValidUserActions { get; set; }
     public List<GRPC_WorkItem>? WorkItems { get; set; }
 }

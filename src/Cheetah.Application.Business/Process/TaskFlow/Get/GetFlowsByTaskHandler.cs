@@ -7,10 +7,10 @@ public class GetFlowsByTaskHandler(
     {
         var _getFlowsByTaskSpec = new GetFlowsByTaskSpec(request.currentTaskId);
 
-        var _taskFlows = (await _taskFlowRepository
-            .ListAsync(_getFlowsByTaskSpec, cancellationToken));
+        var _taskFlows = await _taskFlowRepository
+            .ListAsync(_getFlowsByTaskSpec, cancellationToken);
 
 
-        return _taskFlows.ToList();
+        return _taskFlows;
     }
 }

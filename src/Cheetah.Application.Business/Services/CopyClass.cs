@@ -25,13 +25,6 @@ public class CopyClass(ISender iSender) : ICopyClass
         return _SimpleClass;
     }
 
-    public async Task<F_WorkItem> DeepCopyAsync(F_WorkItem obj, D_User User)
-    {
-        var _copyWorkItem = await iSender.Send(new CopyWorkItemQuery(obj, User));
-
-        return _copyWorkItem;
-    }
-
     public async Task<L_CaseTaskUser> DeepCopyAsync(L_CaseTaskUser obj)
     {
         var _copyCaseTaskUser = await iSender.Send(new CopyCaseTaskUserQuery(obj));

@@ -9,7 +9,7 @@ public class GetConditionIdSpec : Specification<F_Condition,long?>
         Query
             .Where(x => x.TagId == tagId)
             .Where(x => x.OperandId == operandId)
-            .Where(x => x.Value == value)
+            .Where(x => x.Value.ToLower() == value.ToLower())
             .AsNoTracking();
 
         Query.Select(x => x.Id);

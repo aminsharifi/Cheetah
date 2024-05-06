@@ -20,7 +20,7 @@ public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecific
         if (!String.IsNullOrEmpty(input.Name))
         {
             Find = true;
-            Query.Where(x => x.Name == input.Name);
+            Query.Where(x => x.Name.ToLower() == input.Name.ToLower());
             _keyBulder.Append(input.Name);
         }
 
