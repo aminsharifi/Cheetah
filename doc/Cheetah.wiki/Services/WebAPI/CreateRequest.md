@@ -51,30 +51,45 @@ The output of the service is the created case.
 
 ```javascript
 {    
-    "Case": {"ERPCode": -268},
+    "Case": {"ERPCode": -284},
     "Creator":
     {
-        "ERPCode": -1 //m.sharifi
+        //"Name": "m.sharifi"
+        "ERPCode": -1 //
     },
     "Requestor": 
     {
+        //"Name": "m.sharifi"
         "ERPCode":-1 //m.sharifi
     },
     "Process": 
     {
-        "Name": "Admission"
+        //"Name": "Admission"
+        "ERPCode": -2
     },
     "WorkItem":
     {
         "OccurredUserActions":
         [
             {
-                "Tag": {"Name":"ReviewState"},
-                "Operand": {"Name":  "="},
+                "Tag":
+                {
+                    "ERPCode":-12
+                    //"Name":"ReviewState"
+                },
+                "Operand":
+                {
+                    "ERPCode":-1
+                    // "Name":  "="
+                },
                 "Value":"SendRequest"
             }
         ],
-        "User": {"Name":"m.sharifi"}
+        "User":
+        {
+            //"Name": "m.sharifi"
+            "ERPCode": -1 
+        }
     }
 }
 ```
@@ -84,10 +99,10 @@ The output of the service is the created case.
 {
     "case": {
         "base": {
-            "created": "2024-04-29T14:43:31.1930148+03:30",
-            "lastModified": "2024-04-29T14:43:31.4719914+03:30",
-            "id": 58,
-            "erpCode": -268,
+            "created": "2024-05-08T13:11:39.8732626+03:30",
+            "lastModified": null,
+            "id": 88,
+            "erpCode": -284,
             "sortIndex": 0,
             "enableRecord": true
         },
@@ -97,19 +112,77 @@ The output of the service is the created case.
         "tasks": [
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "ثبت درخواست",
                     "id": 3,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 1,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionRequestor",
+                            "displayName": "کارگذاری",
+                            "id": 29,
+                            "erpCode": -29,
+                            "sortIndex": 28,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionRequestor"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = SendRequest",
+                            "displayName": "ارسال درخواست",
+                            "id": 23,
+                            "erpCode": -23,
+                            "sortIndex": 23,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "SendRequest"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.1931274+03:30",
-                            "lastModified": "2024-04-29T14:43:31.4916358+03:30",
-                            "id": 571,
+                            "created": "2024-05-08T13:11:39.8733882+03:30",
+                            "lastModified": null,
+                            "id": 870,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -133,6 +206,33 @@ The output of the service is the created case.
                         "occurredUserActions": [
                             {
                                 "base": {
+                                    "name": "ReviewState = SendRequest",
+                                    "displayName": "ارسال درخواست",
+                                    "id": 23,
+                                    "erpCode": -23,
+                                    "sortIndex": 23,
+                                    "enableRecord": true
+                                },
+                                "tag": {
+                                    "name": "ReviewState",
+                                    "displayName": "وضعیت بررسی",
+                                    "id": 12,
+                                    "erpCode": -12,
+                                    "sortIndex": 12,
+                                    "enableRecord": true
+                                },
+                                "operand": {
+                                    "name": "=",
+                                    "displayName": "مساوی",
+                                    "id": 1,
+                                    "erpCode": -1,
+                                    "sortIndex": 1,
+                                    "enableRecord": true
+                                },
+                                "value": "SendRequest"
+                            },
+                            {
+                                "base": {
                                     "name": null,
                                     "displayName": null,
                                     "id": 23,
@@ -150,19 +250,77 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "پخش درخواست",
                     "id": 4,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 2,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionManager",
+                            "displayName": "مدیر پذیرش",
+                            "id": 24,
+                            "erpCode": -24,
+                            "sortIndex": 24,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionManager"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = SendRequest",
+                            "displayName": "ارسال درخواست",
+                            "id": 23,
+                            "erpCode": -23,
+                            "sortIndex": 23,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "SendRequest"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.291656+03:30",
+                            "created": "2024-05-08T13:11:40.1438749+03:30",
                             "lastModified": null,
-                            "id": 572,
+                            "id": 871,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -189,19 +347,104 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "کارشناس پذیرش",
                     "id": 5,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 3,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionSpecialist",
+                            "displayName": "کارشناس پذیرش",
+                            "id": 25,
+                            "erpCode": -25,
+                            "sortIndex": 25,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionSpecialist"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = Approve",
+                            "displayName": "تایید",
+                            "id": 20,
+                            "erpCode": -20,
+                            "sortIndex": 20,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Approve"
+                    },
+                    {
+                        "base": {
+                            "name": "ReviewState = Reject",
+                            "displayName": "رد",
+                            "id": 21,
+                            "erpCode": -21,
+                            "sortIndex": 21,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Reject"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.3157296+03:30",
+                            "created": "2024-05-08T13:11:40.1723116+03:30",
                             "lastModified": null,
-                            "id": 573,
+                            "id": 872,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -226,9 +469,9 @@ The output of the service is the created case.
                     },
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.31574+03:30",
+                            "created": "2024-05-08T13:11:40.1723172+03:30",
                             "lastModified": null,
-                            "id": 574,
+                            "id": 873,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -255,19 +498,104 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "تایید کارشناس پذیرش و بررسی مدیر",
                     "id": 6,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 4,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionManager",
+                            "displayName": "مدیر پذیرش",
+                            "id": 24,
+                            "erpCode": -24,
+                            "sortIndex": 24,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionManager"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = Approve",
+                            "displayName": "تایید",
+                            "id": 20,
+                            "erpCode": -20,
+                            "sortIndex": 20,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Approve"
+                    },
+                    {
+                        "base": {
+                            "name": "ReviewState = Reject",
+                            "displayName": "رد",
+                            "id": 21,
+                            "erpCode": -21,
+                            "sortIndex": 21,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Reject"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.3650578+03:30",
+                            "created": "2024-05-08T13:11:40.1978222+03:30",
                             "lastModified": null,
-                            "id": 575,
+                            "id": 874,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -294,19 +622,104 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "رد کارشناس پذیرش و بررسی مدیر",
                     "id": 7,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 5,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionManager",
+                            "displayName": "مدیر پذیرش",
+                            "id": 24,
+                            "erpCode": -24,
+                            "sortIndex": 24,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionManager"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = Approve",
+                            "displayName": "تایید",
+                            "id": 20,
+                            "erpCode": -20,
+                            "sortIndex": 20,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Approve"
+                    },
+                    {
+                        "base": {
+                            "name": "ReviewState = Reject",
+                            "displayName": "رد",
+                            "id": 21,
+                            "erpCode": -21,
+                            "sortIndex": 21,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Reject"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.3988775+03:30",
+                            "created": "2024-05-08T13:11:40.2203809+03:30",
                             "lastModified": null,
-                            "id": 576,
+                            "id": 875,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -333,19 +746,77 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "ویرایش درخواست",
                     "id": 8,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 6,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionRequestor",
+                            "displayName": "کارگذاری",
+                            "id": 29,
+                            "erpCode": -29,
+                            "sortIndex": 28,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionRequestor"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = SendRequest",
+                            "displayName": "ارسال درخواست",
+                            "id": 23,
+                            "erpCode": -23,
+                            "sortIndex": 23,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "SendRequest"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.4249779+03:30",
+                            "created": "2024-05-08T13:11:40.2522549+03:30",
                             "lastModified": null,
-                            "id": 577,
+                            "id": 876,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -370,9 +841,9 @@ The output of the service is the created case.
                     },
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.4249868+03:30",
+                            "created": "2024-05-08T13:11:40.2522693+03:30",
                             "lastModified": null,
-                            "id": 578,
+                            "id": 877,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -399,19 +870,104 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "بررسی معاونت پذیرش",
                     "id": 9,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 7,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionVice",
+                            "displayName": "معاون پذیرش",
+                            "id": 26,
+                            "erpCode": -26,
+                            "sortIndex": 26,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionVice"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = Approve",
+                            "displayName": "تایید",
+                            "id": 20,
+                            "erpCode": -20,
+                            "sortIndex": 20,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Approve"
+                    },
+                    {
+                        "base": {
+                            "name": "ReviewState = Reject",
+                            "displayName": "رد",
+                            "id": 21,
+                            "erpCode": -21,
+                            "sortIndex": 21,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Reject"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.4480379+03:30",
+                            "created": "2024-05-08T13:11:40.2744048+03:30",
                             "lastModified": null,
-                            "id": 579,
+                            "id": 878,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -438,19 +994,104 @@ The output of the service is the created case.
             },
             {
                 "base": {
-                    "name": null,
-                    "displayName": null,
+                    "name": "",
+                    "displayName": "بررسی هیات پذیرش",
                     "id": 10,
                     "erpCode": null,
-                    "sortIndex": null,
-                    "enableRecord": null
+                    "sortIndex": 8,
+                    "enableRecord": true
                 },
+                "performers": [
+                    {
+                        "base": {
+                            "name": "Role = AdmissionBoard",
+                            "displayName": "هیات پذیرش",
+                            "id": 27,
+                            "erpCode": -27,
+                            "sortIndex": 27,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "Role",
+                            "displayName": "نقش",
+                            "id": 5,
+                            "erpCode": -5,
+                            "sortIndex": 5,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "AdmissionBoard"
+                    }
+                ],
+                "validUserActions": [
+                    {
+                        "base": {
+                            "name": "ReviewState = Approve",
+                            "displayName": "تایید",
+                            "id": 20,
+                            "erpCode": -20,
+                            "sortIndex": 20,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Approve"
+                    },
+                    {
+                        "base": {
+                            "name": "ReviewState = Reject",
+                            "displayName": "رد",
+                            "id": 21,
+                            "erpCode": -21,
+                            "sortIndex": 21,
+                            "enableRecord": true
+                        },
+                        "tag": {
+                            "name": "ReviewState",
+                            "displayName": "وضعیت بررسی",
+                            "id": 12,
+                            "erpCode": -12,
+                            "sortIndex": 12,
+                            "enableRecord": true
+                        },
+                        "operand": {
+                            "name": "=",
+                            "displayName": "مساوی",
+                            "id": 1,
+                            "erpCode": -1,
+                            "sortIndex": 1,
+                            "enableRecord": true
+                        },
+                        "value": "Reject"
+                    }
+                ],
                 "workItems": [
                     {
                         "base": {
-                            "created": "2024-04-29T14:43:31.4718532+03:30",
+                            "created": "2024-05-08T13:11:40.2961264+03:30",
                             "lastModified": null,
-                            "id": 580,
+                            "id": 879,
                             "erpCode": null,
                             "sortIndex": 0,
                             "enableRecord": true
@@ -487,7 +1128,7 @@ The output of the service is the created case.
     },
     "outputState": {
         "name": null,
-        "displayName": "درخواست با شماره رهیگری 58 با موفقیت در چیتا ثبت شد",
+        "displayName": "درخواست با شماره رهیگری 88 با موفقیت در چیتا ثبت شد",
         "id": 0,
         "erpCode": 0,
         "sortIndex": null,
