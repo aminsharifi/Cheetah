@@ -142,7 +142,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleLinkClass>;
 
             var Result = await Task.FromResult(
-                aa.Where(x => (x.FirstId == linkID && sd_Status == nameof(LinkProperty.First)) ||
+                aa.Where(x => x.EnableRecord && (x.FirstId == linkID && sd_Status == nameof(LinkProperty.First)) ||
                 (x.SecondId == linkID && sd_Status == nameof(LinkProperty.Second))).ToList());
             return Result;
         }
