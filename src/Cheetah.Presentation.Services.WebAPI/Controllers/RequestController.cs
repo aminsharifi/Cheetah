@@ -379,7 +379,7 @@ public class RequestController : ControllerBase
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
-                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_gRPC_WorkItem.Base.GetSimpleClass<F_WorkItem>(_mapper));
+                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_workItemId);
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 

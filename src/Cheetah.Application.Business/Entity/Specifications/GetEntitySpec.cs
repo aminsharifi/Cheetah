@@ -20,7 +20,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
         {
             Query.AsNoTracking();
         }
-        if (input.Id > 0)
+        if (input.Id != 0)
         {
             Find = true;
             Query.Where(x => x.Id == input.Id);
@@ -32,7 +32,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
             Query.Where(x => x.Name.ToLower() == input.Name.ToLower());
         }
 
-        if (input.ERPCode is not null and > 0)
+        if (input.ERPCode is not null && input.ERPCode != 0)
         {
             Find = true;
             Query.Where(x => x.ERPCode == input.ERPCode);
