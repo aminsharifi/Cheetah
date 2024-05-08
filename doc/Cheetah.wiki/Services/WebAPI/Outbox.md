@@ -49,15 +49,17 @@ The output of the service is the cases inside the individual's cartable
 
 ```javascript
 {
-    "Assignee": { "Name": "m.sharifi"},
-    "Process": { "Name": "Admission"},
+    //"Assignee": { "Name": "m.sharifi"},
+    "Assignee": { "ERPCode":-1},
+    //"Process": { "Name": "Admission"},
+    "Process": { "ERPCode": -2},
     "PageNumber": 1,
     "PageSize": 20,
     "CaseState":
     {
         "ERPCode": 2 
-    },
-    "Case": {"Id": 42}
+    }
+  ,"Case": {"Id": 87}
 }
 ```
 
@@ -71,10 +73,10 @@ The output of the service is the cases inside the individual's cartable
     "cases": [
         {
             "base": {
-                "createTimeRecord": "2024-04-28T16:06:32.0694403+03:30",
-                "lastUpdatedRecord": "2024-04-28T16:06:32.7334726+03:30",
-                "id": 42,
-                "erpCode": -252,
+                "created": "2024-05-08T12:41:13.0792475+03:30",
+                "lastModified": null,
+                "id": 87,
+                "erpCode": -283,
                 "sortIndex": null,
                 "enableRecord": true
             },
@@ -91,12 +93,28 @@ The output of the service is the cases inside the individual's cartable
                         "sortIndex": null,
                         "enableRecord": true
                     },
+                    "performers": null,
+                    "validUserActions": [
+                        {
+                            "base": {
+                                "name": "ReviewState = SendRequest",
+                                "displayName": "ارسال درخواست",
+                                "id": 23,
+                                "erpCode": -23,
+                                "sortIndex": null,
+                                "enableRecord": true
+                            },
+                            "tag": null,
+                            "operand": null,
+                            "value": null
+                        }
+                    ],
                     "workItems": [
                         {
                             "base": {
-                                "createTimeRecord": "2024-04-28T16:06:32.0695649+03:30",
-                                "lastUpdatedRecord": "2024-04-28T16:06:32.9658094+03:30",
-                                "id": 411,
+                                "created": "2024-05-08T12:41:13.0793632+03:30",
+                                "lastModified": null,
+                                "id": 860,
                                 "erpCode": null,
                                 "sortIndex": null,
                                 "enableRecord": true
@@ -117,7 +135,35 @@ The output of the service is the cases inside the individual's cartable
                                 "sortIndex": null,
                                 "enableRecord": true
                             },
-                            "occurredUserActions": null
+                            "occurredUserActions": [
+                                {
+                                    "base": {
+                                        "name": "ReviewState = SendRequest",
+                                        "displayName": "ارسال درخواست",
+                                        "id": 23,
+                                        "erpCode": -23,
+                                        "sortIndex": 23,
+                                        "enableRecord": true
+                                    },
+                                    "tag": {
+                                        "name": "ReviewState",
+                                        "displayName": "وضعیت بررسی",
+                                        "id": 12,
+                                        "erpCode": 12,
+                                        "sortIndex": 12,
+                                        "enableRecord": true
+                                    },
+                                    "operand": {
+                                        "name": "=",
+                                        "displayName": "مساوی",
+                                        "id": 1,
+                                        "erpCode": 1,
+                                        "sortIndex": 1,
+                                        "enableRecord": true
+                                    },
+                                    "value": "SendRequest"
+                                }
+                            ]
                         }
                     ]
                 }
