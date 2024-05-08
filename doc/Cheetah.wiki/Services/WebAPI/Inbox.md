@@ -49,15 +49,17 @@ The output of the service is the cases inside the individual's cartable
 
 ```javascript
 {
-    "Assignee": { "Name": "AdmissionManager"},
-    "Process": { "Name": "Admission"},
+    //"Assignee": { "Name": "AdmissionManager"},
+    "Assignee": { "ERPCode":-7},
+    //"Process": { "Name": "Admission"},
+    "Process": { "ERPCode": -2},
     "PageNumber": 1,
     "PageSize": 20,
     "CaseState":
     {
         "ERPCode": 2 
-    },
-    "Case": {"Id": 42}
+    }
+    ,"Case": {"Id": 88}
 }
 ```
 
@@ -71,10 +73,10 @@ The output of the service is the cases inside the individual's cartable
     "cases": [
         {
             "base": {
-                "createTimeRecord": "2024-04-28T16:06:32.0694403+03:30",
-                "lastUpdatedRecord": "2024-04-28T16:06:32.7334726+03:30",
-                "id": 42,
-                "erpCode": -252,
+                "created": "2024-05-08T13:11:39.8732626+03:30",
+                "lastModified": null,
+                "id": 88,
+                "erpCode": -284,
                 "sortIndex": null,
                 "enableRecord": true
             },
@@ -91,12 +93,28 @@ The output of the service is the cases inside the individual's cartable
                         "sortIndex": null,
                         "enableRecord": true
                     },
+                    "performers": null,
+                    "validUserActions": [
+                        {
+                            "base": {
+                                "name": "ReviewState = SendRequest",
+                                "displayName": "ارسال درخواست",
+                                "id": 23,
+                                "erpCode": -23,
+                                "sortIndex": null,
+                                "enableRecord": true
+                            },
+                            "tag": null,
+                            "operand": null,
+                            "value": null
+                        }
+                    ],
                     "workItems": [
                         {
                             "base": {
-                                "createTimeRecord": "2024-04-28T16:06:32.510404+03:30",
-                                "lastUpdatedRecord": null,
-                                "id": 412,
+                                "created": "2024-05-08T13:11:40.1438749+03:30",
+                                "lastModified": null,
+                                "id": 871,
                                 "erpCode": null,
                                 "sortIndex": null,
                                 "enableRecord": true
@@ -105,7 +123,7 @@ The output of the service is the cases inside the individual's cartable
                                 "name": "AdmissionManager",
                                 "displayName": "مدیر پذیرش",
                                 "id": 7,
-                                "erpCode": null,
+                                "erpCode": -7,
                                 "sortIndex": null,
                                 "enableRecord": true
                             },
@@ -117,7 +135,7 @@ The output of the service is the cases inside the individual's cartable
                                 "sortIndex": null,
                                 "enableRecord": true
                             },
-                            "occurredUserActions": null
+                            "occurredUserActions": []
                         }
                     ]
                 }

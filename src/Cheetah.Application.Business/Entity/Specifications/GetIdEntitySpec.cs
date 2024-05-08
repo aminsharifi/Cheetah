@@ -24,7 +24,7 @@ public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecific
             _keyBulder.Append(input.Name);
         }
 
-        if (input.ERPCode is not null and > 0)
+        if (input.ERPCode is not null && input.ERPCode!= 0)
         {
             Find = true;
             Query.Where(x => x.ERPCode == input.ERPCode);
