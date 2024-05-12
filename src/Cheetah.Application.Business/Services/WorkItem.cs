@@ -11,7 +11,8 @@ public class WorkItem(ICopyClass _iCopyClass,
 {
     public async Task<CheetahResult<long>> CreateRequestAsync(SimpleClassDTO Case, SimpleClassDTO Creator,
         SimpleClassDTO Requestor, SimpleClassDTO Process,
-        List<GRPC_Condition> CaseConditions, SimpleClassDTO WorkItemUser, List<GRPC_Condition> WorkItemConditions)
+        List<GRPC_Condition> CaseConditions, SimpleClassDTO WorkItemUser,
+        List<GRPC_Condition> WorkItemConditions, SimpleClassDTO WorkItemBase)
     {
         var GeneralRequest = await iSender.Send(new CopyCaseQuery(Case, Creator, Requestor, Process,
             CaseConditions, WorkItemUser, WorkItemConditions));
@@ -31,7 +32,9 @@ public class WorkItem(ICopyClass _iCopyClass,
         }
         else
         {
-            await SetWorkItemsAsync(GeneralRequest);
+            await SetWorkItemsAsync(Current_Case: GeneralRequest, WorkItemBase: WorkItemBase);
+
+            GeneralRequest.Value.LastModified = DateTime.UtcNow;
 
             var _createdCase = await caseRepository.AddAsync(GeneralRequest);
 
@@ -42,7 +45,7 @@ public class WorkItem(ICopyClass _iCopyClass,
     }
     public async Task<CheetahResult<long>> PerformWorkItemAsync(
         SimpleClassDTO WorkItem, SimpleClassDTO WorkItemUser,
-        List<GRPC_Condition> WorkItemConditions, Boolean Rebase = false)
+        List<GRPC_Condition> WorkItemConditions, Boolean Rebase = false, SimpleClassDTO? WorkItemBase = null)
     {
         CheetahResult<long> _OutputState = new();
 
@@ -54,6 +57,11 @@ public class WorkItem(ICopyClass _iCopyClass,
             _OutputState = OutputState<long>
                 .DuplicateErrorCreateRequest(Current_WorkItem.Id, WorkItem.Id);
             return _OutputState;
+        }
+
+        if (WorkItemBase is not null)
+        {
+            Current_WorkItem.DisplayName = WorkItemBase.DisplayName;
         }
 
         var _setCurrentAssignmentAsync = await SetCurrentAssignmentAsync(Current_WorkItem);
@@ -97,7 +105,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         return _allTasks;
     }
-    public async Task<CheetahResult<bool>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null)
+    public async Task<CheetahResult<bool>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null, SimpleClassDTO? WorkItemBase = null)
     {
         var pc_ProcessScenarios = (await iSender.Send(new GetProcessScenarioQuery(Current_Case.ProcessId.Value))).Value;
 
@@ -132,7 +140,10 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         var _allTasks = await GetAllTask(Current_Case.SelectedScenarioId.Value);
 
-        F_WorkItem _workItem = new() { Case = Current_Case };
+        F_WorkItem _workItem = new()
+        {
+            Case = Current_Case
+        };
 
         foreach (var _task in _allTasks)
         {
@@ -192,6 +203,10 @@ public class WorkItem(ICopyClass _iCopyClass,
         if (Current_WorkItem is not null)
         {
             _workItem = Current_WorkItem;
+        }
+        if (WorkItemBase is not null)
+        {
+            _workItem.DisplayName = WorkItemBase.DisplayName;
         }
 
         await SetCurrentAssignmentAsync(_workItem);

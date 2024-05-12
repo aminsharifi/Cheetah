@@ -50,17 +50,30 @@ Rebase is used to resubmit work.
     {
         "Base":
         {
-            "Id":{"value": 4}
+            "Id": 1052,
+            "DisplayName":"Please consider this request too"
         },
         "OccurredUserActions":
         [
-            {
-                "Tag": {"Name":{"value": "ReviewState"}},
-                "Operand": {"Name": {"value": "="}},
-                "Value":{"value": "Approve"}
+               {
+                "Tag":
+                {
+                    "ERPCode":-12
+                    //"Name":"ReviewState"
+                },
+                "Operand":
+                {
+                    "ERPCode":-1
+                    // "Name":  "="
+                },
+                "Value":"SendRequest"
             }
         ],
-        "User": {"Name": {"value":"AdmissionBoard"}}
+        "User":
+        {
+            //"Name": "m.sharifi"
+            "ERPCode": -1 
+        }
     }
     ,"Rebase": true
 }

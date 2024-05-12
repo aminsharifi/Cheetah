@@ -52,14 +52,18 @@ The output of the service is the cases inside the individual's cartable
     //"Assignee": { "Name": "AdmissionManager"},
     "Assignee": { "ERPCode":-7},
     //"Process": { "Name": "Admission"},
-    "Process": { "ERPCode": -2},
+    //"Process": { "ERPCode": -2},
     "PageNumber": 1,
     "PageSize": 20,
     "CaseState":
     {
         "ERPCode": 2 
     }
-    ,"Case": {"Id": 88}
+    ,"Case": 
+    {
+        //"Id": 94
+        "ERPCode": -285
+    }
 }
 ```
 
