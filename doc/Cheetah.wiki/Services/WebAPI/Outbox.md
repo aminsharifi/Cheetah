@@ -55,11 +55,22 @@ The output of the service is the cases inside the individual's cartable
     "Process": { "ERPCode": -2},
     "PageNumber": 1,
     "PageSize": 20,
-    "CaseState":
-    {
-        "ERPCode": 2 
-    }
-  ,"Case": {"Id": 87}
+    "CaseStateList":
+    [
+        {
+            "ERPCode": 2
+        },
+        {
+            "ERPCode": 4
+        },
+        {
+            "ERPCode": 5
+        },
+        {
+            "ERPCode": 6
+        }
+    ]
+ // ,"Case": {"Id": 87}
 }
 ```
 
