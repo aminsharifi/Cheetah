@@ -30,13 +30,13 @@ public partial class D_CaseState : BaseEntity
         Name = nameof(Editing),
         DisplayName = "منتظر بازنگری"
     };
-    public static readonly D_CaseState Completed = new()
+    public static readonly D_CaseState Approved = new()
     {
         Id = 4,
         ERPCode = 4,
         SortIndex = 4,
-        Name = nameof(Completed),
-        DisplayName = "کامل شده"
+        Name = nameof(Approved),
+        DisplayName = "تایید شده"
     };
     public static readonly D_CaseState Rejected = new()
     {
