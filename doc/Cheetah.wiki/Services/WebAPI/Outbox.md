@@ -49,7 +49,7 @@ The output of the service is the cases inside the individual's cartable
 
 ```javascript
 {
-    //"Assignee": { "Name": "m.sharifi"},
+    //"Assignee": { "Name": "AdmissionManager"},
     "Assignee": { "ERPCode":-1},
     //"Process": { "Name": "Admission"},
     "Process": { "ERPCode": -2},
@@ -70,7 +70,7 @@ The output of the service is the cases inside the individual's cartable
             "ERPCode": 6
         }
     ]
- // ,"Case": {"Id": 87}
+  ,"Case": {"Id": 104}
 }
 ```
 

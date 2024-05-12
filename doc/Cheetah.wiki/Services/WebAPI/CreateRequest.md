@@ -51,7 +51,7 @@ The output of the service is the created case.
 
 ```javascript
 {    
-    "Case": {"ERPCode": -284},
+    "Case": {"ERPCode": -298},
     "Creator":
     {
         //"Name": "m.sharifi"
@@ -62,13 +62,14 @@ The output of the service is the created case.
         //"Name": "m.sharifi"
         "ERPCode":-1 //m.sharifi
     },
-    "Process": 
+    "Process":
     {
         //"Name": "Admission"
         "ERPCode": -2
     },
     "WorkItem":
     {
+        "Base":{"DisplayName":"Please consider request"},
         "OccurredUserActions":
         [
             {
