@@ -308,6 +308,7 @@ public class RequestController : ControllerBase
         var _assignee = request.Assignee?.GetSimpleClass<SimpleClassDTO>(_mapper);
         var _process = request.Process?.GetSimpleClass<SimpleClassDTO>(_mapper);
         var _caseState = request.CaseState?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        var _caseStateList = request.CaseStateList?.Select(caseState => caseState.GetSimpleClass<SimpleClassDTO>(_mapper));
         var _case = request.Case?.GetSimpleClass<SimpleClassDTO>(_mapper);
         var _workItem = request.WorkItem?.GetSimpleClass<SimpleClassDTO>(_mapper);
 
@@ -318,6 +319,7 @@ public class RequestController : ControllerBase
             Case = _case,
             WorkItem = _workItem,
             CaseState = _caseState,
+            CaseStateList = _caseStateList,
             PageSize = request.PageSize,
             PageNumber = request.PageNumber,
         };
