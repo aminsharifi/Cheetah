@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Get;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class GetCartableHandler(
     IReadRepository<F_WorkItem> _WorkItemRepository,
@@ -20,7 +23,8 @@ public class GetCartableHandler(
 
             var _userId = await _userRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            request.cartableDTO.User = new() { Id = _userId.Value };
+            if (_userId.HasValue)
+                request.cartableDTO.User.Id = _userId.Value;
         }
         if (request.cartableDTO.Process is not null)
         {
@@ -28,16 +32,18 @@ public class GetCartableHandler(
 
             var _processId = await _processRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            request.cartableDTO.Process = new() { Id = _processId.Value };
+            if (_processId.HasValue)
+                request.cartableDTO.Process.Id = _processId.Value;
         }
 
         if (request.cartableDTO.Scenario is not null)
         {
             GetIdEntitySpec<F_Scenario> _getIdEntitySpec = new(request.cartableDTO.Scenario);
 
-            var _processId = await _scenarioRepository.FirstOrDefaultAsync(_getIdEntitySpec);
+            var _scenarioId = await _scenarioRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            request.cartableDTO.Scenario = new() { Id = _processId.Value };
+            if (_scenarioId.HasValue)
+                request.cartableDTO.Scenario.Id = _scenarioId.Value;
         }
         if (request.cartableDTO.CaseState is not null)
         {
@@ -45,7 +51,17 @@ public class GetCartableHandler(
 
             var _caseState = await _caseStateRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            request.cartableDTO.CaseState = new() { Id = _caseState.Value };
+            if (_caseState.HasValue)
+                request.cartableDTO.CaseState.Id = _caseState.Value;
+        }
+        if (request.cartableDTO.Case is not null)
+        {
+            GetIdEntitySpec<F_Case> _getIdEntitySpec = new(request.cartableDTO.Case);
+
+            var _case = await _caseRepository.FirstOrDefaultAsync(_getIdEntitySpec);
+
+            if (_case.HasValue)
+                request.cartableDTO.Case.Id = _case.Value;
         }
         if (request.cartableDTO.CaseStateList is not null)
         {
@@ -55,11 +71,15 @@ public class GetCartableHandler(
             {
                 GetIdEntitySpec<D_CaseState> _getIdEntitySpec = new(_caseStateList[i]);
                 var _caseState = await _caseStateRepository.FirstOrDefaultAsync(_getIdEntitySpec);
-                _caseStateList[i].Id = _caseState.Value;
+
+                if (_caseState.HasValue)
+                    _caseStateList[i].Id = _caseState.Value;
             }
             request.cartableDTO.CaseStateList = _caseStateList;
         }
+
         var _GetCartableSpec = new GetCartableSpec(cartableDTO: request.cartableDTO, cartableProperty: request.cartableProperty);
+
         var Records = await _WorkItemRepository.ListAsync(_GetCartableSpec, cancellationToken);
 
         var _totalItems = await _WorkItemRepository.CountAsync(_GetCartableSpec, cancellationToken);
