@@ -46,7 +46,7 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     }
     public bool IsCompleted()
     {
-        return CaseStateId == D_CaseState.Completed.Id;
+        return CaseStateId == D_CaseState.Approved.Id;
     }
     public bool IsAborted()
     {
@@ -67,8 +67,8 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     }
     public void SetCompleted()
     {
-        CaseStateId = D_CaseState.Completed.Id;
-        CaseState = D_CaseState.Completed;
+        CaseStateId = D_CaseState.Approved.Id;
+        CaseState = D_CaseState.Approved;
     }
     public void SetOngoing()
     {

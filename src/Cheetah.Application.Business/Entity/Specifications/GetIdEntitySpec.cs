@@ -13,8 +13,9 @@ public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecific
         if (input.Id > 0)
         {
             Find = true;
+            Query.Where(x => x.Id == input.Id);
             _keyBulder.Append(input.Id);
-            return;
+            //return;
         }
 
         if (!String.IsNullOrEmpty(input.Name))
