@@ -45,10 +45,13 @@ public class RequestController : ControllerBase
         List<GRPC_Condition> _caseConditions = request.Conditions;
         List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
         SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _workItemBase = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
 
         #endregion
 
-        var Outputresult = await _iWorkItem.CreateRequestAsync(_case, _creator, _requestor, _process, _caseConditions, _workItemUser, _workItemConditions);
+        var Outputresult = await _iWorkItem.CreateRequestAsync(Request: _case, Creator: _creator, Requestor: _requestor,
+            Process: _process, CaseConditions: _caseConditions, WorkItemUser: _workItemUser,
+            WorkItemConditions: _workItemConditions, WorkItemBase: _workItemBase);
 
         #region Output
 
@@ -156,11 +159,13 @@ public class RequestController : ControllerBase
         SimpleClassDTO _workItem = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
         SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>(_mapper);
         List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
+        SimpleClassDTO _workItemBase = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
         Boolean _rebase = request.Rebase ?? false;
         #endregion
 
         var Outputresult = await _iWorkItem.PerformWorkItemAsync
-            (_workItem, _workItemUser, _workItemConditions, _rebase);
+            (WorkItem: _workItem, WorkItemUser: _workItemUser,
+            WorkItemConditions: _workItemConditions,Rebase: _rebase, WorkItemBase: _workItemBase);
 
         #region Output
 
@@ -269,7 +274,7 @@ public class RequestController : ControllerBase
             foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _Task.Id))
             {
                 GRPC_WorkItem _gRPC_WorkItem = new();
-                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithDate(_mapper);
+                _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithNameAndDate(_mapper);
                 _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName(_mapper);
                 _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
                 _gRPC_WorkItem.OccurredUserActions = new();
@@ -373,7 +378,7 @@ public class RequestController : ControllerBase
 
                 GRPC_WorkItem _gRPC_WorkItem = new();
 
-                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.GetBaseClassWithDate(_mapper);
+                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.GetBaseClassWithNameAndDate(_mapper);
 
                 _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName(_mapper);
 
