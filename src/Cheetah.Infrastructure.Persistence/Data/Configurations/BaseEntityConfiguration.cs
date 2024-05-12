@@ -68,8 +68,10 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.LastModified))
                         .HasColumnOrder(7)
-                        .IsConcurrencyToken(true)
+                        //.IsConcurrencyToken(true)
+                        //.IsRowVersion()
                         .HasDefaultValueSql((database.IsSqlServer()) ? "GETDATE()" : "GETDATE()")
+                        .ValueGeneratedOnUpdate()
                         .HasComment("The date the record was last updated");
 
                     entity.HasIndex(nameof(BaseEntity.LastModified))

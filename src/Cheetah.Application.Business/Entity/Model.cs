@@ -148,7 +148,7 @@ public class GRPC_Task
 }
 public class GRPC_WorkItem
 {
-    public GRPC_BaseClassWithDate? Base { get; set; }
+    public GRPC_BaseClassWithNameAndDate? Base { get; set; }
     public GRPC_BaseClassWithName? User { get; set; }
     public GRPC_BaseClassWithName? WorkItemState { get; set; }
     public List<GRPC_Condition?>? OccurredUserActions { get; set; }
