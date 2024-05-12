@@ -40,7 +40,12 @@ public class GetCartableSpec : Specification<F_WorkItem>
 
             Query.Where(x => x.Case.CaseStateId == CaseStateId);
         }
+        if (cartableDTO.CaseStateList is not null)
+        {
+            var _caseStateIds = cartableDTO.CaseStateList.Select(x => x.Id).ToList();
 
+            Query.Where(x => x.Case.CaseStateId.HasValue && _caseStateIds.Contains(x.Case.CaseStateId.Value));
+        }
         if (cartableDTO.Case is not null)
         {
             var CaseId = cartableDTO.Case.Id;

@@ -459,13 +459,13 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)) as List<BaseEntity>;
-        List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)) as List<BaseEntity>;
-        List_CaseState = await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)) as List<BaseEntity>;
-        List_D_TagType = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType)) as List<BaseEntity>;
-        List_F_Condition = await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)) as List<BaseEntity>;
-        AllRecords = await simpleClassRepository.GetAllByNameAsync(nameof(D_Process));
-        AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id);
+        List_D_Tag = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)) as List<BaseEntity>).Where(x=>x.EnableRecord).ToList();
+        List_D_Operand = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
+        List_CaseState = (await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
+        List_D_TagType = (await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
+        List_F_Condition = (await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
+        AllRecords = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Process))).Where(x => x.EnableRecord).ToList();
+        AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id)).Where(x => x.EnableRecord).ToList();
 
         this.LinkRecords = new LinkClassDTO()
             {
