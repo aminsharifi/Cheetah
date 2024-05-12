@@ -51,6 +51,7 @@ public class Cartable_Input
     public Int64? TotalItems { get; set; }
     public GRPC_BaseClassWithName? Assignee { get; set; }
     public GRPC_BaseClassWithName? CaseState { get; set; }
+    public List<GRPC_BaseClassWithName>? CaseStateList { get; set; }
     public GRPC_BaseClassWithName? Process { get; set; }
     public GRPC_BaseClass? Case { get; set; }
     public GRPC_BaseClass? WorkItem { get; set; }

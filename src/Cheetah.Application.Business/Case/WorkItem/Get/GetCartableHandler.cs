@@ -47,7 +47,18 @@ public class GetCartableHandler(
 
             request.cartableDTO.CaseState = new() { Id = _caseState.Value };
         }
+        if (request.cartableDTO.CaseStateList is not null)
+        {
+            var _caseStateList = request.cartableDTO.CaseStateList.ToList();
 
+            for (int i = 0; i < _caseStateList.Count(); i++)
+            {
+                GetIdEntitySpec<D_CaseState> _getIdEntitySpec = new(_caseStateList[i]);
+                var _caseState = await _caseStateRepository.FirstOrDefaultAsync(_getIdEntitySpec);
+                _caseStateList[i].Id = _caseState.Value;
+            }
+            request.cartableDTO.CaseStateList = _caseStateList;
+        }
         var _GetCartableSpec = new GetCartableSpec(cartableDTO: request.cartableDTO, cartableProperty: request.cartableProperty);
         var Records = await _WorkItemRepository.ListAsync(_GetCartableSpec, cancellationToken);
 
