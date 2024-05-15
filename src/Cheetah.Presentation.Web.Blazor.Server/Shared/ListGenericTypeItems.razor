@@ -27,24 +27,29 @@
                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb" />
                     </CellTemplate>
                 </PropertyColumn>
-                <TemplateColumn CellClass="d-flex justify-end">
-                    <CellTemplate>
-                        <MudButtonGroup OverrideStyles="false">
-                            <MudButton Color="Color.Info"
-                                       Variant="Variant.Filled"
-                                       StartIcon="@Icons.Material.Filled.Edit"
-                                       OnClick="@(()=>PrepareLink(@context.Item.Id, CrudOperation.Update))">
-                                ویرایش
-                            </MudButton>
-                            <MudButton Color="Color.Error"
-                                       Variant="Variant.Filled"
-                                       StartIcon="@Icons.Material.Filled.DeleteForever"
-                                       OnClick="@(()=>HandleDelete(@context.Item.Id))">
-                                حذف
-                            </MudButton>
-                        </MudButtonGroup>
-                    </CellTemplate>
-                </TemplateColumn>
+                @if (Sync is not true)
+                {
+                    <TemplateColumn CellClass="d-flex justify-end">
+                        <CellTemplate>
+                            <MudButtonGroup OverrideStyles="false">
+                                <MudButton Color="Color.Info"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.Edit"
+                                           OnClick="@(()=>PrepareLink(@context.Item.Id, CrudOperation.Update))">
+                                    ویرایش
+                                </MudButton>
+                                <MudButton Color="Color.Error"
+                                           Disabled="true"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.DeleteForever"
+                                           OnClick="@(()=>HandleDelete(@context.Item.Id))">
+                                    حذف
+                                </MudButton>
+                            </MudButtonGroup>
+                        </CellTemplate>
+                    </TemplateColumn>
+                }
+
             </Columns>
             <PagerContent>
                 <MudDataGridPager T="BaseEntity" />

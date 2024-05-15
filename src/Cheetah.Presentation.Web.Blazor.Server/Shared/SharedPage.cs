@@ -13,6 +13,9 @@ public class SharedPage : MyComponentBase
     public String Name { get; set; }
 
     [Parameter]
+    public Boolean? Sync { get; set; }
+
+    [Parameter]
     public String Href { get; set; }
 
     [Parameter]

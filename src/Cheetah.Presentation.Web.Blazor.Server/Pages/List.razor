@@ -23,7 +23,7 @@
             </MudSelect>
         </div>
         <div class="col-lg-5 col-sm-3">
-            @if (type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
+            @if (Sync != true && type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
             {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
                         OnClick="Addnew"
@@ -50,7 +50,7 @@
         }
 
         <ListGenericTypeItems Records="@Records"
-                              reference="@reference" Name="@Name"
+                              reference="@reference" Name="@Name" Sync="@Sync"
                               ParentCallback="UpdateForm" LoadData="@LoadData"
                               type="@type" @ref="listGenericTypeItems">
         </ListGenericTypeItems>
@@ -58,7 +58,7 @@
 </div>
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
-
+    List<D_Entity> _d_Entity = new();
     async Task Addnew()
     {
         listGenericTypeItems.PrepareLink(0, CrudOperation.Create);
@@ -79,8 +79,6 @@
             FirstLoadRecords().GetAwaiter().GetResult();
         }
     }
-
-
 
     private async Task<IEnumerable<KeyValuePair<String, String>>> Search(string value)
     {
@@ -104,7 +102,6 @@
         if (firstRender)
         {
             await FirstLoadRecords();
-
         }
         if (reference is null || firstRender)
         {
@@ -122,11 +119,15 @@
 
     private async Task FirstLoadRecords()
     {
-        var _D_Entity = await simpleClassRepository.GetAllByNameAsync(nameof(D_Entity));
+
+        _d_Entity = (await simpleClassRepository
+        .GetAllByNameAsync(nameof(D_Entity)))
+        .Select(item => item.Adapt<D_Entity>())
+        .ToList();
 
         keyValuePair.Clear();
 
-        foreach (D_Entity item in _D_Entity)
+        foreach (D_Entity item in _d_Entity)
         {
             if (item.Display is true)
             {
@@ -137,6 +138,7 @@
         if (Name == null)
         {
             Name = keyValuePair.First().Key;
+            Sync = _d_Entity.Select(x => x.Sync).First();
             _NavigationManager.NavigateTo($"/List/{Name}");
         }
         await LoadRecords();
@@ -148,6 +150,8 @@
         try
         {
             LoadData = false;
+
+            Sync = _d_Entity.Where(x => x.Name == Name).Select(x => x.Sync).First();
 
             Records = await simpleClassRepository.GetAllByNameAsync(Name);
 
