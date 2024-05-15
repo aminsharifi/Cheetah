@@ -399,4 +399,7 @@
   <data name="BlazorServer_Condition" xml:space="preserve">
     <value>شرط</value>
   </data>
+  <data name="BlazorServer_TagCategory" xml:space="preserve">
+    <value>دسته بندی تگ</value>
+  </data>
 </root>

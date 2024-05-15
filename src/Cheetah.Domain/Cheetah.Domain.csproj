@@ -52,5 +52,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Aggregates\CaseAggregate\Links\Values\" />
+	  <Folder Include="Aggregates\ConditionAggregate\Facts\" />
+	  <Folder Include="Aggregates\ConditionAggregate\Links\" />
 	</ItemGroup>
 </Project>

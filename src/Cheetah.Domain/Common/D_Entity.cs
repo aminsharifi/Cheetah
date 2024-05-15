@@ -176,17 +176,5 @@ public partial class D_Entity
             Display = false
         };
 
-    public static readonly D_Entity F_ConditionGroup =
-        new()
-        {
-            Id = 115,
-            ERPCode = 115,
-            SortIndex = 115,
-            Name = nameof(F_ConditionGroup),
-            DisplayName = new StringBuilder().Append("گروه شرط‌ها")
-            .Append($"({TableType.Facts})").ToString(),
-            Display = true
-        };
-
     #endregion
 }

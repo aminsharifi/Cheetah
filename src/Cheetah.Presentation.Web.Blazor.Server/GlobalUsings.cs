@@ -17,3 +17,4 @@ global using MudBlazor;
 global using MudBlazor.Services;
 global using System.Text;
 global using Cheetah.Application.Business.Interfaces;
+global using Mapster;

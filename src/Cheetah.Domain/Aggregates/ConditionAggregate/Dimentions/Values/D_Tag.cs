@@ -13,7 +13,8 @@ public partial class D_Tag
             Name = nameof(Location),
             DisplayName = "موقعیت",
             Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id
+            TagTypeId = D_TagType.String.Id,
+            TagCategoryId = D_TagCategory.Performer.Id
         };
 
     public static readonly D_Tag Role =
@@ -25,7 +26,8 @@ public partial class D_Tag
             Name = nameof(Role),
             DisplayName = "نقش",
             Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id
+            TagTypeId = D_TagType.String.Id,
+            TagCategoryId = D_TagCategory.Performer.Id
         };
 
     public static readonly D_Tag Position =
@@ -37,7 +39,8 @@ public partial class D_Tag
             Name = nameof(Position),
             DisplayName = "سمت",
             Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id
+            TagTypeId = D_TagType.String.Id,
+            TagCategoryId = D_TagCategory.Performer.Id
         };
 
     public static readonly D_Tag Employees =
@@ -49,7 +52,8 @@ public partial class D_Tag
             Name = nameof(Employees),
             DisplayName = "مدیر این پرسنل",
             Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id
+            TagTypeId = D_TagType.String.Id,
+            TagCategoryId = D_TagCategory.Performer.Id
         };
 
     public static readonly D_Tag Price =
@@ -61,7 +65,8 @@ public partial class D_Tag
             Name = nameof(Price),
             DisplayName = "مبلغ",
             Description = D_TagType.Numberic.DisplayName,
-            TagTypeId = D_TagType.Numberic.Id
+            TagTypeId = D_TagType.Numberic.Id,
+            TagCategoryId = D_TagCategory.Action.Id
         };
 
     public static readonly D_Tag ReviewState =
@@ -73,7 +78,8 @@ public partial class D_Tag
         Name = nameof(ReviewState),
         DisplayName = "وضعیت بررسی",
         Description = D_TagType.String.DisplayName,
-        TagTypeId = D_TagType.String.Id
+        TagTypeId = D_TagType.String.Id,
+        TagCategoryId = D_TagCategory.Action.Id
     };
     public static readonly D_Tag Skill =
       new()
@@ -84,7 +90,8 @@ public partial class D_Tag
           Name = nameof(Skill),
           DisplayName = "حرفه",
           Description = D_TagType.String.DisplayName,
-          TagTypeId = D_TagType.String.Id
+          TagTypeId = D_TagType.String.Id,
+          TagCategoryId = D_TagCategory.Performer.Id
       };
     #endregion
 }
