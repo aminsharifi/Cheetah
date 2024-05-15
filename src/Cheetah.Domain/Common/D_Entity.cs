@@ -2,7 +2,8 @@
 
 public partial class D_Entity : BaseEntity
 {
-    public bool? Display { get; set; }
+    public bool? Display { get; set; } = false;
+    public bool? Sync { get; set; } = false;
 }
 public partial class D_Entity
 {

@@ -22,10 +22,10 @@
 	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="8.0.0" />
-		<PackageReference Include="BootstrapBlazor" Version="8.5.0" />
+		<PackageReference Include="BootstrapBlazor" Version="8.5.7" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.68.0.3030" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
