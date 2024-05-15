@@ -9,5 +9,8 @@ public class D_TagConfiguration : IEntityTypeConfiguration<D_Tag>
         builder
               .Property(e => e.TagTypeId)
               .HasColumnOrder(100);
+        builder
+            .Property(e => e.TagCategoryId)
+            .HasColumnOrder(101);
     }
 }

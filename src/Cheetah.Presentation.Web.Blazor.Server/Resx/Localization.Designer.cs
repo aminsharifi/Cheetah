@@ -826,6 +826,15 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to دسته بندی تگ.
+        /// </summary>
+        internal static string BlazorServer_TagCategory {
+            get {
+                return ResourceManager.GetString("BlazorServer_TagCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to نام فرم.
         /// </summary>
         internal static string BlazorServer_Task {

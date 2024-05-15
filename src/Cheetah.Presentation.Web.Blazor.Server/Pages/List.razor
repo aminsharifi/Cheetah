@@ -15,7 +15,7 @@
                        HelperText=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter) ))
                        AnchorOrigin="Origin.BottomCenter" AdornmentColor="Color.Primary"
                        AdornmentIcon="@Icons.Material.Filled.Settings" T="KeyValuePair<String, String>"
-            @bind-Value="SelectedName">
+                       @bind-Value="SelectedName">
                 @foreach (var _keyValuePair in keyValuePair)
                 {
                     <MudSelectItem T="KeyValuePair<String, String>" Value="@_keyValuePair">@_keyValuePair.Value</MudSelectItem>
@@ -42,7 +42,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
                               lang="fa" dir="rtl">
-                            @(globalization.GetValue(nameof(Localization.BlazorServer_Filter) ))
+                            @(globalization.GetValue(nameof(Localization.BlazorServer_Filter)))
                         </span>
                     </div>
                 </div>

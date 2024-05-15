@@ -58,7 +58,7 @@
                                         <option @((_scenarioCondition.Condition is null)? selected : '' ) value="">
                                             لطفا یک مورد را انتخاب نمایید
                                         </option>
-                                        @foreach (var _Condition in List_F_Condition)
+                                        @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Performer.Id))
                                         {
                                             <option value="@_Condition.Id">
                                                 @_Condition.DisplayName (@_Condition.Name)
@@ -187,7 +187,7 @@
                                                                 <option @((_taskCondition.Condition is null)? selected : '' ) value="">
                                                                     لطفا یک مورد را انتخاب نمایید
                                                                 </option>
-                                                                @foreach (var _Condition in List_F_Condition)
+                                                                @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Performer.Id))
                                                                 {
                                                                     <option value="@_Condition.Id">
                                                                         @_Condition.DisplayName (@_Condition.Name)
@@ -308,7 +308,7 @@
                                                                                         <option @((_flowCondition.Condition is null)? selected : '' ) value="">
                                                                                             لطفا یک مورد را انتخاب نمایید
                                                                                         </option>
-                                                                                        @foreach (var _Condition in List_F_Condition)
+                                                                                        @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Action.Id))
                                                                                         {
                                                                                             <option value="@_Condition.Id">
                                                                                                 @_Condition.DisplayName (@_Condition.Name)
@@ -404,7 +404,7 @@
                                                                 <InputSelect @bind-Value="_action.CaseStateId" style="direction:rtl"
                                                                              @oninput="(e => SelectedCaseStateChanged(e,_action))">
                                                                     <option @((_action.CaseState is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
-                                                                    @foreach (var CaseState in List_CaseState)
+                                                                    @foreach (var CaseState in _list_CaseState)
                                                                     {
                                                                         <option value="@CaseState.Id">
                                                                             @CaseState.DisplayName
@@ -451,21 +451,50 @@
     </RowTemplate>
 </CEditDimentions>
 @code {
-    public List<BaseEntity> List_D_Tag { get; set; } = new();
-    public List<BaseEntity> List_D_TagType { get; set; } = new();
-    public List<BaseEntity> List_D_Operand { get; set; } = new();
-    public List<BaseEntity> List_CaseState { get; set; } = new();
-    public List<BaseEntity> List_F_Condition { get; set; } = new();
+    private List<D_Tag> _list_D_Tag { get; set; } = new();
+    private List<D_Operand> _list_D_Operand { get; set; } = new();
+    private List<D_CaseState> _list_CaseState { get; set; } = new();
+    private List<D_TagType> _list_D_TagType { get; set; } = new();
+    private List<D_TagCategory> _list_TagCategory { get; set; } = new();
+    private List<F_Condition> _list_F_Condition { get; set; } = new();
 
     public override async Task ExtendedLoadDTO()
     {
-        List_D_Tag = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)) as List<BaseEntity>).Where(x=>x.EnableRecord).ToList();
-        List_D_Operand = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
-        List_CaseState = (await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
-        List_D_TagType = (await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
-        List_F_Condition = (await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)) as List<BaseEntity>).Where(x => x.EnableRecord).ToList();
-        AllRecords = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Process))).Where(x => x.EnableRecord).ToList();
-        AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id)).Where(x => x.EnableRecord).ToList();
+        _list_D_Tag = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_Tag>())
+        .ToList();
+
+        _list_D_Operand = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_Operand>())
+        .ToList();
+
+        _list_CaseState = (await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_CaseState>())
+        .ToList();
+
+        _list_D_TagType = (await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_TagType>())
+        .ToList();
+
+        _list_TagCategory = (await simpleClassRepository.GetAllByNameAsync(nameof(D_TagCategory)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_TagCategory>())
+        .ToList();
+
+        _list_F_Condition = (await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<F_Condition>())
+        .ToList();
+
+        AllRecords = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Process)))
+        .Where(x => x.EnableRecord).ToList();
+
+        AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id))
+        .Where(x => x.EnableRecord).ToList();
 
         this.LinkRecords = new LinkClassDTO()
             {
@@ -477,7 +506,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                        .ToDictionary(x => x.Key, x => x.Value)
+                                                    .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
@@ -495,7 +524,7 @@
         {
             var _D_OperandId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.Operand = List_D_Operand
+            f_Condition.Operand = _list_D_Operand
             .First(x => x.Id == _D_OperandId) as D_Operand;
         }
     }
@@ -505,7 +534,7 @@
         {
             var _D_ParameterListId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.Tag = List_D_Tag
+            f_Condition.Tag = _list_D_Tag
             .First(x => x.Id == _D_ParameterListId) as D_Tag;
         }
     }
@@ -603,7 +632,7 @@
 
         cObject.TaskFlows.Add(_l_TaskAction);
     }
-   
+
     private async Task AddTaskPattern()
     {
         var d_Task = new F_Task();
@@ -617,11 +646,11 @@
         else
         {
             d_Task = await simpleClassRepository.GetLastAsync(nameof(F_Task)) as F_Task;
-        }        
+        }
 
         (Record as F_Scenario).Tasks.Add(d_Task);
     }
- 
+
     private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
     {
         if (Id > 0 && e.Value is not null)
@@ -651,8 +680,8 @@
         {
             var _flowConditionId = Int64.Parse(e.Value.ToString());
 
-            ScenarioCondition.SecondId = (List_F_Condition
-           .First(x => x.Id == _flowConditionId) as F_Condition).Id;
+            ScenarioCondition.SecondId = (_list_F_Condition
+                .First(x => x.Id == _flowConditionId) as F_Condition).Id;
         }
     }
 }
