@@ -17,6 +17,10 @@ public partial class D_Tag : BaseEntity
     public long? TagTypeId { get; set; }
     public virtual D_TagType? TagType { get; set; }
 
+    
+    public long? TagCategoryId { get; set; }
+    public virtual D_TagCategory? TagCategory { get; set; }
+
     #endregion
 
     #region Collection

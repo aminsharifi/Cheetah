@@ -69,6 +69,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     }
 
     #region Collections
-    public virtual ICollection<L_ConditionGroupCondition>? ConditionGroupConditions { get; set; } = new HashSet<L_ConditionGroupCondition>();
+    
     #endregion
 }
