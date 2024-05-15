@@ -139,7 +139,7 @@
     <value>اضافه کردن شرط‌ها</value>
   </data>
   <data name="BlazorServer_AddToTasks" xml:space="preserve">
-    <value>افزودن به لیست بررسی‌ها</value>
+    <value>افزودن فرم</value>
   </data>
   <data name="BlazorServer_AutomaticGenerated" xml:space="preserve">
     <value>بصورت خودکار ساخته می‌شود</value>

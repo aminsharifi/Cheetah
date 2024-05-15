@@ -124,7 +124,7 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to افزودن به لیست بررسی‌ها.
+        ///   Looks up a localized string similar to افزودن فرم.
         /// </summary>
         internal static string BlazorServer_AddToTasks {
             get {
