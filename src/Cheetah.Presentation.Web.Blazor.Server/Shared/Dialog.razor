@@ -1,11 +1,14 @@
 ﻿@inherits SharedPage
 <MudDialog>
     <DialogContent>
-        <MudGrid Class="d-flex justify-end">
-            <MudItem>
-                <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Expand" Href="@Href" />
-            </MudItem>
-        </MudGrid>
+        @if (Id > 0)
+        {
+            <MudGrid Class="d-flex justify-end">
+                <MudItem>
+                    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Expand" Href="@Href" />
+                </MudItem>
+            </MudGrid>
+        }
         <div class="d-flex flex-column py-1">
             <GeneralComponent Name="@Name" IsInline="true"
                               ParentCallback="@Submit" Id="@Id"

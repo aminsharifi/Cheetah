@@ -30,6 +30,7 @@ global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Entities.Links;
 global using Cheetah.Presentation.Services.WebAPI.Helper;
+global using FluentValidation;
 global using MapsterMapper;
 global using MediatR;
 global using Microsoft.Extensions.Caching.Memory;
