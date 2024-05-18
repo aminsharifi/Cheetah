@@ -36,6 +36,8 @@ public static class InitialiserExtensions
         configuration.ReadFrom.Configuration(context.Configuration));
         #endregion
 
+        //builder.Services.addse
+        builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
         var _nameSpace = nameof(Cheetah) + "." +

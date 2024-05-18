@@ -1,4 +1,5 @@
-﻿@inherits CUpsert_GeneralCode
+﻿@using Blazored.FluentValidation
+@inherits CUpsert_GeneralCode
 
 @if (Record != null && !IsLoading)
 {
@@ -13,6 +14,7 @@
         <EditForm Model="Record" OnValidSubmit="UpsertTask">
             <DataAnnotationsValidator />
             <ValidationSummary />
+            <FluentValidationValidator />
             <div class="accordion shadow rounded" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -61,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                @if (Id > -1)
+                @if (Id > 0)
                 {
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
