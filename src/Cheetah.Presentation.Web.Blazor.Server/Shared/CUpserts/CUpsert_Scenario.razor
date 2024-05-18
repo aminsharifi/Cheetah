@@ -80,407 +80,398 @@
                     </tbody>
                 </Ctable>
             </div>
-            <div class="row my-2">
-                <center>
-                    <MudButton Variant="Variant.Filled" Color="Color.Surface"
-                               StartIcon="@Icons.Material.Filled.AddCard"
-                               style="align-self: center;"
-                               @onclick="(x=>_scenarioStep = ScenarioStep.Tasks)">
-                        نمایش فرم ها
-                    </MudButton>
-                    <MudButton Variant="Variant.Filled" Color="Color.Surface"
-                               StartIcon="@Icons.Material.Filled.AddCard"
-                               style="align-self: center;"
-                               @onclick="(x=>_scenarioStep = ScenarioStep.Actions)">
-                        نمایش اقدام ها
-                    </MudButton>
-                </center>
-            </div>
-            @if (_scenarioStep == ScenarioStep.Tasks)
-            {
-                <div class="row my-2">
-                    <center>
-                        <MudButton Variant="Variant.Filled" Color="Color.Success"
-                                   StartIcon="@Icons.Material.Filled.PersonAdd"
-                                   style="align-self: center;"
-                                   @onclick="AddTaskPattern">
-                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddToTasks)))
-                        </MudButton>
-                    </center>
-                </div>
-            }
-            <div class="row">
-                <Ctable>
-                    <caption>
-                        <div class="row my-1" style="justify-content: center;">
-                            <span class="col-2 text-success">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_TasksList)))
-                            </span>
-                        </div>
-                    </caption>
-                    <thead>
-                        <tr>
-                            @if (_scenarioStep == ScenarioStep.Tasks)
-                            {
-                                <th data-sortable="true" aria-sort="ascending" width="10px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
-                                </th>
-                                <th data-sortable="true" width="10px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
-                                </th>
-                            }
-                            <th data-sortable="true" width="200px">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
-                            </th>
-                            @if (_scenarioStep == ScenarioStep.Tasks)
-                            {
-                                <th data-sortable="true" width="500px">
-                                    ایفاکنندگان
-                                </th>
-                            }
-                            @if (_scenarioStep == ScenarioStep.Actions)
-                            {
-                                <th data-sortable="true" width="10px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Actions)))
-                                </th>
-                            }
-
-                            <th data-sortable="true" width="10px">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (F_Task _task in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
-                        {
+            <div class="row shadow rounded my-1 mx-1 p-1">
+                <MudTabs Outlined="true">
+                    <MudTabPanel Text="نمایش فرم ها" Icon="@Icons.Material.Filled.Task"
+                                 @onclick="(x=>_scenarioStep = ScenarioStep.Tasks)" />
+                    <MudTabPanel Text="نمایش اقدام ها" Icon="@Icons.Material.Filled.Work"
+                                 @onclick="(x=>_scenarioStep = ScenarioStep.Actions)" />
+                </MudTabs>
+                @if (_scenarioStep == ScenarioStep.Tasks)
+                {
+                    <div class="row my-2">
+                        <center>
+                            <MudButton Variant="Variant.Filled" Color="Color.Success"
+                                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                                       style="align-self: center;"
+                                       @onclick="AddTaskPattern">
+                                @(globalization.GetValue(nameof(Localization.BlazorServer_AddToTasks)))
+                            </MudButton>
+                        </center>
+                    </div>
+                }
+                <div class="row">
+                    <Ctable>
+                        <caption>
+                            <div class="row my-1" style="justify-content: center;">
+                                <span class="col-2 text-success">
+                                    @(globalization.GetValue(nameof(Localization.BlazorServer_TasksList)))
+                                </span>
+                            </div>
+                        </caption>
+                        <thead>
                             <tr>
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
-                                    <td>
-                                        <span style="width: 50px">
-                                            @(_task?.Id)
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <InputNumber style="width: 50px" @bind-Value="_task.SortIndex"></InputNumber>
-                                    </td>
+                                    <th data-sortable="true" aria-sort="ascending" width="10px">
+                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                    </th>
+                                    <th data-sortable="true" width="10px">
+                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                    </th>
                                 }
-                                <td>
-                                    <InputText @bind-Value="_task.DisplayName" style="width:200px"></InputText>
-                                </td>
+                                <th data-sortable="true" width="200px">
+                                    @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
+                                </th>
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
-                                    <td>
-                                        <center>
-                                            <button type="button" class="col-6 btn btn-primary"
-                                                    style="align-self: center;"
-                                                    @onclick="(e => Add_TaskCondition(e,_task))">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
-                                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                                    <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                                </svg>
-                                                افزودن ایفاکننده
-                                            </button>
-                                        </center>
-                                        <Ctable>
-                                            <thead>
-                                                <tr>
-                                                    <th data-sortable="true" aria-sort="ascending" style="width: 50px">
-                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
-                                                    </th>
-                                                    <th data-sortable="true" style="width: 50px">
-                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
-                                                    </th>
-
-                                                    <th data-sortable="true" style="width:300px">
-                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
-                                                    </th>
-
-                                                    <th data-sortable="true" style="width: 50px">
-                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var _taskCondition in _task.TaskConditions
-                                               .OrderBy(x => x.SortIndex))
-                                                {
-                                                    <tr>
-                                                        <td style="width: 50px">
-                                                            <span>
-                                                                @(_taskCondition?.Id)
-                                                            </span>
-                                                        </td>
-                                                        <td style="width:50px">
-                                                            <InputNumber @bind-Value="_taskCondition.SortIndex" style="width:50px"></InputNumber>
-                                                        </td>
-                                                        <td style="width:400px">
-                                                            <InputSelect @bind-Value="_taskCondition.SecondId" style="direction:rtl;width:400px">
-                                                                <option @((_taskCondition.Condition is null)? selected : '' ) value="">
-                                                                    لطفا یک مورد را انتخاب نمایید
-                                                                </option>
-                                                                @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Performer.Id))
-                                                                {
-                                                                    <option value="@_Condition.Id">
-                                                                        @_Condition.DisplayName (@_Condition.Name)
-                                                                    </option>
-                                                                }
-                                                            </InputSelect>
-                                                        </td>
-                                                        <td style="width:100px">
-                                                            <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                         Checked="@_taskCondition.EnableRecord"
-                                                                         Color="Color.Primary"
-                                                                         CheckedIcon="@Icons.Material.Filled.Verified"
-                                                                         UnCheckedColor="Color.Error"
-                                                                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                         @onclick="args=>_taskCondition.EnableRecord = !_taskCondition.EnableRecord" />
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </Ctable>
-                                    </td>
+                                    <th data-sortable="true" width="500px">
+                                        ایفاکنندگان
+                                    </th>
                                 }
                                 @if (_scenarioStep == ScenarioStep.Actions)
                                 {
+                                    <th data-sortable="true" width="10px">
+                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Actions)))
+                                    </th>
+                                }
+
+                                <th data-sortable="true" width="10px">
+                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (F_Task _task in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
+                            {
+                                <tr>
+                                    @if (_scenarioStep == ScenarioStep.Tasks)
+                                    {
+                                        <td>
+                                            <span style="width: 50px">
+                                                @(_task?.Id)
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <InputNumber style="width: 50px" @bind-Value="_task.SortIndex"></InputNumber>
+                                        </td>
+                                    }
                                     <td>
-                                        <center>
-                                            <button type="button" class="col-2 btn btn-primary"
-                                                    style="align-self: center;"
-                                                    @onclick="(e => Add_Actions(e,_task))">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
-                                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                                    <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                                </svg>
-                                                @(globalization.GetValue(nameof(Localization.BlazorServer_AddActions)))
-                                            </button>
-                                        </center>
-                                        <div>
+                                        <InputText @bind-Value="_task.DisplayName" style="width:200px"></InputText>
+                                    </td>
+                                    @if (_scenarioStep == ScenarioStep.Tasks)
+                                    {
+                                        <td>
+                                            <center>
+                                                <button type="button" class="col-6 btn btn-primary"
+                                                        style="align-self: center;"
+                                                        @onclick="(e => Add_TaskCondition(e,_task))">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                                        <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                                    </svg>
+                                                    افزودن ایفاکننده
+                                                </button>
+                                            </center>
                                             <Ctable>
                                                 <thead>
                                                     <tr>
-                                                        <th data-sortable="true" aria-sort="ascending">
+                                                        <th data-sortable="true" aria-sort="ascending" style="width: 50px">
                                                             @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
                                                         </th>
-                                                        <th data-sortable="true">
+                                                        <th data-sortable="true" style="width: 50px">
                                                             @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
                                                         </th>
-                                                        <th data-sortable="true">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Conditions)))
+
+                                                        <th data-sortable="true" style="width:300px">
+                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
                                                         </th>
-                                                        <th data-sortable="true">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_NextActions)))
-                                                        </th>
-                                                        <th data-sortable="true">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_CaseState)))
-                                                        </th>
-                                                        <th data-sortable="true">
+
+                                                        <th data-sortable="true" style="width: 50px">
                                                             @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
                                                         </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var _action in _task.TaskFlows
-                                                   .Select(x => x.Flow).OrderBy(x => x.SortIndex))
+                                                    @foreach (var _taskCondition in _task.TaskConditions
+                                                   .OrderBy(x => x.SortIndex))
                                                     {
                                                         <tr>
-                                                            <td>
+                                                            <td style="width: 50px">
                                                                 <span>
-                                                                    @(_action?.Id)
+                                                                    @(_taskCondition?.Id)
                                                                 </span>
                                                             </td>
-                                                            <td>
-                                                                <InputNumber @bind-Value="_action.SortIndex" style="width:50px"></InputNumber>
+                                                            <td style="width:50px">
+                                                                <InputNumber @bind-Value="_taskCondition.SortIndex" style="width:50px"></InputNumber>
                                                             </td>
-                                                            <td>
-                                                                <center>
-                                                                    <button type="button" class="col-4 btn btn-primary"
-                                                                            style="align-self: center;"
-                                                                            @onclick="(e => Add_ActionsCondition(e,_action))">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
-                                                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                                                            <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                                                        </svg>
-                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_AddToConditions)))
-                                                                    </button>
-                                                                </center>
-                                                                <Ctable>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th data-sortable="true" aria-sort="ascending" style="width: 50px">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
-                                                                            </th>
-                                                                            <th data-sortable="true" style="width: 50px">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
-                                                                            </th>
-
-                                                                            <th data-sortable="true">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
-                                                                            </th>
-
-                                                                            <th data-sortable="true" style="width: 50px">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @foreach (var _flowCondition in _action.FlowConditions
-                                                                       .OrderBy(x => x.SortIndex))
-                                                                        {
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <span>
-                                                                                        @(_flowCondition?.Id)
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <InputNumber @bind-Value="_flowCondition.SortIndex" style="width: 50px"></InputNumber>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <InputSelect 
-                                                                                                 @bind-Value="_flowCondition.SecondId" style="direction:rtl">
-                                                                                        <option @((_flowCondition.Condition is null)? selected : '' ) value="">
-                                                                                            لطفا یک مورد را انتخاب نمایید
-                                                                                        </option>
-                                                                                        @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Action.Id))
-                                                                                        {
-                                                                                            <option value="@_Condition.Id">
-                                                                                                @_Condition.DisplayName (@_Condition.Name)
-                                                                                            </option>
-                                                                                        }
-                                                                                    </InputSelect>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                                                 Checked="@_flowCondition.EnableRecord"
-                                                                                                 Color="Color.Primary"
-                                                                                                 CheckedIcon="@Icons.Material.Filled.Verified"
-                                                                                                 UnCheckedColor="Color.Error"
-                                                                                                 UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                 @onclick="args=>_flowCondition.EnableRecord = !_flowCondition.EnableRecord" />
-                                                                                </td>
-                                                                            </tr>
-                                                                        }
-                                                                    </tbody>
-                                                                </Ctable>
-                                                            </td>
-                                                            <td>
-                                                                <center>
-                                                                    <button type="button" class="col-6 btn btn-primary"
-                                                                            style="align-self: center;"
-                                                                            @onclick="(e => Add_ActionsTask(e,_action))">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
-                                                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
-                                                                            <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
-                                                                        </svg>
-                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_AddNextAction)))
-                                                                    </button>
-                                                                </center>
-                                                                <Ctable>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th data-sortable="true" aria-sort="ascending" style="width: 50px">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
-                                                                            </th>
-                                                                            <th data-sortable="true" style="width: 50px">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
-                                                                            </th>
-                                                                            <th data-sortable="true">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Action)))
-                                                                            </th>
-                                                                            <th data-sortable="true">
-                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        @foreach (var Task in _action.FlowTasks
-                                                                       .OrderBy(x => x.SortIndex))
-                                                                        {
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <span style="width: 50px">
-                                                                                        @(Task?.Id)
-                                                                                    </span>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <InputNumber style="width: 50px" @bind-Value="Task.SortIndex"></InputNumber>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <InputSelect @bind-Value="Task.SecondId" style="direction:rtl"
-                                                                                                 @oninput="(e => SelectedToTaskChanged(e,Task))">
-                                                                                        <option selected value="">
-                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
-                                                                                        </option>
-                                                                                        @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
-                                                                                        {
-                                                                                            <option value="@ToTask.Id">
-                                                                                                @ToTask.DisplayName
-                                                                                            </option>
-                                                                                        }
-                                                                                    </InputSelect>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                                                 Checked="@Task.EnableRecord"
-                                                                                                 Color="Color.Primary"
-                                                                                                 CheckedIcon="@Icons.Material.Filled.Verified"
-                                                                                                 UnCheckedColor="Color.Error"
-                                                                                                 UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                 @onclick="args=>Task.EnableRecord = !Task.EnableRecord" />
-                                                                                </td>
-                                                                            </tr>
-                                                                        }
-                                                                    </tbody>
-                                                                </Ctable>
-                                                            </td>
-                                                            <td>
-                                                                <InputSelect @bind-Value="_action.CaseStateId" style="direction:rtl; width:150px"
-                                                                             @oninput="(e => SelectedCaseStateChanged(e,_action))">
-                                                                    <option @((_action.CaseState is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
-                                                                    @foreach (var CaseState in _list_CaseState)
+                                                            <td style="width:400px">
+                                                                <InputSelect @bind-Value="_taskCondition.SecondId" style="direction:rtl;width:400px">
+                                                                    <option @((_taskCondition.Condition is null)? selected : '' ) value="">
+                                                                        لطفا یک مورد را انتخاب نمایید
+                                                                    </option>
+                                                                    @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Performer.Id))
                                                                     {
-                                                                        <option value="@CaseState.Id">
-                                                                            @CaseState.DisplayName
+                                                                        <option value="@_Condition.Id">
+                                                                            @_Condition.DisplayName (@_Condition.Name)
                                                                         </option>
                                                                     }
                                                                 </InputSelect>
                                                             </td>
-                                                            <td>
+                                                            <td style="width:100px">
                                                                 <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                             Checked="@_action.EnableRecord"
+                                                                             Checked="@_taskCondition.EnableRecord"
                                                                              Color="Color.Primary"
                                                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                                                              UnCheckedColor="Color.Error"
                                                                              UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                             @onclick="args=>_action.EnableRecord = !_action.EnableRecord" />
+                                                                             @onclick="args=>_taskCondition.EnableRecord = !_taskCondition.EnableRecord" />
                                                             </td>
                                                         </tr>
                                                     }
                                                 </tbody>
                                             </Ctable>
-                                        </div>
+                                        </td>
+                                    }
+                                    @if (_scenarioStep == ScenarioStep.Actions)
+                                    {
+                                        <td>
+                                            <center>
+                                                <button type="button" class="col-2 btn btn-primary"
+                                                        style="align-self: center;"
+                                                        @onclick="(e => Add_Actions(e,_task))">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                                        <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                                    </svg>
+                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_AddActions)))
+                                                </button>
+                                            </center>
+                                            <div>
+                                                <Ctable>
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-sortable="true" aria-sort="ascending">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                            </th>
+                                                            <th data-sortable="true">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                            </th>
+                                                            <th data-sortable="true">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Conditions)))
+                                                            </th>
+                                                            <th data-sortable="true">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_NextActions)))
+                                                            </th>
+                                                            <th data-sortable="true">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_CaseState)))
+                                                            </th>
+                                                            <th data-sortable="true">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var _action in _task.TaskFlows
+                                                       .Select(x => x.Flow).OrderBy(x => x.SortIndex))
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    <span>
+                                                                        @(_action?.Id)
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <InputNumber @bind-Value="_action.SortIndex" style="width:50px"></InputNumber>
+                                                                </td>
+                                                                <td>
+                                                                    <center>
+                                                                        <button type="button" class="col-4 btn btn-primary"
+                                                                                style="align-self: center;"
+                                                                                @onclick="(e => Add_ActionsCondition(e,_action))">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                                                                <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                                                            </svg>
+                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddToConditions)))
+                                                                        </button>
+                                                                    </center>
+                                                                    <Ctable>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th data-sortable="true" aria-sort="ascending" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                </th>
+                                                                                <th data-sortable="true" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                </th>
+
+                                                                                <th data-sortable="true">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                                                                </th>
+
+                                                                                <th data-sortable="true" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach (var _flowCondition in _action.FlowConditions
+                                                                           .OrderBy(x => x.SortIndex))
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <span>
+                                                                                            @(_flowCondition?.Id)
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <InputNumber @bind-Value="_flowCondition.SortIndex" style="width: 50px"></InputNumber>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <InputSelect @bind-Value="_flowCondition.SecondId" style="direction:rtl">
+                                                                                            <option @((_flowCondition.Condition is null)? selected : '' ) value="">
+                                                                                                لطفا یک مورد را انتخاب نمایید
+                                                                                            </option>
+                                                                                            @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Action.Id))
+                                                                                            {
+                                                                                                <option value="@_Condition.Id">
+                                                                                                    @_Condition.DisplayName (@_Condition.Name)
+                                                                                                </option>
+                                                                                            }
+                                                                                        </InputSelect>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                     Checked="@_flowCondition.EnableRecord"
+                                                                                                     Color="Color.Primary"
+                                                                                                     CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                                     UnCheckedColor="Color.Error"
+                                                                                                     UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                                     @onclick="args=>_flowCondition.EnableRecord = !_flowCondition.EnableRecord" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </Ctable>
+                                                                </td>
+                                                                <td>
+                                                                    <center>
+                                                                        <button type="button" class="col-6 btn btn-primary"
+                                                                                style="align-self: center;"
+                                                                                @onclick="(e => Add_ActionsTask(e,_action))">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-database-fill-add" viewBox="0 0 16 16">
+                                                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0ZM8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1Z" />
+                                                                                <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12.31 12.31 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7Zm6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.552 4.552 0 0 1 .23-2.002Zm-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.507 4.507 0 0 1-1.3-1.905Z" />
+                                                                            </svg>
+                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddNextAction)))
+                                                                        </button>
+                                                                    </center>
+                                                                    <Ctable>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th data-sortable="true" aria-sort="ascending" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                </th>
+                                                                                <th data-sortable="true" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                </th>
+                                                                                <th data-sortable="true">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Action)))
+                                                                                </th>
+                                                                                <th data-sortable="true">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach (var Task in _action.FlowTasks
+                                                                           .OrderBy(x => x.SortIndex))
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <span style="width: 50px">
+                                                                                            @(Task?.Id)
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <InputNumber style="width: 50px" @bind-Value="Task.SortIndex"></InputNumber>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <InputSelect @bind-Value="Task.SecondId" style="direction:rtl"
+                                                                                                     @oninput="(e => SelectedToTaskChanged(e,Task))">
+                                                                                            <option selected value="">
+                                                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
+                                                                                            </option>
+                                                                                            @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
+                                                                                            {
+                                                                                                <option value="@ToTask.Id">
+                                                                                                    @ToTask.DisplayName
+                                                                                                </option>
+                                                                                            }
+                                                                                        </InputSelect>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                     Checked="@Task.EnableRecord"
+                                                                                                     Color="Color.Primary"
+                                                                                                     CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                                     UnCheckedColor="Color.Error"
+                                                                                                     UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                                     @onclick="args=>Task.EnableRecord = !Task.EnableRecord" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </Ctable>
+                                                                </td>
+                                                                <td>
+                                                                    <InputSelect @bind-Value="_action.CaseStateId" style="direction:rtl; width:150px"
+                                                                                 @oninput="(e => SelectedCaseStateChanged(e,_action))">
+                                                                        <option @((_action.CaseState is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
+                                                                        @foreach (var CaseState in _list_CaseState)
+                                                                        {
+                                                                            <option value="@CaseState.Id">
+                                                                                @CaseState.DisplayName
+                                                                            </option>
+                                                                        }
+                                                                    </InputSelect>
+                                                                </td>
+                                                                <td>
+                                                                    <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                 Checked="@_action.EnableRecord"
+                                                                                 Color="Color.Primary"
+                                                                                 CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                 UnCheckedColor="Color.Error"
+                                                                                 UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                 @onclick="args=>_action.EnableRecord = !_action.EnableRecord" />
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </Ctable>
+                                            </div>
+                                        </td>
+                                    }
+                                    <td>
+                                        <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                     Checked="@_task.EnableRecord"
+                                                     Color="Color.Primary"
+                                                     CheckedIcon="@Icons.Material.Filled.Verified"
+                                                     UnCheckedColor="Color.Error"
+                                                     UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                     @onclick="args=>_task.EnableRecord = !_task.EnableRecord" />
                                     </td>
-                                }
-                                <td>
-                                    <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                 Checked="@_task.EnableRecord"
-                                                 Color="Color.Primary"
-                                                 CheckedIcon="@Icons.Material.Filled.Verified"
-                                                 UnCheckedColor="Color.Error"
-                                                 UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                 @onclick="args=>_task.EnableRecord = !_task.EnableRecord" />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </Ctable>
+                                </tr>
+                            }
+                        </tbody>
+                    </Ctable>
+                </div>
+                <LinkComponent Records="@LinkRecords"
+                               reference="@reference"
+                               Title=@(globalization.GetValue(nameof(Localization.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
+                </LinkComponent>
             </div>
-            <LinkComponent Records="@LinkRecords"
-                           reference="@reference"
-                           Title=@(globalization.GetValue(nameof(Localization.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
-            </LinkComponent>
         }
     </RowTemplate>
 </CEditDimentions>
@@ -546,7 +537,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
