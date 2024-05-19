@@ -75,7 +75,7 @@ public static class OutputState<T>
 
         var DisplayName = GlobalizationService.GetValue(_Name, new Object[] { workItemId });
 
-        var _Result = Result.Error(_Name);
+        var _Result = Result<T>.Error(_Name);
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 

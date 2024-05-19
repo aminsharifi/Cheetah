@@ -4,10 +4,10 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     private readonly IDomainEventDispatcher? _dispatcher;
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
     {
-        
+
         _dispatcher = dispatcher;
     }
-    
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ConfigureSimpleClass(Database);
@@ -60,7 +60,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<D_Entity> D_Entities { get; set; }
     public virtual DbSet<D_Tag> D_Tags { get; set; }
     public virtual DbSet<D_Process> D_Processes { get; set; }
-    public virtual DbSet<D_CaseState> D_CaseStates { get; set; }   
+    public virtual DbSet<D_CaseState> D_CaseStates { get; set; }
     public virtual DbSet<D_User> D_Users { get; set; }
     public virtual DbSet<D_Operand> D_Operands { get; set; }
     public virtual DbSet<D_WorkItemState> D_WorkItemStates { get; set; }
@@ -82,10 +82,10 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
     public virtual DbSet<L_TaskFlow> L_TaskFlows { get; set; }
     public virtual DbSet<L_FlowTask> L_FlowTasks { get; set; }
-    public virtual DbSet<L_TaskCondition> L_TaskConditions { get; set; }    
+    public virtual DbSet<L_TaskCondition> L_TaskConditions { get; set; }
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
     public virtual DbSet<L_UserCondition> L_UserConditions { get; set; }
-    
+
     #endregion
 
     #endregion
