@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
+﻿using Consul;
+using Microsoft.EntityFrameworkCore;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
 
 public class L_FlowConditionConfiguration : IEntityTypeConfiguration<L_FlowCondition>
 {
@@ -12,6 +15,8 @@ public class L_FlowConditionConfiguration : IEntityTypeConfiguration<L_FlowCondi
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasIndex(x => x.SecondId);
+            .HasOne<F_Condition>()  // Define the relationship with the Parent entity
+            .WithMany()  // Specify that there can be multiple Child entities related to one Parent
+            .HasForeignKey(c => c.SecondId);  // Set the foreign key property in the Child entity
     }
 }
