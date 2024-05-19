@@ -16,20 +16,27 @@
 	  <Compile Remove="Aggregates\CaseAggregate\Events\**" />
 	  <Compile Remove="Aggregates\CaseAggregate\Handlers\**" />
 	  <Compile Remove="Aggregates\CaseAggregate\Specifications\**" />
+	  <Compile Remove="Aggregates\ConditionAggregate\Facts\**" />
+	  <Compile Remove="Aggregates\ConditionAggregate\Links\**" />
 	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
 	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
 	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Specifications\**" />
+	  <EmbeddedResource Remove="Aggregates\ConditionAggregate\Facts\**" />
+	  <EmbeddedResource Remove="Aggregates\ConditionAggregate\Links\**" />
 	  <None Remove="Aggregates\CaseAggregate\Events\**" />
 	  <None Remove="Aggregates\CaseAggregate\Handlers\**" />
 	  <None Remove="Aggregates\CaseAggregate\Specifications\**" />
+	  <None Remove="Aggregates\ConditionAggregate\Facts\**" />
+	  <None Remove="Aggregates\ConditionAggregate\Links\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ardalis.Result" Version="8.0.0" />
+		<PackageReference Include="Ardalis.Result" Version="9.0.1" />
 		<PackageReference Include="Ardalis.SharedKernel" Version="1.5.0" />
 		<PackageReference Include="Ardalis.SmartEnum" Version="8.0.0" />
 		<PackageReference Include="Autofac" Version="8.0.0" />
 		<PackageReference Include="DNTPersianUtils.Core" Version="6.3.0" />
+		<PackageReference Include="Hangfire.Core" Version="1.8.12" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
 	</ItemGroup>
@@ -52,7 +59,5 @@
 
 	<ItemGroup>
 	  <Folder Include="Aggregates\CaseAggregate\Links\Values\" />
-	  <Folder Include="Aggregates\ConditionAggregate\Facts\" />
-	  <Folder Include="Aggregates\ConditionAggregate\Links\" />
 	</ItemGroup>
 </Project>

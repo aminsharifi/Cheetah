@@ -134,5 +134,10 @@ public class D_ParameterTypeService : ITableCRUD
     public SimpleLinkClass AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
         throw new NotImplementedException();
-    }  
+    }
+
+    public Task<DateTimeOffset?> GetLastUpdate(string TableName)
+    {
+        throw new NotImplementedException();
+    }
 }
