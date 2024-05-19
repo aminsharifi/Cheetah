@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
+﻿using Microsoft.Data.SqlClient;
+
+namespace Cheetah.Infrastructure.Persistence.Services;
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {
@@ -113,7 +115,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         else
         {
-            d_Entity.ERPCode = d_Entity.Id  = - 1;
+            d_Entity.ERPCode = d_Entity.Id = -1;
             d_Entity.Name = nameof(D_Entity);
             d_Entity.DisplayName = "تمام جدول ها";
         }
@@ -232,7 +234,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
             if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
-                instance =  AddLinkName(instance, fixedInstance, floatedInstance);
+                instance = AddLinkName(instance, fixedInstance, floatedInstance);
             }
             else
             {
@@ -258,5 +260,16 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         return 0;
 
         //return await _db.SaveChangesAsync();
+    }
+
+    public async Task<DateTimeOffset?> GetLastUpdate(string TableName)
+    {
+        var _lastModified =
+        await _db.D_Entities.Where(x => x.Name == TableName)
+        .AsNoTracking()
+        .Select(x => x.LastModified)
+        .FirstOrDefaultAsync();
+
+        return _lastModified;
     }
 }

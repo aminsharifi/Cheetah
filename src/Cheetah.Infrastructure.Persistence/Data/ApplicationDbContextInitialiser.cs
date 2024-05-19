@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Hangfire;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -30,40 +32,45 @@ public static class InitialiserExtensions
             }
         }
         #endregion
+        #region Hangfire
 
+        GlobalConfiguration.Configuration
+           .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
+
+        #endregion
         #region Serilog
         builder.Host.UseSerilog((context, configuration) =>
         configuration.ReadFrom.Configuration(context.Configuration));
         #endregion
 
-        //builder.Services.addse
-        builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
-        #region DB
-        var provider = builder.Configuration.GetValue("Provider", "Npgsql");
-        var _nameSpace = nameof(Cheetah) + "." +
-            nameof(Infrastructure) + "." +
-            nameof(Persistence) + ".";
-        if (provider is "Npgsql")
-        {
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                //builder.Services.addse
+                builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
+                #region DB
+                var provider = builder.Configuration.GetValue("Provider", "Npgsql");
+                var _nameSpace = nameof(Cheetah) + "." +
+                    nameof(Infrastructure) + "." +
+                    nameof(Persistence) + ".";
+                if (provider is "Npgsql")
+                {
+                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                b => b.UseLazyLoadingProxies()
-                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
-                , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
-                ),
-                ServiceLifetime.Transient
-                );
-        }
-        else
-        {
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                b => b.UseLazyLoadingProxies()
-                .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
-                ServiceLifetime.Transient
-                );
-        }
+                    builder.Services.AddDbContext<ApplicationDbContext>(
+                        b => b.UseLazyLoadingProxies()
+                        .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
+                        , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
+                        ),
+                        ServiceLifetime.Transient
+                        );
+                }
+                else
+                {
+                    builder.Services.AddDbContext<ApplicationDbContext>(
+                        b => b.UseLazyLoadingProxies()
+                        .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                        x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
+                        ServiceLifetime.Transient
+                        );
+                }
         #endregion
 
         #region Identity
@@ -122,7 +129,7 @@ public static class InitialiserExtensions
         app.UseSerilogRequestLogging();
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
         #endregion
 
         #region DB Initials

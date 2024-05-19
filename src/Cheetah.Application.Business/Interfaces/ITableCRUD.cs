@@ -15,5 +15,6 @@ public interface ITableCRUD
     public Task<BaseEntity> CreateAsync(BaseEntity obj_DTO);
     public Task<BaseEntity> UpdateAsync(BaseEntity obj_DTO);
     public Task<Int32> UpdateLinkAsync(LinkClassDTO obj_DTO);
+    public Task<DateTimeOffset?> GetLastUpdate(String TableName);
     public SimpleLinkClass AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass);
 }
