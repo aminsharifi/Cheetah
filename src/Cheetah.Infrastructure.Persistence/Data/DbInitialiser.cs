@@ -8,7 +8,7 @@ public class DbInitializer : IDbInitializer
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly ApplicationDbContext _db;
+    public readonly ApplicationDbContext _db;
     public DbInitializer(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
         ApplicationDbContext db)

@@ -22,7 +22,7 @@
                 }
             </MudSelect>
         </div>
-        <div class="col-lg-5 col-sm-3">
+        <div class="col-lg-1 col-sm-3">
             @if (Sync != true && type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
             {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
@@ -30,11 +30,31 @@
                         Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Add) )) />
             }
         </div>
+
+        <div class="col-lg-1 col-sm-3">
+            <MudCheckBox Label="سینک" Variant="Variant.Text" Disabled="true" Value="((D_Entity)Record).Sync"></MudCheckBox>
+        </div>
+
+        @if (Sync is true)
+        {
+            <div class="col-lg-3 col-sm-3">
+                <MudButton Color="@(_color)"
+                           OnClick="GetLastModified"
+                           EndIcon="@Icons.Material.Filled.Refresh"
+                           id="LastUpdateButton">
+                    آخرین بروزرسانی:
+                    @LastModified?.ToString("HH:mm:ss") @LastModified?.ConvertToPersianDay()
+                </MudButton>
+            </div>
+            <div class="col-lg-1 col-sm-3">
+                <MudCheckBox Label="فعال" Variant="Variant.Text" Disabled="true" Value="((D_Entity)Record).EnableRecord"></MudCheckBox>
+            </div>
+        }
     }
 
     @if (!String.IsNullOrEmpty(Name))
     {
-        @if (Record is not null)
+        @if (false)
         {
             <div class="shadow rounded p-3 form-group my-2 col-sm-12 col-md-6">
                 <div class="input-group d-flex justify-content-end" style="direction:ltr">
@@ -59,6 +79,39 @@
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
     List<D_Entity> _d_Entity = new();
+    DateTimeOffset? LastModified;
+    Color _color = Color.Default;
+
+    private void SetLastModified()
+    {
+        if (LastModified.HasValue)
+        {
+            var _sDate = DateTimeOffset.Now.Subtract(LastModified.Value).Minutes;
+
+            switch (_sDate)
+            {
+                case < 1:
+                    _color = Color.Success;
+                    break;
+                case < 5:
+                    _color = Color.Warning;
+                    break;
+                default:
+                    _color = Color.Error;
+                    break;
+            }
+        }
+    }
+
+    public async Task GetLastModified()
+    {
+        if (!String.IsNullOrEmpty(Name))
+        {
+            LastModified = await simpleClassRepository.GetLastUpdate(Name);
+            SetLastModified();
+        }
+    }
+
     async Task Addnew()
     {
         listGenericTypeItems.PrepareLink(0, CrudOperation.Create);
@@ -151,7 +204,13 @@
         {
             LoadData = false;
 
-            Sync = _d_Entity.Where(x => x.Name == Name).Select(x => x.Sync).First();
+            Record = _d_Entity.Where(x => x.Name == Name).First();
+
+            LastModified = Record.LastModified;
+
+            SetLastModified();
+
+            Sync = ((D_Entity)Record).Sync;
 
             Records = await simpleClassRepository.GetAllByNameAsync(Name);
 
