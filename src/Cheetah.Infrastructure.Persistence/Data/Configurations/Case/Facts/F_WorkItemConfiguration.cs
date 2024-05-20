@@ -11,16 +11,36 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
             .HasColumnOrder(101);
 
         builder
+            .HasOne<F_Task>()
+            .WithMany()
+            .HasForeignKey(x => x.TaskId);
+
+        builder
             .Property(e => e.UserId)
             .HasColumnOrder(102);
+
+        builder
+            .HasOne<D_User>()
+            .WithMany()
+            .HasForeignKey(x => x.UserId);
 
         builder
             .Property(e => e.CaseId)
             .HasColumnOrder(103);
 
+        builder
+            .HasOne(x=>x.Case)
+            .WithMany()
+            .HasForeignKey(x => x.CaseId);
+
 
         builder
             .Property(e => e.WorkItemStateId)
             .HasColumnOrder(105);
+
+        builder
+            .HasOne(x=>x.WorkItemState)
+            .WithMany()
+            .HasForeignKey (x => x.WorkItemStateId);
     }
 }

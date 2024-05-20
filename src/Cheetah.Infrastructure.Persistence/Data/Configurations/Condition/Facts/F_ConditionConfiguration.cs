@@ -11,8 +11,18 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
             .HasColumnOrder(100);
 
         builder
+            .HasOne(x => x.Tag)
+            .WithMany()
+            .HasForeignKey(x => x.TagId);
+
+        builder
             .Property(e => e.OperandId)
             .HasColumnOrder(101);
+
+        builder
+            .HasOne(x => x.Operand)
+            .WithMany()
+            .HasForeignKey(x => x.OperandId);
 
         builder
             .Property(e => e.Value)

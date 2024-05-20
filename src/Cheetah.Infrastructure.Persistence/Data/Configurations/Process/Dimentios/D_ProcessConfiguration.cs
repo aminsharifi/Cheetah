@@ -20,5 +20,6 @@ public class D_ProcessConfiguration : IEntityTypeConfiguration<D_Process>
             .Property(e => e.RemoveRequestorApproval)
             .HasDefaultValue(true)
             .HasColumnOrder(102);
+
     }
 }
