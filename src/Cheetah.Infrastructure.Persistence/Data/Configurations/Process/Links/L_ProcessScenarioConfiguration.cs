@@ -9,11 +9,13 @@ public class L_ProcessScenarioConfiguration : IEntityTypeConfiguration<L_Process
         builder
             .HasOne(x => x.Process)
             .WithMany(x => x.ProcessScenarios)
-            .HasForeignKey(x => x.FirstId);
+            .HasForeignKey(x => x.FirstId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne(x => x.Scenario)
             .WithMany(x => x.ProcessScenarios)
-            .HasForeignKey(x => x.SecondId);
+            .HasForeignKey(x => x.SecondId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

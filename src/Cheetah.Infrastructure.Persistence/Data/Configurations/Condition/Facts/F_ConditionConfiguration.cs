@@ -13,7 +13,8 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
         builder
             .HasOne(x => x.Tag)
             .WithMany()
-            .HasForeignKey(x => x.TagId);
+            .HasForeignKey(x => x.TagId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.OperandId)
@@ -22,7 +23,8 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
         builder
             .HasOne(x => x.Operand)
             .WithMany()
-            .HasForeignKey(x => x.OperandId);
+            .HasForeignKey(x => x.OperandId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.Value)

@@ -13,7 +13,8 @@ public class F_CaseConfiguration : IEntityTypeConfiguration<F_Case>
         builder
             .HasOne<D_User>()
             .WithMany()
-            .HasForeignKey(e => e.RequestorId);
+            .HasForeignKey(e => e.RequestorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.CreatorId)
@@ -22,7 +23,8 @@ public class F_CaseConfiguration : IEntityTypeConfiguration<F_Case>
         builder
             .HasOne<D_User>()
             .WithMany()
-            .HasForeignKey(e => e.CreatorId);
+            .HasForeignKey(e => e.CreatorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.CaseStateId)
@@ -31,7 +33,8 @@ public class F_CaseConfiguration : IEntityTypeConfiguration<F_Case>
         builder
             .HasOne(x => x.CaseState)
             .WithMany()
-            .HasForeignKey(e => e.CaseStateId);
+            .HasForeignKey(e => e.CaseStateId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.ProcessId)
@@ -40,7 +43,8 @@ public class F_CaseConfiguration : IEntityTypeConfiguration<F_Case>
         builder
             .HasOne<D_Process>()
             .WithMany()
-            .HasForeignKey(e => e.ProcessId);
+            .HasForeignKey(e => e.ProcessId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.SelectedScenarioId)
@@ -49,6 +53,7 @@ public class F_CaseConfiguration : IEntityTypeConfiguration<F_Case>
         builder
             .HasOne<F_Scenario>()
             .WithMany()
-            .HasForeignKey(x => x.SelectedScenarioId);
+            .HasForeignKey(x => x.SelectedScenarioId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

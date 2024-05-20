@@ -9,11 +9,13 @@ public class L_ScenarioConditionConfiguration : IEntityTypeConfiguration<L_Scena
         builder
             .HasOne(x => x.Scenario)
             .WithMany(x => x.ScenarioConditions)
-            .HasForeignKey(x => x.FirstId);
+            .HasForeignKey(x => x.FirstId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne<F_Condition>()
             .WithMany()
-            .HasForeignKey(x => x.SecondId);
+            .HasForeignKey(x => x.SecondId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

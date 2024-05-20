@@ -13,7 +13,8 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
         builder
             .HasOne<F_Task>()
             .WithMany()
-            .HasForeignKey(x => x.TaskId);
+            .HasForeignKey(x => x.TaskId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.UserId)
@@ -22,7 +23,8 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
         builder
             .HasOne<D_User>()
             .WithMany()
-            .HasForeignKey(x => x.UserId);
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.CaseId)
@@ -31,7 +33,8 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
         builder
             .HasOne(x=>x.Case)
             .WithMany()
-            .HasForeignKey(x => x.CaseId);
+            .HasForeignKey(x => x.CaseId)
+            .OnDelete(DeleteBehavior.Restrict);
 
 
         builder
@@ -41,6 +44,7 @@ public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
         builder
             .HasOne(x=>x.WorkItemState)
             .WithMany()
-            .HasForeignKey (x => x.WorkItemStateId);
+            .HasForeignKey (x => x.WorkItemStateId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

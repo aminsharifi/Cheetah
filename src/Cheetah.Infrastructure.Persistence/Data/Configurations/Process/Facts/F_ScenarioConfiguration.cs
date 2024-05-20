@@ -10,6 +10,7 @@ public class F_ScenarioConfiguration : IEntityTypeConfiguration<F_Scenario>
         builder
             .HasMany(x => x.Tasks)
             .WithOne(x => x.Scenario)
-            .HasForeignKey(x => x.ScenarioId);
+            .HasForeignKey(x => x.ScenarioId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
