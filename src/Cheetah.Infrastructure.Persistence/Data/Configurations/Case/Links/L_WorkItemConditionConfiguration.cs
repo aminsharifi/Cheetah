@@ -9,11 +9,13 @@ public class L_WorkItemConditionConfiguration : IEntityTypeConfiguration<L_WorkI
         builder
             .HasOne(x => x.WorkItem)
             .WithMany(x => x.WorkItemConditions)
-            .HasForeignKey(x => x.FirstId);
+            .HasForeignKey(x => x.FirstId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne<F_Condition>()
             .WithMany()
-            .HasForeignKey(x => x.SecondId);
+            .HasForeignKey(x => x.SecondId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

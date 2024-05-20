@@ -9,11 +9,13 @@ public class L_CaseConditionConfiguration : IEntityTypeConfiguration<L_CaseCondi
         builder
             .HasOne(x => x.Case)
             .WithMany(x => x.CaseConditions)
-            .HasForeignKey(x => x.FirstId);
+            .HasForeignKey(x => x.FirstId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .HasOne<F_Condition>()
             .WithMany()
-            .HasForeignKey(x=>x.SecondId);
+            .HasForeignKey(x=>x.SecondId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
