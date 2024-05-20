@@ -13,7 +13,8 @@ public class D_TagConfiguration : IEntityTypeConfiguration<D_Tag>
         builder
             .HasOne(x=>x.TagType)
             .WithMany()
-            .HasForeignKey(e => e.TagTypeId);
+            .HasForeignKey(e => e.TagTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder
             .Property(e => e.TagCategoryId)
@@ -22,6 +23,7 @@ public class D_TagConfiguration : IEntityTypeConfiguration<D_Tag>
         builder
             .HasOne(x=>x.TagCategory)
             .WithMany()
-            .HasForeignKey(e => e.TagCategoryId);
+            .HasForeignKey(e => e.TagCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

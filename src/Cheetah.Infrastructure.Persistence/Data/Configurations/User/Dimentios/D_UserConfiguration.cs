@@ -55,7 +55,8 @@ public class D_UserConfiguration : IEntityTypeConfiguration<D_User>
         builder
             .HasOne(e => e.Delegate)
             .WithOne()
-            .HasForeignKey<D_User>(x => x.DelegateId);
+            .HasForeignKey<D_User>(x => x.DelegateId)
+            .OnDelete(DeleteBehavior.Restrict);
 
 
         #endregion
