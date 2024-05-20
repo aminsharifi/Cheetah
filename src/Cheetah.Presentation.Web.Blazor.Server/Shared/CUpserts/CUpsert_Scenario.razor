@@ -58,7 +58,7 @@
                                         <option @((_scenarioCondition.Condition is null)? selected : '' ) value="">
                                             لطفا یک مورد را انتخاب نمایید
                                         </option>
-                                        @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Performer.Id))
+                                        @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Performer.Id))
                                         {
                                             <option value="@_Condition.Id">
                                                 @_Condition.DisplayName (@_Condition.Name)
@@ -210,7 +210,7 @@
                                                                     <option @((_taskCondition.Condition is null)? selected : '' ) value="">
                                                                         لطفا یک مورد را انتخاب نمایید
                                                                     </option>
-                                                                    @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Performer.Id))
+                                                                    @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Performer.Id))
                                                                     {
                                                                         <option value="@_Condition.Id">
                                                                             @_Condition.DisplayName (@_Condition.Name)
@@ -333,7 +333,7 @@
                                                                                             <option @((_flowCondition.Condition is null)? selected : '' ) value="">
                                                                                                 لطفا یک مورد را انتخاب نمایید
                                                                                             </option>
-                                                                                            @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag.TagCategoryId == D_TagCategory.Action.Id))
+                                                                                            @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
                                                                                             {
                                                                                                 <option value="@_Condition.Id">
                                                                                                     @_Condition.DisplayName (@_Condition.Name)
