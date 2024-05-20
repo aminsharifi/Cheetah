@@ -12,6 +12,8 @@ public class L_WorkItemConditionConfiguration : IEntityTypeConfiguration<L_WorkI
             .HasForeignKey(x => x.FirstId);
 
         builder
-            .HasIndex(x => x.SecondId);
+            .HasOne<F_Condition>()
+            .WithMany()
+            .HasForeignKey(x => x.SecondId);
     }
 }

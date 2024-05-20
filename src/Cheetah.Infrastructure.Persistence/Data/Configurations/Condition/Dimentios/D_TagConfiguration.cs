@@ -9,8 +9,19 @@ public class D_TagConfiguration : IEntityTypeConfiguration<D_Tag>
         builder
               .Property(e => e.TagTypeId)
               .HasColumnOrder(100);
+
+        builder
+            .HasOne(x=>x.TagType)
+            .WithMany()
+            .HasForeignKey(e => e.TagTypeId);
+
         builder
             .Property(e => e.TagCategoryId)
             .HasColumnOrder(101);
+
+        builder
+            .HasOne(x=>x.TagCategory)
+            .WithMany()
+            .HasForeignKey(e => e.TagCategoryId);
     }
 }

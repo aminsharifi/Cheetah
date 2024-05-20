@@ -32,7 +32,13 @@
         </div>
 
         <div class="col-lg-1 col-sm-3">
-            <MudCheckBox Label="سینک" Variant="Variant.Text" Disabled="true" Value="((D_Entity)Record).Sync"></MudCheckBox>
+            <MudCheckBox Label="سینک"
+                         Value="((D_Entity)Record).Sync"
+                         ReadOnly="true"
+                         Color="Color.Primary"
+                         CheckedIcon="@Icons.Material.Filled.Verified"
+                         UnCheckedColor="Color.Error"
+                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
         </div>
 
         @if (Sync is true)
@@ -47,7 +53,13 @@
                 </MudButton>
             </div>
             <div class="col-lg-1 col-sm-3">
-                <MudCheckBox Label="فعال" Variant="Variant.Text" Disabled="true" Value="((D_Entity)Record).EnableRecord"></MudCheckBox>
+                <MudCheckBox Label="فعال" Variant="Variant.Text"
+                             Value="((D_Entity)Record).EnableRecord"
+                             ReadOnly="true"
+                             Color="Color.Primary"
+                             CheckedIcon="@Icons.Material.Filled.Verified"
+                             UnCheckedColor="Color.Error"
+                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
             </div>
         }
     }
