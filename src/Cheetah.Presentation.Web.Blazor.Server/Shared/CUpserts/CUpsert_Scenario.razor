@@ -537,7 +537,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                        .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
@@ -688,7 +688,7 @@
         {
             var CaseStateId = Int64.Parse(e.Value.ToString());
 
-            f_Flow.CaseStateId = CaseStateId;
+            f_Flow.SetCaseStateId(CaseStateId);
         }
     }
     private async Task SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)
@@ -697,12 +697,12 @@
         {
             var ToTaskId = Int64.Parse(e.Value.ToString());
 
-            TaskSelector.Task = (Record as F_Scenario).Tasks
-            .First(x => x.Id == ToTaskId) as F_Task;
+            TaskSelector.SetTask((Record as F_Scenario).Tasks
+            .First(x => x.Id == ToTaskId) as F_Task);
         }
         else
         {
-            TaskSelector.Task = null;
+            TaskSelector.SetTask(null);
         }
     }
     private async Task SelectedScenarioConditionsChanged(ChangeEventArgs e, L_ScenarioCondition ScenarioCondition)
@@ -711,8 +711,8 @@
         {
             var _flowConditionId = Int64.Parse(e.Value.ToString());
 
-            ScenarioCondition.SecondId = (_list_F_Condition
-                .First(x => x.Id == _flowConditionId) as F_Condition).Id;
+            ScenarioCondition.SetSecondId(
+                (_list_F_Condition.First(x => x.Id == _flowConditionId) as F_Condition).Id);
         }
     }
 }

@@ -26,14 +26,9 @@ public class Sync(ISender _ISender,
                 .Any());
 
                 _ = await userConditionRepository.AddRangeAsync(_MostBeAdd.Select(
-                    item => new L_UserCondition()
-                    {
-                        Name = item.Name,
-                        DisplayName = item.DisplayName,
-                        ERPCode = item.ERPCode,
-                        FirstId = item.FirstId,
-                        SecondId = item.SecondId
-                    }));
+                    item => new L_UserCondition(id: item.Id, name: item.Name, displayName: item.DisplayName,
+                    eRPCode: item.ERPCode, sortIndex: item.SortIndex,
+                    userId: item.FirstId, conditionId: item.SecondId)));
             }
         }
         if (Crud == CrudOperation.Delete || _IsRead)
@@ -48,7 +43,7 @@ public class Sync(ISender _ISender,
 
                 Parallel.ForEach(_AllUserConditions, _AllUserCondition =>
                 {
-                    _AllUserCondition.EnableRecord = false;
+                    _AllUserCondition.SetEnable(false);
                 });
 
                 await userConditionRepository.UpdateRangeAsync(_AllUserConditions);
@@ -105,10 +100,11 @@ public class Sync(ISender _ISender,
                 Parallel.ForEach(_FilterdRecords, _FilterdRecord =>
                 {
                     var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
-                    _FilterdRecord.Name = Record.Name;
-                    _FilterdRecord.DisplayName = Record.Name;
-                    _FilterdRecord.Description = Record.Description;
-                    _FilterdRecord.EnableRecord = Record.EnableRecord;
+
+                    _FilterdRecord.SetEntity(name: Record.Name, displayName: Record.Name,
+                        description: Record.Description, enableRecord: Record.EnableRecord);
+
+
                     _Conditions.Add(_FilterdRecord);
                 });
 
@@ -143,14 +139,9 @@ public class Sync(ISender _ISender,
             var _AllUsersERPCode = await userRepository.ListAsync(_getAllConditionsSpec);
             var _MostBeAdd = Records.Where(x => !_AllUsersERPCode.Any(y => y == x.ERPCode));
             var _UsersList = _MostBeAdd.Select(
-                    item => new D_User()
-                    {
-                        Name = item.Name,
-                        DisplayName = item.DisplayName,
-                        Description = item.Description,
-                        ERPCode = item.ERPCode,
-                        EnableRecord = item.EnableRecord
-                    });
+                    item => new D_User(id: item.Id, name: item.Name,
+                    displayName: item.DisplayName, sortIndex: item.SortIndex,
+                    eRPCode: item.ERPCode, description: item.Description, enableRecord: item.EnableRecord));
             _ = await userRepository.AddRangeAsync(_UsersList);
         }
         else if (Base.Name == nameof(D_Tag))
@@ -159,14 +150,10 @@ public class Sync(ISender _ISender,
             var _AllTagsERPCode = await tagRepository.ListAsync(_getAllConditionsSpec);
             var _MostBeAdd = Records.Where(x => !_AllTagsERPCode.Any(y => y == x.ERPCode));
             var _UsersList = _MostBeAdd.Select(
-                    item => new D_Tag()
-                    {
-                        Name = item.Name,
-                        DisplayName = item.DisplayName,
-                        Description = item.Description,
-                        ERPCode = item.ERPCode,
-                        EnableRecord = item.EnableRecord
-                    });
+                    item => new D_Tag(id: item.Id, name: item.Name, displayName: item.DisplayName,
+                    description: item.Description, eRPCode: item.ERPCode,enableRecord: item.EnableRecord,
+                    sortIndex: item.SortIndex));
+
             _ = await tagRepository.AddRangeAsync(_UsersList);
         }
 
@@ -183,10 +170,10 @@ public class Sync(ISender _ISender,
             Parallel.ForEach(_FilterdRecords, _FilterdRecord =>
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
-                _FilterdRecord.Name = Record.Name;
-                _FilterdRecord.DisplayName = Record.DisplayName;
-                _FilterdRecord.Description = Record.Description;
-                _FilterdRecord.EnableRecord = Record.EnableRecord;
+                
+                Record.SetEntity(name: Record.Name, displayName: Record.DisplayName,
+                    description: Record.Description,enableRecord: Record.EnableRecord);
+
                 _Users.Add(_FilterdRecord);
             });
 
@@ -202,10 +189,10 @@ public class Sync(ISender _ISender,
             Parallel.ForEach(_FilterdRecords, _FilterdRecord =>
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
-                _FilterdRecord.Name = Record.Name;
-                _FilterdRecord.DisplayName = Record.Name;
-                _FilterdRecord.Description = Record.Description;
-                _FilterdRecord.EnableRecord = Record.EnableRecord;
+           
+                _FilterdRecord.SetEntity(name: Record.Name, displayName: Record.DisplayName,
+                 description: Record.Description, enableRecord: Record.EnableRecord);
+
                 _Users.Add(_FilterdRecord);
             });
 

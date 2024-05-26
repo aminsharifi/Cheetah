@@ -15,12 +15,19 @@ else
     <EditForm Model="p_ParameterListDTO" method="post">
         <DataAnnotationsValidator />
         <div class="card container mt-4">
-            <InputText @bind-Value="p_ParameterListDTO.Name" class="form-control" />
+            <InputText @bind-Value="_ParameterListDTOName" class="form-control" />
         </div>
     </EditForm>
 
 }
 @code {
+    [Parameter]
+    public String _ParameterListDTOName
+    {
+        get { return p_ParameterListDTO.Name; }
+        set { p_ParameterListDTO.SetName(value); }
+    }
+
     [Parameter]
     public long PL_ParameterTypeID { get; set; }
 

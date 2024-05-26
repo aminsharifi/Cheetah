@@ -12,22 +12,24 @@ public class CopyCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository
         Guard.Against.Null<F_Task>(request.input.Task);
         Guard.Against.Null<D_User>(request.input.User);
 
-        L_CaseTaskUser Return_CaseTaskUser = new();
+        Int64? _firstId = default!, _secondId = default!, _thirdId = default!;
 
         #region Case
         var _caseSpec = new GetIdEntitySpec<F_Case>(request.input.Case);
-        Return_CaseTaskUser.FirstId = await _caseRepository.FirstOrDefaultAsync(_caseSpec, cancellationToken);
+        _firstId = await _caseRepository.FirstOrDefaultAsync(_caseSpec, cancellationToken);
         #endregion
 
         #region Task
         var _taskSpec = new GetIdEntitySpec<F_Task>(request.input.Task);
-        Return_CaseTaskUser.SecondId = await _taskRepository.FirstOrDefaultAsync(_taskSpec, cancellationToken);
+        _secondId = await _taskRepository.FirstOrDefaultAsync(_taskSpec, cancellationToken);
         #endregion
 
         #region User
         var _userSpec = new GetIdEntitySpec<D_User>(request.input.User);
-        Return_CaseTaskUser.ThirdId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
+        _thirdId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         #endregion
+
+        L_CaseTaskUser Return_CaseTaskUser = new(firstId: _firstId, secondId: _secondId, thirdId: _thirdId);
 
         return Return_CaseTaskUser;
 

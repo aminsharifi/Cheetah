@@ -3,7 +3,7 @@
 public partial class F_Flow : BaseEntity
 {
     #region Entities    
-    public long? CaseStateId { get; set; }
+    public long? CaseStateId { get; private set; }
     #endregion
 
     #region Collection
@@ -14,6 +14,12 @@ public partial class F_Flow : BaseEntity
     #endregion
 
     #region Functions
+
+    public void SetCaseStateId(long? caseStateId)
+    {
+        CaseStateId = caseStateId;
+    }
+
     public F_Flow ShallowCopy()
     {
         return (F_Flow)MemberwiseClone();

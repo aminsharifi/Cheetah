@@ -1,6 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-
-namespace Cheetah.Infrastructure.Persistence.Services;
+﻿namespace Cheetah.Infrastructure.Persistence.Services;
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {
@@ -12,17 +10,20 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
     }
     public SimpleLinkClass AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
     {
-        simpleLinkClass.DisplayName = new StringBuilder()
+        var _name = new StringBuilder()
+            .Append(firstClass?.Name ?? String.Empty)
+            .Append("-")
+            .Append(SecondClass?.Name ?? String.Empty)
+            .ToString();
+
+        var _displayName = new StringBuilder()
             .Append(firstClass?.DisplayName ?? String.Empty)
             .Append("-")
             .Append(SecondClass?.DisplayName ?? String.Empty)
             .ToString();
 
-        simpleLinkClass.Name = new StringBuilder()
-            .Append(firstClass?.Name ?? String.Empty)
-            .Append("-")
-            .Append(SecondClass?.Name ?? String.Empty)
-            .ToString();
+        simpleLinkClass.SetNameAndDisplayName(name: _name, displayName: _displayName);
+
         return simpleLinkClass;
     }
     public async Task<BaseEntity> CreateAsync(BaseEntity obj_DTO)
@@ -102,7 +103,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             return ReturnOutput;
         }
 
-        D_Entity d_Entity = new();
+        D_Entity d_Entity;
 
         var _inputQuery = _db.D_Entities
             .Where(x => x.Name == simpleClass.Name);
@@ -115,9 +116,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         else
         {
-            d_Entity.ERPCode = d_Entity.Id = -1;
-            d_Entity.Name = nameof(D_Entity);
-            d_Entity.DisplayName = "تمام جدول ها";
+            d_Entity = new(id: -1, eRPCode: -1, sortIndex: -1, name: nameof(D_Entity), displayName: "تمام جدول ها");
         }
 
         var gtype = DatabaseClass.GetDBType(d_Entity.Name);
@@ -170,7 +169,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var instance = (BaseEntity)Activator.CreateInstance(gtype);
-        instance.SortIndex = aa.Any() ? aa.Max(x => x.SortIndex) + 1 : 1;
+        instance.SetSortIndex(aa.Any() ? aa.Max(x => x.SortIndex) + 1 : 1);
         return instance;
     }
     public async Task<Int32> RemoveLink(LinkClassDTO obj_DTO)
@@ -202,7 +201,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
             if (simpleLinkClass.Any())
             {
-                instance.SortIndex = simpleLinkClass.Last().SortIndex + 1;
+                instance.SetSortIndex(simpleLinkClass.Last().SortIndex + 1);
             }
             else
             {
@@ -218,14 +217,11 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
             if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
-                instance.FirstId = obj_DTO.FixedId;
-                instance.SecondId = link.Key.Item1;
-
+                instance.SetFirstAndSecond(obj_DTO.FixedId, link.Key.Item1);
             }
             else
             {
-                instance.FirstId = link.Key.Item1;
-                instance.SecondId = obj_DTO.FixedId;
+                instance.SetFirstAndSecond(link.Key.Item1, obj_DTO.FixedId);
             }
 
             var floatedInstance = await GetAsync(

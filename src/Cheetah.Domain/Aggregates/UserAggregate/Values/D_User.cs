@@ -4,24 +4,12 @@ public partial class D_User
     #region Values
 
     public static readonly D_User m_sharifi =
-        new()
-        {
-            Id = 1,
-            ERPCode = 1,
-            SortIndex = 1,
-            Name = nameof(m_sharifi).Replace('_', '.'),
-            DisplayName = "محمد شریفی"
-        };
+         new(id: 1, name: nameof(m_sharifi).Replace('_', '.'),
+             displayName: "محمد شریفی", sortIndex: 1, eRPCode: 1);
 
     public static readonly D_User a_sharifi =
-        new()
-        {
-            Id = 2,
-            ERPCode = 2,
-            SortIndex = 2,
-            Name = nameof(a_sharifi).Replace('_', '.'),
-            DisplayName = "امین شریفی"
-        };
+            new(id: 2, name: nameof(a_sharifi).Replace('_', '.'),
+             displayName: "امین شریفی", sortIndex: 2, eRPCode: 2);
 
     #endregion
 }

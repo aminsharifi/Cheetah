@@ -2,9 +2,14 @@
 
 public partial class L_FlowTask : SimpleLinkClass
 {
-    public virtual F_Flow? Flow { get; set; }
+    public virtual F_Flow? Flow { get; private set; }
 
-    public virtual F_Task? Task { get; set; }
+    public virtual F_Task? Task { get; private set; }
+
+    public void SetTask(F_Task? task)
+    {
+        this.Task = task;
+    }
 
     public L_FlowTask ShallowCopy()
     {
