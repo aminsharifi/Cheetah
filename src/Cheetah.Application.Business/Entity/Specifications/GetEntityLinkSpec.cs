@@ -5,10 +5,6 @@ public class GetEntityLinkSpec<T> : Specification<T, SimpleLinkClassDTO> where T
     {
         Query.AsNoTracking();
 
-        Query.Select(item => new SimpleLinkClassDTO()
-        {
-            FirstId = item.FirstId,
-            SecondId = item.SecondId
-        });
+        Query.Select(item => new SimpleLinkClassDTO(item.FirstId, item.SecondId));
     }
 }

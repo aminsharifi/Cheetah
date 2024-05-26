@@ -5,31 +5,31 @@
 @if (!IsLoading)
 {
     <CEditLinks Record="@Record" type="@type" LinkId="@LinkId"
-            Id="@Id" Name="@Name" FirstName="@(FirstClassRecord.Name)"
-            SecondName="@(SecondClassRecord.Name)"
-            Title="@Title" IsLoading="@IsLoading"
-            reference="@reference">
+                Id="@Id" Name="@Name" FirstName="@(FirstClassRecord.Name)"
+                SecondName="@(SecondClassRecord.Name)"
+                Title="@Title" IsLoading="@IsLoading"
+                reference="@reference">
         <RowTemplate>
-            @* 
-                <CInput @bind-LValue="Record.FirstId"
-                Records="@FirstClass"
-                CDescription="@(FirstClassRecord.DisplayName)"
-                    Disabled="@(type == nameof(LinkProperty.First))"
-                CDisplayName="@(FirstClassRecord.DisplayName)"
-                    CFieldType="@(Cheetah_Business.FieldType.CSelect)"
-                Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
-                reference="@reference">
-            </CInput>
+            @*
+        <CInput @bind-LValue="Record.FirstId"
+        Records="@FirstClass"
+        CDescription="@(FirstClassRecord.DisplayName)"
+        Disabled="@(type == nameof(LinkProperty.First))"
+        CDisplayName="@(FirstClassRecord.DisplayName)"
+        CFieldType="@(Cheetah_Business.FieldType.CSelect)"
+        Record="@(FirstClass.FirstOrDefault(x=>x.Id == Record.FirstId))"
+        reference="@reference">
+        </CInput>
 
-           <CInput @bind-LValue="Record.SecondId"
-                Records="@SecondClass"
-                CDescription="@(SecondClassRecord.DisplayName)"
-                    Disabled="@(type == nameof(LinkProperty.Second))"
-                CDisplayName="@(SecondClassRecord.DisplayName)"
-                    CFieldType="@(Cheetah_Business.FieldType.CSelect)"
-                Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
-                reference="@reference">
-            </CInput> *@
+        <CInput @bind-LValue="Record.SecondId"
+        Records="@SecondClass"
+        CDescription="@(SecondClassRecord.DisplayName)"
+        Disabled="@(type == nameof(LinkProperty.Second))"
+        CDisplayName="@(SecondClassRecord.DisplayName)"
+        CFieldType="@(Cheetah_Business.FieldType.CSelect)"
+        Record="@(SecondClass.FirstOrDefault(x=>x.Id == Record.SecondId))"
+        reference="@reference">
+        </CInput> *@
 
         </RowTemplate>
     </CEditLinks>
@@ -92,14 +92,14 @@
             if (type == nameof(LinkProperty.First))
             {
                 if (Record.FirstId == 0)
-                    Record.FirstId = LinkId;
+                    Record.SetFirstId(LinkId);
                 else
                     LinkId = Record.FirstId;
             }
             else
             {
                 if (Record.SecondId == 0)
-                    Record.SecondId = LinkId;
+                    Record.SetSecondId(LinkId);
                 else
                     LinkId = Record.SecondId;
             }
@@ -118,7 +118,7 @@
 
             SecondClass = await simpleClassRepository.GetAllByNameAsync(SecondClassName);
 
-            Title = new UpsertStatus().GetPageTitle(Record.Id).Value;            
+            Title = new UpsertStatus().GetPageTitle(Record.Id).Value;
         }
         catch (Exception ex)
         {

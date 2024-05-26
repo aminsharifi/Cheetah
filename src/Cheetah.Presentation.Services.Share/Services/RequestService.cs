@@ -206,10 +206,11 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Input
 
-        L_CaseTaskUser l_CaseTaskUser = new();
-        l_CaseTaskUser.Case = request.Case.GetSimpleClass<F_Case>();
-        l_CaseTaskUser.Task = request.Task.GetSimpleClass<F_Task>();
-        l_CaseTaskUser.User = request.User.GetSimpleClass<D_User>();
+        var _case = request.Case.GetSimpleClass<F_Case>();
+        var _task = request.Task.GetSimpleClass<F_Task>();
+        var _user = request.User.GetSimpleClass<D_User>();
+
+        L_CaseTaskUser l_CaseTaskUser = new(_case, _task, _user);
 
         #endregion
 
@@ -288,13 +289,8 @@ public class RequestService(ILogger<RequestService> logger,
 
         await iSync.SyncLinkAsync(request.Base.GetSimpleClass<SimpleClassDTO>(),
             request.Records
-            .Select(x => new SimpleLinkClassDTO()
-            {
-                FirstId = x.First.Id,
-                SecondId = x.Second.Id,
-                ERPCode = x.ERPCode,
-                EnableRecord = (x.EnableRecord is true)
-            }),
+            .Select(x => new SimpleLinkClassDTO(firstId: x.First.Id,secondId: x.Second.Id,eRPCode: x.ERPCode,
+            enableRecord: (x.EnableRecord is true))),
             (CrudOperation)request.Crud.Value);
 
         #region Output
@@ -343,10 +339,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         foreach (var _condition in Conditions)
         {
-            L_CaseCondition _CaseCondition = new()
-            {
-                SecondId = _condition.Id
-            };
+            L_CaseCondition _CaseCondition = new(conditionId: _condition.Id);
 
             _caseConditions.Add(_CaseCondition);
         }

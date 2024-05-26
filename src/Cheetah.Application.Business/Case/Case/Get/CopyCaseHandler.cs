@@ -14,32 +14,34 @@ public class CopyCaseHandler(
         Guard.Against.Null(request.WorkItemUser);
         Guard.Against.Null(request.WorkItemConditions);
 
-        F_Case _case = new();
 
-        _case.ERPCode = request.Case?.ERPCode;
+        long? _eRPCode, _creatorId, _requestorId, _processId;
+
+        _eRPCode = request.Case?.ERPCode;
 
         var _creatorSpec = new GetIdEntitySpec<D_User>(request.Creator);
-        _case.CreatorId = await _userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
+        _creatorId = await _userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
 
         var _requestorSpec = new GetIdEntitySpec<D_User>(request.Requestor);
-        _case.RequestorId = await _userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
+        _requestorId = await _userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
 
         var _processSpec = new GetIdEntitySpec<D_Process>(request.Process);
-        _case.ProcessId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
+        _processId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
 
-        F_WorkItem _workItem = new();
+        F_Case _case = new(eRPCode: _eRPCode, requestorId: _requestorId, creatorId: _creatorId, processId: _processId);
+
+        long? _userId = default;
 
         var _WorkItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
-        _workItem.UserId = await _userRepository.FirstOrDefaultAsync(_WorkItemUserSpec, cancellationToken);
+        _userId = await _userRepository.FirstOrDefaultAsync(_WorkItemUserSpec, cancellationToken);
+
+        F_WorkItem _workItem = new(userId: _userId);
 
         await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
         {
             var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition(_IMapper)));
 
-            _workItem.WorkItemConditions.Add(new()
-            {
-                SecondId = _getCondition.Value
-            });
+            _workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
         });
 
         if (request.CaseConditions is not null)
@@ -48,10 +50,7 @@ public class CopyCaseHandler(
             {
                 var _getCondition = await _conditionRepository
                 .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition(_IMapper)));
-                _case.CaseConditions.Add(new()
-                {
-                    SecondId = _getCondition.Value
-                });
+                _case.CaseConditions.Add(new(conditionId: _getCondition.Value));
             });
         }
 

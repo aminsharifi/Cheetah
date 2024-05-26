@@ -1,17 +1,32 @@
 ﻿namespace Cheetah.Domain.Entities.Dimentions;
-public partial class D_User : BaseEntity<D_User>,IAggregateRoot
+public partial class D_User : BaseEntity<D_User>, IAggregateRoot
 {
+    public D_User()
+    {
+
+    }
+    public D_User(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode) : base(id, name, displayName, sortIndex, eRPCode)
+    {
+
+    }
+
+    public D_User(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode,
+        String description, Boolean enableRecord) :
+        base(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode)
+    {
+
+    }
 
     #region Common Prop
     #endregion
 
     #region Simple Prob    
-    public string? Domain { get; set; }
-    public bool? EnabledForAssignation { get; set; }
-    public bool? DelegateEnabled { get; set; }
-    public bool? CreatedCasesSkipAssigRules { get; set; }
-    public string? IDPersonel { get; set; }
-    public string? LDAPDescription { get; set; }
+    public string? Domain { get; private set; }
+    public bool? EnabledForAssignation { get; private set; }
+    public bool? DelegateEnabled { get; private set; }
+    public bool? CreatedCasesSkipAssigRules { get; private set; }
+    public string? IDPersonel { get; private set; }
+    public string? LDAPDescription { get; private set; }
 
     #endregion
 
@@ -20,17 +35,17 @@ public partial class D_User : BaseEntity<D_User>,IAggregateRoot
     #region Entity   
 
     #region S_User
-    public long? DelegateId { get; set; }
-    public virtual D_User? Delegate { get; set; }
+    public long? DelegateId { get; private set; }
+    public virtual D_User? Delegate { get; private set; }
 
-    public long? UserInformationId { get; set; }
-    public virtual D_UserInformation? UserInformation { get; set; }
+    public long? UserInformationId { get; private set; }
+    public virtual D_UserInformation? UserInformation { get; private set; }
     #endregion
 
     #endregion
 
     #region Collection
-    public virtual ICollection<L_UserCondition>? UserConditions { get; set; } = new HashSet<L_UserCondition>();    
+    public virtual ICollection<L_UserCondition>? UserConditions { get; private set; } = new HashSet<L_UserCondition>();
     #endregion
 
     #endregion

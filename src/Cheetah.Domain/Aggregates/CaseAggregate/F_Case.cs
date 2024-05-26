@@ -1,27 +1,48 @@
 ﻿namespace Cheetah.Domain.Entities.Facts;
 public partial class F_Case : BaseEntity, IAggregateRoot
 {
+    public F_Case()
+    {
+
+    }
+    public F_Case(Int64? eRPCode, Int64? requestorId, Int64? creatorId, Int64? processId) : base(eRPCode: eRPCode)
+    {
+        RequestorId = requestorId;
+        CreatorId = creatorId;
+        ProcessId = processId;
+    }
     #region S_User
-    public long? RequestorId { get; set; }
-    public long? CreatorId { get; set; }
+    public long? RequestorId { get; private set; }
+    public long? CreatorId { get; private set; }
     #endregion
 
     #region Enitty
-    public long? CaseStateId { get; set; }
-    public virtual D_CaseState? CaseState { get; set; }
-    public long? ProcessId { get; set; }
-    public long? SelectedScenarioId { get; set; }
+    public long? CaseStateId { get; private set; }
+    public virtual D_CaseState? CaseState { get; private set; }
+    public long? ProcessId { get; private set; }
+    public long? SelectedScenarioId { get; private set; }
 
     #endregion
 
     #region Collection
-    public virtual ICollection<L_CaseCondition>? CaseConditions { get; set; } = new HashSet<L_CaseCondition>();
-    public virtual ICollection<F_WorkItem>? WorkItems { get; set; } = new HashSet<F_WorkItem>();
-    public virtual ICollection<L_CaseTaskUser>? CaseTaskUsers { get; set; } = new HashSet<L_CaseTaskUser>();
+    public virtual ICollection<L_CaseCondition>? CaseConditions { get; private set; } = new HashSet<L_CaseCondition>();
+    public virtual ICollection<F_WorkItem>? WorkItems { get; private set; } = new HashSet<F_WorkItem>();
+    public virtual ICollection<L_CaseTaskUser>? CaseTaskUsers { get; private set; } = new HashSet<L_CaseTaskUser>();
 
     #endregion
 
     #region Functions
+
+    public void SetCaseStateId(long? caseStateId)
+    {
+        CaseStateId = caseStateId;
+    }
+
+    public void SetSelectedScenario(long? selectedScenarioId)
+    {
+        SelectedScenarioId = selectedScenarioId;
+    }
+
     public F_Case ShallowCopy()
     {
         return (F_Case)MemberwiseClone();
