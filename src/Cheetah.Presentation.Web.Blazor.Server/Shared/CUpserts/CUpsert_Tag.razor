@@ -40,8 +40,8 @@
         {
             var _tagTypeId = Int64.Parse(e.Value.ToString());
 
-            (Record as D_Tag).TagType = _tagTypeList
-            .First(x => x.Id == _tagTypeId) as D_TagType;
+            (Record as D_Tag).SetTagType(_tagTypeList
+            .First(x => x.Id == _tagTypeId) as D_TagType);
         }
     }
     private async Task SelectedTagCategoryChanged(ChangeEventArgs e)
@@ -50,8 +50,8 @@
         {
             var _tagCategoryId = Int64.Parse(e.Value.ToString());
 
-            (Record as D_Tag).TagCategory = _tagCategoryList
-            .First(x => x.Id == _tagCategoryId) as D_TagCategory;
+            (Record as D_Tag).SetTagCategory(_tagCategoryList
+            .First(x => x.Id == _tagCategoryId) as D_TagCategory);
         }
     }
 }
