@@ -6,7 +6,7 @@ public static class CgRPC
     {
         if (!dateTime.HasValue)
         {
-            return null;
+            return null!;
         }
         return dateTime.Value.ToTimestamp();
     }
@@ -161,7 +161,7 @@ public static class CgRPC
     {
         if (WorkItem is null)
         {
-            return null;
+            return null!;
         }
 
         F_WorkItem _workItem = new();
@@ -172,11 +172,7 @@ public static class CgRPC
 
         foreach (var _condition in _conditions)
         {
-            _workItem.WorkItemConditions.Add(
-                new L_WorkItemCondition()
-                {
-                    SecondId = _condition.Id
-                });
+            _workItem.WorkItemConditions?.Add(new L_WorkItemCondition(conditionId: _condition.Id));
         }
 
         return _workItem;
@@ -189,19 +185,15 @@ public static class CgRPC
 
         if (Condition.Base is not null)
         {
-            _condition = new()
-            {
-                //Id = Condition.Base.Id.Value,
-                Name = Condition.Base.Name,
-                ERPCode = Condition.Base.ERPCode,
-                SortIndex = Condition.Base.SortIndex,
-                EnableRecord = (Condition.Base.EnableRecord is true)
-            };
+            _condition = new();
+
+            _condition.SetEntity(name: Condition.Base.Name, eRPCode: Condition.Base.ERPCode,
+                sortIndex: Condition.Base.SortIndex, enableRecord: (Condition?.Base?.EnableRecord is true));
         }
 
-        _condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>();
-        _condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>();
-        _condition.Value = Condition?.Value;
+        _condition.SetConditionValue(tag: Condition?.Tag?.GetSimpleClass<D_Tag>(),
+            operand: Condition?.Operand?.GetSimpleClass<D_Operand>(), value: Condition?.Value);
+
         return _condition;
     }
     public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions)
@@ -242,60 +234,47 @@ public static class CgRPC
     {
         if (gRPC_BaseClass is null)
         {
-            return null;
+            return null!;
         }
 
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T))!;
 
         if (gRPC_BaseClass.Id is not null)
         {
             _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
-        _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
 
-        _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
-
-        _SimpleClass.Name = gRPC_BaseClass.Name;
-
-        _SimpleClass.DisplayName = gRPC_BaseClass.DisplayName;
-
-        _SimpleClass.Created = gRPC_BaseClass.CreateTimeRecord?.ToDateTime();
-
-        _SimpleClass.LastModified = gRPC_BaseClass.LastUpdatedRecord?.ToDateTime();
-
-        _SimpleClass.EnableRecord = (gRPC_BaseClass.EnableRecord is true);
+        _SimpleClass.SetEntity(name: gRPC_BaseClass.Name, displayName: gRPC_BaseClass.DisplayName,
+            enableRecord: (gRPC_BaseClass.EnableRecord is true), eRPCode: gRPC_BaseClass.ERPCode,
+            sortIndex: gRPC_BaseClass.SortIndex, created: gRPC_BaseClass.CreateTimeRecord?.ToDateTimeOffset(),
+            lastModified: gRPC_BaseClass.LastUpdatedRecord?.ToDateTimeOffset());
 
         return _SimpleClass;
     }
     public static T GetSimpleClass<T>(this GRPC_BaseClassWithDate gRPC_BaseClass) where T : BaseEntity
     {
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T))!;
 
         if (gRPC_BaseClass is null)
         {
-            return _SimpleClass;
+            return _SimpleClass!;
         }
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
+            _SimpleClass!.Id = gRPC_BaseClass.Id.Value;
         }
 
-        _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
+        _SimpleClass?.SetEntity(
+            enableRecord: (gRPC_BaseClass.EnableRecord is true), eRPCode: gRPC_BaseClass.ERPCode,
+            sortIndex: gRPC_BaseClass.SortIndex, created: gRPC_BaseClass.CreateTimeRecord?.ToDateTimeOffset(),
+            lastModified: gRPC_BaseClass.LastUpdatedRecord?.ToDateTimeOffset());
 
-        _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
-
-        _SimpleClass.Created = gRPC_BaseClass.CreateTimeRecord.ToDateTime();
-
-        _SimpleClass.LastModified = gRPC_BaseClass.LastUpdatedRecord.ToDateTime();
-
-        _SimpleClass.EnableRecord = (gRPC_BaseClass.EnableRecord is true);
-
-        return _SimpleClass;
+        return _SimpleClass!;
     }
     public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass) where T : BaseEntity
     {
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T))!;
 
         if (gRPC_BaseClass is null)
         {
@@ -304,39 +283,36 @@ public static class CgRPC
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
+            _SimpleClass!.Id = gRPC_BaseClass.Id.Value;
         }
-        _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
 
-        _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
+        _SimpleClass?.SetEntity(eRPCode: gRPC_BaseClass.ERPCode,
+            sortIndex: gRPC_BaseClass.SortIndex,
+            name: gRPC_BaseClass.Name,
+            displayName: gRPC_BaseClass.DisplayName,
+            enableRecord: (gRPC_BaseClass.EnableRecord is true));
 
-        _SimpleClass.Name = gRPC_BaseClass.Name;
-
-        _SimpleClass.EnableRecord = (gRPC_BaseClass.EnableRecord is true);
-
-        return _SimpleClass;
+        return _SimpleClass!;
     }
     public static T GetSimpleClass<T>(this GRPC_BaseClass gRPC_BaseClass) where T : BaseEntity
     {
-        var _SimpleClass = (T)Activator.CreateInstance(typeof(T));
+        var _SimpleClass = (T)Activator.CreateInstance(typeof(T))!;
 
         if (gRPC_BaseClass is null)
         {
-            return _SimpleClass;
+            return _SimpleClass!;
         }
 
         if (gRPC_BaseClass.Id is not null)
         {
-            _SimpleClass.Id = gRPC_BaseClass.Id.Value;
+            _SimpleClass!.Id = gRPC_BaseClass.Id.Value;
         }
 
-        _SimpleClass.ERPCode = gRPC_BaseClass.ERPCode;
+        _SimpleClass?.SetEntity(eRPCode: gRPC_BaseClass.ERPCode,
+            sortIndex: gRPC_BaseClass.SortIndex,
+            enableRecord: (gRPC_BaseClass.EnableRecord is true));
 
-        _SimpleClass.SortIndex = gRPC_BaseClass.SortIndex;
-
-        _SimpleClass.EnableRecord = (gRPC_BaseClass.EnableRecord is true);
-
-        return _SimpleClass;
+        return _SimpleClass!;
     }
     #endregion
 }

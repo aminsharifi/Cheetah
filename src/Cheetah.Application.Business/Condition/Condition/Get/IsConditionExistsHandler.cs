@@ -14,12 +14,12 @@ public class IsConditionExistsHandler(
         Guard.Against.Null<D_Tag>(request.input.Tag);
         Guard.Against.Null<D_Operand>(request.input.Operand);
 
-        F_Condition _condition = new();
-
         var _getIdEntitySpec = new GetIdEntitySpec<D_Tag>(request.input.Tag);
         var _tagId = await _tagRepository.FirstOrDefaultAsync(_getIdEntitySpec);
-        _condition.TagId = _tagId;
-        _condition.OperandId = await _ISender.Send(new GetOperandIdQuery(request.input.Operand));
+        var _operandId = await _ISender.Send(new GetOperandIdQuery(request.input.Operand));
+
+        F_Condition _condition = new(tagId: _tagId, operandId: _operandId);
+
         long? _isConditionExist = default!;
 
         var spec = new GetConditionIdSpec(tagId: _condition.TagId.Value,

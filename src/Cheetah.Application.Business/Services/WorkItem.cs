@@ -34,7 +34,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         {
             await SetWorkItemsAsync(Current_Case: GeneralRequest, WorkItemBase: WorkItemBase);
 
-            GeneralRequest.Value.LastModified = DateTime.UtcNow;
+            GeneralRequest.Value.UpdateLastModified();
 
             var _createdCase = await caseRepository.AddAsync(GeneralRequest);
 
@@ -61,7 +61,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         if (WorkItemBase is not null)
         {
-            Current_WorkItem.DisplayName = WorkItemBase.DisplayName;
+            Current_WorkItem.SetDisplayName(WorkItemBase.DisplayName);
         }
 
         var _setCurrentAssignmentAsync = await SetCurrentAssignmentAsync(Current_WorkItem);
@@ -111,7 +111,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         if (pc_ProcessScenarios.Count() == 1)
         {
-            Current_Case.SelectedScenarioId = pc_ProcessScenarios.First().SecondId;
+            Current_Case.SetSelectedScenario(pc_ProcessScenarios.First().SecondId);
         }
         else
         {
@@ -132,7 +132,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
                 if (ConditionOccures)
                 {
-                    Current_Case.SelectedScenarioId = ProcessScenario.Scenario.Id;
+                    Current_Case.SetSelectedScenario(ProcessScenario.Scenario.Id);
                     break;
                 }
             }
@@ -140,18 +140,18 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         var _allTasks = await GetAllTask(Current_Case.SelectedScenarioId.Value);
 
-        F_WorkItem _workItem = new()
-        {
-            Case = Current_Case
-        };
+        F_WorkItem _workItem = new();
+
+        _workItem.SetCase(Current_Case);
 
         foreach (var _task in _allTasks)
         {
             if (Current_Case.WorkItems.First().TaskId is null)
             {
-                Current_Case.WorkItems.First().TaskId = _task.Id;
+                Current_Case.WorkItems.First().SetTaskId(_task.Id);
+
                 _workItem = Current_Case.WorkItems.First();
-                _workItem.Case = Current_Case;
+                _workItem.SetCase(Current_Case);
             }
             else
             {
@@ -182,12 +182,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
                 Parallel.ForEach(_userIds, _userId =>
                 {
-                    F_WorkItem _WorkItemForEachTask = new()
-                    {
-                        TaskId = _task.Id,
-                        UserId = _userId,
-                        Case = Current_Case
-                    };
+                    F_WorkItem _WorkItemForEachTask = new(taskId: _task.Id, userId: _userId, f_case: Current_Case);
 
                     Current_Case.WorkItems.Add(_WorkItemForEachTask);
                 });
@@ -206,7 +201,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         }
         if (WorkItemBase is not null)
         {
-            _workItem.DisplayName = WorkItemBase.DisplayName;
+            _workItem.SetDisplayName(WorkItemBase.DisplayName);
         }
 
         await SetCurrentAssignmentAsync(_workItem);
@@ -270,7 +265,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
             if (CompareCondition(_actual_Conditions.Value, ExpectedConditions))
             {
-                Current_WorkItem.Case.CaseStateId = _taskFlow.Flow.CaseStateId;
+                Current_WorkItem.Case.SetCaseStateId(_taskFlow.Flow.CaseStateId);
 
                 Current_WorkItem.SetSent();
 

@@ -2,6 +2,10 @@
 
 public partial class L_WorkItemCondition : SimpleLinkClass
 {
+    public L_WorkItemCondition(Int64? conditionId) : base(secondId: conditionId)
+    {
+
+    }
     public virtual F_WorkItem? WorkItem { get; set; }
 
     public L_WorkItemCondition ShallowCopy()

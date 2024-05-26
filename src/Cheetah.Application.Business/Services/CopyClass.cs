@@ -3,24 +3,17 @@ public class CopyClass(ISender iSender) : ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)
     {
-        SimpleClassDTO _SimpleClass = new();
-
         if (simpleClass is null)
         {
-            return _SimpleClass;
+            return new();
         }
 
-        _SimpleClass.Id = simpleClass.Id;
+        SimpleClassDTO _SimpleClass = new(id: simpleClass.Id, sortIndex: simpleClass?.ERPCode,
+            eRPCode: simpleClass?.ERPCode,
+            name: simpleClass?.Name, displayName: simpleClass?.DisplayName);
 
-        _SimpleClass.ERPCode = simpleClass?.ERPCode;
 
-        _SimpleClass.Name = simpleClass?.Name;
-
-        _SimpleClass.DisplayName = simpleClass?.DisplayName;
-
-        _SimpleClass.Created = simpleClass?.Created;
-
-        _SimpleClass.LastModified = simpleClass?.LastModified;
+        _SimpleClass.UpdateLastModified(simpleClass?.LastModified);
 
         return _SimpleClass;
     }

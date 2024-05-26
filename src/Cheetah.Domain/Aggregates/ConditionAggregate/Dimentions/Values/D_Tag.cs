@@ -4,94 +4,39 @@ public partial class D_Tag
 {
     #region Values  
 
-    public static readonly D_Tag Location =
-        new()
-        {
-            Id = 4,
-            ERPCode = 4,
-            SortIndex = 4,
-            Name = nameof(Location),
-            DisplayName = "موقعیت",
-            Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id,
-            TagCategoryId = D_TagCategory.Performer.Id
-        };
+    public static readonly D_Tag Location = new(id: 4, name: nameof(Location),
+        displayName: "موقعیت", sortIndex: 4, eRPCode: 4,
+        description: D_TagType.String.DisplayName!,tagTypeId: D_TagType.String.Id,
+        tagCategoryId: D_TagCategory.Performer.Id);
 
-    public static readonly D_Tag Role =
-        new()
-        {
-            Id = 5,
-            ERPCode = 5,
-            SortIndex = 5,
-            Name = nameof(Role),
-            DisplayName = "نقش",
-            Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id,
-            TagCategoryId = D_TagCategory.Performer.Id
-        };
+    public static readonly D_Tag Role = new(id: 5, name: nameof(Role),
+        displayName: "نقش", sortIndex: 5, eRPCode: 5,
+        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
+        tagCategoryId: D_TagCategory.Performer.Id);
 
-    public static readonly D_Tag Position =
-        new()
-        {
-            Id = 6,
-            ERPCode = 6,
-            SortIndex = 6,
-            Name = nameof(Position),
-            DisplayName = "سمت",
-            Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id,
-            TagCategoryId = D_TagCategory.Performer.Id
-        };
+    public static readonly D_Tag Position = new(id: 6, name: nameof(Position),
+        displayName: "سمت", sortIndex: 6, eRPCode: 6,
+        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
+        tagCategoryId: D_TagCategory.Performer.Id);
 
-    public static readonly D_Tag Employees =
-        new()
-        {
-            Id = 7,
-            ERPCode = 7,
-            SortIndex = 7,
-            Name = nameof(Employees),
-            DisplayName = "مدیر این پرسنل",
-            Description = D_TagType.String.DisplayName,
-            TagTypeId = D_TagType.String.Id,
-            TagCategoryId = D_TagCategory.Performer.Id
-        };
+    public static readonly D_Tag Employees = new(id: 7, name: nameof(Employees),
+        displayName: "مدیر این پرسنل", sortIndex: 7, eRPCode: 7,
+        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
+        tagCategoryId: D_TagCategory.Performer.Id);
 
-    public static readonly D_Tag Price =
-        new()
-        {
-            Id = 8,
-            ERPCode = 8,
-            SortIndex = 8,
-            Name = nameof(Price),
-            DisplayName = "مبلغ",
-            Description = D_TagType.Numberic.DisplayName,
-            TagTypeId = D_TagType.Numberic.Id,
-            TagCategoryId = D_TagCategory.Action.Id
-        };
+    public static readonly D_Tag Price = new(id: 8, name: nameof(Price),
+        displayName: "مبلغ", sortIndex: 8, eRPCode: 8,
+        description: D_TagType.Numberic.DisplayName!, tagTypeId: D_TagType.Numberic.Id,
+        tagCategoryId: D_TagCategory.Action.Id);
 
-    public static readonly D_Tag ReviewState =
-    new()
-    {
-        Id = 12,
-        ERPCode = 12,
-        SortIndex = 12,
-        Name = nameof(ReviewState),
-        DisplayName = "وضعیت بررسی",
-        Description = D_TagType.String.DisplayName,
-        TagTypeId = D_TagType.String.Id,
-        TagCategoryId = D_TagCategory.Action.Id
-    };
-    public static readonly D_Tag Skill =
-      new()
-      {
-          Id = 13,
-          ERPCode = 13,
-          SortIndex = 13,
-          Name = nameof(Skill),
-          DisplayName = "حرفه",
-          Description = D_TagType.String.DisplayName,
-          TagTypeId = D_TagType.String.Id,
-          TagCategoryId = D_TagCategory.Performer.Id
-      };
+    public static readonly D_Tag ReviewState = new(id: 12, name: nameof(ReviewState),
+        displayName: "وضعیت بررسی", sortIndex: 12, eRPCode: 12,
+        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
+        tagCategoryId: D_TagCategory.Action.Id);
+
+    public static readonly D_Tag Skill = new(id: 13, name: nameof(Skill),
+        displayName: "حرفه", sortIndex: 13, eRPCode: 13,
+        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
+        tagCategoryId: D_TagCategory.Performer.Id);
     #endregion
 }

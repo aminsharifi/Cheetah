@@ -68,9 +68,12 @@ public static class APIConverter
     public static F_Condition GetCondition(this GRPC_Condition Condition, IMapper mapper)
     {
         F_Condition _condition = Condition.Base is null ? new() : mapper.Map<F_Condition>(Condition.Base);
-        _condition.Tag = Condition?.Tag?.GetSimpleClass<D_Tag>(mapper);
-        _condition.Operand = Condition?.Operand?.GetSimpleClass<D_Operand>(mapper);
-        _condition.Value = Condition?.Value;
+        var _tag = Condition?.Tag?.GetSimpleClass<D_Tag>(mapper);
+        var _operand = Condition?.Operand?.GetSimpleClass<D_Operand>(mapper);
+        var _value = Condition?.Value;
+
+        _condition.SetConditionValue(tag: _tag, operand: _operand, value: _value);
+
         return _condition;
     }
     public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions, IMapper mapper)
