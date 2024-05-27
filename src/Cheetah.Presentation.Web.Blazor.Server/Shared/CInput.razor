@@ -1,4 +1,5 @@
-﻿<div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11 @((CFieldType != Cheetah.Domain.FieldType.CSelect)?"col-md-5":"col-md-10" )"
+﻿<div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11
+@((CFieldType != Cheetah.Domain.FieldType.CSelect)?"col-md-5":"col-md-10" )"
      style="@((LValue < 1 && (CFieldType == Cheetah.Domain.FieldType.CID))? "display: none;" : "")">
 
     <div class="input-group d-flex justify-content-end" style="direction:ltr">
@@ -7,6 +8,21 @@
             <InputNumber @bind-Value="LValue" disabled="disabled" @attributes=CapturedAttributes
                          class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
             </InputNumber>
+        }
+        else if (CFieldType == Cheetah.Domain.FieldType.CDate)
+        {
+            <MudDatePicker Label="تاریخ"
+                           Culture="@PersianCulture.Instance" UseShortNames="false"
+                           TitleDateFormat="dddd, dd MMMM"
+                           @bind-Date="CDateTime"
+                           class="form-control"
+                           aria-describedby="basic-addon2" lang="fa" dir="rtl"
+                           data-bs-toggle="tooltip" data-bs-placement="top"
+                           data-bs-custom-class="custom-tooltip"
+                           data-bs-delay='{"show":100, "hide":100}'
+                           data-bs-animation="true"
+                           data-bs-trigger="hover"
+                           data-bs-title="@CDescription" />
         }
         else if (CFieldType == Cheetah.Domain.FieldType.CInt)
         {
@@ -155,6 +171,20 @@
         }
     }
 
+    [Parameter]
+    public EventCallback<DateTime?> CDateTimeChanged { get; set; }
+    private DateTime? _CDateTime;
+    [Parameter]
+    public DateTime? CDateTime
+    {
+        get => _CDateTime;
+        set
+        {
+            if (_CDateTime == value) return;
+            _CDateTime = value;
+            CDateTimeChanged.InvokeAsync(value);
+        }
+    }
 
     [Parameter]
     public EventCallback<long> LValueChanged { get; set; }
