@@ -2,6 +2,10 @@
 
 public partial class L_CaseCondition : SimpleLinkClass
 {
+    public L_CaseCondition()
+    {
+        
+    }
     public L_CaseCondition(Int64? conditionId) : base(secondId: conditionId)
     {
 

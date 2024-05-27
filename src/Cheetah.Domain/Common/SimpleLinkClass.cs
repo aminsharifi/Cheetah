@@ -15,11 +15,11 @@ public abstract class SimpleLinkClass : BaseEntity
         SetFirstAndSecond(firstId, secondId);
     }
 
-    public SimpleLinkClass(Int64? firstId, Int64? secondId, long? eRPCode, bool enableRecord) 
+    public SimpleLinkClass(Int64? firstId, Int64? secondId, long? eRPCode, bool enableRecord)
         : base(eRPCode, enableRecord)
     {
         SetFirstAndSecond(firstId, secondId);
-    }    
+    }
     public void SetFirstAndSecond(Int64? firstId, Int64? secondId)
     {
         FirstId = firstId;
@@ -50,6 +50,15 @@ public abstract class SimpleLinkClass : BaseEntity
     public Int64? FirstId { get; private set; }
 
     public Int64? SecondId { get; private set; }
+
+    #region PublicProperties
+    [NotMapped]
+    public Int64? PublicSecondId
+    {
+        get { return SecondId; }
+        set { SecondId = value; }
+    }
+    #endregion
 
     public Int64? ThirdId { get; private set; }
 

@@ -5,7 +5,7 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-NLValue="(Record as F_Condition).TagId"
+        <CInput @bind-NLValue="(Record as F_Condition).PublicTagId"
                 Records="@List_D_Tag"
                 Record="@((Record as F_Condition).Tag)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
@@ -16,7 +16,7 @@
 
         <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
                 Records="@List_D_Operand"
-                @bind-NLValue="(Record as F_Condition).OperandId"
+                @bind-NLValue="(Record as F_Condition).PublicOperandId"
                 Record="@((Record as F_Condition).Operand)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
@@ -27,21 +27,21 @@
         {
             case var _boolean when _boolean == D_TagType.Boolean.Id:
                 <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
-                        @bind-BValue="(Record as F_Condition).BooleanValue"
+                        @bind-BValue="(Record as F_Condition).PublicBooleanValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         reference="@reference"></CInput>
                 break;
             case var _string when _string == D_TagType.String.Id:
                 <CInput CFieldType="@(Cheetah.Domain.FieldType.CString)"
-                        @bind-SValue="(Record as F_Condition).Value"
+                        @bind-SValue="(Record as F_Condition).PublicValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         reference="@reference"></CInput>
                 break;
             case var _numberic when _numberic == D_TagType.Numberic.Id:
                 <CInput CFieldType="@(Cheetah.Domain.FieldType.CNFloat)"
-                        @bind-NFValue="(Record as F_Condition).FloatValue"
+                        @bind-NFValue="(Record as F_Condition).PublicFloatValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         reference="@reference"></CInput>
@@ -72,7 +72,7 @@
 
             var _selectedOperand = List_D_Operand
             .First(x => x.Id == _operandId) as D_Operand;
-            (Record as F_Condition).Operand = _selectedOperand;
+            (Record as F_Condition).SetOperand(_selectedOperand);
 
             TagTypeId = D_TagType.String.Id;
         }
@@ -85,7 +85,7 @@
             var _tagId = Int64.Parse(e.Value.ToString());
             var _tag = List_D_Tag.First(x => x.Id == _tagId) as D_Tag;
 
-            (Record as F_Condition).Tag = _tag;
+            (Record as F_Condition).SetTag(_tag);
         }
     }
 }
