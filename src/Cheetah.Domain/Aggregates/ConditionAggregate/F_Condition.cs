@@ -108,6 +108,15 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         set { FloatValue = value; }
     }
     [NotMapped]
+    public DateTime? PublicDateTimeOffsetValue
+    {
+        get
+        {
+            return DateTimeOffsetValue;
+        }
+        set { DateTimeOffsetValue = value; }
+    }
+    [NotMapped]
     public long? PublicTagId
     {
         get { return TagId; }
@@ -141,7 +150,22 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
             Value = value.ToString();
         }
     }
-
+    [NotMapped]
+    public DateTime? DateTimeOffsetValue
+    {
+        get
+        {
+            DateTime _returnvalue;
+            DateTime.TryParse(Value, out _returnvalue);
+            if (_returnvalue == DateTime.MinValue)
+                _returnvalue = DateTime.Today;
+            return _returnvalue;
+        }
+        private set
+        {
+            Value = value?.ToString();
+        }
+    }
     public F_Condition ShallowCopy()
     {
         return (F_Condition)MemberwiseClone();

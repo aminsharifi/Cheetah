@@ -44,7 +44,8 @@ public enum FieldType
     CNFloat,
     CString,
     CBool,
-    CSelect
+    CSelect,
+    CDate
 }
 public enum CrudOperation
 {

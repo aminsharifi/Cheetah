@@ -23,7 +23,7 @@
                 SelectedProcessesChanged="@SelectedOperandChanged"
                 reference="@reference"></CInput>
 
-        @switch (TagTypeId)
+        @switch ((Record as F_Condition)?.Tag?.TagTypeId)
         {
             case var _boolean when _boolean == D_TagType.Boolean.Id:
                 <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
@@ -47,7 +47,11 @@
                         reference="@reference"></CInput>
                 break;
             case var _date when _date == D_TagType.Date.Id:
-                <span>not implemented</span>
+                <CInput CFieldType="@(Cheetah.Domain.FieldType.CDate)"
+                        @bind-CDateTime="(Record as F_Condition).PublicDateTimeOffsetValue"
+                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                        reference="@reference"></CInput>
                 break;
         }
     </RowTemplate>
