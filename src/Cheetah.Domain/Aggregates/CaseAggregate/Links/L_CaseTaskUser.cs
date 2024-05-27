@@ -2,6 +2,10 @@
 
 public partial class L_CaseTaskUser : SimpleLinkClass
 {
+    public L_CaseTaskUser()
+    {
+        
+    }
     public L_CaseTaskUser(long? firstId, long? secondId, long? thirdId) :
         base(firstId: firstId, secondId: secondId, thirdId: thirdId)
     {
