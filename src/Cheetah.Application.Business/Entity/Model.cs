@@ -1,7 +1,7 @@
 ﻿namespace Cheetah.Application.Business.Entity;
 public class CreateRequest_Input
 {
-    public GRPC_BaseClass? Case { get; set; }
+    public GRPC_BaseClassWithDate? Case { get; set; }
     public GRPC_BaseClassWithName? Creator { get; set; }
     public GRPC_BaseClassWithName? Requestor { get; set; }
     public GRPC_BaseClassWithName? Process { get; set; }
