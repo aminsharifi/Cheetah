@@ -1,5 +1,4 @@
 ﻿@inherits CUpsert_GeneralCode
-
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
                  Name="D_TaskPattern" Id="@Id" reference="@reference"
                  ParentCallback="@ParentCallback" Title="@Title"
@@ -49,11 +48,11 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <InputNumber class="col-12" @bind-Value="_scenarioCondition.SortIndex"></InputNumber>
+                                    <InputNumber class="col-12" @bind-Value="_scenarioCondition.PublicSortIndex"></InputNumber>
                                 </td>
                                 <td>
                                     <InputSelect class="col-12"
-                                                 @bind-Value="_scenarioCondition.SecondId" style="direction:rtl"
+                                                 @bind-Value="_scenarioCondition.PublicSecondId" style="direction:rtl"
                                                  @oninput="(e => SelectedScenarioConditionsChanged(e,_scenarioCondition))">
                                         <option @((_scenarioCondition.Condition is null)? selected : '' ) value="">
                                             لطفا یک مورد را انتخاب نمایید
@@ -68,12 +67,12 @@
                                 </td>
                                 <td>
                                     <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                 Checked="@_scenarioCondition.EnableRecord"
+                                                 Value="@_scenarioCondition.EnableRecord"
                                                  Color="Color.Primary"
                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                  UnCheckedColor="Color.Error"
                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                 @onclick="args=>_scenarioCondition.EnableRecord = !_scenarioCondition.EnableRecord" />
+                                                 @onclick="args=>_scenarioCondition.PublicEnableRecord = !_scenarioCondition.EnableRecord" />
                                 </td>
                             </tr>
                         }
@@ -153,11 +152,11 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <InputNumber style="width: 50px" @bind-Value="_task.SortIndex"></InputNumber>
+                                            <InputNumber style="width: 50px" @bind-Value="_task.PublicSortIndex"></InputNumber>
                                         </td>
                                     }
                                     <td>
-                                        <InputText @bind-Value="_task.DisplayName" style="width:200px"></InputText>
+                                        <InputText @bind-Value="_task.PublicDisplayName" style="width:200px"></InputText>
                                     </td>
                                     @if (_scenarioStep == ScenarioStep.Tasks)
                                     {
@@ -203,10 +202,10 @@
                                                                 </span>
                                                             </td>
                                                             <td style="width:50px">
-                                                                <InputNumber @bind-Value="_taskCondition.SortIndex" style="width:50px"></InputNumber>
+                                                                <InputNumber @bind-Value="_taskCondition.PublicSortIndex" style="width:50px"></InputNumber>
                                                             </td>
                                                             <td style="width:400px">
-                                                                <InputSelect @bind-Value="_taskCondition.SecondId" style="direction:rtl;width:400px">
+                                                                <InputSelect @bind-Value="_taskCondition.PublicSecondId" style="direction:rtl;width:400px">
                                                                     <option @((_taskCondition.Condition is null)? selected : '' ) value="">
                                                                         لطفا یک مورد را انتخاب نمایید
                                                                     </option>
@@ -225,7 +224,7 @@
                                                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                                                              UnCheckedColor="Color.Error"
                                                                              UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                             @onclick="args=>_taskCondition.EnableRecord = !_taskCondition.EnableRecord" />
+                                                                             @onclick="args=>_taskCondition.PublicEnableRecord = !_taskCondition.EnableRecord" />
                                                             </td>
                                                         </tr>
                                                     }
@@ -282,7 +281,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <InputNumber @bind-Value="_action.SortIndex" style="width:50px"></InputNumber>
+                                                                    <InputNumber @bind-Value="_action.PublicSortIndex" style="width:50px"></InputNumber>
                                                                 </td>
                                                                 <td>
                                                                     <center>
@@ -326,10 +325,10 @@
                                                                                         </span>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <InputNumber @bind-Value="_flowCondition.SortIndex" style="width: 50px"></InputNumber>
+                                                                                        <InputNumber @bind-Value="_flowCondition.PublicSortIndex" style="width: 50px"></InputNumber>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <InputSelect @bind-Value="_flowCondition.SecondId" style="direction:rtl">
+                                                                                        <InputSelect @bind-Value="_flowCondition.PublicSecondId" style="direction:rtl">
                                                                                             <option @((_flowCondition.Condition is null)? selected : '' ) value="">
                                                                                                 لطفا یک مورد را انتخاب نمایید
                                                                                             </option>
@@ -348,7 +347,7 @@
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UnCheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     @onclick="args=>_flowCondition.EnableRecord = !_flowCondition.EnableRecord" />
+                                                                                                     @onclick="args=>_flowCondition.PublicEnableRecord = !_flowCondition.EnableRecord" />
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -395,10 +394,10 @@
                                                                                         </span>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <InputNumber style="width: 50px" @bind-Value="Task.SortIndex"></InputNumber>
+                                                                                        <InputNumber style="width: 50px" @bind-Value="Task.PublicSortIndex"></InputNumber>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <InputSelect @bind-Value="Task.SecondId" style="direction:rtl"
+                                                                                        <InputSelect @bind-Value="Task.PublicSecondId" style="direction:rtl"
                                                                                                      @oninput="(e => SelectedToTaskChanged(e,Task))">
                                                                                             <option selected value="">
                                                                                                 @(globalization.GetValue(nameof(Localization.BlazorServer_SelectOneItem)))
@@ -418,7 +417,7 @@
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UnCheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     @onclick="args=>Task.EnableRecord = !Task.EnableRecord" />
+                                                                                                     @onclick="args=>Task.PublicEnableRecord = !Task.EnableRecord" />
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -426,7 +425,7 @@
                                                                     </Ctable>
                                                                 </td>
                                                                 <td>
-                                                                    <InputSelect @bind-Value="_action.CaseStateId" style="direction:rtl; width:150px"
+                                                                    <InputSelect @bind-Value="_action.PublicCaseStateId" style="direction:rtl; width:150px"
                                                                                  @oninput="(e => SelectedCaseStateChanged(e,_action))">
                                                                         <option @((_action.CaseState is null)? selected : '' ) value="">لطفا یک مورد را انتخاب نمایید</option>
                                                                         @foreach (var CaseState in _list_CaseState)
@@ -439,12 +438,12 @@
                                                                 </td>
                                                                 <td>
                                                                     <MudCheckBox Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
-                                                                                 Checked="@_action.EnableRecord"
+                                                                                 Value="@_action.EnableRecord"
                                                                                  Color="Color.Primary"
                                                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                  UnCheckedColor="Color.Error"
                                                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                 @onclick="args=>_action.EnableRecord = !_action.EnableRecord" />
+                                                                                 @onclick="args=>_action.PublicEnableRecord = !_action.EnableRecord" />
                                                                 </td>
                                                             </tr>
                                                         }
@@ -460,7 +459,7 @@
                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                      UnCheckedColor="Color.Error"
                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                     @onclick="args=>_task.EnableRecord = !_task.EnableRecord" />
+                                                     @onclick="args=>_task.PublicEnableRecord = !_task.EnableRecord" />
                                     </td>
                                 </tr>
                             }
@@ -488,7 +487,6 @@
     private List<D_TagType> _list_D_TagType { get; set; } = new();
     private List<D_TagCategory> _list_TagCategory { get; set; } = new();
     private List<F_Condition> _list_F_Condition { get; set; } = new();
-
     public override async Task ExtendedLoadDTO()
     {
         _list_D_Tag = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)))
@@ -537,7 +535,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                                                                                        .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
@@ -548,15 +546,14 @@
     {
         if (String.IsNullOrEmpty(e.ToString()))
         {
-            f_Condition.OperandId = null;
-            f_Condition.Operand = null;
+            f_Condition.ResetOperand();
         }
         else
         {
             var _D_OperandId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.Operand = _list_D_Operand
-            .First(x => x.Id == _D_OperandId) as D_Operand;
+            f_Condition.SetOperand(_list_D_Operand
+            .First(x => x.Id == _D_OperandId) as D_Operand);
         }
     }
     private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
@@ -565,8 +562,8 @@
         {
             var _D_ParameterListId = Int64.Parse(e.Value.ToString());
 
-            f_Condition.Tag = _list_D_Tag
-            .First(x => x.Id == _D_ParameterListId) as D_Tag;
+            f_Condition.SetTag(_list_D_Tag
+            .First(x => x.Id == _D_ParameterListId) as D_Tag);
         }
     }
     private async Task Add_ActionsTask(MouseEventArgs e, F_Flow cObject)
@@ -577,7 +574,7 @@
 
         if (_l_TaskActions.Any())
         {
-            _l_ActionTask.SortIndex = _l_TaskActions.Max(x => x.SortIndex) + 1;
+            _l_ActionTask.SetSortIndex(_l_TaskActions.Max(x => x.SortIndex) + 1);
         }
         else
         {
@@ -595,7 +592,7 @@
 
         if (_taskConditions.Any())
         {
-            _TaskCondition.SortIndex = _taskConditions.Max(x => x.SortIndex) + 1;
+            _TaskCondition.SetSortIndex(_taskConditions.Max(x => x.SortIndex) + 1);
         }
         else
         {
@@ -613,7 +610,7 @@
 
         if (_scenarioConditions.Any())
         {
-            _ScenarioCondition.SortIndex = _scenarioConditions.Max(x => x.SortIndex) + 1;
+            _ScenarioCondition.SetSortIndex(_scenarioConditions.Max(x => x.SortIndex) + 1);
         }
         else
         {
@@ -628,14 +625,14 @@
         var _flowCondition = await simpleClassRepository
             .GetLastAsync(nameof(L_FlowCondition)) as L_FlowCondition;
 
-        _flowCondition.FirstId = cObject.Id;
+        _flowCondition.SetFirstId(cObject.Id);
         _flowCondition.Flow = cObject;
 
         ICollection<L_FlowCondition> _Conditions = cObject.FlowConditions;
 
         if (_Conditions.Any())
         {
-            _flowCondition.SortIndex = _Conditions.Max(x => x.SortIndex) + 1;
+            _flowCondition.SetSortIndex(_Conditions.Max(x => x.SortIndex) + 1);
         }
 
         cObject.FlowConditions.Add(_flowCondition);
@@ -654,16 +651,15 @@
 
         if (_TaskItems.Any())
         {
-            _l_TaskAction.SortIndex = _TaskItems.Max(x => x.SortIndex) + 1;
+            _l_TaskAction.SetSortIndex(_TaskItems.Max(x => x.SortIndex) + 1);
         }
         else
         {
-            _l_TaskAction.SortIndex = 1;
+            _l_TaskAction.SetSortIndex(1);
         }
 
         cObject.TaskFlows.Add(_l_TaskAction);
     }
-
     private async Task AddTaskPattern()
     {
         var d_Task = new F_Task();
@@ -672,7 +668,7 @@
 
         if (eP_Tasks.Any())
         {
-            d_Task.SortIndex = eP_Tasks.Max(x => x.SortIndex) + 1;
+            d_Task.SetSortIndex(eP_Tasks.Max(x => x.SortIndex) + 1);
         }
         else
         {
@@ -681,7 +677,6 @@
 
         (Record as F_Scenario).Tasks.Add(d_Task);
     }
-
     private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
     {
         if (Id > 0 && e.Value is not null)

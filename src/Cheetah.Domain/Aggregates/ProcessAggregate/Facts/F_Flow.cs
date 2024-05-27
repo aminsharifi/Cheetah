@@ -2,8 +2,22 @@
 
 public partial class F_Flow : BaseEntity
 {
+    public F_Flow()
+    {
+
+    }
     #region Entities    
     public long? CaseStateId { get; private set; }
+
+    #region PublicProperties
+    [NotMapped]
+    public long? PublicCaseStateId
+    {
+        get { return CaseStateId; }
+        set { CaseStateId = value; }
+    }
+    #endregion
+
     #endregion
 
     #region Collection

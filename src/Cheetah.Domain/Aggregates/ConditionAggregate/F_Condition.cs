@@ -44,13 +44,33 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         get { return _tagId; }
         private set { _tagId = value; SetName(); }
     }
+
     public virtual D_Tag? Tag { get; private set; }
+
+    public void SetTag(D_Tag? tag)
+    {
+        Tag = tag;
+    }
 
     private long? _operandId;
     public long? OperandId
     {
         get { return _operandId; }
         private set { _operandId = value; SetName(); }
+    }
+
+    public void ResetOperand()
+    {
+        OperandId = null;
+        Operand = null;
+    }
+    public void SetOperand(long? operandId)
+    {
+        OperandId = operandId;
+    }
+    public void SetOperand(D_Operand? operand)
+    {
+        Operand = operand;
     }
     public virtual D_Operand? Operand { get; private set; }
 
@@ -61,6 +81,39 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         get { return _value; }
         private set { _value = value; SetName(); }
     }
+
+    #region PublicProperties
+    [NotMapped]
+    public string? PublicValue
+    {
+        get { return Value; }
+        set { Value = value; }
+    }
+    [NotMapped]
+    public long? PublicOperandId
+    {
+        get { return OperandId; }
+        set { OperandId = value; }
+    }
+    [NotMapped]
+    public bool PublicBooleanValue
+    {
+        get { return BooleanValue; }
+        set { BooleanValue = value; }
+    }
+    [NotMapped]
+    public float? PublicFloatValue
+    {
+        get { return FloatValue; }
+        set { FloatValue = value; }
+    }
+    [NotMapped]
+    public long? PublicTagId
+    {
+        get { return TagId; }
+        set { TagId = value; }
+    }
+    #endregion
 
     public bool BooleanValue
     {
@@ -88,6 +141,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
             Value = value.ToString();
         }
     }
+
     public F_Condition ShallowCopy()
     {
         return (F_Condition)MemberwiseClone();

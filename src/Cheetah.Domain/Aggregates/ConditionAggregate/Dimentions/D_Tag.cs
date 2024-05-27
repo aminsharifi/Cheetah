@@ -43,9 +43,23 @@ public partial class D_Tag : BaseEntity
         this.TagType = tagType;
     }
 
-
     public long? TagCategoryId { get; private set; }
     public virtual D_TagCategory? TagCategory { get; private set; }
+
+    #region PublicProperties
+    [NotMapped]
+    public long? PublicTagTypeId
+    {
+        get { return TagTypeId; }
+        set { TagTypeId = value; }
+    }
+    [NotMapped]
+    public long? PublicTagCategoryId
+    {
+        get { return TagCategoryId; }
+        set { TagCategoryId = value; }
+    }
+    #endregion
 
     public void SetTagCategory(D_TagCategory? tagCategory)
     {
