@@ -34,31 +34,31 @@
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudNumericField Label="ایندکس"
-                                @bind-Value="Record.SortIndex"
+                                @bind-Value="Record.PublicSortIndex"
                                                  HelperText="جهت مرتب‌سازی" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام"
-                                @bind-Value="Record.Name" />
+                                @bind-Value="Record.PublicName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام نمایشی"
                                               HelperText="نامی که کاربر مشاهده می‌کند"
-                                @bind-Value="Record.DisplayName" />
+                                @bind-Value="Record.PublicDisplayName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="متن راهنما"
-                                @bind-Value="Record.Description"
+                                @bind-Value="Record.PublicDescription"
                                               HelperText="توضیحات" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudCheckBox Label="فعال"
-                                             Checked="@Record.EnableRecord"
+                                             Value="@Record.PublicEnableRecord"
                                              Color="Color.Primary"
                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                              UnCheckedColor="Color.Error"
                                              UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                @onclick="args=>Record.EnableRecord = !Record.EnableRecord" />
+                                @onclick="args=>Record.PublicEnableRecord = !Record.EnableRecord" />
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-NLValue="(Record as D_Tag).TagTypeId"
+        <CInput @bind-NLValue="(Record as D_Tag).PublicTagTypeId"
                 Records="@_tagTypeList"
                 Record="@((Record as D_Tag).TagType)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
@@ -13,7 +13,7 @@
                 CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
                 reference="@reference"></CInput>
 
-        <CInput @bind-NLValue="(Record as D_Tag).TagCategoryId"
+        <CInput @bind-NLValue="(Record as D_Tag).PublicTagCategoryId"
                 Records="@_tagCategoryList"
                 Record="@((Record as D_Tag).TagCategory)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))

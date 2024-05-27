@@ -141,6 +141,39 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
         DisplayName = displayName;
     }
 
+    #region PublicProperties
+    [NotMapped]
+    public string? PublicDisplayName
+    {
+        get { return DisplayName; }
+        set { DisplayName = value; }
+    }
+    [NotMapped]
+    public string? PublicDescription
+    {
+        get { return Description; }
+        set { Description = value; }
+    }
+    [NotMapped]
+    public string PublicName
+    {
+        get { return Name; }
+        set { Name = value; }
+    }
+    [NotMapped]
+    public Boolean PublicEnableRecord
+    {
+        get { return EnableRecord; }
+        set { EnableRecord = value; }
+    }
+    [NotMapped]
+    public long? PublicSortIndex
+    {
+        get { return SortIndex; }
+        set { SortIndex = value; }
+    }
+    #endregion
+
     public void SetName(String? displayName)
     {
         DisplayName = displayName;
@@ -149,7 +182,8 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     public void SetEnable(Boolean enableRecord)
     {
         EnableRecord = enableRecord;
-    }
+    }  
+
     public virtual void SetName()
     {
 
@@ -159,7 +193,7 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     {
         SortIndex = sortIndex;
     }
-
+   
     private readonly List<BaseEvent> _domainEvents = new();
 
     //[NotMapped]

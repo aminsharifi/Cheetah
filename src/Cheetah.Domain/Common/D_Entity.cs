@@ -2,6 +2,9 @@
 
 public partial class D_Entity : BaseEntity
 {
+    public D_Entity()
+    {
+    }
     public D_Entity(Int64 id, String name, String displayName, Int64 sortIndex,
       Int64 eRPCode)
       : base(id, name, displayName, sortIndex, eRPCode)
