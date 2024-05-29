@@ -42,7 +42,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     public long? TagId
     {
         get { return _tagId; }
-        private set { _tagId = value; SetName(); }
+        private set { _tagId = value; SetNaming(); }
     }
 
     public virtual D_Tag? Tag { get; private set; }
@@ -56,7 +56,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     public long? OperandId
     {
         get { return _operandId; }
-        private set { _operandId = value; SetName(); }
+        private set { _operandId = value; SetNaming(); }
     }
 
     public void ResetOperand()
@@ -79,7 +79,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     public string? Value
     {
         get { return _value; }
-        private set { _value = value; SetName(); }
+        private set { _value = value; SetNaming(); }
     }
 
     #region PublicProperties
@@ -171,7 +171,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         return (F_Condition)MemberwiseClone();
     }
 
-    public override void SetName()
+    public override void SetNaming()
     {
         String _name = default!, _displayName = default!;
 

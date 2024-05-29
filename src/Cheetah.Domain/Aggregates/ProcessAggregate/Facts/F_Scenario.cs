@@ -25,11 +25,11 @@ public partial class F_Scenario : BaseEntity
         return (F_Scenario)MemberwiseClone();
     }
 
-    public override void SetName()
+    public override void SetNaming()
     {
         foreach (var item in Tasks)
         {
-            item.SetName();
+            item.SetNaming();
         }
     }
 }
