@@ -58,7 +58,7 @@ public class CUpsert_GeneralCode : SharedPage
 
             //await _JsRuntime.InvokeVoidAsync("CreateToolTip", "Destroy");
 
-            Record.SetName();
+            Record.SetNaming();
 
             if (IsNew)
             {

@@ -20,128 +20,115 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
 
     public BaseEntity()
     {
-        /*
-         
-            [Description("شناسه")]
-         
-        */
-    }
-    public BaseEntity(long? eRPCode, bool enableRecord)
-    {
-        ERPCode = eRPCode;
-        EnableRecord = enableRecord;
     }
     public BaseEntity(Int64? eRPCode)
     {
-        ERPCode = eRPCode;
+        SetERPCode(eRPCode);
     }
-    public BaseEntity(String name, String displayName, Int64? sortIndex, Int64? eRPCode)
+    public BaseEntity(long? eRPCode, bool enableRecord) : this(eRPCode)
     {
-        Name = name;
-        DisplayName = displayName;
-        SortIndex = sortIndex;
-        ERPCode = eRPCode;
-    }
-    public void SetEntity(String name, String? displayName, String? description, Boolean enableRecord)
+        SetEnable(enableRecord);
+    }    
+    public BaseEntity(String name, String? displayName, Int64? sortIndex, Int64? eRPCode) : this(eRPCode: eRPCode)
     {
-        Name = name;
-        DisplayName = displayName;
-        Description = description;
-        EnableRecord = enableRecord;
+        SetNameAndDisplayName(name: name, displayName: displayName);
+        SetSortIndex(sortIndex);
     }
-
-    public void SetEntity(String name, String? displayName,
-        Boolean enableRecord, long? eRPCode, long? sortIndex,
-        DateTimeOffset? created, DateTimeOffset? lastModified)
-    {
-        Name = name;
-        DisplayName = displayName;
-        EnableRecord = enableRecord;
-        ERPCode = ERPCode;
-        SortIndex = SortIndex;
-        Created = created;
-        LastModified = lastModified;
-    }
-    public void SetEntity(String name, String? displayName,
-    Boolean enableRecord, long? eRPCode, long? sortIndex)
-    {
-        Name = name;
-        DisplayName = displayName;
-        EnableRecord = enableRecord;
-        ERPCode = ERPCode;
-        SortIndex = SortIndex;
-    }
-    public void SetEntity(Boolean enableRecord, long? eRPCode, long? sortIndex)
-    {
-        EnableRecord = enableRecord;
-        ERPCode = ERPCode;
-        SortIndex = SortIndex;
-    }
-    public void SetEntity(
-      long? eRPCode, long? sortIndex, Boolean enableRecord,
-      DateTimeOffset? created, DateTimeOffset? lastModified)
-    {
-        EnableRecord = enableRecord;
-        ERPCode = ERPCode;
-        SortIndex = SortIndex;
-        Created = created;
-        LastModified = lastModified;
-    }
-
-    public void SetEntity(String name,
-     long? eRPCode, long? sortIndex, Boolean enableRecord)
-    {
-        Name = name;
-        ERPCode = ERPCode;
-        SortIndex = SortIndex;
-        EnableRecord = enableRecord;
-    }
-
-    public BaseEntity(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode)
+    public BaseEntity(Int64 id, String name, String? displayName, Int64? sortIndex, Int64? eRPCode)
+        : this(name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode)
     {
         Id = id;
-        Name = name;
-        DisplayName = displayName;
-        SortIndex = sortIndex;
-        ERPCode = eRPCode;
     }
-    public BaseEntity(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode, string description)
+    public BaseEntity(Int64 id, String name, String? displayName, Int64? sortIndex,
+        Int64? eRPCode, string? description)
+        : this(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode)
     {
-        Id = id;
-        Name = name;
-        DisplayName = displayName;
-        SortIndex = sortIndex;
-        ERPCode = eRPCode;
         Description = description;
     }
-    public BaseEntity(Int64 id, String name, String displayName,
-        Int64? sortIndex, Int64? eRPCode, string description, Boolean enableRecord)
+    public BaseEntity(Int64 id, String name, String? displayName,
+        Int64? sortIndex, Int64? eRPCode, string? description, Boolean enableRecord)
+        : this(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode, description: description)
     {
-        Id = id;
-        Name = name;
-        DisplayName = displayName;
-        SortIndex = sortIndex;
-        ERPCode = eRPCode;
-        Description = description;
-        EnableRecord = enableRecord;
+        SetEnable(enableRecord);
     }
-
-    public BaseEntity(String name, String displayName)
+    public void SetName(String name)
     {
         Name = name;
-        DisplayName = displayName;
-    }
-    public void SetNameAndDisplayName(String name, String displayName)
-    {
-        Name = name;
-        DisplayName = displayName;
     }
     public void SetDisplayName(String? displayName)
     {
         DisplayName = displayName;
     }
+    public void SetNameAndDisplayName(String name, String? displayName)
+    {
+        SetName(name: name);
+        SetDisplayName(displayName: displayName);
+    }
+    public void SetERPCode(long? eRPCode)
+    {
+        ERPCode = eRPCode;
+    }
+    public void SetEnable(Boolean enableRecord)
+    {
+        EnableRecord = enableRecord;
+    }
+    public void SetSortIndex(Int64? sortIndex)
+    {
+        SortIndex = sortIndex;
+    }
+    public void UpdateLastModified()
+    {
+        LastModified = DateTimeOffset.Now;
+    }
+    public void UpdateLastModified(DateTimeOffset? lastModified)
+    {
+        LastModified = lastModified;
+    }
+    public void SetDate(DateTimeOffset? created, DateTimeOffset? lastModified)
+    {
+        Created = created;
+        UpdateLastModified(lastModified);
+    }
+    public void SetEntity(Boolean enableRecord, long? eRPCode, long? sortIndex)
+    {
+        SetEnable(enableRecord);
+        SetSortIndex(sortIndex);
+        SetERPCode(eRPCode);
+    }
+    public void SetEntity(String name, String? displayName, String? description, Boolean enableRecord)
+    {
+        SetNameAndDisplayName(name: name, displayName: displayName);
+        SetEnable(enableRecord);
+        Description = description;
+    }
+    public void SetEntity(String name, long? eRPCode, long? sortIndex, Boolean enableRecord)
+    {
+        SetEntity(enableRecord: enableRecord, eRPCode: eRPCode, sortIndex: sortIndex);
+        SetName(name);
+    }
+    public void SetEntity(String name, String? displayName, Boolean enableRecord, long? eRPCode, long? sortIndex)
+    {
+        SetEntity(name: name,displayName: displayName, eRPCode: eRPCode, sortIndex: sortIndex, enableRecord: enableRecord);
+        SetERPCode(eRPCode);
+    }
+    public void SetEntity(String name, String? displayName,
+        Boolean enableRecord, long? eRPCode, long? sortIndex,
+        DateTimeOffset? created, DateTimeOffset? lastModified)
+    {
+        SetEntity(name: name, displayName: displayName, enableRecord: enableRecord, eRPCode: eRPCode, sortIndex: sortIndex);
+        SetDate(created: created, lastModified: lastModified);
+    }
+    public void SetEntity(long? eRPCode, long? sortIndex, Boolean enableRecord,
+      DateTimeOffset? created, DateTimeOffset? lastModified)
+    {
+        SetSortIndex(sortIndex);
+        SetEnable(enableRecord);
+        SetDate(created: created, lastModified: lastModified);
+        SetERPCode(eRPCode);
+    }
 
     #region PublicProperties
+
     [NotMapped]
     public string? PublicDisplayName
     {
@@ -174,53 +161,9 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     }
     #endregion
 
-    public void SetName(String? displayName)
-    {
-        DisplayName = displayName;
-    }
-
-    public void SetEnable(Boolean enableRecord)
-    {
-        EnableRecord = enableRecord;
-    }
-
-    public virtual void SetName()
+    public virtual void SetNaming()
     {
 
-    }
-
-    public void SetSortIndex(Int64? sortIndex)
-    {
-        SortIndex = sortIndex;
-    }
-
-    private readonly List<BaseEvent> _domainEvents = new();
-
-    //[NotMapped]
-    public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
-
-    public void AddDomainEvent(BaseEvent domainEvent)
-    {
-        _domainEvents.Add(domainEvent);
-    }
-
-    public void RemoveDomainEvent(BaseEvent domainEvent)
-    {
-        _domainEvents.Remove(domainEvent);
-    }
-
-    public void ClearDomainEvents()
-    {
-        _domainEvents.Clear();
-    }
-
-    public void UpdateLastModified()
-    {
-        LastModified = DateTimeOffset.Now;
-    }
-    public void UpdateLastModified(DateTimeOffset? lastModified)
-    {
-        LastModified = lastModified;
     }
 }
 public abstract class BaseEntity<I> : BaseEntity
