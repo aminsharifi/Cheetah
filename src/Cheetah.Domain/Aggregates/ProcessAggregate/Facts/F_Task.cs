@@ -31,7 +31,7 @@ public partial class F_Task : BaseEntity
     public virtual ICollection<L_FlowTask>? FlowTasks { get; private set; } = new HashSet<L_FlowTask>();
     #endregion
 
-    public override void SetName()
+    public override void SetNaming()
     {
         //DisplayName = Scenario?.DisplayName + "," + SortIndex + "," + Role?.DisplayName;
         //Name = Scenario?.Name + "," + SortIndex + "," + Role?.Name;
