@@ -6,7 +6,8 @@ public class SimpleClassDTO : BaseEntity
     {
         
     }
-    public SimpleClassDTO(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode) : base(id, name, displayName, sortIndex, eRPCode)
+    public SimpleClassDTO(Int64 Id, String Name, String DisplayName, Int64? SortIndex, Int64? ERPCode) 
+        : base(Id, Name, DisplayName, SortIndex, ERPCode)
     {
 
     }
