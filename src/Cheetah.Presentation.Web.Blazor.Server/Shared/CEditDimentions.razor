@@ -8,9 +8,6 @@
         <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
     }
     <div class="my-2" style="direction:rtl">
-        @*    <div class="alert alert-primary mb-3 ml-3" role="alert">
-    @Title @Name
-    </div>*@
         <EditForm Model="Record" OnValidSubmit="UpsertTask">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -18,37 +15,37 @@
             <div class="accordion shadow rounded" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                aria-controls="panelsStayOpen-collapseOne">
+                        <MudToggleIconButton class="accordion-button" type="button" data-bs-toggle="collapse"
+                                             data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                             aria-controls="panelsStayOpen-collapseOne">
                             اطلاعات عمومی
-                        </button>
+                        </MudToggleIconButton>
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
                          aria-labelledby="panelsStayOpen-headingOne">
                         <div class="accordion-body row">
                             <div class="col-sm-11 col-lg-5">
-                                <MudNumericField Label="شناسه"
-                                                 ReadOnly="true" @bind-Value="Record.Id"
+                                <MudNumericField Label="شناسه" Value="Record.Id"
+                                                 ReadOnly="true"
                                                  HelperText="بصورت خودکار ساخته می‌شود" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudNumericField Label="ایندکس"
-                                @bind-Value="Record.PublicSortIndex"
+                                                 Value="Record.PublicSortIndex"
                                                  HelperText="جهت مرتب‌سازی" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام"
-                                @bind-Value="Record.PublicName" />
+                                              Value="Record.PublicName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام نمایشی"
                                               HelperText="نامی که کاربر مشاهده می‌کند"
-                                @bind-Value="Record.PublicDisplayName" />
+                                              Value="Record.PublicDisplayName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="متن راهنما"
-                                @bind-Value="Record.PublicDescription"
+                                              Value="Record.PublicDescription"
                                               HelperText="توضیحات" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
@@ -57,8 +54,7 @@
                                              Color="Color.Primary"
                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                              UnCheckedColor="Color.Error"
-                                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                @onclick="args=>Record.PublicEnableRecord = !Record.EnableRecord" />
+                                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb" />
                             </div>
                         </div>
                     </div>
@@ -67,11 +63,14 @@
                 {
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            <MudToggleIconButton class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                 data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                                 aria-controls="panelsStayOpen-collapseTwo">
                                 اطلاعات تکمیلی
-                            </button>
+                            </MudToggleIconButton>
                         </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse  collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse  collapse show"
+                             aria-labelledby="panelsStayOpen-headingTwo">
                             <div class="accordion-body row">
                                 @RowTemplate
                             </div>
@@ -80,24 +79,24 @@
                 }
             </div>
             <div class="form-group d-flex justify-content-center my-3">
-                <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr">
-                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                        @Title
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
-                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-                        </svg>
-                    </button>
-                    @if (!IsInline)
-                    {
-                        <div type="button" class="btn btn-info"
-                        @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
-                            برگشت
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
-                            </svg>
-                        </div>
-                    }
-                </div>
+                @if (IsInline)
+                {
+                    <MudFab Color="Color.Primary"
+                            StartIcon="@Icons.Material.Filled.Save"
+                            Label="@Title" data-bs-dismiss="modal" />
+                }
+                @if (!IsInline)
+                {
+                    <MudButtonGroup OverrideStyles="false">
+                        <MudFab Color="Color.Primary"
+                                StartIcon="@Icons.Material.Filled.Save"
+                                Label="@Title" data-bs-dismiss="modal" />
+                        <MudFab Color="Color.Secondary"
+                                OnClick="@(e=>_CNavigation.BackNavigation(_NavigationManager))"
+                                StartIcon="@Icons.Material.Filled.KeyboardReturn"
+                                Label="برگشت" />
+                    </MudButtonGroup>
+                }
             </div>
         </EditForm>
     </div>
