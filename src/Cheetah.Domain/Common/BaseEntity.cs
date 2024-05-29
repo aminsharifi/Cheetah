@@ -6,17 +6,17 @@
 /// <typeparam name="I">Generic class</typeparam>
 public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
 {
-    public Int64? SortIndex { get; private set; }
-    public String Name { get; private set; }
-    public String? DisplayName { get; private set; }
-    public String? Description { get; private set; }
-    public Guid? GuidRecord { get; private set; } = Guid.NewGuid();
-    public Boolean EnableRecord { get; private set; } = true;
-    public Int64? ERPCode { get; private set; }
-    public DateTimeOffset? Created { get; private set; } = DateTimeOffset.Now;
-    public string? CreatedBy { get; private set; }
-    public DateTimeOffset? LastModified { get; private set; }
-    public string? LastModifiedBy { get; private set; }
+    public Int64? SortIndex { get; set; }
+    public String Name { get; set; }
+    public String? DisplayName { get; set; }
+    public String? Description { get; set; }
+    public Guid? GuidRecord { get; set; } = Guid.NewGuid();
+    public Boolean EnableRecord { get; set; } = true;
+    public Int64? ERPCode { get; set; }
+    public DateTimeOffset? Created { get; set; } = DateTimeOffset.Now;
+    public string? CreatedBy { get; set; }
+    public DateTimeOffset? LastModified { get; set; }
+    public string? LastModifiedBy { get; set; }
 
     public BaseEntity()
     {
@@ -182,7 +182,7 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     public void SetEnable(Boolean enableRecord)
     {
         EnableRecord = enableRecord;
-    }  
+    }
 
     public virtual void SetName()
     {
@@ -193,7 +193,7 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     {
         SortIndex = sortIndex;
     }
-   
+
     private readonly List<BaseEvent> _domainEvents = new();
 
     //[NotMapped]
