@@ -8,9 +8,9 @@ public class CopyClass(ISender iSender) : ICopyClass
             return new();
         }
 
-        SimpleClassDTO _SimpleClass = new(id: simpleClass.Id, sortIndex: simpleClass?.ERPCode,
-            eRPCode: simpleClass?.ERPCode,
-            name: simpleClass?.Name, displayName: simpleClass?.DisplayName);
+        SimpleClassDTO _SimpleClass = new(Id: simpleClass.Id, SortIndex: simpleClass?.ERPCode,
+            ERPCode: simpleClass?.ERPCode,
+            Name: simpleClass?.Name, DisplayName: simpleClass?.DisplayName);
 
 
         _SimpleClass.UpdateLastModified(simpleClass?.LastModified);
