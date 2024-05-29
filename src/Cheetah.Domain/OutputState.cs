@@ -9,8 +9,8 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(id: 0, name: GlobalizationService.GetValue(Localization.Domain_Success),
-        displayName: DisplayName, sortIndex: 0, eRPCode: 0);
+        _OutputState.SimpleClassDTO = new(Id: 0, Name: GlobalizationService.GetValue(Localization.Domain_Success),
+        DisplayName: DisplayName, SortIndex: 0, ERPCode: 0);
 
         return _OutputState;
     }
@@ -44,8 +44,8 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(id: 1, name: _Name,
-        displayName: DisplayName, sortIndex: 1, eRPCode: 1);
+        _OutputState.SimpleClassDTO = new(Id: 1, Name: _Name,
+        DisplayName: DisplayName, SortIndex: 1, ERPCode: 1);
 
         return _OutputState;
     }
@@ -59,8 +59,8 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(id: 2, name: _Name,
-        displayName: DisplayName, sortIndex: 2, eRPCode: 2);
+        _OutputState.SimpleClassDTO = new(Id: 2, Name: _Name,
+        DisplayName: DisplayName, SortIndex: 2, ERPCode: 2);
 
         return _OutputState;
     }
@@ -74,8 +74,8 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(id: 3, name: _Name,
-            displayName: DisplayName, sortIndex: 3, eRPCode: 3);
+        _OutputState.SimpleClassDTO = new(Id: 3, Name: _Name,
+            DisplayName: DisplayName, SortIndex: 3, ERPCode: 3);
 
         return _OutputState;
     }

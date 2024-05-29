@@ -16,9 +16,9 @@ public class F_ConditionController : ControllerBase
         var simpleClassDTO = new List<SimpleClassDTO>();
         foreach (var SimpleClassDTO in D_ParameterList)
         {
-            simpleClassDTO.Add(new SimpleClassDTO(id: SimpleClassDTO.Id,
-                name: SimpleClassDTO.Name, displayName: SimpleClassDTO.DisplayName,
-                sortIndex: SimpleClassDTO.SortIndex,eRPCode: SimpleClassDTO.ERPCode));
+            simpleClassDTO.Add(new SimpleClassDTO(Id: SimpleClassDTO.Id,
+                Name: SimpleClassDTO.Name, DisplayName: SimpleClassDTO.DisplayName,
+                SortIndex: SimpleClassDTO.SortIndex,ERPCode: SimpleClassDTO.ERPCode));
         }
         return Ok(simpleClassDTO);
     }
