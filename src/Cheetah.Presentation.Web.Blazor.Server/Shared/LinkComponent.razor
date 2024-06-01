@@ -1,4 +1,4 @@
-﻿@if (Records.Sd_Status is not null)
+﻿@if (Records?.Sd_Status is not null)
 {
     <MudDataGrid ReadOnly="@ReadonlyState" Items="@Records.FloatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"
                  T="KeyValuePair<Tuple<long?, string>, bool>" Hover="true"
