@@ -17,7 +17,7 @@
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                         <MudToggleIconButton class="accordion-button" type="button" data-bs-toggle="collapse"
                                              data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                             aria-controls="panelsStayOpen-collapseOne">
+                                             aria-controls="panelsStayOpen-collapseOne" Disabled="@ReadonlyState">
                             اطلاعات عمومی
                         </MudToggleIconButton>
                     </h2>
@@ -31,25 +31,26 @@
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudNumericField Label="ایندکس"
+                                                 ReadOnly="@ReadonlyState"
                                                  Value="Record.PublicSortIndex"
                                                  HelperText="جهت مرتب‌سازی" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
-                                <MudTextField Label="نام"
+                                <MudTextField Label="نام" ReadOnly="@ReadonlyState"
                                               Value="Record.PublicName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
-                                <MudTextField Label="نام نمایشی"
+                                <MudTextField Label="نام نمایشی" ReadOnly="@ReadonlyState"
                                               HelperText="نامی که کاربر مشاهده می‌کند"
                                               Value="Record.PublicDisplayName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
-                                <MudTextField Label="متن راهنما"
+                                <MudTextField Label="متن راهنما" ReadOnly="@ReadonlyState"
                                               Value="Record.PublicDescription"
                                               HelperText="توضیحات" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
-                                <MudCheckBox Label="فعال"
+                                <MudCheckBox Label="فعال" ReadOnly="@ReadonlyState"
                                              Value="@Record.PublicEnableRecord"
                                              Color="Color.Primary"
                                              CheckedIcon="@Icons.Material.Filled.Verified"
@@ -81,14 +82,14 @@
             <div class="form-group d-flex justify-content-center my-3">
                 @if (IsInline)
                 {
-                    <MudFab Color="Color.Primary"
+                    <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
                             StartIcon="@Icons.Material.Filled.Save"
                             Label="@Title" data-bs-dismiss="modal" />
                 }
                 @if (!IsInline)
                 {
                     <MudButtonGroup OverrideStyles="false">
-                        <MudFab Color="Color.Primary"
+                        <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
                                 StartIcon="@Icons.Material.Filled.Save"
                                 Label="@Title" data-bs-dismiss="modal" />
                         <MudFab Color="Color.Secondary"
@@ -102,7 +103,8 @@
     </div>
 }
 <CLoading IsLoading="@IsLoading" AnyRecord="@true"></CLoading>
-@code {
+@code
+{
 
 
 }
