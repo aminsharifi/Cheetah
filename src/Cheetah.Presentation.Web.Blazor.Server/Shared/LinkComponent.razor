@@ -1,24 +1,24 @@
 ﻿@if (Records.Sd_Status is not null)
 {
-    <MudDataGrid Items="@Records.FloatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"
+    <MudDataGrid ReadOnly="@ReadonlyState" Items="@Records.FloatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"
                  T="KeyValuePair<Tuple<long?, string>, bool>" Hover="true"
                  Bordered="true" Striped="true"
                  QuickFilter="@_quickFilter">
         <ToolBarContent>
             <MudText Typo="Typo.h6">@Title</MudText>
             <MudSpacer />
-            <MudTextField @bind-Value="_searchString" Placeholder="جستجو" Adornment="Adornment.Start" Immediate="true"
+            <MudTextField Value="_searchString" Placeholder="جستجو" Adornment="Adornment.Start" Immediate="true"
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </ToolBarContent>
         <Columns>
             <PropertyColumn Property="x => x.Value"
                             Title="انتخاب" IsEditable="true">
                 <CellTemplate>
-                    <MudCheckBox Checked="@context.Item.Value"
-                                 Color="Color.Tertiary"
+                    <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                 Value="@context.Item.Value" Color="Color.Tertiary"
                                  CheckedIcon="@Icons.Material.Filled.Bookmark"
                                  UncheckedIcon="@Icons.Material.Filled.BookmarkBorder"
-                    @onclick="args=>TogglePattern(context.Item)" />
+                                 @onclick="args=>TogglePattern(context.Item)" />
                 </CellTemplate>
             </PropertyColumn>
             <PropertyColumn Property="x => x.Key.Item2" Title="نام" />
@@ -29,7 +29,8 @@
     </MudDataGrid>
 }
 @code {
-
+    [Parameter]
+    public Boolean ReadonlyState { get; set; } = false;
     private string _searchString;
 
     // quick filter - filter gobally across multiple columns with the same input
