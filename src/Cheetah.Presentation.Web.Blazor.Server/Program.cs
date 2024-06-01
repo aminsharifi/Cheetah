@@ -1,6 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
+using Cheetah.Presentation.Web.Blazor.Server.Components;
 
-StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IGlobalization>
     (x => new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Presentation) + "." +
@@ -9,9 +9,11 @@ builder.Services.AddSingleton<IGlobalization>
 
 builder.Services.AddScoped<CNavigation>();
 
+
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
 builder.Services.AddMudServices();
 builder.Services.AddBootstrapBlazor();
 
@@ -45,8 +47,6 @@ builder.Services.AddBootstrapBlazor();
 
 #endregion
 
-
-
 var app = await builder.InitializeCommonSettingsAsync();
 
 // Configure the HTTP request pipeline.
@@ -61,10 +61,12 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseAntiforgery();
 
-app.MapBlazorHub();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
-app.MapFallbackToPage("/_Host");
+// Add additional endpoints required by the Identity /Account Razor components.
+app.MapAdditionalIdentityEndpoints();
 
 app.Run();
