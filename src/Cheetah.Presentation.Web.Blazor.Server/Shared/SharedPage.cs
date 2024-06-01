@@ -16,6 +16,9 @@ public class SharedPage : MyComponentBase
     public Boolean? Sync { get; set; }
 
     [Parameter]
+    public Boolean ReadonlyState { get; set; } = false;
+
+    [Parameter]
     public String Href { get; set; }
 
     [Parameter]
