@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
 
@@ -43,37 +44,38 @@ public static class InitialiserExtensions
         configuration.ReadFrom.Configuration(context.Configuration));
         #endregion
 
-                //builder.Services.addse
-                builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
-                #region DB
-                var provider = builder.Configuration.GetValue("Provider", "Npgsql");
-                var _nameSpace = nameof(Cheetah) + "." +
-                    nameof(Infrastructure) + "." +
-                    nameof(Persistence) + ".";
-                if (provider is "Npgsql")
-                {
-                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        //builder.Services.addse
+        builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
+        #region DB
+        var provider = builder.Configuration.GetValue("Provider", "Npgsql");
+        var _nameSpace = nameof(Cheetah) + "." +
+            nameof(Infrastructure) + "." +
+            nameof(Persistence) + ".";
+        if (provider is "Npgsql")
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-                    builder.Services.AddDbContext<ApplicationDbContext>(
-                        b => b.UseLazyLoadingProxies()
-                        .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
-                        , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
-                        ),
-                        ServiceLifetime.Transient
-                        );
-                }
-                else
-                {
-                    builder.Services.AddDbContext<ApplicationDbContext>(
-                        b => b.UseLazyLoadingProxies()
-                        .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                        x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
-                        ServiceLifetime.Transient
-                        );
-                }
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                b => b.UseLazyLoadingProxies()
+                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
+                , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
+                ),
+                ServiceLifetime.Transient
+                );
+        }
+        else
+        {
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                b => b.UseLazyLoadingProxies()
+                .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
+                ServiceLifetime.Transient
+                );
+        }
         #endregion
 
         #region Identity
+
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         {
             options.User.RequireUniqueEmail = false;
@@ -81,14 +83,22 @@ public static class InitialiserExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+        //.AddSignInManager();
+
 
         //builder.Services.AddAuthorization(options =>
         // options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+
+
+        #region New Login
+        //builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
+        #endregion
+
+
         #endregion
 
         #region Other services
 
-        builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
         builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
         builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
         builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));

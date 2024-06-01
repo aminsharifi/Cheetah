@@ -1,10 +1,13 @@
-﻿<AuthorizeView>
+﻿@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using System.ComponentModel.DataAnnotations
+<AuthorizeView>
     <Authorized>
-        @context.User.Identity.Name خوش آمدید
+        @context?.User?.Identity?.Name خوش آمدید
         &nbsp&nbsp&nbsp&nbsp
-        <MudIconButton Icon="@Icons.Material.Filled.Logout" Title="خروج"
-                       Color="Color.Inherit" Edge="Edge.Start" Href="Identity/Account/Logout" />
-
+        <MudIconButton Icon="@Icons.Material.Filled.Logout" Title="خروج" OnClick="@((e)=> HandleClick(e))"
+                       Color="Color.Inherit" Edge="Edge.Start" />
     </Authorized>
     <NotAuthorized>
         <MudIconButton Icon="@Icons.Material.Filled.HowToReg" Title="ثبت‌نام"
@@ -15,5 +18,12 @@
 </AuthorizeView>
 
 @code {
-
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+    @inject SignInManager<ApplicationUser> _signInManager
+    public async Task HandleClick(MouseEventArgs e)
+    {
+      
+        // await _signInManager.SignOutAsync();
+    }
 }
