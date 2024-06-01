@@ -23,11 +23,9 @@
                             <th data-sortable="true">
                                 @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
                             </th>
-
                             <th data-sortable="true">
                                 @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
                             </th>
-
                             <th data-sortable="true">
                                 @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
                             </th>
@@ -268,7 +266,7 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <MudNumericField Value="_action?.PublicSortIndex" style="width:50px" />
+                                                                    <MudNumericField ReadOnly="@ReadonlyState" Value="_action?.PublicSortIndex" style="width:50px" />
                                                                 </td>
                                                                 <td>
                                                                     <center>
@@ -372,10 +370,10 @@
                                                                                         </span>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <MudNumericField style="width: 50px" Value="Task?.PublicSortIndex" />
+                                                                                        <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px" Value="Task?.PublicSortIndex" />
                                                                                     </td>
                                                                                     <td>
-                                                                                        <MudSelect T="long?" Value="Task?.PublicSecondId" style="direction:rtl"
+                                                                                        <MudSelect ReadOnly="@ReadonlyState"  T="long?" Value="Task?.PublicSecondId" style="direction:rtl"
                                                                                                    @oninput="(e => SelectedToTaskChanged(e,Task))">
                                                                                             @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
                                                                                             {

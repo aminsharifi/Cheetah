@@ -14,12 +14,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Areas\Identity\Data\**" />
-	  <Content Remove="Areas\Identity\Data\**" />
-	  <EmbeddedResource Remove="Areas\Identity\Data\**" />
-	  <None Remove="Areas\Identity\Data\**" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
 		<PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
