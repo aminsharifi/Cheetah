@@ -1,5 +1,4 @@
-﻿@using Cheetah.Presentation.Web.Blazor.Server.Components.Shared
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject IJSRuntime _jSRuntime;
 @inject IGlobalization globalization;
 
@@ -7,16 +6,19 @@
 
 <MudRTLProvider RightToLeft="true">
     <MudThemeProvider IsDarkMode="false" />
-    <MudDialogProvider  />
+    <MudDialogProvider />
     <MudSnackbarProvider />
     <MudLayout>
         <MudAppBar Elevation="0">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                           Edge="Edge.Start" OnClick="DrawerToggle" />
             <MudSpacer />
-            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/aminsharifi/Cheetah" Target="_blank" />
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"
+                           Href="https://github.com/aminsharifi/Cheetah"
+                           Target="_blank" />
             <LoginDisplay></LoginDisplay>
         </MudAppBar>
-        <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+        <MudDrawer Open="_drawerOpen" Elevation="1">
             <MudDrawerHeader>
                 <MudText Typo="Typo.h6">Cheetah_Web</MudText>
             </MudDrawerHeader>
@@ -24,7 +26,7 @@
         </MudDrawer>
         <MudMainContent>
             <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
-                    @Body
+                @Body
             </MudContainer>
         </MudMainContent>
     </MudLayout>
@@ -33,7 +35,11 @@
 @code
 {
     bool _drawerOpen = true;
-    void DrawerToggle()
+    public void DrawerToggle2(MouseEventArgs e)
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+    public void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }

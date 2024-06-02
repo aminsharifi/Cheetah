@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
 internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
