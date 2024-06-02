@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Server;
-using Microsoft.Extensions.Options;
-using System.Security.Claims;
-
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
 // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
