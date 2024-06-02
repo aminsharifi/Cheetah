@@ -1,29 +1,34 @@
-﻿@using Microsoft.AspNetCore.Mvc
+﻿@using Microsoft.AspNetCore.Authentication.Cookies
+@using Microsoft.AspNetCore.Mvc
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 @using System.ComponentModel.DataAnnotations
+
 <AuthorizeView>
     <Authorized>
         @context?.User?.Identity?.Name خوش آمدید
         &nbsp&nbsp&nbsp&nbsp
-        <MudIconButton Icon="@Icons.Material.Filled.Logout" Title="خروج" OnClick="@((e)=> HandleClick(e))"
-                       Color="Color.Inherit" Edge="Edge.Start" />
+ @*        <MudIconButton Icon="@Icons.Material.Filled.Logout" Title="خروج" OnClick="HandleClick"
+                       Color="Color.Inherit" Edge="Edge.Start" /> *@
     </Authorized>
     <NotAuthorized>
         <MudIconButton Icon="@Icons.Material.Filled.HowToReg" Title="ثبت‌نام"
-                       Color="Color.Inherit" Edge="Edge.Start" Href="Identity/Account/Register" />
+                       Color="Color.Inherit" Edge="Edge.Start" Href="Account/Register" />
         <MudIconButton Icon="@Icons.Material.Filled.Login" Title="ورود"
-                       Color="Color.Inherit" Edge="Edge.Start" Href="Identity/Account/Login" />
+                       Color="Color.Inherit" Edge="Edge.Start" Href="Account/Login" />
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
     @inject SignInManager<ApplicationUser> _signInManager
-    public async Task HandleClick(MouseEventArgs e)
+    @inject IHttpContextAccessor httpContextAccessor
+    public void HandleClick()
     {
-      
-        // await _signInManager.SignOutAsync();
+        httpContextAccessor.HttpContext.SignOutAsync("Identity.Application").GetAwaiter();
+        httpContextAccessor.HttpContext.SignOutAsync("AspNetCore.Cookies").GetAwaiter();
+        httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme)
+        .GetAwaiter();
+        httpContextAccessor.HttpContext.SignOutAsync().GetAwaiter();
+        _signInManager.SignOutAsync().GetAwaiter();
     }
 }
