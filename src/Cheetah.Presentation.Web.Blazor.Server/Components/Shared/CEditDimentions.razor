@@ -32,26 +32,26 @@
                             <div class="col-sm-11 col-lg-5">
                                 <MudNumericField Label="ایندکس"
                                                  ReadOnly="@ReadonlyState"
-                                                 Value="Record.PublicSortIndex"
+                                                 @bind-Value="Record.PublicSortIndex"
                                                  HelperText="جهت مرتب‌سازی" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام" ReadOnly="@ReadonlyState"
-                                              Value="Record.PublicName" />
+                                              @bind-Value="Record.PublicName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام نمایشی" ReadOnly="@ReadonlyState"
                                               HelperText="نامی که کاربر مشاهده می‌کند"
-                                              Value="Record.PublicDisplayName" />
+                                              @bind-Value="Record.PublicDisplayName" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="متن راهنما" ReadOnly="@ReadonlyState"
-                                              Value="Record.PublicDescription"
+                                              @bind-Value="Record.PublicDescription"
                                               HelperText="توضیحات" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudCheckBox Label="فعال" ReadOnly="@ReadonlyState"
-                                             Value="@Record.PublicEnableRecord"
+                                             @bind-Value="@Record.PublicEnableRecord"
                                              Color="Color.Primary"
                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                              UnCheckedColor="Color.Error"
@@ -82,16 +82,39 @@
             <div class="form-group d-flex justify-content-center my-3">
                 @if (IsInline)
                 {
-                    <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
-                            StartIcon="@Icons.Material.Filled.Save"
-                            Label="@Title" data-bs-dismiss="modal" />
+                    @* <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
+            StartIcon="@Icons.Material.Filled.Save"
+            Label="@Title" data-bs-dismiss="modal" /> *@
+                    @if (!ReadonlyState)
+                    {
+                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                            @Title
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                            </svg>
+                        </button>
+                    }
+
                 }
                 @if (!IsInline)
                 {
                     <MudButtonGroup OverrideStyles="false">
-                        <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
-                                StartIcon="@Icons.Material.Filled.Save"
-                                Label="@Title" data-bs-dismiss="modal" />
+                        @if (!ReadonlyState)
+                        {
+
+                            <button class="btn btn-primary" data-bs-dismiss="modal">
+                                @Title
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                                viewBox="0 0 16 16">
+                                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                </svg>
+                            </button>
+                        }
+                        @*       <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
+                StartIcon="@Icons.Material.Filled.Save"
+                Label="@Title" data-bs-dismiss="modal" /> *@
+
                         <MudFab Color="Color.Secondary"
                                 OnClick="@(e=>_CNavigation.BackNavigation(_NavigationManager))"
                                 StartIcon="@Icons.Material.Filled.KeyboardReturn"
