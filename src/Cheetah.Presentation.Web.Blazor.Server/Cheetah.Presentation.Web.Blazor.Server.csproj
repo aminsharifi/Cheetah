@@ -13,6 +13,10 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="Components\Account\Shared\_Imports.razor" />
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
@@ -53,5 +57,17 @@
 	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
 	    <Generator>ResXFileCodeGenerator</Generator>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Components\Account\Shared\_Imports.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Components\Account\Shared\_Imports.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 </Project>

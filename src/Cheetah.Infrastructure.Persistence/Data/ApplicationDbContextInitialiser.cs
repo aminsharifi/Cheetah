@@ -1,5 +1,4 @@
 ﻿using Hangfire;
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
 
@@ -46,6 +45,7 @@ public static class InitialiserExtensions
 
         //builder.Services.addse
         builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
+
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
         var _nameSpace = nameof(Cheetah) + "." +
@@ -82,8 +82,8 @@ public static class InitialiserExtensions
         })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
-            .AddDefaultTokenProviders();
-        //.AddSignInManager();
+            .AddDefaultTokenProviders()
+            .AddSignInManager();
 
 
         //builder.Services.AddAuthorization(options =>
@@ -91,7 +91,7 @@ public static class InitialiserExtensions
 
 
         #region New Login
-        //builder.Services.AddScoped(typeof(IIdentityService), typeof(IdentityService));
+
         #endregion
 
 
@@ -152,13 +152,14 @@ public static class InitialiserExtensions
 
         return app;
     }
+
     /// <summary>
     /// Mapster(Mapper) global configuration settings
     /// To learn more about Mapster,
     /// see https://github.com/MapsterMapper/Mapster
     /// </summary>
     /// <returns></returns>
-    private static TypeAdapterConfig GetConfiguredMappingConfig()
+    public static TypeAdapterConfig GetConfiguredMappingConfig()
     {
         var config = TypeAdapterConfig.GlobalSettings;
 

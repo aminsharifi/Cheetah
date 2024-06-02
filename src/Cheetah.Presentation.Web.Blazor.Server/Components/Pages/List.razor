@@ -2,21 +2,19 @@
 @page "/List/{Name}"
 @page "/List/{Name}/{reference}"
 @page "/List/{Name}/{FilterTableName}/{Id:long}/{reference}"
-@using Cheetah.Presentation.Web.Blazor.Server.Components.Shared
 
 @inherits SharedPage
-
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
-
 <div class="row">
+
     @if (!IsLoading)
     {
         <div class="col-lg-5 col-sm-9">
             <MudSelect Label=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter) ))
                        HelperText=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter) ))
                        AnchorOrigin="Origin.BottomCenter" AdornmentColor="Color.Primary"
-                       AdornmentIcon="@Icons.Material.Filled.Settings" T="KeyValuePair<String, String>"
-                       @bind-Value="SelectedName">
+                       AdornmentIcon="@Icons.Material.Filled.Settings"
+                       @bind-Value="SelectedName" T="KeyValuePair<String, String>">
                 @foreach (var _keyValuePair in keyValuePair)
                 {
                     <MudSelectItem T="KeyValuePair<String, String>" Value="@_keyValuePair">@_keyValuePair.Value</MudSelectItem>
@@ -31,7 +29,6 @@
                         Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Add) )) />
             }
         </div>
-
         <div class="col-lg-1 col-sm-3">
             <MudCheckBox Label="سینک"
                          Value="((D_Entity)Record).Sync"
@@ -89,11 +86,30 @@
         </ListGenericTypeItems>
     }
 </div>
+
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
     List<D_Entity> _d_Entity = new();
     DateTimeOffset? LastModified;
     Color _color = Color.Default;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await FirstLoadRecords();
+
+        if (reference is null)
+        {
+            _CNavigation.NavigationList.Clear();
+
+            var Value = keyValuePair.Where(x => x.Key == Name).First().Value;
+
+            reference = _CNavigation.LoadNavigation(Address: $"List/{Name}", RowDescription: Value,
+            RowId: Id, Reference: reference);
+
+            IsLoading = false;
+        }
+    }
+
 
     private void SetLastModified()
     {
@@ -162,26 +178,6 @@
 
     private ListGenericTypeItems listGenericTypeItems;
 
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await FirstLoadRecords();
-        }
-        if (reference is null || firstRender)
-        {
-            _CNavigation.NavigationList.Clear();
-
-            var Value = keyValuePair.Where(x => x.Key == Name).First().Value;
-
-            reference = _CNavigation.LoadNavigation(Address: $"List/{Name}", RowDescription: Value,
-            RowId: Id, Reference: reference);
-
-            IsLoading = false;
-            StateHasChanged();
-        }
-    }
 
     private async Task FirstLoadRecords()
     {
