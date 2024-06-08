@@ -1,0 +1,794 @@
+﻿@using Blazored.FluentValidation
+@inherits CUpsert_GeneralCode
+<h1>HHHH</h1>
+@if (Record != null && !IsLoading)
+{
+    @if (!IsInline)
+    {
+        <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
+    }
+    <div class="my-2" style="direction:rtl">
+        <EditForm Model="Record" OnValidSubmit="UpsertTask">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <FluentValidationValidator />
+            <div class="accordion shadow rounded" id="accordionPanelsStayOpenExample">
+                <GeneralInformation Record="@Record" ReadonlyState="@ReadonlyState" />
+                @if (Id > 0)
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <MudToggleIconButton class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                 data-bs-target="#panelsStayOpen-collapseTwo"
+                                                 aria-expanded="false"
+                                                 aria-controls="panelsStayOpen-collapseTwo">
+                                اطلاعات تکمیلی
+                            </MudToggleIconButton>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse  collapse show"
+                             aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body row">
+                                @if (!IsLoading)
+                                {
+                                    <div class="row">
+                                        <center>
+                                            <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
+                                                       EndIcon="@Icons.Material.Filled.SettingsInputComponent" Color="Color.Primary"
+                                                       @onclick="(e => Add_ScenarioCondition(e,(F_Scenario)Record))">
+                                                افزودن پیش شرط
+                                            </MudButton>
+                                        </center>
+                                        <Ctable>
+                                            <thead>
+                                                <tr style="width:90%">
+                                                    <th data-sortable="true" aria-sort="ascending">
+                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                    </th>
+                                                    <th data-sortable="true">
+                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                    </th>
+                                                    <th data-sortable="true">
+                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                                    </th>
+                                                    <th data-sortable="true">
+                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var _scenarioCondition in ((F_Scenario)Record).ScenarioConditions
+                                               .OrderBy(x => x.SortIndex))
+                                                {
+                                                    <tr style="width:90%">
+                                                        <td>
+                                                            <span class="col-12">
+                                                                @(_scenarioCondition?.Id)
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <MudNumericField ReadOnly="@ReadonlyState" class="col-12"
+                                                                             Value="_scenarioCondition?.SortIndex"
+                                                                             ValueChanged="(long? newValue)=>_scenarioCondition?.SetSortIndex(newValue)"></MudNumericField>
+                                                        </td>
+                                                        <td>
+                                                            <MudSelect ReadOnly="@ReadonlyState" Label="پیش شرط ها"
+                                                                       Value="_scenarioCondition?.SecondId"
+                                                                       ValueChanged="(long? newValue)=>_scenarioCondition?.SetSecondId(newValue)"
+                                                                       class="col-12" style="direction:rtl"
+                                                                       @oninput="(e => SelectedScenarioConditionsChanged(e,_scenarioCondition))">
+                                                                @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
+                                                                {
+                                                                    <MudSelectItem T="long?" Value="@_Condition.Id">
+                                                                        @_Condition.DisplayName (@_Condition.Name)
+                                                                    </MudSelectItem>
+                                                                }
+                                                            </MudSelect>
+                                                        </td>
+                                                        <td>
+                                                            <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                                         Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                         Value="@_scenarioCondition.EnableRecord"
+                                                                         Color="Color.Primary"
+                                                                         CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                         UnCheckedColor="Color.Error"
+                                                                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                         @onclick="args=>_scenarioCondition.SetEnable(!_scenarioCondition.EnableRecord)" />
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </Ctable>
+                                    </div>
+                                    <div class="row shadow rounded my-1 mx-1 p-1">
+                                        <MudTabs Outlined="true">
+                                            <MudTabPanel Text="نمایش فرم ها" Icon="@Icons.Material.Filled.Task"
+                                                         @onclick="(x=>_scenarioStep = ScenarioStep.Tasks)" />
+                                            <MudTabPanel Text="نمایش اقدام ها" Icon="@Icons.Material.Filled.Work"
+                                                         @onclick="(x=>_scenarioStep = ScenarioStep.Actions)" />
+                                        </MudTabs>
+                                        @if (_scenarioStep == ScenarioStep.Tasks)
+                                        {
+                                            <div class="row my-2">
+                                                <center>
+                                                    <MudButton Disabled="@ReadonlyState"
+                                                               Variant="Variant.Filled" Color="Color.Primary"
+                                                               EndIcon="@Icons.Material.Filled.PersonAdd"
+                                                               @onclick="AddTaskPattern">
+                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_AddToTasks)))
+                                                    </MudButton>
+                                                </center>
+                                            </div>
+                                        }
+                                        <div class="row">
+                                            <Ctable>
+                                                <caption>
+                                                    <div class="row my-1" style="justify-content: center;">
+                                                        <span class="col-2 text-success">
+                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_TasksList)))
+                                                        </span>
+                                                    </div>
+                                                </caption>
+                                                <thead>
+                                                    <tr>
+                                                        @if (_scenarioStep == ScenarioStep.Tasks)
+                                                        {
+                                                            <th data-sortable="true" aria-sort="ascending" width="10px">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                            </th>
+                                                            <th data-sortable="true" width="10px">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                            </th>
+                                                        }
+                                                        <th data-sortable="true" width="200px">
+                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
+                                                        </th>
+                                                        @if (_scenarioStep == ScenarioStep.Tasks)
+                                                        {
+                                                            <th data-sortable="true" width="500px">
+                                                                ایفاکنندگان
+                                                            </th>
+                                                        }
+                                                        @if (_scenarioStep == ScenarioStep.Actions)
+                                                        {
+                                                            <th data-sortable="true" width="10px">
+                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Actions)))
+                                                            </th>
+                                                        }
+
+                                                        <th data-sortable="true" width="10px">
+                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (F_Task _task in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
+                                                    {
+                                                        <tr>
+                                                            @if (_scenarioStep == ScenarioStep.Tasks)
+                                                            {
+                                                                <td>
+                                                                    <span style="width: 50px">
+                                                                        @(_task?.Id)
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px"
+                                                                                     Value="_task?.SortIndex"
+                                                                                     ValueChanged="(long? newValue)=> _task?.SetSortIndex(newValue)" />
+                                                                </td>
+                                                            }
+                                                            <td>
+                                                                <MudInput ReadOnly="@ReadonlyState"
+                                                                          Value="_task?.DisplayName"
+                                                                          ValueChanged="(string? newValue)=> _task?.SetDisplayName(newValue)"
+                                                                          style="width:200px"></MudInput>
+                                                            </td>
+                                                            @if (_scenarioStep == ScenarioStep.Tasks)
+                                                            {
+                                                                <td>
+                                                                    <center>
+                                                                        <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
+                                                                                   EndIcon="@Icons.Material.Filled.Person" Color="Color.Primary"
+                                                                                   @onclick="(e => Add_TaskCondition(e,_task))">
+                                                                            افزودن ایفاکننده
+                                                                        </MudButton>
+                                                                    </center>
+                                                                    <Ctable>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th data-sortable="true" aria-sort="ascending" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                </th>
+                                                                                <th data-sortable="true" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                </th>
+
+                                                                                <th data-sortable="true" style="width:300px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                                                                </th>
+
+                                                                                <th data-sortable="true" style="width: 50px">
+                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach (var _taskCondition in _task.TaskConditions
+                                                                           .OrderBy(x => x.SortIndex))
+                                                                            {
+                                                                                <tr>
+                                                                                    <td style="width: 50px">
+                                                                                        <span>
+                                                                                            @(_taskCondition?.Id)
+                                                                                        </span>
+                                                                                    </td>
+                                                                                    <td style="width:50px">
+                                                                                        <MudNumericField ReadOnly="@ReadonlyState"
+                                                                                                         Value="_taskCondition?.SortIndex"
+                                                                                                         ValueChanged="(long? newValue)=> _taskCondition?.SetSortIndex(newValue)"
+                                                                                                         style="width:50px" />
+                                                                                    </td>
+                                                                                    <td style="width:400px">
+                                                                                        <MudSelect T="long?" ReadOnly="@ReadonlyState"
+                                                                                                   Value="_taskCondition?.SecondId"
+                                                                                                   ValueChanged="(long? newvalue)=> _taskCondition?.SetSecondId(newvalue)"
+                                                                                                   style="direction:rtl;width:400px">
+                                                                                            @foreach (var _Condition in _list_F_Condition
+                                                                                           .Where(x => x.Tag?.TagCategoryId == D_TagCategory.Performer.Id))
+                                                                                            {
+                                                                                                <MudSelectItem T="long?" Value="@_Condition.Id">
+                                                                                                    @_Condition.DisplayName (@_Condition.Name)
+                                                                                                </MudSelectItem>
+                                                                                            }
+                                                                                        </MudSelect>
+                                                                                    </td>
+                                                                                    <td style="width:100px">
+                                                                                        <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                                                                     Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                     Value="@_taskCondition?.EnableRecord"
+                                                                                                     Color="Color.Primary"
+                                                                                                     CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                                     UnCheckedColor="Color.Error"
+                                                                                                     UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                                     @onclick="args=>_taskCondition!.SetEnable(!_taskCondition.EnableRecord)" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </Ctable>
+                                                                </td>
+                                                            }
+                                                            @if (_scenarioStep == ScenarioStep.Actions)
+                                                            {
+                                                                <td>
+                                                                    <center>
+                                                                        <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
+                                                                                   EndIcon="@Icons.Material.Filled.CheckBox" Color="Color.Primary"
+                                                                                   @onclick="(e => Add_Actions(e,_task))">
+                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddActions)))
+                                                                        </MudButton>
+                                                                    </center>
+                                                                    <div>
+                                                                        <Ctable>
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th data-sortable="true" aria-sort="ascending">
+                                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                    </th>
+                                                                                    <th data-sortable="true">
+                                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                    </th>
+                                                                                    <th data-sortable="true">
+                                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Conditions)))
+                                                                                    </th>
+                                                                                    <th data-sortable="true">
+                                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_NextActions)))
+                                                                                    </th>
+                                                                                    <th data-sortable="true">
+                                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_CaseState)))
+                                                                                    </th>
+                                                                                    <th data-sortable="true">
+                                                                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var _action in _task.TaskFlows
+                                                                               .Select(x => x.Flow).OrderBy(x => x.SortIndex))
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <span>
+                                                                                                @(_action?.Id)
+                                                                                            </span>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <MudNumericField ReadOnly="@ReadonlyState"
+                                                                                                             Value="_action?.SortIndex"
+                                                                                                             ValueChanged="(long? newValue)=>_action?.SetSortIndex(newValue)"
+                                                                                                             style="width:50px" />
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <center>
+                                                                                                <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled" Color="Color.Primary"
+                                                                                                           EndIcon="@Icons.Material.Filled.Engineering"
+                                                                                                           @onclick="(e => Add_ActionsCondition(e,_action))">
+                                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_AddToConditions)))
+                                                                                                </MudButton>
+                                                                                            </center>
+                                                                                            <Ctable>
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th data-sortable="true" aria-sort="ascending" style="width: 50px">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                                        </th>
+                                                                                                        <th data-sortable="true" style="width: 50px">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                                        </th>
+
+                                                                                                        <th data-sortable="true">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                                                                                        </th>
+
+                                                                                                        <th data-sortable="true" style="width: 50px">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    @foreach (var _flowCondition in _action.FlowConditions
+                                                                                                   .OrderBy(x => x.SortIndex))
+                                                                                                    {
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                <span>
+                                                                                                                    @(_flowCondition?.Id)
+                                                                                                                </span>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <MudNumericField ReadOnly="@ReadonlyState"
+                                                                                                                                 Value="_flowCondition?.SortIndex"
+                                                                                                                                 ValueChanged="(long? newValue)=>_flowCondition?.SetSortIndex(newValue)"
+                                                                                                                                 style="width: 50px"></MudNumericField>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <MudSelect T="long?"
+                                                                                                                           Value="_flowCondition?.SecondId"
+                                                                                                                           ValueChanged="(long? newValue)=>_flowCondition?.SetSecondId(newValue)"
+                                                                                                                           style="direction:rtl">
+                                                                                                                    @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
+                                                                                                                    {
+                                                                                                                        <MudSelectItem T="long?" Value="@_Condition.Id">
+                                                                                                                            @_Condition.DisplayName (@_Condition.Name)
+                                                                                                                        </MudSelectItem>
+                                                                                                                    }
+                                                                                                                </MudSelect>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                                                                                             Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                                             Value="@_flowCondition?.EnableRecord"
+                                                                                                                             Color="Color.Primary"
+                                                                                                                             CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                                                             UnCheckedColor="Color.Error"
+                                                                                                                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                                                             @onclick="args=>_flowCondition!.SetEnable(!_flowCondition.EnableRecord)" />
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    }
+                                                                                                </tbody>
+                                                                                            </Ctable>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <center>
+                                                                                                <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled" Color="Color.Primary"
+                                                                                                           EndIcon="@Icons.Material.Filled.NextPlan"
+                                                                                                           @onclick="(e => Add_ActionsTask(e,_action))">
+                                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_AddNextAction)))
+                                                                                                </MudButton>
+                                                                                            </center>
+                                                                                            <Ctable>
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th data-sortable="true" aria-sort="ascending" style="width: 50px">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                                        </th>
+                                                                                                        <th data-sortable="true" style="width: 50px">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                                        </th>
+                                                                                                        <th data-sortable="true">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Action)))
+                                                                                                        </th>
+                                                                                                        <th data-sortable="true">
+                                                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    @foreach (var Task in _action.FlowTasks
+                                                                                                   .OrderBy(x => x.SortIndex))
+                                                                                                    {
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                <span style="width: 50px">
+                                                                                                                    @(Task?.Id)
+                                                                                                                </span>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px"
+                                                                                                                                 Value="Task?.SortIndex"
+                                                                                                                                 ValueChanged="(long? newValue)=>Task?.SetSortIndex(newValue)" />
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <MudSelect ReadOnly="@ReadonlyState" T="long?"
+                                                                                                                           Value="Task?.SecondId"
+                                                                                                                           ValueChanged="(long? newValue)=>Task?.SetSecondId(newValue)"
+                                                                                                                           style="direction:rtl"
+                                                                                                                           @oninput="(e => SelectedToTaskChanged(e,Task))">
+                                                                                                                    @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
+                                                                                                                    {
+                                                                                                                        <MudSelectItem T="long?" Value="@ToTask.Id">
+                                                                                                                            @ToTask.DisplayName
+                                                                                                                        </MudSelectItem>
+                                                                                                                    }
+                                                                                                                </MudSelect>
+                                                                                                            </td>
+                                                                                                            <td>
+                                                                                                                <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                                                                                             Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                                             Value="@Task.EnableRecord"
+                                                                                                                             Color="Color.Primary"
+                                                                                                                             CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                                                             UnCheckedColor="Color.Error"
+                                                                                                                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                                                             @onclick="args=>Task.SetEnable(!Task.EnableRecord)" />
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    }
+                                                                                                </tbody>
+                                                                                            </Ctable>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <MudSelect T="long?" ReadOnly="@ReadonlyState" Value="_action.PublicCaseStateId"
+                                                                                                       style="direction:rtl; width:150px"
+                                                                                                       @oninput="(e => SelectedCaseStateChanged(e,_action))">
+                                                                                                @foreach (var CaseState in _list_CaseState)
+                                                                                                {
+                                                                                                    <MudSelectItem T="long?" Value="@CaseState.Id">
+                                                                                                        @CaseState.DisplayName
+                                                                                                    </MudSelectItem>
+                                                                                                }
+                                                                                            </MudSelect>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                                                                         Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                         Value="@_action.EnableRecord"
+                                                                                                         Color="Color.Primary"
+                                                                                                         CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                                                         UnCheckedColor="Color.Error"
+                                                                                                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                                                         @onclick="args=>_action.SetEnable(!_action.EnableRecord)" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            </tbody>
+                                                                        </Ctable>
+                                                                    </div>
+                                                                </td>
+                                                            }
+                                                            <td>
+                                                                <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                                             Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                             Value="@_task?.EnableRecord"
+                                                                             Color="Color.Primary"
+                                                                             CheckedIcon="@Icons.Material.Filled.Verified"
+                                                                             UnCheckedColor="Color.Error"
+                                                                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                                             @onclick="args=>_task?.SetEnable(!_task.EnableRecord)" />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </Ctable>
+                                        </div>
+                                        <LinkComponent ReadonlyState="@ReadonlyState" Records="@LinkRecords"
+                                                       reference="@reference"
+                                                       Title=@(globalization.GetValue(nameof(Localization.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
+                                        </LinkComponent>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group d-flex justify-content-center my-3">
+                @if (IsInline)
+                {
+                    @* <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
+            StartIcon="@Icons.Material.Filled.Save"
+            Label="@Title" data-bs-dismiss="modal" /> *@
+                    @if (!ReadonlyState)
+                    {
+                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                            @Title
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                            </svg>
+                        </button>
+                    }
+
+                }
+                @if (!IsInline)
+                {
+                    <MudButtonGroup OverrideStyles="false">
+                        @if (!ReadonlyState)
+                        {
+
+                            <button class="btn btn-primary" data-bs-dismiss="modal">
+                                @Title
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save"
+                                     viewBox="0 0 16 16">
+                                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                                </svg>
+                            </button>
+                        }
+                        @*       <MudFab Color="Color.Primary" Disabled="@ReadonlyState"
+                StartIcon="@Icons.Material.Filled.Save"
+                Label="@Title" data-bs-dismiss="modal" /> *@
+
+                        <MudFab Color="Color.Secondary"
+                                OnClick="@(e=>_CNavigation.BackNavigation(_NavigationManager))"
+                                StartIcon="@Icons.Material.Filled.KeyboardReturn"
+                                Label="برگشت" />
+                    </MudButtonGroup>
+                }
+            </div>
+        </EditForm>
+    </div>
+}
+<CLoading IsLoading="@IsLoading" AnyRecord="@true"></CLoading>
+@code {
+    [Inject]
+    public ITableCRUD _ITableCRUD { get; set; }
+    private enum ScenarioStep
+    {
+        Tasks,
+        Actions
+    }
+    ScenarioStep _scenarioStep = ScenarioStep.Tasks;
+    private List<D_Tag> _list_D_Tag { get; set; } = new();
+    private List<D_Operand> _list_D_Operand { get; set; } = new();
+    private List<D_CaseState> _list_CaseState { get; set; } = new();
+    private List<D_TagType> _list_D_TagType { get; set; } = new();
+    private List<D_TagCategory> _list_TagCategory { get; set; } = new();
+    private List<F_Condition> _list_F_Condition { get; set; } = new();
+    public override async Task ExtendedLoadDTO()
+    {
+        var _recordId = Record.Id;
+        ReadonlyState = await _db.F_Cases.AnyAsync(x => x.SelectedScenarioId == _recordId);
+
+        _list_D_Tag = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_Tag>())
+        .ToList();
+
+        _list_D_Operand = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_Operand>())
+        .ToList();
+
+        _list_CaseState = (await simpleClassRepository.GetAllByNameAsync(nameof(D_CaseState)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_CaseState>())
+        .ToList();
+
+        _list_D_TagType = (await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_TagType>())
+        .ToList();
+
+        _list_TagCategory = (await simpleClassRepository.GetAllByNameAsync(nameof(D_TagCategory)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<D_TagCategory>())
+        .ToList();
+
+        _list_F_Condition = (await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition)))
+        .Where(x => x.EnableRecord)
+        .Select(x => x.Adapt<F_Condition>())
+        .ToList();
+
+        AllRecords = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Process)))
+        .Where(x => x.EnableRecord).ToList();
+
+        AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id))
+        .Where(x => x.EnableRecord).ToList();
+
+        this.LinkRecords = new LinkClassDTO()
+            {
+                LinkType = nameof(L_ProcessScenario),
+                FirstType = nameof(D_Process),
+                SecondType = nameof(F_Scenario),
+                FixedId = Id,
+                Sd_Status = nameof(LinkProperty.Second),
+                FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+                    new Tuple<long?, string>(x.Id, x.DisplayName),
+                    AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .ToDictionary(x => x.Key, x => x.Value)
+            };
+    }
+    private string GetMultiSelectionText(BaseEntity selectedValues)
+    {
+        return $"{string.Join(", ", selectedValues?.DisplayName)}";
+    }
+    private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
+    {
+        if (String.IsNullOrEmpty(e.ToString()))
+        {
+            f_Condition.ResetOperand();
+        }
+        else
+        {
+            var _D_OperandId = Int64.Parse(e.Value.ToString());
+
+            f_Condition.SetOperand(_list_D_Operand
+            .First(x => x.Id == _D_OperandId) as D_Operand);
+        }
+    }
+    private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var _D_ParameterListId = Int64.Parse(e.Value.ToString());
+
+            f_Condition.SetTag(_list_D_Tag
+            .First(x => x.Id == _D_ParameterListId) as D_Tag);
+        }
+    }
+    private async Task Add_ActionsTask(MouseEventArgs e, F_Flow cObject)
+    {
+        L_FlowTask _l_ActionTask = new();
+
+        ICollection<L_FlowTask> _l_TaskActions = cObject.FlowTasks;
+
+        if (_l_TaskActions.Any())
+        {
+            _l_ActionTask.SetSortIndex(_l_TaskActions.Max(x => x.SortIndex) + 1);
+        }
+        else
+        {
+            _l_ActionTask = await simpleClassRepository
+            .GetLastAsync(nameof(L_FlowTask)) as L_FlowTask;
+        }
+
+        cObject.FlowTasks.Add(_l_ActionTask);
+    }
+    private async Task Add_TaskCondition(MouseEventArgs e, F_Task cObject)
+    {
+        L_TaskCondition _TaskCondition = new();
+
+        ICollection<L_TaskCondition> _taskConditions = cObject.TaskConditions;
+
+        if (_taskConditions.Any())
+        {
+            _TaskCondition.SetSortIndex(_taskConditions.Max(x => x.SortIndex) + 1);
+        }
+        else
+        {
+            _TaskCondition = await simpleClassRepository
+            .GetLastAsync(nameof(L_TaskCondition)) as L_TaskCondition;
+        }
+
+        cObject.TaskConditions.Add(_TaskCondition);
+    }
+    private async Task Add_ScenarioCondition(MouseEventArgs e, F_Scenario cObject)
+    {
+        L_ScenarioCondition _ScenarioCondition = new();
+
+        ICollection<L_ScenarioCondition> _scenarioConditions = cObject.ScenarioConditions;
+
+        if (_scenarioConditions.Any())
+        {
+            _ScenarioCondition.SetSortIndex(_scenarioConditions.Max(x => x.SortIndex) + 1);
+        }
+        else
+        {
+            _ScenarioCondition = await simpleClassRepository
+            .GetLastAsync(nameof(L_ScenarioCondition)) as L_ScenarioCondition;
+        }
+
+        cObject.ScenarioConditions.Add(_ScenarioCondition);
+    }
+    private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
+    {
+        var _flowCondition = await simpleClassRepository
+            .GetLastAsync(nameof(L_FlowCondition)) as L_FlowCondition;
+
+        _flowCondition.SetFirstId(cObject.Id);
+        _flowCondition.Flow = cObject;
+
+        ICollection<L_FlowCondition> _Conditions = cObject.FlowConditions;
+
+        if (_Conditions.Any())
+        {
+            _flowCondition.SetSortIndex(_Conditions.Max(x => x.SortIndex) + 1);
+        }
+
+        cObject.FlowConditions.Add(_flowCondition);
+    }
+    private async Task Add_Actions(MouseEventArgs e, F_Task cObject)
+    {
+        L_TaskFlow _l_TaskAction = new();
+
+        F_Flow _f_Action = await simpleClassRepository.GetLastAsync(nameof(F_Flow)) as F_Flow;
+
+        _l_TaskAction.Task = cObject;
+
+        _l_TaskAction.Flow = _f_Action;
+
+        ICollection<L_TaskFlow> _TaskItems = cObject.TaskFlows;
+
+        if (_TaskItems.Any())
+        {
+            _l_TaskAction.SetSortIndex(_TaskItems.Max(x => x.SortIndex) + 1);
+        }
+        else
+        {
+            _l_TaskAction.SetSortIndex(1);
+        }
+
+        cObject.TaskFlows.Add(_l_TaskAction);
+    }
+    private async Task AddTaskPattern()
+    {
+        var d_Task = new F_Task();
+
+        var eP_Tasks = (Record as F_Scenario).Tasks;
+
+        if (eP_Tasks.Any())
+        {
+            d_Task.SetSortIndex(eP_Tasks.Max(x => x.SortIndex) + 1);
+        }
+        else
+        {
+            d_Task = await simpleClassRepository.GetLastAsync(nameof(F_Task)) as F_Task;
+        }
+
+        (Record as F_Scenario).Tasks.Add(d_Task);
+    }
+    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var CaseStateId = Int64.Parse(e.Value.ToString());
+
+            f_Flow.SetCaseStateId(CaseStateId);
+        }
+    }
+    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var ToTaskId = Int64.Parse(e.Value.ToString());
+
+            TaskSelector.SetTask((Record as F_Scenario).Tasks
+            .First(x => x.Id == ToTaskId) as F_Task);
+        }
+        else
+        {
+            TaskSelector.SetTask(null);
+        }
+    }
+    private async Task SelectedScenarioConditionsChanged(ChangeEventArgs e, L_ScenarioCondition ScenarioCondition)
+    {
+        if (Id > 0 && e.Value is not null)
+        {
+            var _flowConditionId = Int64.Parse(e.Value.ToString());
+
+            ScenarioCondition.SetSecondId(
+                (_list_F_Condition.First(x => x.Id == _flowConditionId) as F_Condition).Id);
+        }
+    }
+}

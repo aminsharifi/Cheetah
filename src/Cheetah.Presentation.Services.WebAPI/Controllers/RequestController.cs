@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Mapster;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -13,13 +15,17 @@ public class RequestController : ControllerBase
     public IReadRepository<F_WorkItem> _workItemRepository;
     public IReadRepository<F_Task> _taskRepository;
     public IMapper _mapper;
-    public RequestController(ILogger<RequestController> GLogger,
+    public ITableCRUD _simpleClassRepository;
+    public RequestController(
+        ITableCRUD SimpleClassRepository,
+        ILogger<RequestController> GLogger,
         ICartable GICartable, IWorkItem GIWorkItem,
         ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
         IReadRepository<F_WorkItem> WorkItemRepository, IMapper GMapper,
         IReadRepository<F_Task> GtaskRepository
         )
     {
+        _simpleClassRepository = SimpleClassRepository;
         _taskRepository = GtaskRepository;
         _logger = GLogger;
         _iCartable = GICartable;
@@ -38,14 +44,14 @@ public class RequestController : ControllerBase
 
         #region Input
 
-        SimpleClassDTO _case = request.Case.GetSimpleClass<SimpleClassDTO>(_mapper);
-        SimpleClassDTO _creator = request.Creator.GetSimpleClass<SimpleClassDTO>(_mapper);
-        SimpleClassDTO _requestor = request.Requestor.GetSimpleClass<SimpleClassDTO>(_mapper);
-        SimpleClassDTO _process = request.Process.GetSimpleClass<SimpleClassDTO>(_mapper);
-        List<GRPC_Condition> _caseConditions = request.Conditions;
+        SimpleClassDTO _case = request.Case.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _creator = request.Creator.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _requestor = request.Requestor.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _process = request.Process.Adapt<SimpleClassDTO>();
+        List<GRPC_Condition> _caseConditions = request?.Conditions;
         List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
-        SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>(_mapper);
-        SimpleClassDTO _workItemBase = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _workItemBase = request.WorkItem.Base.Adapt<SimpleClassDTO>();
 
         #endregion
 
@@ -92,8 +98,8 @@ public class RequestController : ControllerBase
         _logger.LogInformation("started " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", request);
 
         #region Input
-        SimpleClassDTO _request = request.Case?.GetSimpleClass<SimpleClassDTO>(_mapper);
-        SimpleClassDTO _process = request.Process?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _request = request.Case?.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _process = request.Process?.Adapt<SimpleClassDTO>();
         #endregion
 
         var _requests = await _iCartable.GetCaseAsync(_request, _process);
@@ -156,16 +162,16 @@ public class RequestController : ControllerBase
 
         #region Input
 
-        SimpleClassDTO _workItem = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
-        SimpleClassDTO _workItemUser = request.WorkItem.User.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _workItem = request.WorkItem.Base.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
         List<GRPC_Condition> _workItemConditions = request.WorkItem.OccurredUserActions;
-        SimpleClassDTO _workItemBase = request.WorkItem.Base.GetSimpleClass<SimpleClassDTO>(_mapper);
+        SimpleClassDTO _workItemBase = request.WorkItem.Base.Adapt<SimpleClassDTO>();
         Boolean _rebase = request.Rebase ?? false;
         #endregion
 
         var Outputresult = await _iWorkItem.PerformWorkItemAsync
             (WorkItem: _workItem, WorkItemUser: _workItemUser,
-            WorkItemConditions: _workItemConditions,Rebase: _rebase, WorkItemBase: _workItemBase);
+            WorkItemConditions: _workItemConditions, Rebase: _rebase, WorkItemBase: _workItemBase);
 
         #region Output
 
@@ -204,7 +210,42 @@ public class RequestController : ControllerBase
     [HttpPost(nameof(GetAllByName))]
     public async Task<GetAllByName_Output> GetAllByName([FromBody] GetAllByName_Input request)
     {
-        return await GetAllByName(request);
+        _logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
+
+        #region Input
+
+        GetAllByName_Output output_Request = new();
+
+        if (String.IsNullOrWhiteSpace(request.TableInput.Name))
+        {
+            return output_Request;
+        }
+
+        output_Request.TableInput = request.TableInput;
+
+        #endregion
+
+        var TableRecords = await _simpleClassRepository
+            .GetAllBySimpleClassAsync(
+            output_Request.TableInput.Adapt<SimpleClassDTO>());
+
+        #region Output
+
+        output_Request.TableInput = TableRecords.Item1.Adapt<GRPC_BaseClassWithName>();
+
+        output_Request.TableOutput
+            .AddRange(TableRecords.Item2
+            .Select(x => x.Adapt<GRPC_BaseClassWithName>()));
+
+        output_Request.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true)
+            .SimpleClassDTO.Adapt<GRPC_BaseClassWithName>();
+
+        #endregion
+
+        _logger.LogInformation("Ended " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", output_Request);
+
+        return output_Request;
+
     }
     [HttpPost(nameof(SetCaseTaskUser))]
     public async Task<SetCaseTaskUser_Output> SetCaseTaskUser([FromBody] SetCaseTaskUser_Input request)
@@ -310,12 +351,13 @@ public class RequestController : ControllerBase
 
         #region Input
 
-        var _assignee = request.Assignee?.GetSimpleClass<SimpleClassDTO>(_mapper);
-        var _process = request.Process?.GetSimpleClass<SimpleClassDTO>(_mapper);
-        var _caseState = request.CaseState?.GetSimpleClass<SimpleClassDTO>(_mapper);
-        var _caseStateList = request.CaseStateList?.Select(caseState => caseState.GetSimpleClass<SimpleClassDTO>(_mapper));
-        var _case = request.Case?.GetSimpleClass<SimpleClassDTO>(_mapper);
-        var _workItem = request.WorkItem?.GetSimpleClass<SimpleClassDTO>(_mapper);
+        var _assignee = request.Assignee?.Adapt<SimpleClassDTO>();
+        var _process = request.Process?.Adapt<SimpleClassDTO>();
+        var _caseState = request.CaseState?.Adapt<SimpleClassDTO>();
+        var _caseStateList = request.CaseStateList?
+            .Select(caseState => caseState.Adapt<SimpleClassDTO>());
+        var _case = request.Case?.Adapt<SimpleClassDTO>();
+        var _workItem = request.WorkItem?.Adapt<SimpleClassDTO>();
 
         var cartableDTO = new CartableDTO()
         {
@@ -350,8 +392,8 @@ public class RequestController : ControllerBase
             {
                 GRPC_Case _Case = new()
                 {
-                    Base = outputRequestItem.Case.GetBaseClassWithDate(_mapper),
-                    CaseState = outputRequestItem.CaseState.GetBaseClassWithName(_mapper),
+                    Base = outputRequestItem.Case.Adapt<GRPC_BaseClassWithDate>(),
+                    CaseState = outputRequestItem.CaseState.Adapt<GRPC_BaseClassWithName>(),
                     CreatorId = outputRequestItem.Creator.Id,
                     RequestorId = outputRequestItem.Requestor.Id,
                     ProcessId = outputRequestItem.Process.Id

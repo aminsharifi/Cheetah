@@ -12,10 +12,10 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="row">
-                    <CInput @bind-LValue="Record.Id"
+                    <CInput LValue="Record.Id"
                             CDescription="شناسه یکتا سیستمی"
                             CDisplayName="شناسه" CFieldType="@(Cheetah.Domain.FieldType.CID)"></CInput>
-                    <CInput @bind-BValue="Record.PublicEnableRecord"
+                    <CInput BValue="Record.EnableRecord"
                             CDescription="فعال"
                             CDisplayName="فعال" CFieldType="@(Cheetah.Domain.FieldType.CBool)"></CInput>
                     @if (RowTemplate is not null)

@@ -20,7 +20,7 @@ public class GetAllByName_Input
 public class GetAllByName_Output
 {
     public GRPC_BaseClassWithName? TableInput { get; set; }
-    public List<GRPC_BaseClassWithName>? TableOutput { get; set; }
+    public List<GRPC_BaseClassWithName>? TableOutput { get; set; } = new();
     public GRPC_BaseClassWithName? OutputState { get; set; }
 }
 public class GetCase_Input

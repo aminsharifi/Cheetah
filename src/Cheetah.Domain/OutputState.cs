@@ -9,8 +9,14 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(Id: 0, Name: GlobalizationService.GetValue(Localization.Domain_Success),
-        DisplayName: DisplayName, SortIndex: 0, ERPCode: 0);
+        _OutputState.SimpleClassDTO = new()
+        {
+            Id = 0,
+            Name = GlobalizationService.GetValue(Localization.Domain_Success),
+            DisplayName = DisplayName,
+            SortIndex = 0,
+            ERPCode = 0
+        };
 
         return _OutputState;
     }
@@ -44,8 +50,14 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(Id: 1, Name: _Name,
-        DisplayName: DisplayName, SortIndex: 1, ERPCode: 1);
+        _OutputState.SimpleClassDTO = new()
+        {
+            Id = 1,
+            Name = _Name,
+            DisplayName = DisplayName,
+            SortIndex = 1,
+            ERPCode = 1
+        };
 
         return _OutputState;
     }
@@ -59,8 +71,14 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(Id: 2, Name: _Name,
-        DisplayName: DisplayName, SortIndex: 2, ERPCode: 2);
+        _OutputState.SimpleClassDTO = new()
+        {
+            Id = 2,
+            Name = _Name,
+            DisplayName = DisplayName,
+            SortIndex = 2,
+            ERPCode = 2
+        };
 
         return _OutputState;
     }
@@ -74,8 +92,14 @@ public static class OutputState<T>
 
         var _OutputState = new CheetahResult<T>() { Result = _Result };
 
-        _OutputState.SimpleClassDTO = new(Id: 3, Name: _Name,
-            DisplayName: DisplayName, SortIndex: 3, ERPCode: 3);
+        _OutputState.SimpleClassDTO = new()
+        {
+            Id = 3,
+            Name = _Name,
+            DisplayName = DisplayName,
+            SortIndex = 3,
+            ERPCode = 3
+        };
 
         return _OutputState;
     }

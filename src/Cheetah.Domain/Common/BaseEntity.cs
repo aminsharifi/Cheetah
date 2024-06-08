@@ -6,17 +6,17 @@
 /// <typeparam name="I">Generic class</typeparam>
 public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
 {
-    public Int64? SortIndex { get; set; }
-    public String Name { get; set; }
-    public String? DisplayName { get; set; }
-    public String? Description { get; set; }
-    public Guid? GuidRecord { get; set; } = Guid.NewGuid();
-    public Boolean EnableRecord { get; set; } = true;
-    public Int64? ERPCode { get; set; }
-    public DateTimeOffset? Created { get; set; } = DateTimeOffset.Now;
-    public string? CreatedBy { get; set; }
-    public DateTimeOffset? LastModified { get; set; }
-    public string? LastModifiedBy { get; set; }
+    public Int64? SortIndex { get; private set; }
+    public String Name { get; private set; }
+    public String? DisplayName { get; private set; }
+    public String? Description { get; private set; }
+    public Guid? GuidRecord { get; private set; } = Guid.NewGuid();
+    public Boolean EnableRecord { get; private set; } = true;
+    public Int64? ERPCode { get; private set; }
+    public DateTimeOffset? Created { get; private set; } = DateTimeOffset.Now;
+    public string? CreatedBy { get; private set; }
+    public DateTimeOffset? LastModified { get; private set; }
+    public string? LastModifiedBy { get; private set; }
 
     public BaseEntity()
     {
@@ -28,7 +28,7 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     public BaseEntity(long? eRPCode, bool enableRecord) : this(eRPCode)
     {
         SetEnable(enableRecord);
-    }    
+    }
     public BaseEntity(String name, String? displayName, Int64? sortIndex, Int64? eRPCode) : this(eRPCode: eRPCode)
     {
         SetNameAndDisplayName(name: name, displayName: displayName);
@@ -58,6 +58,10 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     public void SetDisplayName(String? displayName)
     {
         DisplayName = displayName;
+    }
+    public void SetDescription(String? description)
+    {
+        Description = description;
     }
     public void SetNameAndDisplayName(String name, String? displayName)
     {
@@ -108,7 +112,7 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     }
     public void SetEntity(String name, String? displayName, Boolean enableRecord, long? eRPCode, long? sortIndex)
     {
-        SetEntity(name: name,displayName: displayName, eRPCode: eRPCode, sortIndex: sortIndex, enableRecord: enableRecord);
+        SetEntity(name: name, displayName: displayName, eRPCode: eRPCode, sortIndex: sortIndex, enableRecord: enableRecord);
         SetERPCode(eRPCode);
     }
     public void SetEntity(String name, String? displayName,
@@ -126,40 +130,6 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
         SetDate(created: created, lastModified: lastModified);
         SetERPCode(eRPCode);
     }
-
-    #region PublicProperties
-
-    [NotMapped]
-    public string? PublicDisplayName
-    {
-        get { return DisplayName; }
-        set { DisplayName = value; }
-    }
-    [NotMapped]
-    public string? PublicDescription
-    {
-        get { return Description; }
-        set { Description = value; }
-    }
-    [NotMapped]
-    public string PublicName
-    {
-        get { return Name; }
-        set { Name = value; }
-    }
-    [NotMapped]
-    public Boolean PublicEnableRecord
-    {
-        get { return EnableRecord; }
-        set { EnableRecord = value; }
-    }
-    [NotMapped]
-    public long? PublicSortIndex
-    {
-        get { return SortIndex; }
-        set { SortIndex = value; }
-    }
-    #endregion
 
     public virtual void SetNaming()
     {

@@ -94,16 +94,16 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         return S_SimpleClass;
     }
-    public async Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClassAsync(BaseEntity simpleClass)
+    public async Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(BaseEntity simpleClass)
     {
-        var ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(new SimpleClassDTO(), new List<BaseEntity>());
+        var ReturnOutput = new Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>(new SimpleClassDTO(), new List<SimpleClassDTO>());
 
         if (String.IsNullOrEmpty(simpleClass.Name))
         {
             return ReturnOutput;
         }
 
-        D_Entity d_Entity;
+        SimpleClassDTO d_Entity;
 
         var _inputQuery = _db.D_Entities
             .Where(x => x.Name == simpleClass.Name);
@@ -112,18 +112,22 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         {
             d_Entity = await _inputQuery
                 .AsNoTracking()
+                .Select(x=>x.Adapt<SimpleClassDTO>())
                 .FirstAsync();
         }
         else
         {
-            d_Entity = new(id: -1, eRPCode: -1, sortIndex: -1, name: nameof(D_Entity), displayName: "تمام جدول ها");
+            d_Entity = new()
+            {
+                Id= -1, ERPCode= -1, SortIndex= -1, Name = nameof(D_Entity), DisplayName= "تمام جدول ها"
+            };
         }
 
         var gtype = DatabaseClass.GetDBType(d_Entity.Name);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
-        var Result = await Task.FromResult(aa.ToList());
+        var Result = await Task.FromResult(aa.ToList().Select(x=> x.Adapt<SimpleClassDTO>()));
 
-        ReturnOutput = new Tuple<BaseEntity, IEnumerable<BaseEntity>>(d_Entity, Result);
+        ReturnOutput = new Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>(d_Entity, Result);
 
         return ReturnOutput;
     }
@@ -267,5 +271,45 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         .FirstOrDefaultAsync();
 
         return _lastModified;
+    }
+
+    Task<IEnumerable<SimpleClassDTO>> ITableCRUD.GetAllByNameAsync(string type)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(SimpleClassDTO simpleClass)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<SimpleClassDTO> ITableCRUD.GetAsync(string type, long? id, bool Tracking)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<SimpleClassDTO> ITableCRUD.GetAsync(string type, string? recordName, bool Tracking, params string[] TableIncludes)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<SimpleClassDTO> ITableCRUD.GetLastAsync(string type)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<SimpleClassDTO> CreateAsync(SimpleClassDTO obj_DTO)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<SimpleClassDTO> UpdateAsync(SimpleClassDTO obj_DTO)
+    {
+        throw new NotImplementedException();
+    }
+
+    public LinkClassDTO AddLinkName(LinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
+    {
+        throw new NotImplementedException();
     }
 }
