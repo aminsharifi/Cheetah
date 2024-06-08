@@ -1,63 +1,66 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Helper;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Helper;
 
 public static class APIConverter
 {
-    public static GRPC_BaseClass GetBaseClass(this BaseEntity simpleClass, IMapper mapper)
+    public static BaseClassDTO GetBaseClass(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClass _GRPC_BaseClass = mapper.Map<GRPC_BaseClass>(simpleClass);
+        BaseClassDTO _GRPC_BaseClass = mapper.Map<BaseClassDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithName GetBaseClassWithName(this BaseEntity simpleClass, IMapper mapper)
+    public static BaseClassWithNameDTO GetBaseClassWithName(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithName _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithName>(simpleClass);
+        BaseClassWithNameDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithDate GetBaseClassWithDate(this BaseEntity simpleClass, IMapper mapper)
+    public static BaseClassWithDateDTO GetBaseClassWithDate(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithDate _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithDate>(simpleClass);
+        BaseClassWithDateDTO _GRPC_BaseClass = mapper.Map<BaseClassWithDateDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this BaseEntity simpleClass, IMapper mapper)
+    public static BaseClassWithNameAndDateDTO GetBaseClassWithNameAndDate(this BaseEntity simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithNameAndDate>(simpleClass);
+        BaseClassWithNameAndDateDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameAndDateDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
 
-    public static GRPC_BaseClass GetBaseClass(this SimpleClassDTO simpleClass, IMapper mapper)
+    public static BaseClassDTO GetBaseClass(this SimpleClassDTO simpleClass, IMapper mapper)
     {
-        GRPC_BaseClass _GRPC_BaseClass = mapper.Map<GRPC_BaseClass>(simpleClass);
+        BaseClassDTO _GRPC_BaseClass = mapper.Map<BaseClassDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithName GetBaseClassWithName(this SimpleClassDTO simpleClass, IMapper mapper)
+    public static BaseClassWithNameDTO GetBaseClassWithName(this SimpleClassDTO simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithName _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithName>(simpleClass);
+        BaseClassWithNameDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this SimpleClassDTO simpleClass, IMapper mapper)
+    public static BaseClassWithNameAndDateDTO GetBaseClassWithNameAndDate(this SimpleClassDTO simpleClass, IMapper mapper)
     {
-        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = mapper.Map<GRPC_BaseClassWithNameAndDate>(simpleClass);
+        BaseClassWithNameAndDateDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameAndDateDTO>(simpleClass);
 
         return _GRPC_BaseClass;
     }
-    public static T GetSimpleClass<T>(this GRPC_BaseClassWithNameAndDate gRPC_BaseClass, IMapper mapper) where T : BaseEntity
-    {
-        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
-
-        return _GRPC_BaseClass;
-    }
-    public static T GetSimpleClass<T>(this GRPC_BaseClassWithName gRPC_BaseClass, IMapper mapper) where T : BaseEntity
+    public static T GetSimpleClass<T>(this BaseClassWithNameAndDateDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
         T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
 
         return _GRPC_BaseClass;
     }
-    public static T GetSimpleClass<T>(this GRPC_BaseClass gRPC_BaseClass, IMapper mapper) where T : BaseEntity
+    public static T GetSimpleClass<T>(this BaseClassWithNameDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
+    {
+        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
+
+        return _GRPC_BaseClass;
+    }
+    public static T GetSimpleClass<T>(this BaseClassDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
         T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
 
@@ -65,7 +68,7 @@ public static class APIConverter
     }
 
     #region Condition method
-    public static F_Condition GetCondition(this GRPC_Condition Condition, IMapper mapper)
+    public static F_Condition GetCondition(this ConditionDTO Condition, IMapper mapper)
     {
         F_Condition _condition = Condition.Base is null ? new() : mapper.Map<F_Condition>(Condition.Base);
         var _tag = Condition?.Tag?.GetSimpleClass<D_Tag>(mapper);
@@ -76,21 +79,21 @@ public static class APIConverter
 
         return _condition;
     }
-    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<GRPC_Condition> Conditions, IMapper mapper)
+    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<ConditionDTO> Conditions, IMapper mapper)
     {
         foreach (var Condition in Conditions)
         {
             yield return GetCondition(Condition, mapper);
         }
     }
-    public static IEnumerable<GRPC_Condition> GetConditions(this IEnumerable<F_Condition> f_conditions, IMapper mapper)
+    public static IEnumerable<ConditionDTO> GetConditions(this IEnumerable<F_Condition> f_conditions, IMapper mapper)
     {
         foreach (var f_condition in f_conditions)
         {
 
-            GRPC_BaseClassWithName _conditionBase = mapper.Map<GRPC_BaseClassWithName>(f_condition);
+            BaseClassWithNameDTO _conditionBase = mapper.Map<BaseClassWithNameDTO>(f_condition);
 
-            GRPC_Condition _condition = new()
+            ConditionDTO _condition = new()
             {
                 Base = _conditionBase,
                 Tag = f_condition?.Tag?.GetBaseClassWithName(mapper),

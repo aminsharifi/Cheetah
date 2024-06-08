@@ -1,6 +1,4 @@
-﻿
-
-namespace Cheetah.Presentation.Services.GraphQL;
+﻿namespace Cheetah.Presentation.Services.GraphQL;
 
 public class OldMutation
 {
@@ -21,12 +19,12 @@ public class OldMutation
 
     #region CreateRequestAsync
 
-    public async Task<CheetahResult<F_Case>> CreateRequestAsync(
+    public async Task<Result<F_Case>> CreateRequestAsync(
         [Service] IWorkItem iWorkItem,
         [Service] ApplicationDbContext _db,
         F_Case request)
     {
-        return new CheetahResult<F_Case>();
+        return new Result<F_Case>();
         //return await iWorkItem.CreateRequestAsync(request);
     }
     #endregion
@@ -44,11 +42,5 @@ public class OldMutation
         //return await _db.F_Cases.SingleAsync(x => x.Id == request.CaseId);
     }
     #endregion
-
-
-
-
-
-
 
 }

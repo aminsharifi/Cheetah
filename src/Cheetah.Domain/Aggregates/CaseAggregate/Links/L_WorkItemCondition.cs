@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_WorkItemCondition : SimpleLinkClass
+public partial class L_WorkItemCondition : BaseLink
 {
     public L_WorkItemCondition()
     {

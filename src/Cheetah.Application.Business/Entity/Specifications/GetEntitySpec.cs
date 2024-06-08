@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Entity.Specifications;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.Entity.Specifications;
 
 public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
 {

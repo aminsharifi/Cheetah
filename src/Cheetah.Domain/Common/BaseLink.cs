@@ -1,21 +1,21 @@
 ﻿namespace Cheetah.Domain.Common;
 
-public abstract class SimpleLinkClass : BaseEntity
+public abstract class BaseLink : BaseEntity
 {
-    public SimpleLinkClass()
+    public BaseLink()
     {
 
     }
-    public SimpleLinkClass(Int64? secondId)
+    public BaseLink(Int64? secondId)
     {
         SecondId = secondId;
     }
-    public SimpleLinkClass(Int64? firstId, Int64? secondId)
+    public BaseLink(Int64? firstId, Int64? secondId)
     {
         SetFirstAndSecond(firstId, secondId);
     }
 
-    public SimpleLinkClass(Int64? firstId, Int64? secondId, long? eRPCode, bool enableRecord)
+    public BaseLink(Int64? firstId, Int64? secondId, long? eRPCode, bool enableRecord)
         : base(eRPCode, enableRecord)
     {
         SetFirstAndSecond(firstId, secondId);
@@ -33,13 +33,13 @@ public abstract class SimpleLinkClass : BaseEntity
     {
         SecondId = secondId;
     }
-    public SimpleLinkClass(Int64? firstId, Int64? secondId, Int64? thirdId)
+    public BaseLink(Int64? firstId, Int64? secondId, Int64? thirdId)
     {
         FirstId = firstId;
         SecondId = secondId;
         ThirdId = thirdId;
     }
-    public SimpleLinkClass(Int64 id, String? name, String? displayName, Int64? sortIndex, Int64? eRPCode,
+    public BaseLink(Int64 id, String? name, String? displayName, Int64? sortIndex, Int64? eRPCode,
         Int64? firstId, Int64? secondId)
         : base(id, name, displayName, sortIndex, eRPCode)
     {

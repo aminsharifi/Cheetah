@@ -1,6 +1,6 @@
-﻿namespace Cheetah.Domain.Common;
+﻿namespace Cheetah.Domain.Common.DTOs;
 
-public class LinkClassDTO
+public class LinkStateClassDTO
 {
     public string LinkType { get; set; }
     public string FirstType { get; set; }

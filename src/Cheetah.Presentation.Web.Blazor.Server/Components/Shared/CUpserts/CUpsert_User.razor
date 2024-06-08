@@ -18,7 +18,7 @@
         AllRecords = await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition));
         AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_UserCondition), nameof(LinkProperty.First), Id);
 
-        this.LinkRecords = new LinkClassDTO()
+        this.LinkRecords = new LinkSatetClass()
             {
                 LinkType = nameof(L_UserCondition),
                 FirstType = nameof(D_User),

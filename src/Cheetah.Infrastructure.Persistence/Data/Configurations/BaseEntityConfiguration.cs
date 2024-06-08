@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Cheetah.Domain.Enums;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
@@ -114,38 +115,38 @@ public static class BaseEntityConfiguration
                     entity.Ignore(nameof(BaseEntity.DomainEvents));
 
                 }
-                if (entityType.ClrType.BaseType.Name == nameof(SimpleLinkClass))
+                if (entityType.ClrType.BaseType.Name == nameof(BaseLink))
                 {
                     entity
-                        .HasIndex(nameof(SimpleLinkClass.FirstId))
+                        .HasIndex(nameof(BaseLink.FirstId))
                         .IsDescending()
                         .IsUnique(false);
-                    entity.Property(nameof(SimpleLinkClass.FirstId)).HasColumnOrder(100);
+                    entity.Property(nameof(BaseLink.FirstId)).HasColumnOrder(100);
 
-                    entity.HasIndex(nameof(SimpleLinkClass.SecondId))
-                        .IsDescending()
-                        .IsUnique(false);
-
-                    entity.Property(nameof(SimpleLinkClass.SecondId)).HasColumnOrder(101);
-
-                    entity.HasIndex(nameof(SimpleLinkClass.ThirdId))
+                    entity.HasIndex(nameof(BaseLink.SecondId))
                         .IsDescending()
                         .IsUnique(false);
 
-                    entity.Property(nameof(SimpleLinkClass.ThirdId)).HasColumnOrder(102);
+                    entity.Property(nameof(BaseLink.SecondId)).HasColumnOrder(101);
 
-                    entity.HasIndex(nameof(SimpleLinkClass.FourthId))
+                    entity.HasIndex(nameof(BaseLink.ThirdId))
                         .IsDescending()
                         .IsUnique(false);
 
-                    entity.Property(nameof(SimpleLinkClass.FourthId))
+                    entity.Property(nameof(BaseLink.ThirdId)).HasColumnOrder(102);
+
+                    entity.HasIndex(nameof(BaseLink.FourthId))
+                        .IsDescending()
+                        .IsUnique(false);
+
+                    entity.Property(nameof(BaseLink.FourthId))
                         .HasColumnOrder(103);
 
-                    entity.HasIndex(nameof(SimpleLinkClass.FifthId))
+                    entity.HasIndex(nameof(BaseLink.FifthId))
                         .IsDescending()
                         .IsUnique(false);
 
-                    entity.Property(nameof(SimpleLinkClass.FifthId)).HasColumnOrder(104);
+                    entity.Property(nameof(BaseLink.FifthId)).HasColumnOrder(104);
                 }
                 else if (entityType.ClrType.BaseType?.BaseType?.Name == nameof(BaseEntity))
                 {

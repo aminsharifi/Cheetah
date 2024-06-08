@@ -531,7 +531,7 @@
         AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id))
         .Where(x => x.EnableRecord).ToList();
 
-        this.LinkRecords = new LinkClassDTO()
+        this.LinkRecords = new LinkSatetClass()
             {
                 LinkType = nameof(L_ProcessScenario),
                 FirstType = nameof(D_Process),

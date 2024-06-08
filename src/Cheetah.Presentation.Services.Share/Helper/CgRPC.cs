@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.Shared.Helper;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.Shared.Helper;
 
 public static class CgRPC
 {
@@ -67,48 +69,7 @@ public static class CgRPC
         };
 
         return _GRPC_BaseClass;
-    }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this BaseEntity simpleClass)
-    {
-        GRPC_BaseClassWithNameAndDate _GRPC_BaseClass = new();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-        _GRPC_BaseClass = new()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-            SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
-            Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty,
-            CreateTimeRecord = simpleClass.Created.CGetTimestamp(),
-            LastUpdatedRecord = simpleClass.LastModified.CGetTimestamp(),
-            EnableRecord = simpleClass.EnableRecord
-        };
-
-        return _GRPC_BaseClass;
-    }
-    public static GRPC_BaseClass GetBaseClass(this SimpleClassDTO simpleClass)
-    {
-        var _GRPC_BaseClass = new GRPC_BaseClass();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-
-        _GRPC_BaseClass = new GRPC_BaseClass()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-            SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
-            EnableRecord = simpleClass.EnableRecord
-        };
-
-        return _GRPC_BaseClass;
-    }
+    }    
     public static GRPC_BaseClassWithName GetBaseClassWithName(this SimpleClassDTO simpleClass)
     {
         var _GRPC_BaseClass = new GRPC_BaseClassWithName();
@@ -130,54 +91,7 @@ public static class CgRPC
 
         return _GRPC_BaseClass;
     }
-    public static GRPC_BaseClassWithNameAndDate GetBaseClassWithNameAndDate(this SimpleClassDTO simpleClass)
-    {
-        var _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate();
-
-        if (simpleClass is null)
-        {
-            return _GRPC_BaseClass;
-        }
-
-        _GRPC_BaseClass = new GRPC_BaseClassWithNameAndDate()
-        {
-            Id = simpleClass.Id,
-            ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
-            SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
-            Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty,
-            EnableRecord = simpleClass.EnableRecord
-        };
-
-        _GRPC_BaseClass.CreateTimeRecord =
-            simpleClass.Created.CGetTimestamp();
-
-        _GRPC_BaseClass.LastUpdatedRecord =
-            simpleClass.LastModified.CGetTimestamp();
-
-        return _GRPC_BaseClass;
-    }
-    public static F_WorkItem GetWorkItemClass(this GRPC_WorkItem WorkItem)
-    {
-        if (WorkItem is null)
-        {
-            return null!;
-        }
-
-        F_WorkItem _workItem = new();
-
-        _workItem = WorkItem.Base.GetSimpleClass<F_WorkItem>();
-
-        var _conditions = WorkItem.OccurredUserActions.GetConditions();
-
-        foreach (var _condition in _conditions)
-        {
-            _workItem.WorkItemConditions?.Add(new L_WorkItemCondition(conditionId: _condition.Id));
-        }
-
-        return _workItem;
-    }
-
+        
     #region Condition method
     public static F_Condition GetCondition(this GRPC_Condition Condition)
     {

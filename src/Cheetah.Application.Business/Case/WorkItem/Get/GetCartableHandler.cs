@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
-
-namespace Cheetah.Application.Business.WorkItem.Get;
+﻿namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class GetCartableHandler(
     IReadRepository<F_WorkItem> _WorkItemRepository,

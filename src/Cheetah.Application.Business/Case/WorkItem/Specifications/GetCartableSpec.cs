@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Specifications;
+﻿using Cheetah.Domain.Enums;
+
+namespace Cheetah.Application.Business.WorkItem.Specifications;
 
 public class GetCartableSpec : Specification<F_WorkItem>
 {

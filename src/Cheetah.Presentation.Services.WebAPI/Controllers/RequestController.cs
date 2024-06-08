@@ -1,4 +1,7 @@
-﻿using Mapster;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Enums;
+using Cheetah.Domain.Result;
+using Mapster;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
@@ -76,7 +79,7 @@ public class RequestController : ControllerBase
 
         GetCase_Input _getCase_Input = new()
         {
-            Case = new GRPC_BaseClass()
+            Case = new BaseClassDTO()
             {
                 Id = _createdCaseId
             }
@@ -190,7 +193,7 @@ public class RequestController : ControllerBase
 
         GetCase_Input _getCase_Input = new()
         {
-            Case = new GRPC_BaseClass()
+            Case = new BaseClassDTO()
             {
                 Id = _createdCaseId
             }
@@ -208,13 +211,13 @@ public class RequestController : ControllerBase
 
     }
     [HttpPost(nameof(GetAllByName))]
-    public async Task<GetAllByName_Output> GetAllByName([FromBody] GetAllByName_Input request)
+    public async Task<GetAllByName_Response> GetAllByName([FromBody] GetAllByName_Request request)
     {
         _logger.LogInformation("started " + nameof(GetAllByName) + " {@" + nameof(GetAllByName) + "}", request);
 
         #region Input
 
-        GetAllByName_Output output_Request = new();
+        GetAllByName_Response output_Request = new();
 
         if (String.IsNullOrWhiteSpace(request.TableInput.Name))
         {
@@ -231,14 +234,14 @@ public class RequestController : ControllerBase
 
         #region Output
 
-        output_Request.TableInput = TableRecords.Item1.Adapt<GRPC_BaseClassWithName>();
+        output_Request.TableInput = TableRecords.Item1.Adapt<BaseClassWithNameDTO>();
 
         output_Request.TableOutput
             .AddRange(TableRecords.Item2
-            .Select(x => x.Adapt<GRPC_BaseClassWithName>()));
+            .Select(x => x.Adapt<BaseClassWithNameDTO>()));
 
         output_Request.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true)
-            .SimpleClassDTO.Adapt<GRPC_BaseClassWithName>();
+            .SimpleClassDTO.Adapt<BaseClassWithNameDTO>();
 
         #endregion
 
@@ -253,12 +256,12 @@ public class RequestController : ControllerBase
         return await SetCaseTaskUser(request);
     }
     [HttpPost(nameof(SyncEntity))]
-    public async Task<SyncEntity_Output> SyncEntity([FromBody] SyncEntity_Input request)
+    public async Task<SyncEntity_Response> SyncEntity([FromBody] SyncEntity_Request request)
     {
         return await SyncEntity(request);
     }
     [HttpPost(nameof(SyncLink))]
-    public async Task<SyncLink_Output> SyncLink([FromBody] SyncLink_Input request)
+    public async Task<SyncLink_Response> SyncLink([FromBody] SyncLink_Request request)
     {
         return await SyncLink(request);
     }
@@ -317,7 +320,7 @@ public class RequestController : ControllerBase
                 GRPC_WorkItem _gRPC_WorkItem = new();
                 _gRPC_WorkItem.Base = WorkItem.GetBaseClassWithNameAndDate(_mapper);
                 _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.GetBaseClassWithName(_mapper);
-                _gRPC_WorkItem.User = new GRPC_BaseClassWithName() { Id = WorkItem.UserId };
+                _gRPC_WorkItem.User = new BaseClassWithNameDTO() { Id = WorkItem.UserId };
                 _gRPC_WorkItem.OccurredUserActions = new();
 
 
@@ -392,8 +395,8 @@ public class RequestController : ControllerBase
             {
                 GRPC_Case _Case = new()
                 {
-                    Base = outputRequestItem.Case.Adapt<GRPC_BaseClassWithDate>(),
-                    CaseState = outputRequestItem.CaseState.Adapt<GRPC_BaseClassWithName>(),
+                    Base = outputRequestItem.Case.Adapt<BaseClassWithDateDTO>(),
+                    CaseState = outputRequestItem.CaseState.Adapt<BaseClassWithNameDTO>(),
                     CreatorId = outputRequestItem.Creator.Id,
                     RequestorId = outputRequestItem.Requestor.Id,
                     ProcessId = outputRequestItem.Process.Id
@@ -409,7 +412,7 @@ public class RequestController : ControllerBase
                 {
                     GRPC_Condition _GRPC_Condition = new();
 
-                    _GRPC_Condition.Base = _mapper.Map<GRPC_BaseClassWithName>(_taskValidUserAction);
+                    _GRPC_Condition.Base = _mapper.Map<BaseClassWithNameDTO>(_taskValidUserAction);
 
                     _task.ValidUserActions.Add(_GRPC_Condition);
                 }

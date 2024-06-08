@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Application.Business.Interfaces;
 public interface ISync
 {
     public Task<Result<SimpleClassDTO>> SyncEntityAsync(SimpleClassDTO Base, IEnumerable<SimpleClassDTO> Records, CrudOperation Crud);

@@ -9,12 +9,15 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
+	  <Compile Remove="Process\Validations\**" />
+	  <Compile Remove="User\User\**" />
+	  <EmbeddedResource Remove="Process\Validations\**" />
+	  <EmbeddedResource Remove="User\User\**" />
+	  <None Remove="Process\Validations\**" />
+	  <None Remove="User\User\**" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Process\Validations\" />
-	  <Folder Include="User\User\" />
-	  <Folder Include="User\User\Specifications\" />
+	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.9.1" />

@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Case.Get;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.Case.Get;
 
 public record CopyCaseQuery(SimpleClassDTO Case, SimpleClassDTO Creator, SimpleClassDTO Requestor, SimpleClassDTO Process, 
-    List<GRPC_Condition> CaseConditions, SimpleClassDTO WorkItemUser, List<GRPC_Condition> WorkItemConditions) : IQuery<Result<F_Case>>;
+    List<ConditionDTO> CaseConditions, SimpleClassDTO WorkItemUser, List<ConditionDTO> WorkItemConditions) : IQuery<Result<F_Case>>;

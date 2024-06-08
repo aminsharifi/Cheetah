@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Get;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.WorkItem.Get;
 
 public record CopyWorkItemQuery(SimpleClassDTO WorkItem, SimpleClassDTO WorkItemUser,
-        List<GRPC_Condition> WorkItemConditions, Boolean Rebase = false) : IQuery<Result<F_WorkItem>>;
+        List<ConditionDTO> WorkItemConditions, Boolean Rebase = false) : IQuery<Result<F_WorkItem>>;
