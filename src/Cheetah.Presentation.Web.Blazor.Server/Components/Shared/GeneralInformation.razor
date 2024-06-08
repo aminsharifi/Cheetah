@@ -1,0 +1,60 @@
+﻿<div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <MudToggleIconButton class="accordion-button" type="button" data-bs-toggle="collapse"
+                             data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                             aria-controls="panelsStayOpen-collapseOne" Disabled="@ReadonlyState">
+            اطلاعات عمومی
+        </MudToggleIconButton>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+         aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body row">
+            <div class="col-sm-11 col-lg-5">
+                <MudNumericField Label="شناسه" Value="Record.Id"
+                                 ReadOnly="true"
+                                 HelperText="بصورت خودکار ساخته می‌شود" />
+            </div>
+            <div class="col-sm-11 col-lg-5">
+                <MudNumericField Label="ایندکس"
+                                 ReadOnly="@ReadonlyState"
+                                 Value="Record.SortIndex"
+                                 HelperText="جهت مرتب‌سازی"
+                                 ValueChanged="(long? newValue)=> Record.SetSortIndex(newValue)" />
+            </div>
+            <div class="col-sm-11 col-lg-5">
+                <MudTextField Label="نام" ReadOnly="@ReadonlyState"
+                              Value="Record.Name"
+                              ValueChanged="(string newValue)=> Record.SetName(newValue)" />
+            </div>
+            <div class="col-sm-11 col-lg-5">
+                <MudTextField Label="نام نمایشی" ReadOnly="@ReadonlyState"
+                              HelperText="نامی که کاربر مشاهده می‌کند"
+                              Value="Record.DisplayName"
+                              ValueChanged="(string newValue)=> Record.SetDisplayName(newValue)" />
+            </div>
+            <div class="col-sm-11 col-lg-5">
+                <MudTextField Label="متن راهنما" ReadOnly="@ReadonlyState"
+                              Value="Record.Description"
+                              HelperText="توضیحات" 
+                              ValueChanged="(string newValue)=> Record.SetDescription(newValue)"/>
+            </div>
+            <div class="col-sm-11 col-lg-5">
+                <MudCheckBox Label="فعال" ReadOnly="@ReadonlyState"
+                             Value="@Record.EnableRecord"
+                             ValueChanged="(Boolean newValue)=> Record.SetEnable(newValue)"
+                             Color="Color.Primary"
+                             CheckedIcon="@Icons.Material.Filled.Verified"
+                             UnCheckedColor="Color.Error"
+                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public BaseEntity Record { get; set; }
+    [Parameter]
+    public Boolean ReadonlyState { get; set; } = false;
+
+}

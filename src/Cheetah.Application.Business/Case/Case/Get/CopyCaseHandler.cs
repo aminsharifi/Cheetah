@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Case.Get;
+﻿using Mapster;
+
+namespace Cheetah.Application.Business.Case.Get;
 
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,
@@ -49,7 +51,8 @@ public class CopyCaseHandler(
             await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
             {
                 var _getCondition = await _conditionRepository
-                .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition(_IMapper)));
+                .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>
+                (_condition.GetCondition(_IMapper).Adapt<SimpleClassDTO>()));
                 _case.CaseConditions.Add(new(conditionId: _getCondition.Value));
             });
         }

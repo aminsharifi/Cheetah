@@ -171,9 +171,6 @@ public class Sync(ISender _ISender,
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
                 
-                Record.SetEntity(name: Record.Name, displayName: Record.DisplayName,
-                    description: Record.Description,enableRecord: Record.EnableRecord);
-
                 _Users.Add(_FilterdRecord);
             });
 

@@ -51,15 +51,6 @@ public abstract class SimpleLinkClass : BaseEntity
 
     public Int64? SecondId { get; private set; }
 
-    #region PublicProperties
-    [NotMapped]
-    public Int64? PublicSecondId
-    {
-        get { return SecondId; }
-        set { SecondId = value; }
-    }
-    #endregion
-
     public Int64? ThirdId { get; private set; }
 
     public Int64? FourthId { get; private set; }

@@ -50,7 +50,7 @@ public class D_ParameterTypeService : ITableCRUD
         return new List<D_TagType>();
     }
 
-    public async Task<IEnumerable<BaseEntity>> GetAllByNameAsync(string Name)
+    public async Task<IEnumerable<SimpleClassDTO>> GetAllByNameAsync(string Name)
     {
         var response = await _httpClient.GetAsync("/" + Name);
 
@@ -64,13 +64,13 @@ public class D_ParameterTypeService : ITableCRUD
     }
 
 
-    public async Task<BaseEntity> GetAsyncAsync(string type, long? id, Boolean Tracking = true)
+    public async Task<SimpleClassDTO> GetAsyncAsync(string type, long? id, Boolean Tracking = true)
     {
         var response = await _httpClient.GetAsync($"/{type} /{id}");
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            var p_ParameterList = JsonConvert.DeserializeObject<BaseEntity>(content);
+            var p_ParameterList = JsonConvert.DeserializeObject<SimpleClassDTO>(content);
             //product.ImageUrl=BaseServerUrl+product.ImageUrl;
             return p_ParameterList;
         }
@@ -86,7 +86,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<Tuple<BaseEntity, IEnumerable<BaseEntity>>> GetAllBySimpleClassAsync(BaseEntity simpleClass)
+    public Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(SimpleClassDTO simpleClass)
     {
         throw new NotImplementedException();
     }
@@ -96,32 +96,32 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<SimpleLinkClass>> GetAllLinkAsync(string type, string sd_Status, long? linkID)
+    public Task<IEnumerable<LinkClassDTO>> GetAllLinkAsync(string type, string sd_Status, long? linkID)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BaseEntity> GetAsync(string type, long? id, bool Tracking = true)
+    public Task<SimpleClassDTO> GetAsync(string type, long? id, bool Tracking = true)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BaseEntity> GetAsync(string type, string? recordName, bool Tracking = true, params string[] TableIncludes)
+    public Task<SimpleClassDTO> GetAsync(string type, string? recordName, bool Tracking = true, params string[] TableIncludes)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BaseEntity> GetLastAsync(string type)
+    public Task<SimpleClassDTO> GetLastAsync(string type)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BaseEntity> CreateAsync(BaseEntity obj_DTO)
+    public Task<SimpleClassDTO> CreateAsync(SimpleClassDTO obj_DTO)
     {
         throw new NotImplementedException();
     }
 
-    public Task<BaseEntity> UpdateAsync(BaseEntity obj_DTO)
+    public Task<SimpleClassDTO> UpdateAsync(SimpleClassDTO obj_DTO)
     {
         throw new NotImplementedException();
     }
@@ -131,12 +131,19 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public SimpleLinkClass AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
+    public Task<DateTimeOffset?> GetLastUpdate(string TableName)
     {
         throw new NotImplementedException();
     }
 
-    public Task<DateTimeOffset?> GetLastUpdate(string TableName)
+
+    Task<IEnumerable<SimpleLinkClass>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    LinkClassDTO ITableCRUD.AddLinkName(LinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
     {
         throw new NotImplementedException();
     }

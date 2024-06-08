@@ -5,12 +5,11 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
     public GetEntitySpec(long? input)
     {
         Guard.Against.NotFound(nameof(input), "There isn't enough info");
-        Query
-            .Where(x => x.Id == input);
+        Query.Where(x => x.Id == input);
         Query.EnableCache(nameof(GetEntitySpec<T>), input);
         Query.AsNoTracking();
     }
-    public GetEntitySpec(BaseEntity input, Boolean? EnableTrack = false)
+    public GetEntitySpec(SimpleClassDTO input, Boolean? EnableTrack = false)
     {
         var Find = false;
 

@@ -2,7 +2,7 @@
 
 public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecification<T> where T : BaseEntity
 {
-    public GetIdEntitySpec(BaseEntity input)
+    public GetIdEntitySpec(SimpleClassDTO input)
     {
         var Find = false;
         StringBuilder _keyBulder = new();

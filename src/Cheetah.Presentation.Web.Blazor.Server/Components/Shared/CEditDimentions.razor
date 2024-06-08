@@ -32,26 +32,31 @@
                             <div class="col-sm-11 col-lg-5">
                                 <MudNumericField Label="ایندکس"
                                                  ReadOnly="@ReadonlyState"
-                                                 @bind-Value="Record.PublicSortIndex"
-                                                 HelperText="جهت مرتب‌سازی" />
+                                                 Value="Record.SortIndex"
+                                                 HelperText="جهت مرتب‌سازی"
+                                                 ValueChanged="(long? newValue)=> Record.SetSortIndex(newValue)" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام" ReadOnly="@ReadonlyState"
-                                              @bind-Value="Record.PublicName" />
+                                              Value="Record.Name"
+                                              ValueChanged="(string newValue)=> Record.SetName(newValue)" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام نمایشی" ReadOnly="@ReadonlyState"
                                               HelperText="نامی که کاربر مشاهده می‌کند"
-                                              @bind-Value="Record.PublicDisplayName" />
+                                              Value="Record.DisplayName"
+                                              ValueChanged="(string newValue)=> Record.SetDisplayName(newValue)" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="متن راهنما" ReadOnly="@ReadonlyState"
-                                              @bind-Value="Record.PublicDescription"
-                                              HelperText="توضیحات" />
+                                              Value="Record.Description"
+                                              HelperText="توضیحات"
+                                              ValueChanged="(string newValue)=> Record.SetDescription(newValue)" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudCheckBox Label="فعال" ReadOnly="@ReadonlyState"
-                                             @bind-Value="@Record.PublicEnableRecord"
+                                             Value="@Record.EnableRecord"
+                                             ValueChanged="(Boolean newValue)=> Record.SetEnable(newValue)"
                                              Color="Color.Primary"
                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                              UnCheckedColor="Color.Error"

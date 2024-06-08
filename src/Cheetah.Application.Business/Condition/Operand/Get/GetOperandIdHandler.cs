@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Operand.Get;
+﻿using Mapster;
+
+namespace Cheetah.Application.Business.Operand.Get;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
@@ -8,7 +10,7 @@ public class GetOperandHandler(IReadRepository<D_Operand> _repository)
 {
     public async Task<Result<long>> Handle(GetOperandIdQuery request, CancellationToken cancellationToken)
     {
-        var spec = new GetIdEntitySpec<D_Operand>(request.input);
+        var spec = new GetIdEntitySpec<D_Operand>(request.input.Adapt<SimpleClassDTO>());
 
         var entity = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
 

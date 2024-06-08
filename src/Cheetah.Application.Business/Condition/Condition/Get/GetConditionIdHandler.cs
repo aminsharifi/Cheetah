@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Condition.Get;
+﻿using Mapster;
+
+namespace Cheetah.Application.Business.Condition.Get;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
@@ -14,7 +16,7 @@ public class GetConditionIdHandler(
         Guard.Against.Null<D_Tag>(request.input.Tag);
         Guard.Against.Null<D_Operand>(request.input.Operand);
 
-        var _getIdEntitySpec = new GetIdEntitySpec<D_Tag>(request.input.Tag);
+        var _getIdEntitySpec = new GetIdEntitySpec<D_Tag>(request.input.Tag.Adapt<SimpleClassDTO>());
         var _tagId = await _tagRepository.FirstOrDefaultAsync(_getIdEntitySpec);
         var _operandId = await _ISender.Send(new GetOperandIdQuery(request.input.Operand));
 
