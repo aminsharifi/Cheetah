@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Services;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Application.Business.Services;
 
 public class Sync(ISender _ISender,
     IRepository<L_UserCondition> userConditionRepository,

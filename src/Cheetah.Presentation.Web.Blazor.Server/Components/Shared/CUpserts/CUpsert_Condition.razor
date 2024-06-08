@@ -11,10 +11,10 @@
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
                 SelectedProcessesChanged="@SelectedTagChanged"
-                CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                CFieldType="@(Domain.Enums.FieldType.CSelect)"
                 reference="@reference"></CInput>
 
-        <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+        <CInput CFieldType="@(Domain.Enums.FieldType.CSelect)"
                 Records="@List_D_Operand"
                 @bind-NLValue="(Record as F_Condition).PublicOperandId"
                 Record="@((Record as F_Condition).Operand)"
@@ -26,28 +26,28 @@
         @switch ((Record as F_Condition)?.Tag?.TagTypeId)
         {
             case var _boolean when _boolean == D_TagType.Boolean.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
+                <CInput CFieldType="@(Domain.Enums.FieldType.CBool)"
                         @bind-BValue="(Record as F_Condition).PublicBooleanValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         reference="@reference"></CInput>
                 break;
             case var _string when _string == D_TagType.String.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CString)"
+                <CInput CFieldType="@(Domain.Enums.FieldType.CString)"
                         @bind-SValue="(Record as F_Condition).PublicValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         reference="@reference"></CInput>
                 break;
             case var _numberic when _numberic == D_TagType.Numberic.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CNFloat)"
+                <CInput CFieldType="@(Domain.Enums.FieldType.CNFloat)"
                         @bind-NFValue="(Record as F_Condition).PublicFloatValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         reference="@reference"></CInput>
                 break;
             case var _date when _date == D_TagType.Date.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CDate)"
+                <CInput CFieldType="@(Domain.Enums.FieldType.CDate)"
                         @bind-CDateTime="(Record as F_Condition).PublicDateTimeOffsetValue"
                         CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
                         CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))

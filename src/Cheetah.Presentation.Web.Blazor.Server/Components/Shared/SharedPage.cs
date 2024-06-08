@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
 public class SharedPage : MyComponentBase
 {
     #region Parameters
@@ -31,19 +34,19 @@ public class SharedPage : MyComponentBase
     public CrudOperation crudOperation { get; set; }
 
     [Parameter]
-    public BaseEntity Record { get; set; }
+    public SimpleClassDTO Record { get; set; }
 
     [Parameter]
-    public IEnumerable<BaseEntity> Records { get; set; } = new List<BaseEntity>();
+    public IEnumerable<SimpleClassDTO> Records { get; set; } = new List<SimpleClassDTO>();
 
     [Parameter]
-    public IEnumerable<BaseEntity> AllRecords { get; set; } = new List<BaseEntity>();
+    public IEnumerable<SimpleClassDTO> AllRecords { get; set; } = new List<SimpleClassDTO>();
 
     [Parameter]
-    public IEnumerable<SimpleLinkClass> AllLink { get; set; } = new List<SimpleLinkClass>();
+    public IEnumerable<LinkSatetClass> AllLink { get; set; } = new List<LinkSatetClass>();
 
     [Parameter]
-    public LinkClassDTO LinkRecords { get; set; } = new();
+    public LinkSatetClass LinkRecords { get; set; } = new();
 
 
     [Parameter]
@@ -70,8 +73,7 @@ public class SharedPage : MyComponentBase
     [Parameter]
     public EventCallback ParentCallback { get; set; }
 
-    public Dictionary<string, string> keyValuePair { get; set; } = new Dictionary<string, string>();
-
+    public Dictionary<string, string> keyValuePair { get; set; } = new();
 
     #endregion  
 }

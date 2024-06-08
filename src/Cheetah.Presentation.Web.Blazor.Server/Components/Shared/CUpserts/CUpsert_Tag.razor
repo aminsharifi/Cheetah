@@ -10,7 +10,7 @@
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
                 SelectedProcessesChanged="@SelectedTagTypeChanged"
-                CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                CFieldType="@(Domain.Enums.FieldType.CSelect)"
                 reference="@reference"></CInput>
 
         <CInput @bind-NLValue="(Record as D_Tag).PublicTagCategoryId"
@@ -19,7 +19,7 @@
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))
                 SelectedProcessesChanged="@SelectedTagCategoryChanged"
-                CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
+                CFieldType="@(Domain.Enums.FieldType.CSelect)"
                 reference="@reference"></CInput>
     </RowTemplate>
 </CEditDimentions>

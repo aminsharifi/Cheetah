@@ -2,13 +2,14 @@
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {
-    public async Task<Int32> AddLink(LinkClassDTO obj_DTO)
+    public async Task<Int32> AddLink(LinkStateClassDTO obj_DTO)
     {
         await _db.AddAsync(obj_DTO);
 
         return 1;
     }
-    public SimpleLinkClass AddLinkName(SimpleLinkClass simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
+    public SimpleLinkClassDTO AddLinkName(SimpleLinkClassDTO simpleLinkClass,
+        SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
     {
         var _name = new StringBuilder()
             .Append(firstClass?.Name ?? String.Empty)
@@ -22,11 +23,11 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             .Append(SecondClass?.DisplayName ?? String.Empty)
             .ToString();
 
-        simpleLinkClass.SetNameAndDisplayName(name: _name, displayName: _displayName);
+        simpleLinkClass = new() { Name = _name, DisplayName = _displayName };
 
         return simpleLinkClass;
     }
-    public async Task<BaseEntity> CreateAsync(BaseEntity obj_DTO)
+    public async Task<SimpleClassDTO> CreateAsync(SimpleClassDTO obj_DTO)
     {
         //obj_DTO.Id = null;
         await _db.AddAsync(obj_DTO);
@@ -49,7 +50,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         return -1;
     }
-    public async Task<BaseEntity> GetAsync(String type, Int64? id, Boolean Tracking = true)
+    public async Task<SimpleClassDTO> GetAsync(String type, Int64? id, Boolean Tracking = true)
     {
         if (!String.IsNullOrEmpty(type))
         {
@@ -67,14 +68,14 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             {
                 _db.ChangeTracker.QueryTrackingBehavior = Tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking;
 
-                var _SimpleClass = await _db.FindAsync(gtype, id) as BaseEntity;
+                var _SimpleClass = await _db.FindAsync(gtype, id) as SimpleClassDTO;
 
                 return _SimpleClass;
             }
         }
         return null;
     }
-    public async Task<BaseEntity> GetAsync(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
+    public async Task<SimpleClassDTO> GetAsync(String type, string? recordName, Boolean Tracking = true, params String[] TableIncludes)
     {
         //_db.ChangeTracker.QueryTrackingBehavior = Tracking;
         var gtype = DatabaseClass.GetDBType(type);
@@ -92,9 +93,9 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         var S_SimpleClass = await Q_SimpleClass.SingleOrDefaultAsync();
 
-        return S_SimpleClass;
+        return S_SimpleClass.Adapt<SimpleClassDTO>();
     }
-    public async Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(BaseEntity simpleClass)
+    public async Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(SimpleClassDTO simpleClass)
     {
         var ReturnOutput = new Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>(new SimpleClassDTO(), new List<SimpleClassDTO>());
 
@@ -112,47 +113,51 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         {
             d_Entity = await _inputQuery
                 .AsNoTracking()
-                .Select(x=>x.Adapt<SimpleClassDTO>())
+                .Select(x => x.Adapt<SimpleClassDTO>())
                 .FirstAsync();
         }
         else
         {
             d_Entity = new()
             {
-                Id= -1, ERPCode= -1, SortIndex= -1, Name = nameof(D_Entity), DisplayName= "تمام جدول ها"
+                Id = -1,
+                ERPCode = -1,
+                SortIndex = -1,
+                Name = nameof(D_Entity),
+                DisplayName = "تمام جدول ها"
             };
         }
 
         var gtype = DatabaseClass.GetDBType(d_Entity.Name);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
-        var Result = await Task.FromResult(aa.ToList().Select(x=> x.Adapt<SimpleClassDTO>()));
+        var Result = await Task.FromResult(aa.ToList().Select(x => x.Adapt<SimpleClassDTO>()));
 
         ReturnOutput = new Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>(d_Entity, Result);
 
         return ReturnOutput;
     }
-    public async Task<IEnumerable<BaseEntity>> GetAllByNameAsync(String type)
+    public async Task<IEnumerable<SimpleClassDTO>> GetAllByNameAsync(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var Result = await Task.FromResult(aa.ToList());
-        return Result;
+        return Result.Adapt<List<SimpleClassDTO>>();
     }
-    public async Task<IEnumerable<SimpleLinkClass>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID)
+    public async Task<IEnumerable<SimpleLinkClassDTO>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID)
     {
         if (!String.IsNullOrEmpty(type))
         {
             _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             var gtype = DatabaseClass.GetDBType(type);
-            var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<SimpleLinkClass>;
+            var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseLink>;
 
             var Result = await Task.FromResult(
                 aa.Where(x => x.EnableRecord && (x.FirstId == linkID && sd_Status == nameof(LinkProperty.First)) ||
                 (x.SecondId == linkID && sd_Status == nameof(LinkProperty.Second))).ToList());
-            return Result;
+            return Result.Adapt<List<SimpleLinkClassDTO>>();
         }
         _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-        return new List<SimpleLinkClass>();
+        return new List<SimpleLinkClassDTO>();
     }
     public async Task<Dictionary<String, String>> GetAllTableNameAsync(String SchemaName)
     {
@@ -168,32 +173,32 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         }
         return new Dictionary<string, string>();
     }
-    public async Task<BaseEntity> GetLastAsync(String type)
+    public async Task<SimpleClassDTO> GetLastAsync(String type)
     {
         var gtype = DatabaseClass.GetDBType(type);
         var aa = DatabaseClass.InvokeSet(_db, gtype) as IEnumerable<BaseEntity>;
         var instance = (BaseEntity)Activator.CreateInstance(gtype);
         instance.SetSortIndex(aa.Any() ? aa.Max(x => x.SortIndex) + 1 : 1);
-        return instance;
+        return instance.Adapt<SimpleClassDTO>();
     }
-    public async Task<Int32> RemoveLink(LinkClassDTO obj_DTO)
+    public async Task<Int32> RemoveLink(LinkStateClassDTO obj_DTO)
     {
         _db.Remove(obj_DTO);
 
         return 1;
     }
-    public async Task<BaseEntity> UpdateAsync(BaseEntity obj_DTO)
+    public async Task<SimpleClassDTO> UpdateAsync(SimpleClassDTO obj_DTO)
     {
         _db.Update(obj_DTO);
         await _db.SaveChangesAsync();
         _db.ChangeTracker.Clear();
         return obj_DTO;
     }
-    public async Task<Int32> UpdateLinkAsync(LinkClassDTO obj_DTO)
+    public async Task<Int32> UpdateLinkAsync(LinkStateClassDTO obj_DTO)
     {
         var gtype = DatabaseClass.GetDBType(obj_DTO.LinkType);
 
-        var simpleLinkClass = new List<SimpleLinkClass>();
+        var simpleLinkClass = new List<SimpleLinkClassDTO>();
 
         var fixedInstance = await GetAsync(
             type: obj_DTO.Sd_Status == nameof(LinkProperty.First) ? obj_DTO.FirstType : obj_DTO.SecondType,
@@ -201,15 +206,15 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         foreach (var link in obj_DTO.FloatState.Where(x => x.Value))
         {
-            var instance = (SimpleLinkClass)Activator.CreateInstance(gtype);
+            var instance = (SimpleLinkClassDTO)Activator.CreateInstance(gtype);
 
             if (simpleLinkClass.Any())
             {
-                instance.SetSortIndex(simpleLinkClass.Last().SortIndex + 1);
+                instance.SortIndex = simpleLinkClass.Last().SortIndex + 1;
             }
             else
             {
-                instance = await GetLastAsync(obj_DTO.LinkType) as SimpleLinkClass;
+                instance = await GetLastAsync(obj_DTO.LinkType) as SimpleLinkClassDTO;
             }
 
             Type firstType, secondType;
@@ -221,11 +226,13 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
             if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
-                instance.SetFirstAndSecond(obj_DTO.FixedId, link.Key.Item1);
+                //instance.SetFirstAndSecond(obj_DTO.FixedId, link.Key.Item1);
+
+
             }
             else
             {
-                instance.SetFirstAndSecond(link.Key.Item1, obj_DTO.FixedId);
+                //instance.SetFirstAndSecond(link.Key.Item1, obj_DTO.FixedId);
             }
 
             var floatedInstance = await GetAsync(
@@ -261,7 +268,6 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         //return await _db.SaveChangesAsync();
     }
-
     public async Task<DateTimeOffset?> GetLastUpdate(string TableName)
     {
         var _lastModified =
@@ -271,45 +277,5 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         .FirstOrDefaultAsync();
 
         return _lastModified;
-    }
-
-    Task<IEnumerable<SimpleClassDTO>> ITableCRUD.GetAllByNameAsync(string type)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(SimpleClassDTO simpleClass)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<SimpleClassDTO> ITableCRUD.GetAsync(string type, long? id, bool Tracking)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<SimpleClassDTO> ITableCRUD.GetAsync(string type, string? recordName, bool Tracking, params string[] TableIncludes)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<SimpleClassDTO> ITableCRUD.GetLastAsync(string type)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<SimpleClassDTO> CreateAsync(SimpleClassDTO obj_DTO)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<SimpleClassDTO> UpdateAsync(SimpleClassDTO obj_DTO)
-    {
-        throw new NotImplementedException();
-    }
-
-    public LinkClassDTO AddLinkName(LinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
-    {
-        throw new NotImplementedException();
     }
 }

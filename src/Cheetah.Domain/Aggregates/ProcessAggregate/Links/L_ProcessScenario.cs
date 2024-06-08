@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_ProcessScenario : SimpleLinkClass
+public partial class L_ProcessScenario : BaseLink
 {
     public L_ProcessScenario()
     {

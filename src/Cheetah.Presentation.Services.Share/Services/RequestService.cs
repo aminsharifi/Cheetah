@@ -1,6 +1,4 @@
-﻿using Mapster;
-
-namespace Cheetah.Presentation.Services.Shared.Services;
+﻿namespace Cheetah.Presentation.Services.Shared.Services;
 
 public class RequestService(ILogger<RequestService> logger,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
@@ -195,7 +193,8 @@ public class RequestService(ILogger<RequestService> logger,
 
         output_Request.TableOutput.AddRange(TableRecords.Item2.Select(x => x.GetBaseClassWithName()));
 
-        output_Request.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
+        //output_Request.OutputState = OutputState<Boolean>
+        //    .Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
 
         #endregion
 
@@ -221,22 +220,22 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Output
 
-        var OutputState = Outputresult.SimpleClassDTO;
+        //var OutputState = Outputresult.SimpleClassDTO;
 
         SetCaseTaskUser_Output output_Request = new();
 
-        output_Request.OutputState = OutputState.GetBaseClassWithName();
+        //output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (!Outputresult.Result.IsSuccess)
+        if (!Outputresult.IsSuccess)
         {
             return output_Request;
         }
 
-        var _list_CaseTaskUser = Outputresult.Result.Value;
+        var _list_CaseTaskUser = Outputresult.Value;
 
-        output_Request.Case = Outputresult.Result.Value.Case.GetBaseClass();
-        output_Request.Task = Outputresult.Result.Value.Task.GetBaseClassWithName();
-        output_Request.User = Outputresult.Result.Value.User.GetBaseClassWithName();
+        output_Request.Case = Outputresult?.Value?.Case?.GetBaseClass();
+        output_Request.Task = Outputresult?.Value?.Task?.GetBaseClassWithName();
+        output_Request.User = Outputresult?.Value?.User?.GetBaseClassWithName();
 
         #endregion
 
@@ -292,8 +291,13 @@ public class RequestService(ILogger<RequestService> logger,
 
         await iSync.SyncLinkAsync(request.Base.Adapt<SimpleClassDTO>(),
             request.Records
-            .Select(x => new SimpleLinkClassDTO(firstId: x.First.Id, secondId: x.Second.Id, eRPCode: x.ERPCode,
-            enableRecord: (x.EnableRecord is true))),
+            .Select(x => new SimpleLinkClassDTO()
+            {
+                FirstId = x.First.Id,
+                SecondId= x.Second.Id,
+                ERPCode= x.ERPCode,
+                EnableRecord= (x.EnableRecord is true) 
+            }),
             (CrudOperation)request.Crud.Value);
 
         #region Output
@@ -495,7 +499,7 @@ public class RequestService(ILogger<RequestService> logger,
 
                 GRPC_WorkItem _gRPC_WorkItem = new();
 
-                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.GetBaseClassWithDate();
+                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.Adapt<GRPC_BaseClassWithDate>();
 
                 _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName();
 
@@ -503,7 +507,8 @@ public class RequestService(ILogger<RequestService> logger,
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
-                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_gRPC_WorkItem.Base.GetSimpleClass<F_WorkItem>());
+                GetEntitySpec<F_WorkItem> _getEntitySpec =
+                    new(_gRPC_WorkItem.Base.Adapt<SimpleClassDTO>());
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
@@ -526,9 +531,9 @@ public class RequestService(ILogger<RequestService> logger,
         logger.LogInformation("Ended " + nameof(Cartable));
         logger.LogInformation("{@OutputCartable}", _OutputCartable);
 
-        _OutputCartable.OutputState = OutputState<Boolean>
-            .Success(nameof(Cartable), true)
-            .SimpleClassDTO.GetBaseClassWithName();
+        //_OutputCartable.OutputState = OutputState<Boolean>
+        //    .Success(nameof(Cartable), true)
+        //    .SimpleClassDTO.GetBaseClassWithName();
 
         return _OutputCartable;
     }

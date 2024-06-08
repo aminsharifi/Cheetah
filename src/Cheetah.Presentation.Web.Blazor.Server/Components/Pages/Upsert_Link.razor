@@ -53,7 +53,7 @@
     [Inject]
     protected ISnackbar Snackbar { get; set; }
 
-    public SimpleLinkClass Record { get; set; }
+    public BaseLink Record { get; set; }
 
     public BaseEntity FirstClassRecord { get; set; }
 
@@ -87,7 +87,7 @@
     {
         try
         {
-            Record = await simpleClassRepository.GetAsync(Name, Id) as SimpleLinkClass;
+            Record = await simpleClassRepository.GetAsync(Name, Id) as BaseLink;
 
             if (type == nameof(LinkProperty.First))
             {

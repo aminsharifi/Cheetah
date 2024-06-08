@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Domain.Common;
+﻿namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 
 /// <summary>
 /// CartableDTO use for Inbox and Outbox

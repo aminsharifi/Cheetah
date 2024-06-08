@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Presentation.Web.Blazor.Client.Service;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Result;
+
+namespace Cheetah.Presentation.Web.Blazor.Client.Service;
 
 public class D_ParameterTypeService : ITableCRUD
 {
@@ -96,7 +99,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<LinkClassDTO>> GetAllLinkAsync(string type, string sd_Status, long? linkID)
+    public Task<IEnumerable<LinkSatetClass>> GetAllLinkAsync(string type, string sd_Status, long? linkID)
     {
         throw new NotImplementedException();
     }
@@ -126,7 +129,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<int> UpdateLinkAsync(LinkClassDTO obj_DTO)
+    public Task<int> UpdateLinkAsync(LinkSatetClass obj_DTO)
     {
         throw new NotImplementedException();
     }
@@ -137,13 +140,13 @@ public class D_ParameterTypeService : ITableCRUD
     }
 
 
-    Task<IEnumerable<SimpleLinkClass>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
+    Task<IEnumerable<LinkSatetClass>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
     {
         throw new NotImplementedException();
     }
 
 
-    LinkClassDTO ITableCRUD.AddLinkName(LinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
+    LinkSatetClass ITableCRUD.AddLinkName(LinkSatetClass simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
     {
         throw new NotImplementedException();
     }
