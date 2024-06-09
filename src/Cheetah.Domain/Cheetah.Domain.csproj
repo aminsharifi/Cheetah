@@ -18,16 +18,19 @@
 	  <Compile Remove="Aggregates\CaseAggregate\Specifications\**" />
 	  <Compile Remove="Aggregates\ConditionAggregate\Facts\**" />
 	  <Compile Remove="Aggregates\ConditionAggregate\Links\**" />
+	  <Compile Remove="Interfaces\**" />
 	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
 	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
 	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Specifications\**" />
 	  <EmbeddedResource Remove="Aggregates\ConditionAggregate\Facts\**" />
 	  <EmbeddedResource Remove="Aggregates\ConditionAggregate\Links\**" />
+	  <EmbeddedResource Remove="Interfaces\**" />
 	  <None Remove="Aggregates\CaseAggregate\Events\**" />
 	  <None Remove="Aggregates\CaseAggregate\Handlers\**" />
 	  <None Remove="Aggregates\CaseAggregate\Specifications\**" />
 	  <None Remove="Aggregates\ConditionAggregate\Facts\**" />
 	  <None Remove="Aggregates\ConditionAggregate\Links\**" />
+	  <None Remove="Interfaces\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -59,6 +62,5 @@
 
 	<ItemGroup>
 	  <Folder Include="Aggregates\CaseAggregate\Links\Values\" />
-	  <Folder Include="Interfaces\" />
 	</ItemGroup>
 </Project>

@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Enums;
-
-namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
+﻿namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
 public class SharedPage : MyComponentBase
 {
     #region Parameters
@@ -43,10 +40,10 @@ public class SharedPage : MyComponentBase
     public IEnumerable<SimpleClassDTO> AllRecords { get; set; } = new List<SimpleClassDTO>();
 
     [Parameter]
-    public IEnumerable<LinkSatetClass> AllLink { get; set; } = new List<LinkSatetClass>();
+    public IEnumerable<LinkStateClassDTO> AllLink { get; set; } = new List<LinkStateClassDTO>();
 
     [Parameter]
-    public LinkSatetClass LinkRecords { get; set; } = new();
+    public LinkStateClassDTO LinkRecords { get; set; } = new();
 
 
     [Parameter]

@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
-using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
-
-namespace Cheetah.Application.Business.Case;
+﻿namespace Cheetah.Application.Business.Case;
 
 public class CreateRequest_Request
 {

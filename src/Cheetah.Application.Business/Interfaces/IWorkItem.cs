@@ -1,10 +1,6 @@
-﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
-using Cheetah.Domain.Common.DTOs;
-
-namespace Cheetah.Application.Business.Interfaces;
+﻿namespace Cheetah.Application.Business.Interfaces;
 public interface IWorkItem
 {
-
     public Task<Result<Boolean>> SetWorkItemsAsync(F_Case Current_Case, F_WorkItem? Current_WorkItem = null,
         SimpleClassDTO? WorkItemBase = null);
     public Task<Result<long>> CreateRequestAsync(SimpleClassDTO Request, SimpleClassDTO Creator,

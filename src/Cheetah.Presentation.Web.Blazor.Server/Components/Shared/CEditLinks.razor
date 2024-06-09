@@ -12,12 +12,12 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <div class="row">
-                    <CInput LValue="Record.Id"
-                            CDescription="شناسه یکتا سیستمی"
-                            CDisplayName="شناسه" CFieldType="@(Domain.Enums.FieldType.CID)"></CInput>
-                    <CInput BValue="Record.EnableRecord"
-                            CDescription="فعال"
-                            CDisplayName="فعال" CFieldType="@(Domain.Enums.FieldType.CBool)"></CInput>
+                    @* <CInput LValue="Record.Id"
+                CDescription="شناسه یکتا سیستمی"
+                CDisplayName="شناسه" CFieldType="@(Domain.Enums.FieldType.CID)"></CInput> *@
+                    @*       <CInput BValue="Record.EnableRecord"
+                CDescription="فعال"
+                CDisplayName="فعال" CFieldType="@(Domain.Enums.FieldType.CBool)"></CInput> *@
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate
@@ -33,7 +33,7 @@
                         </button>
                         <MudButton Variant="Variant.Filled" Color="Color.Info"
                                    StartIcon="@Icons.Material.Filled.KeyboardReturn"
-                        @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
+                                   @onclick="@(e => _CNavigation.BackNavigation(_NavigationManager))">
                             برگشت
                         </MudButton>
                     </div>
@@ -52,7 +52,7 @@
     [Parameter]
     public long? LinkId { get; set; } = 0;
     [Parameter]
-    public BaseLink Record { get; set; }
+    public SimpleLinkClassDTO Record { get; set; }
     [Parameter]
     public String? reference { get; set; }
     [Parameter]
@@ -97,12 +97,12 @@
             {
                 if (Record.Id > 0)
                 {
-                    Record = await simpleClassRepository.UpdateAsync(Record) as BaseLink;
+                    // Record = await simpleClassRepository.UpdateAsync(Record) as BaseLink;
                     Snackbar.Add($"ردیف {Record.DisplayName} با موفقیت ذخیره شد", Severity.Success);
                 }
                 else
                 {
-                    Record = await simpleClassRepository.CreateAsync(Record) as BaseLink;
+                    // Record = await simpleClassRepository.CreateAsync(Record) as BaseLink;
                     Snackbar.Add("ردیف با موفقیت ایجاد شد", Severity.Error);
                 }
                 _CNavigation.BackNavigation(_NavigationManager);

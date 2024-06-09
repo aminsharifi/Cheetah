@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
+﻿
+
+namespace Cheetah.Infrastructure.Persistence.Services;
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {
@@ -49,6 +51,10 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
             return -1;
         }
         return -1;
+    }
+    public Task<SimpleClassDTO> GetAsync(long? RecordId)
+    {
+        throw new NotImplementedException();
     }
     public async Task<SimpleClassDTO> GetAsync(String type, Int64? id, Boolean Tracking = true)
     {
@@ -278,4 +284,6 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 
         return _lastModified;
     }
+
+
 }
