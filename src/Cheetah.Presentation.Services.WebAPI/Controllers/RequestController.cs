@@ -159,13 +159,12 @@ public class RequestController : ControllerBase
         SimpleClassDTO _workItem = request.WorkItem.Base.Adapt<SimpleClassDTO>();
         SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
         List<ConditionDTO> _workItemConditions = request.WorkItem.OccurredUserActions;
-        SimpleClassDTO _workItemBase = request.WorkItem.Base.Adapt<SimpleClassDTO>();
         Boolean _rebase = request.Rebase ?? false;
         #endregion
 
         var Outputresult = await _iWorkItem.PerformWorkItemAsync
             (WorkItem: _workItem, WorkItemUser: _workItemUser,
-            WorkItemConditions: _workItemConditions, Rebase: _rebase, WorkItemBase: _workItemBase);
+            WorkItemConditions: _workItemConditions, Rebase: _rebase);
 
         #region Output
 

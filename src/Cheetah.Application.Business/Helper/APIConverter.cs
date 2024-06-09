@@ -71,8 +71,8 @@ public static class APIConverter
     public static F_Condition GetCondition(this ConditionDTO Condition, IMapper mapper)
     {
         F_Condition _condition = Condition.Base is null ? new() : mapper.Map<F_Condition>(Condition.Base);
-        var _tag = Condition?.Tag?.GetSimpleClass<D_Tag>(mapper);
-        var _operand = Condition?.Operand?.GetSimpleClass<D_Operand>(mapper);
+        var _tag = Condition?.Tag?.Adapt<D_Tag>();
+        var _operand = Condition?.Operand?.Adapt<D_Operand>();
         var _value = Condition?.Value;
 
         _condition.SetConditionValue(tag: _tag, operand: _operand, value: _value);

@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
-using Mapster;
-
-namespace Cheetah.Application.Business.Case.Get;
+﻿namespace Cheetah.Application.Business.Case.Get;
 
 public class CopyCaseHandler(
     IReadRepository<D_User> _userRepository,
@@ -31,18 +28,16 @@ public class CopyCaseHandler(
         var _processSpec = new GetIdEntitySpec<D_Process>(request.Process);
         _processId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
 
-        F_Case _case = new(eRPCode: _eRPCode, requestorId: _requestorId, creatorId: _creatorId, processId: _processId);
-
-        long? _userId = default;
-
         var _WorkItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
-        _userId = await _userRepository.FirstOrDefaultAsync(_WorkItemUserSpec, cancellationToken);
+        var _userId = await _userRepository.FirstOrDefaultAsync(_WorkItemUserSpec, cancellationToken);
+
+        F_Case _case = new(eRPCode: _eRPCode, requestorId: _requestorId, creatorId: _creatorId, processId: _processId);
 
         F_WorkItem _workItem = new(userId: _userId);
 
         await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
         {
-            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition(_IMapper)));
+            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition));
 
             _workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
         });

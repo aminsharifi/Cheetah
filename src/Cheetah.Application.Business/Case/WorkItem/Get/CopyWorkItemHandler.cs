@@ -11,15 +11,17 @@ public class CopyWorkItemHandler(
 {
     public async Task<Result<F_WorkItem>> Handle(CopyWorkItemQuery request, CancellationToken cancellationToken)
     {
-        var _workItemSpec = new GetEntitySpec<F_WorkItem>(request.WorkItem.Adapt<SimpleClassDTO>(), true);
+        var _workItemSpec = new GetEntitySpec<F_WorkItem>(request.WorkItem, true);
         F_WorkItem _workItem = await _workItemRepository.FirstOrDefaultAsync(_workItemSpec, cancellationToken);
+
+        _workItem.SetNameAndDisplayName(name: request.WorkItem.Name, displayName: request.WorkItem.DisplayName);
 
         var _userSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
         _workItem!.SetUserId(await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken));
 
         await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
         {
-            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition(_IMapper)));
+            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition));
 
             _workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
         });
