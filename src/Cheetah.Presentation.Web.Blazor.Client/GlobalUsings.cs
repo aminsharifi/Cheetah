@@ -1,6 +1,6 @@
-﻿global using Cheetah.Application.Business.Interfaces;
-global using Cheetah.Domain;
-global using Cheetah.Domain.Common;
+﻿global using Ardalis.Result;
+global using Cheetah.Application.Business.Interfaces;
+global using Cheetah.Domain.Common.DTOs;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Presentation.Web.Blazor.Client;
 global using Cheetah.Presentation.Web.Blazor.Client.Service;

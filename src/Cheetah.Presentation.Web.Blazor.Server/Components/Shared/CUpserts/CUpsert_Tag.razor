@@ -4,23 +4,23 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-NLValue="(Record as D_Tag).PublicTagTypeId"
+@*         <CInput @bind-NLValue="(Record as D_Tag).PublicTagTypeId"
                 Records="@_tagTypeList"
                 Record="@((Record as D_Tag).TagType)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
                 SelectedProcessesChanged="@SelectedTagTypeChanged"
                 CFieldType="@(Domain.Enums.FieldType.CSelect)"
-                reference="@reference"></CInput>
+                reference="@reference"></CInput> *@
 
-        <CInput @bind-NLValue="(Record as D_Tag).PublicTagCategoryId"
+@*         <CInput @bind-NLValue="(Record as D_Tag).PublicTagCategoryId"
                 Records="@_tagCategoryList"
                 Record="@((Record as D_Tag).TagCategory)"
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))
                 SelectedProcessesChanged="@SelectedTagCategoryChanged"
                 CFieldType="@(Domain.Enums.FieldType.CSelect)"
-                reference="@reference"></CInput>
+                reference="@reference"></CInput> *@
     </RowTemplate>
 </CEditDimentions>
 
@@ -30,8 +30,8 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        _tagTypeList = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType));
-        _tagCategoryList = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagCategory));
+        // _tagTypeList = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagType));
+        // _tagCategoryList = await simpleClassRepository.GetAllByNameAsync(nameof(D_TagCategory));
     }
 
     private async Task SelectedTagTypeChanged(ChangeEventArgs e)
@@ -40,8 +40,8 @@
         {
             var _tagTypeId = Int64.Parse(e.Value.ToString());
 
-            (Record as D_Tag).SetTagType(_tagTypeList
-            .First(x => x.Id == _tagTypeId) as D_TagType);
+            // (Record as D_Tag).SetTagType(_tagTypeList
+            // .First(x => x.Id == _tagTypeId) as D_TagType);
         }
     }
     private async Task SelectedTagCategoryChanged(ChangeEventArgs e)
@@ -50,8 +50,8 @@
         {
             var _tagCategoryId = Int64.Parse(e.Value.ToString());
 
-            (Record as D_Tag).SetTagCategory(_tagCategoryList
-            .First(x => x.Id == _tagCategoryId) as D_TagCategory);
+            // (Record as D_Tag).SetTagCategory(_tagCategoryList
+            // .First(x => x.Id == _tagCategoryId) as D_TagCategory);
         }
     }
 }

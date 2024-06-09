@@ -1,5 +1,4 @@
-﻿@using Blazored.FluentValidation
-@inherits CUpsert_GeneralCode
+﻿@inherits CUpsert_GeneralCode
 
 @if (Record != null && !IsLoading)
 {
@@ -34,29 +33,29 @@
                                                  ReadOnly="@ReadonlyState"
                                                  Value="Record.SortIndex"
                                                  HelperText="جهت مرتب‌سازی"
-                                                 ValueChanged="(long? newValue)=> Record.SetSortIndex(newValue)" />
+                                                 ValueChanged="(long? newValue)=> Record.SortIndex = newValue" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام" ReadOnly="@ReadonlyState"
                                               Value="Record.Name"
-                                              ValueChanged="(string newValue)=> Record.SetName(newValue)" />
+                                              ValueChanged="(string newValue)=> Record.Name = newValue" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="نام نمایشی" ReadOnly="@ReadonlyState"
                                               HelperText="نامی که کاربر مشاهده می‌کند"
                                               Value="Record.DisplayName"
-                                              ValueChanged="(string newValue)=> Record.SetDisplayName(newValue)" />
+                                              ValueChanged="(string newValue)=> Record.DisplayName = newValue" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudTextField Label="متن راهنما" ReadOnly="@ReadonlyState"
                                               Value="Record.Description"
                                               HelperText="توضیحات"
-                                              ValueChanged="(string newValue)=> Record.SetDescription(newValue)" />
+                                              ValueChanged="(string newValue)=> Record.Description = newValue" />
                             </div>
                             <div class="col-sm-11 col-lg-5">
                                 <MudCheckBox Label="فعال" ReadOnly="@ReadonlyState"
                                              Value="@Record.EnableRecord"
-                                             ValueChanged="(Boolean newValue)=> Record.SetEnable(newValue)"
+                                             ValueChanged="(Boolean newValue)=> Record.EnableRecord = newValue"
                                              Color="Color.Primary"
                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                              UnCheckedColor="Color.Error"

@@ -14,4 +14,5 @@ public interface ITableCRUD
     public Task<Int32> UpdateLinkAsync(LinkStateClassDTO obj_DTO);
     public Task<DateTimeOffset?> GetLastUpdate(String TableName);
     public SimpleLinkClassDTO AddLinkName(SimpleLinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass);
+    Task<SimpleClassDTO> GetAsync(long? RecordId);
 }

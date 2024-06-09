@@ -1,10 +1,9 @@
-﻿@    using Hangfire
-@inherits SharedPage
+﻿@inherits SharedPage
 
 @if (Records != null && Records.Any())
 {
     <MudItem xs="12" Class="pt-0">
-        <MudDataGrid T="BaseEntity" Items="@Records" Hover="true"
+        <MudDataGrid T="SimpleClassDTO" Items="@Records" Hover="true"
                      Bordered="true" Striped="true" QuickFilter="@_quickFilter">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">@($"نام جدول: {Name}")</MudText>
@@ -84,7 +83,7 @@
     private string _searchString;
 
     // quick filter - filter gobally across multiple columns with the same input
-    private Func<BaseEntity, bool> _quickFilter => x =>
+    private Func<SimpleClassDTO, bool> _quickFilter => x =>
     {
         if (string.IsNullOrWhiteSpace(_searchString))
             return true;

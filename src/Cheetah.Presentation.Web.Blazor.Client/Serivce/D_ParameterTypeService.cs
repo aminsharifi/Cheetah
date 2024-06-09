@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Result;
-
-namespace Cheetah.Presentation.Web.Blazor.Client.Service;
+﻿namespace Cheetah.Presentation.Web.Blazor.Client.Service;
 
 public class D_ParameterTypeService : ITableCRUD
 {
@@ -30,9 +27,10 @@ public class D_ParameterTypeService : ITableCRUD
         }
         else
         {
-            var errorModel = JsonConvert.DeserializeObject<CheetahResult>(content);
-            throw new Exception(errorModel.SimpleClassDTO.DisplayName);
+            var errorModel = JsonConvert.DeserializeObject<Result>(content);
+            //throw new Exception(errorModel.SimpleClassDTO.DisplayName);
         }
+        return new SimpleClassDTO();
     }
 
     public async Task<IEnumerable<D_TagType>> GetAllAsync()
@@ -79,9 +77,10 @@ public class D_ParameterTypeService : ITableCRUD
         }
         else
         {
-            var errorModel = JsonConvert.DeserializeObject<CheetahResult>(content);
-            throw new Exception(errorModel.SimpleClassDTO.DisplayName);
+            var errorModel = JsonConvert.DeserializeObject<Result>(content);
+            //throw new Exception(errorModel.SimpleClassDTO.DisplayName);
         }
+        return new SimpleClassDTO();
     }
 
     public Task<int> deleteAsync(string type, long? id)
@@ -98,11 +97,7 @@ public class D_ParameterTypeService : ITableCRUD
     {
         throw new NotImplementedException();
     }
-
-    public Task<IEnumerable<LinkSatetClass>> GetAllLinkAsync(string type, string sd_Status, long? linkID)
-    {
-        throw new NotImplementedException();
-    }
+    
 
     public Task<SimpleClassDTO> GetAsync(string type, long? id, bool Tracking = true)
     {
@@ -129,24 +124,22 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    public Task<int> UpdateLinkAsync(LinkSatetClass obj_DTO)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<DateTimeOffset?> GetLastUpdate(string TableName)
     {
         throw new NotImplementedException();
     }
 
-
-    Task<IEnumerable<LinkSatetClass>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
+    public Task<IEnumerable<SimpleLinkClassDTO>> GetAllLinkAsync(string type, string sd_Status, long? linkID)
     {
         throw new NotImplementedException();
     }
 
+    public Task<int> UpdateLinkAsync(LinkStateClassDTO obj_DTO)
+    {
+        throw new NotImplementedException();
+    }
 
-    LinkSatetClass ITableCRUD.AddLinkName(LinkSatetClass simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
+    public SimpleLinkClassDTO AddLinkName(SimpleLinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
     {
         throw new NotImplementedException();
     }
