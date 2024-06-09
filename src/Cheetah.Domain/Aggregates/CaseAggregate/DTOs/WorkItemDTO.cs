@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
-using Cheetah.Domain.Common.DTOs;
-
-namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+﻿namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 
 public class WorkItemDTO
 {
