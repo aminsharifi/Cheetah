@@ -30,7 +30,7 @@ public partial class F_WorkItem : BaseEntity
 
     #region Functions
 
-    public F_WorkItem(Int64 id, String name, String displayName, Int64 sortIndex, Int64 eRPCode) :
+    public F_WorkItem(Int64 id, String? name, String displayName, Int64 sortIndex, Int64 eRPCode) :
         base(id, name, displayName, sortIndex, eRPCode)
     {
 

@@ -17,10 +17,22 @@ public class CopyCaseHandler(
          conditionRepository: _conditionRepository, iMapper: _IMapper,
          cancellationToken: cancellationToken);
 
-        F_WorkItem _workItem = await CopyWorkItem
-                   .Apply(iSender: _ISender, request: request,
-                   _userRepository: _userRepository, cancellationToken: cancellationToken);
+
+        var _workItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
+        var _workItemUserId = await _userRepository.FirstOrDefaultAsync(_workItemUserSpec, cancellationToken);
+
+        F_WorkItem _workItem = new(userId: _workItemUserId);
+
+        _workItem = await CopyWorkItem
+            .Apply(iSender: _ISender,
+            WorkItemUser: request.WorkItemUser, WorkItemBase: request.WorkItemBase,
+            workItemConditions: request.WorkItemConditions, _userRepository: _userRepository,
+            workItem: _workItem, cancellationToken: cancellationToken);
+
+        //.Apply(iSender: _ISender, workItem: _workItem, cancellationToken: cancellationToken);
+
         _workItem.SetCase(_case);
+
         _case.WorkItems.Add(_workItem);
 
         return _case;

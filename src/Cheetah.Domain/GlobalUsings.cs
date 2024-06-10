@@ -7,6 +7,7 @@ global using Cheetah.Domain.Common.DTOs;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Entities.Links;
+global using Cheetah.Domain.Enums;
 global using Cheetah.Domain.Resx;
 global using Cheetah.Resx;
 global using System.ComponentModel.DataAnnotations.Schema;

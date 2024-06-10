@@ -3,24 +3,27 @@
 public static class CopyWorkItem
 {
     public static async Task<F_WorkItem> Apply(ISender iSender,
-        CopyCaseQuery request, IReadRepository<D_User> _userRepository,
+        SimpleClassDTO WorkItemUser,
+        List<ConditionDTO> workItemConditions,
+        SimpleClassDTO WorkItemBase,
+        IReadRepository<D_User> _userRepository, F_WorkItem workItem,
         CancellationToken cancellationToken)
     {
-        var _workItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
+        var _workItemUserSpec = new GetIdEntitySpec<D_User>(WorkItemUser);
         var _workItemUserId = await _userRepository.FirstOrDefaultAsync(_workItemUserSpec, cancellationToken);
 
-        F_WorkItem _workItem = new(userId: _workItemUserId);
+        workItem.SetUserId(_workItemUserId);
 
-        _workItem.SetNameAndDisplayName(name: request.WorkItemBase.Name,
-            displayName: request.WorkItemBase.DisplayName);
+        workItem.SetNameAndDisplayName(name: WorkItemBase.Name,
+            displayName: WorkItemBase.DisplayName);
 
-        await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
+        await Parallel.ForEachAsync(workItemConditions, async (_condition, _cancellatoin) =>
         {
             var _getCondition = await iSender.Send(new GetConditionIdQuery(_condition));
 
-            _workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
+            workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
         });
 
-        return _workItem;
+        return workItem;
     }
 }
