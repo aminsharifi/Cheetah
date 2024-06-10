@@ -19,7 +19,7 @@ public static class SetCurrentAssignment
                 .Select(x => x.SecondId.Value);
 
             var ExpectedConditions = (await iSender.Send(
-        new GetIncludedConditionsQuery(ExpectedConditionsIds))).Value;
+                new GetIncludedConditionsQuery(ExpectedConditionsIds))).Value;
 
             if (CompareConditionClass.Handle(_actual_Conditions.Value, ExpectedConditions))
             {

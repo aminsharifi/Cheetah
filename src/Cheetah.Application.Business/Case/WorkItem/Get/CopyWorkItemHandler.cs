@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
-using Mapster;
-
-namespace Cheetah.Application.Business.WorkItem.Get;
+﻿namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class CopyWorkItemHandler(
     IReadRepository<D_User> _userRepository,
@@ -14,17 +11,17 @@ public class CopyWorkItemHandler(
         var _workItemSpec = new GetEntitySpec<F_WorkItem>(request.WorkItem, true);
         F_WorkItem _workItem = await _workItemRepository.FirstOrDefaultAsync(_workItemSpec, cancellationToken);
 
-        _workItem.SetNameAndDisplayName(name: request.WorkItem.Name, displayName: request.WorkItem.DisplayName);
-
-        var _userSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
-        _workItem!.SetUserId(await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken));
-
-        await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
+        if (_workItem.LastModified != null && !request.Rebase)
         {
-            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition));
+            return Result.Conflict("درخواست پشین پردازش شده است");
+            throw new InvalidOperationException();
+        }
 
-            _workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
-        });
+        _workItem = await CopyWorkItem
+             .Apply(iSender: _ISender,
+             WorkItemUser: request.WorkItemUser, WorkItemBase: request.WorkItem,
+             workItemConditions: request.WorkItemConditions, _userRepository: _userRepository,
+             workItem: _workItem, cancellationToken: cancellationToken);
 
         return _workItem;
     }

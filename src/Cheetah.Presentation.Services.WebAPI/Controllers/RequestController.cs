@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-
-namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -124,6 +122,18 @@ public class RequestController : ControllerBase
         output_Request.OutputState = new BaseClassWithNameDTO() { Id = 0 };
 
         var _selectedRequests = _requests.Value.FirstOrDefault();
+
+        if (_selectedRequests is null)
+        {
+            output_Request.OutputState = new BaseClassWithNameDTO()
+            {
+                Id = 1,
+                Name = ResultStatus.NotFound.ToString(),
+                DisplayName = $"چنین درخواستی یافت نشد"
+            };
+
+            return output_Request;
+        }
 
         output_Request.Case = await GetCase(_selectedRequests);
 
@@ -289,7 +299,10 @@ public class RequestController : ControllerBase
             TaskDTO _gRPC_Task = new() { Base = _Task.Adapt<BaseClassWithNameDTO>() };
 
             var _taskFlowConditionsIds = _Task.TaskFlows
-                .SelectMany(parent => parent.Flow.FlowConditions, (parent, child) => child.SecondId);
+                .SelectMany(parent => parent.Flow.FlowConditions, (parent, child) => child.SecondId)
+                .Where(x => x.HasValue)
+                .Select(x => x.Value);
+
 
             var _taskFlowConditions = await GetConditions(_taskFlowConditionsIds);
 
@@ -299,7 +312,8 @@ public class RequestController : ControllerBase
 
             #region Performers
 
-            var _taskConditionsIds = _Task.TaskConditions.Select(x => x.SecondId);
+            var _taskConditionsIds = _Task.TaskConditions
+                .Select(x => x.SecondId.Value);
 
             var _taskConditions = await GetConditions(_taskConditionsIds);
 
@@ -318,28 +332,23 @@ public class RequestController : ControllerBase
                 _gRPC_WorkItem.User = new BaseClassWithNameDTO() { Id = WorkItem.UserId };
                 _gRPC_WorkItem.OccurredUserActions = new();
 
-
-                var _workItemConditionsIds = WorkItem.WorkItemConditions.Select(x => x.SecondId);
+                var _workItemConditionsIds = WorkItem.WorkItemConditions
+                    .Select(x => x.SecondId.Value);
 
                 var _workItemConditions = await GetConditions(_workItemConditionsIds);
 
                 _gRPC_WorkItem.OccurredUserActions.AddRange(_workItemConditions);
 
-                foreach (var WorkItemCondition in WorkItem.WorkItemConditions)
-                {
-                    ConditionDTO _occurredUserAction = new() { Base = new() { Id = WorkItemCondition.SecondId } };
-                    _gRPC_WorkItem.OccurredUserActions.Add(_occurredUserAction);
-                }
                 _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
             }
             _gRPC_Case.Tasks.Add(_gRPC_Task);
         }
         return _gRPC_Case;
     }
-    private async Task<IEnumerable<ConditionDTO>> GetConditions(IEnumerable<long?> ConditionIds)
+    private async Task<IEnumerable<ConditionDTO>> GetConditions(IEnumerable<long> ConditionIds)
     {
         var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(
-            ConditionIds.Select(x => x.Value)))).Value;
+            ConditionIds.Select(x => x)))).Value;
 
         return Actual_Conditions.GetConditions(_mapper);
     }
@@ -358,7 +367,7 @@ public class RequestController : ControllerBase
         var _case = request.Case?.Adapt<SimpleClassDTO>();
         var _workItem = request.WorkItem?.Adapt<SimpleClassDTO>();
 
-        var cartableDTO = new CartableDTO()
+        CartableDTO cartableDTO = new()
         {
             User = _assignee,
             Process = _process,
@@ -402,16 +411,20 @@ public class RequestController : ControllerBase
 
                 _task.ValidUserActions = new();
 
-                var _taskValidUserActions = outputRequestItem.ValidUserActions.ToList();
+                var _taskValidUserActions = outputRequestItem
+                    .ValidUserActions
+                    .Select(x => x.Id)
+                    .ToList();
 
-                foreach (var _taskValidUserAction in _taskValidUserActions)
-                {
-                    ConditionDTO _GRPC_Condition = new();
+                var _validUserActions = await GetConditions(_taskValidUserActions);
 
-                    _GRPC_Condition.Base = _mapper.Map<BaseClassWithNameDTO>(_taskValidUserAction);
+                _task.ValidUserActions.AddRange(_validUserActions);
 
-                    _task.ValidUserActions.Add(_GRPC_Condition);
-                }
+
+
+
+
+
 
                 _task.Base = outputRequestItem.Task.GetBaseClassWithName(_mapper);
 
@@ -431,7 +444,10 @@ public class RequestController : ControllerBase
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
-                var _workItemConditionIds = _retriveworkItem.WorkItemConditions.Select(x => x.SecondId);
+                var _workItemConditionIds = _retriveworkItem
+                    .WorkItemConditions
+                    .Where(x => x.SecondId.HasValue)
+                    .Select(x => x.SecondId.Value);
 
                 var _workItemConditions = await GetConditions(_workItemConditionIds);
 

@@ -2,8 +2,8 @@
 
 public class TaskDTO
 {
-    public BaseClassWithNameDTO? Base { get; set; }
-    public List<ConditionDTO?>? Performers { get; set; }
-    public List<ConditionDTO?>? ValidUserActions { get; set; }
-    public List<WorkItemDTO>? WorkItems { get; set; }
+    public BaseClassWithNameDTO? Base { get; set; } = new();
+    public List<ConditionDTO>? Performers { get; set; } = new();
+    public List<ConditionDTO>? ValidUserActions { get; set; } = new();
+    public List<WorkItemDTO>? WorkItems { get; set; } = new();
 }

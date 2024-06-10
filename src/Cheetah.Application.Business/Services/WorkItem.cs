@@ -28,7 +28,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         if (_duplicateCaseID is not null)
         {
-            _OutputState = Result<long>.Conflict(_duplicateCaseID.ToString());
+            _OutputState = Result.Conflict(_duplicateCaseID.ToString());
 
             return _OutputState;
         }
@@ -52,32 +52,27 @@ public class WorkItem(ICopyClass _iCopyClass,
     {
         Result<long> _OutputState;
 
-        F_WorkItem Current_WorkItem = await iSender.Send(new CopyWorkItemQuery(
+        var Current_WorkItem = await iSender.Send(new CopyWorkItemQuery(
             WorkItem, WorkItemUser, WorkItemConditions, Rebase));
 
-        if (Current_WorkItem.LastModified is not null && !Rebase)
+        await SetCurrentAssignment
+        .Handle(iSender, taskRepository, Current_WorkItem);
+
+        if (Current_WorkItem.Value.Case.IsEditing())
         {
-            _OutputState = Result<long>.Conflict(WorkItem.Id.ToString());
-            return _OutputState;
-        }
-
-        var _setCurrentAssignmentAsync = await SetCurrentAssignment
-            .Handle(iSender, taskRepository, Current_WorkItem);
-
-        Current_WorkItem = _setCurrentAssignmentAsync;
-
-        if (Current_WorkItem.Case.IsEditing())
-        {
-            Current_WorkItem.Case.WorkItems
+            Current_WorkItem.Value.Case.WorkItems
                 .Where(x => !x.IsExit() && !x.IsSent())
                 .ToList().ForEach(x => x.SetExit());
 
-            await SetWorkItems.Handle(iSender, taskRepository, Current_WorkItem.Case, Current_WorkItem);
+            var _currentCase = await SetWorkItems
+                .Handle(iSender, taskRepository, Current_WorkItem.Value.Case, Current_WorkItem);
+
+            Current_WorkItem.Value.SetCase(_currentCase);
         }
 
-        await workItemRepository.UpdateAsync(_setCurrentAssignmentAsync);
+        await workItemRepository.UpdateAsync(Current_WorkItem);
 
-        _OutputState = Result<long>.Success(WorkItem.Id);
+        _OutputState = Result.Success(Current_WorkItem.Value.CaseId.Value);
 
         return _OutputState;
     }

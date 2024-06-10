@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
-
-namespace Cheetah.Application.Business.Case;
+﻿namespace Cheetah.Application.Business.Case;
 
 public class PerformRequest_Request
 {
