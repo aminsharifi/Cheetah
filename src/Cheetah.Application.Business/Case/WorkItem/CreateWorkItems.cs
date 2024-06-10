@@ -1,12 +1,11 @@
-﻿using Cheetah.Application.Business.Process;
-
-namespace Cheetah.Application.Business.Case.WorkItem;
+﻿namespace Cheetah.Application.Business.Case.WorkItem;
 
 public static class CreateWorkItems
 {
     public static async Task<F_Case> Handle(ISender iSender, F_Case f_Case)
     {
-        var _allTasks = await GetAllTask.Handle(iSender, f_Case.SelectedScenarioId.Value);
+        var _allTasks = (await iSender
+            .Send(new GetTasksFromScenarioQuery(f_Case.SelectedScenarioId.Value))).Value;
 
         foreach (var _task in _allTasks)
         {

@@ -2,6 +2,7 @@
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
 global using Ardalis.Specification;
+global using Cheetah.Application.Business.Case.Case;
 global using Cheetah.Application.Business.Case.Get;
 global using Cheetah.Application.Business.Case.Specifications;
 global using Cheetah.Application.Business.Case.WorkItem;
@@ -14,6 +15,7 @@ global using Cheetah.Application.Business.Condition.Specifications;
 global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Helper;
 global using Cheetah.Application.Business.Interfaces;
+global using Cheetah.Application.Business.Process;
 global using Cheetah.Application.Business.ProcessScenario.Get;
 global using Cheetah.Application.Business.ProcessScenario.Specifications;
 global using Cheetah.Application.Business.Task.Get;

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Ardalis.Result;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -62,9 +64,14 @@ public class RequestController : ControllerBase
 
         CreateRequest_Response output_Request = new();
 
-        if (!_outputResult.IsSuccess)
+        if (_outputResult.IsSuccess is false)
         {
-            output_Request.OutputState = new BaseClassWithNameDTO() { Id = 1 };
+            output_Request.OutputState = new BaseClassWithNameDTO()
+            {
+                Id = 1,
+                Name = _outputResult.Status.ToString(),
+                DisplayName = $"شماره رهگیری {_outputResult.Errors.First()} تکراری است"
+            };
 
             return output_Request;
         }

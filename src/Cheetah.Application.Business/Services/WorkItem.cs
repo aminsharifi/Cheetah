@@ -14,25 +14,28 @@ public class WorkItem(ICopyClass _iCopyClass,
         List<ConditionDTO> CaseConditions, SimpleClassDTO WorkItemUser,
         List<ConditionDTO> WorkItemConditions, SimpleClassDTO WorkItemBase)
     {
-        var GeneralRequest = await iSender.Send(new CopyCaseQuery(Case, Creator, Requestor, Process,
-            CaseConditions, WorkItemUser, WorkItemConditions));
+        var GeneralRequest = await iSender.Send(
+            new CopyCaseQuery(Case: Case, Creator: Creator, Requestor: Requestor, Process: Process,
+            CaseConditions: CaseConditions, WorkItemUser: WorkItemUser,
+            WorkItemConditions: WorkItemConditions, WorkItemBase: WorkItemBase));
 
         var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.Value.ProcessId.Value,
         eRPCode: GeneralRequest.Value.ERPCode.Value);
 
         Result<long> _OutputState;
 
-        if (await caseRepository.AnyAsync(_getCaseSpec))
-        {
-            var _caseID = await caseRepository.FirstOrDefaultAsync(_getCaseSpec);
+        var _duplicateCaseID = await caseRepository.FirstOrDefaultAsync(_getCaseSpec);
 
-            _OutputState = Result<long>.Conflict();
+        if (_duplicateCaseID is not null)
+        {
+            _OutputState = Result<long>.Conflict(_duplicateCaseID.ToString());
 
             return _OutputState;
         }
         else
         {
-            await SetWorkItems.Handle(iSender, taskRepository, Current_Case: GeneralRequest, WorkItemBase: WorkItemBase);
+            GeneralRequest = await SetWorkItems.Handle(iSender, taskRepository,
+                Current_Case: GeneralRequest, Current_WorkItem: GeneralRequest.Value.WorkItems.First());
 
             GeneralRequest.Value.UpdateLastModified();
 
@@ -58,7 +61,8 @@ public class WorkItem(ICopyClass _iCopyClass,
             return _OutputState;
         }
 
-        var _setCurrentAssignmentAsync = await SetCurrentAssignment.Handle(iSender, taskRepository, Current_WorkItem);
+        var _setCurrentAssignmentAsync = await SetCurrentAssignment
+            .Handle(iSender, taskRepository, Current_WorkItem);
 
         Current_WorkItem = _setCurrentAssignmentAsync;
 
