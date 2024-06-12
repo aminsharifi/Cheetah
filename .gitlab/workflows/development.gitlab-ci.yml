@@ -25,11 +25,21 @@ version:
   except:
     - tags
 
-build-grpc:
+# build-grpc:
+#   stage: build
+#   script:
+#     - tag=`cat .next-version`
+#     - docker build -t docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag -f ./dockers/local/gRPC/Dockerfile .
+#   artifacts:
+#     paths:
+#     - .next-version
+#   needs:
+#     - version
+build-webapi:
   stage: build
   script:
     - tag=`cat .next-version`
-    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag -f ./dockers/local/gRPC/Dockerfile .
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag -f ./dockers/local/WebAPI/Dockerfile .
   artifacts:
     paths:
     - .next-version
@@ -47,33 +57,36 @@ build-grpc:
 #  needs:
 #    - version
 
-build-webapi:
-  stage: build
-  script:
-    - tag=`cat .next-version`
-    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag -f ./dockers/local/WebAPI/Dockerfile .
-  artifacts:
-    paths:
-    - .next-version
-  needs:
-    - version
 
+# push-to-repo-grpc:
+#   stage: push
+#   script:
+#     - tag=`cat .next-version`
+#     - docker push docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
+#     - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
+#   artifacts:
+#     paths:
+#       - build_info
+#       - .next-version
+#     expire_in: 2 min
+#   needs:
+#     - build-grpc
 
-push-to-repo-grpc:
+push-to-repo-webapi:
   stage: push
   script:
     - tag=`cat .next-version`
-    - docker push docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
-    - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-grpc:$tag
+    - docker push docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag
+    - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag
   artifacts:
     paths:
       - build_info
       - .next-version
     expire_in: 2 min
   needs:
-    - build-grpc
+    - build-webapi
 
-#push-to-repo-blazor:
+#push-to-repo:
 #  stage: push
 #  script:
 #    - tag=`cat .next-version`
@@ -100,20 +113,32 @@ changelog:
     - cicdver changelog
     - cicdver commit-and-tag CHANGELOG.md release_info
   needs:
-#    - push-to-repo-blazor
-    - push-to-repo-grpc
+    #- push-to-repo
+    # - push-to-repo-grpc
+    - push-to-repo-webapi
 
-deploy-to-k8s-grpc:
+# deploy-to-k8s-grpc:
+#   stage: deploy
+#   environment: development
+#   script:
+#     - tag=`cat .next-version`
+#     - helm repo update
+#     - helm upgrade -i ${IMAGE_NAME}grpc -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc --set env.normal.Key_Consul=dotnet/cheetah/grpcsettings jfrog/${IMAGE_NAME}grpc
+#   needs:
+#     - push-to-repo-grpc
+
+deploy-to-k8s-webapi:
   stage: deploy
   environment: development
   script:
     - tag=`cat .next-version`
     - helm repo update
-    - helm upgrade -i ${IMAGE_NAME}grpc -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-grpc --set env.normal.Key_Consul=dotnet/cheetah/grpcsettings jfrog/${IMAGE_NAME}grpc
+    - helm upgrade -i ${IMAGE_NAME}webapi -n $NAME_SPACE --set image.tag=$tag --set image.repository=docker.repoifb.local/services/cheetah-webapi --set env.normal.Key_Consul=dotnet/cheetah/webapisettings jfrog/${IMAGE_NAME}webapi
   needs:
-    - push-to-repo-grpc
+    - push-to-repo-webapi
 
-#deploy-to-k8s-blazor:
+
+#deploy-to-k8s:
 #  stage: deploy
 #  environment: development
 #  script:
@@ -123,13 +148,21 @@ deploy-to-k8s-grpc:
 #  needs:
 #    - push-to-repo
 
-checking-stability-grpc:
+# checking-stability-grpc:
+#   stage: stability
+#   script:
+#     - kubectl rollout status Deployment/${IMAGE_NAME}grpc -n $NAME_SPACE
+#   timeout: 3 minute
+#   needs:
+#     - deploy-to-k8s-grpc
+
+checking-stability-webapi:
   stage: stability
   script:
-    - kubectl rollout status Deployment/${IMAGE_NAME}grpc -n $NAME_SPACE
+    - kubectl rollout status Deployment/${IMAGE_NAME}webapi -n $NAME_SPACE
   timeout: 3 minute
   needs:
-    - deploy-to-k8s-grpc
+    - deploy-to-k8s-webapi
 
 #checking-stability:
 #  stage: stability
@@ -138,4 +171,3 @@ checking-stability-grpc:
 #  timeout: 3 minute
 #  needs:
 #    - deploy-to-k8s
-
