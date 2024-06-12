@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain.Entities.Dimentions;
+﻿using Cheetah.Domain.Enums;
+
+namespace Cheetah.Domain.Entities.Dimentions;
 
 public partial class D_Entity : BaseEntity
 {

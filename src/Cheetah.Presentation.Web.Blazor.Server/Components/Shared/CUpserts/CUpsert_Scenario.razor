@@ -8,11 +8,11 @@
         {
             <div class="row">
                 <center>
-                    <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
+          @*           <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
                                EndIcon="@Icons.Material.Filled.SettingsInputComponent" Color="Color.Primary"
                                @onclick="(e => Add_ScenarioCondition(e,(F_Scenario)Record))">
                         افزودن پیش شرط
-                    </MudButton>
+                    </MudButton> *@
                 </center>
                 <Ctable>
                     <thead>
@@ -32,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var _scenarioCondition in ((F_Scenario)Record).ScenarioConditions
+                    @*     @foreach (var _scenarioCondition in ((F_Scenario)Record).ScenarioConditions
                        .OrderBy(x => x.SortIndex))
                         {
                             <tr style="width:90%">
@@ -43,11 +43,15 @@
                                 </td>
                                 <td>
                                     <MudNumericField ReadOnly="@ReadonlyState" class="col-12"
-                                                     Value="_scenarioCondition?.PublicSortIndex"></MudNumericField>
+                                                     Value="_scenarioCondition?.SortIndex"
+                                                     ValueChanged="(long? newValue)=>_scenarioCondition?.SetSortIndex(newValue)">
+                                    </MudNumericField>
                                 </td>
                                 <td>
                                     <MudSelect ReadOnly="@ReadonlyState" Label="پیش شرط ها"
-                                               Value="_scenarioCondition?.PublicSecondId" class="col-12" style="direction:rtl"
+                                               Value="_scenarioCondition?.SecondId"
+                                               ValueChanged="(long? newValue)=>_scenarioCondition?.SetSecondId(newValue)"
+                                               class="col-12" style="direction:rtl"
                                                @oninput="(e => SelectedScenarioConditionsChanged(e,_scenarioCondition))">
                                         @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
                                         {
@@ -65,10 +69,10 @@
                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                  UnCheckedColor="Color.Error"
                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                 @onclick="args=>_scenarioCondition.PublicEnableRecord = !_scenarioCondition.EnableRecord" />
+                                                 @onclick="args=>_scenarioCondition.SetEnable(!_scenarioCondition.EnableRecord)" />
                                 </td>
                             </tr>
-                        }
+                        } *@
                     </tbody>
                 </Ctable>
             </div>
@@ -134,7 +138,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (F_Task _task in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
+                            @* @foreach (F_Task _task in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
                             {
                                 <tr>
                                     @if (_scenarioStep == ScenarioStep.Tasks)
@@ -145,11 +149,16 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px" Value="_task?.PublicSortIndex" />
+                                            <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px"
+                                                             Value="_task?.SortIndex"
+                                                             ValueChanged="(long? newValue)=>_task?.SetSortIndex(newValue)" />
                                         </td>
                                     }
                                     <td>
-                                        <MudInput ReadOnly="@ReadonlyState" Value="_task?.PublicDisplayName" style="width:200px"></MudInput>
+                                        <MudInput ReadOnly="@ReadonlyState"
+                                                  Value="_task?.DisplayName"
+                                                  ValueChanged="(string? newValue)=>_task?.SetDisplayName(newValue)"
+                                                  style="width:200px"></MudInput>
                                     </td>
                                     @if (_scenarioStep == ScenarioStep.Tasks)
                                     {
@@ -191,10 +200,15 @@
                                                                 </span>
                                                             </td>
                                                             <td style="width:50px">
-                                                                <MudNumericField ReadOnly="@ReadonlyState" Value="_taskCondition?.PublicSortIndex" style="width:50px" />
+                                                                <MudNumericField ReadOnly="@ReadonlyState"
+                                                                                 Value="_taskCondition?.SortIndex"
+                                                                                 ValueChanged="(long? newValue)=>_task?.SetSortIndex(newValue)"
+                                                                                 style="width:50px" />
                                                             </td>
                                                             <td style="width:400px">
-                                                                <MudSelect T="long?" ReadOnly="@ReadonlyState" Value="_taskCondition?.PublicSecondId"
+                                                                <MudSelect T="long?" ReadOnly="@ReadonlyState"
+                                                                           Value="_taskCondition?.SecondId"
+                                                                           ValueChanged="(long? newValue)=>_taskCondition?.SetSecondId(newValue)"
                                                                            style="direction:rtl;width:400px">
                                                                     @foreach (var _Condition in _list_F_Condition
                                                                    .Where(x => x.Tag?.TagCategoryId == D_TagCategory.Performer.Id))
@@ -213,7 +227,7 @@
                                                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                                                              UnCheckedColor="Color.Error"
                                                                              UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                             @onclick="args=>_taskCondition!.PublicEnableRecord = !_taskCondition.EnableRecord" />
+                                                                             @onclick="args=>_taskCondition!.SetEnable(!_taskCondition.EnableRecord)" />
                                                             </td>
                                                         </tr>
                                                     }
@@ -266,7 +280,10 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <MudNumericField ReadOnly="@ReadonlyState" Value="_action?.PublicSortIndex" style="width:50px" />
+                                                                    <MudNumericField ReadOnly="@ReadonlyState"
+                                                                                     Value="_action?.SortIndex"
+                                                                                     ValueChanged="(long? newValue)=>_action?.SetSortIndex(newValue)"
+                                                                                     style="width:50px" />
                                                                 </td>
                                                                 <td>
                                                                     <center>
@@ -307,10 +324,15 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <MudNumericField ReadOnly="@ReadonlyState"
-                                                                                                         Value="_flowCondition?.PublicSortIndex" style="width: 50px"></MudNumericField>
+                                                                                                         Value="_flowCondition?.SortIndex"
+                                                                                                         ValueChanged="(long? newValue)=>_flowCondition?.SetSortIndex(newValue)"
+                                                                                                         style="width: 50px"></MudNumericField>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <MudSelect T="long?" Value="_flowCondition?.PublicSecondId" style="direction:rtl">
+                                                                                        <MudSelect T="long?"
+                                                                                                   Value="_flowCondition?.SecondId"
+                                                                                                   ValueChanged="(long? newValue)=>_flowCondition?.SetSecondId(newValue)"
+                                                                                                   style="direction:rtl">
                                                                                             @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
                                                                                             {
                                                                                                 <MudSelectItem T="long?" Value="@_Condition.Id">
@@ -327,7 +349,7 @@
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UnCheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     @onclick="args=>_flowCondition!.PublicEnableRecord = !_flowCondition.EnableRecord" />
+                                                                                                     @onclick="args=>_flowCondition!.SetEnable(!_flowCondition.EnableRecord)" />
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -370,10 +392,15 @@
                                                                                         </span>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px" Value="Task?.PublicSortIndex" />
+                                                                                        <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px"
+                                                                                                         Value="Task?.SortIndex"
+                                                                                                         ValueChanged="(long? newValue)=>Task?.SetSortIndex(newValue)" />
                                                                                     </td>
                                                                                     <td>
-                                                                                        <MudSelect ReadOnly="@ReadonlyState"  T="long?" Value="Task?.PublicSecondId" style="direction:rtl"
+                                                                                        <MudSelect ReadOnly="@ReadonlyState" T="long?"
+                                                                                                   Value="Task?.SecondId"
+                                                                                                   ValueChanged="(long? newValue)=>Task?.SetSecondId(newValue)"
+                                                                                                   style="direction:rtl"
                                                                                                    @oninput="(e => SelectedToTaskChanged(e,Task))">
                                                                                             @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
                                                                                             {
@@ -391,7 +418,7 @@
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UnCheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     @onclick="args=>Task.PublicEnableRecord = !Task.EnableRecord" />
+                                                                                                     @onclick="args=>Task.SetEnable(!Task.EnableRecord)" />
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -418,7 +445,7 @@
                                                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                  UnCheckedColor="Color.Error"
                                                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                 @onclick="args=>_action.PublicEnableRecord = !_action.EnableRecord" />
+                                                                                 @onclick="args=>_action.SetEnable(!_action.EnableRecord)" />
                                                                 </td>
                                                             </tr>
                                                         }
@@ -435,10 +462,10 @@
                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                      UnCheckedColor="Color.Error"
                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                     @onclick="args=>_task.PublicEnableRecord = !_task.EnableRecord" />
+                                                     @onclick="args=>_task.SetEnable(!_task.EnableRecord)" />
                                     </td>
                                 </tr>
-                            }
+                            } *@
                         </tbody>
                     </Ctable>
                 </div>
@@ -501,21 +528,21 @@
         AllRecords = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Process)))
         .Where(x => x.EnableRecord).ToList();
 
-        AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id))
-        .Where(x => x.EnableRecord).ToList();
+        // AllLink = (await simpleClassRepository.GetAllLinkAsync(nameof(L_ProcessScenario), nameof(LinkProperty.Second), Id))
+        // .Where(x => x.EnableRecord).ToList();
 
-        this.LinkRecords = new LinkClassDTO()
-            {
-                LinkType = nameof(L_ProcessScenario),
-                FirstType = nameof(D_Process),
-                SecondType = nameof(F_Scenario),
-                FixedId = Id,
-                Sd_Status = nameof(LinkProperty.Second),
-                FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
-                    new Tuple<long?, string>(x.Id, x.DisplayName),
-                    AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                                                                                                                                                                                                                                                                                            .ToDictionary(x => x.Key, x => x.Value)
-            };
+        // this.LinkRecords = new LinkSatetClass()
+        //     {
+        //         LinkType = nameof(L_ProcessScenario),
+        //         FirstType = nameof(D_Process),
+        //         SecondType = nameof(F_Scenario),
+        //         FixedId = Id,
+        //         Sd_Status = nameof(LinkProperty.Second),
+        //         FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+        //             new Tuple<long?, string>(x.Id, x.DisplayName),
+        //             AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
+        //                                                                                                                                                                                                                                                                                                                                                                                                                                                             .ToDictionary(x => x.Key, x => x.Value)
+        //     };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
     {
@@ -557,8 +584,8 @@
         }
         else
         {
-            _l_ActionTask = await simpleClassRepository
-            .GetLastAsync(nameof(L_FlowTask)) as L_FlowTask;
+            // _l_ActionTask = await simpleClassRepository
+            // .GetLastAsync(nameof(L_FlowTask)) as L_FlowTask;
         }
 
         cObject.FlowTasks.Add(_l_ActionTask);
@@ -575,8 +602,8 @@
         }
         else
         {
-            _TaskCondition = await simpleClassRepository
-            .GetLastAsync(nameof(L_TaskCondition)) as L_TaskCondition;
+            // _TaskCondition = await simpleClassRepository
+            // .GetLastAsync(nameof(L_TaskCondition)) as L_TaskCondition;
         }
 
         cObject.TaskConditions.Add(_TaskCondition);
@@ -589,42 +616,42 @@
 
         if (_scenarioConditions.Any())
         {
-            _ScenarioCondition.SetSortIndex(_scenarioConditions.Max(x => x.SortIndex) + 1);
+            // _ScenarioCondition.SetSortIndex(_scenarioConditions.Max(x => x.SortIndex) + 1);
         }
         else
         {
-            _ScenarioCondition = await simpleClassRepository
-            .GetLastAsync(nameof(L_ScenarioCondition)) as L_ScenarioCondition;
+            // _ScenarioCondition = await simpleClassRepository
+            // .GetLastAsync(nameof(L_ScenarioCondition)) as L_ScenarioCondition;
         }
 
         cObject.ScenarioConditions.Add(_ScenarioCondition);
     }
     private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
     {
-        var _flowCondition = await simpleClassRepository
-            .GetLastAsync(nameof(L_FlowCondition)) as L_FlowCondition;
+        // var _flowCondition = await simpleClassRepository
+        //     .GetLastAsync(nameof(L_FlowCondition)) as L_FlowCondition;
 
-        _flowCondition.SetFirstId(cObject.Id);
-        _flowCondition.Flow = cObject;
+        // _flowCondition.SetFirstId(cObject.Id);
+        // _flowCondition.Flow = cObject;
 
         ICollection<L_FlowCondition> _Conditions = cObject.FlowConditions;
 
         if (_Conditions.Any())
         {
-            _flowCondition.SetSortIndex(_Conditions.Max(x => x.SortIndex) + 1);
+            // _flowCondition.SetSortIndex(_Conditions.Max(x => x.SortIndex) + 1);
         }
 
-        cObject.FlowConditions.Add(_flowCondition);
+        // cObject.FlowConditions.Add(_flowCondition);
     }
     private async Task Add_Actions(MouseEventArgs e, F_Task cObject)
     {
         L_TaskFlow _l_TaskAction = new();
 
-        F_Flow _f_Action = await simpleClassRepository.GetLastAsync(nameof(F_Flow)) as F_Flow;
+        // F_Flow _f_Action = await simpleClassRepository.GetLastAsync(nameof(F_Flow)) as F_Flow;
 
         _l_TaskAction.Task = cObject;
 
-        _l_TaskAction.Flow = _f_Action;
+        // _l_TaskAction.Flow = _f_Action;
 
         ICollection<L_TaskFlow> _TaskItems = cObject.TaskFlows;
 
@@ -641,20 +668,20 @@
     }
     private async Task AddTaskPattern()
     {
-        var d_Task = new F_Task();
+        // var d_Task = new F_Task();
 
-        var eP_Tasks = (Record as F_Scenario).Tasks;
+        // var eP_Tasks = (Record as F_Scenario).Tasks;
 
-        if (eP_Tasks.Any())
-        {
-            d_Task.SetSortIndex(eP_Tasks.Max(x => x.SortIndex) + 1);
-        }
-        else
-        {
-            d_Task = await simpleClassRepository.GetLastAsync(nameof(F_Task)) as F_Task;
-        }
+        // if (eP_Tasks.Any())
+        // {
+        //     d_Task.SetSortIndex(eP_Tasks.Max(x => x.SortIndex) + 1);
+        // }
+        // else
+        // {
+        //     d_Task = await simpleClassRepository.GetLastAsync(nameof(F_Task)) as F_Task;
+        // }
 
-        (Record as F_Scenario).Tasks.Add(d_Task);
+        // (Record as F_Scenario).Tasks.Add(d_Task);
     }
     private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
     {
@@ -671,8 +698,8 @@
         {
             var ToTaskId = Int64.Parse(e.Value.ToString());
 
-            TaskSelector.SetTask((Record as F_Scenario).Tasks
-            .First(x => x.Id == ToTaskId) as F_Task);
+            // TaskSelector.SetTask((Record as F_Scenario).Tasks
+            // .First(x => x.Id == ToTaskId) as F_Task);
         }
         else
         {
@@ -685,8 +712,8 @@
         {
             var _flowConditionId = Int64.Parse(e.Value.ToString());
 
-            ScenarioCondition.SetSecondId(
-                (_list_F_Condition.First(x => x.Id == _flowConditionId) as F_Condition).Id);
+            // ScenarioCondition.SetSecondId(
+            //     (_list_F_Condition.First(x => x.Id == _flowConditionId) as F_Condition).Id);
         }
     }
 }

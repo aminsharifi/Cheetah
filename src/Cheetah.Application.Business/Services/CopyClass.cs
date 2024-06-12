@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Services;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.Services;
 public class CopyClass(ISender iSender) : ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)
@@ -8,12 +10,17 @@ public class CopyClass(ISender iSender) : ICopyClass
             return new();
         }
 
-        SimpleClassDTO _SimpleClass = new(Id: simpleClass.Id, SortIndex: simpleClass?.ERPCode,
-            ERPCode: simpleClass?.ERPCode,
-            Name: simpleClass?.Name, DisplayName: simpleClass?.DisplayName);
+        SimpleClassDTO _SimpleClass = new()
+        {
+            Id = simpleClass.Id,
+            SortIndex = simpleClass?.ERPCode,
+            ERPCode = simpleClass?.ERPCode,
+            Name = simpleClass?.Name,
+            DisplayName = simpleClass?.DisplayName
+        };
 
 
-        _SimpleClass.UpdateLastModified(simpleClass?.LastModified);
+        _SimpleClass.LastModified = simpleClass?.LastModified;
 
         return _SimpleClass;
     }

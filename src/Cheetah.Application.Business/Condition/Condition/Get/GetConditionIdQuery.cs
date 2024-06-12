@@ -1,2 +1,2 @@
 ﻿namespace Cheetah.Application.Business.Condition.Get;
-public record GetConditionIdQuery(F_Condition input) : IQuery<Result<long?>>;
+public record GetConditionIdQuery(ConditionDTO input) : IQuery<Result<long?>>;

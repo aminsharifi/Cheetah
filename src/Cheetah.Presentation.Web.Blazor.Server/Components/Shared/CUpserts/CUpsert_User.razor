@@ -16,19 +16,19 @@
     public override async Task ExtendedLoadDTO()
     {
         AllRecords = await simpleClassRepository.GetAllByNameAsync(nameof(F_Condition));
-        AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_UserCondition), nameof(LinkProperty.First), Id);
+        // AllLink = await simpleClassRepository.GetAllLinkAsync(nameof(L_UserCondition), nameof(LinkProperty.First), Id);
 
-        this.LinkRecords = new LinkClassDTO()
-            {
-                LinkType = nameof(L_UserCondition),
-                FirstType = nameof(D_User),
-                SecondType = nameof(F_Condition),
-                FixedId = Id,
-                Sd_Status = nameof(LinkProperty.First),
-                FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
-                    new Tuple<long?, string>(x.Id, x.DisplayName),
-                    AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
-                            .ToDictionary(x => x.Key, x => x.Value)
-            };
+        // this.LinkRecords = new LinkSatetClass()
+        //     {
+        //         LinkType = nameof(L_UserCondition),
+        //         FirstType = nameof(D_User),
+        //         SecondType = nameof(F_Condition),
+        //         FixedId = Id,
+        //         Sd_Status = nameof(LinkProperty.First),
+        //         FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
+        //             new Tuple<long?, string>(x.Id, x.DisplayName),
+        //             AllLink.Any(y => y.FirstId == Id && y.SecondId == x.Id)))
+        //                     .ToDictionary(x => x.Key, x => x.Value)
+        //     };
     }
 }

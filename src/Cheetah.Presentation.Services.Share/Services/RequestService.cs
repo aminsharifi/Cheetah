@@ -184,7 +184,8 @@ public class RequestService(ILogger<RequestService> logger,
 
         #endregion
 
-        var TableRecords = await simpleClassRepository.GetAllBySimpleClassAsync(output_Request.TableInput.GetSimpleClass<SimpleClassDTO>());
+        var TableRecords = await simpleClassRepository.GetAllBySimpleClassAsync(
+            output_Request.TableInput.Adapt<SimpleClassDTO>());
 
         #region Output
 
@@ -192,7 +193,8 @@ public class RequestService(ILogger<RequestService> logger,
 
         output_Request.TableOutput.AddRange(TableRecords.Item2.Select(x => x.GetBaseClassWithName()));
 
-        output_Request.OutputState = OutputState<Boolean>.Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
+        //output_Request.OutputState = OutputState<Boolean>
+        //    .Success(nameof(GetAllByName), true).SimpleClassDTO.GetBaseClassWithName();
 
         #endregion
 
@@ -218,22 +220,22 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Output
 
-        var OutputState = Outputresult.SimpleClassDTO;
+        //var OutputState = Outputresult.SimpleClassDTO;
 
         SetCaseTaskUser_Output output_Request = new();
 
-        output_Request.OutputState = OutputState.GetBaseClassWithName();
+        //output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (!Outputresult.Result.IsSuccess)
+        if (!Outputresult.IsSuccess)
         {
             return output_Request;
         }
 
-        var _list_CaseTaskUser = Outputresult.Result.Value;
+        var _list_CaseTaskUser = Outputresult.Value;
 
-        output_Request.Case = Outputresult.Result.Value.Case.GetBaseClass();
-        output_Request.Task = Outputresult.Result.Value.Task.GetBaseClassWithName();
-        output_Request.User = Outputresult.Result.Value.User.GetBaseClassWithName();
+        output_Request.Case = Outputresult?.Value?.Case?.GetBaseClass();
+        output_Request.Task = Outputresult?.Value?.Task?.GetBaseClassWithName();
+        output_Request.User = Outputresult?.Value?.User?.GetBaseClassWithName();
 
         #endregion
 
@@ -248,12 +250,12 @@ public class RequestService(ILogger<RequestService> logger,
         #region Input
 
         //L_CaseTaskUser l_CaseTaskUser = new();
-        var output_Request = request.Base.GetSimpleClass<SimpleClassDTO>();
+        var output_Request = request.Base.Adapt<SimpleClassDTO>();
 
         #endregion
 
         var Outputresult = await iSync.SyncEntityAsync(output_Request, request.Records.Select
-            (x => x.GetSimpleClass<SimpleClassDTO>()), (CrudOperation)request.Crud.Value);
+            (x => x.Adapt<SimpleClassDTO>()), (CrudOperation)request.Crud.Value);
 
         #region Output
 
@@ -276,21 +278,26 @@ public class RequestService(ILogger<RequestService> logger,
 
         foreach (var record in request.Records)
         {
-            GetIdEntitySpec<D_User> _getIdUserSpec = new(record.First.GetSimpleClass<D_User>());
+            GetIdEntitySpec<D_User> _getIdUserSpec = new(record.First.Adapt<SimpleClassDTO>());
 
             record.First.Id = await _userRepository.FirstOrDefaultAsync(_getIdUserSpec);
 
-            GetIdEntitySpec<F_Condition> _getIdConditionSpec = new(record.First.GetSimpleClass<F_Condition>());
+            GetIdEntitySpec<F_Condition> _getIdConditionSpec = new(record.First.Adapt<SimpleClassDTO>());
 
             record.First.Id = await _conditionRepository.FirstOrDefaultAsync(_getIdConditionSpec);
         }
 
         #endregion
 
-        await iSync.SyncLinkAsync(request.Base.GetSimpleClass<SimpleClassDTO>(),
+        await iSync.SyncLinkAsync(request.Base.Adapt<SimpleClassDTO>(),
             request.Records
-            .Select(x => new SimpleLinkClassDTO(firstId: x.First.Id,secondId: x.Second.Id,eRPCode: x.ERPCode,
-            enableRecord: (x.EnableRecord is true))),
+            .Select(x => new SimpleLinkClassDTO()
+            {
+                FirstId = x.First.Id,
+                SecondId= x.Second.Id,
+                ERPCode= x.ERPCode,
+                EnableRecord= (x.EnableRecord is true) 
+            }),
             (CrudOperation)request.Crud.Value);
 
         #region Output
@@ -315,7 +322,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         #endregion
 
-        await iSync.SyncConditionAsync(request.Base.GetSimpleClass<SimpleClassDTO>(), _Conditions, (CrudOperation)request.Crud.Value);
+        await iSync.SyncConditionAsync(request.Base.Adapt<SimpleClassDTO>(), _Conditions, (CrudOperation)request.Crud.Value);
 
         #region Output
 
@@ -441,11 +448,11 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Input
 
-        var _assignee = request.Assignee?.GetSimpleClass<SimpleClassDTO>();
-        var _process = request.Process?.GetSimpleClass<SimpleClassDTO>();
-        var _caseState = request.CaseState?.GetSimpleClass<SimpleClassDTO>();
-        var _case = request.Case?.GetSimpleClass<SimpleClassDTO>();
-        var _workItem = request.WorkItem?.GetSimpleClass<SimpleClassDTO>();
+        var _assignee = request.Assignee?.Adapt<SimpleClassDTO>();
+        var _process = request.Process?.Adapt<SimpleClassDTO>();
+        var _caseState = request.CaseState?.Adapt<SimpleClassDTO>();
+        var _case = request.Case?.Adapt<SimpleClassDTO>();
+        var _workItem = request.WorkItem?.Adapt<SimpleClassDTO>();
 
         var cartableDTO = new CartableDTO()
         {
@@ -479,11 +486,11 @@ public class RequestService(ILogger<RequestService> logger,
             {
                 GRPC_Case _Case = new()
                 {
-                    Base = outputRequestItem.Case.GetBaseClassWithDate(),
-                    CaseState = outputRequestItem.CaseState.GetBaseClassWithName(),
-                    Creator = outputRequestItem.Creator.GetBaseClassWithName(),
-                    Requestor = outputRequestItem.Requestor.GetBaseClassWithName(),
-                    Process = outputRequestItem.Process.GetBaseClassWithName()
+                    Base = outputRequestItem.Case.Adapt<GRPC_BaseClassWithDate>(),
+                    CaseState = outputRequestItem.CaseState.Adapt<GRPC_BaseClassWithName>(),
+                    Creator = outputRequestItem.Creator.Adapt<GRPC_BaseClassWithName>(),
+                    Requestor = outputRequestItem.Requestor.Adapt<GRPC_BaseClassWithName>(),
+                    Process = outputRequestItem.Process.Adapt<GRPC_BaseClassWithName>()
                 };
 
                 GRPC_Task _task = new();
@@ -492,7 +499,7 @@ public class RequestService(ILogger<RequestService> logger,
 
                 GRPC_WorkItem _gRPC_WorkItem = new();
 
-                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.GetBaseClassWithDate();
+                _gRPC_WorkItem.Base = outputRequestItem.WorkItem.Adapt<GRPC_BaseClassWithDate>();
 
                 _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName();
 
@@ -500,7 +507,8 @@ public class RequestService(ILogger<RequestService> logger,
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
-                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_gRPC_WorkItem.Base.GetSimpleClass<F_WorkItem>());
+                GetEntitySpec<F_WorkItem> _getEntitySpec =
+                    new(_gRPC_WorkItem.Base.Adapt<SimpleClassDTO>());
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
@@ -523,9 +531,9 @@ public class RequestService(ILogger<RequestService> logger,
         logger.LogInformation("Ended " + nameof(Cartable));
         logger.LogInformation("{@OutputCartable}", _OutputCartable);
 
-        _OutputCartable.OutputState = OutputState<Boolean>
-            .Success(nameof(Cartable), true)
-            .SimpleClassDTO.GetBaseClassWithName();
+        //_OutputCartable.OutputState = OutputState<Boolean>
+        //    .Success(nameof(Cartable), true)
+        //    .SimpleClassDTO.GetBaseClassWithName();
 
         return _OutputCartable;
     }

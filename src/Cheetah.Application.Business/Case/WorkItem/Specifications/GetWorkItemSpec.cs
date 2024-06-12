@@ -2,7 +2,7 @@
 
 internal class GetWorkItemSpec : GetEntitySpec<F_WorkItem>
 {
-    public GetWorkItemSpec(BaseEntity? input) : base(input)
+    public GetWorkItemSpec(BaseEntity? input) : base(input?.Id)
     {
         Query.Include(x => x.Case)
             .ThenInclude(x => x.WorkItems);

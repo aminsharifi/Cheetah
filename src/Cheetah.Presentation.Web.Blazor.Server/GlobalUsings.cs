@@ -1,6 +1,7 @@
 ﻿global using Cheetah.Application.Business.Interfaces;
-global using Cheetah.Domain;
 global using Cheetah.Domain.Common;
+global using Cheetah.Domain.Common.DTOs;
+global using Cheetah.Domain.Enums;
 global using Cheetah.Infrastructure.Persistence;
 global using Cheetah.Infrastructure.Persistence.Data;
 global using Cheetah.Infrastructure.Persistence.Identity;

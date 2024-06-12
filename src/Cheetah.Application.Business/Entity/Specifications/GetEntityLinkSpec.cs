@@ -1,10 +1,11 @@
 ﻿namespace Cheetah.Application.Business.Entity.Specifications;
-public class GetEntityLinkSpec<T> : Specification<T, SimpleLinkClassDTO> where T : SimpleLinkClass
+public class GetEntityLinkSpec<T> : Specification<T, SimpleLinkClassDTO> where T : BaseLink
 {
     public GetEntityLinkSpec()
     {
         Query.AsNoTracking();
 
-        Query.Select(item => new SimpleLinkClassDTO(item.FirstId, item.SecondId));
+        Query
+            .Select(item => item.Adapt<SimpleLinkClassDTO>());
     }
 }

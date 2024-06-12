@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
-
-namespace Cheetah.Application.Business.WorkItem.Get;
+﻿namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class GetCartableHandler(
     IReadRepository<F_WorkItem> _WorkItemRepository,
@@ -130,8 +127,7 @@ public class GetCartableHandler(
             (a, b) => _iCopyClass.GetSimpleClass(
                 _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(b.SecondId)).GetAwaiter().GetResult()));
 
-            _inboxList[i].ValidUserActions = _validUserActions;
-
+            _inboxList[i].ValidUserActions = _validUserActions.ToList();
 
             var _occurredUserActions = _Record.WorkItemConditions.Select(x => _iCopyClass.GetSimpleClass(
                 _conditionRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult()));

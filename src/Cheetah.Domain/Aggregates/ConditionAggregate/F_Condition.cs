@@ -31,7 +31,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         OperandId = operandId;
         Value = value;
     }
-    public void SetConditionValue(D_Tag? tag, D_Operand? operand, string value)
+    public void SetConditionValue(D_Tag? tag, D_Operand? operand, string? value)
     {
         Tag = tag;
         Operand = operand;

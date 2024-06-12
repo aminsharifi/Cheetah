@@ -37,7 +37,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         IsProcessing = true;
-        p_ParameterListDTO = await _IP_ParameterListRepository.GetAsync(nameof(D_TagType), PL_ParameterTypeID) as D_TagType;
+        // p_ParameterListDTO = await _IP_ParameterListRepository.GetAsync(nameof(D_TagType), PL_ParameterTypeID) as D_TagType;
         IsProcessing = false;
     }
 }

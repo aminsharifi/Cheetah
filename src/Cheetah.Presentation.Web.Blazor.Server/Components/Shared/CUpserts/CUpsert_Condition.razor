@@ -5,55 +5,57 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        <CInput @bind-NLValue="(Record as F_Condition).PublicTagId"
-                Records="@List_D_Tag"
-                Record="@((Record as F_Condition).Tag)"
-                CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
-                CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
-                SelectedProcessesChanged="@SelectedTagChanged"
-                CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
-                reference="@reference"></CInput>
+        @*         <CInput @bind-NLValue="(Record as F_Condition).PublicTagId"
+        Records="@List_D_Tag"
+        Record="@((Record as F_Condition).Tag)"
+        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
+        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
+        SelectedProcessesChanged="@SelectedTagChanged"
+        CFieldType="@(Domain.Enums.FieldType.CSelect)"
+        reference="@reference"></CInput> *@
 
-        <CInput CFieldType="@(Cheetah.Domain.FieldType.CSelect)"
-                Records="@List_D_Operand"
-                @bind-NLValue="(Record as F_Condition).PublicOperandId"
-                Record="@((Record as F_Condition).Operand)"
-                CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-                CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-                SelectedProcessesChanged="@SelectedOperandChanged"
-                reference="@reference"></CInput>
+        @*         <CInput CFieldType="@(Domain.Enums.FieldType.CSelect)"
+        Records="@List_D_Operand"
+        @bind-NLValue="(Record as F_Condition).PublicOperandId"
+        Record="@((Record as F_Condition).Operand)"
+        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+        SelectedProcessesChanged="@SelectedOperandChanged"
+        reference="@reference"></CInput> *@
 
-        @switch ((Record as F_Condition)?.Tag?.TagTypeId)
+        @*         @switch ((Record as F_Condition)?.Tag?.TagTypeId)
         {
-            case var _boolean when _boolean == D_TagType.Boolean.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CBool)"
-                        @bind-BValue="(Record as F_Condition).PublicBooleanValue"
-                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        reference="@reference"></CInput>
-                break;
-            case var _string when _string == D_TagType.String.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CString)"
-                        @bind-SValue="(Record as F_Condition).PublicValue"
-                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        reference="@reference"></CInput>
-                break;
-            case var _numberic when _numberic == D_TagType.Numberic.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CNFloat)"
-                        @bind-NFValue="(Record as F_Condition).PublicFloatValue"
-                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        reference="@reference"></CInput>
-                break;
-            case var _date when _date == D_TagType.Date.Id:
-                <CInput CFieldType="@(Cheetah.Domain.FieldType.CDate)"
-                        @bind-CDateTime="(Record as F_Condition).PublicDateTimeOffsetValue"
-                        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
-                        reference="@reference"></CInput>
-                break;
+        case var _boolean when _boolean == D_TagType.Boolean.Id:
+        <CInput CFieldType="@(Domain.Enums.FieldType.CBool)"
+        @bind-BValue="(Record as F_Condition).PublicBooleanValue"
+        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        reference="@reference"></CInput>
+        break;
+        case var _string when _string == D_TagType.String.Id:
+        <CInput CFieldType="@(Domain.Enums.FieldType.CString)"
+        @bind-SValue="(Record as F_Condition).PublicValue"
+        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        reference="@reference"></CInput>
+        break;
+        case var _numberic when _numberic == D_TagType.Numberic.Id:
+        <CInput CFieldType="@(Domain.Enums.FieldType.CNFloat)"
+        @bind-NFValue="(Record as F_Condition).PublicFloatValue"
+        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        reference="@reference"></CInput>
+        break;
+        case var _date when _date == D_TagType.Date.Id:
+        <CInput CFieldType="@(Domain.Enums.FieldType.CDate)"
+        @bind-CDateTime="(Record as F_Condition).PublicDateTimeOffsetValue"
+        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+        reference="@reference"></CInput>
+        break;
         }
+
+        *@
     </RowTemplate>
 </CEditDimentions>
 @code {
@@ -64,8 +66,8 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag));
-        List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand));
+        // List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag));
+        // List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand));
     }
 
     private async Task SelectedOperandChanged(ChangeEventArgs e)
@@ -76,7 +78,7 @@
 
             var _selectedOperand = List_D_Operand
             .First(x => x.Id == _operandId) as D_Operand;
-            (Record as F_Condition).SetOperand(_selectedOperand);
+            // (Record as F_Condition).SetOperand(_selectedOperand);
 
             TagTypeId = D_TagType.String.Id;
         }
@@ -89,7 +91,7 @@
             var _tagId = Int64.Parse(e.Value.ToString());
             var _tag = List_D_Tag.First(x => x.Id == _tagId) as D_Tag;
 
-            (Record as F_Condition).SetTag(_tag);
+            // (Record as F_Condition).SetTag(_tag);
         }
     }
 }

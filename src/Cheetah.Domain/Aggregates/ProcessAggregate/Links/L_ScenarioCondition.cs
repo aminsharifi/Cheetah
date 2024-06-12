@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_ScenarioCondition : SimpleLinkClass
+public partial class L_ScenarioCondition : BaseLink
 {
     public virtual F_Scenario? Scenario { get; set; }
 

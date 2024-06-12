@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Domain.Enums;
+
+namespace Cheetah.Infrastructure.Persistence;
 
 public interface IDbInitializer
 {

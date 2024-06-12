@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.CaseTaskUser.Get;
+﻿using Cheetah.Domain.Common.DTOs;
+using Mapster;
+
+namespace Cheetah.Application.Business.CaseTaskUser.Get;
 
 public class CopyCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository,
     IReadRepository<F_Case> _caseRepository,
@@ -15,17 +18,17 @@ public class CopyCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository
         Int64? _firstId = default!, _secondId = default!, _thirdId = default!;
 
         #region Case
-        var _caseSpec = new GetIdEntitySpec<F_Case>(request.input.Case);
+        var _caseSpec = new GetIdEntitySpec<F_Case>(request.input.Case.Adapt<SimpleClassDTO>());
         _firstId = await _caseRepository.FirstOrDefaultAsync(_caseSpec, cancellationToken);
         #endregion
 
         #region Task
-        var _taskSpec = new GetIdEntitySpec<F_Task>(request.input.Task);
+        var _taskSpec = new GetIdEntitySpec<F_Task>(request.input.Task.Adapt<SimpleClassDTO>());
         _secondId = await _taskRepository.FirstOrDefaultAsync(_taskSpec, cancellationToken);
         #endregion
 
         #region User
-        var _userSpec = new GetIdEntitySpec<D_User>(request.input.User);
+        var _userSpec = new GetIdEntitySpec<D_User>(request.input.User.Adapt<SimpleClassDTO>());
         _thirdId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         #endregion
 

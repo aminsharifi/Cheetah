@@ -1,8 +1,9 @@
 ﻿global using Ardalis.SharedKernel;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Application.Services.Helper;
-global using Cheetah.Domain;
+global using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 global using Cheetah.Domain.Common;
+global using Cheetah.Domain.Common.DTOs;
 global using Cheetah.Domain.Entities.Dimentions;
 global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Entities.Links;
