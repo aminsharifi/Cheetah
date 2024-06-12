@@ -8,51 +8,30 @@ public class CopyCaseHandler(
 {
     public async Task<Result<F_Case>> Handle(CopyCaseQuery request, CancellationToken cancellationToken)
     {
-        Guard.Against.Null(request.Creator);
-        Guard.Against.Null(request.Requestor);
-        Guard.Against.Null(request.Process);
-        Guard.Against.Null(request.WorkItemUser);
-        Guard.Against.Null(request.WorkItemConditions);
+        F_Case _case = await CopyCase.Handle(request: request, _userRepository: _userRepository,
+            _processRepository: _processRepository, _conditionRepository: _conditionRepository,
+            cancellationToken: cancellationToken);
+
+        _case = await CopyCaseConditions
+         .Apply(f_case: _case, caseConditions: request.CaseConditions,
+         conditionRepository: _conditionRepository, iMapper: _IMapper,
+         cancellationToken: cancellationToken);
 
 
-        long? _eRPCode, _creatorId, _requestorId, _processId;
+        var _workItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
+        var _workItemUserId = await _userRepository.FirstOrDefaultAsync(_workItemUserSpec, cancellationToken);
 
-        _eRPCode = request.Case?.ERPCode;
+        F_WorkItem _workItem = new(userId: _workItemUserId);
 
-        var _creatorSpec = new GetIdEntitySpec<D_User>(request.Creator);
-        _creatorId = await _userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
+        _workItem = await CopyWorkItem
+            .Apply(iSender: _ISender,
+            WorkItemUser: request.WorkItemUser, WorkItemBase: request.WorkItemBase,
+            workItemConditions: request.WorkItemConditions, _userRepository: _userRepository,
+            workItem: _workItem, cancellationToken: cancellationToken);
 
-        var _requestorSpec = new GetIdEntitySpec<D_User>(request.Requestor);
-        _requestorId = await _userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
+        //.Apply(iSender: _ISender, workItem: _workItem, cancellationToken: cancellationToken);
 
-        var _processSpec = new GetIdEntitySpec<D_Process>(request.Process);
-        _processId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
-
-        F_Case _case = new(eRPCode: _eRPCode, requestorId: _requestorId, creatorId: _creatorId, processId: _processId);
-
-        long? _userId = default;
-
-        var _WorkItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
-        _userId = await _userRepository.FirstOrDefaultAsync(_WorkItemUserSpec, cancellationToken);
-
-        F_WorkItem _workItem = new(userId: _userId);
-
-        await Parallel.ForEachAsync(request.WorkItemConditions, async (_condition, _cancellatoin) =>
-        {
-            var _getCondition = await _ISender.Send(new GetConditionIdQuery(_condition.GetCondition(_IMapper)));
-
-            _workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
-        });
-
-        if (request.CaseConditions is not null)
-        {
-            await Parallel.ForEachAsync(request.CaseConditions, async (_condition, _cancellatoin) =>
-            {
-                var _getCondition = await _conditionRepository
-                .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>(_condition.GetCondition(_IMapper)));
-                _case.CaseConditions.Add(new(conditionId: _getCondition.Value));
-            });
-        }
+        _workItem.SetCase(_case);
 
         _case.WorkItems.Add(_workItem);
 

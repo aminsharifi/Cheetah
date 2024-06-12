@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_FlowTask : SimpleLinkClass
+public partial class L_FlowTask : BaseLink
 {
     public virtual F_Flow? Flow { get; private set; }
 

@@ -16,9 +16,14 @@ public class F_ConditionController : ControllerBase
         var simpleClassDTO = new List<SimpleClassDTO>();
         foreach (var SimpleClassDTO in D_ParameterList)
         {
-            simpleClassDTO.Add(new SimpleClassDTO(Id: SimpleClassDTO.Id,
-                Name: SimpleClassDTO.Name, DisplayName: SimpleClassDTO.DisplayName,
-                SortIndex: SimpleClassDTO.SortIndex,ERPCode: SimpleClassDTO.ERPCode));
+            simpleClassDTO.Add(new SimpleClassDTO()
+            {
+                Id = SimpleClassDTO.Id,
+                Name = SimpleClassDTO.Name,
+                DisplayName = SimpleClassDTO.DisplayName,
+                SortIndex = SimpleClassDTO.SortIndex,
+                ERPCode = SimpleClassDTO.ERPCode
+            });
         }
         return Ok(simpleClassDTO);
     }
@@ -28,23 +33,23 @@ public class F_ConditionController : ControllerBase
     {
         if (id == null || id == 0)
         {
-            return BadRequest(new CheetahResult()
-            {
-                //ErorrMessage = "Invalid Id",
-                //StatusCode = StatusCodes.Status400BadRequest
-                
-            });
+            //return BadRequest(new CheetahResult()
+            //{
+            //    //ErorrMessage = "Invalid Id",
+            //    //StatusCode = StatusCodes.Status400BadRequest
+
+            //});
         }
 
         var _Record = await simpleClassRepository.GetAsync(nameof(F_Condition), id.Value);
 
         if (_Record == null)
         {
-            return BadRequest(new CheetahResult()
-            {
-                //ErorrMessage = "Invalid Id",
-                //StatusCode = StatusCodes.Status404NotFound
-            });
+            //return BadRequest(new CheetahResult()
+            //{
+            //    //ErorrMessage = "Invalid Id",
+            //    //StatusCode = StatusCodes.Status404NotFound
+            //});
         }
 
         return Ok(_Record);

@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_TaskCondition : SimpleLinkClass
+public partial class L_TaskCondition : BaseLink
 {
     public virtual F_Task? Task { get; set; }
 

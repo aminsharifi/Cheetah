@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_CaseTaskUser : SimpleLinkClass
+public partial class L_CaseTaskUser : BaseLink
 {
     public L_CaseTaskUser()
     {

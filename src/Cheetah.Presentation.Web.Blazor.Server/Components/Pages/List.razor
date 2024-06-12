@@ -5,6 +5,7 @@
 
 @inherits SharedPage
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
+
 <div class="row">
 
     @if (!IsLoading)
@@ -30,13 +31,13 @@
             }
         </div>
         <div class="col-lg-1 col-sm-3">
-            <MudCheckBox Label="سینک"
-                         Value="((D_Entity)Record).Sync"
-                         ReadOnly="true"
-                         Color="Color.Primary"
-                         CheckedIcon="@Icons.Material.Filled.Verified"
-                         UnCheckedColor="Color.Error"
-                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
+            @*   <MudCheckBox Label="سینک"
+        Value="Record.Sync"
+        ReadOnly="true"
+        Color="Color.Primary"
+        CheckedIcon="@Icons.Material.Filled.Verified"
+        UnCheckedColor="Color.Error"
+        UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox> *@
         </div>
 
         @if (Sync is true)
@@ -51,13 +52,13 @@
                 </MudButton>
             </div>
             <div class="col-lg-1 col-sm-3">
-                <MudCheckBox Label="فعال" Variant="Variant.Text"
+            @*     <MudCheckBox Label="فعال" Variant="Variant.Text"
                              Value="((D_Entity)Record).EnableRecord"
                              ReadOnly="true"
                              Color="Color.Primary"
                              CheckedIcon="@Icons.Material.Filled.Verified"
                              UnCheckedColor="Color.Error"
-                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
+                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox> *@
             </div>
         }
     }
@@ -87,6 +88,8 @@
     }
 </div>
 
+
+
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
     List<D_Entity> _d_Entity = new();
@@ -109,7 +112,6 @@
             IsLoading = false;
         }
     }
-
 
     private void SetLastModified()
     {
@@ -178,7 +180,6 @@
 
     private ListGenericTypeItems listGenericTypeItems;
 
-
     private async Task FirstLoadRecords()
     {
 
@@ -189,13 +190,11 @@
 
         keyValuePair.Clear();
 
-        foreach (D_Entity item in _d_Entity)
-        {
-            if (item.Display is true)
-            {
-                keyValuePair.Add(item.Name, item.DisplayName);
-            }
-        }
+        keyValuePair = (await simpleClassRepository
+          .GetAllByNameAsync(nameof(D_Entity)))
+          .Select(item => new KeyValuePair<string, string>
+              (item.Name, item.DisplayName!)).ToDictionary();
+
 
         if (Name == null)
         {
@@ -213,13 +212,13 @@
         {
             LoadData = false;
 
-            Record = _d_Entity.Where(x => x.Name == Name).First();
+            // Record = _d_Entity.Where(x => x.Name == Name).First();
 
             LastModified = Record.LastModified;
 
             SetLastModified();
 
-            Sync = ((D_Entity)Record).Sync;
+            // Sync = ((D_Entity)Record).Sync;
 
             Records = await simpleClassRepository.GetAllByNameAsync(Name);
 
@@ -229,7 +228,7 @@
         catch (Exception ex)
         {
             Snackbar.Add((ex.InnerException is not null) ? ex.InnerException.Message : ex.Message,
-            Severity.Error);
+    Severity.Error);
         }
     }
 
@@ -240,4 +239,5 @@
         IsLoading = false;
         await _JSRuntime.InvokeVoidAsync("CreateToolTip", "Create");
     }
+
 }

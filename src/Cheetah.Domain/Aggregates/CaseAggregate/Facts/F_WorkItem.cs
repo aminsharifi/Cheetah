@@ -24,13 +24,13 @@ public partial class F_WorkItem : BaseEntity
     }
 
     #region Collection    
-    public virtual ICollection<L_WorkItemCondition>? WorkItemConditions { get; private set; } = new HashSet<L_WorkItemCondition>();
+    public virtual ICollection<L_WorkItemCondition>? WorkItemConditions { get; set; } = new HashSet<L_WorkItemCondition>();
 
     #endregion
 
     #region Functions
 
-    public F_WorkItem(Int64 id, String name, String displayName, Int64 sortIndex, Int64 eRPCode) :
+    public F_WorkItem(Int64 id, String? name, String displayName, Int64 sortIndex, Int64 eRPCode) :
         base(id, name, displayName, sortIndex, eRPCode)
     {
 

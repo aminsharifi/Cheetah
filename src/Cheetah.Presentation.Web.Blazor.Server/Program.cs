@@ -47,6 +47,12 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 */
 #endregion
 
+
+//builder.Services.AddHttpClient<ITableCRUD, TableCRUD>(client =>
+//{
+//    client.BaseAddress = new Uri("http://localhost:1991/");
+//});
+
 var app = await builder.InitializeCommonSettingsAsync();
 
 // Configure the HTTP request pipeline.

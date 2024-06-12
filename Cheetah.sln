@@ -73,7 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{066490
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{081E097B-66B6-4724-8678-9F16B41611A3}"
 	ProjectSection(SolutionItems) = preProject
-		dockers\local\Blazor\Dockerfile = dockers\local\Blazor\Dockerfile
+		dockers\local\Blazor\Dockerfile_New. = dockers\local\Blazor\Dockerfile_New.
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphQL", "GraphQL", "{17631744-F13A-42D2-A978-8D193F79713E}"
@@ -93,7 +93,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.UnitTest", "test\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.IntegrationTest", "test\Cheetah.IntegrationTest\Cheetah.IntegrationTest.csproj", "{01149F03-FC9C-4A7C-AAD6-8FF52085FC67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.FunctionalTest", "test\Cheetah.FunctionalTest\Cheetah.FunctionalTest.csproj", "{343687A4-4DB7-44A5-8C59-2B045C3D47B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.FunctionalTest", "test\Cheetah.FunctionalTest\Cheetah.FunctionalTest.csproj", "{343687A4-4DB7-44A5-8C59-2B045C3D47B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{E35AE340-91F0-4D2E-8305-8D7DF5192C04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

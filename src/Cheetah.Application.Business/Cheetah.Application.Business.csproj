@@ -2,22 +2,25 @@
 	<PropertyGroup>
 		<EnablePackageValidation>True</EnablePackageValidation>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>8.5.202</Version>
+		<Version>8.5.203</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="Process\Validations\**" />
+	  <Compile Remove="User\User\**" />
+	  <EmbeddedResource Remove="Process\Validations\**" />
+	  <EmbeddedResource Remove="User\User\**" />
+	  <None Remove="Process\Validations\**" />
+	  <None Remove="User\User\**" />
+	</ItemGroup>
+	<ItemGroup>
 	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Process\Validations\" />
-	  <Folder Include="User\User\" />
-	  <Folder Include="User\User\Specifications\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="FluentValidation" Version="11.9.1" />
+	  <PackageReference Include="FluentValidation" Version="11.9.2" />
 	  <PackageReference Include="Mapster" Version="7.4.0" />
 	  <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
 	</ItemGroup>

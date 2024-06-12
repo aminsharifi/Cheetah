@@ -7,7 +7,7 @@
 		<UserSecretsId>6a47fed2-0064-4c27-a36d-b83508c5b544</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
-		<Version>8.5.202</Version>
+		<Version>8.5.203</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -21,7 +21,7 @@
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
 		<PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageReference Include="BootstrapBlazor" Version="8.6.0" />
+		<PackageReference Include="BootstrapBlazor" Version="8.6.2" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.68.0.3415" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
@@ -30,10 +30,11 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
-		<PackageReference Include="MudBlazor" Version="6.19.1" />
+		<PackageReference Include="MudBlazor" Version="6.20.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Services\" />
 		<Folder Include="wwwroot\imeges\" />
 		<Folder Include="wwwroot\dist\" />
 	</ItemGroup>

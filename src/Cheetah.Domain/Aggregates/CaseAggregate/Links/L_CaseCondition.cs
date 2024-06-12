@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Domain.Entities.Links;
 
-public partial class L_CaseCondition : SimpleLinkClass
+public partial class L_CaseCondition : BaseLink
 {
     public L_CaseCondition()
     {

@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Services;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Application.Business.Services;
 
 public class Sync(ISender _ISender,
     IRepository<L_UserCondition> userConditionRepository,
@@ -171,9 +174,6 @@ public class Sync(ISender _ISender,
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
                 
-                Record.SetEntity(name: Record.Name, displayName: Record.DisplayName,
-                    description: Record.Description,enableRecord: Record.EnableRecord);
-
                 _Users.Add(_FilterdRecord);
             });
 

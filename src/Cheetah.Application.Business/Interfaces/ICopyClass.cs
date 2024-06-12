@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.Interfaces;
 public interface ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass);    
