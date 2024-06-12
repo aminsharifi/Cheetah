@@ -47,6 +47,17 @@ build-grpc:
 #  needs:
 #    - version
 
+build-webapi:
+  stage: build
+  script:
+    - tag=`cat .next-version`
+    - docker build -t docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag -f ./dockers/local/WebAPI/Dockerfile .
+  artifacts:
+    paths:
+    - .next-version
+  needs:
+    - version
+
 
 push-to-repo-grpc:
   stage: push
