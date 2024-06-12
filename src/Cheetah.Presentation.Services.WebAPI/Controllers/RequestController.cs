@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Ardalis.GuardClauses;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -275,6 +277,7 @@ public class RequestController : ControllerBase
     {
         return await SyncCondition(request);
     }
+
     #region Private methods
     private async Task<CaseDTO> GetCase(F_Case _selectedRequests)
     {
@@ -290,7 +293,8 @@ public class RequestController : ControllerBase
 
         var _distincTaskIds = _selectedRequests.WorkItems.Select(x => x.TaskId).Distinct();
 
-        var _getTasks = await _mediator.Send(new GetTasksFromScenarioQuery(_selectedRequests.SelectedScenarioId));
+        var _getTasks = await _mediator.Send(
+            new GetTasksFromScenarioQuery(_selectedRequests.SelectedScenarioId));
 
         var _Tasks = _getTasks.Value.ToList();
 
@@ -350,7 +354,7 @@ public class RequestController : ControllerBase
         var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(
             ConditionIds.Select(x => x)))).Value;
 
-        return Actual_Conditions.GetConditions(_mapper);
+        return Actual_Conditions.GetConditions();
     }
     private async Task<Cartable_Response> Cartable(Cartable_Request request, CartableProperty cartableProperty)
     {
@@ -362,8 +366,7 @@ public class RequestController : ControllerBase
         var _assignee = request.Assignee?.Adapt<SimpleClassDTO>();
         var _process = request.Process?.Adapt<SimpleClassDTO>();
         var _caseState = request.CaseState?.Adapt<SimpleClassDTO>();
-        var _caseStateList = request.CaseStateList?
-            .Select(caseState => caseState.Adapt<SimpleClassDTO>());
+        var _caseStateList = request.CaseStateList?.Select(caseState => caseState.Adapt<SimpleClassDTO>());
         var _case = request.Case?.Adapt<SimpleClassDTO>();
         var _workItem = request.WorkItem?.Adapt<SimpleClassDTO>();
 
@@ -396,39 +399,33 @@ public class RequestController : ControllerBase
             _OutputCartable.PageSize = OutputRequest.Value.FirstOrDefault()?.PageSize.Value;
             _OutputCartable.PageNumber = OutputRequest.Value.FirstOrDefault()?.PageNumber.Value;
 
-            foreach (var outputRequestItem in OutputRequest.Value)
+            foreach (CartableDTO outputRequestItem in OutputRequest.Value)
             {
                 CaseDTO _Case = new()
                 {
                     Base = outputRequestItem.Case.Adapt<BaseClassWithDateDTO>(),
                     CaseState = outputRequestItem.CaseState.Adapt<BaseClassWithNameDTO>(),
-                    CreatorId = outputRequestItem.Creator.Id,
-                    RequestorId = outputRequestItem.Requestor.Id,
-                    ProcessId = outputRequestItem.Process.Id
+                    CreatorId = outputRequestItem?.Creator?.Id,
+                    RequestorId = outputRequestItem?.Requestor?.Id,
+                    ProcessId = outputRequestItem?.Process?.Id
                 };
 
-                TaskDTO _task = new();
-
-                _task.ValidUserActions = new();
-
-                var _taskValidUserActions = outputRequestItem
+                var _taskValidUserActions = outputRequestItem!
                     .ValidUserActions
                     .Select(x => x.Id)
                     .ToList();
 
                 var _validUserActions = await GetConditions(_taskValidUserActions);
-
-                _task.ValidUserActions.AddRange(_validUserActions);
-
+                
 
 
+                TaskDTO _task = new();
 
+                _task?.ValidUserActions?.AddRange(_validUserActions);
 
+                _task.Base = outputRequestItem.Task.Adapt<BaseClassWithNameDTO>();
 
-
-                _task.Base = outputRequestItem.Task.GetBaseClassWithName(_mapper);
-
-                var _f_task = _task.Base.GetSimpleClass<F_Task>(_mapper);
+                var _f_task = _task.Base.Adapt<F_Task>();
 
                 WorkItemDTO _gRPC_WorkItem = new();
 
@@ -444,10 +441,11 @@ public class RequestController : ControllerBase
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 
-                var _workItemConditionIds = _retriveworkItem
-                    .WorkItemConditions
+                Guard.Against.Default(_retriveworkItem);
+
+                var _workItemConditionIds = _retriveworkItem?.WorkItemConditions?
                     .Where(x => x.SecondId.HasValue)
-                    .Select(x => x.SecondId.Value);
+                    .Select(x => x.SecondId!.Value);
 
                 var _workItemConditions = await GetConditions(_workItemConditionIds);
 
@@ -455,8 +453,7 @@ public class RequestController : ControllerBase
 
                 if (_workItemConditions is not null)
                 {
-                    _gRPC_WorkItem.OccurredUserActions = new();
-                    _gRPC_WorkItem.OccurredUserActions.AddRange(_workItemConditions);
+                    _gRPC_WorkItem?.OccurredUserActions?.AddRange(_workItemConditions);
                 }
 
                 _task.WorkItems.Add(_gRPC_WorkItem);
@@ -477,5 +474,6 @@ public class RequestController : ControllerBase
 
         return _OutputCartable;
     }
+
     #endregion
 }
