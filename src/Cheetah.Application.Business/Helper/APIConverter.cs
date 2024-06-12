@@ -1,41 +1,11 @@
 ﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
 using Cheetah.Domain.Common.DTOs;
+using Mapster;
 
 namespace Cheetah.Presentation.Services.WebAPI.Helper;
 
 public static class APIConverter
 {
-    public static BaseClassDTO GetBaseClass(this BaseEntity simpleClass, IMapper mapper)
-    {
-        BaseClassDTO _GRPC_BaseClass = mapper.Map<BaseClassDTO>(simpleClass);
-
-        return _GRPC_BaseClass;
-    }
-    public static BaseClassWithNameDTO GetBaseClassWithName(this BaseEntity simpleClass, IMapper mapper)
-    {
-        BaseClassWithNameDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameDTO>(simpleClass);
-
-        return _GRPC_BaseClass;
-    }
-    public static BaseClassWithDateDTO GetBaseClassWithDate(this BaseEntity simpleClass, IMapper mapper)
-    {
-        BaseClassWithDateDTO _GRPC_BaseClass = mapper.Map<BaseClassWithDateDTO>(simpleClass);
-
-        return _GRPC_BaseClass;
-    }
-    public static BaseClassWithNameAndDateDTO GetBaseClassWithNameAndDate(this BaseEntity simpleClass, IMapper mapper)
-    {
-        BaseClassWithNameAndDateDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameAndDateDTO>(simpleClass);
-
-        return _GRPC_BaseClass;
-    }
-
-    public static BaseClassDTO GetBaseClass(this SimpleClassDTO simpleClass, IMapper mapper)
-    {
-        BaseClassDTO _GRPC_BaseClass = mapper.Map<BaseClassDTO>(simpleClass);
-
-        return _GRPC_BaseClass;
-    }
     public static BaseClassWithNameDTO GetBaseClassWithName(this SimpleClassDTO simpleClass, IMapper mapper)
     {
         BaseClassWithNameDTO _GRPC_BaseClass = mapper.Map<BaseClassWithNameDTO>(simpleClass);
@@ -48,19 +18,8 @@ public static class APIConverter
 
         return _GRPC_BaseClass;
     }
-    public static T GetSimpleClass<T>(this BaseClassWithNameAndDateDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
-    {
-        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
-
-        return _GRPC_BaseClass;
-    }
+ 
     public static T GetSimpleClass<T>(this BaseClassWithNameDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
-    {
-        T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
-
-        return _GRPC_BaseClass;
-    }
-    public static T GetSimpleClass<T>(this BaseClassDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
         T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
 
@@ -79,25 +38,16 @@ public static class APIConverter
 
         return _condition;
     }
-    public static IEnumerable<F_Condition> GetConditions(this IEnumerable<ConditionDTO> Conditions, IMapper mapper)
-    {
-        foreach (var Condition in Conditions)
-        {
-            yield return GetCondition(Condition, mapper);
-        }
-    }
-    public static IEnumerable<ConditionDTO> GetConditions(this IEnumerable<F_Condition> f_conditions, IMapper mapper)
+  
+    public static IEnumerable<ConditionDTO> GetConditions(this IEnumerable<F_Condition> f_conditions)
     {
         foreach (var f_condition in f_conditions)
         {
-
-            BaseClassWithNameDTO _conditionBase = mapper.Map<BaseClassWithNameDTO>(f_condition);
-
             ConditionDTO _condition = new()
             {
-                Base = _conditionBase,
-                Tag = f_condition?.Tag?.GetBaseClassWithName(mapper),
-                Operand = f_condition?.Operand?.GetBaseClassWithName(mapper),
+                Base = f_condition.Adapt<BaseClassWithNameDTO>(),
+                Tag = f_condition?.Tag?.Adapt<BaseClassWithNameDTO>(),
+                Operand = f_condition?.Operand?.Adapt<BaseClassWithNameDTO>(),
                 Value = f_condition?.Value
             };
 
