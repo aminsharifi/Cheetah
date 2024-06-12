@@ -1,5 +1,3 @@
-using Cheetah.Presentation.Web.Blazor.Server.Components.Account;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IGlobalization>
