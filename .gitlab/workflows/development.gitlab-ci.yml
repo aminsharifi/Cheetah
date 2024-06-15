@@ -72,25 +72,6 @@ build-webapi:
 #   needs:
 #     - build-grpc
 
-push-to-repo-webapi:
-  stage: push
-  script:
-    - tag=`cat .next-version`
-    - docker push docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag
-    - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag
-    - echo "RELEASE_URL=http://scg.ifb.local/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/artifacts/release" > build_info
-    - echo "RELEASE_DESC=\"Linux amd64 binary\"" >> build_info
-    - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
-    - echo "RELEASE_VERSION=$(<.next-version)" >> build_info
-
-  artifacts:
-    paths:
-      - build_info
-      - .next-version
-    expire_in: 2 min
-  needs:
-    - build-webapi
-
 #push-to-repo:
 #  stage: push
 #  script:
@@ -104,6 +85,24 @@ push-to-repo-webapi:
 #    expire_in: 2 min
 #  needs:
 #    - build
+
+push-to-repo-webapi:
+  stage: push
+  script:
+    - tag=`cat .next-version`
+    - docker push docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag
+    - docker rmi -f docker.repoifb.local/services/$IMAGE_NAME-webapi:$tag
+    - echo "RELEASE_URL=http://scg.ifb.local/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/artifacts/release" > build_info
+    - echo "RELEASE_DESC=\"Linux amd64 binary\"" >> build_info
+    - echo "RELEASE_SHA=$CI_COMMIT_SHA" >> build_info
+    - echo "RELEASE_VERSION=$(<.next-version)" >> build_info
+  artifacts:
+    paths:
+      - build_info
+      - .next-version
+    expire_in: 2 min
+  needs:
+    - build-webapi
 
 changelog:
   stage: changelog
@@ -172,3 +171,11 @@ checking-stability-webapi:
 #  timeout: 3 minute
 #  needs:
 #    - deploy-to-k8s
+
+checking-stability-webapi:
+  stage: stability
+  script:
+    - kubectl rollout status Deployment/${IMAGE_NAME}webapi -n $NAME_SPACE
+  timeout: 3 minute
+  needs:
+    - deploy-to-k8s-webapi
