@@ -3,5 +3,6 @@
 public enum CartableProperty
 {
     Inbox,
-    Outbox
+    Outbox,
+    All
 }

@@ -16,6 +16,7 @@ global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Helper;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Application.Business.Process;
+global using Cheetah.Application.Business.Process.TaskCondition.Specifications;
 global using Cheetah.Application.Business.ProcessScenario.Get;
 global using Cheetah.Application.Business.ProcessScenario.Specifications;
 global using Cheetah.Application.Business.Task.Get;
