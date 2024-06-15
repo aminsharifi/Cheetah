@@ -1,12 +1,14 @@
-﻿global using Ardalis.Result;
+﻿global using Ardalis.GuardClauses;
+global using Ardalis.Result;
 global using Ardalis.SharedKernel;
 global using Cheetah.Application.Business.Case;
+global using Cheetah.Application.Business.Case.Get;
 global using Cheetah.Application.Business.Condition;
 global using Cheetah.Application.Business.Condition.Get;
 global using Cheetah.Application.Business.Entity;
 global using Cheetah.Application.Business.Entity.Specifications;
 global using Cheetah.Application.Business.Interfaces;
-global using Cheetah.Application.Business.Task.Get;
+global using Cheetah.Application.Business.Process.TaskCondition.Get;
 global using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 global using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
 global using Cheetah.Domain.Aggregates.ProcessAggregate.DTOs;

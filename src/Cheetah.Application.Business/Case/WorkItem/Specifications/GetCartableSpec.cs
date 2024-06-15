@@ -1,10 +1,8 @@
-﻿using Cheetah.Domain.Enums;
-
-namespace Cheetah.Application.Business.WorkItem.Specifications;
+﻿namespace Cheetah.Application.Business.WorkItem.Specifications;
 
 public class GetCartableSpec : Specification<F_WorkItem>
 {
-    public GetCartableSpec(CartableDTO cartableDTO, CartableProperty cartableProperty)
+    public GetCartableSpec(CartableDTO cartableDTO, CartableProperty? cartableProperty)
     {
         if (cartableProperty == CartableProperty.Inbox)
         {

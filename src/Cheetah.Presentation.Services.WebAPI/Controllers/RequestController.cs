@@ -1,21 +1,19 @@
-﻿using Ardalis.GuardClauses;
-
-namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class RequestController : ControllerBase
 {
-    public ILogger<RequestController> _logger;
-    public ICartable _iCartable;
-    public IWorkItem _iWorkItem;
-    public ICopyClass _iCopyClass;
-    public ISync _iSync;
-    public IMediator _mediator;
-    public IReadRepository<F_WorkItem> _workItemRepository;
-    public IReadRepository<F_Task> _taskRepository;
-    public IMapper _mapper;
-    public ITableCRUD _simpleClassRepository;
+    private ILogger<RequestController> _logger;
+    private ICartable _iCartable;
+    private IWorkItem _iWorkItem;
+    private ICopyClass _iCopyClass;
+    private ISync _iSync;
+    private IMediator _mediator;
+    private IReadRepository<F_WorkItem> _workItemRepository;
+    private IReadRepository<F_Task> _taskRepository;
+    private IMapper _mapper;
+    private ITableCRUD _simpleClassRepository;
     public RequestController(
         ITableCRUD SimpleClassRepository,
         ILogger<RequestController> GLogger,
@@ -80,17 +78,13 @@ public class RequestController : ControllerBase
 
         long _createdCaseId = _outputResult.Value;
 
-        GetCase_Request _getCase_Input = new()
+        output_Request.Case = new()
         {
-            Case = new BaseClassDTO()
+            Base = new()
             {
                 Id = _createdCaseId
             }
         };
-
-        GetCase_Response _getCase_Output = await GetCase(_getCase_Input);
-
-        output_Request.Case = _getCase_Output.Case;
 
         #endregion
 
@@ -98,52 +92,19 @@ public class RequestController : ControllerBase
 
         return output_Request;
     }
-    [HttpPost(nameof(GetCase))]
-    public async Task<GetCase_Response> GetCase([FromBody] GetCase_Request request)
+
+
+    [HttpPost(nameof(GetCases))]
+    public async Task<Cartable_Response> GetCases([FromBody] Cartable_Request request)
     {
-        _logger.LogInformation("started " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", request);
+        _logger.LogInformation("started " + nameof(GetCases) + " {@" + nameof(GetCases) + "}", request);
 
-        #region Input
-        SimpleClassDTO _request = request.Case?.Adapt<SimpleClassDTO>();
-        SimpleClassDTO _process = request.Process?.Adapt<SimpleClassDTO>();
-        #endregion
+        var output_Request = await Cartable(request, CartableProperty.All);
 
-        var _requests = await _iCartable.GetCaseAsync(_request, _process);
-
-        #region Output
-
-        GetCase_Response output_Request = new();
-
-        if (!_requests.IsSuccess)
-        {
-            output_Request.OutputState = new BaseClassWithNameDTO() { Id = 1 };
-
-            return output_Request;
-        }
-
-        output_Request.OutputState = new BaseClassWithNameDTO() { Id = 0 };
-
-        var _selectedRequests = _requests.Value.FirstOrDefault();
-
-        if (_selectedRequests is null)
-        {
-            output_Request.OutputState = new BaseClassWithNameDTO()
-            {
-                Id = 1,
-                Name = ResultStatus.NotFound.ToString(),
-                DisplayName = $"چنین درخواستی یافت نشد"
-            };
-
-            return output_Request;
-        }
-
-        output_Request.Case = await GetCase(_selectedRequests);
-
-        #endregion
-
-        _logger.LogInformation("Ended " + nameof(GetCase) + " {@" + nameof(GetCase) + "}", output_Request);
+        _logger.LogInformation("Ended " + nameof(GetCases) + " {@" + nameof(GetCases) + "}", output_Request);
 
         return output_Request;
+
     }
     [HttpPost(nameof(Inbox))]
     public async Task<Cartable_Response> Inbox([FromBody] Cartable_Request request)
@@ -199,17 +160,20 @@ public class RequestController : ControllerBase
 
         long _createdCaseId = Outputresult.Value;
 
-        GetCase_Request _getCase_Input = new()
+        var _getDetailCasesQuery_Input = new SimpleClassDTO()
         {
-            Case = new BaseClassDTO()
-            {
-                Id = _createdCaseId
-            }
+            Id = _createdCaseId
         };
 
-        GetCase_Response _getCase_Output = await GetCase(_getCase_Input);
+        var _getDetailCasesQuery_Output = (await _mediator
+            .Send(new GetDetailCasesQuery(_getDetailCasesQuery_Input))).Value.FirstOrDefault();
 
-        output_Request.Case = _getCase_Output.Case;
+        output_Request.Case = new();
+
+        output_Request.Case.Base = _getDetailCasesQuery_Output.Adapt<BaseClassWithDateDTO>();
+
+        output_Request.Case.CaseState = _getDetailCasesQuery_Output?.CaseState.Adapt<BaseClassWithNameDTO>();
+
 
         #endregion
 
@@ -279,76 +243,6 @@ public class RequestController : ControllerBase
     }
 
     #region Private methods
-    private async Task<CaseDTO> GetCase(F_Case _selectedRequests)
-    {
-        CaseDTO _gRPC_Case = new();
-
-        _gRPC_Case.Base = _selectedRequests.Adapt<BaseClassWithDateDTO>();
-        _gRPC_Case.CaseState = _selectedRequests.CaseState.Adapt<BaseClassWithNameDTO>();
-        _gRPC_Case.RequestorId = _selectedRequests.RequestorId;
-        _gRPC_Case.CreatorId = _selectedRequests.CreatorId;
-        _gRPC_Case.ProcessId = _selectedRequests.ProcessId;
-
-        _gRPC_Case.Tasks = new();
-
-        var _distincTaskIds = _selectedRequests.WorkItems.Select(x => x.TaskId).Distinct();
-
-        var _getTasks = await _mediator.Send(
-            new GetTasksFromScenarioQuery(_selectedRequests.SelectedScenarioId));
-
-        var _Tasks = _getTasks.Value.ToList();
-
-        foreach (var _Task in _Tasks)
-        {
-            TaskDTO _gRPC_Task = new() { Base = _Task.Adapt<BaseClassWithNameDTO>() };
-
-            var _taskFlowConditionsIds = _Task.TaskFlows
-                .SelectMany(parent => parent.Flow.FlowConditions, (parent, child) => child.SecondId)
-                .Where(x => x.HasValue)
-                .Select(x => x.Value);
-
-
-            var _taskFlowConditions = await GetConditions(_taskFlowConditionsIds);
-
-            _gRPC_Task.ValidUserActions = new();
-
-            _gRPC_Task.ValidUserActions.AddRange(_taskFlowConditions);
-
-            #region Performers
-
-            var _taskConditionsIds = _Task.TaskConditions
-                .Select(x => x.SecondId.Value);
-
-            var _taskConditions = await GetConditions(_taskConditionsIds);
-
-            _gRPC_Task.Performers = new();
-
-            _gRPC_Task.Performers.AddRange(_taskConditions);
-
-            #endregion
-
-            _gRPC_Task.WorkItems = new();
-            foreach (var WorkItem in _selectedRequests.WorkItems.Where(x => x.TaskId == _Task.Id))
-            {
-                WorkItemDTO _gRPC_WorkItem = new();
-                _gRPC_WorkItem.Base = WorkItem.Adapt<BaseClassWithNameAndDateDTO>();
-                _gRPC_WorkItem.WorkItemState = WorkItem.WorkItemState.Adapt<BaseClassWithNameDTO>();
-                _gRPC_WorkItem.User = new BaseClassWithNameDTO() { Id = WorkItem.UserId };
-                _gRPC_WorkItem.OccurredUserActions = new();
-
-                var _workItemConditionsIds = WorkItem.WorkItemConditions
-                    .Select(x => x.SecondId.Value);
-
-                var _workItemConditions = await GetConditions(_workItemConditionsIds);
-
-                _gRPC_WorkItem.OccurredUserActions.AddRange(_workItemConditions);
-
-                _gRPC_Task.WorkItems.Add(_gRPC_WorkItem);
-            }
-            _gRPC_Case.Tasks.Add(_gRPC_Task);
-        }
-        return _gRPC_Case;
-    }
     private async Task<IEnumerable<ConditionDTO>> GetConditions(IEnumerable<long> ConditionIds)
     {
         var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(
@@ -356,7 +250,7 @@ public class RequestController : ControllerBase
 
         return Actual_Conditions.GetConditions();
     }
-    private async Task<Cartable_Response> Cartable(Cartable_Request request, CartableProperty cartableProperty)
+    private async Task<Cartable_Response> Cartable(Cartable_Request request, CartableProperty? cartableProperty)
     {
         _logger.LogInformation("started " + nameof(Cartable));
         _logger.LogInformation("{@InputCartable}", request);
@@ -384,9 +278,14 @@ public class RequestController : ControllerBase
 
         #endregion
 
-        var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
+        Result<IEnumerable<CartableDTO>> OutputRequest =
+            (cartableProperty == CartableProperty.Inbox) ?
            await _iCartable.InboxAsync(cartableDTO) :
-           await _iCartable.OutboxAsync(cartableDTO));
+           ((cartableProperty == CartableProperty.Outbox) ?
+           await _iCartable.OutboxAsync(cartableDTO) :
+           await _iCartable.GetCartableAsync(cartableDTO));
+
+
 
         #region Output
         Cartable_Response _OutputCartable = new();
@@ -410,22 +309,38 @@ public class RequestController : ControllerBase
                     ProcessId = outputRequestItem?.Process?.Id
                 };
 
-                var _taskValidUserActions = outputRequestItem!
-                    .ValidUserActions
-                    .Select(x => x.Id)
-                    .ToList();
-
-                var _validUserActions = await GetConditions(_taskValidUserActions);
-                
-
+                #region Tasks
 
                 TaskDTO _task = new();
 
-                _task?.ValidUserActions?.AddRange(_validUserActions);
-
                 _task.Base = outputRequestItem.Task.Adapt<BaseClassWithNameDTO>();
 
-                var _f_task = _task.Base.Adapt<F_Task>();
+                #region ValidUserActions
+                var _taskValidUserActions = outputRequestItem!
+                                .ValidUserActions
+                                .Select(x => x.Id)
+                                .ToList();
+
+                var _validUserActions = await GetConditions(_taskValidUserActions);
+
+                _task?.ValidUserActions?.AddRange(_validUserActions);
+
+                #endregion
+
+                #region Performers
+
+                var _getDetailCasesQuery_Output = (await _mediator
+                                         .Send(new GetConditionsByTaskQuery(_task?.Base.Id)))
+                                         .Value.FirstOrDefault();
+
+                var _performers = await GetConditions
+                    (new List<long>() { _getDetailCasesQuery_Output });
+
+                _task?.Performers?.AddRange(_performers);
+
+                #endregion
+
+                #region WorkItem
 
                 WorkItemDTO _gRPC_WorkItem = new();
 
@@ -434,6 +349,7 @@ public class RequestController : ControllerBase
                 _gRPC_WorkItem.User = outputRequestItem.User.GetBaseClassWithName(_mapper);
 
                 _gRPC_WorkItem.WorkItemState = outputRequestItem.WorkItemState.GetBaseClassWithName(_mapper);
+
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
@@ -458,9 +374,13 @@ public class RequestController : ControllerBase
 
                 _task.WorkItems.Add(_gRPC_WorkItem);
 
+                #endregion
+
                 _Case.Tasks = new();
 
                 _Case.Tasks.Add(_task);
+
+                #endregion
 
                 _OutputCartable.Cases.Add(_Case);
             }
