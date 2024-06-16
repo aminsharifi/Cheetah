@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Net;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 internal sealed class GlobalExceptionHandler : IExceptionHandler
 {
@@ -28,10 +22,9 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
             Instance = httpContext.Request.Path,
             Status = httpContext.Response.StatusCode,
             Title = exception.Message,
-            Detail = exception.HelpLink,
-            Type = exception.GetType().FullName
+            Type = exception.GetType().FullName,
+            Detail = exception.StackTrace
         };
-
 
         httpContext.Response.StatusCode = problemDetails.Status.Value;
 
