@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Get;
+﻿using Cheetah.Application.Business.Case.WorkItem.Specifications;
+
+namespace Cheetah.Application.Business.WorkItem.Get;
 
 public class CopyWorkItemHandler(
     IReadRepository<D_User> _userRepository,
@@ -8,8 +10,9 @@ public class CopyWorkItemHandler(
 {
     public async Task<Result<F_WorkItem>> Handle(CopyWorkItemQuery request, CancellationToken cancellationToken)
     {
-        var _workItemSpec = new GetEntitySpec<F_WorkItem>(request.WorkItem, true);
-        F_WorkItem _workItem = await _workItemRepository.FirstOrDefaultAsync(_workItemSpec, cancellationToken);
+        var _workItemSpec = new GetWorkItemSpec(request.WorkItem, true);
+        F_WorkItem _workItem = await _workItemRepository
+            .FirstOrDefaultAsync(_workItemSpec, cancellationToken);
 
         if (_workItem.LastModified != null && !request.Rebase)
         {

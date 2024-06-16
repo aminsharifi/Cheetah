@@ -6,6 +6,10 @@ public static class InitialiserExtensions
 {
     public static async Task<WebApplication> InitializeCommonSettingsAsync(this WebApplicationBuilder? builder)
     {
+        builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder?.Services.AddProblemDetails();
+
+
         #region Production
         if (builder.Environment.IsProduction())
         {
@@ -56,7 +60,7 @@ public static class InitialiserExtensions
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             builder.Services.AddDbContext<ApplicationDbContext>(
-                b => b.UseLazyLoadingProxies()
+                b => b.UseLazyLoadingProxies(false)
                 .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
                 , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
                 ),
@@ -66,7 +70,7 @@ public static class InitialiserExtensions
         else
         {
             builder.Services.AddDbContext<ApplicationDbContext>(
-                b => b.UseLazyLoadingProxies()
+                b => b.UseLazyLoadingProxies(false)
                 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
                 ServiceLifetime.Transient
@@ -136,6 +140,7 @@ public static class InitialiserExtensions
         #region Build & Config
 
         var app = builder.Build();
+        app.UseExceptionHandler();
         app.UseSerilogRequestLogging();
         app.UseAuthentication();
         app.UseAuthorization();
