@@ -40,59 +40,27 @@ public class RequestController : ControllerBase
     {
         _logger.LogInformation("started " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", request);
 
-        #region Input
 
-        SimpleClassDTO _case = request.Case.Adapt<SimpleClassDTO>();
-        SimpleClassDTO _creator = request.Creator.Adapt<SimpleClassDTO>();
-        SimpleClassDTO _requestor = request.Requestor.Adapt<SimpleClassDTO>();
-        SimpleClassDTO _process = request.Process.Adapt<SimpleClassDTO>();
-        List<ConditionDTO> _caseConditions = request?.Conditions;
-        List<ConditionDTO> _workItemConditions = request.WorkItem.OccurredUserActions;
-        SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
-        SimpleClassDTO _workItemBase = request.WorkItem.Base.Adapt<SimpleClassDTO>();
+        var _outputResult = await _iWorkItem.CreateRequestAsync(request);   
 
-        #endregion
 
-        var _outputResult = await _iWorkItem.CreateRequestAsync
-            (Request: _case, Creator: _creator, Requestor: _requestor,
-            Process: _process, CaseConditions: _caseConditions, WorkItemUser: _workItemUser,
-            WorkItemConditions: _workItemConditions, WorkItemBase: _workItemBase);
+        _logger.LogInformation("Ended " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", _outputResult);
 
-        #region Output
-
-        CreateRequest_Response output_Request = new();
-
-        if (_outputResult.IsSuccess is false)
-        {
-            output_Request.OutputState = new BaseClassWithNameDTO()
-            {
-                Id = 1,
-                Name = _outputResult.Status.ToString(),
-                DisplayName = $"شماره رهگیری {_outputResult.Errors.First()} تکراری است"
-            };
-
-            return output_Request;
-        }
-
-        output_Request.OutputState = new BaseClassWithNameDTO() { Id = 0 };
-
-        long _createdCaseId = _outputResult.Value;
-
-        output_Request.Case = new()
-        {
-            Base = new()
-            {
-                Id = _createdCaseId
-            }
-        };
-
-        #endregion
-
-        _logger.LogInformation("Ended " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", output_Request);
-
-        return output_Request;
+        return _outputResult;
     }
 
+    [HttpPost(nameof(PerformRequest))]
+    public async Task<PerformRequest_Response> PerformRequest([FromBody] PerformRequest_Request request)
+    {
+        _logger.LogInformation("started " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", request);
+
+        var _outputResult = await _iWorkItem.PerformWorkItemAsync(request);
+
+        _logger.LogInformation("Ended " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", _outputResult);
+
+        return _outputResult;
+
+    }
 
     [HttpPost(nameof(GetCases))]
     public async Task<Cartable_Response> GetCases([FromBody] Cartable_Request request)
@@ -106,6 +74,7 @@ public class RequestController : ControllerBase
         return output_Request;
 
     }
+
     [HttpPost(nameof(Inbox))]
     public async Task<Cartable_Response> Inbox([FromBody] Cartable_Request request)
     {
@@ -118,6 +87,7 @@ public class RequestController : ControllerBase
         return output_Request;
 
     }
+
     [HttpPost(nameof(Outbox))]
     public async Task<Cartable_Response> Outbox([FromBody] Cartable_Request request)
     {
@@ -129,59 +99,7 @@ public class RequestController : ControllerBase
 
         return output_Request;
     }
-    [HttpPost(nameof(PerformRequest))]
-    public async Task<PerformRequest_Response> PerformRequest([FromBody] PerformRequest_Request request)
-    {
-        _logger.LogInformation("started " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", request);
 
-        #region Input
-
-        SimpleClassDTO _workItem = request.WorkItem.Base.Adapt<SimpleClassDTO>();
-        SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
-        List<ConditionDTO> _workItemConditions = request.WorkItem.OccurredUserActions;
-        Boolean _rebase = request.Rebase ?? false;
-        #endregion
-
-        var Outputresult = await _iWorkItem.PerformWorkItemAsync
-            (WorkItem: _workItem, WorkItemUser: _workItemUser,
-            WorkItemConditions: _workItemConditions, Rebase: _rebase);
-
-        #region Output
-
-        PerformRequest_Response output_Request = new();
-
-        if (!Outputresult.IsSuccess)
-        {
-            output_Request.OutputState = new BaseClassWithNameDTO() { Id = 1 };
-            return output_Request;
-        }
-
-        output_Request.OutputState = new BaseClassWithNameDTO() { Id = 0 };
-
-        long _createdCaseId = Outputresult.Value;
-
-        var _getDetailCasesQuery_Input = new SimpleClassDTO()
-        {
-            Id = _createdCaseId
-        };
-
-        var _getDetailCasesQuery_Output = (await _mediator
-            .Send(new GetDetailCasesQuery(_getDetailCasesQuery_Input))).Value.FirstOrDefault();
-
-        output_Request.Case = new();
-
-        output_Request.Case.Base = _getDetailCasesQuery_Output.Adapt<BaseClassWithDateDTO>();
-
-        output_Request.Case.CaseState = _getDetailCasesQuery_Output?.CaseState.Adapt<BaseClassWithNameDTO>();
-
-
-        #endregion
-
-        _logger.LogInformation("Ended " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", output_Request);
-
-        return output_Request;
-
-    }
     [HttpPost(nameof(GetAllByName))]
     public async Task<GetAllByName_Response> GetAllByName([FromBody] GetAllByName_Request request)
     {
