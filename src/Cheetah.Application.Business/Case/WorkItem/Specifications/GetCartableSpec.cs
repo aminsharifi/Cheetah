@@ -22,6 +22,10 @@ public class GetCartableSpec : Specification<F_WorkItem>
             x.Case.EnableRecord &&
             x.EnableRecord);
 
+        Query
+            .Include(x => x.Case);
+
+
         if (cartableDTO.User is not null)
         {
             var UserID = cartableDTO.User.Id;

@@ -7,4 +7,9 @@ internal class GetWorkItemSpec : GetEntitySpec<F_WorkItem>
         Query.Include(x => x.Case)
             .ThenInclude(x => x.WorkItems);
     }
+    public GetWorkItemSpec(SimpleClassDTO input, Boolean EnableTrack) : base(input, EnableTrack)
+    {
+        Query.Include(x => x.Case)
+            .ThenInclude(x => x.WorkItems);
+    }
 }
