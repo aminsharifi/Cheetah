@@ -1,6 +1,4 @@
-﻿using Hangfire;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -8,7 +6,6 @@ public static class InitialiserExtensions
     {
         builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder?.Services.AddProblemDetails();
-
 
         #region Production
         if (builder.Environment.IsProduction())
