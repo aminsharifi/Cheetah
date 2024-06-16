@@ -9,15 +9,27 @@ public class WorkItem(ICopyClass _iCopyClass,
     IRepository<D_Process> processRepository
     ) : IWorkItem
 {
-    public async Task<Result<long>> CreateRequestAsync(SimpleClassDTO Case, SimpleClassDTO Creator,
-        SimpleClassDTO Requestor, SimpleClassDTO Process,
-        List<ConditionDTO> CaseConditions, SimpleClassDTO WorkItemUser,
-        List<ConditionDTO> WorkItemConditions, SimpleClassDTO WorkItemBase)
+    public async Task<Result<CreateRequest_Response>> CreateRequestAsync(CreateRequest_Request request)
     {
+        #region Input
+
+        SimpleClassDTO _case = request.Case.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _creator = request.Creator.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _requestor = request.Requestor.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _process = request.Process.Adapt<SimpleClassDTO>();
+        List<ConditionDTO> _caseConditions = request?.Conditions;
+        SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
+        List<ConditionDTO> _workItemConditions = request.WorkItem.OccurredUserActions;
+        SimpleClassDTO _workItemBase = request.WorkItem.Base.Adapt<SimpleClassDTO>();
+
+        #endregion
+
+        CreateRequest_Response output_Request = new();
+
         var GeneralRequest = await iSender.Send(
-            new CopyCaseQuery(Case: Case, Creator: Creator, Requestor: Requestor, Process: Process,
-            CaseConditions: CaseConditions, WorkItemUser: WorkItemUser,
-            WorkItemConditions: WorkItemConditions, WorkItemBase: WorkItemBase));
+            new CopyCaseQuery(Case: _case, Creator: _creator, Requestor: _requestor, Process: _process,
+            CaseConditions: _caseConditions, WorkItemUser: _workItemUser,
+            WorkItemConditions: _workItemConditions, WorkItemBase: _workItemBase));
 
         var _getCaseSpec = new GetIdCaseSpec(processId: GeneralRequest.Value.ProcessId.Value,
         eRPCode: GeneralRequest.Value.ERPCode.Value);
@@ -25,35 +37,56 @@ public class WorkItem(ICopyClass _iCopyClass,
         Result<long> _OutputState;
 
         var _duplicateCaseID = await caseRepository.FirstOrDefaultAsync(_getCaseSpec);
-
         if (_duplicateCaseID is not null)
         {
-            _OutputState = Result.Conflict(_duplicateCaseID.ToString());
+            var _result = Result.Conflict(_duplicateCaseID.ToString());
+            output_Request.OutputState = new BaseClassWithNameDTO()
+            {
+                Id = 1,
+                Name = _result.Status.ToString(),
+                DisplayName = $"شماره رهگیری {_result.Errors.First()} تکراری است"
+            };
 
-            return _OutputState;
+            return output_Request;
         }
-        else
+
+        GeneralRequest = await SetWorkItems.Handle(iSender, taskRepository,
+            Current_Case: GeneralRequest, Current_WorkItem: GeneralRequest.Value.WorkItems.First());
+
+        GeneralRequest.Value.UpdateLastModified();
+
+        var _createdCase = await caseRepository.AddAsync(GeneralRequest);
+
+        _OutputState = Result<long>.Success(_createdCase.Id);
+
+        output_Request.OutputState = new BaseClassWithNameDTO() { Id = 0 };
+
+        long _createdCaseId = _OutputState.Value;
+
+        output_Request.Case = new()
         {
-            GeneralRequest = await SetWorkItems.Handle(iSender, taskRepository,
-                Current_Case: GeneralRequest, Current_WorkItem: GeneralRequest.Value.WorkItems.First());
+            Base = new()
+            {
+                Id = _createdCaseId
+            }
+        };
 
-            GeneralRequest.Value.UpdateLastModified();
-
-            var _createdCase = await caseRepository.AddAsync(GeneralRequest);
-
-            _OutputState = Result<long>.Success(_createdCase.Id);
-        }
-
-        return _OutputState;
+        return output_Request;
     }
-    public async Task<Result<long>> PerformWorkItemAsync(
-        SimpleClassDTO WorkItem, SimpleClassDTO WorkItemUser,
-        List<ConditionDTO> WorkItemConditions, Boolean Rebase = false)
+    public async Task<Result<PerformRequest_Response>> PerformWorkItemAsync(PerformRequest_Request request)
     {
-        Result<long> _OutputState;
+        #region Input
+        SimpleClassDTO _workItem = request.WorkItem.Base.Adapt<SimpleClassDTO>();
+        SimpleClassDTO _workItemUser = request.WorkItem.User.Adapt<SimpleClassDTO>();
+        List<ConditionDTO> _workItemConditions = request.WorkItem.OccurredUserActions;
+        Boolean _rebase = request.Rebase ?? false;
+        #endregion
+
+
+        PerformRequest_Response _performRequest_Response = new();
 
         var Current_WorkItem = await iSender.Send(new CopyWorkItemQuery(
-            WorkItem, WorkItemUser, WorkItemConditions, Rebase));
+            _workItem, _workItemUser, _workItemConditions, _rebase));
 
         await SetCurrentAssignment
         .Handle(iSender, taskRepository, Current_WorkItem);
@@ -72,9 +105,29 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         await workItemRepository.UpdateAsync(Current_WorkItem);
 
-        _OutputState = Result.Success(Current_WorkItem.Value.CaseId.Value);
+        #region Output
 
-        return _OutputState;
+        _performRequest_Response.OutputState = new BaseClassWithNameDTO() { Id = 0 };
+
+        var _createdCaseId = Current_WorkItem.Value.CaseId!.Value;
+
+        var _getDetailCasesQuery_Input = new SimpleClassDTO()
+        {
+            Id = _createdCaseId
+        };
+
+        var _getDetailCasesQuery_Output = (await iSender
+            .Send(new GetDetailCasesQuery(_getDetailCasesQuery_Input))).Value.FirstOrDefault();
+
+        _performRequest_Response.Case = new();
+
+        _performRequest_Response.Case.Base = _getDetailCasesQuery_Output.Adapt<BaseClassWithDateDTO>();
+
+        _performRequest_Response.Case.CaseState = _getDetailCasesQuery_Output?.CaseState.Adapt<BaseClassWithNameDTO>();
+
+        #endregion
+
+        return _performRequest_Response;
     }
     public async Task<Result<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser)
     {

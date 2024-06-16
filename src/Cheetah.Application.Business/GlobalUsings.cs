@@ -2,6 +2,7 @@
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
 global using Ardalis.Specification;
+global using Cheetah.Application.Business.Case;
 global using Cheetah.Application.Business.Case.Case;
 global using Cheetah.Application.Business.Case.Get;
 global using Cheetah.Application.Business.Case.Specifications;
