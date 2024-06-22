@@ -14,14 +14,16 @@ public static class CopyWorkItem
 
         workItem.SetUserId(_workItemUserId);
 
-        workItem.SetNameAndDisplayName(name: WorkItemBase.Name,
-            displayName: WorkItemBase.DisplayName);
+        workItem
+            .SetName(WorkItemBase.Name)
+            .SetDisplayName(WorkItemBase.DisplayName);
+
 
         await Parallel.ForEachAsync(workItemConditions, async (_condition, _cancellatoin) =>
         {
             var _getCondition = await iSender.Send(new GetConditionIdQuery(_condition));
 
-            workItem.WorkItemConditions.Add(new(conditionId: _getCondition.Value));
+            workItem.WorkItemConditions.Add((L_WorkItemCondition)new L_WorkItemCondition().SetSecondId(_getCondition.Value));
         });
 
         return workItem;

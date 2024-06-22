@@ -1,22 +1,19 @@
-﻿using Cheetah.Domain.Enums;
-
-namespace Cheetah.Domain.Entities.Dimentions;
+﻿namespace Cheetah.Domain.Entities.Dimentions;
 
 public partial class D_Entity : BaseEntity
 {
     public D_Entity()
     {
     }
-    public D_Entity(Int64 id, String name, String displayName, Int64 sortIndex,
-      Int64 eRPCode)
-      : base(id, name, displayName, sortIndex, eRPCode)
+    public D_Entity SetDisplay(Boolean display)
     {
+        this.Display = display;
+        return this;
     }
-    public D_Entity(Int64 id, String name, String displayName, Int64 sortIndex,
-        Int64 eRPCode, Boolean display)
-        : base(id, name, displayName, sortIndex, eRPCode)
+    public D_Entity SetSync(Boolean sync)
     {
-        Display = display;
+        this.Sync = sync;
+        return this;
     }
 
     public bool? Display { get; private set; } = false;
@@ -26,61 +23,133 @@ public partial class D_Entity
 {
     #region Values
 
-    public static readonly D_Entity D_TagType = new(id: 101, name: nameof(D_TagType),
-        displayName: new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString()
-        , sortIndex: 101, eRPCode: 101, display: false);
+    public static readonly D_Entity D_TagType =
+        (D_Entity)new D_Entity()
+        .SetDisplay(false)
+        .SetId(101)
+        .SetERPCode(101)
+        .SetSortIndex(101)
+        .SetName(nameof(D_TagType))
+        .SetDisplayName(new StringBuilder().Append("نوع تگ‌ها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity D_Operand = new(id: 102, name: nameof(D_Operand),
-        displayName: new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString()
-        , sortIndex: 102, eRPCode: 102, display: false);
+    public static readonly D_Entity D_Operand =
+        (D_Entity)new D_Entity()
+        .SetDisplay(false)
+        .SetId(102)
+        .SetERPCode(102)
+        .SetSortIndex(102)
+        .SetName(nameof(D_Operand))
+        .SetDisplayName(new StringBuilder().Append("عملگرها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity D_Tag = new(id: 103, name: nameof(D_Tag),
-        displayName: new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString()
-        , sortIndex: 103, eRPCode: 103, display: true);
+    public static readonly D_Entity D_Tag =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(103)
+        .SetERPCode(103)
+        .SetSortIndex(103)
+        .SetName(nameof(D_Tag))
+        .SetDisplayName(new StringBuilder().Append("تگ‌ها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity D_CaseState = new(id: 104, name: nameof(D_CaseState),
-        displayName: new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString()
-        , sortIndex: 104, eRPCode: 104, display: false);
+    public static readonly D_Entity D_CaseState =
+        (D_Entity)new D_Entity()
+        .SetDisplay(false)
+        .SetId(104)
+        .SetERPCode(104)
+        .SetSortIndex(104)
+        .SetName(nameof(D_CaseState))
+        .SetDisplayName(new StringBuilder().Append("وضعیت فرآیندها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity D_Process = new(id: 105, name: nameof(D_Process),
-        displayName: new StringBuilder().Append("فرآیند‌ها").Append($"({TableType.Dimentions})").ToString()
-        , sortIndex: 105, eRPCode: 105, display: true);
+    public static readonly D_Entity D_Process =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(105)
+        .SetERPCode(105)
+        .SetSortIndex(105)
+        .SetName(nameof(D_Process))
+        .SetDisplayName(new StringBuilder().Append("فرآیند‌ها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity D_User = new(id: 106, name: nameof(D_User),
-        displayName: new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString()
-        , sortIndex: 106, eRPCode: 106, display: true);
+    public static readonly D_Entity D_User =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(106)
+        .SetERPCode(106)
+        .SetSortIndex(106)
+        .SetName(nameof(D_User))
+        .SetDisplayName(new StringBuilder().Append("کاربران").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity D_UserInformation = new(id: 107, name: nameof(D_UserInformation),
-        displayName: new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 107, eRPCode: 107, display: true);
+    public static readonly D_Entity D_UserInformation =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(107)
+        .SetERPCode(107)
+        .SetSortIndex(107)
+        .SetName(nameof(D_UserInformation))
+        .SetDisplayName(new StringBuilder().Append("اطلاعات کاربرها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity F_WorkItem = new(id: 108, name: nameof(F_WorkItem),
-        displayName: new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 108, eRPCode: 108, display: true);
+    public static readonly D_Entity F_WorkItem =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(108)
+        .SetERPCode(108)
+        .SetSortIndex(108)
+        .SetName(nameof(F_WorkItem))
+        .SetDisplayName(new StringBuilder().Append("تمام تاییدها").Append($"({TableType.Facts})").ToString());
 
-    public static readonly D_Entity F_Attachment = new(id: 109, name: nameof(F_Attachment),
-        displayName: new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 109, eRPCode: 109, display: false);
+    public static readonly D_Entity F_Attachment =
+        (D_Entity)new D_Entity()
+        .SetDisplay(false)
+        .SetId(109)
+        .SetERPCode(109)
+        .SetSortIndex(109)
+        .SetName(nameof(F_Attachment))
+        .SetDisplayName(new StringBuilder().Append("ضمیمه‌ها").Append($"({TableType.Facts})").ToString());
 
-    public static readonly D_Entity F_Task = new(id: 110, name: nameof(F_Task),
-        displayName: new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 110, eRPCode: 110, display: false);
+    public static readonly D_Entity F_Task =
+        (D_Entity)new D_Entity()
+        .SetDisplay(false)
+        .SetId(110)
+        .SetERPCode(110)
+        .SetSortIndex(110)
+        .SetName(nameof(F_Task))
+        .SetDisplayName(new StringBuilder().Append("لیست تخصیص‌ها").Append($"({TableType.Facts})").ToString());
 
-    public static readonly D_Entity F_Condition = new(id: 111, name: nameof(F_Condition),
-        displayName: new StringBuilder().Append("لیست شرط‌ها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 111, eRPCode: 111, display: true);
+    public static readonly D_Entity F_Condition =
+      (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(111)
+        .SetERPCode(111)
+        .SetSortIndex(111)
+        .SetName(nameof(F_Condition))
+        .SetDisplayName(new StringBuilder().Append("لیست شرط‌ها").Append($"({TableType.Facts})").ToString());
 
-    public static readonly D_Entity F_Case = new(id: 112, name: nameof(F_Case),
-        displayName: new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 112, eRPCode: 112, display: false);
 
-    public static readonly D_Entity F_Scenario = new(id: 113, name: nameof(F_Scenario),
-        displayName: new StringBuilder().Append("سناریوها").Append($"({TableType.Facts})").ToString()
-        , sortIndex: 113, eRPCode: 113, display: true);
+    public static readonly D_Entity F_Case =
+        (D_Entity)new D_Entity()
+        .SetDisplay(false)
+        .SetId(112)
+        .SetERPCode(112)
+        .SetSortIndex(112)
+        .SetName(nameof(F_Case))
+        .SetDisplayName(new StringBuilder().Append("اطلاعات درخواست‌ها").Append($"({TableType.Dimentions})").ToString());
 
-    public static readonly D_Entity L_ProcessScenario = new(id: 114, name: nameof(L_ProcessScenario),
-        displayName: new StringBuilder().Append("سناریوها").Append($"({TableType.Links})").ToString()
-        , sortIndex: 114, eRPCode: 114, display: false);
+
+    public static readonly D_Entity F_Scenario =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(113)
+        .SetERPCode(113)
+        .SetSortIndex(113)
+        .SetName(nameof(F_Scenario))
+        .SetDisplayName(new StringBuilder().Append("سناریوها").Append($"({TableType.Dimentions})").ToString());
+
+    public static readonly D_Entity L_ProcessScenario =
+        (D_Entity)new D_Entity()
+        .SetDisplay(true)
+        .SetId(114)
+        .SetERPCode(114)
+        .SetSortIndex(114)
+        .SetName(nameof(L_ProcessScenario))
+        .SetDisplayName(new StringBuilder().Append("سناریوها").Append($"({TableType.Links})").ToString());
 
     #endregion
 }

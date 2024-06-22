@@ -2,7 +2,7 @@
 
 public partial class L_ScenarioCondition : BaseLink
 {
-    public virtual F_Scenario? Scenario { get; set; }
+    public virtual F_Scenario? Scenario { get; private set; }
 
     public L_ScenarioCondition ShallowCopy()
     {

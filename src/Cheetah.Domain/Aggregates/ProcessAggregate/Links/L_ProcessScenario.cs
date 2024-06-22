@@ -6,10 +6,6 @@ public partial class L_ProcessScenario : BaseLink
     {
         
     }
-    public L_ProcessScenario(Int64 id, String name, String displayName,
-        Int64 sortIndex, Int64 eRPCode, Int64 firstId, Int64 secondId) : base(id, name, displayName, sortIndex, eRPCode, firstId, secondId)
-    {
-    }
 
     public virtual D_Process? Process { get; private set; }
 
@@ -19,4 +15,5 @@ public partial class L_ProcessScenario : BaseLink
     {
         return (L_ProcessScenario)MemberwiseClone();
     }
+
 }

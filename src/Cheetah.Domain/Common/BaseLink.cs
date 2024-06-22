@@ -1,50 +1,11 @@
-﻿namespace Cheetah.Domain.Common;
+﻿
+namespace Cheetah.Domain.Common;
 
 public abstract class BaseLink : BaseEntity
 {
     public BaseLink()
     {
 
-    }
-    public BaseLink(Int64? secondId)
-    {
-        SecondId = secondId;
-    }
-    public BaseLink(Int64? firstId, Int64? secondId)
-    {
-        SetFirstAndSecond(firstId, secondId);
-    }
-
-    public BaseLink(Int64? firstId, Int64? secondId, long? eRPCode, bool enableRecord)
-        : base(eRPCode, enableRecord)
-    {
-        SetFirstAndSecond(firstId, secondId);
-    }
-    public void SetFirstAndSecond(Int64? firstId, Int64? secondId)
-    {
-        FirstId = firstId;
-        SecondId = secondId;
-    }
-    public void SetFirstId(Int64? firstId)
-    {
-        FirstId = firstId;
-    }
-    public void SetSecondId(Int64? secondId)
-    {
-        SecondId = secondId;
-    }
-    public BaseLink(Int64? firstId, Int64? secondId, Int64? thirdId)
-    {
-        FirstId = firstId;
-        SecondId = secondId;
-        ThirdId = thirdId;
-    }
-    public BaseLink(Int64 id, String? name, String? displayName, Int64? sortIndex, Int64? eRPCode,
-        Int64? firstId, Int64? secondId)
-        : base(id, name, displayName, sortIndex, eRPCode)
-    {
-        FirstId = firstId;
-        SecondId = secondId;
     }
 
     public Int64? FirstId { get; private set; }
@@ -56,4 +17,20 @@ public abstract class BaseLink : BaseEntity
     public Int64? FourthId { get; private set; }
 
     public Int64? FifthId { get; private set; }
+
+    public BaseLink SetFirstId(Int64? firstId)
+    {
+        this.FirstId = firstId;
+        return this;
+    }
+    public BaseLink SetSecondId(Int64? secondId)
+    {
+        this.SecondId = secondId;
+        return this;
+    }
+    public BaseLink SetThirdId(Int64? thirdId)
+    {
+        this.ThirdId = thirdId;
+        return this;
+    }
 }

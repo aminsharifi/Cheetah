@@ -2,6 +2,7 @@
 
 public partial class F_WorkItem : BaseEntity
 {
+
     #region Entities
 
     public long? TaskId { get; private set; }
@@ -13,16 +14,6 @@ public partial class F_WorkItem : BaseEntity
 
     #endregion
 
-    public void SetCase(F_Case? f_Case)
-    {
-        Case = f_Case;
-    }
-
-    public void SetTaskId(long? taskId)
-    {
-        TaskId = taskId;
-    }
-
     #region Collection    
     public virtual ICollection<L_WorkItemCondition>? WorkItemConditions { get; set; } = new HashSet<L_WorkItemCondition>();
 
@@ -30,30 +21,47 @@ public partial class F_WorkItem : BaseEntity
 
     #region Functions
 
-    public F_WorkItem(Int64 id, String? name, String displayName, Int64 sortIndex, Int64 eRPCode) :
-        base(id, name, displayName, sortIndex, eRPCode)
-    {
 
+    public F_WorkItem SetCase(F_Case? f_Case)
+    {
+        this.Case = f_Case;
+        return this;
     }
+    public F_WorkItem SetTaskId(long? taskId)
+    {
+        this.TaskId = taskId;
+        return this;
+    }
+    public F_WorkItem SetUserId(long? userId)
+    {
+        this.UserId = userId;
+        return this;
+    }
+    public F_WorkItem SetInbox()
+    {
+        this.WorkItemStateId = D_WorkItemState.Inbox.Id;
+        return this;
+    }
+    public F_WorkItem SetSent()
+    {
+        this.WorkItemStateId = D_WorkItemState.Sent.Id;
+        SetLastModified(DateTimeOffset.Now);
+        return this;
+    }
+    public F_WorkItem SetExit()
+    {
+        this.WorkItemStateId = D_WorkItemState.Exit.Id;
+        return this;
+    }
+    public F_WorkItem SetFuture()
+    {
+        this.WorkItemStateId = D_WorkItemState.Future.Id;
+        return this;
+    }
+
     public F_WorkItem()
     {
 
-    }
-    public F_WorkItem(long? userId)
-    {
-        UserId = userId;
-    }
-
-    public F_WorkItem(long? taskId, long? userId, F_Case f_case)
-    {
-        TaskId = taskId;
-        UserId = userId;
-        Case = f_case;
-    }
-
-    public void SetUserId(long? userId)
-    {
-        UserId = userId;
     }
 
     public F_WorkItem ShallowCopy()
@@ -77,27 +85,6 @@ public partial class F_WorkItem : BaseEntity
     public bool IsFuture()
     {
         return WorkItemStateId == D_WorkItemState.Future.Id;
-    }
-
-    #endregion
-
-    #region Setter
-    public void SetInbox()
-    {
-        WorkItemStateId = D_WorkItemState.Inbox.Id;
-    }
-    public void SetSent()
-    {
-        WorkItemStateId = D_WorkItemState.Sent.Id;
-        UpdateLastModified();
-    }
-    public void SetExit()
-    {
-        WorkItemStateId = D_WorkItemState.Exit.Id;
-    }
-    public void SetFuture()
-    {
-        WorkItemStateId = D_WorkItemState.Future.Id;
     }
 
     #endregion

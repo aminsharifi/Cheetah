@@ -6,10 +6,7 @@ public partial class D_CaseState : BaseEntity
     public D_CaseState()
     {
 
-    }
-    public D_CaseState(Int64 id, String name, String displayName, Int64 sortIndex, Int64 eRPCode) : base(id, name, displayName, sortIndex, eRPCode)
-    {
+    }  
 
-    }
     #endregion
 }

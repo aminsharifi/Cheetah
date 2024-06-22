@@ -4,29 +4,36 @@ public partial class L_CaseTaskUser : BaseLink
 {
     public L_CaseTaskUser()
     {
-        
+
     }
-    public L_CaseTaskUser(long? firstId, long? secondId, long? thirdId) :
-        base(firstId: firstId, secondId: secondId, thirdId: thirdId)
+
+    public virtual F_Case? Case { get; private set; }
+
+    public virtual F_Task? Task { get; private set; }
+
+    public virtual D_User? User { get; private set; }
+
+    public L_CaseTaskUser SetCase(F_Case caseEntity)
     {
-
+        this.Case = caseEntity;
+        return this;
     }
-    public L_CaseTaskUser(F_Case f_Case, F_Task f_Task, D_User d_User)
+
+    public L_CaseTaskUser SetTask(F_Task taskEntity)
     {
-        Case = f_Case;
-        Task = f_Task;
-        User = d_User;
+        this.Task = taskEntity;
+        return this;
     }
-    public virtual F_Case? Case { get; set; }
 
-    [NotMapped]
-    public virtual F_Task? Task { get; set; }
-
-    [NotMapped]
-    public virtual D_User? User { get; set; }
+    public L_CaseTaskUser SetUser(D_User userEntity)
+    {
+        this.User = userEntity;
+        return this;
+    }
 
     public L_CaseTaskUser ShallowCopy()
     {
         return (L_CaseTaskUser)MemberwiseClone();
     }
+
 }
