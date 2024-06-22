@@ -4,23 +4,54 @@ public partial class D_Operand
 {
     #region Values
 
-    public static readonly D_Operand Equals = new(id: 1, name: nameof(Equals),
-        displayName: "مساوی", sortIndex: 1, eRPCode: 1);
+    public static readonly D_Operand Equals =
+        (D_Operand)new D_Operand()
+        .SetId(1)
+        .SetSortIndex(1)
+        .SetERPCode(1)
+        .SetName(nameof(Equals))
+        .SetDisplayName("مساوی");
 
-    public static readonly D_Operand NotEquals = new(id: 2, name: nameof(NotEquals),
-        displayName: "مخالف", sortIndex: 2, eRPCode: 2);
+    public static readonly D_Operand NotEquals =
+     (D_Operand)new D_Operand()
+        .SetId(2)
+        .SetSortIndex(2)
+        .SetERPCode(2)
+        .SetName(nameof(NotEquals))
+        .SetDisplayName("مخالف");
 
-    public static readonly D_Operand Greater = new(id: 3, name: nameof(Greater),
-        displayName: "بزگتر از", sortIndex: 3, eRPCode: 3);
 
-    public static readonly D_Operand EqualAndGreater = new(id: 4, name: nameof(EqualAndGreater),
-        displayName: "بزرگتر و مساوی", sortIndex: 4, eRPCode: 4);
+    public static readonly D_Operand Greater =
+        (D_Operand)new D_Operand()
+        .SetId(3)
+        .SetSortIndex(3)
+        .SetERPCode(3)
+        .SetName(nameof(Greater))
+        .SetDisplayName("بزگتر از");
 
-    public static readonly D_Operand LessThan = new(id: 5, name: nameof(LessThan),
-        displayName: " کوچکتر از", sortIndex: 5, eRPCode: 5);
+    public static readonly D_Operand EqualAndGreater =
+        (D_Operand)new D_Operand()
+        .SetId(4)
+        .SetSortIndex(4)
+        .SetERPCode(4)
+        .SetName(nameof(EqualAndGreater))
+        .SetDisplayName("بزرگتر و مساوی");
 
-    public static readonly D_Operand LessThanOrEqual = new(id: 6, name: nameof(LessThanOrEqual),
-        displayName: "کوچکتر و مساوی", sortIndex: 6, eRPCode: 6);
+    public static readonly D_Operand LessThan =
+      (D_Operand)new D_Operand()
+      .SetId(5)
+      .SetSortIndex(5)
+      .SetERPCode(5)
+      .SetName(nameof(LessThan))
+      .SetDisplayName("کوچکتر از");
+
+    public static readonly D_Operand LessThanOrEqual =
+        (D_Operand)new D_Operand()
+        .SetId(6)
+        .SetSortIndex(6)
+        .SetERPCode(6)
+        .SetName(nameof(LessThanOrEqual))
+        .SetDisplayName("کوچکتر و مساوی");
 
     #endregion
 }

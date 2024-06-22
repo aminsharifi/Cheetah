@@ -21,136 +21,63 @@ public abstract class BaseEntity : EntityBase<Int64>, IAggregateRoot
     public BaseEntity()
     {
     }
-    public BaseEntity(Int64? eRPCode)
+    public BaseEntity SetId(Int64 id)
     {
-        SetERPCode(eRPCode);
+        this.Id = id;
+        return this;
     }
-    public BaseEntity(long? eRPCode, bool enableRecord) : this(eRPCode)
+    public BaseEntity SetSortIndex(Int64? sortIndex)
     {
-        SetEnable(enableRecord);
+        this.SortIndex = sortIndex;
+        return this;
     }
-    public BaseEntity(String? name, String? displayName, Int64? sortIndex, Int64? eRPCode) : this(eRPCode: eRPCode)
+    public BaseEntity SetERPCode(Int64? eRPCode)
     {
-        SetNameAndDisplayName(name: name, displayName: displayName);
-        SetSortIndex(sortIndex);
+        this.ERPCode = eRPCode;
+        return this;
     }
-    public BaseEntity(Int64 id, String? name, String? displayName, Int64? sortIndex, Int64? eRPCode)
-        : this(name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode)
+    public BaseEntity SetEnableRecord(Boolean enableRecord)
     {
-        Id = id;
+        this.EnableRecord = enableRecord;
+        return this;
     }
-    public BaseEntity(Int64 id, String? name, String? displayName, Int64? sortIndex,
-        Int64? eRPCode, string? description)
-        : this(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode)
+    public BaseEntity SetName(String? name)
     {
-        Description = description;
+        this.Name = name;
+        return this;
     }
-    public BaseEntity(Int64 id, String? name, String? displayName,
-        Int64? sortIndex, Int64? eRPCode, string? description, Boolean enableRecord)
-        : this(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode, description: description)
+    public BaseEntity SetDisplayName(String? displayName)
     {
-        SetEnable(enableRecord);
+        this.DisplayName = displayName;
+        return this;
     }
-    public void SetName(String? name)
+    public BaseEntity SetDescription(string? description)
     {
-        Name = name;
+        this.Description = description;
+        return this;
     }
-    public void SetDisplayName(String? displayName)
+    public BaseEntity SetLastModified()
     {
-        DisplayName = displayName;
+        this.LastModified = DateTimeOffset.UtcNow;
+        return this;
     }
-    public void SetDescription(String? description)
+    public BaseEntity SetLastModified(DateTimeOffset? lastModified)
     {
-        Description = description;
+        this.LastModified = lastModified;
+        return this;
     }
-    public void SetNameAndDisplayName(String? name, String? displayName)
+    public BaseEntity SetCreated(DateTimeOffset? created)
     {
-        SetName(name: name);
-        SetDisplayName(displayName: displayName);
+        this.Created = created;
+        return this;
     }
-    public void SetERPCode(long? eRPCode)
-    {
-        ERPCode = eRPCode;
-    }
-    public void SetEnable(Boolean enableRecord)
-    {
-        EnableRecord = enableRecord;
-    }
-    public void SetSortIndex(Int64? sortIndex)
-    {
-        SortIndex = sortIndex;
-    }
-    public void UpdateLastModified()
-    {
-        LastModified = DateTimeOffset.Now;
-    }
-    public void UpdateLastModified(DateTimeOffset? lastModified)
-    {
-        LastModified = lastModified;
-    }
-    public void SetDate(DateTimeOffset? created, DateTimeOffset? lastModified)
-    {
-        Created = created;
-        UpdateLastModified(lastModified);
-    }
-    public void SetEntity(Boolean enableRecord, long? eRPCode, long? sortIndex)
-    {
-        SetEnable(enableRecord);
-        SetSortIndex(sortIndex);
-        SetERPCode(eRPCode);
-    }
-    public void SetEntity(String? name, String? displayName, String? description, Boolean enableRecord)
-    {
-        SetNameAndDisplayName(name: name, displayName: displayName);
-        SetEnable(enableRecord);
-        Description = description;
-    }
-    public void SetEntity(String? name, long? eRPCode, long? sortIndex, Boolean enableRecord)
-    {
-        SetEntity(enableRecord: enableRecord, eRPCode: eRPCode, sortIndex: sortIndex);
-        SetName(name);
-    }
-    public void SetEntity(String? name, String? displayName, Boolean enableRecord, long? eRPCode, long? sortIndex)
-    {
-        SetEntity(name: name, displayName: displayName, eRPCode: eRPCode, sortIndex: sortIndex, enableRecord: enableRecord);
-        SetERPCode(eRPCode);
-    }
-    public void SetEntity(String? name, String? displayName,
-        Boolean enableRecord, long? eRPCode, long? sortIndex,
-        DateTimeOffset? created, DateTimeOffset? lastModified)
-    {
-        SetEntity(name: name, displayName: displayName, enableRecord: enableRecord, eRPCode: eRPCode, sortIndex: sortIndex);
-        SetDate(created: created, lastModified: lastModified);
-    }
-    public void SetEntity(long? eRPCode, long? sortIndex, Boolean enableRecord,
-      DateTimeOffset? created, DateTimeOffset? lastModified)
-    {
-        SetSortIndex(sortIndex);
-        SetEnable(enableRecord);
-        SetDate(created: created, lastModified: lastModified);
-        SetERPCode(eRPCode);
-    }
-
     public virtual void SetNaming()
     {
-
     }
 }
 public abstract class BaseEntity<I> : BaseEntity
 {
     public BaseEntity()
-    {
-
-    }
-    public BaseEntity(Int64 id, String? name, String displayName, Int64? sortIndex, Int64? eRPCode) :
-        base(id, name, displayName, sortIndex, eRPCode)
-    {
-
-    }
-    public BaseEntity(Int64 id, String? name, String displayName, Int64? sortIndex, Int64? eRPCode,
-        String description, Boolean enableRecord) :
-     base(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode,
-            description: description)
     {
 
     }
@@ -165,5 +92,4 @@ public abstract class BaseEntity<I> : BaseEntity
     /// Children of the parent class
     /// </summary>
     public virtual ICollection<I>? Childs { get; set; } = new HashSet<I>();
-
 }

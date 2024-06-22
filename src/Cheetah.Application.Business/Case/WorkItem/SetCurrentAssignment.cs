@@ -25,6 +25,8 @@ public static class SetCurrentAssignment
             {
                 Current_WorkItem.Case.SetCaseStateId(_taskFlow.Flow.CaseStateId);
 
+
+
                 Current_WorkItem.SetSent();
 
                 if (Current_WorkItem.Case.IsAborted())

@@ -42,7 +42,10 @@ public static class CreateWorkItems
 
                 Parallel.ForEach(_userIds, _userId =>
                 {
-                    F_WorkItem _WorkItemForEachTask = new(taskId: _task.Id, userId: _userId, f_case: f_Case);
+                    F_WorkItem _WorkItemForEachTask = new F_WorkItem()
+                    .SetTaskId(_task.Id)
+                    .SetUserId(_userId)
+                    .SetCase(f_Case);
 
                     f_Case.WorkItems.Add(_WorkItemForEachTask);
                 });

@@ -9,14 +9,11 @@ public partial class F_Flow : BaseEntity
     #region Entities    
     public long? CaseStateId { get; private set; }
 
-    #region PublicProperties
-    [NotMapped]
-    public long? PublicCaseStateId
+    public F_Flow SetCaseStateId(long? caseStateId)
     {
-        get { return CaseStateId; }
-        set { CaseStateId = value; }
+        this.CaseStateId = caseStateId;
+        return this;
     }
-    #endregion
 
     #endregion
 
@@ -28,11 +25,6 @@ public partial class F_Flow : BaseEntity
     #endregion
 
     #region Functions
-
-    public void SetCaseStateId(long? caseStateId)
-    {
-        CaseStateId = caseStateId;
-    }
 
     public F_Flow ShallowCopy()
     {
