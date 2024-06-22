@@ -5,17 +5,6 @@ public partial class D_User : BaseEntity<D_User>, IAggregateRoot
     {
 
     }
-    public D_User(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode) : base(id, name, displayName, sortIndex, eRPCode)
-    {
-
-    }
-
-    public D_User(Int64 id, String name, String displayName, Int64? sortIndex, Int64? eRPCode,
-        String description, Boolean enableRecord) :
-        base(id: id, name: name, displayName: displayName, sortIndex: sortIndex, eRPCode: eRPCode)
-    {
-
-    }
 
     #region Common Prop
     #endregion

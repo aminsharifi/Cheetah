@@ -2,7 +2,7 @@
 
 public partial class L_TaskCondition : BaseLink
 {
-    public virtual F_Task? Task { get; set; }
+    public virtual F_Task? Task { get; private set; }
 
     public L_TaskCondition ShallowCopy()
     {

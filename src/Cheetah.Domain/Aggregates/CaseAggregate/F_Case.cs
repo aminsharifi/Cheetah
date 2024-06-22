@@ -5,12 +5,56 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     {
 
     }
-    public F_Case(Int64? eRPCode, Int64? requestorId, Int64? creatorId, Int64? processId) : base(eRPCode: eRPCode)
+    public F_Case SetCaseStateId(long? caseStateId)
     {
-        RequestorId = requestorId;
-        CreatorId = creatorId;
-        ProcessId = processId;
+        this.CaseStateId = caseStateId;
+        return this;
     }
+    public F_Case SetSelectedScenario(long? selectedScenarioId)
+    {
+        this.SelectedScenarioId = selectedScenarioId;
+        return this;
+    }
+    public F_Case SetRequestorId(Int64? requestorId)
+    {
+        this.RequestorId = requestorId;
+        return this;
+    }
+    public F_Case SetCreatorId(Int64? creatorId)
+    {
+        this.CreatorId = creatorId;
+        return this;
+    }
+    public F_Case SetProcessId(Int64? processId)
+    {
+        this.ProcessId = processId;
+        return this;
+    }
+    public F_Case SetEditing()
+    {
+        this.CaseStateId = D_CaseState.Editing.Id;
+        this.CaseState = D_CaseState.Editing;
+        return this;
+    }
+    public F_Case SetAborted()
+    {
+        this.CaseStateId = D_CaseState.Aborted.Id;
+        this.CaseState = D_CaseState.Aborted;
+        return this;
+    }
+    public F_Case SetCompleted()
+    {
+        this.CaseStateId = D_CaseState.Approved.Id;
+        this.CaseState = D_CaseState.Approved;
+        return this;
+    }
+    public F_Case SetOngoing()
+    {
+        this.CaseStateId = D_CaseState.Ongoing.Id;
+        this.CaseState = D_CaseState.Ongoing;
+        return this;
+    }
+
     #region S_User
     public long? RequestorId { get; private set; }
     public long? CreatorId { get; private set; }
@@ -25,23 +69,13 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     #endregion
 
     #region Collection
-    public virtual ICollection<L_CaseCondition>? CaseConditions { get;  set; } = new HashSet<L_CaseCondition>();
+    public virtual ICollection<L_CaseCondition>? CaseConditions { get; set; } = new HashSet<L_CaseCondition>();
     public virtual ICollection<F_WorkItem>? WorkItems { get; private set; } = new HashSet<F_WorkItem>();
     public virtual ICollection<L_CaseTaskUser>? CaseTaskUsers { get; private set; } = new HashSet<L_CaseTaskUser>();
 
     #endregion
 
     #region Functions
-
-    public void SetCaseStateId(long? caseStateId)
-    {
-        CaseStateId = caseStateId;
-    }
-
-    public void SetSelectedScenario(long? selectedScenarioId)
-    {
-        SelectedScenarioId = selectedScenarioId;
-    }
 
     public F_Case ShallowCopy()
     {
@@ -73,30 +107,6 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     {
         return CaseStateId == D_CaseState.Aborted.Id;
     }
-    #endregion
-
-    #region Setter
-    public void SetEditing()
-    {
-        CaseStateId = D_CaseState.Editing.Id;
-        CaseState = D_CaseState.Editing;
-    }
-    public void SetAborted()
-    {
-        CaseStateId = D_CaseState.Aborted.Id;
-        CaseState = D_CaseState.Aborted;
-    }
-    public void SetCompleted()
-    {
-        CaseStateId = D_CaseState.Approved.Id;
-        CaseState = D_CaseState.Approved;
-    }
-    public void SetOngoing()
-    {
-        CaseStateId = D_CaseState.Ongoing.Id;
-        CaseState = D_CaseState.Ongoing;
-    }
-
     #endregion
 
     #endregion

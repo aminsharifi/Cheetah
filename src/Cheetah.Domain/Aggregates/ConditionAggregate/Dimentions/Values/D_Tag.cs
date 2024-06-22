@@ -4,46 +4,94 @@ public partial class D_Tag
 {
     #region Values  
 
-    public static readonly D_Tag Location = new(id: 4, name: nameof(Location),
-        displayName: "موقعیت", sortIndex: 4, eRPCode: 4,
-        description: D_TagType.String.DisplayName!,tagTypeId: D_TagType.String.Id,
-        tagCategoryId: D_TagCategory.Performer.Id
-        ,enableRecord:true);
+    public static readonly D_Tag Location =
+        (D_Tag)new D_Tag()
+        .SetTagTypeId(D_TagType.String.Id)
+        .SetTagCategoryId(D_TagCategory.Performer.Id)
+        .SetId(4)
+        .SetSortIndex(4)
+        .SetERPCode(4)
+        .SetName(nameof(Location))
+        .SetDisplayName("موقعیت")
+        .SetDescription(D_TagType.String.DisplayName!)
+        .SetEnableRecord(true);
 
-    public static readonly D_Tag Role = new(id: 5, name: nameof(Role),
-        displayName: "نقش", sortIndex: 5, eRPCode: 5,
-        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
-        tagCategoryId: D_TagCategory.Performer.Id
-        , enableRecord: true);
+    public static readonly D_Tag Role =
+        (D_Tag)new D_Tag()
+        .SetTagTypeId(D_TagType.String.Id)
+        .SetTagCategoryId(D_TagCategory.Performer.Id)
+        .SetId(5)
+        .SetSortIndex(5)
+        .SetERPCode(5)
+        .SetName(nameof(Role))
+        .SetDisplayName("نقش")
+        .SetDescription(D_TagType.String.DisplayName!)
+        .SetEnableRecord(true);
 
-    public static readonly D_Tag Position = new(id: 6, name: nameof(Position),
-        displayName: "سمت", sortIndex: 6, eRPCode: 6,
-        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
-        tagCategoryId: D_TagCategory.Performer.Id
-        , enableRecord: true);
 
-    public static readonly D_Tag Employees = new(id: 7, name: nameof(Employees),
-        displayName: "مدیر این پرسنل", sortIndex: 7, eRPCode: 7,
-        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
-        tagCategoryId: D_TagCategory.Performer.Id
-        , enableRecord: true);
 
-    public static readonly D_Tag Price = new(id: 8, name: nameof(Price),
-        displayName: "مبلغ", sortIndex: 8, eRPCode: 8,
-        description: D_TagType.Numberic.DisplayName!, tagTypeId: D_TagType.Numberic.Id,
-        tagCategoryId: D_TagCategory.Action.Id
-        , enableRecord: true);
+    public static readonly D_Tag Position =
+        (D_Tag)new D_Tag()
+        .SetTagTypeId(D_TagType.String.Id)
+        .SetTagCategoryId(D_TagCategory.Performer.Id)
+        .SetId(6)
+        .SetSortIndex(6)
+        .SetERPCode(6)
+        .SetName(nameof(Position))
+        .SetDisplayName("سمت")
+        .SetDescription(D_TagType.String.DisplayName!)
+        .SetEnableRecord(true);
 
-    public static readonly D_Tag ReviewState = new(id: 12, name: nameof(ReviewState),
-        displayName: "وضعیت بررسی", sortIndex: 12, eRPCode: 12,
-        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
-        tagCategoryId: D_TagCategory.Action.Id
-        , enableRecord: true);
+    public static readonly D_Tag Employees =
+        (D_Tag)new D_Tag()
+        .SetTagTypeId(D_TagType.String.Id)
+        .SetTagCategoryId(D_TagCategory.Performer.Id)
+        .SetId(7)
+        .SetSortIndex(7)
+        .SetERPCode(7)
+        .SetName(nameof(Employees))
+        .SetDisplayName("مدیر این پرسنل")
+        .SetDescription(D_TagType.String.DisplayName!)
+        .SetEnableRecord(true);
 
-    public static readonly D_Tag Skill = new(id: 13, name: nameof(Skill),
-        displayName: "حرفه", sortIndex: 13, eRPCode: 13,
-        description: D_TagType.String.DisplayName!, tagTypeId: D_TagType.String.Id,
-        tagCategoryId: D_TagCategory.Performer.Id
-        , enableRecord: true);
+    public static readonly D_Tag Price =
+        (D_Tag)new D_Tag()
+        .SetTagTypeId(D_TagType.Numberic.Id)
+        .SetTagCategoryId(D_TagCategory.Action.Id)
+        .SetId(8)
+        .SetSortIndex(8)
+        .SetERPCode(8)
+        .SetName(nameof(Price))
+        .SetDisplayName("مبلغ")
+        .SetDescription(D_TagType.Numberic.DisplayName!)
+        .SetEnableRecord(true);
+
+
+
+    public static readonly D_Tag ReviewState =
+     (D_Tag)new D_Tag()
+     .SetTagTypeId(D_TagType.String.Id)
+     .SetTagCategoryId(D_TagCategory.Action.Id)
+     .SetId(12)
+     .SetSortIndex(12)
+     .SetERPCode(12)
+     .SetName(nameof(ReviewState))
+     .SetDisplayName("وضعیت بررسی")
+     .SetDescription(D_TagType.String.DisplayName!)
+     .SetEnableRecord(true);
+
+
+    public static readonly D_Tag Skill =
+        (D_Tag)new D_Tag()
+        .SetTagTypeId(D_TagType.String.Id)
+        .SetTagCategoryId(D_TagCategory.Performer.Id)
+        .SetId(13)
+        .SetSortIndex(13)
+        .SetERPCode(13)
+        .SetName(nameof(Skill))
+        .SetDisplayName("حرفه")
+        .SetDescription(D_TagType.String.DisplayName!)
+        .SetEnableRecord(true);
+
     #endregion
 }

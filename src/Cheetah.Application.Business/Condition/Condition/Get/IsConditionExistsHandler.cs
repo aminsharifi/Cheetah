@@ -21,7 +21,9 @@ public class IsConditionExistsHandler(
         var _getIdOperandSpec = new GetIdEntitySpec<D_Operand>(request.input.Operand.Adapt<SimpleClassDTO>());
         var _operandId = await _operandRepository.FirstOrDefaultAsync(_getIdOperandSpec);
 
-        F_Condition _condition = new(tagId: _tagId, operandId: _operandId);
+        F_Condition _condition = new F_Condition()
+            .SetTagId(_tagId)
+            .SetOperandId(_operandId);
 
         long? _isConditionExist = default!;
 

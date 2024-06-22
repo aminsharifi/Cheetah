@@ -5,19 +5,11 @@ public partial class F_Task : BaseEntity
     {
 
     }
-    public F_Task(Int64 id, String name, String displayName, Int64 sortIndex, Int64 eRPCode) :
-        base(id, name, displayName, sortIndex, eRPCode)
+    public F_Task SetScenarioId(Int64? scenarioId)
     {
-
+        this.ScenarioId = scenarioId;
+        return this;
     }
-    public F_Task(Int64 id, String name, String displayName,
-        Int64 sortIndex, Int64 eRPCode,
-        long scenarioId) :
-       base(id, name, displayName, sortIndex, eRPCode)
-    {
-        ScenarioId = scenarioId;
-    }
-
     #region Entity
 
     public long? ScenarioId { get; private set; }

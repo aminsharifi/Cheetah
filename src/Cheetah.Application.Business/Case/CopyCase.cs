@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Case;
+﻿using DNTPersianUtils.Core;
+using static Cheetah.Domain.Entities.Facts.F_Case;
+
+namespace Cheetah.Application.Business.Case;
 
 public static class CopyCase
 {
@@ -30,12 +33,18 @@ public static class CopyCase
         _requestorId = await _userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
 
         var _processSpec = new GetIdEntitySpec<D_Process>(request.Process);
-        _processId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);     
+        _processId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
 
         #endregion
 
-        #region Create case
-        F_Case _case = new(eRPCode: _eRPCode, requestorId: _requestorId, creatorId: _creatorId, processId: _processId);
+        #region Create case        
+        F_Case _case =
+            (F_Case)new F_Case()
+            .SetRequestorId(_requestorId)
+            .SetCreatorId(_creatorId)
+            .SetProcessId(_processId)
+            .SetERPCode(_eRPCode);
+
         #endregion
 
         return _case;
