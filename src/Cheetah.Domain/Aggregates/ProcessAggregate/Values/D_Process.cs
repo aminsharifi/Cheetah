@@ -3,8 +3,14 @@
 public partial class D_Process
 {
     #region Values
-    public static readonly D_Process SampleProcess = new(id: 1, name: nameof(SampleProcess),
-        displayName: "فرآیند نمونه", sortIndex: 1, eRPCode: 1);
+
+    public static readonly D_Process SampleProcess =
+        (D_Process)new D_Process()
+        .SetId(1)
+        .SetSortIndex(1)
+        .SetERPCode(1)
+        .SetName(nameof(SampleProcess))
+        .SetDisplayName("فرآیند نمونه");
 
     #endregion
 }

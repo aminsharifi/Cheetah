@@ -4,13 +4,12 @@ public partial class L_CaseCondition : BaseLink
 {
     public L_CaseCondition()
     {
-        
-    }
-    public L_CaseCondition(Int64? conditionId) : base(secondId: conditionId)
-    {
 
     }
-    public virtual F_Case Case { get; set; }
+
+    public virtual F_Case Case { get; private set; }
+
+
 
     public L_CaseCondition ShallowCopy()
     {

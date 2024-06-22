@@ -16,7 +16,7 @@ public static class CopyCaseConditions
                 var _getCondition = await conditionRepository
                 .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>
                 (_condition.GetCondition(iMapper).Adapt<SimpleClassDTO>()));
-                f_case!.CaseConditions!.Add(new(conditionId: _getCondition.Value));
+                f_case!.CaseConditions!.Add((L_CaseCondition)new L_CaseCondition().SetSecondId(_getCondition.Value));
             });
         }
 

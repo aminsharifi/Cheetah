@@ -53,7 +53,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         GeneralRequest = await SetWorkItems.Handle(iSender, taskRepository,
             Current_Case: GeneralRequest, Current_WorkItem: GeneralRequest.Value.WorkItems.First());
 
-        GeneralRequest.Value.UpdateLastModified();
+        GeneralRequest.Value.SetLastModified();
 
         var _createdCase = await caseRepository.AddAsync(GeneralRequest);
 

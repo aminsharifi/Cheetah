@@ -32,7 +32,10 @@ public class CopyCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository
         _thirdId = await _userRepository.FirstOrDefaultAsync(_userSpec, cancellationToken);
         #endregion
 
-        L_CaseTaskUser Return_CaseTaskUser = new(firstId: _firstId, secondId: _secondId, thirdId: _thirdId);
+        L_CaseTaskUser Return_CaseTaskUser = (L_CaseTaskUser)new L_CaseTaskUser()
+            .SetFirstId(_firstId)
+            .SetSecondId(_secondId)
+            .SetThirdId(_thirdId);
 
         return Return_CaseTaskUser;
 

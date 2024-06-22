@@ -212,7 +212,10 @@ public class RequestService(ILogger<RequestService> logger,
         var _task = request.Task.GetSimpleClass<F_Task>();
         var _user = request.User.GetSimpleClass<D_User>();
 
-        L_CaseTaskUser l_CaseTaskUser = new(_case, _task, _user);
+        L_CaseTaskUser l_CaseTaskUser = new L_CaseTaskUser()
+            .SetCase(_case)
+            .SetTask(_task)
+            .SetUser(_user);
 
         #endregion
 
@@ -294,9 +297,9 @@ public class RequestService(ILogger<RequestService> logger,
             .Select(x => new SimpleLinkClassDTO()
             {
                 FirstId = x.First.Id,
-                SecondId= x.Second.Id,
-                ERPCode= x.ERPCode,
-                EnableRecord= (x.EnableRecord is true) 
+                SecondId = x.Second.Id,
+                ERPCode = x.ERPCode,
+                EnableRecord = (x.EnableRecord is true)
             }),
             (CrudOperation)request.Crud.Value);
 
@@ -346,7 +349,8 @@ public class RequestService(ILogger<RequestService> logger,
 
         foreach (var _condition in Conditions)
         {
-            L_CaseCondition _CaseCondition = new(conditionId: _condition.Id);
+            L_CaseCondition _CaseCondition = (L_CaseCondition)new L_CaseCondition()
+                .SetSecondId(_condition.Id);
 
             _caseConditions.Add(_CaseCondition);
         }

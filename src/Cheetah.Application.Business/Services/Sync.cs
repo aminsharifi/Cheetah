@@ -1,5 +1,6 @@
 ﻿using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Enums;
+using static Cheetah.Domain.Entities.Dimentions.D_Tag;
 
 namespace Cheetah.Application.Business.Services;
 
@@ -29,9 +30,14 @@ public class Sync(ISender _ISender,
                 .Any());
 
                 _ = await userConditionRepository.AddRangeAsync(_MostBeAdd.Select(
-                    item => new L_UserCondition(id: item.Id, name: item.Name, displayName: item.DisplayName,
-                    eRPCode: item.ERPCode, sortIndex: item.SortIndex,
-                    userId: item.FirstId, conditionId: item.SecondId)));
+                    item => (L_UserCondition)new L_UserCondition()
+                    .SetFirstId(item.FirstId)
+                    .SetSecondId(item.SecondId)
+                    .SetId(item.Id)
+                    .SetName(item.Name)
+                    .SetDisplayName(item.DisplayName)
+                    .SetERPCode(item.ERPCode)
+                    .SetSortIndex(item.SortIndex)));
             }
         }
         if (Crud == CrudOperation.Delete || _IsRead)
@@ -46,7 +52,7 @@ public class Sync(ISender _ISender,
 
                 Parallel.ForEach(_AllUserConditions, _AllUserCondition =>
                 {
-                    _AllUserCondition.SetEnable(false);
+                    _AllUserCondition.SetEnableRecord(false);
                 });
 
                 await userConditionRepository.UpdateRangeAsync(_AllUserConditions);
@@ -104,9 +110,11 @@ public class Sync(ISender _ISender,
                 {
                     var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
 
-                    _FilterdRecord.SetEntity(name: Record.Name, displayName: Record.Name,
-                        description: Record.Description, enableRecord: Record.EnableRecord);
-
+                    _FilterdRecord
+                    .SetName(Record.Name)
+                    .SetDisplayName(Record.DisplayName)
+                    .SetDescription(Record.Description)
+                    .SetEnableRecord(Record.EnableRecord);
 
                     _Conditions.Add(_FilterdRecord);
                 });
@@ -142,9 +150,14 @@ public class Sync(ISender _ISender,
             var _AllUsersERPCode = await userRepository.ListAsync(_getAllConditionsSpec);
             var _MostBeAdd = Records.Where(x => !_AllUsersERPCode.Any(y => y == x.ERPCode));
             var _UsersList = _MostBeAdd.Select(
-                    item => new D_User(id: item.Id, name: item.Name,
-                    displayName: item.DisplayName, sortIndex: item.SortIndex,
-                    eRPCode: item.ERPCode, description: item.Description, enableRecord: item.EnableRecord));
+                    item => (D_User)new D_User()
+                    .SetId(item.Id)
+                    .SetName(item.Name)
+                    .SetDisplayName(item.DisplayName)
+                    .SetSortIndex(item.SortIndex)
+                    .SetERPCode(item.ERPCode)
+                    .SetDescription(item.Description)
+                    .SetEnableRecord(item.EnableRecord));
             _ = await userRepository.AddRangeAsync(_UsersList);
         }
         else if (Base.Name == nameof(D_Tag))
@@ -153,9 +166,15 @@ public class Sync(ISender _ISender,
             var _AllTagsERPCode = await tagRepository.ListAsync(_getAllConditionsSpec);
             var _MostBeAdd = Records.Where(x => !_AllTagsERPCode.Any(y => y == x.ERPCode));
             var _UsersList = _MostBeAdd.Select(
-                    item => new D_Tag(id: item.Id, name: item.Name, displayName: item.DisplayName,
-                    description: item.Description, eRPCode: item.ERPCode,enableRecord: item.EnableRecord,
-                    sortIndex: item.SortIndex));
+                    item => (D_Tag)new D_Tag()
+                    .SetId(item.Id)
+                    .SetName(item.Name)
+                    .SetDisplayName(item.DisplayName)
+                    .SetDescription(item.Description)
+                    .SetERPCode(item.ERPCode)
+                    .SetEnableRecord(item.EnableRecord)
+                    .SetSortIndex(item.SortIndex)
+                    );
 
             _ = await tagRepository.AddRangeAsync(_UsersList);
         }
@@ -173,7 +192,7 @@ public class Sync(ISender _ISender,
             Parallel.ForEach(_FilterdRecords, _FilterdRecord =>
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
-                
+
                 _Users.Add(_FilterdRecord);
             });
 
@@ -189,9 +208,12 @@ public class Sync(ISender _ISender,
             Parallel.ForEach(_FilterdRecords, _FilterdRecord =>
             {
                 var Record = Records.Where(x => x.ERPCode == _FilterdRecord.ERPCode).Single();
-           
-                _FilterdRecord.SetEntity(name: Record.Name, displayName: Record.DisplayName,
-                 description: Record.Description, enableRecord: Record.EnableRecord);
+
+                _FilterdRecord = (D_Tag)_FilterdRecord
+                .SetName(Record.Name)
+                .SetDisplayName(Record.DisplayName)
+                .SetDescription(Record.Description)
+                .SetEnableRecord(Record.EnableRecord);
 
                 _Users.Add(_FilterdRecord);
             });

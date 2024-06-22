@@ -21,7 +21,8 @@ public class CopyCaseHandler(
         var _workItemUserSpec = new GetIdEntitySpec<D_User>(request.WorkItemUser);
         var _workItemUserId = await _userRepository.FirstOrDefaultAsync(_workItemUserSpec, cancellationToken);
 
-        F_WorkItem _workItem = new(userId: _workItemUserId);
+        F_WorkItem _workItem = new F_WorkItem()
+            .SetUserId(_workItemUserId);
 
         _workItem = await CopyWorkItem
             .Apply(iSender: _ISender,

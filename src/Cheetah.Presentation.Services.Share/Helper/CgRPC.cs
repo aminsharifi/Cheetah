@@ -69,7 +69,7 @@ public static class CgRPC
         };
 
         return _GRPC_BaseClass;
-    }    
+    }
     public static GRPC_BaseClassWithName GetBaseClassWithName(this SimpleClassDTO simpleClass)
     {
         var _GRPC_BaseClass = new GRPC_BaseClassWithName();
@@ -91,7 +91,7 @@ public static class CgRPC
 
         return _GRPC_BaseClass;
     }
-        
+
     #region Condition method
     public static F_Condition GetCondition(this GRPC_Condition Condition)
     {
@@ -101,8 +101,11 @@ public static class CgRPC
         {
             _condition = new();
 
-            _condition.SetEntity(name: Condition.Base.Name, eRPCode: Condition.Base.ERPCode,
-                sortIndex: Condition.Base.SortIndex, enableRecord: (Condition?.Base?.EnableRecord is true));
+            _condition
+                .SetName(Condition.Base.Name)
+                .SetERPCode(Condition.Base.ERPCode)
+                .SetSortIndex(Condition.Base.SortIndex)
+                .SetEnableRecord(Condition?.Base?.EnableRecord is true);
         }
 
         _condition.SetConditionValue(tag: Condition?.Tag?.GetSimpleClass<D_Tag>(),
@@ -158,10 +161,14 @@ public static class CgRPC
             _SimpleClass.Id = gRPC_BaseClass.Id.Value;
         }
 
-        _SimpleClass.SetEntity(name: gRPC_BaseClass.Name, displayName: gRPC_BaseClass.DisplayName,
-            enableRecord: (gRPC_BaseClass.EnableRecord is true), eRPCode: gRPC_BaseClass.ERPCode,
-            sortIndex: gRPC_BaseClass.SortIndex, created: gRPC_BaseClass.CreateTimeRecord?.ToDateTimeOffset(),
-            lastModified: gRPC_BaseClass.LastUpdatedRecord?.ToDateTimeOffset());
+        _SimpleClass
+            .SetName(gRPC_BaseClass.Name)
+            .SetDisplayName(gRPC_BaseClass.DisplayName)
+            .SetEnableRecord(gRPC_BaseClass.EnableRecord is true)
+            .SetERPCode(gRPC_BaseClass.ERPCode)
+            .SetSortIndex(gRPC_BaseClass.SortIndex)
+            .SetCreated(gRPC_BaseClass.CreateTimeRecord?.ToDateTimeOffset())
+            .SetLastModified(gRPC_BaseClass.LastUpdatedRecord?.ToDateTimeOffset());
 
         return _SimpleClass;
     }
@@ -179,10 +186,12 @@ public static class CgRPC
             _SimpleClass!.Id = gRPC_BaseClass.Id.Value;
         }
 
-        _SimpleClass?.SetEntity(
-            enableRecord: (gRPC_BaseClass.EnableRecord is true), eRPCode: gRPC_BaseClass.ERPCode,
-            sortIndex: gRPC_BaseClass.SortIndex, created: gRPC_BaseClass.CreateTimeRecord?.ToDateTimeOffset(),
-            lastModified: gRPC_BaseClass.LastUpdatedRecord?.ToDateTimeOffset());
+        _SimpleClass?
+            .SetEnableRecord(gRPC_BaseClass.EnableRecord is true)
+            .SetERPCode(gRPC_BaseClass.ERPCode)
+            .SetSortIndex(gRPC_BaseClass.SortIndex)
+            .SetCreated(gRPC_BaseClass.CreateTimeRecord?.ToDateTimeOffset())
+            .SetLastModified(gRPC_BaseClass.LastUpdatedRecord?.ToDateTimeOffset());
 
         return _SimpleClass!;
     }
@@ -200,11 +209,12 @@ public static class CgRPC
             _SimpleClass!.Id = gRPC_BaseClass.Id.Value;
         }
 
-        _SimpleClass?.SetEntity(eRPCode: gRPC_BaseClass.ERPCode,
-            sortIndex: gRPC_BaseClass.SortIndex,
-            name: gRPC_BaseClass.Name,
-            displayName: gRPC_BaseClass.DisplayName,
-            enableRecord: (gRPC_BaseClass.EnableRecord is true));
+        _SimpleClass?
+            .SetERPCode(gRPC_BaseClass.ERPCode)
+            .SetSortIndex(gRPC_BaseClass.SortIndex)
+            .SetName(gRPC_BaseClass.Name)
+            .SetDisplayName(gRPC_BaseClass.DisplayName)
+            .SetEnableRecord(gRPC_BaseClass.EnableRecord is true);
 
         return _SimpleClass!;
     }
@@ -222,9 +232,10 @@ public static class CgRPC
             _SimpleClass!.Id = gRPC_BaseClass.Id.Value;
         }
 
-        _SimpleClass?.SetEntity(eRPCode: gRPC_BaseClass.ERPCode,
-            sortIndex: gRPC_BaseClass.SortIndex,
-            enableRecord: (gRPC_BaseClass.EnableRecord is true));
+        _SimpleClass?
+            .SetERPCode(gRPC_BaseClass.ERPCode)
+            .SetSortIndex(gRPC_BaseClass.SortIndex)
+            .SetEnableRecord(gRPC_BaseClass.EnableRecord is true);
 
         return _SimpleClass!;
     }
