@@ -6,9 +6,28 @@ public class WorkItem(ICopyClass _iCopyClass,
     IRepository<F_Task> taskRepository,
     IRepository<D_User> userRepository,
     IRepository<F_Condition> conditionRepository,
-    IRepository<D_Process> processRepository
+    IRepository<D_Process> processRepository,
+    IRepository<L_WorkItemCondition> workItemConditionRepository,
+    IRepository<L_CaseCondition> caseConditionRepository
     ) : IWorkItem
 {
+    public async Task<Result<bool>> ClearCasesAsync()
+    {
+        var _workItemConditions = await workItemConditionRepository.ListAsync();
+        await workItemConditionRepository.DeleteRangeAsync(_workItemConditions);
+
+        var _workItems = await workItemRepository.ListAsync();
+        await workItemRepository.DeleteRangeAsync( _workItems);
+
+        var _caseConditions = await caseConditionRepository.ListAsync();
+        await caseConditionRepository.DeleteRangeAsync(_caseConditions);
+
+        var _cases = await caseRepository.ListAsync();
+        await caseRepository.DeleteRangeAsync(_cases);
+
+        return true;
+    }
+
     public async Task<Result<CreateRequest_Response>> CreateRequestAsync(CreateRequest_Request request)
     {
         #region Input
