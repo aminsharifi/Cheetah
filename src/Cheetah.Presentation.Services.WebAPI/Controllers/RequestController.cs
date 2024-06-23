@@ -37,6 +37,18 @@ public class RequestController : ControllerBase
         _mapper = GMapper;
     }
 
+    [HttpGet(nameof(ClearCases))]
+    public async Task<Boolean> ClearCases()
+    {
+        _logger.LogInformation("started " + nameof(ClearCases) + " {@" + nameof(ClearCases) + "}", nameof(ClearCases));
+
+        var _outputResult = await _iWorkItem.ClearCasesAsync();
+
+        _logger.LogInformation("Ended " + nameof(ClearCases) + " {@" + nameof(ClearCases) + "}", _outputResult);
+
+        return _outputResult;
+    }
+
     [HttpPost(nameof(CreateRequest))]
     public async Task<CreateRequest_Response> CreateRequest([FromBody] CreateRequest_Request request)
     {
