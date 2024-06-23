@@ -82,7 +82,6 @@ public class WorkItem(ICopyClass _iCopyClass,
         Boolean _rebase = request.Rebase ?? false;
         #endregion
 
-
         PerformRequest_Response _performRequest_Response = new();
 
         var Current_WorkItem = await iSender.Send(new CopyWorkItemQuery(

@@ -23,8 +23,8 @@ public class GetCartableSpec : Specification<F_WorkItem>
             x.EnableRecord);
 
         Query
-            .Include(x => x.Case);
-
+            .Include(x => x.Case)
+            .ThenInclude(x => x.CaseState);
 
         if (cartableDTO.User is not null)
         {
