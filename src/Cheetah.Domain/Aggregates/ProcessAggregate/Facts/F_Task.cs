@@ -14,7 +14,7 @@ public partial class F_Task : BaseEntity
 
     public long? ScenarioId { get; private set; }
     public virtual F_Scenario? Scenario { get; private set; }
-
+     
     #endregion
 
     #region Collections
