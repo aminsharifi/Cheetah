@@ -10,7 +10,6 @@ public class GetFlowsByTaskHandler(
         var _taskFlows = await _taskFlowRepository
             .ListAsync(_getFlowsByTaskSpec, cancellationToken);
 
-
         return _taskFlows;
     }
 }
