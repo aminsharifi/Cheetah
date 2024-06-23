@@ -8,10 +8,21 @@ public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
             .EnableCache(nameof(GetFlowsByTaskSpec), currentTaskId);
 
         Query
-         .Where(x => x.FirstId == currentTaskId)
-         .Include(x => x.Task)
-         .Include(x => x.Flow)
-         .ThenInclude(x=>x.FlowConditions)
-         .AsNoTracking();
+         .Where(x => x.FirstId == currentTaskId);
+
+        Query
+         .Include(x => x.Task);
+
+        Query
+            .Include(x => x.Flow)
+            .ThenInclude(x => x.FlowConditions);
+
+        Query
+            .Include(x => x.Flow)
+            .ThenInclude(x => x.FlowTasks)
+            .ThenInclude(x => x.Task);
+
+        Query
+           .AsNoTracking();
     }
 }
