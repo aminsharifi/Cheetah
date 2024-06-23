@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Cheetah.Application.Business.Case.WorkItem.Specifications;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -41,7 +43,7 @@ public class RequestController : ControllerBase
         _logger.LogInformation("started " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", request);
 
 
-        var _outputResult = await _iWorkItem.CreateRequestAsync(request);   
+        var _outputResult = await _iWorkItem.CreateRequestAsync(request);
 
 
         _logger.LogInformation("Ended " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", _outputResult);
@@ -203,8 +205,6 @@ public class RequestController : ControllerBase
            await _iCartable.OutboxAsync(cartableDTO) :
            await _iCartable.GetCartableAsync(cartableDTO));
 
-
-
         #region Output
         Cartable_Response _OutputCartable = new();
 
@@ -271,7 +271,8 @@ public class RequestController : ControllerBase
 
                 var _workItemId = _gRPC_WorkItem.Base.Id;
 
-                GetEntitySpec<F_WorkItem> _getEntitySpec = new(_workItemId);
+                GetWorkItemSpec _getEntitySpec = new
+                    (new SimpleClassDTO() { Id = _workItemId.Value }, false);
 
                 var _retriveworkItem = await _workItemRepository.FirstOrDefaultAsync(_getEntitySpec);
 

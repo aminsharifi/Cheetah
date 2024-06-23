@@ -23,6 +23,12 @@ public class GetCartableSpec : Specification<F_WorkItem>
             x.EnableRecord);
 
         Query
+            .Include(x => x.WorkItemState);
+
+        Query
+            .Include(x => x.WorkItemConditions);
+
+        Query
             .Include(x => x.Case)
             .ThenInclude(x => x.CaseState);
 
