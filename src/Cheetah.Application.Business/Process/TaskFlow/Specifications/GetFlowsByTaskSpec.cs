@@ -11,8 +11,7 @@ public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
          .Where(x => x.FirstId == currentTaskId)
          .Include(x => x.Task)
          .Include(x => x.Flow)
-         .ThenInclude(x => x.FlowTasks)
-         .ThenInclude(x => x.Task)
+         .ThenInclude(x=>x.FlowConditions)
          .AsNoTracking();
     }
 }

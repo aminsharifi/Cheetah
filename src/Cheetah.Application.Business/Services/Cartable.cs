@@ -151,12 +151,14 @@ public class Cartable(
 
             #region occurredUserActions
 
-            var _occurredUserActions = _Record?.WorkItemConditions?
-                .Select(x =>
-                (
-                conditionRepository.FirstOrDefaultAsync(
-                    new GetEntitySpec<F_Condition>(x.SecondId)).GetAwaiter().GetResult()
-                ).Adapt<SimpleClassDTO>());
+            List<SimpleClassDTO> _occurredUserActions = new();
+
+            foreach (var workItemCondition in _Record?.WorkItemConditions)
+            {
+                var _condition = await conditionRepository.FirstOrDefaultAsync(
+                    new GetEntitySpec<F_Condition>(workItemCondition.SecondId));
+                _occurredUserActions.Add(_condition.Adapt<SimpleClassDTO>());
+            }
 
             _inboxList[i].OccurredUserActions = _occurredUserActions;
 
