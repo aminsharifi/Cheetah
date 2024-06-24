@@ -11,13 +11,19 @@ public class WorkItem(ICopyClass _iCopyClass,
     IRepository<L_CaseCondition> caseConditionRepository
     ) : IWorkItem
 {
+    public async Task<Result<Boolean>> ClearProjectAsync()
+    {
+        await ClearCasesAsync();
+
+        return true;
+    }
     public async Task<Result<bool>> ClearCasesAsync()
     {
         var _workItemConditions = await workItemConditionRepository.ListAsync();
         await workItemConditionRepository.DeleteRangeAsync(_workItemConditions);
 
         var _workItems = await workItemRepository.ListAsync();
-        await workItemRepository.DeleteRangeAsync( _workItems);
+        await workItemRepository.DeleteRangeAsync(_workItems);
 
         var _caseConditions = await caseConditionRepository.ListAsync();
         await caseConditionRepository.DeleteRangeAsync(_caseConditions);

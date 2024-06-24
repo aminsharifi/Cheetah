@@ -70,6 +70,7 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
 
     #region Facts
     public virtual DbSet<F_Task> F_Tasks { get; set; }
+    public virtual DbSet<F_Form> F_Forms { get; set; }
     public virtual DbSet<F_Condition> F_Conditions { get; set; }
     public virtual DbSet<F_Case> F_Cases { get; set; }
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }

@@ -9,5 +9,9 @@ public class F_TaskConfiguration : IEntityTypeConfiguration<F_Task>
         builder
          .Property(e => e.ScenarioId)
          .HasColumnOrder(101);
+
+        builder
+            .Property(e => e.FormId)
+            .HasColumnOrder(102);
     }
 }

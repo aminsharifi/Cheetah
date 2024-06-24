@@ -79,7 +79,7 @@ public partial class D_Entity
 
     public static readonly D_Entity D_UserInformation =
         (D_Entity)new D_Entity()
-        .SetDisplay(true)
+        .SetDisplay(false)
         .SetId(107)
         .SetERPCode(107)
         .SetSortIndex(107)
@@ -88,7 +88,7 @@ public partial class D_Entity
 
     public static readonly D_Entity F_WorkItem =
         (D_Entity)new D_Entity()
-        .SetDisplay(true)
+        .SetDisplay(false)
         .SetId(108)
         .SetERPCode(108)
         .SetSortIndex(108)
@@ -144,12 +144,24 @@ public partial class D_Entity
 
     public static readonly D_Entity L_ProcessScenario =
         (D_Entity)new D_Entity()
-        .SetDisplay(true)
+        .SetSync(false)
+        .SetDisplay(false)
         .SetId(114)
         .SetERPCode(114)
         .SetSortIndex(114)
         .SetName(nameof(L_ProcessScenario))
         .SetDisplayName(new StringBuilder().Append("سناریوها").Append($"({TableType.Links})").ToString());
+
+
+    public static readonly D_Entity F_Form =
+        (D_Entity)new D_Entity()
+        .SetSync(true)
+        .SetDisplay(false)
+        .SetId(115)
+        .SetERPCode(115)
+        .SetSortIndex(115)
+        .SetName(nameof(F_Form))
+        .SetDisplayName(new StringBuilder().Append("فرم‌ها").Append($"({TableType.Facts})").ToString());
 
     #endregion
 }
