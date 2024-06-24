@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.Case.WorkItem.Specifications;
-
-namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
