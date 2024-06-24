@@ -12,7 +12,7 @@ public partial class D_User
      (D_User)new D_User()
         .SetId(1)
         .SetSortIndex(1)
-        .SetERPCode(1)
+        .SetERPCode(-1)
         .SetName(nameof(m_sharifi).Replace('_', '.'))
         .SetDisplayName("محمد شریفی");
 
@@ -20,7 +20,7 @@ public partial class D_User
         (D_User)new D_User()
         .SetId(2)
         .SetSortIndex(2)
-        .SetERPCode(2)
+        .SetERPCode(-2)
         .SetName(nameof(a_sharifi).Replace('_', '.'))
         .SetDisplayName("امین شریفی");
 

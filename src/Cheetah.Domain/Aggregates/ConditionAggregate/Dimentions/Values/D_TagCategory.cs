@@ -8,7 +8,7 @@ public partial class D_TagCategory
         (D_TagCategory)new D_TagCategory()
         .SetId(1)
         .SetSortIndex(1)
-        .SetERPCode(1)
+        .SetERPCode(-1)
         .SetName(nameof(Performer))
         .SetDisplayName("Performer");
 
@@ -16,7 +16,7 @@ public partial class D_TagCategory
         (D_TagCategory)new D_TagCategory()
         .SetId(2)
         .SetSortIndex(2)
-        .SetERPCode(2)
+        .SetERPCode(-2)
         .SetName(nameof(Action))
         .SetDisplayName("Action");
 

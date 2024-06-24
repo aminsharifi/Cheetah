@@ -36,10 +36,28 @@ public class RequestController : ControllerBase
         _workItemRepository = WorkItemRepository;
         _mapper = GMapper;
     }
-
-    [HttpGet(nameof(ClearCases))]
-    public async Task<Boolean> ClearCases()
+    [HttpDelete(nameof(ClearProject))]
+    public async Task<Boolean> ClearProject(String passWord)
     {
+        if (String.Compare(passWord, "Cheetah@123", StringComparison.OrdinalIgnoreCase) != 0)
+        {
+            return false;
+        }
+        _logger.LogInformation("started " + nameof(ClearProject) + " {@" + nameof(ClearProject) + "}", nameof(ClearProject));
+
+        var _outputResult = await _iWorkItem.ClearProjectAsync();
+
+        _logger.LogInformation("Ended " + nameof(ClearProject) + " {@" + nameof(ClearProject) + "}", _outputResult);
+
+        return _outputResult;
+    }
+    [HttpDelete(nameof(ClearCases))]
+    public async Task<Boolean> ClearCases(String passWord)
+    {
+        if (String.Compare(passWord, "Cheetah@123", StringComparison.OrdinalIgnoreCase) != 0)
+        {
+            return false;
+        }
         _logger.LogInformation("started " + nameof(ClearCases) + " {@" + nameof(ClearCases) + "}", nameof(ClearCases));
 
         var _outputResult = await _iWorkItem.ClearCasesAsync();
@@ -243,7 +261,9 @@ public class RequestController : ControllerBase
 
                 TaskDTO _task = new();
 
-                _task.Base = outputRequestItem.Task.Adapt<BaseClassWithNameDTO>();
+                _task.Base = outputRequestItem?.Task.Adapt<BaseClassWithNameDTO>();
+
+                _task.Form = outputRequestItem?.Form.Adapt<BaseClassWithNameDTO>();
 
                 #region ValidUserActions
                 var _taskValidUserActions = outputRequestItem!

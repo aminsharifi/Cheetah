@@ -9,7 +9,7 @@ public partial class L_ProcessScenario
         .SetFirstId(D_Process.SampleProcess.Id)
         .SetSecondId(F_Scenario.SampleScenario.Id)
         .SetId(1)
-        .SetERPCode(1)
+        .SetERPCode(-1)
         .SetSortIndex(1)
         .SetName(nameof(SampleProcess_SampleScenario))
         .SetDisplayName("فرآیند نمونه-سناریو نمونه");

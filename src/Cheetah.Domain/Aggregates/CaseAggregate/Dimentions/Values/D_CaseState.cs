@@ -8,7 +8,7 @@ public partial class D_CaseState
         (D_CaseState)new D_CaseState()
         .SetId(1)
         .SetSortIndex(1)
-        .SetERPCode(1)
+        .SetERPCode(-1)
         .SetName(nameof(Initializing))
         .SetDisplayName("مقداردهی اولیه");
 
@@ -16,7 +16,7 @@ public partial class D_CaseState
         (D_CaseState)new D_CaseState()
         .SetId(2)
         .SetSortIndex(2)
-        .SetERPCode(2)
+        .SetERPCode(-2)
         .SetName(nameof(Ongoing))
         .SetDisplayName("در دست بررسی");
 
@@ -24,7 +24,7 @@ public partial class D_CaseState
         (D_CaseState)new D_CaseState()
         .SetId(3)
         .SetSortIndex(3)
-        .SetERPCode(3)
+        .SetERPCode(-3)
         .SetName(nameof(Editing))
         .SetDisplayName("منتظر بازنگری");
 
@@ -32,7 +32,7 @@ public partial class D_CaseState
         (D_CaseState)new D_CaseState()
         .SetId(4)
         .SetSortIndex(4)
-        .SetERPCode(4)
+        .SetERPCode(-4)
         .SetName(nameof(Approved))
         .SetDisplayName("تایید شده");
 
@@ -40,7 +40,7 @@ public partial class D_CaseState
         (D_CaseState)new D_CaseState()
         .SetId(5)
         .SetSortIndex(5)
-        .SetERPCode(5)
+        .SetERPCode(-5)
         .SetName(nameof(Rejected))
         .SetDisplayName("عدم تایید");
 
@@ -48,7 +48,7 @@ public partial class D_CaseState
         (D_CaseState)new D_CaseState()
         .SetId(6)
         .SetSortIndex(6)
-        .SetERPCode(6)
+        .SetERPCode(-6)
         .SetName(nameof(Aborted))
         .SetDisplayName("ابطال شده");
 
