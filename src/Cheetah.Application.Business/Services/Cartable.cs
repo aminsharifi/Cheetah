@@ -132,8 +132,9 @@ public class Cartable(
             var _process = await processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(_Record.Case.ProcessId));
             _inboxList[i].Process = _process.Adapt<SimpleClassDTO>();
 
-            var _task = await taskRepository.FirstOrDefaultAsync(new GetEntitySpec<F_Task>(_Record.TaskId));
+            var _task = await taskRepository.FirstOrDefaultAsync(new GetTask(_Record.TaskId));
             _inboxList[i].Task = _task.Adapt<SimpleClassDTO>();
+            _inboxList[i].Form = _task?.Form.Adapt<SimpleClassDTO>();
 
             var _flows = await iSender.Send(new GetFlowsByTaskQuery(_Record.TaskId));
 

@@ -8,7 +8,7 @@ public partial class D_Process
         (D_Process)new D_Process()
         .SetId(1)
         .SetSortIndex(1)
-        .SetERPCode(1)
+        .SetERPCode(-1)
         .SetName(nameof(SampleProcess))
         .SetDisplayName("فرآیند نمونه");
 
