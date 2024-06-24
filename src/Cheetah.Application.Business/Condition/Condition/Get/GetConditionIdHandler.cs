@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Condition.Get;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Condition.Get;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient
@@ -12,6 +14,15 @@ public class GetConditionIdHandler(
 {
     public async Task<Result<long?>> Handle(GetConditionIdQuery request, CancellationToken cancellationToken)
     {
+        long? _conditionID = default!;
+
+        if (request.input.Base is not null)
+        {
+            var _conditionIDSpec = new GetIdEntitySpec<F_Condition>(request.input.Base.Adapt<SimpleClassDTO>());
+            _conditionID = await _repository.FirstOrDefaultAsync(_conditionIDSpec);
+            return _conditionID;
+        }
+
         Guard.Against.Null(request.input.Tag);
         Guard.Against.Null(request.input.Operand);
 
@@ -21,8 +32,6 @@ public class GetConditionIdHandler(
 
         var _getIdoperandSpec = new GetIdEntitySpec<D_Operand>(request.input.Operand.Adapt<SimpleClassDTO>());
         var _operandId = await _operandRepository.FirstOrDefaultAsync(_getIdoperandSpec);
-
-        long? _conditionID = default!;
 
         var spec = new GetConditionIdSpec(tagId: _tagId,
             operandId: _operandId, value: request.input.Value);
