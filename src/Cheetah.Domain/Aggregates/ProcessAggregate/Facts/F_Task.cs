@@ -5,15 +5,22 @@ public partial class F_Task : BaseEntity
     {
 
     }
+    public long? FormId { get; private set; }
+    public virtual F_Form? Form { get; private set; }
+    public long? ScenarioId { get; private set; }
+    public virtual F_Scenario? Scenario { get; private set; }
+    public F_Task SetFormId(Int64? formId)
+    {
+        this.FormId = formId;
+        return this;
+    }
+
     public F_Task SetScenarioId(Int64? scenarioId)
     {
         this.ScenarioId = scenarioId;
         return this;
     }
     #region Entity
-
-    public long? ScenarioId { get; private set; }
-    public virtual F_Scenario? Scenario { get; private set; }
      
     #endregion
 

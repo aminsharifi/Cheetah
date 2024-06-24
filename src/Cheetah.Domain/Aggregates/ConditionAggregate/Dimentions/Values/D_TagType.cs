@@ -8,7 +8,7 @@ public partial class D_TagType
         (D_TagType)new D_TagType()
         .SetId(1)
         .SetSortIndex(1)
-        .SetERPCode(1)
+        .SetERPCode(-1)
         .SetName(nameof(Numberic))
         .SetDisplayName("عددی");
 
@@ -16,7 +16,7 @@ public partial class D_TagType
         (D_TagType)new D_TagType()
         .SetId(2)
         .SetSortIndex(2)
-        .SetERPCode(2)
+        .SetERPCode(-2)
         .SetName(nameof(Boolean))
         .SetDisplayName("دودویی");
 
@@ -24,7 +24,7 @@ public partial class D_TagType
         (D_TagType)new D_TagType()
         .SetId(3)
         .SetSortIndex(3)
-        .SetERPCode(3)
+        .SetERPCode(-3)
         .SetName(nameof(D_TagType.Date))
         .SetDisplayName("دودویی");
 
@@ -33,7 +33,7 @@ public partial class D_TagType
         (D_TagType)new D_TagType()
         .SetId(4)
         .SetSortIndex(4)
-        .SetERPCode(4)
+        .SetERPCode(-4)
         .SetName(nameof(D_TagType.String))
         .SetDisplayName("حروف");
 
