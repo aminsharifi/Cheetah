@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Application.Business.DTOs.Case;
 
-public class CreateRequest_Request
+public class CreateCaseRequest
 {
     public BaseClassWithDateDTO? Case { get; set; }
     public BaseClassWithNameDTO? Creator { get; set; }

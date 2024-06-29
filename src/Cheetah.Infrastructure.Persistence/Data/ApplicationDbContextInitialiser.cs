@@ -1,4 +1,6 @@
 ﻿using Cheetah.Application.Business.Queries.Case.Case.List;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
 
@@ -35,15 +37,12 @@ public static class InitialiserExtensions
             }
         }
         #endregion
+
         #region Hangfire
 
         GlobalConfiguration.Configuration
            .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-        #endregion
-        #region Serilog
-        builder.Host.UseSerilog((context, configuration) =>
-        configuration.ReadFrom.Configuration(context.Configuration));
         #endregion
 
         //builder.Services.addse
@@ -75,6 +74,30 @@ public static class InitialiserExtensions
                 ServiceLifetime.Transient
                 );
         }
+        #endregion
+
+        #region Serilog
+        builder.Host.UseSerilog((context, configuration) =>
+        configuration.ReadFrom.Configuration(context.Configuration));
+
+        var logger = Log.Logger = new LoggerConfiguration()
+            .WriteTo
+            .MSSqlServer(
+            connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+            sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents" })
+            .CreateLogger();
+
+        //var logger = Log.Logger = new LoggerConfiguration()
+        //    .Enrich.FromLogContext()
+        //    .WriteTo.Console()
+        //    .WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        //    sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents" })
+        //    .CreateLogger();
+
+        var microsoftLogger = new SerilogLoggerFactory(logger).CreateLogger("Programm");
+
+        builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
+
         #endregion
 
         #region Identity
@@ -112,14 +135,6 @@ public static class InitialiserExtensions
         #endregion
 
         #region MediatR
-        var logger = Log.Logger = new LoggerConfiguration()
-            .Enrich.FromLogContext()
-            .WriteTo.Console()
-            .CreateLogger();
-
-        var microsoftLogger = new SerilogLoggerFactory(logger).CreateLogger("Programm");
-
-        builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
 
         var mediatRAssemblies = new[]
         {
