@@ -9,20 +9,22 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="Process\Validations\**" />
-	  <Compile Remove="User\User\**" />
-	  <EmbeddedResource Remove="Process\Validations\**" />
-	  <EmbeddedResource Remove="User\User\**" />
-	  <None Remove="Process\Validations\**" />
-	  <None Remove="User\User\**" />
-	</ItemGroup>
-	<ItemGroup>
 	  <ProjectReference Include="..\Cheetah.Domain\Cheetah.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="FluentValidation" Version="11.9.2" />
-	  <PackageReference Include="Mapster" Version="7.4.0" />
+	  <PackageReference Include="FluentValidation" Version="11.9.2" />	
 	  <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Commands\Case\Case\" />
+	  <Folder Include="Commands\Condition\Condition\" />
+	  <Folder Include="Commands\Process\TaskFlow\" />
+	  <Folder Include="Commands\Process\TaskCondition\" />
+	  <Folder Include="Commands\Process\Task\" />
+	  <Folder Include="Commands\Process\ProcessScenario\" />
+	  <Folder Include="Commands\Process\Process\" />
+	  <Folder Include="Commands\User\UserCondition\" />
+	  <Folder Include="Queries\User\UserCondition\Get\" />
 	</ItemGroup>
 
 </Project>

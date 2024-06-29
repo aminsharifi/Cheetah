@@ -369,7 +369,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         #region Tasks
 
-        var _getTasks = await _mediator.Send(new GetTasksFromScenarioQuery(_case.SelectedScenarioId));
+        var _getTasks = await _mediator.Send(new ListTasksFromScenarioQuery(_case.SelectedScenarioId));
 
         var Tasks = _getTasks.Value.ToList();
 

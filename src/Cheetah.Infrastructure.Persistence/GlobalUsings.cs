@@ -2,7 +2,6 @@
 global using Ardalis.SharedKernel;
 global using Ardalis.Specification;
 global using Ardalis.Specification.EntityFrameworkCore;
-global using Cheetah.Application.Business.Case.Get;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Application.Business.Services;
 global using Cheetah.Application.Business.Validations;

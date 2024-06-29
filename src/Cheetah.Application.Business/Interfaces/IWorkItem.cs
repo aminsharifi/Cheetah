@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Application.Business.DTOs.Case;
+
+namespace Cheetah.Application.Business.Interfaces;
 public interface IWorkItem
 {
     public Task<Result<CreateRequest_Response>> CreateRequestAsync(CreateRequest_Request request);

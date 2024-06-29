@@ -52,7 +52,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         CreateRequest_Response output_Request = new();
 
         var GeneralRequest = await iSender.Send(
-            new CopyCaseQuery(Case: _case, Creator: _creator, Requestor: _requestor, Process: _process,
+            new GetCaseQuery(Case: _case, Creator: _creator, Requestor: _requestor, Process: _process,
             CaseConditions: _caseConditions, WorkItemUser: _workItemUser,
             WorkItemConditions: _workItemConditions, WorkItemBase: _workItemBase));
 
@@ -109,7 +109,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         PerformRequest_Response _performRequest_Response = new();
 
-        var Current_WorkItem = await iSender.Send(new CopyWorkItemQuery(
+        var Current_WorkItem = await iSender.Send(new GetWorkItemQuery(
             _workItem, _workItemUser, _workItemConditions, _rebase));
 
         await SetCurrentAssignment
@@ -141,7 +141,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         };
 
         var _getDetailCasesQuery_Output = (await iSender
-            .Send(new GetDetailCasesQuery(_getDetailCasesQuery_Input))).Value.FirstOrDefault();
+            .Send(new ListDetailCasesQuery(_getDetailCasesQuery_Input))).Value.FirstOrDefault();
 
         _performRequest_Response.Case = new();
 
@@ -156,7 +156,7 @@ public class WorkItem(ICopyClass _iCopyClass,
     public async Task<Result<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser)
     {
         var _selectedCaseTaskUsers = (await iSender.Send(
-            new GetByCaseAndTaskQuery(
+            new ListCaseTaskUserQuery(
                 caseId: CaseTaskUser.FirstId,
                 taskId: CaseTaskUser.SecondId
                 ))).Value;
@@ -164,7 +164,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         if (_selectedCaseTaskUsers.Any())
         {
             var _addedCaseTaskUsers = (await iSender.Send(
-            new CreateCaseTaskUserQuery(CaseTaskUser))).Value;
+            new CreateCaseTaskUserCommand(CaseTaskUser))).Value;
 
             _selectedCaseTaskUsers.Append(_addedCaseTaskUsers);
         }
