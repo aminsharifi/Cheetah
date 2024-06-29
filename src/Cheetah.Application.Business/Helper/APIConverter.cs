@@ -1,8 +1,4 @@
-﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
-using Cheetah.Domain.Common.DTOs;
-using Mapster;
-
-namespace Cheetah.Presentation.Services.WebAPI.Helper;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Helper;
 
 public static class APIConverter
 {

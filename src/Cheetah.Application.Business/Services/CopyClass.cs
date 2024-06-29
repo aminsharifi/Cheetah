@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
-
-namespace Cheetah.Application.Business.Services;
+﻿namespace Cheetah.Application.Business.Services;
 public class CopyClass(ISender iSender) : ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)
@@ -27,7 +25,7 @@ public class CopyClass(ISender iSender) : ICopyClass
 
     public async Task<L_CaseTaskUser> DeepCopyAsync(L_CaseTaskUser obj)
     {
-        var _copyCaseTaskUser = await iSender.Send(new CopyCaseTaskUserQuery(obj));
+        var _copyCaseTaskUser = await iSender.Send(new GetCaseTaskUserQuery(obj));
 
         return _copyCaseTaskUser;
     }

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Application.Business.Queries.Case.Case.List;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
@@ -122,7 +124,7 @@ public static class InitialiserExtensions
         var mediatRAssemblies = new[]
         {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(GetDetailCasesHandler)), // UseCases
+            Assembly.GetAssembly(typeof(ListDetailCasesHandler)), // UseCases
         };
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
         builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
@@ -168,7 +170,7 @@ public static class InitialiserExtensions
         var mediatRAssemblies = new[]
        {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(GetDetailCasesHandler)), // UseCases
+            Assembly.GetAssembly(typeof(ListDetailCasesHandler)), // UseCases
         };
 
         IList<IRegister> registers = config.Scan(mediatRAssemblies);

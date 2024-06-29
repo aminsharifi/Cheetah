@@ -1,8 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Enums;
-using static Cheetah.Domain.Entities.Dimentions.D_Tag;
-
-namespace Cheetah.Application.Business.Services;
+﻿namespace Cheetah.Application.Business.Services;
 
 public class Sync(ISender _ISender,
     IRepository<L_UserCondition> userConditionRepository,
@@ -81,7 +77,7 @@ public class Sync(ISender _ISender,
 
                 await Parallel.ForEachAsync(_MostBeAdd, async (_condition, CancellationToken) =>
                 {
-                    var _exist = await _ISender.Send(new IsConditionExistsQuery(_condition));
+                    var _exist = await _ISender.Send(new GetConditionExistsQuery(_condition));
 
                     if (!_exist)
                     {
