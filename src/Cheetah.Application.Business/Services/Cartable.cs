@@ -136,7 +136,7 @@ public class Cartable(
             _inboxList[i].Task = _task.Adapt<SimpleClassDTO>();
             _inboxList[i].Form = _task?.Form.Adapt<SimpleClassDTO>();
 
-            var _flows = await iSender.Send(new GetFlowsByTaskQuery(_Record.TaskId));
+            var _flows = await iSender.Send(new ListFlowsByTaskQuery(_Record.TaskId));
 
             #region validUserActions
 
