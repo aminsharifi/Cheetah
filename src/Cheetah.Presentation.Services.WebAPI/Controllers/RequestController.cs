@@ -193,7 +193,7 @@ public class RequestController : ControllerBase
     #region Private methods
     private async Task<IEnumerable<ConditionDTO>> GetConditions(IEnumerable<long> ConditionIds)
     {
-        var Actual_Conditions = (await _mediator.Send(new GetIncludedConditionsQuery(
+        var Actual_Conditions = (await _mediator.Send(new ListIncludedConditionsQuery(
             ConditionIds.Select(x => x)))).Value;
 
         return Actual_Conditions.GetConditions();
@@ -278,7 +278,7 @@ public class RequestController : ControllerBase
                 #region Performers
 
                 var _getDetailCasesQuery_Output = (await _mediator
-                                         .Send(new GetConditionsByTaskQuery(_task?.Base.Id)))
+                                         .Send(new ListConditionsByTaskQuery(_task?.Base.Id)))
                                          .Value.FirstOrDefault();
 
                 var _performers = await GetConditions

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
+
+namespace Cheetah.Infrastructure.Persistence;
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;
