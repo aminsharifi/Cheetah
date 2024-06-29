@@ -1,6 +1,6 @@
-﻿namespace Cheetah.Application.Business.DTOs.Entity;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.Commands;
 
-public class SyncEntity_Request
+public class UpdateEntityRequest
 {
     public BaseClassWithNameDTO? Base { get; set; }
     public List<BaseClassWithNameAndDateDTO>? Records { get; set; }

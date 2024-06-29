@@ -16,6 +16,7 @@ global using Cheetah.Domain.Entities.Facts;
 global using Cheetah.Domain.Enums;
 global using Cheetah.Infrastructure.Persistence.Data;
 global using Cheetah.Presentation.Services.WebAPI.Helper;
+global using FastEndpoints;
 global using Mapster;
 global using MapsterMapper;
 global using MediatR;

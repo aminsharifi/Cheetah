@@ -1,4 +1,10 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Cheetah.Presentation.Services.WebAPI.Controllers.Commands;
+using FromBodyAttribute = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
+using HttpDeleteAttribute = Microsoft.AspNetCore.Mvc.HttpDeleteAttribute;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using IMapper = MapsterMapper.IMapper;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -66,7 +72,7 @@ public class RequestController : ControllerBase
     }
 
     [HttpPost(nameof(CreateRequest))]
-    public async Task<CreateRequest_Response> CreateRequest([FromBody] CreateRequest_Request request)
+    public async Task<CreateCaseResponse> CreateRequest([FromBody] CreateCaseRequest request)
     {
         _logger.LogInformation("started " + nameof(CreateRequest) + " {@" + nameof(CreateRequest) + "}", request);
 
@@ -80,7 +86,7 @@ public class RequestController : ControllerBase
     }
 
     [HttpPost(nameof(PerformRequest))]
-    public async Task<PerformRequest_Response> PerformRequest([FromBody] PerformRequest_Request request)
+    public async Task<UpdateCaseResponse> PerformRequest([FromBody] UpdateCaseRequest request)
     {
         _logger.LogInformation("started " + nameof(PerformRequest) + " {@" + nameof(PerformRequest) + "}", request);
 
@@ -170,22 +176,22 @@ public class RequestController : ControllerBase
 
     }
     [HttpPost(nameof(SetCaseTaskUser))]
-    public async Task<SetCaseTaskUser_Response> SetCaseTaskUser([FromBody] SetCaseTaskUser_Request request)
+    public async Task<CreateCaseTaskUserResponse> SetCaseTaskUser([FromBody] CreateCaseTaskUserRequest request)
     {
         return await SetCaseTaskUser(request);
     }
     [HttpPost(nameof(SyncEntity))]
-    public async Task<SyncEntity_Response> SyncEntity([FromBody] SyncEntity_Request request)
+    public async Task<UpdateEntityResponse> SyncEntity([FromBody] UpdateEntityRequest request)
     {
         return await SyncEntity(request);
     }
     [HttpPost(nameof(SyncLink))]
-    public async Task<SyncLink_Response> SyncLink([FromBody] SyncLink_Request request)
+    public async Task<UpdateLinkResponse> SyncLink([FromBody] UpdateLinkRequest request)
     {
         return await SyncLink(request);
     }
     [HttpPost(nameof(SyncCondition))]
-    public async Task<SyncCondition_Response> SyncCondition([FromBody] SyncCondition_Request request)
+    public async Task<UpdateConditionResponse> SyncCondition([FromBody] UpdateConditionRequest request)
     {
         return await SyncCondition(request);
     }
