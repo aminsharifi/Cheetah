@@ -1,10 +1,8 @@
-﻿using Cheetah.Application.Business.DTOs.Case;
-
-namespace Cheetah.Application.Business.Interfaces;
+﻿namespace Cheetah.Application.Business.Interfaces;
 public interface IWorkItem
 {
-    public Task<Result<CreateRequest_Response>> CreateRequestAsync(CreateRequest_Request request);
-    public Task<Result<PerformRequest_Response>> PerformWorkItemAsync(PerformRequest_Request request);
+    public Task<Result<CreateCaseResponse>> CreateRequestAsync(CreateCaseRequest request);
+    public Task<Result<UpdateCaseResponse>> PerformWorkItemAsync(UpdateCaseRequest request);
     public Task<Result<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser);
     public Task<Result<Boolean>> ClearCasesAsync();
 

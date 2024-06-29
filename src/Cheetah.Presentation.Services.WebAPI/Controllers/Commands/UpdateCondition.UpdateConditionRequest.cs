@@ -1,6 +1,6 @@
-﻿namespace Cheetah.Application.Business.DTOs.Condition;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.Commands;
 
-public class SyncCondition_Request
+public class UpdateConditionRequest
 {
     public BaseClassWithNameDTO? Base { get; set; }
     public List<ConditionDTO>? Records { get; set; }

@@ -1,6 +1,6 @@
-﻿namespace Cheetah.Application.Business.DTOs.Case;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.Commands;
 
-public class SetCaseTaskUser_Response
+public class CreateCaseTaskUserResponse
 {
     public BaseClassDTO? Case { get; set; }
     public BaseClassWithNameDTO? Task { get; set; }

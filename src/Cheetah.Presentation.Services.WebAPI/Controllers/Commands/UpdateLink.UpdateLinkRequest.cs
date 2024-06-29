@@ -1,6 +1,6 @@
-﻿namespace Cheetah.Application.Business.DTOs.Entity;
+﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.Commands;
 
-public class SyncLink_Request
+public class UpdateLinkRequest
 {
     public BaseClassWithNameDTO? Base { get; set; }
     public List<SimpleLinkClassDTO>? Records { get; set; }
