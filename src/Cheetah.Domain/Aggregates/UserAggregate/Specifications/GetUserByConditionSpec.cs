@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Application.Business.UserCondition.Specifications;
 
-public class GetUserByConditionSpec : Specification<L_UserCondition,long?>
+public class GetUserByConditionSpec : Specification<L_UserCondition, long?>
 {
     public GetUserByConditionSpec(IEnumerable<long?> performerConditions)
     {
@@ -8,9 +8,13 @@ public class GetUserByConditionSpec : Specification<L_UserCondition,long?>
             .EnableCache(nameof(GetUserByCaseConditionSpec), performerConditions);
 
         Query
-            .Select(x => x.FirstId)
+            .Select(x => x.FirstId);
+
+        Query
             .Where(x => performerConditions.Contains(x.SecondId))
-            .Where(x => x.EnableRecord)
+            .Where(x => x.EnableRecord);
+
+        Query
             .AsNoTracking();
     }
 }

@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
 
 public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondition>
 {
@@ -19,6 +17,10 @@ public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondi
             .WithMany()
             .HasForeignKey(x => x.SecondId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .Metadata
+            .SetSchema("Links");
 
     }
 }

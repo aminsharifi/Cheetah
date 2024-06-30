@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Enums;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 public class DatabaseClass
 {
     public static TableType GetTableType(String dBType)
