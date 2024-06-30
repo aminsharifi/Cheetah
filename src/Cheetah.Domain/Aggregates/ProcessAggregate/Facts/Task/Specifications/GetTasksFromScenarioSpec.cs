@@ -8,11 +8,16 @@ public class GetTasksFromScenarioSpec : Specification<F_Task>
             .EnableCache(nameof(GetTasksFromScenarioSpec), ScenarioId);
 
         Query
-            .Where(x => x.ScenarioId == ScenarioId)
-            .Where(x => x.EnableRecord)
-            .OrderBy(x => x.SortIndex)
             .AsNoTracking();
 
-        Query.Include(x => x.TaskConditions);
+        Query
+            .Where(x => x.ScenarioId == ScenarioId)
+            .Where(x => x.EnableRecord);
+
+        Query
+            .Include(x => x.TaskConditions);
+
+        Query
+            .OrderBy(x => x.SortIndex);
     }
 }

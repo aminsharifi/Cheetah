@@ -1,7 +1,4 @@
-﻿using Consul;
-using Microsoft.EntityFrameworkCore;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
 
 public class L_FlowConditionConfiguration : IEntityTypeConfiguration<L_FlowCondition>
 {

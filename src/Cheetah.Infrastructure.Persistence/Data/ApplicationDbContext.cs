@@ -1,6 +1,4 @@
-﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
-
-namespace Cheetah.Infrastructure.Persistence;
+﻿namespace Cheetah.Infrastructure.Persistence;
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;
@@ -85,7 +83,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
     public virtual DbSet<L_ProcessScenario> L_ProcessScenarios { get; set; }
     public virtual DbSet<L_TaskFlow> L_TaskFlows { get; set; }
     public virtual DbSet<L_FlowTask> L_FlowTasks { get; set; }
-    public virtual DbSet<L_TaskCondition> L_TaskConditions { get; set; }
     public virtual DbSet<L_CaseTaskUser> L_CaseTaskUsers { get; set; }
     public virtual DbSet<L_UserCondition> L_UserConditions { get; set; }
 
