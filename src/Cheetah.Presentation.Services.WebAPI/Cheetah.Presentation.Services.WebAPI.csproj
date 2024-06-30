@@ -16,10 +16,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="Controllers\Queries\ListCases.ListCasesResponse.cs" />
+	  <None Include="Controllers\WorkflowEngine\Queries\ListCases.ListCasesResponse.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="FastEndpoints" Version="5.26.0" />
 		<PackageReference Include="FastEndpoints.ApiExplorer" Version="2.3.0" />
 		<PackageReference Include="FastEndpoints.Swagger" Version="5.26.0" />
