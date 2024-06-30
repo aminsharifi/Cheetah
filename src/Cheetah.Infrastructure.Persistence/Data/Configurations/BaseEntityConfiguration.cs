@@ -1,7 +1,4 @@
-﻿using Cheetah.Domain.Enums;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-
-namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
+﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
 public static class BaseEntityConfiguration
 {
@@ -14,7 +11,11 @@ public static class BaseEntityConfiguration
             if (Enum.IsDefined(typeof(TableType), entityType.ClrType.Namespace.Split('.').Last()))
             {
                 entityType.SetTableName(entityType.ClrType.Name);
-                entityType.SetSchema(entityType.ClrType.Namespace.Split('.').Last());
+
+                var _schema = entityType.ClrType.Namespace.Split('.').Last();
+
+                entityType.SetSchema(_schema);
+
                 var entity = modelBuilder.Entity(entityType.ClrType);
 
                 if (entityType.ClrType.BaseType.Name == nameof(BaseEntity)
@@ -146,7 +147,8 @@ public static class BaseEntityConfiguration
                         .IsDescending()
                         .IsUnique(false);
 
-                    entity.Property(nameof(BaseLink.FifthId)).HasColumnOrder(104);
+                    entity.Property(nameof(BaseLink.FifthId))
+                        .HasColumnOrder(104);
                 }
                 else if (entityType.ClrType.BaseType?.BaseType?.Name == nameof(BaseEntity))
                 {

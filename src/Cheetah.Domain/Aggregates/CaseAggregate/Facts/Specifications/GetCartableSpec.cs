@@ -18,9 +18,7 @@ public class GetCartableSpec : Specification<F_WorkItem>
         }
 
         Query
-            .Where(x =>
-            x.Case.EnableRecord &&
-            x.EnableRecord);
+            .Where(x => x.Case.EnableRecord && x.EnableRecord);
 
         Query
             .Include(x => x.WorkItemState);

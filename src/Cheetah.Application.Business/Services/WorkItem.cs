@@ -34,7 +34,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         return true;
     }
 
-    public async Task<Result<CreateCaseResponse>> CreateRequestAsync(CreateCaseRequest request)
+    public async Task<Result<CreateCase_Response>> CreateRequestAsync(CreateCase_Request request)
     {
         #region Input
 
@@ -49,7 +49,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         #endregion
 
-        CreateCaseResponse output_Request = new();
+        CreateCase_Response output_Request = new();
 
         var GeneralRequest = await iSender.Send(
             new GetCaseQuery(Case: _case, Creator: _creator, Requestor: _requestor, Process: _process,
@@ -98,7 +98,7 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         return output_Request;
     }
-    public async Task<Result<UpdateCaseResponse>> PerformWorkItemAsync(UpdateCaseRequest request)
+    public async Task<Result<UpdateWorkItem_Response>> PerformWorkItemAsync(UpdateWorkItem_Request request)
     {
         #region Input
         SimpleClassDTO _workItem = request.WorkItem.Base.Adapt<SimpleClassDTO>();
@@ -107,7 +107,7 @@ public class WorkItem(ICopyClass _iCopyClass,
         Boolean _rebase = request.Rebase ?? false;
         #endregion
 
-        UpdateCaseResponse _performRequest_Response = new();
+        UpdateWorkItem_Response _performRequest_Response = new();
 
         var Current_WorkItem = await iSender.Send(new GetWorkItemQuery(
             _workItem, _workItemUser, _workItemConditions, _rebase));

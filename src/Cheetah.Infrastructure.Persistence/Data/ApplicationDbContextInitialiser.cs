@@ -1,8 +1,4 @@
-﻿using Cheetah.Application.Business.Queries.Case.Case.List;
-using Serilog;
-using Serilog.Sinks.MSSqlServer;
-
-namespace Cheetah.Infrastructure.Persistence.Data;
+﻿namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {
