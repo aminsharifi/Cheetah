@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
-public class CreateCaseTaskUser(ILogger<CreateCaseTaskUser> logger) : Endpoint<CreateCaseTaskUserRequest, CreateCaseTaskUserResponse>
+public class CreateCaseTaskUser(ILogger<CreateCaseTaskUser> logger, IWorkItem iWorkItem) : Endpoint<CreateCaseTaskUserRequest, CreateCaseTaskUserResponse>
 {
     public override void Configure()
     {
@@ -11,9 +11,17 @@ public class CreateCaseTaskUser(ILogger<CreateCaseTaskUser> logger) : Endpoint<C
     {
         logger.LogInformation("started " + nameof(CreateCaseTaskUser) + " {@" + nameof(CreateCaseTaskUser) + "}", request);
 
-        //iWorkItem.SetCaseTaskUserAsync()
+        #region Input
 
-        //logger.LogInformation("Ended " + nameof(CreateCaseTaskUser) + " {@" + nameof(CreateCaseTaskUser) + "}", _outputResult);
+        var _createCaseTaskUser_Request = request.Adapt<CreateCaseTaskUser_Request>();
+
+        #endregion
+
+        var Outputresult = await iWorkItem.SetCaseTaskUserAsync(_createCaseTaskUser_Request);
+
+        Response = Outputresult.Value.Adapt<CreateCaseTaskUserResponse>();
+
+        logger.LogInformation("Ended " + nameof(CreateCaseTaskUser) + " {@" + nameof(CreateCaseTaskUser) + "}", Outputresult);
 
         return;
     }
