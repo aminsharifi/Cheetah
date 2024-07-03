@@ -1,20 +1,20 @@
-## * rpc General Info
+## * WebAPI General Info
 
 | Title               | Value           |
 | ---                 | ---             |
 | Broker Name         | WebAPI		    |
 | Broker Server Name  | localhost: 1991 |
 | Project Version     | 8.2.100         |
-| Service Name        | Inbox           |
+| Service Name        | ListInbox       |
 
-## * Grpc Messages
+## * WebAPI Messages
 
 | Title | Value |
 | ---   | ---   |
 | Request Message Class Name  | Cartable_Input |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-| Request Message             | {google.protobuf.Int64Value PageNumber = 1;google.protobuf.Int64Value PageSize  = 2;google.protobuf.Int64Value TotalItems  = 3;GRPC_BaseClassWithName Assignee = 4;GRPC_BaseClassWithName Process = 5;GRPC_BaseClass Case  = 6;GRPC_BaseClassWithName CaseState = 7;GRPC_BaseClass WorkItem  = 8;} |
+| Request Message             | {long?:PageNumber;long?:PageSize;long?:TotalItems;BaseClassWithNameDTO?:Assignee;BaseClassWithNameDTO?:CaseState;List<BaseClassWithNameDTO>?:CaseStateList;BaseClassWithNameDTO?:Process;BaseClassDTO? Case; BaseClassDTO?:WorkItem} |
 | Response Message Class Name | Cartable_Output |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-| Response Message            | {google.protobuf.Int64Value PageNumber = 1;google.protobuf.Int64Value PageSize  = 2;google.protobuf.Int64Value TotalItems  = 3;repeated GRPC_Case Cases = 4;GRPC_BaseClassWithName OutputState = 5;} |
+| Response Message            | {long?:PageNumber;long?:PageSize;long?:TotalItems;BaseClassWithNameDTO?:Assignee;BaseClassWithNameDTO?:CaseState;List<BaseClassWithNameDTO>?:CaseStateList;BaseClassWithNameDTO?:Process;BaseClassDTO? Case; BaseClassDTO?:WorkItem} |
 
 ## * Description
 
@@ -45,29 +45,30 @@ The output of the service is the cases inside the individual's cartable
 | WorkItemState  | Read      | workItem's state                                                       |
 | L_CaseTaskUser | Read      | Read manual user selection                                             |
 
-## * gRPC Sample Input Message:
+## * WebAPI Sample Input Message:
 
 ```javascript
 {
-    //"Assignee": { "Name": "AdmissionManager"},
-    "Assignee": { "ERPCode":-7},
+    "Assignee": { "ERPCode":1906},
+    //"Assignee": { "ERPCode":-7},
     //"Process": { "Name": "Admission"},
-    //"Process": { "ERPCode": -2},
+    "Process": { "ERPCode": -6},
     "PageNumber": 1,
-    "PageSize": 20,
-    "CaseState":
-    {
-        "ERPCode": 2 
-    }
-    ,"Case": 
-    {
-        //"Id": 94
-        "ERPCode": -285
-    }
+    "PageSize": 20
+    // ,"CaseState":
+    //  {
+    //      "ERPCode": -2
+    //  }
+    //  ,"Case": 
+    // {
+    //      //"Id": 94
+    //      "ERPCode": -1
+    // }
 }
+
 ```
 
-## * gRPC Sample Output Message:
+## * WebAPI Sample Output Message:
 
 ```javascript
 {
@@ -77,66 +78,90 @@ The output of the service is the cases inside the individual's cartable
     "cases": [
         {
             "base": {
-                "created": "2024-05-08T13:11:39.8732626+03:30",
-                "lastModified": null,
-                "id": 88,
-                "erpCode": -284,
-                "sortIndex": null,
+                "created": "2024-07-03T10:31:10.5791954+03:30",
+                "lastModified": "2024-07-03T07:01:11.5950357+00:00",
+                "id": 210,
+                "erpCode": -14,
+                "sortIndex": 0,
                 "enableRecord": true
             },
-            "processId": 2,
-            "creatorId": 1,
-            "requestorId": 1,
+            "processId": 6,
+            "creatorId": 103,
+            "requestorId": 103,
             "tasks": [
                 {
                     "base": {
                         "name": "",
-                        "displayName": "پخش درخواست",
-                        "id": 4,
+                        "displayName": "بررسی کارشناسی درخواست",
+                        "id": 14,
                         "erpCode": null,
-                        "sortIndex": null,
+                        "sortIndex": 2,
                         "enableRecord": true
                     },
-                    "performers": null,
-                    "validUserActions": [
+                    "form": {
+                        "name": "ExpertForm",
+                        "displayName": "اقدام کارشناسی",
+                        "id": 1,
+                        "erpCode": -1,
+                        "sortIndex": 1,
+                        "enableRecord": true
+                    },
+                    "performers": [
                         {
                             "base": {
-                                "name": "ReviewState = SendRequest",
-                                "displayName": "ارسال درخواست",
-                                "id": 23,
-                                "erpCode": -23,
-                                "sortIndex": null,
+                                "name": "تغییر رمز عبور",
+                                "displayName": "تغییر رمز عبور",
+                                "id": 240,
+                                "erpCode": 49,
+                                "sortIndex": 49,
                                 "enableRecord": true
                             },
                             "tag": null,
                             "operand": null,
-                            "value": null
+                            "value": "تغییر رمز عبور"
+                        }
+                    ],
+                    "validUserActions": [
+                        {
+                            "base": {
+                                "name": "ReviewState = Reject",
+                                "displayName": "وضعیت بررسی مساوی Reject است.",
+                                "id": 21,
+                                "erpCode": -21,
+                                "sortIndex": -21,
+                                "enableRecord": true
+                            },
+                            "tag": null,
+                            "operand": null,
+                            "value": "Reject"
                         }
                     ],
                     "workItems": [
                         {
                             "base": {
-                                "created": "2024-05-08T13:11:40.1438749+03:30",
+                                "name": "",
+                                "displayName": "",
+                                "created": "2024-07-03T10:31:11.2197085+03:30",
                                 "lastModified": null,
-                                "id": 871,
+                                "id": 1448,
                                 "erpCode": null,
-                                "sortIndex": null,
+                                "sortIndex": 0,
                                 "enableRecord": true
                             },
                             "user": {
-                                "name": "AdmissionManager",
-                                "displayName": "مدیر پذیرش",
-                                "id": 7,
-                                "erpCode": -7,
-                                "sortIndex": null,
+                                "name": "jahankhani",
+                                "displayName": "رضا جهان خانی",
+                                "id": 777,
+                                "erpCode": 1906,
+                                "sortIndex": 1906,
                                 "enableRecord": true
                             },
                             "workItemState": {
                                 "name": "Inbox",
                                 "displayName": "صندوق ورودی",
                                 "id": 1,
-                                "erpCode": 1,
-                                "sortIndex": null,
+                                "erpCode": -1,
+                                "sortIndex": 1,
                                 "enableRecord": true
                             },
                             "occurredUserActions": []
@@ -148,19 +173,20 @@ The output of the service is the cases inside the individual's cartable
                 "name": "Ongoing",
                 "displayName": "در دست بررسی",
                 "id": 2,
-                "erpCode": 2,
-                "sortIndex": null,
+                "erpCode": -2,
+                "sortIndex": 2,
                 "enableRecord": true
             }
         }
     ],
     "outputState": {
         "name": null,
-        "displayName": "Cartable",
+        "displayName": null,
         "id": 0,
-        "erpCode": 0,
+        "erpCode": null,
         "sortIndex": null,
-        "enableRecord": true
+        "enableRecord": null
     }
 }
+
 ```

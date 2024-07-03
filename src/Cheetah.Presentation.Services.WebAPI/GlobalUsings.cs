@@ -1,7 +1,6 @@
 ﻿global using Ardalis.ListStartupServices;
 global using Cheetah.Application.Business.DTOs.Case;
 global using Cheetah.Application.Business.DTOs.Entity;
-global using Cheetah.Application.Business.DTOs.Process;
 global using Cheetah.Application.Business.Interfaces;
 global using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 global using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
