@@ -1,17 +1,38 @@
 ﻿namespace Cheetah.Application.Business.Commands.Case.CaseTaskUser.Create;
 
 public class CreateCaseTaskUserHandler(
-    IRepository<L_CaseTaskUser> _repository)
-  : ICommandHandler<CreateCaseTaskUserCommand, Result<L_CaseTaskUser>>
+    IRepository<F_Task> _taskRepository,
+    IRepository<D_User> _userRepository,
+    IRepository<F_WorkItem> _workItemRepository,
+    IRepository<L_CaseTaskUser> _caseTaskUserRepository)
+  : ICommandHandler<CreateCaseTaskUserCommand, Result<UpdateWorkItemUser_Response>>
 {
-    public async Task<Result<L_CaseTaskUser>> Handle(CreateCaseTaskUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UpdateWorkItemUser_Response>> Handle(CreateCaseTaskUserCommand request, CancellationToken cancellationToken)
     {
-        Guard.Against.Null(request.input.FirstId);
-        Guard.Against.Null(request.input.SecondId);
-        Guard.Against.Null(request.input.ThirdId);
+        Guard.Against.Null(request.input.WorkItem);
+        Guard.Against.Null(request.input.User);
 
-        var _addedCaseTaskUser = await _repository.AddAsync(request.input, cancellationToken);
+        var _workItemSpec = new GetEntitySpec<F_WorkItem>(request.input.WorkItem.Adapt<SimpleClassDTO>(), EnableTrack: true);
+        var _workItem = await _workItemRepository.FirstOrDefaultAsync(_workItemSpec);
 
-        return _addedCaseTaskUser;
+        var _userIdSpec = new GetIdEntitySpec<D_User>(request.input.User.Adapt<SimpleClassDTO>());
+        var _userId = await _userRepository.FirstOrDefaultAsync(_userIdSpec);
+
+        _workItem?
+            .SetUserId(_userId);
+
+        _workItem?
+            .SetDisplayName(request.input.WorkItem.DisplayName);
+
+
+        await _workItemRepository.UpdateAsync(_workItem!);
+
+        UpdateWorkItemUser_Response _response = new();
+
+        _response.WorkItem = _workItem.Adapt<BaseClassWithNameDTO>();
+
+        _response.OutputState = new BaseClassWithNameDTO { Id = 0 };
+
+        return _response;
     }
 }

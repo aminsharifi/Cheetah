@@ -219,7 +219,9 @@ public class RequestService(ILogger<RequestService> logger,
 
         #endregion
 
-        var Outputresult = await iWorkItem.SetCaseTaskUserAsync(l_CaseTaskUser);
+        //SetCaseTaskUser_Output Outputresult = await iWorkItem.SetCaseTaskUserAsync(l_CaseTaskUser);
+
+        SetCaseTaskUser_Output Outputresult = new();
 
         #region Output
 
@@ -229,16 +231,16 @@ public class RequestService(ILogger<RequestService> logger,
 
         //output_Request.OutputState = OutputState.GetBaseClassWithName();
 
-        if (!Outputresult.IsSuccess)
-        {
-            return output_Request;
-        }
+        //if (!Outputresult.IsSuccess)
+        //{
+        //    return output_Request;
+        //}
 
-        var _list_CaseTaskUser = Outputresult.Value;
+        //var _list_CaseTaskUser = Outputresult.Value;
 
-        output_Request.Case = Outputresult?.Value?.Case?.GetBaseClass();
-        output_Request.Task = Outputresult?.Value?.Task?.GetBaseClassWithName();
-        output_Request.User = Outputresult?.Value?.User?.GetBaseClassWithName();
+        //output_Request.Case = Outputresult?.Value?.Case?.GetBaseClass();
+        //output_Request.Task = Outputresult?.Value?.Task?.GetBaseClassWithName();
+        //output_Request.User = Outputresult?.Value?.User?.GetBaseClassWithName();
 
         #endregion
 

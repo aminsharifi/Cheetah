@@ -153,23 +153,10 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         return _performRequest_Response;
     }
-    public async Task<Result<L_CaseTaskUser>> SetCaseTaskUserAsync(L_CaseTaskUser CaseTaskUser)
+    public async Task<Result<UpdateWorkItemUser_Response>> SetCaseTaskUserAsync(UpdateWorkItemUser_Request CaseTaskUser)
     {
-        var _selectedCaseTaskUsers = (await iSender.Send(
-            new ListCaseTaskUserQuery(
-                caseId: CaseTaskUser.FirstId,
-                taskId: CaseTaskUser.SecondId
-                ))).Value;
+        var _addedCaseTaskUsers = await iSender.Send(new CreateCaseTaskUserCommand(CaseTaskUser));
 
-        if (_selectedCaseTaskUsers.Any())
-        {
-            var _addedCaseTaskUsers = (await iSender.Send(
-            new CreateCaseTaskUserCommand(CaseTaskUser))).Value;
-
-            _selectedCaseTaskUsers.Append(_addedCaseTaskUsers);
-        }
-
-        return Result<L_CaseTaskUser>.Success(CaseTaskUser, "با موفقیت ایجاد شد");
+        return Result.Success(_addedCaseTaskUsers.Value.Adapt<UpdateWorkItemUser_Response>() , "با موفقیت ایجاد شد");        
     }
-
 }
