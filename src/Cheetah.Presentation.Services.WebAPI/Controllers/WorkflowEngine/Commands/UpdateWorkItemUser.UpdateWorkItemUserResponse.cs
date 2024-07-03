@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
-public class CreateCaseTaskUserResponse : CreateCaseTaskUser_Response
+public class UpdateWorkItemUserResponse : UpdateWorkItemUser_Response
 {
 
 }

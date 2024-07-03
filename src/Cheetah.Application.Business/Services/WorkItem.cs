@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.DTOs.Process;
-
-namespace Cheetah.Application.Business.Services;
+﻿namespace Cheetah.Application.Business.Services;
 public class WorkItem(ICopyClass _iCopyClass,
     ISender iSender, IMemoryCache _cache,
     IRepository<F_WorkItem> workItemRepository,
@@ -155,10 +153,10 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         return _performRequest_Response;
     }
-    public async Task<Result<CreateCaseTaskUser_Response>> SetCaseTaskUserAsync(CreateCaseTaskUser_Request CaseTaskUser)
+    public async Task<Result<UpdateWorkItemUser_Response>> SetCaseTaskUserAsync(UpdateWorkItemUser_Request CaseTaskUser)
     {
         var _addedCaseTaskUsers = await iSender.Send(new CreateCaseTaskUserCommand(CaseTaskUser));
 
-        return Result.Success(_addedCaseTaskUsers.Value.Adapt<CreateCaseTaskUser_Response>() , "با موفقیت ایجاد شد");        
+        return Result.Success(_addedCaseTaskUsers.Value.Adapt<UpdateWorkItemUser_Response>() , "با موفقیت ایجاد شد");        
     }
 }
