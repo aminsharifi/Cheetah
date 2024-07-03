@@ -18,12 +18,13 @@ public static class GetWorkItem
             .SetName(WorkItemBase.Name)
             .SetDisplayName(WorkItemBase.DisplayName);
 
+        workItem.WorkItemConditions?.Clear();
 
         await Parallel.ForEachAsync(workItemConditions, async (_condition, _cancellatoin) =>
         {
             var _getCondition = await iSender.Send(new GetConditionIdQuery(_condition));
 
-            workItem.WorkItemConditions.Add((L_WorkItemCondition)new L_WorkItemCondition().SetSecondId(_getCondition.Value));
+            workItem.WorkItemConditions?.Add((L_WorkItemCondition)new L_WorkItemCondition().SetSecondId(_getCondition.Value));
         });
 
         return workItem;
