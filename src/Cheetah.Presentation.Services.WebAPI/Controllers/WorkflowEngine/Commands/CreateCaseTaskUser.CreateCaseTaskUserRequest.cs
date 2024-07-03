@@ -1,9 +1,6 @@
 ﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
-public class CreateCaseTaskUserRequest
+public class CreateCaseTaskUserRequest: CreateCaseTaskUser_Request
 {
-    public const string Route = "/WorkflowEngine/Commands/CreateCaseTaskUser";
-    public BaseClassDTO? Case { get; set; }
-    public BaseClassWithNameDTO? Task { get; set; }
-    public BaseClassWithNameDTO? User { get; set; }
+    public const string Route = "/WorkflowEngine/Commands/CreateCaseTaskUser"; 
 }
