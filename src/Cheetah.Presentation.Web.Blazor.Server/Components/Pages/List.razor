@@ -52,13 +52,13 @@
                 </MudButton>
             </div>
             <div class="col-lg-1 col-sm-3">
-            @*     <MudCheckBox Label="فعال" Variant="Variant.Text"
+                <MudCheckBox Label="فعال" Variant="Variant.Text"
                              Value="((D_Entity)Record).EnableRecord"
                              ReadOnly="true"
                              Color="Color.Primary"
                              CheckedIcon="@Icons.Material.Filled.Verified"
                              UnCheckedColor="Color.Error"
-                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox> *@
+                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
             </div>
         }
     }
@@ -92,7 +92,7 @@
 
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {
-    List<D_Entity> _d_Entity = new();
+    List<BaseEntity> _d_Entity = new();
     DateTimeOffset? LastModified;
     Color _color = Color.Default;
 
@@ -182,28 +182,26 @@
 
     private async Task FirstLoadRecords()
     {
+        var _entities = await simpleClassRepository
+        .GetAllByNameAsync(nameof(D_Entity));
 
-        _d_Entity = (await simpleClassRepository
-        .GetAllByNameAsync(nameof(D_Entity)))
-        .Select(item => item.Adapt<D_Entity>())
+        _d_Entity = _entities
+        .Where(x => ((D_Entity)x).Display == true)
         .ToList();
 
         keyValuePair.Clear();
 
-        keyValuePair = (await simpleClassRepository
-          .GetAllByNameAsync(nameof(D_Entity)))
+        keyValuePair = _d_Entity
           .Select(item => new KeyValuePair<string, string>
               (item.Name, item.DisplayName!)).ToDictionary();
-
 
         if (Name == null)
         {
             Name = keyValuePair.First().Key;
-            Sync = _d_Entity.Select(x => x.Sync).First();
+            Sync = (_d_Entity.First() as D_Entity)!.Sync;
             _NavigationManager.NavigateTo($"/List/{Name}");
         }
         await LoadRecords();
-
     }
 
     private async Task LoadRecords()
@@ -212,13 +210,15 @@
         {
             LoadData = false;
 
-            // Record = _d_Entity.Where(x => x.Name == Name).First();
+            Record = _d_Entity
+            .Where(x => x.Name == Name)
+            .First();
 
             LastModified = Record.LastModified;
 
             SetLastModified();
 
-            // Sync = ((D_Entity)Record).Sync;
+            Sync = ((D_Entity)Record).Sync;
 
             Records = await simpleClassRepository.GetAllByNameAsync(Name);
 
@@ -227,8 +227,7 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add((ex.InnerException is not null) ? ex.InnerException.Message : ex.Message,
-    Severity.Error);
+            Snackbar.Add((ex.InnerException is not null) ? ex.InnerException.Message : ex.Message, Severity.Error);
         }
     }
 

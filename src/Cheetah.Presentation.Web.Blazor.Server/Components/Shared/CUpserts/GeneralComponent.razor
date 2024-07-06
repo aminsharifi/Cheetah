@@ -2,16 +2,16 @@
 
 @if (Name == nameof(F_Scenario))
 {
-    @* <CUpsert_Scenario Name="@Name" IsInline="@IsInline"
-                  ParentCallback="@ParentCallback" Id="@Id"
-                  reference="@reference" LoadData="@LoadData"
-                  Title="@Title">
-    </CUpsert_Scenario> *@
-    <CUpsert_ScenarioV2 Name="@Name" IsInline="@IsInline"
+    @*         <CUpsert_Scenario Name="@Name" IsInline="@IsInline"
                       ParentCallback="@ParentCallback" Id="@Id"
                       reference="@reference" LoadData="@LoadData"
                       Title="@Title">
-    </CUpsert_ScenarioV2>
+    </CUpsert_Scenario> *@
+    <CUpsert_ScenarioV3 Name="@Name" IsInline="@IsInline"
+                        ParentCallback="@ParentCallback" Id="@Id"
+                        reference="@reference" LoadData="@LoadData"
+                        Title="@Title">
+    </CUpsert_ScenarioV3>
 }
 else if (Name == nameof(D_Tag))
 {
@@ -24,33 +24,33 @@ else if (Name == nameof(D_Tag))
 else if (Name == nameof(D_Process))
 {
     <CUpsert_Process Name="@Name" IsInline="@IsInline"
-                 ParentCallback="@ParentCallback" Id="@Id"
-                 reference="@reference" LoadData="@LoadData"
-                 Title="@Title">
+                     ParentCallback="@ParentCallback" Id="@Id"
+                     reference="@reference" LoadData="@LoadData"
+                     Title="@Title">
     </CUpsert_Process>
 }
 else if (Name == nameof(D_User))
 {
     <CUpsert_User Name="@Name" IsInline="@IsInline"
-              ParentCallback="@ParentCallback" Id="@Id"
-              reference="@reference" LoadData="@LoadData"
-              Title="@Title">
+                  ParentCallback="@ParentCallback" Id="@Id"
+                  reference="@reference" LoadData="@LoadData"
+                  Title="@Title">
     </CUpsert_User>
 }
 else if (Name == nameof(F_Condition))
 {
     <CUpsert_Condition Name="@Name" IsInline="@IsInline"
-                  ParentCallback="@ParentCallback" Id="@Id"
-                  reference="@reference" LoadData="@LoadData"
-                  Title="@Title">
+                       ParentCallback="@ParentCallback" Id="@Id"
+                       reference="@reference" LoadData="@LoadData"
+                       Title="@Title">
     </CUpsert_Condition>
 }
 else
 {
     <CUpsert_General Name="@Name" IsInline="@IsInline"
-                 ParentCallback="@ParentCallback" Id="@Id"
-                 reference="@reference" LoadData="@LoadData"
-                 Title="@Title">
+                     ParentCallback="@ParentCallback" Id="@Id"
+                     reference="@reference" LoadData="@LoadData"
+                     Title="@Title">
     </CUpsert_General>
 }
 @code {
