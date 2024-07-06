@@ -53,15 +53,15 @@
     [Inject]
     protected ISnackbar Snackbar { get; set; }
 
-    public SimpleLinkClassDTO Record { get; set; }
+    public BaseLink Record { get; set; }
 
-    public SimpleClassDTO FirstClassRecord { get; set; }
+    public BaseEntity FirstClassRecord { get; set; }
 
-    public SimpleClassDTO SecondClassRecord { get; set; }
+    public BaseEntity SecondClassRecord { get; set; }
 
-    public IEnumerable<SimpleClassDTO> FirstClass { get; set; }
+    public IEnumerable<BaseEntity> FirstClass { get; set; }
 
-    public IEnumerable<SimpleClassDTO> SecondClass { get; set; }
+    public IEnumerable<BaseEntity> SecondClass { get; set; }
 
     private String Title { get; set; }
 
@@ -87,19 +87,19 @@
     {
         try
         {
-            Record = await simpleClassRepository.GetAsync(Name, Id) as SimpleLinkClassDTO;
+            Record = await simpleClassRepository.GetAsync(Name, Id) as BaseLink;
 
             if (type == nameof(LinkProperty.First))
             {
                 if (Record.FirstId == 0)
-                    Record.FirstId = LinkId;
+                    Record.SetFirstId(LinkId);
                 else
                     LinkId = Record.FirstId;
             }
             else
             {
                 if (Record.SecondId == 0)
-                    Record.SecondId = LinkId;
+                    Record.SetSecondId(LinkId);
                 else
                     LinkId = Record.SecondId;
             }

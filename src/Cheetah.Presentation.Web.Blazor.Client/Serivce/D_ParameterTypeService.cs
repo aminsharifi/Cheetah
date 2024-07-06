@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Web.Blazor.Client.Service;
+﻿using Cheetah.Domain.Common;
+
+namespace Cheetah.Presentation.Web.Blazor.Client.Service;
 
 public class D_ParameterTypeService : ITableCRUD
 {
@@ -15,13 +17,13 @@ public class D_ParameterTypeService : ITableCRUD
         BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
     }
 
-    public async Task<SimpleClassDTO> GetAsync(long? RecordId)
+    public async Task<BaseEntity> GetAsync(long? RecordId)
     {
         var response = await _httpClient.GetAsync($"/D_ParameterType/{RecordId}");
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            var p_ParameterList = JsonConvert.DeserializeObject<SimpleClassDTO>(content);
+            var p_ParameterList = JsonConvert.DeserializeObject<BaseEntity>(content);
             //product.ImageUrl=BaseServerUrl+product.ImageUrl;
             return p_ParameterList;
         }
@@ -30,7 +32,7 @@ public class D_ParameterTypeService : ITableCRUD
             var errorModel = JsonConvert.DeserializeObject<Result>(content);
             //throw new Exception(errorModel.SimpleClassDTO.DisplayName);
         }
-        return new SimpleClassDTO();
+        return null;
     }
 
     public async Task<IEnumerable<D_TagType>> GetAllAsync()
@@ -51,14 +53,14 @@ public class D_ParameterTypeService : ITableCRUD
         return new List<D_TagType>();
     }
 
-    public async Task<IEnumerable<SimpleClassDTO>> GetAllByNameAsync(string Name)
+    public async Task<IEnumerable<BaseEntity>> GetAllByNameAsync(string Name)
     {
         var response = await _httpClient.GetAsync("/" + Name);
 
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
-            var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<SimpleClassDTO>>(content);
+            var ParameterLists = JsonConvert.DeserializeObject<IEnumerable<BaseEntity>>(content);
             return ParameterLists;
         }
         return null;
@@ -96,30 +98,29 @@ public class D_ParameterTypeService : ITableCRUD
     public Task<Dictionary<string, string>> GetAllTableNameAsync(string SchemaName)
     {
         throw new NotImplementedException();
-    }
-    
+    }    
 
-    public Task<SimpleClassDTO> GetAsync(string type, long? id, bool Tracking = true)
+    public Task<BaseEntity> GetAsync(string type, long? id, bool Tracking = true)
     {
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClassDTO> GetAsync(string type, string? recordName, bool Tracking = true, params string[] TableIncludes)
+    public Task<BaseEntity> GetAsync(string type, string? recordName, bool Tracking = true, params string[] TableIncludes)
     {
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClassDTO> GetLastAsync(string type)
+    public Task<BaseEntity> GetLastAsync(string type)
     {
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClassDTO> CreateAsync(SimpleClassDTO obj_DTO)
+    public Task<BaseEntity> CreateAsync(BaseEntity obj_DTO)
     {
         throw new NotImplementedException();
     }
 
-    public Task<SimpleClassDTO> UpdateAsync(SimpleClassDTO obj_DTO)
+    public Task<BaseEntity> UpdateAsync(BaseEntity obj_DTO)
     {
         throw new NotImplementedException();
     }
@@ -140,6 +141,16 @@ public class D_ParameterTypeService : ITableCRUD
     }
 
     public SimpleLinkClassDTO AddLinkName(SimpleLinkClassDTO simpleLinkClass, SimpleClassDTO? firstClass, SimpleClassDTO? SecondClass)
+    {
+        throw new NotImplementedException();
+    }
+
+    public BaseLink AddLinkName(BaseLink simpleLinkClass, BaseEntity? firstClass, BaseEntity? SecondClass)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<IEnumerable<BaseEntity>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
     {
         throw new NotImplementedException();
     }
