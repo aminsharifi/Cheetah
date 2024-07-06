@@ -71,4 +71,10 @@
 	<ItemGroup>
 	  <None Include="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Components\Shared\CUpserts\CUpsert_ScenarioV3.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
 </Project>
