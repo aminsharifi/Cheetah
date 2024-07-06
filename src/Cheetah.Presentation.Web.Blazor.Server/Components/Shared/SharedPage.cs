@@ -31,16 +31,16 @@ public class SharedPage : MyComponentBase
     public CrudOperation crudOperation { get; set; }
 
     [Parameter]
-    public SimpleClassDTO Record { get; set; }
+    public BaseEntity Record { get; set; }
 
     [Parameter]
-    public IEnumerable<SimpleClassDTO> Records { get; set; } = new List<SimpleClassDTO>();
+    public IEnumerable<BaseEntity> Records { get; set; } = new List<BaseEntity>();
 
     [Parameter]
-    public IEnumerable<SimpleClassDTO> AllRecords { get; set; } = new List<SimpleClassDTO>();
+    public IEnumerable<BaseEntity> AllRecords { get; set; } = new List<BaseEntity>();
 
     [Parameter]
-    public IEnumerable<LinkStateClassDTO> AllLink { get; set; } = new List<LinkStateClassDTO>();
+    public IEnumerable<BaseLink> AllLink { get; set; } = new List<BaseLink>();
 
     [Parameter]
     public LinkStateClassDTO LinkRecords { get; set; } = new();
