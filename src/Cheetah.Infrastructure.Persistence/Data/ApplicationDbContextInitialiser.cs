@@ -54,7 +54,7 @@ public static class InitialiserExtensions
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             builder.Services.AddDbContext<ApplicationDbContext>(
-                b => b.UseLazyLoadingProxies(false)
+                b => b.UseLazyLoadingProxies(true)
                 .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
                 , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
                 ),
@@ -64,7 +64,7 @@ public static class InitialiserExtensions
         else
         {
             builder.Services.AddDbContext<ApplicationDbContext>(
-                b => b.UseLazyLoadingProxies(false)
+                b => b.UseLazyLoadingProxies(true)
                 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
                 x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
                 ServiceLifetime.Transient
