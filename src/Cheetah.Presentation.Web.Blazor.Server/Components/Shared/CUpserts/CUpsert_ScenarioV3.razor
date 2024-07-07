@@ -117,11 +117,14 @@
                                         @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
                                     </th>
                                 }
-                                <th data-sortable="true" width="200px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
+                                <th data-sortable="true" width="100px">
+                                    نام تسک
                                 </th>
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
+                                    <th data-sortable="true" width="200px">
+                                        @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
+                                    </th>
                                     <th data-sortable="true" width="500px">
                                         ایفاکنندگان
                                     </th>
@@ -159,10 +162,23 @@
                                         <MudInput ReadOnly="@ReadonlyState"
                                                   Value="_task?.DisplayName"
                                                   ValueChanged="(string? newValue)=>_task?.SetDisplayName(newValue)"
-                                                  style="width:200px"></MudInput>
+                                                  style="width:100px"></MudInput>
                                     </td>
                                     @if (_scenarioStep == ScenarioStep.Tasks)
                                     {
+                                        <td style="width:100px">
+                                            <MudSelect T="long?" ReadOnly="@ReadonlyState"
+                                                       Value="_task?.FormId"
+                                                       ValueChanged="(long? newValue)=>_task?.SetFormId(newValue)"
+                                                       style="direction:rtl;width:100px">
+                                                @foreach (var _f_Form in _list_F_Form)
+                                                {
+                                                    <MudSelectItem T="long?" Value="@_f_Form.Id">
+                                                        @_f_Form.DisplayName (@_f_Form.Name)
+                                                    </MudSelectItem>
+                                                }
+                                            </MudSelect>
+                                        </td>
                                         <td>
                                             <center>
                                                 <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
@@ -485,6 +501,7 @@
         Actions
     }
     ScenarioStep _scenarioStep = ScenarioStep.Tasks;
+    private List<F_Form> _list_F_Form { get; set; } = new();
     private List<D_Tag> _list_D_Tag { get; set; } = new();
     private List<D_Operand> _list_D_Operand { get; set; } = new();
     private List<D_CaseState> _list_CaseState { get; set; } = new();
@@ -495,6 +512,11 @@
     {
         var _recordId = Record.Id;
         ReadonlyState = await _db.F_Cases.AnyAsync(x => x.SelectedScenarioId == _recordId);
+
+        _list_F_Form = (await simpleClassRepository.GetAllByNameAsync(nameof(F_Form)))
+        .Where(x => x.EnableRecord)
+        .Select(x => (F_Form)x)
+        .ToList();
 
         _list_D_Tag = (await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag)))
         .Where(x => x.EnableRecord)
@@ -542,7 +564,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
