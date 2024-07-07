@@ -150,7 +150,7 @@ public class D_ParameterTypeService : ITableCRUD
         throw new NotImplementedException();
     }
 
-    Task<IEnumerable<BaseEntity>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
+    Task<IEnumerable<BaseLink>> ITableCRUD.GetAllLinkAsync(string type, string sd_Status, long? linkID)
     {
         throw new NotImplementedException();
     }

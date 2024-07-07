@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>		
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
 		<IsPackable>true</IsPackable>
 		<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
 		<UserSecretsId>6a47fed2-0064-4c27-a36d-b83508c5b544</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
-		<Version>8.5.301</Version>
+		<Version>8.5.302</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -15,7 +15,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Remove="Components\Account\Shared\_Imports.razor" />
+		<Content Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
@@ -25,8 +25,8 @@
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.68.0.3415" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
@@ -45,36 +45,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resx\Localization.Designer.cs">
-	    <DependentUpon>Localization.resx</DependentUpon>
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	  </Compile>
+		<Compile Update="Resx\Localization.Designer.cs">
+			<DependentUpon>Localization.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Resx\Localization.resx">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
-	    <Generator>ResXFileCodeGenerator</Generator>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Resx\Localization.resx">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<LastGenOutput>Localization.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <UpToDateCheckInput Remove="Components\Account\Shared\_Imports.razor" />
+		<UpToDateCheckInput Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="Components\Account\Shared\_Imports.razor" />
+		<_ContentIncludedByDefault Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="Components\Account\Shared\_Imports.razor" />
+		<None Include="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="Components\Shared\CUpserts\CUpsert_ScenarioV3.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
+		<Content Update="Components\Shared\CUpserts\CUpsert_ScenarioV3.razor">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
 	</ItemGroup>
 </Project>

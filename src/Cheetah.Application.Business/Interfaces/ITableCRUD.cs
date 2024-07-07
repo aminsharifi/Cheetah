@@ -5,7 +5,7 @@ public interface ITableCRUD
     public Task<IEnumerable<BaseEntity>> GetAllByNameAsync(String type);
     public Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(SimpleClassDTO simpleClass);
     public Task<Dictionary<String, String>> GetAllTableNameAsync(String SchemaName);
-    public Task<IEnumerable<BaseEntity>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID);
+    public Task<IEnumerable<BaseLink>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID);
     public Task<BaseEntity> GetAsync(string type, Int64? id, Boolean Tracking = true);
     public Task<BaseEntity> GetAsync(string type, String? recordName, Boolean Tracking = true, params String[] TableIncludes);
     public Task<BaseEntity> GetLastAsync(string type);

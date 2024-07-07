@@ -149,7 +149,7 @@ public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
         var Result = await Task.FromResult(aa.ToList());
         return Result;
     }
-    public async Task<IEnumerable<BaseEntity>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID)
+    public async Task<IEnumerable<BaseLink>> GetAllLinkAsync(String type, String sd_Status, Int64? linkID)
     {
         if (!String.IsNullOrEmpty(type))
         {
