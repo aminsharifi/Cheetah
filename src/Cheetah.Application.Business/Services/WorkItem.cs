@@ -8,7 +8,8 @@ public class WorkItem(ICopyClass _iCopyClass,
     IRepository<F_Condition> conditionRepository,
     IRepository<D_Process> processRepository,
     IRepository<L_WorkItemCondition> workItemConditionRepository,
-    IRepository<L_CaseCondition> caseConditionRepository
+    IRepository<L_CaseCondition> caseConditionRepository,
+    IRepository<L_CaseTaskUser> caseTaskUserRepository
     ) : IWorkItem
 {
     public async Task<Result<Boolean>> ClearProjectAsync()
@@ -27,6 +28,9 @@ public class WorkItem(ICopyClass _iCopyClass,
 
         var _caseConditions = await caseConditionRepository.ListAsync();
         await caseConditionRepository.DeleteRangeAsync(_caseConditions);
+
+        var _caseTaskUserRepository = await caseTaskUserRepository.ListAsync();
+        await caseTaskUserRepository.DeleteRangeAsync(_caseTaskUserRepository);
 
         var _cases = await caseRepository.ListAsync();
         await caseRepository.DeleteRangeAsync(_cases);
