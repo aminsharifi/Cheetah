@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Version>8.5.301</Version>
+		<Version>8.5.302</Version>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6ea47434-467c-4a8e-95ea-0eb7fbf6968d</UserSecretsId>
@@ -11,12 +11,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Controllers\CreateRequest.CreateRequestRequest.cs" />
-	  <Compile Remove="Controllers\ListCases.ListCasesResponse.cs" />
+		<Compile Remove="Controllers\CreateRequest.CreateRequestRequest.cs" />
+		<Compile Remove="Controllers\ListCases.ListCasesResponse.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="Controllers\WorkflowEngine\Queries\ListCases.ListCasesResponse.cs" />
+		<None Include="Controllers\WorkflowEngine\Queries\ListCases.ListCasesResponse.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -30,8 +30,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.Npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
-	  <ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
+		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.Npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
+		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
 	</ItemGroup>
 
 </Project>
