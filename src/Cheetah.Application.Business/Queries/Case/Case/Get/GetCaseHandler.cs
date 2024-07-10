@@ -30,8 +30,6 @@ public class GetCaseHandler(
             workItemConditions: request.WorkItemConditions, _userRepository: _userRepository,
             workItem: _workItem, cancellationToken: cancellationToken);
 
-        //.Apply(iSender: _ISender, workItem: _workItem, cancellationToken: cancellationToken);
-
         _workItem.SetCase(_case);
 
         _case.WorkItems.Add(_workItem);
