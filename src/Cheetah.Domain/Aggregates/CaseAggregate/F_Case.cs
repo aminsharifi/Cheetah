@@ -5,64 +5,103 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     {
 
     }
+
+    public F_Case(long? RequestorId, long? CreatorId, long? ProcessId, long? ERPCode)
+    {
+        SetRequestorId(RequestorId).
+            SetCreatorId(CreatorId).
+            SetProcessId(ProcessId).
+            SetERPCode(ERPCode);
+    }
+
+    public F_Case SetSelectedScenario(long? selectedScenarioId)
+    {
+        this.SelectedScenarioId = Guard.Against.Null(selectedScenarioId);
+        return this;
+    }
+    public F_Case SetCreatorId(Int64? creatorId)
+    {
+        this.CreatorId = Guard.Against.Null(creatorId);
+        return this;
+    }
+    public F_Case SetProcessId(Int64? processId)
+    {
+        this.ProcessId = Guard.Against.Null(processId);
+        return this;
+    }
+
+    #region CaseState
+    public long? CaseStateId { get; private set; }
+    public virtual D_CaseState? CaseState { get; private set; }
     public F_Case SetCaseStateId(long? caseStateId)
     {
         this.CaseStateId = caseStateId;
         return this;
     }
-    public F_Case SetSelectedScenario(long? selectedScenarioId)
+    public F_Case SetInitializing()
     {
-        this.SelectedScenarioId = selectedScenarioId;
-        return this;
-    }
-    public F_Case SetRequestorId(Int64? requestorId)
-    {
-        this.RequestorId = requestorId;
-        return this;
-    }
-    public F_Case SetCreatorId(Int64? creatorId)
-    {
-        this.CreatorId = creatorId;
-        return this;
-    }
-    public F_Case SetProcessId(Int64? processId)
-    {
-        this.ProcessId = processId;
+        SetCaseStateId(D_CaseState.Initializing.Id);
+        this.CaseState = D_CaseState.Initializing;
         return this;
     }
     public F_Case SetEditing()
     {
-        this.CaseStateId = D_CaseState.Editing.Id;
+        SetCaseStateId(D_CaseState.Editing.Id);
         this.CaseState = D_CaseState.Editing;
         return this;
     }
     public F_Case SetAborted()
     {
-        this.CaseStateId = D_CaseState.Aborted.Id;
+        SetCaseStateId(D_CaseState.Aborted.Id);
         this.CaseState = D_CaseState.Aborted;
         return this;
     }
-    public F_Case SetCompleted()
+    public F_Case SetApproved()
     {
-        this.CaseStateId = D_CaseState.Approved.Id;
+        SetCaseStateId(D_CaseState.Approved.Id);
         this.CaseState = D_CaseState.Approved;
         return this;
     }
     public F_Case SetOngoing()
     {
-        this.CaseStateId = D_CaseState.Ongoing.Id;
+        SetCaseStateId(D_CaseState.Ongoing.Id);
         this.CaseState = D_CaseState.Ongoing;
         return this;
     }
+    public bool IsInitializing()
+    {
+        return CaseStateId == D_CaseState.Initializing.Id;
+    }
+    public bool IsOngoing()
+    {
+        return CaseStateId == D_CaseState.Ongoing.Id;
+    }
+    public bool IsEditing()
+    {
+        return CaseStateId == D_CaseState.Editing.Id;
+    }
+    public bool IsApproved()
+    {
+        return CaseStateId == D_CaseState.Approved.Id;
+    }
+    public bool IsAborted()
+    {
+        return CaseStateId == D_CaseState.Aborted.Id;
+    }
+    #endregion
 
-    #region S_User
+    #region Requestor
+    public F_Case SetRequestorId(Int64? requestorId)
+    {
+        this.RequestorId = Guard.Against.Null(requestorId);
+        return this;
+    }
     public long? RequestorId { get; private set; }
     public long? CreatorId { get; private set; }
     #endregion
 
     #region Enitty
-    public long? CaseStateId { get; private set; }
-    public virtual D_CaseState? CaseState { get; private set; }
+
     public long? ProcessId { get; private set; }
     public long? SelectedScenarioId { get; private set; }
 
@@ -81,33 +120,6 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     {
         return (F_Case)MemberwiseClone();
     }
-
-    #region Getter
-    public bool IsCreating()
-    {
-        return CaseStateId is null;
-    }
-    public bool IsInitializing()
-    {
-        return CaseStateId == D_CaseState.Initializing.Id;
-    }
-    public bool IsOngoing()
-    {
-        return CaseStateId == D_CaseState.Ongoing.Id;
-    }
-    public bool IsEditing()
-    {
-        return CaseStateId == D_CaseState.Editing.Id;
-    }
-    public bool IsCompleted()
-    {
-        return CaseStateId == D_CaseState.Approved.Id;
-    }
-    public bool IsAborted()
-    {
-        return CaseStateId == D_CaseState.Aborted.Id;
-    }
-    #endregion
 
     #endregion
 }

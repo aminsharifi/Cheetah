@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.Case.Get;
+﻿using System.Diagnostics;
+
+namespace Cheetah.Application.Business.Queries.Case.Case.Get;
 
 public static class GetCase
 {
@@ -24,6 +26,7 @@ public static class GetCase
 
         _eRPCode = request.Case?.ERPCode;
         var _creatorSpec = new GetIdEntitySpec<D_User>(request.Creator);
+
         _creatorId = await _userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
 
         var _requestorSpec = new GetIdEntitySpec<D_User>(request.Requestor);
@@ -35,12 +38,7 @@ public static class GetCase
         #endregion
 
         #region Create case        
-        F_Case _case =
-            (F_Case)new F_Case()
-            .SetRequestorId(_requestorId)
-            .SetCreatorId(_creatorId)
-            .SetProcessId(_processId)
-            .SetERPCode(_eRPCode);
+        F_Case _case = new(RequestorId: _requestorId, CreatorId: _creatorId, ProcessId: _processId, ERPCode: _eRPCode);
 
         #endregion
 

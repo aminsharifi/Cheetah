@@ -10,10 +10,6 @@ public static class SetWorkItems
 
         Current_Case = await CreateWorkItems.Handle(iSender, Current_Case);
 
-        F_WorkItem _workItem = new();
-
-        _workItem.SetCase(Current_Case);
-
         await SetCurrentAssignment.Handle(iSender: iSender, taskRepository: taskRepository,
             Current_WorkItem: Current_WorkItem);
 
