@@ -6,26 +6,47 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
 
     }
 
+    #region Tag
+    public virtual D_Tag? Tag { get; private set; }
+    public long? TagId { get; private set; }
     public F_Condition SetTag(D_Tag? tag)
     {
         this.Tag = tag;
+        SetTagId(tag.Id);
         return this;
     }
     public F_Condition SetTagId(Int64? tagId)
     {
         this.TagId = tagId;
+        SetNaming();
         return this;
     }
+    #endregion
+
+    #region Operand
+    public virtual D_Operand? Operand { get; private set; }    
+    public long? OperandId { get; private set; }
     public F_Condition SetOperand(D_Operand? operand)
     {
         this.Operand = operand;
+        SetOperandId(operand.Id);
         return this;
     }
     public F_Condition SetOperandId(Int64? operandId)
     {
         this.OperandId = operandId;
+        SetNaming();
         return this;
     }
+    public F_Condition ResetOperand()
+    {
+        this.OperandId = null;
+        this.Operand = null;
+        SetNaming();
+        return this;
+    }
+    #endregion
+
     public F_Condition SetValue(string value)
     {
         this.Value = value;
@@ -38,13 +59,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
             .SetOperand(operand)
             .SetValue(value);
 
-        return this;
-    }
-    
-    public F_Condition ResetOperand()
-    {
-        this.OperandId = null;
-        this.Operand = null;
         return this;
     }
     public F_Condition SetNaming()
@@ -61,25 +75,6 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         }
         return this;
     }
-
-    private long? _tagId;
-    public long? TagId
-    {
-        get { return _tagId; }
-        private set { _tagId = value; SetNaming(); }
-    }
-
-    public virtual D_Tag? Tag { get; private set; }
-
-    private long? _operandId;
-    public long? OperandId
-    {
-        get { return _operandId; }
-        private set { _operandId = value; SetNaming(); }
-    }
-
-
-    public virtual D_Operand? Operand { get; private set; }
 
     private string? _value;
 
