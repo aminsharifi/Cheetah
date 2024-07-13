@@ -14,22 +14,6 @@ public partial class F_Case : BaseEntity, IAggregateRoot
             SetERPCode(ERPCode);
     }
 
-    public F_Case SetSelectedScenario(long? selectedScenarioId)
-    {
-        this.SelectedScenarioId = Guard.Against.Null(selectedScenarioId);
-        return this;
-    }
-    public F_Case SetCreatorId(Int64? creatorId)
-    {
-        this.CreatorId = Guard.Against.Null(creatorId);
-        return this;
-    }
-    public F_Case SetProcessId(Int64? processId)
-    {
-        this.ProcessId = Guard.Against.Null(processId);
-        return this;
-    }
-
     #region CaseState
     public long? CaseStateId { get; private set; }
     public virtual D_CaseState? CaseState { get; private set; }
@@ -93,16 +77,36 @@ public partial class F_Case : BaseEntity, IAggregateRoot
     #region Requestor
     public F_Case SetRequestorId(Int64? requestorId)
     {
-        this.RequestorId = Guard.Against.Null(requestorId);
+        this.RequestorId = Guard.Against.Null(requestorId, nameof(requestorId));
         return this;
     }
     public long? RequestorId { get; private set; }
+    #endregion
+
+    #region Creator
+    public F_Case SetCreatorId(Int64? creatorId)
+    {
+        this.CreatorId = Guard.Against.Null(creatorId, nameof(creatorId));
+        return this;
+    }
     public long? CreatorId { get; private set; }
     #endregion
 
-    #region Enitty
-
+    #region Process
     public long? ProcessId { get; private set; }
+    public F_Case SetProcessId(Int64? processId)
+    {
+        this.ProcessId = Guard.Against.Null(processId, nameof(processId));
+        return this;
+    }
+    #endregion
+
+    #region SelectedScenario
+    public F_Case SetSelectedScenario(long? selectedScenarioId)
+    {
+        this.SelectedScenarioId = Guard.Against.Null(selectedScenarioId, nameof(selectedScenarioId));
+        return this;
+    }
     public long? SelectedScenarioId { get; private set; }
 
     #endregion
