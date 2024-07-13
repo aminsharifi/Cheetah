@@ -212,10 +212,7 @@ public class RequestService(ILogger<RequestService> logger,
         var _task = request.Task.GetSimpleClass<F_Task>();
         var _user = request.User.GetSimpleClass<D_User>();
 
-        L_CaseTaskUser l_CaseTaskUser = new L_CaseTaskUser()
-            .SetCase(_case)
-            .SetTask(_task)
-            .SetUser(_user);
+        L_CaseTaskUser l_CaseTaskUser = new L_CaseTaskUser(CaseEntity: _case, TaskEntity: _task, UserEntity: _user);
 
         #endregion
 
