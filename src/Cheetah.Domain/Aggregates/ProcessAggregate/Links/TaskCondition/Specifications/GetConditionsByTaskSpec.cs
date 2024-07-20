@@ -4,16 +4,19 @@ namespace Cheetah.Application.Business.Process.TaskCondition.Specifications;
 
 public class GetConditionsByTaskSpec : Specification<L_TaskCondition, long>
 {
-    public GetConditionsByTaskSpec(long? currentTaskId)
+    public GetConditionsByTaskSpec(long CurrentTaskId)
     {
         Query
-            .EnableCache(nameof(GetConditionsByTaskSpec), currentTaskId);
+            .EnableCache(nameof(GetConditionsByTaskSpec), CurrentTaskId);
 
         Query
-         .Where(x => x.FirstId == currentTaskId)
-         .Where(x => x.FirstId.HasValue)
-         .AsNoTracking();
+            .Where(x => x.FirstId == CurrentTaskId)
+            .Where(x => x.FirstId.HasValue);
 
-        Query.Select(x => x.SecondId!.Value);
+        Query
+            .AsNoTracking();
+
+        Query
+            .Select(x => x.SecondId!.Value);
     }
 }

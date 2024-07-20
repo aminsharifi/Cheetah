@@ -2,13 +2,13 @@
 
 public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
 {
-    public GetFlowsByTaskSpec(long? currentTaskId)
+    public GetFlowsByTaskSpec(long? CurrentTaskId)
     {
         Query
-            .EnableCache(nameof(GetFlowsByTaskSpec), currentTaskId);
+            .EnableCache(nameof(GetFlowsByTaskSpec), CurrentTaskId);
 
         Query
-         .Where(x => x.FirstId == currentTaskId);
+         .Where(x => x.FirstId == CurrentTaskId);
 
         Query
          .Include(x => x.Task);

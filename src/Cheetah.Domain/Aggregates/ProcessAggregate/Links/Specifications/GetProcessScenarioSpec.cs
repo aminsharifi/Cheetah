@@ -11,8 +11,10 @@ public class GetProcessScenarioSpec : Specification<L_ProcessScenario>
             .Include(x => x.Scenario);
 
         Query
-            .Where(x => x.FirstId == processId)
-            .Where(x => x.EnableRecord == true)
             .AsNoTracking();
+
+        Query
+            .Where(x => x.FirstId == processId)
+            .Where(x => x.EnableRecord == true);
     }
 }
