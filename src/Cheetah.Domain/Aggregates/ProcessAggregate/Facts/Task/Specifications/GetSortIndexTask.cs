@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Application.Business.Task.Specifications;
 
-public class GetSortIndexTask : Specification<F_Task, long?>
+public class GetSortIndexTask : SingleResultSpecification<F_Task, long?>
 {
     public GetSortIndexTask(long? TaskId)
     {

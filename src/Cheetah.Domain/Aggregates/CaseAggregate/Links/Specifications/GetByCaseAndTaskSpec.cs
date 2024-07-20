@@ -2,12 +2,16 @@
 
 public class GetByCaseAndTaskSpec : Specification<L_CaseTaskUser>
 {
-    public GetByCaseAndTaskSpec(long? caseId, long? taskId)
+    public GetByCaseAndTaskSpec(long? CaseId, long? TaskId)
     {
         Query
-            .Where(x => x.FirstId == caseId)
-            .Where(x => x.SecondId == taskId)
-            .AsNoTracking()
+            .Where(x => x.FirstId == CaseId)
+            .Where(x => x.SecondId == TaskId);
+
+        Query
+            .AsNoTracking();
+
+        Query
             .Include(x => x.Case);
     }
 }

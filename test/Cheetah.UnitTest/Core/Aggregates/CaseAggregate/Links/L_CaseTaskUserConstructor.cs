@@ -4,7 +4,7 @@ using Cheetah.Domain.Entities.Links;
 
 namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Links;
 
-public class L_CaseTaskUserConsttructor
+public class L_CaseTaskUserConstructor
 {
     [Fact]
     public void Set_CaseTaskUser()
