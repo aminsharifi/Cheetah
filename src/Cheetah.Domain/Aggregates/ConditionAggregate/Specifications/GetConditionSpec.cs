@@ -2,13 +2,13 @@
 
 public class GetConditionSpec : Specification<F_Condition>
 {
-    public GetConditionSpec(IEnumerable<long> includeId)
+    public GetConditionSpec(IEnumerable<long> IncludeIds)
     {
         Query
-            .EnableCache(nameof(GetConditionSpec), "+" + includeId.AsString());
+            .EnableCache(nameof(GetConditionSpec), "+" + IncludeIds.AsString());
 
         Query
-            .Where(x => includeId.Contains(x.Id));
+            .Where(x => IncludeIds.Contains(x.Id));
 
         Query
             .AsNoTracking();

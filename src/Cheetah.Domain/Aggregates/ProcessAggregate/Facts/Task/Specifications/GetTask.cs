@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Application.Business.Task.Specifications;
 
-public class GetTask : Specification<F_Task>
+public class GetTask : SingleResultSpecification<F_Task>
 {
     public GetTask(long? taskId)
     {
