@@ -2,7 +2,7 @@
 
 public class GetProcessSpec : Specification<D_Process>
 {
-    public GetProcessSpec(IEnumerable<long?> processIds)
+    public GetProcessSpec(IEnumerable<long> processIds)
     {
         Query
             .EnableCache(nameof(GetProcessSpec), "+" + processIds.AsString());
