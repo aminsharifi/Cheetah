@@ -10,7 +10,7 @@ public partial class F_Task
         .SetERPCode(-1)
         .SetName(nameof(Sample_Scenario_Requestor))
         .SetDisplayName("ثبت درخواست"))
-        .SetScenarioId(1);
+        .SetScenarioId(F_Scenario.SampleScenario.Id);
 
     public static readonly F_Task Sample_Scenario_RequestorManager =
      ((F_Task)new F_Task()
@@ -19,7 +19,7 @@ public partial class F_Task
      .SetERPCode(-2)
      .SetName(nameof(Sample_Scenario_RequestorManager))
      .SetDisplayName("بررسی درخواست"))
-     .SetScenarioId(1);
+     .SetScenarioId(F_Scenario.SampleScenario.Id);
 
     #endregion
 }

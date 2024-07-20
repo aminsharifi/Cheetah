@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Application.Business.Condition.Specifications;
 
-public class GetConditionIdSpec : Specification<F_Condition, long?>
+public class GetConditionIdSpec : Specification<F_Condition, long>
 {
     public GetConditionIdSpec(long? tagId, long? operandId, string? value)
     {
