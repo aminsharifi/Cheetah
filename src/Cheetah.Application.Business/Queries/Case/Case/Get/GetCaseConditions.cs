@@ -23,7 +23,7 @@ public static class GetCaseConditions
                 var _getCondition = await conditionRepository
                 .FirstOrDefaultAsync(new GetIdEntitySpec<F_Condition>
                 (_condition.GetCondition(iMapper).Adapt<SimpleClassDTO>()));
-                f_case!.CaseConditions!.Add((L_CaseCondition)new L_CaseCondition().SetSecondId(_getCondition.Value));
+                f_case!.CaseConditions!.Add((L_CaseCondition)new L_CaseCondition().SetSecondId(_getCondition));
             });
         }
 

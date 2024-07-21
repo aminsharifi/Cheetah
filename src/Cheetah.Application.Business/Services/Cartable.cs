@@ -39,8 +39,7 @@ public class Cartable(
 
             var _userId = await userRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            if (_userId.HasValue)
-                cartableDTO.User.Id = _userId.Value;
+                cartableDTO.User.Id = _userId;
         }
         if (cartableDTO.Process is not null)
         {
@@ -48,8 +47,7 @@ public class Cartable(
 
             var _processId = await processRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            if (_processId.HasValue)
-                cartableDTO.Process.Id = _processId.Value;
+                cartableDTO.Process.Id = _processId;
         }
         if (cartableDTO.Scenario is not null)
         {
@@ -57,8 +55,7 @@ public class Cartable(
 
             var _scenarioId = await scenarioRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            if (_scenarioId.HasValue)
-                cartableDTO.Scenario.Id = _scenarioId.Value;
+                cartableDTO.Scenario.Id = _scenarioId;
         }
         if (cartableDTO.Case is not null)
         {
@@ -66,8 +63,7 @@ public class Cartable(
 
             var _case = await caseRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            if (_case.HasValue)
-                cartableDTO.Case.Id = _case.Value;
+                cartableDTO.Case.Id = _case;
         }
         if (cartableDTO.CaseState is not null)
         {
@@ -75,8 +71,7 @@ public class Cartable(
 
             var _caseState = await caseStateRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-            if (_caseState.HasValue)
-                cartableDTO.CaseState.Id = _caseState.Value;
+                cartableDTO.CaseState.Id = _caseState;
         }
         if (cartableDTO.CaseStateList is not null)
         {
@@ -87,8 +82,7 @@ public class Cartable(
                 GetIdEntitySpec<D_CaseState> _getIdEntitySpec = new(_caseStateList[i]);
                 var _caseState = await caseStateRepository.FirstOrDefaultAsync(_getIdEntitySpec);
 
-                if (_caseState.HasValue)
-                    _caseStateList[i].Id = _caseState.Value;
+                    _caseStateList[i].Id = _caseState;
             }
             cartableDTO.CaseStateList = _caseStateList;
         }
@@ -135,19 +129,19 @@ public class Cartable(
         {
             var _Record = Records.First(x => x.Id == _inboxList[i]?.WorkItem?.Id);
 
-            var _user = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.UserId));
+            var _user = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.UserId!.Value));
 
             _inboxList[i].User = _user.Adapt<SimpleClassDTO>();
 
-            var _requestor = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.RequestorId));
+            var _requestor = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case!.RequestorId!.Value));
 
             _inboxList[i].Requestor = _requestor.Adapt<SimpleClassDTO>();
 
-            var _creator = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.CreatorId));
+            var _creator = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.CreatorId!.Value));
 
             _inboxList[i].Creator = _creator.Adapt<SimpleClassDTO>();
 
-            var _process = await processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(_Record.Case.ProcessId));
+            var _process = await processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(_Record.Case.ProcessId!.Value));
             _inboxList[i].Process = _process.Adapt<SimpleClassDTO>();
 
             var _task = await taskRepository.FirstOrDefaultAsync(new GetTask(_Record.TaskId));
@@ -162,7 +156,7 @@ public class Cartable(
                  (a, b) =>
                  (
                      conditionRepository.FirstOrDefaultAsync(
-                         new GetEntitySpec<F_Condition>(b.SecondId)).GetAwaiter().GetResult()
+                         new GetEntitySpec<F_Condition>(b.SecondId!.Value)).GetAwaiter().GetResult()
                  ).Adapt<SimpleClassDTO>());
             _inboxList[i].ValidUserActions = _validUserActions.ToList();
 
@@ -175,7 +169,7 @@ public class Cartable(
             foreach (var workItemCondition in _Record?.WorkItemConditions)
             {
                 var _condition = await conditionRepository.FirstOrDefaultAsync(
-                    new GetEntitySpec<F_Condition>(workItemCondition.SecondId));
+                    new GetEntitySpec<F_Condition>(workItemCondition.SecondId!.Value));
                 _occurredUserActions.Add(_condition.Adapt<SimpleClassDTO>());
             }
 
