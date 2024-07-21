@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Web.Blazor.Client.Helper;
+﻿namespace Cheetah.Presentation.Web.Blazor.Client.Helper;
 
 public static class IJSRuntimeExtension
 {

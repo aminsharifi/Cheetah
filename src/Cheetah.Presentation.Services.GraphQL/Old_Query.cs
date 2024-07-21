@@ -1,4 +1,8 @@
-﻿
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Aggregates.UserAggregate.Links;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Infrastructure.Persistence.Data;
 
 namespace Cheetah.Presentation.Services.GraphQL;
 

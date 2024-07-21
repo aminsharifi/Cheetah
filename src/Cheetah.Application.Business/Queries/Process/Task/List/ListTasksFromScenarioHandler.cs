@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Process.Task.List;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Facts.Task.Specifications;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Process.Task.List;
 
 public class ListTasksFromScenarioHandler(
     IReadRepository<F_Task> _taskRepository) : IQueryHandler<ListTasksFromScenarioQuery, Result<IEnumerable<F_Task>>>

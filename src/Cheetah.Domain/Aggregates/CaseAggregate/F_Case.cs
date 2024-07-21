@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Domain.Entities.Facts;
 
 /// <summary>
 /// F_Case type is Fact and used for instancing for each request

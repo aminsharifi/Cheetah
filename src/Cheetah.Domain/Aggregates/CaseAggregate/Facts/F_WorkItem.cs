@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Domain.Entities.Facts;
 
 public partial class F_WorkItem : BaseEntity
 {

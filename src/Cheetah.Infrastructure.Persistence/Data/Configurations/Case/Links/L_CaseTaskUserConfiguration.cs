@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Case.Links;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Case.Links;
 
 public class L_CaseTaskUserConfiguration : IEntityTypeConfiguration<L_CaseTaskUser>
 {

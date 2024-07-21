@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.DTOs.Entity;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.DTOs.Entity;
 
 public class GetAllByName_Response
 {

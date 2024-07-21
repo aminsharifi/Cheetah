@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.ProcessScenario.Specifications;
+﻿using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Links.Specifications;
 
 public class GetProcessScenarioSpec : Specification<L_ProcessScenario>
 {

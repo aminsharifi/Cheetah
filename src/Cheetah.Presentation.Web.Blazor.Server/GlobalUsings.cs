@@ -1,16 +1,4 @@
-﻿global using Cheetah.Application.Business.Interfaces;
-global using Cheetah.Domain.Common;
-global using Cheetah.Domain.Common.DTOs;
-global using Cheetah.Domain.Enums;
-global using Cheetah.Infrastructure.Persistence;
-global using Cheetah.Infrastructure.Persistence.Data;
-global using Cheetah.Infrastructure.Persistence.Identity;
-global using Cheetah.Presentation.Web.Blazor.Server.Components;
-global using Cheetah.Presentation.Web.Blazor.Server.Components.Account;
-global using Cheetah.Presentation.Web.Blazor.Server.Helper;
-global using Cheetah.Presentation.Web.Blazor.Server.Resx;
-global using Cheetah.Resx;
-global using Mapster;
+﻿global using Mapster;
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.JSInterop;

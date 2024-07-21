@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Cheetah.Domain.Common.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
 
 namespace Cheetah.Application.Business.Queries.Case.Case.Get;
 

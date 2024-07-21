@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Condition.Specifications;
+﻿using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Helpers;
+
+namespace Cheetah.Domain.Aggregates.ConditionAggregate.Specifications;
 
 public class GetConditionSpec : Specification<F_Condition>
 {

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Facts;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Facts;
 
 public class F_FlowConfiguration : IEntityTypeConfiguration<F_Flow>
 {

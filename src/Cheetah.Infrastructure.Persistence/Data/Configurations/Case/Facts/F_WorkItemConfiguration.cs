@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Case.Facts;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Case.Facts;
 
 public class F_WorkItemConfiguration : IEntityTypeConfiguration<F_WorkItem>
 {

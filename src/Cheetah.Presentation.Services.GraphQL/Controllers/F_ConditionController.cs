@@ -1,4 +1,9 @@
-﻿namespace Cheetah.Application.Services.Controllers;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Presentation.Services.GraphQL.Controllers;
 [Route("[controller]")]
 [ApiController]
 public class F_ConditionController : ControllerBase
@@ -6,7 +11,7 @@ public class F_ConditionController : ControllerBase
     private readonly ITableCRUD simpleClassRepository;
     public F_ConditionController(ITableCRUD iP_ParameterListRepository)
     {
-        this.simpleClassRepository = iP_ParameterListRepository;
+        simpleClassRepository = iP_ParameterListRepository;
     }
 
     [HttpGet]

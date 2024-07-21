@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Commands;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Commands;
 
 public class UpdateLinkRequest
 {

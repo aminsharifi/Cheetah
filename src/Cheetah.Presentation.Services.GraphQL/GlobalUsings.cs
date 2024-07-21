@@ -1,15 +1,4 @@
 ﻿global using Ardalis.SharedKernel;
-global using Cheetah.Application.Business.Interfaces;
-global using Cheetah.Application.Services.Helper;
-global using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
-global using Cheetah.Domain.Common;
-global using Cheetah.Domain.Common.DTOs;
-global using Cheetah.Domain.Entities.Dimentions;
-global using Cheetah.Domain.Entities.Facts;
-global using Cheetah.Domain.Entities.Links;
-global using Cheetah.Infrastructure.Persistence;
-global using Cheetah.Infrastructure.Persistence.Data;
-global using Cheetah.Presentation.Services.GraphQL;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Mvc;

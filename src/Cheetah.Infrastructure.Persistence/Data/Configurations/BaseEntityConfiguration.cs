@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations;
 
 public static class BaseEntityConfiguration
 {

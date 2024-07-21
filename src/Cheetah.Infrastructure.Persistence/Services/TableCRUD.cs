@@ -1,4 +1,11 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Services;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Enums;
+using Cheetah.Infrastructure.Persistence.Data;
+
+namespace Cheetah.Infrastructure.Persistence.Services;
 
 public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
 {

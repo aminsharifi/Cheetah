@@ -1,3 +1,5 @@
+using Cheetah.Infrastructure.Persistence.Identity;
+
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
 // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.

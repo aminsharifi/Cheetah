@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Process.Process.List;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Application.Business.Queries.Process.Process.List;
 
 public class ListProcessHandler(
     IReadRepository<D_Process> _processRepository) : IQueryHandler<ListProcessQuery, Result<IEnumerable<D_Process>>>

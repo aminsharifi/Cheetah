@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Identity;
+﻿using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Infrastructure.Persistence.Identity;
 public class ApplicationUser : IdentityUser
 {
     [Column(Order = 101)]

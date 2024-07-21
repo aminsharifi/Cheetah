@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Commands.Case.WorkItem.Update;
+﻿using Cheetah.Application.Business.Commands.Case.WorkItem.Create;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Commands.Case.WorkItem.Update;
 
 public static class SetWorkItems
 {

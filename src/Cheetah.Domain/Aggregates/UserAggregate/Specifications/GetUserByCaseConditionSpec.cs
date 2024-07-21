@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.UserCondition.Specifications;
+﻿using Cheetah.Domain.Aggregates.UserAggregate.Links;
+
+namespace Cheetah.Domain.Aggregates.UserAggregate.Specifications;
 
 public class GetUserByCaseConditionSpec : Specification<L_UserCondition, long?>
 {

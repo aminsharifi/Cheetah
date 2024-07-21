@@ -1,3 +1,5 @@
-﻿namespace Cheetah.Application.Business.Queries.Process.ProcessScenario.List;
+﻿using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Application.Business.Queries.Process.ProcessScenario.List;
 
 public record ListProcessScenarioQuery(long processId) : IQuery<Result<IEnumerable<L_ProcessScenario>>>;

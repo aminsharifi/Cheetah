@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Domain.Entities.Facts;
 public partial class F_Condition : BaseEntity, IAggregateRoot
 {
     public F_Condition()

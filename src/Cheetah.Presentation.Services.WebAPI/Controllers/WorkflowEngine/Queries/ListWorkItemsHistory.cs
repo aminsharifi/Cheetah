@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
+﻿using Cheetah.Application.Business.DTOs.Case;
+using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class ListWorkItemsHistory(ILogger<ListWorkItemsHistory> logger, ICartable iCartable)
     : Endpoint<ListWorkItemsHistoryRequest, List<ListWorkItemsHistoryResponse>>

@@ -1,4 +1,16 @@
-﻿namespace Cheetah.Presentation.Services.Shared.Services;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Application.Business.Queries.Process.Task.List;
+using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Common.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Enums;
+using Cheetah.Presentation.Services.Share.Helper;
+using Cheetah_GrpcService;
+
+namespace Cheetah.Presentation.Services.Share.Services;
 
 public class RequestService(ILogger<RequestService> logger,
         ITableCRUD simpleClassRepository, ICartable iCartable, IWorkItem iWorkItem,
@@ -175,7 +187,7 @@ public class RequestService(ILogger<RequestService> logger,
 
         GetAllByName_Output output_Request = new();
 
-        if (String.IsNullOrWhiteSpace(request.TableInput.Name))
+        if (string.IsNullOrWhiteSpace(request.TableInput.Name))
         {
             return output_Request;
         }
@@ -298,7 +310,7 @@ public class RequestService(ILogger<RequestService> logger,
                 FirstId = x.First.Id,
                 SecondId = x.Second.Id,
                 ERPCode = x.ERPCode,
-                EnableRecord = (x.EnableRecord is true)
+                EnableRecord = x.EnableRecord is true
             }),
             (CrudOperation)request.Crud.Value);
 
@@ -470,9 +482,9 @@ public class RequestService(ILogger<RequestService> logger,
 
         #endregion
 
-        var OutputRequest = ((cartableProperty == CartableProperty.Inbox) ?
+        var OutputRequest = cartableProperty == CartableProperty.Inbox ?
            await iCartable.InboxAsync(cartableDTO) :
-           await iCartable.OutboxAsync(cartableDTO));
+           await iCartable.OutboxAsync(cartableDTO);
 
         #region Output
         Cartable_Output _OutputCartable = new();

@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.User.UserCondition.List;
+﻿using Cheetah.Domain.Aggregates.UserAggregate.Links;
+using Cheetah.Domain.Aggregates.UserAggregate.Specifications;
+
+namespace Cheetah.Application.Business.Queries.User.UserCondition.List;
 
 public class ListUserByConditionHandler(
     IReadRepository<L_UserCondition> _userConditionRepository) : IQueryHandler<ListUserByConditionQuery, Result<IEnumerable<long?>>>

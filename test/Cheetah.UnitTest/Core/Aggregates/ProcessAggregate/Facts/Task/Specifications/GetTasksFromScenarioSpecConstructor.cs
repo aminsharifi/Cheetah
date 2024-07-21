@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.Task.Specifications;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Facts.Task.Specifications;
 using Cheetah.Domain.Entities.Facts;
 
 namespace Cheetah.UnitTest.Core.Aggregates.ProcessAggregate.Facts.Task.Specifications;

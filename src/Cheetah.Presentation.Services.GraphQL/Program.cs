@@ -1,3 +1,7 @@
+using Cheetah.Infrastructure.Persistence.Data;
+using Cheetah.Presentation.Services.GraphQL;
+using Cheetah.Presentation.Services.GraphQL.Helper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

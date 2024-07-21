@@ -1,3 +1,7 @@
+using Cheetah.Application.Business.Interfaces;
+using Cheetah.Presentation.Web.Blazor.Client;
+using Cheetah.Presentation.Web.Blazor.Client.Serivce;
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");

@@ -1,4 +1,5 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Dimentios;
+﻿using Cheetah.Domain.Entities.Dimentions;
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Dimentios;
 
 public class D_ProcessConfiguration : IEntityTypeConfiguration<D_Process>
 {

@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Case.Specifications;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.CaseAggregate.Specifications;
 public class GetCaseSpec : Specification<F_Case>
 {
     public GetCaseSpec(long? processId, long? eRPCode)

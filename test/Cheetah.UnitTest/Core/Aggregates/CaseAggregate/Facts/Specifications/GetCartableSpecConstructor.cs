@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.WorkItem.Specifications;
-using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
 using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;

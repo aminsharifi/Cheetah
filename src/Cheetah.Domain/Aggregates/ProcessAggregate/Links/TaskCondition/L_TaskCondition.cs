@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
 
 public partial class L_TaskCondition : BaseLink
 {

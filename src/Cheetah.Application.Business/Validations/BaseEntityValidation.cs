@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Validations;
+﻿using Cheetah.Domain.Common;
+
+namespace Cheetah.Application.Business.Validations;
 
 public class BaseEntityValidation : AbstractValidator<BaseEntity>
 {

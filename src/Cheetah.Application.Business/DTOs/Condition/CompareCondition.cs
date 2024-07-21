@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.DTOs.Condition;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.DTOs.Condition;
 
 public static class CompareConditionClass
 {

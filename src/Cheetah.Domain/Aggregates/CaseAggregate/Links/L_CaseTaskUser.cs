@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Domain.Entities.Links;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.CaseAggregate.Links;
 
 public partial class L_CaseTaskUser : BaseLink
 {
@@ -21,22 +25,22 @@ public partial class L_CaseTaskUser : BaseLink
 
     public L_CaseTaskUser SetCase(F_Case caseEntity)
     {
-        this.Case = Guard.Against.Null(caseEntity, nameof(caseEntity));
-        this.SetFirstId(caseEntity?.Id);
+        Case = Guard.Against.Null(caseEntity, nameof(caseEntity));
+        SetFirstId(caseEntity?.Id);
         return this;
     }
 
     public L_CaseTaskUser SetTask(F_Task taskEntity)
     {
-        this.Task = Guard.Against.Null(taskEntity, nameof(taskEntity));
-        this.SetSecondId(taskEntity.Id);
+        Task = Guard.Against.Null(taskEntity, nameof(taskEntity));
+        SetSecondId(taskEntity.Id);
         return this;
     }
 
     public L_CaseTaskUser SetUser(D_User userEntity)
     {
-        this.User = Guard.Against.Null(userEntity, nameof(userEntity));
-        this.SetThirdId(userEntity?.Id);
+        User = Guard.Against.Null(userEntity, nameof(userEntity));
+        SetThirdId(userEntity?.Id);
         return this;
     }
 

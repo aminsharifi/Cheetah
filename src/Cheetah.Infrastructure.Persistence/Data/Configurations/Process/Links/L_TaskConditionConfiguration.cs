@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
 
 public class L_TaskConditionConfiguration : IEntityTypeConfiguration<L_TaskCondition>
 {

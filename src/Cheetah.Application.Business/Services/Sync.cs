@@ -1,4 +1,13 @@
-﻿namespace Cheetah.Application.Business.Services;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Application.Business.Queries.Condition.Condition.Get;
+using Cheetah.Domain.Aggregates.UserAggregate.Links;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Common.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Application.Business.Services;
 
 public class Sync(ISender _ISender,
     IRepository<L_UserCondition> userConditionRepository,
