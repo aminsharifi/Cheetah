@@ -2,20 +2,34 @@
 
 namespace Cheetah.Domain.Common.Specifications;
 
+/// <summary>
+/// Get Entity with its id or other related properties
+/// </summary>
+/// <typeparam name="T">Entity type</typeparam>
 public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
 {
-    public GetEntitySpec(long? input)
+    /// <summary>
+    /// Get entity with its id
+    /// </summary>
+    /// <param name="Id">id of entity</param>
+    public GetEntitySpec(long Id)
     {
-        Query.Where(x => x.Id == input);
-        Query.EnableCache(nameof(GetEntitySpec<T>), input);
+        Query.Where(x => x.Id == Id);
+        Query.EnableCache(nameof(GetEntitySpec<T>), Id);
         Query.AsNoTracking();
     }
+
+    /// <summary>
+    /// Get entity with its related properties
+    /// </summary>
+    /// <param name="input">Related properties</param>
+    /// <param name="EnableTrack">Set track of entity</param>
     public GetEntitySpec(SimpleClassDTO input, bool? EnableTrack = false)
     {
         var Find = false;
 
-        Query
-            .EnableCache(nameof(GetEntitySpec<T>), input);
+        Query.EnableCache(nameof(GetEntitySpec<T>), input);
+
         if (EnableTrack == false)
         {
             Query.AsNoTracking();
@@ -36,11 +50,6 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
         {
             Find = true;
             Query.Where(x => x.ERPCode == input.ERPCode);
-        }
-
-        if (!Find)
-        {
-            Guard.Against.NotFound(nameof(BaseEntity), "There isn't enough info");
         }
     }
 }
