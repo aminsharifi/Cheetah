@@ -1,12 +1,4 @@
 ﻿global using Ardalis.ListStartupServices;
-global using Cheetah.Application.Business.DTOs.Case;
-global using Cheetah.Application.Business.DTOs.Entity;
-global using Cheetah.Application.Business.Interfaces;
-global using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
-global using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
-global using Cheetah.Domain.Common.DTOs;
-global using Cheetah.Domain.Enums;
-global using Cheetah.Infrastructure.Persistence.Data;
 global using FastEndpoints;
 global using FastEndpoints.ApiExplorer;
 global using FastEndpoints.Swagger;

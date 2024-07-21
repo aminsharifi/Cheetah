@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.ProcessScenario.Specifications;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.Specifications;
 using Cheetah.Domain.Entities.Links;
 
 namespace Cheetah.UnitTest.Core.Aggregates.ProcessAggregate.Links.Specifications;

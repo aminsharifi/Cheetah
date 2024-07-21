@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Infrastructure.Persistence.Data;
+
+namespace Cheetah.Infrastructure.Persistence;
 
 public static class InfrastructureServiceExtensions
 {

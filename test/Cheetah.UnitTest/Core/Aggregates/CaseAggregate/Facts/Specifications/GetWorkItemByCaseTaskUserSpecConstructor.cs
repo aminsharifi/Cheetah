@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.Case.WorkItem.Specifications;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
 using Cheetah.Domain.Entities.Facts;
 
 namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Facts.Specifications;

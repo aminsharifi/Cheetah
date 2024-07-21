@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Queries;
+﻿using Cheetah.Application.Business.DTOs.Entity;
+using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Queries;
 
 public class GetAllByName(ILogger<GetAllByName> logger, ITableCRUD simpleClassRepository)
     : Endpoint<GetAllByNameRequest, GetAllByNameResponse>

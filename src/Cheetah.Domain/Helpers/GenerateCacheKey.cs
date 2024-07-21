@@ -1,16 +1,16 @@
-﻿namespace Cheetah.Application.Business.Helper;
+﻿namespace Cheetah.Domain.Helpers;
 
 public static class GenerateCacheKey
 {
-    public static String AsString(this IEnumerable<long?> numbers)
+    public static string AsString(this IEnumerable<long?> numbers)
     {
-        String asString = String
+        string asString = string
             .Join(", ", numbers.Select(n => n.Value.ToString(CultureInfo.InvariantCulture)));
         return asString;
     }
-    public static String AsString(this IEnumerable<long> numbers)
+    public static string AsString(this IEnumerable<long> numbers)
     {
-        String asString = String
+        string asString = string
             .Join(", ", numbers.Select(n => n.ToString(CultureInfo.InvariantCulture)));
         return asString;
     }

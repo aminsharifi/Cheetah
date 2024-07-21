@@ -1,4 +1,9 @@
-﻿namespace Cheetah.Application.Business.Commands.Case.WorkItem;
+﻿using Cheetah.Application.Business.DTOs.Condition;
+using Cheetah.Application.Business.Queries.Condition.Condition.List;
+using Cheetah.Application.Business.Queries.Process.ProcessScenario.List;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Commands.Case.WorkItem;
 
 public static class SelectScenario
 {

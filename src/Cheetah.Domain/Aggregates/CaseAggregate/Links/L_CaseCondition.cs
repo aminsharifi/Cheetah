@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Domain.Entities.Links;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.CaseAggregate.Links;
 
 public partial class L_CaseCondition : BaseLink
 {

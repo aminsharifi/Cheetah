@@ -1,4 +1,12 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Application.Business.Queries.Case.Case.List;
+using Cheetah.Application.Business.Services;
+using Cheetah.Application.Business.Validations;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Infrastructure.Persistence.Identity;
+using Cheetah.Infrastructure.Persistence.Services;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public static class InitialiserExtensions
 {

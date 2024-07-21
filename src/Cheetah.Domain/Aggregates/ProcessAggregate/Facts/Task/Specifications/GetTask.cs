@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Task.Specifications;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Facts.Task.Specifications;
 
 public class GetTask : SingleResultSpecification<F_Task>
 {

@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.WorkItem.Get;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Case.WorkItem.Get;
 
 public class GetWorkItemHandler(
     IReadRepository<D_User> _userRepository,

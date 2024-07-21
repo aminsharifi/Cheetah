@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.Case.List;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Specifications;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Case.Case.List;
 
 public class ListDetailCasesHandler(
     IReadRepository<F_Case> caseRepository) : IQueryHandler<ListDetailCasesQuery, Result<IEnumerable<F_Case>>>

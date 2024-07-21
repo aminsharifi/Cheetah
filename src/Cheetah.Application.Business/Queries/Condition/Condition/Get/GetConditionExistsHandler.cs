@@ -1,4 +1,10 @@
-﻿namespace Cheetah.Application.Business.Queries.Condition.Condition.Get;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.Specifications;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Common.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Condition.Condition.Get;
 
 /// <summary>
 /// Queries don't necessarily need to use repository methods, but they can if it's convenient

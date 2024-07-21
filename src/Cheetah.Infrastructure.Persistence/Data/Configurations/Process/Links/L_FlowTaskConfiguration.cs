@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Process.Links;
 
 public class L_FlowTaskConfiguration : IEntityTypeConfiguration<L_FlowTask>
 {

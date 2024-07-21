@@ -1,4 +1,5 @@
-﻿using Cheetah.Application.Business.Helper;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Helpers;
 
 namespace Cheetah.Infrastructure.Persistence.Data;
 

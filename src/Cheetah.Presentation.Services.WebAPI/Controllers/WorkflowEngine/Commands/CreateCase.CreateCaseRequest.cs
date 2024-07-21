@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
 public class CreateCaseRequest
 {

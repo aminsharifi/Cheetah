@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Task.Specifications;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Facts.Task.Specifications;
 
 public class GetTasksFromScenarioSpec : Specification<F_Task>
 {

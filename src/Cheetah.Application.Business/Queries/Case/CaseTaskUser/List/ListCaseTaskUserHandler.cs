@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.CaseTaskUser.List;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Aggregates.CaseAggregate.Links.Specifications;
+
+namespace Cheetah.Application.Business.Queries.Case.CaseTaskUser.List;
 
 public class ListCaseTaskUserHandler(IReadRepository<L_CaseTaskUser> _repository)
   : IQueryHandler<ListCaseTaskUserQuery, Result<IEnumerable<L_CaseTaskUser>>>

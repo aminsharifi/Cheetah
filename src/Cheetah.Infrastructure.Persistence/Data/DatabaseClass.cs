@@ -1,15 +1,18 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 public class DatabaseClass
 {
-    public static TableType GetTableType(String dBType)
+    public static TableType GetTableType(string dBType)
     {
         return dBType.StartsWith("D") ? TableType.Dimentions : dBType.StartsWith("L") ?
             TableType.Links : TableType.Facts;
     }
-    public static Type GetDBType(String dBType)
+    public static Type GetDBType(string dBType)
     {
-        var _schema = nameof(Cheetah.Domain.Entities) + "." + GetTableType(dBType).ToString();
-        var _namespace = nameof(Cheetah) + "." + nameof(Cheetah.Domain);
+        var _schema = nameof(Domain.Entities) + "." + GetTableType(dBType).ToString();
+        var _namespace = nameof(Cheetah) + "." + nameof(Domain);
         var _returnType = Type.GetType(_namespace + "." + _schema + "." + dBType + "," + _namespace);
 
         return _returnType;

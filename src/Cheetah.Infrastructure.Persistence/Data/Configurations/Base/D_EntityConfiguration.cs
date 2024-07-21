@@ -1,4 +1,5 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Base;
+﻿using Cheetah.Domain.Entities.Dimentions;
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Base;
 
 public class D_EntityConfiguration : IEntityTypeConfiguration<D_Entity>
 {

@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.ProcessScenario.Specifications;
+﻿using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Helpers;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Specifications;
 
 public class GetProcessSpec : Specification<D_Process>
 {

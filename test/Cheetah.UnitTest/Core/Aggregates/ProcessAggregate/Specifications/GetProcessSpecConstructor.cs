@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.ProcessScenario.Specifications;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 
 namespace Cheetah.UnitTest.Core.Aggregates.ProcessAggregate.Specifications;

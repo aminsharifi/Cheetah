@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.Case.Specifications;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
 

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Entity.Specifications;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Domain.Common.Specifications;
 
 public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecification<T> where T : BaseEntity
 {
@@ -18,14 +20,14 @@ public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecific
             //return;
         }
 
-        if (!String.IsNullOrEmpty(input.Name))
+        if (!string.IsNullOrEmpty(input.Name))
         {
             Find = true;
             Query.Where(x => x.Name.ToLower() == input.Name.ToLower());
             _keyBulder.Append(input.Name);
         }
 
-        if (input.ERPCode is not null && input.ERPCode!= 0)
+        if (input.ERPCode is not null && input.ERPCode != 0)
         {
             Find = true;
             Query.Where(x => x.ERPCode == input.ERPCode);

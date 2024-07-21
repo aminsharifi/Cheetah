@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.Case.Get;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Case.Case.Get;
 
 public record GetCaseQuery(SimpleClassDTO Case, SimpleClassDTO Creator,
     SimpleClassDTO Requestor, SimpleClassDTO Process,

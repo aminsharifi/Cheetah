@@ -1,4 +1,10 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Helper;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Helper;
 
 public static class APIConverter
 {
@@ -14,7 +20,7 @@ public static class APIConverter
 
         return _GRPC_BaseClass;
     }
- 
+
     public static T GetSimpleClass<T>(this BaseClassWithNameDTO gRPC_BaseClass, IMapper mapper) where T : BaseEntity
     {
         T _GRPC_BaseClass = mapper.Map<T>(gRPC_BaseClass);
@@ -34,7 +40,7 @@ public static class APIConverter
 
         return _condition;
     }
-  
+
     public static IEnumerable<ConditionDTO> GetConditions(this IEnumerable<F_Condition> f_conditions)
     {
         foreach (var f_condition in f_conditions)
