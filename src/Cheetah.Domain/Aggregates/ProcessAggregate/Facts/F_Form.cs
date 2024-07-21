@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Domain.Common;
+
+namespace Cheetah.Domain.Entities.Facts;
 
 public partial class F_Form : BaseEntity
 {

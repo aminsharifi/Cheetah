@@ -1,4 +1,15 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Aggregates.ProcessAggregate.Links;
+using Cheetah.Domain.Aggregates.UserAggregate.Links;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Entities.Links;
+using Cheetah.Domain.Helpers;
+using Cheetah.Infrastructure.Persistence.Data.Configurations;
+using Cheetah.Infrastructure.Persistence.Identity;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;

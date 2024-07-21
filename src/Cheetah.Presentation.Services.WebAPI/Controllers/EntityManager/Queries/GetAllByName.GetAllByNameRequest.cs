@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Queries;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Queries;
 
 public class GetAllByNameRequest
 {

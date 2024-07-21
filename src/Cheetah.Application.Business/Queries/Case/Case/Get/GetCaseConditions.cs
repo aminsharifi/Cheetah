@@ -1,4 +1,11 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.Case.Get;
+﻿using Cheetah.Application.Business.Helper;
+using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Common.Specifications;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Case.Case.Get;
 
 public static class GetCaseConditions
 {

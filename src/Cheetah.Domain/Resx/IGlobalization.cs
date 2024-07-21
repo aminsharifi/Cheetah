@@ -1,6 +1,6 @@
-﻿namespace Cheetah.Resx;
+﻿namespace Cheetah.Domain.Resx;
 public interface IGlobalization
 {
-    public String GetValue(String Key, object[]? arg0);
-    public String GetValue(String Key);
+    public string GetValue(string Key, object[]? arg0);
+    public string GetValue(string Key);
 }

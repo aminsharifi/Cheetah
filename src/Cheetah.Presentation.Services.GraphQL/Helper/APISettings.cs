@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Services.Helper;
+﻿namespace Cheetah.Presentation.Services.GraphQL.Helper;
 public class APISettings
 {
     public string SecretKey { get; set; }

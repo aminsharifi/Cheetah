@@ -1,4 +1,4 @@
-namespace Cheetah.Application.Services.Controllers;
+namespace Cheetah.Presentation.Services.GraphQL.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase

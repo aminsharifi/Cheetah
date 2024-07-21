@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Case.Links;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Case.Links;
 
 public class L_CaseConditionConfiguration : IEntityTypeConfiguration<L_CaseCondition>
 {

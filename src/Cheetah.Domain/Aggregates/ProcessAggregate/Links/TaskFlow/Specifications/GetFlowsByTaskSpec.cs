@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.TaskFlow.Specifications;
+﻿using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskFlow.Specifications;
 
 public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
 {

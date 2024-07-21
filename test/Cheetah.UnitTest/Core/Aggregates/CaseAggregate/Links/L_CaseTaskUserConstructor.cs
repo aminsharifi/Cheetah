@@ -1,6 +1,6 @@
-﻿using Cheetah.Domain.Entities.Dimentions;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
-using Cheetah.Domain.Entities.Links;
 
 namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Links;
 

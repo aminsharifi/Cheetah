@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Application.Business.DTOs.Case;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.DTOs.Case;
 
 public class CreateCase_Request
 {

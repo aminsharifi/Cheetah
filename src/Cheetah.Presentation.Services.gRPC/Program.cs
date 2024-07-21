@@ -1,3 +1,7 @@
+using Cheetah.Infrastructure.Persistence.Data;
+using Cheetah.Presentation.Services.gRPC.Middleware;
+using Cheetah.Presentation.Services.gRPC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain.Helpers;
+﻿using Cheetah.Domain.Common;
+
+namespace Cheetah.Domain.Helpers;
 
 public static class GetEntity
 {

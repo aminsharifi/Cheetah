@@ -1,3 +1,5 @@
+using Cheetah.Infrastructure.Persistence.Identity;
+
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
 // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user

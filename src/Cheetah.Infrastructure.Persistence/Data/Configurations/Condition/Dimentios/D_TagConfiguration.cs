@@ -1,4 +1,5 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Condition.Dimentios;
+﻿using Cheetah.Domain.Entities.Dimentions;
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.Condition.Dimentios;
 
 public class D_TagConfiguration : IEntityTypeConfiguration<D_Tag>
 {

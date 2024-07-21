@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Condition.Condition.List;
+﻿using Cheetah.Domain.Aggregates.ConditionAggregate.Specifications;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Condition.Condition.List;
 
 public class ListIncludedConditionsHandler(
     IReadRepository<F_Condition> _conditionRepository,

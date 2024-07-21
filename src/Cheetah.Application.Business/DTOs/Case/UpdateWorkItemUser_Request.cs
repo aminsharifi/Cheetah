@@ -1,4 +1,5 @@
-﻿namespace Cheetah.Application.Business.DTOs.Case;
+﻿using Cheetah.Domain.Common.DTOs;
+namespace Cheetah.Application.Business.DTOs.Case;
 
 public class UpdateWorkItemUser_Request
 {

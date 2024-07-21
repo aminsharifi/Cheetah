@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Case.Specifications;
+﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.CaseAggregate.Specifications;
 
 public class GetDetailCasesSpec : Specification<F_Case>
 {

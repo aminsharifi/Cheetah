@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Process.TaskFlow.List;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskFlow.Specifications;
+using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Application.Business.Queries.Process.TaskFlow.List;
 
 public class ListFlowsByTaskHandler(
     IReadRepository<L_TaskFlow> _taskFlowRepository) : IQueryHandler<ListFlowsByTaskQuery, Result<IEnumerable<L_TaskFlow>>>

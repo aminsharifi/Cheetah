@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.Interfaces;
 public interface ITableCRUD
 {
     public Task<Int32> deleteAsync(string type, Int64? id);

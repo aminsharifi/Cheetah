@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Application.Business.DTOs.Case;
+using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Application.Business.Interfaces;
 public interface ICartable
 {
     public Task<Result<IEnumerable<CartableDTO>>> GetCartableAsync(CartableDTO cartableDTO);

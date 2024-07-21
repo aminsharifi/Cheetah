@@ -1,4 +1,6 @@
-﻿using Cheetah.Domain.Common.DTOs;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
 
 namespace Cheetah.Application.Business.Interfaces;
 public interface ICopyClass

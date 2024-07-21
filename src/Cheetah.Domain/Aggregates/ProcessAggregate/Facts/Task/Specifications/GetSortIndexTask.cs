@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Task.Specifications;
+﻿using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Aggregates.ProcessAggregate.Facts.Task.Specifications;
 
 public class GetSortIndexTask : SingleResultSpecification<F_Task, long?>
 {

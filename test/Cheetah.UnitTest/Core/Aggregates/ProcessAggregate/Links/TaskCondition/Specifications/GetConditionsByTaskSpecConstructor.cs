@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.Process.TaskCondition.Specifications;
-using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition;
+using Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskCondition.Specifications;
 using Cheetah.Domain.Entities.Facts;
 
 namespace Cheetah.UnitTest.Core.Aggregates.ProcessAggregate.Links.TaskCondition.Specifications;

@@ -1,4 +1,12 @@
-﻿namespace Cheetah.Application.Business.Queries.Case.WorkItem.Get;
+﻿using Cheetah.Application.Business.Queries.Condition.Condition.Get;
+using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Common.Specifications;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Queries.Case.WorkItem.Get;
 
 public static class GetWorkItem
 {

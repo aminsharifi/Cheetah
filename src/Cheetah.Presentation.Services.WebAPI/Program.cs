@@ -1,3 +1,5 @@
+using Cheetah.Infrastructure.Persistence.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())

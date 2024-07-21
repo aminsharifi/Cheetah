@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
 public class UpdateWorkItemRequest
 {

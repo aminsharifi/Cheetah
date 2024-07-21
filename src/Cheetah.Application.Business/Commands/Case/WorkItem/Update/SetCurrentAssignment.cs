@@ -1,4 +1,11 @@
-﻿namespace Cheetah.Application.Business.Commands.Case.WorkItem.Update;
+﻿using Cheetah.Application.Business.DTOs.Condition;
+using Cheetah.Application.Business.Queries.Case.CaseTaskUser.List;
+using Cheetah.Application.Business.Queries.Condition.Condition.List;
+using Cheetah.Application.Business.Queries.Process.TaskFlow.List;
+using Cheetah.Domain.Aggregates.ProcessAggregate.Facts.Task.Specifications;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Commands.Case.WorkItem.Update;
 
 public static class SetCurrentAssignment
 {

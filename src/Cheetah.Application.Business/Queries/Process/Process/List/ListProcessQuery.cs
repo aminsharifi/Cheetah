@@ -1,3 +1,5 @@
-﻿namespace Cheetah.Application.Business.Queries.Process.Process.List;
+﻿using Cheetah.Domain.Entities.Dimentions;
 
-public record ListProcessQuery(IEnumerable<long?> processIds) : IQuery<Result<IEnumerable<D_Process>>>;
+namespace Cheetah.Application.Business.Queries.Process.Process.List;
+
+public record ListProcessQuery(IEnumerable<long> processIds) : IQuery<Result<IEnumerable<D_Process>>>;

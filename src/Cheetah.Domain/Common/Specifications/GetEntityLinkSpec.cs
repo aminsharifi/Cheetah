@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Entity.Specifications;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Domain.Common.Specifications;
 public class GetEntityLinkSpec<T> : Specification<T, SimpleLinkClassDTO> where T : BaseLink
 {
     public GetEntityLinkSpec()

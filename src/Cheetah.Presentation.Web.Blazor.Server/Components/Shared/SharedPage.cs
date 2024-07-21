@@ -1,4 +1,9 @@
-﻿namespace Cheetah.Presentation.Web.Blazor.Server.Shared;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Enums;
+using Cheetah.Presentation.Web.Blazor.Server.Helper;
+
+namespace Cheetah.Presentation.Web.Blazor.Server.Components.Shared;
 public class SharedPage : MyComponentBase
 {
     #region Parameters
@@ -10,22 +15,22 @@ public class SharedPage : MyComponentBase
     public long? LinkId { get; set; } = 0;
 
     [Parameter]
-    public String Name { get; set; }
+    public string Name { get; set; }
 
     [Parameter]
-    public Boolean? Sync { get; set; }
+    public bool? Sync { get; set; }
 
     [Parameter]
-    public Boolean ReadonlyState { get; set; } = false;
+    public bool ReadonlyState { get; set; } = false;
 
     [Parameter]
-    public String Href { get; set; }
+    public string Href { get; set; }
 
     [Parameter]
-    public String? reference { get; set; }
+    public string? reference { get; set; }
 
     [Parameter]
-    public Boolean IsInline { get; set; } = false;
+    public bool IsInline { get; set; } = false;
 
     [Parameter]
     public CrudOperation crudOperation { get; set; }
@@ -47,19 +52,19 @@ public class SharedPage : MyComponentBase
 
 
     [Parameter]
-    public String? FilterTableName { get; set; }
+    public string? FilterTableName { get; set; }
 
     [Parameter]
-    public String? type { get; set; }
+    public string? type { get; set; }
 
     [Parameter]
-    public String Title { get; set; } = "ایجاد";
+    public string Title { get; set; } = "ایجاد";
 
     [Parameter]
-    public Boolean IsLoading { get; set; } = true;
+    public bool IsLoading { get; set; } = true;
 
     [Parameter]
-    public Boolean LoadData { get; set; } = false;
+    public bool LoadData { get; set; } = false;
 
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }

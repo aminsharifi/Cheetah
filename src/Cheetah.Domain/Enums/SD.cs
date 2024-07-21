@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain.Enums;
+﻿using Cheetah.Domain.Resx;
+
+namespace Cheetah.Domain.Enums;
 
 public class UpsertStatus
 {

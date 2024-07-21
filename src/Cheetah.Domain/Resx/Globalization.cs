@@ -1,8 +1,8 @@
-﻿namespace Cheetah.Resx;
+﻿namespace Cheetah.Domain.Resx;
 public class Globalization : IGlobalization
 {
-    public String AssemblyName { get; set; }
-    public Globalization(String _AssemblyName)
+    public string AssemblyName { get; set; }
+    public Globalization(string _AssemblyName)
     {
         AssemblyName = _AssemblyName;
     }
@@ -16,11 +16,11 @@ public class Globalization : IGlobalization
         var currentNameSapce = assembly.GetName().Name;
         var basename = currentNameSapce + ".Resx.Localization";
         ResourceManager resourceManager =
-        new (basename, assembly);
+        new(basename, assembly);
         return resourceManager;
     }
 
-    public String GetValue(String Key)
+    public string GetValue(string Key)
     {
         var resourceManager = GetResourceManager();
 
@@ -29,12 +29,12 @@ public class Globalization : IGlobalization
         return ReturnValue;
     }
 
-    public String GetValue(String Key, object[]? arg0)
+    public string GetValue(string Key, object[]? arg0)
     {
         var resourceManager = GetResourceManager();
 
         var ReturnValue =
-              String.Format(resourceManager.GetString(Key), arg0);
+              string.Format(resourceManager.GetString(Key), arg0);
         return ReturnValue;
     }
 }

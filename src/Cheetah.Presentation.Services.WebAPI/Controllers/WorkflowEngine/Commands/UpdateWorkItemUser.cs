@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
+﻿using Cheetah.Application.Business.DTOs.Case;
+using Cheetah.Application.Business.Interfaces;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
 public class UpdateWorkItemUser(ILogger<UpdateWorkItemUser> logger, IWorkItem iWorkItem) : Endpoint<UpdateWorkItemUserRequest, UpdateWorkItemUserResponse>
 {

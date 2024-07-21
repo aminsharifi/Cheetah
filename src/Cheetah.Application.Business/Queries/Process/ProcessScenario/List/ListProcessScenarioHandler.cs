@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Application.Business.Queries.Process.ProcessScenario.List;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links.Specifications;
+using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Application.Business.Queries.Process.ProcessScenario.List;
 
 public class ListProcessScenarioHandler(
     IReadRepository<L_ProcessScenario> _processScenarioRepository) : IQueryHandler<ListProcessScenarioQuery, Result<IEnumerable<L_ProcessScenario>>>

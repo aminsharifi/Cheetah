@@ -1,4 +1,4 @@
-namespace Cheetah.Application.Services;
+namespace Cheetah.Presentation.Services.GraphQL;
 
 public class WeatherForecast
 {

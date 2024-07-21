@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.User.Links;
+﻿using Cheetah.Domain.Aggregates.UserAggregate.Links;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.User.Links;
 
 public class L_UserConditionConfiguration : IEntityTypeConfiguration<L_UserCondition>
 {

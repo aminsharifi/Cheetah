@@ -1,4 +1,9 @@
-﻿namespace Cheetah.Application.Business.WorkItem.Specifications;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
 
 public class GetCartableSpec : Specification<F_WorkItem>
 {

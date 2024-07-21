@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Application.Business.Commands.Case.WorkItem.Create;
+﻿using Cheetah.Application.Business.Queries.Process.Task.List;
+using Cheetah.Application.Business.Queries.User.UserCondition.List;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Application.Business.Commands.Case.WorkItem.Create;
 
 public static class CreateWorkItems
 {
