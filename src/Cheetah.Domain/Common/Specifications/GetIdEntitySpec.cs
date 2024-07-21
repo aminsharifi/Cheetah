@@ -2,13 +2,20 @@
 
 namespace Cheetah.Domain.Common.Specifications;
 
-public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecification<T> where T : BaseEntity
+/// <summary>
+/// Get id of entity by its properies
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class GetIdEntitySpec<T> : SingleResultSpecification<T, long> where T : BaseEntity
 {
     public GetIdEntitySpec(SimpleClassDTO input)
     {
         var Find = false;
         StringBuilder _keyBulder = new();
         _keyBulder.Append(input.GetType().ToString());
+
+        Query
+            .EnableCache(nameof(GetIdEntitySpec<T>), _keyBulder.ToString());
 
         Query.AsNoTracking();
 
@@ -33,14 +40,6 @@ public class GetIdEntitySpec<T> : Specification<T, long?>, ISingleResultSpecific
             Query.Where(x => x.ERPCode == input.ERPCode);
             _keyBulder.Append(input.ERPCode);
         }
-
-        if (!Find)
-        {
-            Guard.Against.NotFound(nameof(BaseEntity), "There isn't enough info");
-        }
-
-        Query
-            .EnableCache(nameof(GetIdEntitySpec<T>), _keyBulder.ToString());
 
         Query.Select(x => x.Id);
     }

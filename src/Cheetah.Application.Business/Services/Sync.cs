@@ -25,9 +25,10 @@ public class Sync(ISender _ISender,
         {
             if (Base.Name == nameof(L_UserCondition))
             {
-                GetEntityLinkSpec<L_UserCondition> _getEntityLinkSpec = new();
+                //GetEntityLinkSpec<L_UserCondition> _getEntityLinkSpec = new();
 
-                var _AllUserConditions = await userConditionRepository.ListAsync(_getEntityLinkSpec);
+                var _AllUserConditions = (await userConditionRepository
+                    .ListAsync()).Select(x=>x.Adapt<SimpleLinkClassDTO>());
 
                 var _MostBeAdd = Records.Where(x => !_AllUserConditions
                 .Where(y => y.FirstId == x.FirstId)

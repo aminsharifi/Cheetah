@@ -2,22 +2,34 @@
 
 namespace Cheetah.Domain.Aggregates.UserAggregate.Specifications;
 
-public class GetUserByCaseConditionSpec : Specification<L_UserCondition, long?>
+/// <summary>
+/// Check user that have the same conditions with the case
+/// </summary>
+public class GetUserByCaseConditionSpec : Specification<L_UserCondition, long>
 {
-    public GetUserByCaseConditionSpec(IEnumerable<long?> userFilter, IEnumerable<long?> conditionFilter)
+    /// <summary>
+    /// Check user that have the same conditions with the case
+    /// </summary>
+    /// <param name="UserFilter">User's Ids</param>
+    /// <param name="ConditionFilter">Condition's Ids</param>
+    public GetUserByCaseConditionSpec(IEnumerable<long> UserFilter, IEnumerable<long> ConditionFilter)
     {
         Query
-            .EnableCache(nameof(GetUserByCaseConditionSpec), userFilter + "-" + conditionFilter);
-
-        Query
-            .Select(x => x.FirstId);
-
-        Query
-            .Where(x => userFilter.Contains(x.FirstId))
-            .Where(x => conditionFilter.Contains(x.SecondId))
-            .Where(x => x.EnableRecord);
+            .EnableCache(nameof(GetUserByCaseConditionSpec), UserFilter + "-" + ConditionFilter);
 
         Query
             .AsNoTracking();
+
+        Query
+            .Where(x => x.FirstId != null && UserFilter.Contains(x.FirstId.Value));
+
+        Query
+            .Where(x => x.SecondId != null && ConditionFilter.Contains(x.SecondId.Value));
+
+        Query
+            .Where(x => x.EnableRecord);
+
+        Query
+            .Select(x => x.FirstId!.Value);
     }
 }

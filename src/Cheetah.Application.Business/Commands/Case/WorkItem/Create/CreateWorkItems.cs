@@ -22,18 +22,20 @@ public static class CreateWorkItems
                 var _performerConditions =
                     _task.TaskConditions
                     .Where(x => x.EnableRecord)
-                    .Select(x => x.SecondId);
+                    .Where(x => x.SecondId != null)
+                    .Select(x => x.SecondId!.Value);
 
                 var _CaseCondition =
                     f_Case.CaseConditions
                     .Where(x => x.EnableRecord)
-                    .Select(x => x.SecondId);
+                    .Where(x => x.SecondId != null)
+                    .Select(x => x.SecondId!.Value);
 
                 var _taskUserConditions = (await iSender.Send(new ListUserByConditionQuery(_performerConditions))).Value;
 
                 var _CaseUserConditions = (await iSender.Send(new ListUserByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
 
-                var _userIds = new List<long?>();
+                var _userIds = new List<long>();
 
                 if (_CaseUserConditions.Any())
                 {
