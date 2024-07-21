@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers;
+﻿using Cheetah.Application.Business.DTOs.Case;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class ListCasesResponse : Cartable_Response
 {

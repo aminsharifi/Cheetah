@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Domain.Entities.Links;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+
+namespace Cheetah.Domain.Entities.Links;
 
 public partial class L_ProcessScenario : BaseLink
 {

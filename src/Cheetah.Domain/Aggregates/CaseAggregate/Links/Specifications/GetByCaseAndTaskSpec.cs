@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.CaseTaskUser.Specifications;
+﻿namespace Cheetah.Domain.Aggregates.CaseAggregate.Links.Specifications;
 
 public class GetByCaseAndTaskSpec : Specification<L_CaseTaskUser>
 {

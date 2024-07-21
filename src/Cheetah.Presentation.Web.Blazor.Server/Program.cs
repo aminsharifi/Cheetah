@@ -1,3 +1,9 @@
+using Cheetah.Domain.Resx;
+using Cheetah.Infrastructure.Persistence.Data;
+using Cheetah.Presentation.Web.Blazor.Server.Components;
+using Cheetah.Presentation.Web.Blazor.Server.Components.Account;
+using Cheetah.Presentation.Web.Blazor.Server.Helper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IGlobalization>

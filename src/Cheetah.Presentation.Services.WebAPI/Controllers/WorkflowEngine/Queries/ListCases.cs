@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Enums;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class ListCases(ILogger<ListCases> logger, ICartable iCartable)
     : Endpoint<ListCasesRequest, ListCasesResponse>

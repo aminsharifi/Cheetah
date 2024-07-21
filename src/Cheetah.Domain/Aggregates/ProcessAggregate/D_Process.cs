@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Domain.Entities.Dimentions;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Links;
+namespace Cheetah.Domain.Entities.Dimentions;
 
 public partial class D_Process : BaseEntity, IAggregateRoot
 {

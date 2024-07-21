@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.Links;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Entities.Links;
+
+namespace Cheetah.Domain.Entities.Facts;
 
 public partial class F_Scenario : BaseEntity
 {

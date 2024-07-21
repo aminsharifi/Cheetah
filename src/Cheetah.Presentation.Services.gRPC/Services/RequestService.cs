@@ -1,18 +1,23 @@
-﻿namespace Cheetah.Application.Services.gRPC.Services;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah_GrpcService;
+
+namespace Cheetah.Presentation.Services.gRPC.Services;
 
 public class RequestService : Request.RequestBase
 {
-    public Presentation.Services.Shared.Services.RequestService G_RequestService;
-    public RequestService(ILogger<Presentation.Services.Shared.Services.RequestService> GLogger,
+    public Share.Services.RequestService G_RequestService;
+    public RequestService(ILogger<Share.Services.RequestService> GLogger,
         ITableCRUD GSimpleClassRepository, ICartable GICartable, IWorkItem GIWorkItem,
         ICopyClass GICopyClass, ISync GISync, IMediator GMediator,
         IReadRepository<D_User> _userRepository,
         IReadRepository<F_Condition> _conditionRepository,
         IReadRepository<F_WorkItem> _workItemRepository)
     {
-        G_RequestService = new Presentation.Services.Shared.Services.RequestService(
-        GLogger, GSimpleClassRepository, GICartable, GIWorkItem, GICopyClass, GISync, GMediator,
-        _userRepository, _conditionRepository, _workItemRepository);
+        //G_RequestService = new Presentation.Services.Shared.Services.RequestService(
+        //GLogger, GSimpleClassRepository, GICartable, GIWorkItem, GICopyClass, GISync, GMediator,
+        //_userRepository, _conditionRepository, _workItemRepository);
     }
 
     #region Public methods

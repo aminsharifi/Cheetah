@@ -1,4 +1,8 @@
-﻿namespace Cheetah.Presentation.Services.GraphQL;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Infrastructure.Persistence.Data;
+
+namespace Cheetah.Presentation.Services.GraphQL;
 
 public class OldMutation
 {

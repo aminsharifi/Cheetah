@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+﻿using Cheetah.Domain.Aggregates.ProcessAggregate.DTOs;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 public class CaseDTO
 {
     public BaseClassWithDateDTO? Base { get; set; }

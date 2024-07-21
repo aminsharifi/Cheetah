@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.Entity.Specifications;
+﻿namespace Cheetah.Domain.Common.Specifications;
 public class GetEntitiesSpec<T> : Specification<T> where T : BaseEntity
 {
     public GetEntitiesSpec(IEnumerable<long?> Ids)

@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Business.Entity.Specifications;
+﻿namespace Cheetah.Domain.Common.Specifications;
 public class GetAllERPCodesSpec<T> : Specification<T, long?> where T : BaseEntity
 {
     public GetAllERPCodesSpec()

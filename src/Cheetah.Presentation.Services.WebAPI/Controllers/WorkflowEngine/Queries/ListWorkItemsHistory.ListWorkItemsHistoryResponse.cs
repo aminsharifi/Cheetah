@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class ListWorkItemsHistoryResponse
 {

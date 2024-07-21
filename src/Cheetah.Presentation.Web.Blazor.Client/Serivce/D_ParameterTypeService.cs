@@ -1,6 +1,9 @@
-﻿using Cheetah.Domain.Common;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Dimentions;
 
-namespace Cheetah.Presentation.Web.Blazor.Client.Service;
+namespace Cheetah.Presentation.Web.Blazor.Client.Serivce;
 
 public class D_ParameterTypeService : ITableCRUD
 {
@@ -67,7 +70,7 @@ public class D_ParameterTypeService : ITableCRUD
     }
 
 
-    public async Task<SimpleClassDTO> GetAsyncAsync(string type, long? id, Boolean Tracking = true)
+    public async Task<SimpleClassDTO> GetAsyncAsync(string type, long? id, bool Tracking = true)
     {
         var response = await _httpClient.GetAsync($"/{type} /{id}");
         var content = await response.Content.ReadAsStringAsync();
@@ -98,7 +101,7 @@ public class D_ParameterTypeService : ITableCRUD
     public Task<Dictionary<string, string>> GetAllTableNameAsync(string SchemaName)
     {
         throw new NotImplementedException();
-    }    
+    }
 
     public Task<BaseEntity> GetAsync(string type, long? id, bool Tracking = true)
     {

@@ -1,4 +1,10 @@
-﻿namespace Cheetah.Application.Business.Services;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Application.Business.Queries.Case.CaseTaskUser.Get;
+using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Application.Business.Services;
 public class CopyClass(ISender iSender) : ICopyClass
 {
     public SimpleClassDTO GetSimpleClass(BaseEntity simpleClass)

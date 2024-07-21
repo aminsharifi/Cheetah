@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Application.Services.gRPC.Middleware;
+﻿namespace Cheetah.Presentation.Services.gRPC.Middleware;
 
 public class ServerLoggerInterceptor(ILogger<ServerLoggerInterceptor> _logger) : Interceptor
 {

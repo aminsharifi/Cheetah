@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Infrastructure.Persistence.Data.Configurations.User.Dimentios;
+﻿using Cheetah.Domain.Entities.Dimentions;
+
+namespace Cheetah.Infrastructure.Persistence.Data.Configurations.User.Dimentios;
 
 public class D_UserInformationConfiguration : IEntityTypeConfiguration<D_UserInformation>
 {

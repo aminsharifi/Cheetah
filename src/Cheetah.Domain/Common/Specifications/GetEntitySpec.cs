@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Application.Business.Entity.Specifications;
+﻿using Cheetah.Domain.Common.DTOs;
+
+namespace Cheetah.Domain.Common.Specifications;
 
 public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
 {
@@ -8,7 +10,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
         Query.EnableCache(nameof(GetEntitySpec<T>), input);
         Query.AsNoTracking();
     }
-    public GetEntitySpec(SimpleClassDTO input, Boolean? EnableTrack = false)
+    public GetEntitySpec(SimpleClassDTO input, bool? EnableTrack = false)
     {
         var Find = false;
 
@@ -24,7 +26,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
             Query.Where(x => x.Id == input.Id);
         }
 
-        if (!String.IsNullOrEmpty(input.Name))
+        if (!string.IsNullOrEmpty(input.Name))
         {
             Find = true;
             Query.Where(x => x.Name.ToLower() == input.Name.ToLower());

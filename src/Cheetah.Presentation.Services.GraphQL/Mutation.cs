@@ -1,9 +1,14 @@
-﻿namespace Cheetah.Presentation.Services.GraphQL;
+﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah.Presentation.Services.Share.Services;
+
+namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Mutation
 {
     public async Task<F_Case> CreateRequestAsync(
-        [Service] ILogger<Shared.Services.RequestService> GLogger,
+        [Service] ILogger<RequestService> GLogger,
         [Service] ITableCRUD GSimpleClassRepository,
         [Service] ICartable GICartable,
         [Service] IWorkItem GIWorkItem,

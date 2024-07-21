@@ -1,3 +1,5 @@
+using Cheetah.Infrastructure.Persistence.Identity;
+
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
 internal sealed class IdentityUserAccessor(UserManager<ApplicationUser> userManager, IdentityRedirectManager redirectManager)

@@ -1,6 +1,10 @@
-﻿using Cheetah.Domain.Common.DTOs;
+﻿using Cheetah.Domain.Common;
+using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Entities.Facts;
+using Cheetah_GrpcService;
 
-namespace Cheetah.Presentation.Services.Shared.Helper;
+namespace Cheetah.Presentation.Services.Share.Helper;
 
 public static class CgRPC
 {
@@ -43,8 +47,8 @@ public static class CgRPC
             Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
-            Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty,
+            Name = simpleClass.Name is not null ? simpleClass.Name : string.Empty,
+            DisplayName = simpleClass.DisplayName is not null ? simpleClass.DisplayName : string.Empty,
             EnableRecord = simpleClass.EnableRecord
         };
 
@@ -84,8 +88,8 @@ public static class CgRPC
             Id = simpleClass.Id,
             ERPCode = simpleClass.ERPCode.HasValue ? simpleClass.ERPCode.Value : 0,
             SortIndex = simpleClass.SortIndex.HasValue ? simpleClass.SortIndex.Value : 0,
-            Name = (simpleClass.Name is not null) ? simpleClass.Name : String.Empty,
-            DisplayName = (simpleClass.DisplayName is not null) ? simpleClass.DisplayName : String.Empty,
+            Name = simpleClass.Name is not null ? simpleClass.Name : string.Empty,
+            DisplayName = simpleClass.DisplayName is not null ? simpleClass.DisplayName : string.Empty,
             EnableRecord = simpleClass.EnableRecord
         };
 
@@ -117,7 +121,7 @@ public static class CgRPC
     {
         foreach (var Condition in Conditions)
         {
-            yield return GetCondition(Condition);
+            yield return Condition.GetCondition();
         }
     }
     public static IEnumerable<GRPC_Condition> GetConditions(this IEnumerable<F_Condition> f_conditions)

@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.GraphQL;
+﻿using Cheetah.Infrastructure.Persistence.Data;
+
+namespace Cheetah.Presentation.Services.GraphQL;
 
 public class Query
 {

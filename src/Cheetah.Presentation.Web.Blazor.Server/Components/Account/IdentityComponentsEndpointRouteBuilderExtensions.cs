@@ -1,4 +1,6 @@
-namespace Microsoft.AspNetCore.Routing;
+using Cheetah.Infrastructure.Persistence.Identity;
+
+namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {

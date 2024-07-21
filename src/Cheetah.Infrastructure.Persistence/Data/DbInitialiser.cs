@@ -1,8 +1,11 @@
-﻿namespace Cheetah.Infrastructure.Persistence;
+﻿using Cheetah.Domain.Enums;
+using Cheetah.Infrastructure.Persistence.Identity;
+
+namespace Cheetah.Infrastructure.Persistence.Data;
 
 public interface IDbInitializer
 {
-    Task<Boolean> Initialize();
+    Task<bool> Initialize();
 }
 public class DbInitializer : IDbInitializer
 {
@@ -18,7 +21,7 @@ public class DbInitializer : IDbInitializer
         _userManager = userManager;
     }
 
-    public async Task<Boolean> Initialize()
+    public async Task<bool> Initialize()
     {
         //if (await _userManager?.Users?.AnyAsync(x=>x.UserName == "Delete"))
         //{
@@ -30,12 +33,12 @@ public class DbInitializer : IDbInitializer
             _db.Database.Migrate();
         }
 
-        if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.User))))
+        if (!await _roleManager.RoleExistsAsync(nameof(RoleProperty.User)))
         {
             await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
         }
 
-        if (!(await _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin))))
+        if (!await _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin)))
         {
             await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
 

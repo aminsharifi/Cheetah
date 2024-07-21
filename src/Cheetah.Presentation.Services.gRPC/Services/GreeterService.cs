@@ -1,9 +1,10 @@
 ﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah_GrpcService;
 
-namespace Cheetah.Application.Services.gRPC.Services;
+namespace Cheetah.Presentation.Services.gRPC.Services;
 
 public class GreeterService(ILogger<GreeterService> _logger,
-        ITableCRUD _isimpleClassRepository, 
+        ITableCRUD _isimpleClassRepository,
         ICartable _iCartable, ICopyClass _iCopyClass) : Greeter.GreeterBase
 {
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)

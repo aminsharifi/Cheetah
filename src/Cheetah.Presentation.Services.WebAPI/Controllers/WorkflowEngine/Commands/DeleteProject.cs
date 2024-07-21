@@ -1,4 +1,6 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
+﻿using Cheetah.Application.Business.Interfaces;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 
 public class DeleteProject(ILogger<DeleteProject> logger, IWorkItem iWorkItem) : Endpoint<DeleteProjectRequest, bool>
 {

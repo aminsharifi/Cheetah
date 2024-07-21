@@ -1,4 +1,7 @@
-﻿namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
+﻿using Cheetah.Application.Business.DTOs.Case;
+using Cheetah.Application.Business.Interfaces;
+
+namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class ListOutbox(ILogger<ListOutbox> logger, ICartable iCartable) : Endpoint<ListOutboxRequest, ListOutboxResponse>
 {

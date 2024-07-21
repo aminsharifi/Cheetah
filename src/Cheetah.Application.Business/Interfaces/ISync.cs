@@ -1,4 +1,5 @@
 ﻿using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Entities.Facts;
 using Cheetah.Domain.Enums;
 
 namespace Cheetah.Application.Business.Interfaces;
