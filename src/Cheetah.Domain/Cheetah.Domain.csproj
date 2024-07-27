@@ -32,13 +32,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Ardalis.Result" Version="9.1.0" />
-		<PackageReference Include="Ardalis.SharedKernel" Version="1.5.0" />
+		<PackageReference Include="Ardalis.SharedKernel" Version="1.6.0" />
 		<PackageReference Include="Ardalis.SmartEnum" Version="8.0.0" />
 		<PackageReference Include="Autofac" Version="8.0.0" />
 		<PackageReference Include="DNTPersianUtils.Core" Version="6.3.1" />
+		<PackageReference Include="Elastic.Serilog.Sinks" Version="8.11.1" />
 		<PackageReference Include="Hangfire.Core" Version="1.8.14" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 	</ItemGroup>
 

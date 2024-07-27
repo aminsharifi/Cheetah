@@ -26,7 +26,7 @@
                                      Value="@context.Item.EnableRecord"
                                      Color="Color.Primary"
                                      CheckedIcon="@Icons.Material.Filled.Verified"
-                                     UnCheckedColor="Color.Error"
+                                     UncheckedColor="Color.Error"
                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb" />
                     </CellTemplate>
                 </PropertyColumn>
@@ -125,7 +125,7 @@
 
         var options = new DialogOptions
             {
-                ClassBackground = "my-custom-class",
+                BackgroundClass = "my-custom-class",
                 MaxWidth = MaxWidth.Medium
             };
 
@@ -146,7 +146,7 @@
 
         var result = await dialogresult.Result;
 
-        if (!result.Cancelled && bool.TryParse(result.Data.ToString(), out bool resultbool))
+        if (!result.Canceled && bool.TryParse(result.Data.ToString(), out bool resultbool))
         {
             await ParentCallback.InvokeAsync();
             StateHasChanged();
@@ -156,7 +156,7 @@
     private async Task HandleDelete(long? DeletedState)
     {
         Id = DeletedState;
-        bool? result = await mbox.Show();
+        bool? result = await mbox.ShowAsync();
         if (result.HasValue && result.Value)
         {
             try
