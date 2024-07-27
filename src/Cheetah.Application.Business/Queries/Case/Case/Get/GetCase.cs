@@ -6,19 +6,19 @@ namespace Cheetah.Application.Business.Queries.Case.Case.Get;
 
 public static class GetCase
 {
-    public static async Task<F_Case> Handle(GetCaseQuery request,
-        IReadRepository<D_User> _userRepository,
-        IReadRepository<D_Process> _processRepository,
-        IReadRepository<F_Condition> _conditionRepository,
+    public static async Task<F_Case> Handle(GetCaseQuery Request,
+        IReadRepository<D_User> userRepository,
+        IReadRepository<D_Process> processRepository,
+        IReadRepository<F_Condition> conditionRepository,
         CancellationToken cancellationToken)
     {
         #region Validations
 
-        Guard.Against.Null(request.Creator);
-        Guard.Against.Null(request.Requestor);
-        Guard.Against.Null(request.Process);
-        Guard.Against.Null(request.WorkItemUser);
-        Guard.Against.Null(request.WorkItemConditions);
+        Guard.Against.Null(Request.Creator);
+        Guard.Against.Null(Request.Requestor);
+        Guard.Against.Null(Request.Process);
+        Guard.Against.Null(Request.WorkItemUser);
+        Guard.Against.Null(Request.WorkItemConditions);
 
         #endregion
 
@@ -26,16 +26,16 @@ public static class GetCase
 
         long? _eRPCode, _creatorId, _requestorId, _processId;
 
-        _eRPCode = request.Case?.ERPCode;
-        var _creatorSpec = new GetIdEntitySpec<D_User>(request.Creator);
+        _eRPCode = Request.Case?.ERPCode;
+        var _creatorSpec = new GetIdEntitySpec<D_User>(Request.Creator);
 
-        _creatorId = await _userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
+        _creatorId = await userRepository.FirstOrDefaultAsync(_creatorSpec, cancellationToken);
 
-        var _requestorSpec = new GetIdEntitySpec<D_User>(request.Requestor);
-        _requestorId = await _userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
+        var _requestorSpec = new GetIdEntitySpec<D_User>(Request.Requestor);
+        _requestorId = await userRepository.FirstOrDefaultAsync(_requestorSpec, cancellationToken);
 
-        var _processSpec = new GetIdEntitySpec<D_Process>(request.Process);
-        _processId = await _processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
+        var _processSpec = new GetIdEntitySpec<D_Process>(Request.Process);
+        _processId = await processRepository.FirstOrDefaultAsync(_processSpec, cancellationToken);
 
         #endregion
 

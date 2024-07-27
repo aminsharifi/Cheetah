@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.DTOs.Case;
-using Cheetah.Domain.Aggregates.CaseAggregate.Links;
+﻿using Ardalis.GuardClauses;
+using Cheetah.Application.Business.DTOs.Case;
 using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Common.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
@@ -8,10 +8,8 @@ using Cheetah.Domain.Entities.Facts;
 namespace Cheetah.Application.Business.Commands.Case.CaseTaskUser.Create;
 
 public class CreateCaseTaskUserHandler(
-    IRepository<F_Task> _taskRepository,
     IRepository<D_User> _userRepository,
-    IRepository<F_WorkItem> _workItemRepository,
-    IRepository<L_CaseTaskUser> _caseTaskUserRepository)
+    IRepository<F_WorkItem> _workItemRepository)
   : ICommandHandler<CreateCaseTaskUserCommand, Result<UpdateWorkItemUser_Response>>
 {
     public async Task<Result<UpdateWorkItemUser_Response>> Handle(CreateCaseTaskUserCommand request, CancellationToken cancellationToken)
@@ -22,8 +20,13 @@ public class CreateCaseTaskUserHandler(
         var _workItemSpec = new GetEntitySpec<F_WorkItem>(request.input.WorkItem.Adapt<SimpleClassDTO>(), EnableTrack: true);
         var _workItem = await _workItemRepository.FirstOrDefaultAsync(_workItemSpec);
 
+        Guard.Against.Null(_workItem);
+        Guard.Against.Zero(_workItem!.Id);
+
         var _userIdSpec = new GetIdEntitySpec<D_User>(request.input.User.Adapt<SimpleClassDTO>());
         var _userId = await _userRepository.FirstOrDefaultAsync(_userIdSpec);
+
+        Guard.Against.Zero(_userId);
 
         _workItem?
             .SetUserId(_userId);
