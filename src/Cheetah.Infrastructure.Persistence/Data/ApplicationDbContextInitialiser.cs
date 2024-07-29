@@ -1,5 +1,4 @@
 ﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Queries.Case.Case.List;
 using Cheetah.Application.Business.Services;
 using Cheetah.Application.Business.Validations;
 using Cheetah.Domain.Entities.Dimentions;
@@ -143,7 +142,7 @@ public static class InitialiserExtensions
         var mediatRAssemblies = new[]
         {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(ListDetailCasesHandler)), // UseCases
+            Assembly.GetAssembly(typeof(Cartable)), // UseCases
         };
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
         builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
@@ -189,7 +188,7 @@ public static class InitialiserExtensions
         var mediatRAssemblies = new[]
        {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(ListDetailCasesHandler)), // UseCases
+            Assembly.GetAssembly(typeof(Cartable)), // UseCases
         };
 
         IList<IRegister> registers = config.Scan(mediatRAssemblies);

@@ -39,7 +39,6 @@
 	  <Folder Include="Application\Commands\Condition\" />
 	  <Folder Include="Application\Commands\User\" />
 	  <Folder Include="Application\Commands\Process\" />
-	  <Folder Include="Application\Queries\Case\Case\List\" />
 	  <Folder Include="Application\Queries\Condition\" />
 	  <Folder Include="Application\Queries\User\" />
 	  <Folder Include="Application\Queries\Process\" />

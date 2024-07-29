@@ -5,6 +5,7 @@ using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Common.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
+using Mapster;
 using NSubstitute;
 
 namespace Cheetah.UnitTest.Application.Commands.Case.CaseTaskUser.Create;
@@ -25,8 +26,8 @@ public class CreateCaseTaskUserHandlerHandle
         #endregion
 
         #region User
-        D_User _user = new() { Id = D_User.a_sharifi.Id };
-        BaseClassWithNameDTO _userClassDTO = new BaseClassWithNameDTO() { Id = _user.Id };
+        D_User _user = D_User.a_sharifi;
+        BaseClassWithNameDTO _userClassDTO = _user.Adapt<BaseClassWithNameDTO>();
         #endregion
 
         #region UpdateWorkItemUser_Request
@@ -34,12 +35,6 @@ public class CreateCaseTaskUserHandlerHandle
         _updateWorkItemUser_Request.WorkItem = _workItemClassDTO;
         _updateWorkItemUser_Request.User = _userClassDTO;
         #endregion
-
-        #endregion
-
-        #region Act
-
-        CreateCaseTaskUserHandler _handler = new CreateCaseTaskUserHandler(_userRepository, _workItemRepository);
 
         _workItemRepository
             .FirstOrDefaultAsync(Arg.Any<GetEntitySpec<F_WorkItem>>(), Arg.Any<CancellationToken>())
@@ -49,6 +44,11 @@ public class CreateCaseTaskUserHandlerHandle
             .FirstOrDefaultAsync(Arg.Any<GetIdEntitySpec<D_User>>(), Arg.Any<CancellationToken>())
             .Returns(_user.Id);
 
+        #endregion
+
+        #region Act
+
+        CreateCaseTaskUserHandler _handler = new CreateCaseTaskUserHandler(_userRepository, _workItemRepository);
         var result = await _handler.Handle(new CreateCaseTaskUserCommand(_updateWorkItemUser_Request), CancellationToken.None);
 
         #endregion
