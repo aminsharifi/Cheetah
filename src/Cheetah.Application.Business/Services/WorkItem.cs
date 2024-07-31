@@ -3,12 +3,12 @@ using Cheetah.Application.Business.Commands.Case.WorkItem.Update;
 using Cheetah.Application.Business.DTOs.Case;
 using Cheetah.Application.Business.Interfaces;
 using Cheetah.Application.Business.Queries.Case.Case.Get;
-using Cheetah.Application.Business.Queries.Case.Case.List;
 using Cheetah.Application.Business.Queries.Case.WorkItem.Get;
 using Cheetah.Domain.Aggregates.CaseAggregate.Links;
 using Cheetah.Domain.Aggregates.CaseAggregate.Specifications;
 using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
 using Cheetah.Domain.Common.DTOs;
+using Cheetah.Domain.Common.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
 
@@ -158,8 +158,8 @@ public class WorkItem(ICopyClass _iCopyClass,
             Id = _createdCaseId
         };
 
-        var _getDetailCasesQuery_Output = (await iSender
-            .Send(new ListDetailCasesQuery(_getDetailCasesQuery_Input))).Value.FirstOrDefault();
+        var _getDetailCasesQuery_Output =
+            await caseRepository.FirstOrDefaultAsync(new GetCaseSpec(id: _createdCaseId));
 
         _performRequest_Response.Case = new();
 
