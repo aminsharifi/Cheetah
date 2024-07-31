@@ -22,7 +22,7 @@ public class GetByCaseAndTaskSpecConstructor
 
 
         #region Arrange
-        GetByCaseAndTaskSpec _getByCaseAndTaskSpec = new(CaseId: 1, TaskId: _task.Id);
+        GetByCaseAndTaskSpec _getByCaseAndTaskSpec = new(caseId: 1, taskId: _task.Id);
         var _filterdList = _getByCaseAndTaskSpec.Evaluate(_listcaseTaskUser);
         #endregion
 
