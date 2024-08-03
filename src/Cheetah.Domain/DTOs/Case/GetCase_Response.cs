@@ -1,9 +1,8 @@
 ﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 using Cheetah.Domain.Common.DTOs;
+namespace Cheetah.Domain.DTOs.Case;
 
-namespace Cheetah.Application.Business.DTOs.Case;
-
-public class UpdateWorkItem_Response
+public class GetCase_Response
 {
     public CaseDTO? Case { get; set; }
     public BaseClassWithNameDTO? OutputState { get; set; }

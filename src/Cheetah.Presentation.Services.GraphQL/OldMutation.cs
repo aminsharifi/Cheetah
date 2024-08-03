@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Interfaces.WorkItem;
 using Cheetah.Infrastructure.Persistence.Data;
 
 namespace Cheetah.Presentation.Services.GraphQL;

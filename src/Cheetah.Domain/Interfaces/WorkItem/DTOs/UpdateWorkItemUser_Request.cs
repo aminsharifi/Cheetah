@@ -1,5 +1,5 @@
 ﻿using Cheetah.Domain.Common.DTOs;
-namespace Cheetah.Application.Business.DTOs.Case;
+namespace Cheetah.Domain.Interfaces.WorkItem.DTOs;
 
 public class UpdateWorkItemUser_Request
 {

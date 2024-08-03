@@ -2,6 +2,7 @@
 using Cheetah.Domain.Common;
 using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Interfaces;
 
 namespace Cheetah.Presentation.Web.Blazor.Client.Serivce;
 

@@ -1,6 +1,6 @@
 ﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 
-namespace Cheetah.Application.Business.DTOs.Case;
+namespace Cheetah.Domain.Interfaces.WorkItem.DTOs;
 
 public class UpdateWorkItem_Request
 {

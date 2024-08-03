@@ -3,7 +3,6 @@ using Cheetah.Application.Business.Queries.User.UserCondition.List;
 using Cheetah.Domain.Aggregates.UserAggregate.Links;
 using Cheetah.Domain.Aggregates.UserAggregate.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
-using Elastic.CommonSchema;
 using NSubstitute;
 
 namespace Cheetah.UnitTest.Application.Queries.User.UserCondition.List;
