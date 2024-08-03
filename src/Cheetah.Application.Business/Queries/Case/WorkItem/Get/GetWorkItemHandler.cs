@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.Queries.Condition.Condition.Get;
+﻿using Cheetah.Application.Business.Queries.Condition.Get;
 using Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
 using Cheetah.Domain.Aggregates.CaseAggregate.Links;
 using Cheetah.Domain.Common.Specifications;

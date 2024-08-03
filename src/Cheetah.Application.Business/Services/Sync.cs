@@ -1,5 +1,5 @@
 ﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Queries.Condition.Condition.Get;
+using Cheetah.Application.Business.Queries.Condition.Get;
 using Cheetah.Domain.Aggregates.UserAggregate.Links;
 using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Common.Specifications;

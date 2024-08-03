@@ -1,5 +1,5 @@
 ﻿using Cheetah.Application.Business.DTOs.Condition;
-using Cheetah.Application.Business.Queries.Condition.Condition.List;
+using Cheetah.Application.Business.Queries.Condition.List;
 using Cheetah.Application.Business.Queries.Process.ProcessScenario.List;
 using Cheetah.Domain.Entities.Facts;
 

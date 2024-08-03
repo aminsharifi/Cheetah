@@ -1,7 +1,7 @@
 ﻿using Cheetah.Application.Business.DTOs.Case;
 using Cheetah.Application.Business.Helper;
 using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Queries.Condition.Condition.List;
+using Cheetah.Application.Business.Queries.Condition.List;
 using Cheetah.Application.Business.Queries.Process.TaskCondition.List;
 using Cheetah.Application.Business.Queries.Process.TaskFlow.List;
 using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
@@ -148,7 +148,9 @@ public class Cartable(
             _inboxList[i].Task = _task.Adapt<SimpleClassDTO>();
             _inboxList[i].Form = _task?.Form.Adapt<SimpleClassDTO>();
 
-            var _flows = await iSender.Send(new ListFlowsByTaskQuery(_Record.TaskId));
+            var _taskId = Guard.Against.Null(_Record.TaskId);
+
+            var _flows = await iSender.Send(new ListFlowsByTaskQuery(_taskId));
 
             #region validUserActions
 

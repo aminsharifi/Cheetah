@@ -3,7 +3,7 @@ using Cheetah.Domain.Aggregates.CaseAggregate.Links.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
 
-namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Links;
+namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Links.Specifications;
 
 public class GetByCaseAndTaskSpecConstructor
 {
