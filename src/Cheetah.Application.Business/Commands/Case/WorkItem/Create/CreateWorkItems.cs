@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.Queries.Process.Task.List;
+﻿using Cheetah.Application.Business.Queries.Process.TaskEntity.List;
 using Cheetah.Application.Business.Queries.User.UserCondition.List;
 using Cheetah.Domain.Entities.Facts;
 
@@ -31,9 +31,9 @@ public static class CreateWorkItems
                     .Where(x => x.SecondId != null)
                     .Select(x => x.SecondId!.Value);
 
-                var _taskUserConditions = (await iSender.Send(new ListUserByConditionQuery(_performerConditions))).Value;
+                var _taskUserConditions = (await iSender.Send(new ListUsersByConditionQuery(_performerConditions))).Value;
 
-                var _CaseUserConditions = (await iSender.Send(new ListUserByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
+                var _CaseUserConditions = (await iSender.Send(new ListUsersByCaseConditionQuery(_taskUserConditions, _CaseCondition))).Value;
 
                 var _userIds = new List<long>();
 
