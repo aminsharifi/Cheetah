@@ -1,9 +1,8 @@
-﻿using Ardalis.GuardClauses;
-using Cheetah.Application.Business.DTOs.Case;
-using Cheetah.Domain.Common.DTOs;
+﻿using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Common.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Interfaces.WorkItem.DTOs;
 
 namespace Cheetah.Application.Business.Commands.Case.CaseTaskUser.Create;
 

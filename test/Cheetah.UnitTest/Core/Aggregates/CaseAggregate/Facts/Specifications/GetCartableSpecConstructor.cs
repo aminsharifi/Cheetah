@@ -1,9 +1,9 @@
-﻿using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
-using Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
+﻿using Cheetah.Domain.Aggregates.CaseAggregate.Facts.Specifications;
 using Cheetah.Domain.Common.DTOs;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
 using Cheetah.Domain.Enums;
+using Cheetah.Domain.Interfaces.Cartable.DTOs;
 
 namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Facts.Specifications;
 

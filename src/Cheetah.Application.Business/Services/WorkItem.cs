@@ -1,6 +1,5 @@
 ﻿using Cheetah.Application.Business.Commands.Case.CaseTaskUser.Create;
 using Cheetah.Application.Business.Commands.Case.WorkItem.Update;
-using Cheetah.Application.Business.DTOs.Case;
 using Cheetah.Application.Business.Interfaces;
 using Cheetah.Application.Business.Queries.Case.Case.Get;
 using Cheetah.Application.Business.Queries.Case.WorkItem.Get;
@@ -8,9 +7,10 @@ using Cheetah.Domain.Aggregates.CaseAggregate.Links;
 using Cheetah.Domain.Aggregates.CaseAggregate.Specifications;
 using Cheetah.Domain.Aggregates.ConditionAggregate.DTOs;
 using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Common.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Interfaces.WorkItem;
+using Cheetah.Domain.Interfaces.WorkItem.DTOs;
 
 namespace Cheetah.Application.Business.Services;
 public class WorkItem(ICopyClass _iCopyClass,

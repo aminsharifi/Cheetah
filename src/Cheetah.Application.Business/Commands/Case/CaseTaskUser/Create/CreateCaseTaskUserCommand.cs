@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.DTOs.Case;
+﻿using Cheetah.Domain.Interfaces.WorkItem.DTOs;
 
 namespace Cheetah.Application.Business.Commands.Case.CaseTaskUser.Create;
 

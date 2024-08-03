@@ -1,6 +1,8 @@
 ﻿using Cheetah.Application.Business.Interfaces;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Interfaces.Cartable;
+using Cheetah.Domain.Interfaces.WorkItem;
 using Cheetah.Presentation.Services.Share.Services;
 
 namespace Cheetah.Presentation.Services.GraphQL;

@@ -1,4 +1,5 @@
 ﻿using Cheetah.Application.Business.Interfaces;
+using Cheetah.Domain.Interfaces.Cartable;
 using Cheetah.Domain.Resx;
 using Cheetah.Infrastructure.Persistence.Data;
 
