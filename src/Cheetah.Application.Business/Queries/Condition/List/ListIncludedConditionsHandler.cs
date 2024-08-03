@@ -1,11 +1,11 @@
 ﻿using Cheetah.Domain.Aggregates.ConditionAggregate.Specifications;
 using Cheetah.Domain.Entities.Facts;
 
-namespace Cheetah.Application.Business.Queries.Condition.Condition.List;
+namespace Cheetah.Application.Business.Queries.Condition.List;
 
 public class ListIncludedConditionsHandler(
-    IReadRepository<F_Condition> _conditionRepository,
-    IMemoryCache _cache)
+    IReadRepository<F_Condition> conditionRepository,
+    IMemoryCache cache)
     : IQueryHandler<ListIncludedConditionsQuery, Result<IEnumerable<F_Condition>>>
 {
     public async Task<Result<IEnumerable<F_Condition>>> Handle(ListIncludedConditionsQuery request, CancellationToken cancellationToken)
@@ -15,8 +15,8 @@ public class ListIncludedConditionsHandler(
         foreach (var _GetDetailCase in request.input)
         {
             F_Condition _condition = new();
-            var _key = nameof(GetConditionSpec) + "-" + _GetDetailCase;
-            if (_cache.TryGetValue(_key, out _condition))
+            String _key = nameof(GetConditionSpec) + "-" + _GetDetailCase;
+            if (cache.TryGetValue(_key, out _condition))
             {
                 f_Conditions.Add(_condition);
             }
@@ -25,7 +25,7 @@ public class ListIncludedConditionsHandler(
         if (_needFetch.Any())
         {
             var _userSpec = new GetConditionSpec(_needFetch);
-            var _processScenarios = await _conditionRepository.ListAsync(_userSpec, cancellationToken);
+            var _processScenarios = await conditionRepository.ListAsync(_userSpec, cancellationToken);
 
             f_Conditions.AddRange(_processScenarios);
         }

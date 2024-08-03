@@ -1,5 +1,5 @@
 ﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Queries.Process.Task.List;
+using Cheetah.Application.Business.Queries.Process.TaskEntity.List;
 using Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 using Cheetah.Domain.Aggregates.CaseAggregate.Links;
 using Cheetah.Domain.Common.DTOs;

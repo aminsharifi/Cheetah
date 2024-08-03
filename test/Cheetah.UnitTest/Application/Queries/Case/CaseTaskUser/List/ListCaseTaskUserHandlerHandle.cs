@@ -19,13 +19,12 @@ public class ListCaseTaskUserHandlerHandle
         F_Task _task = F_Task.Sample_Scenario_Requestor;
         D_User _user = D_User.a_sharifi;
 
-        L_CaseTaskUser _caseTaskUser = new L_CaseTaskUser();
+        L_CaseTaskUser _caseTaskUser = new();
         _caseTaskUser.SetCase(_case);
         _caseTaskUser.SetTask(_task);
         _caseTaskUser.SetUser(_user);
 
-        List<L_CaseTaskUser> _listCaseTaskUser = new();
-        _listCaseTaskUser.Add(_caseTaskUser);
+        List<L_CaseTaskUser> _listCaseTaskUser = [_caseTaskUser];
 
         ListCaseTaskUserQuery _listCaseTaskUserQuery = new(
             caseId: _caseTaskUser.Case!.Id,
