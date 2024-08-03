@@ -8,8 +8,5 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence\Cheetah.Infrastructure.Persistence.csproj" />
-	</ItemGroup>
 
 </Project>

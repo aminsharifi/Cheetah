@@ -1,6 +1,6 @@
 ﻿using Cheetah.Domain.Common.DTOs;
 
-namespace Cheetah.Application.Business.DTOs.Entity;
+namespace Cheetah.Domain.DTOs.Entity;
 
 public class GetAllByName_Response
 {
