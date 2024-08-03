@@ -22,7 +22,7 @@ public class CreateCaseTaskUserHandlerHandle
 
         #region WorkItem
         F_WorkItem _workItem = new() { Id = 1 };
-        BaseClassWithNameDTO _workItemClassDTO = new BaseClassWithNameDTO() { Id = _workItem.Id };
+        BaseClassWithNameDTO _workItemClassDTO = new() { Id = _workItem.Id };
         #endregion
 
         #region User
@@ -31,7 +31,7 @@ public class CreateCaseTaskUserHandlerHandle
         #endregion
 
         #region UpdateWorkItemUser_Request
-        UpdateWorkItemUser_Request _updateWorkItemUser_Request = new UpdateWorkItemUser_Request();
+        UpdateWorkItemUser_Request _updateWorkItemUser_Request = new();
         _updateWorkItemUser_Request.WorkItem = _workItemClassDTO;
         _updateWorkItemUser_Request.User = _userClassDTO;
         #endregion
@@ -48,7 +48,7 @@ public class CreateCaseTaskUserHandlerHandle
 
         #region Act
 
-        CreateCaseTaskUserHandler _handler = new CreateCaseTaskUserHandler(_userRepository, _workItemRepository);
+        CreateCaseTaskUserHandler _handler = new(_userRepository, _workItemRepository);
         var result = await _handler.Handle(new CreateCaseTaskUserCommand(_updateWorkItemUser_Request), CancellationToken.None);
 
         #endregion

@@ -4,7 +4,7 @@ namespace Cheetah.Domain.Aggregates.ProcessAggregate.Links.TaskFlow.Specificatio
 
 public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
 {
-    public GetFlowsByTaskSpec(long? CurrentTaskId)
+    public GetFlowsByTaskSpec(long CurrentTaskId)
     {
         Query
             .EnableCache(nameof(GetFlowsByTaskSpec), CurrentTaskId);
