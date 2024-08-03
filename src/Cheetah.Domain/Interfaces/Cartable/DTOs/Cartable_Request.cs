@@ -1,6 +1,6 @@
 ﻿using Cheetah.Domain.Common.DTOs;
 
-namespace Cheetah.Application.Business.DTOs.Case;
+namespace Cheetah.Domain.Interfaces.Cartable.DTOs;
 
 public class Cartable_Request
 {

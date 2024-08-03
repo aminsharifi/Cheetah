@@ -2,6 +2,8 @@
 using Cheetah.Application.Business.Services;
 using Cheetah.Application.Business.Validations;
 using Cheetah.Domain.Entities.Dimentions;
+using Cheetah.Domain.Interfaces.Cartable;
+using Cheetah.Domain.Interfaces.WorkItem;
 using Cheetah.Infrastructure.Persistence.Identity;
 using Cheetah.Infrastructure.Persistence.Services;
 

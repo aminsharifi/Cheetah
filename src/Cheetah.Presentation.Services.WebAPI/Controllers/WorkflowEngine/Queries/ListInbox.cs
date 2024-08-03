@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.DTOs.Case;
-using Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Domain.Interfaces.Cartable;
+using Cheetah.Domain.Interfaces.Cartable.DTOs;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 

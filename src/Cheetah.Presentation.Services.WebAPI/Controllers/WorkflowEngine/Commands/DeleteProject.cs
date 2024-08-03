@@ -1,4 +1,4 @@
-﻿using Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Domain.Interfaces.WorkItem;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 

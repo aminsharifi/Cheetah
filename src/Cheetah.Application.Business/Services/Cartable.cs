@@ -1,6 +1,4 @@
-﻿using Cheetah.Application.Business.DTOs.Case;
-using Cheetah.Application.Business.Helper;
-using Cheetah.Application.Business.Interfaces;
+﻿using Cheetah.Application.Business.Helper;
 using Cheetah.Application.Business.Queries.Condition.List;
 using Cheetah.Application.Business.Queries.Process.TaskCondition.List;
 using Cheetah.Application.Business.Queries.Process.TaskFlow.List;
@@ -14,6 +12,8 @@ using Cheetah.Domain.Common.Specifications;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
 using Cheetah.Domain.Enums;
+using Cheetah.Domain.Interfaces.Cartable;
+using Cheetah.Domain.Interfaces.Cartable.DTOs;
 using Microsoft.Extensions.Logging;
 
 namespace Cheetah.Application.Business.Services;
@@ -30,7 +30,6 @@ public class Cartable(
     IReadRepository<F_Scenario> scenarioRepository,
     IMediator mediator, ILogger<Cartable> logger) : ICartable
 {
-
     public async Task<Result<IEnumerable<CartableDTO>>> GetCartableAsync(CartableDTO cartableDTO)
     {
         if (cartableDTO.User is not null)
@@ -343,6 +342,7 @@ public class Cartable(
         return _response;
     }
 
+  
     public async Task<Result<IEnumerable<CartableDTO>>> OutboxAsync(CartableDTO cartableDTO)
     {
         cartableDTO.WorkItemState = D_WorkItemState.Sent.Adapt<SimpleClassDTO>();

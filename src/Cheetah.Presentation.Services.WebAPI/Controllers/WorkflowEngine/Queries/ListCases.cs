@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Enums;
+﻿using Cheetah.Domain.Enums;
+using Cheetah.Domain.Interfaces.Cartable;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 

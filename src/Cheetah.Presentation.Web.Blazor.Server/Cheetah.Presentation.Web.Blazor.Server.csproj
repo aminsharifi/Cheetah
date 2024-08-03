@@ -22,16 +22,12 @@
 		<PackageReference Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
 		<PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
 		<PackageReference Include="BootstrapBlazor" Version="8.7.3" />
+		<PackageReference Include="DNTPersianUtils.Core" Version="6.3.1" />
 		<PackageReference Include="Google.Apis.Webfonts.v1" Version="1.68.0.3415" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.7" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
 		<PackageReference Include="MudBlazor" Version="7.4.0" />
-		<PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

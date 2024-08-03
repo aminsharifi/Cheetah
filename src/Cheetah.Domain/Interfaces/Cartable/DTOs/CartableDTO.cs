@@ -1,6 +1,6 @@
 ﻿using Cheetah.Domain.Common.DTOs;
 
-namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
+namespace Cheetah.Domain.Interfaces.Cartable.DTOs;
 
 /// <summary>
 /// CartableDTO use for Inbox and Outbox
@@ -8,9 +8,9 @@ namespace Cheetah.Domain.Aggregates.CaseAggregate.DTOs;
 public class CartableDTO
 {
     #region pagination
-    public Int64? PageNumber { get; set; }
-    public Int64? PageSize { get; set; }
-    public Int64? TotalItems { get; set; }
+    public long? PageNumber { get; set; }
+    public long? PageSize { get; set; }
+    public long? TotalItems { get; set; }
     #endregion
 
     #region User
@@ -24,7 +24,7 @@ public class CartableDTO
     public SimpleClassDTO? CaseState { get; set; }
     public IEnumerable<SimpleClassDTO>? CaseStateList { get; set; }
     public SimpleClassDTO? WorkItem { get; set; }
-    public SimpleClassDTO? WorkItemState { get; set; }    
+    public SimpleClassDTO? WorkItemState { get; set; }
     public IEnumerable<SimpleClassDTO> OccurredUserActions { get; set; }
 
     #endregion

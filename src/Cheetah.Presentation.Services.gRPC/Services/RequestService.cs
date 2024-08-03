@@ -1,6 +1,8 @@
 ﻿using Cheetah.Application.Business.Interfaces;
 using Cheetah.Domain.Entities.Dimentions;
 using Cheetah.Domain.Entities.Facts;
+using Cheetah.Domain.Interfaces.Cartable;
+using Cheetah.Domain.Interfaces.WorkItem;
 using Cheetah_GrpcService;
 
 namespace Cheetah.Presentation.Services.gRPC.Services;
