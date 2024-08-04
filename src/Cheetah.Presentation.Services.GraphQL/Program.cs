@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Persistence.Data;
+using Cheetah.Infrastructure.Data;
 using Cheetah.Presentation.Services.GraphQL;
 using Cheetah.Presentation.Services.GraphQL.Helper;
 
@@ -13,7 +13,7 @@ builder.Services.AddControllersWithViews()
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 
-var DomainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
+var domainName = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName;
 
 
 var apiSettingsSection = builder.Configuration.GetSection("APISettings");

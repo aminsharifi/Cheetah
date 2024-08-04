@@ -1,4 +1,4 @@
-﻿using Cheetah.Domain.Resx;
+﻿using Cheetah.Core.Resx;
 using Localization = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization;
 namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
 public enum CNavigationEnum

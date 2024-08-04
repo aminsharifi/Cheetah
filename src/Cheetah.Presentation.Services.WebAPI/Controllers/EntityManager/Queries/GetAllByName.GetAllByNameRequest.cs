@@ -1,4 +1,4 @@
-﻿using Cheetah.Domain.Common.DTOs;
+﻿using Cheetah.Core.Common.DTOs;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Queries;
 

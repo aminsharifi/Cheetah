@@ -1,7 +1,7 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Common;
-using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Core.Common;
+using Cheetah.Core.Common.DTOs;
+using Cheetah.Core.Interfaces;
+using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.Presentation.Services.GraphQL.Controllers;
 [Route("[controller]")]

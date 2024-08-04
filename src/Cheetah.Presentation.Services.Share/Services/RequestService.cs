@@ -1,15 +1,15 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Application.Business.Queries.Process.TaskEntity.List;
-using Cheetah.Domain.Aggregates.CaseAggregate.Links;
-using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Common.Specifications;
-using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
-using Cheetah.Domain.Enums;
-using Cheetah.Domain.Interfaces.Cartable;
-using Cheetah.Domain.Interfaces.Cartable.DTOs;
-using Cheetah.Domain.Interfaces.WorkItem;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Links;
+using Cheetah.Core.Common.DTOs;
+using Cheetah.Core.Common.Specifications;
+using Cheetah.Core.Enums;
+using Cheetah.Core.Interfaces;
+using Cheetah.Core.Interfaces.Cartable;
+using Cheetah.Core.Interfaces.Cartable.DTOs;
+using Cheetah.Core.Interfaces.WorkItem;
+using Cheetah.Core.Entities.Dimentions;
+using Cheetah.Core.Entities.Facts;
 using Cheetah.Presentation.Services.Share.Helper;
+using Cheetah.UseCases.Queries.Process.TaskEntity.List;
 using Cheetah_GrpcService;
 
 namespace Cheetah.Presentation.Services.Share.Services;

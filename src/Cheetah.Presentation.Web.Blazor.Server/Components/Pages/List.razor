@@ -2,7 +2,7 @@
 @page "/List/{Name}"
 @page "/List/{Name}/{reference}"
 @page "/List/{Name}/{FilterTableName}/{Id:long}/{reference}"
-@using Cheetah.Domain.Common
+@using Cheetah.Core.Common
 @using DNTPersianUtils.Core
 
 @inherits SharedPage
@@ -89,8 +89,6 @@
         </ListGenericTypeItems>
     }
 </div>
-
-
 
 <CLoading IsLoading="@IsLoading" AnyRecord="@Records.Any()"></CLoading>
 @code {

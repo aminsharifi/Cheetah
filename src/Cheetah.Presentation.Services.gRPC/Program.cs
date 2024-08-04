@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Persistence.Data;
+using Cheetah.Infrastructure.Data;
 using Cheetah.Presentation.Services.gRPC.Middleware;
 using Cheetah.Presentation.Services.gRPC.Services;
 
