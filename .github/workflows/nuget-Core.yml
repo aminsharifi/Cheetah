@@ -1,4 +1,4 @@
-name: Nuget Domain Package
+name: Nuget Core Package
 
 on:
   schedule:
