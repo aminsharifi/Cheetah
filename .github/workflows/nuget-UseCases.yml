@@ -1,4 +1,4 @@
-name: Nuget Application Package
+name: Nuget UseCases Package
 
 on:
   schedule:
