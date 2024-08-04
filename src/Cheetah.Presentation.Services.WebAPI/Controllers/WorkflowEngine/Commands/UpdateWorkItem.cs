@@ -1,5 +1,5 @@
-﻿using Cheetah.Domain.Interfaces.WorkItem;
-using Cheetah.Domain.Interfaces.WorkItem.DTOs;
+﻿using Cheetah.Core.Interfaces.WorkItem;
+using Cheetah.Core.Interfaces.WorkItem.DTOs;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Commands;
 

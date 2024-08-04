@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Persistence.Data;
+using Cheetah.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

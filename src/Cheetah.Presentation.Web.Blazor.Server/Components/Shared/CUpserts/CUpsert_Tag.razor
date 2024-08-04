@@ -1,4 +1,4 @@
-﻿@using Cheetah.Domain.Common
+﻿@using Cheetah.Core.Common
 @inherits CUpsert_GeneralCode
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
                  Name="D_ParameterList" Id="@Id" reference="@reference"
@@ -11,7 +11,7 @@
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_ParameterType) ))
                 SelectedProcessesChanged="@SelectedTagTypeChanged"
-                CFieldType="@(Domain.Enums.FieldType.CSelect)"
+                CFieldType="@(Core.Enums.FieldType.CSelect)"
                 reference="@reference"></CInput> *@
 
 @*         <CInput @bind-NLValue="(Record as D_Tag).PublicTagCategoryId"
@@ -20,7 +20,7 @@
                 CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))
                 CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_TagCategory) ))
                 SelectedProcessesChanged="@SelectedTagCategoryChanged"
-                CFieldType="@(Domain.Enums.FieldType.CSelect)"
+                CFieldType="@(Core.Enums.FieldType.CSelect)"
                 reference="@reference"></CInput> *@
     </RowTemplate>
 </CEditDimentions>

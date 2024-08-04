@@ -1,7 +1,7 @@
-﻿using Cheetah.Domain.Common;
-using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Entities.Facts;
+﻿using Cheetah.Core.Common;
+using Cheetah.Core.Common.DTOs;
+using Cheetah.Core.Entities.Dimentions;
+using Cheetah.Core.Entities.Facts;
 using Cheetah_GrpcService;
 
 namespace Cheetah.Presentation.Services.Share.Helper;

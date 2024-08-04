@@ -1,7 +1,7 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Interfaces.Cartable;
-using Cheetah.Domain.Resx;
-using Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Core.Interfaces;
+using Cheetah.Core.Interfaces.Cartable;
+using Cheetah.Core.Resx;
+using Cheetah.Infrastructure.Data;
 
 namespace Cheetah.Presentation.Web.Blazor.Server.Helper;
 
