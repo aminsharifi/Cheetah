@@ -1,8 +1,7 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Common;
-using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Entities.Dimentions;
-using Cheetah.Domain.Interfaces;
+﻿using Cheetah.Core.Common;
+using Cheetah.Core.Common.DTOs;
+using Cheetah.Core.Interfaces;
+using Cheetah.Core.Entities.Dimentions;
 
 namespace Cheetah.Presentation.Web.Blazor.Client.Serivce;
 

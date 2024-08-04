@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Persistence.Identity;
+using Cheetah.Infrastructure.Identity;
 
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Account;
 
