@@ -1,4 +1,4 @@
-﻿using Cheetah.Infrastructure.Persistence.Data;
+﻿using Cheetah.Infrastructure.Data;
 
 namespace Cheetah.Presentation.Services.GraphQL;
 

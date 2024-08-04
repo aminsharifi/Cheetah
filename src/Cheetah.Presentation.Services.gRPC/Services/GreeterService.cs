@@ -1,5 +1,5 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Interfaces.Cartable;
+﻿using Cheetah.Core.Interfaces;
+using Cheetah.Core.Interfaces.Cartable;
 using Cheetah_GrpcService;
 
 namespace Cheetah.Presentation.Services.gRPC.Services;

@@ -1,6 +1,6 @@
-﻿using Cheetah.Application.Business.Interfaces;
-using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.DTOs.Entity;
+﻿using Cheetah.Core.Common.DTOs;
+using Cheetah.Core.DTOs.Entity;
+using Cheetah.Core.Interfaces;
 
 namespace Cheetah.Presentation.Services.WebAPI.Controllers.EntityManager.Queries;
 

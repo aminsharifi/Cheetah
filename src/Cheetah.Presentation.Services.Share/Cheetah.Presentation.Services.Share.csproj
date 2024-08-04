@@ -21,8 +21,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.Npgsql\Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj" />
-		<ProjectReference Include="..\Cheetah.Infrastructure.Persistence.Providers.SqlServer\Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj" />
+		<ProjectReference Include="..\Cheetah.Infrastructure.Providers.Npgsql\Cheetah.Infrastructure.Providers.Npgsql.csproj" />
+		<ProjectReference Include="..\Cheetah.Infrastructure.Providers.SqlServer\Cheetah.Infrastructure.Providers.SqlServer.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

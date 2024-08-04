@@ -1,17 +1,18 @@
-﻿@using Cheetah.Domain.Common
+﻿@using Cheetah.Core.Common
 @using DNTPersianUtils.Core
+
 <div class="shadow rounded p-3 form-group me-1 mb-2 col-sm-11
-@((CFieldType != Domain.Enums.FieldType.CSelect)?"col-md-5":"col-md-10" )"
-     style="@((LValue < 1 && (CFieldType == Domain.Enums.FieldType.CID))? "display: none;" : "")">
+@((CFieldType != Core.Enums.FieldType.CSelect)?"col-md-5":"col-md-10" )"
+     style="@((LValue < 1 && (CFieldType == Core.Enums.FieldType.CID))? "display: none;" : "")">
 
     <div class="input-group d-flex justify-content-end" style="direction:ltr">
-        @if (CFieldType == Domain.Enums.FieldType.CID)
+        @if (CFieldType == Core.Enums.FieldType.CID)
         {
             <InputNumber @bind-Value="LValue" disabled="disabled" @attributes=CapturedAttributes
                          class="form-control" aria-describedby="basic-addon2" lang="fa" dir="rtl">
             </InputNumber>
         }
-        else if (CFieldType == Domain.Enums.FieldType.CDate)
+        else if (CFieldType == Core.Enums.FieldType.CDate)
         {
             <MudDatePicker Label="تاریخ"
                            Culture="@PersianCulture.Instance" UseShortNames="false"
@@ -26,7 +27,7 @@
                            data-bs-trigger="hover"
                            data-bs-title="@CDescription" />
         }
-        else if (CFieldType == Domain.Enums.FieldType.CInt)
+        else if (CFieldType == Core.Enums.FieldType.CInt)
         {
             <InputNumber @attributes=CapturedAttributes @bind:event="oninput"
                          @bind-Value="LValue" class="form-control"
@@ -39,7 +40,7 @@
                          data-bs-title="@CDescription">
             </InputNumber>
         }
-        else if (CFieldType == Domain.Enums.FieldType.CNInt)
+        else if (CFieldType == Core.Enums.FieldType.CNInt)
         {
             <InputNumber @attributes=CapturedAttributes
                          @bind-Value="NLValue" class="form-control"
@@ -52,7 +53,7 @@
                          data-bs-title="@CDescription">
             </InputNumber>
         }
-        else if (CFieldType == Domain.Enums.FieldType.CNFloat)
+        else if (CFieldType == Core.Enums.FieldType.CNFloat)
         {
             <InputNumber @attributes=CapturedAttributes
                          @bind-Value="NFValue" class="form-control"
@@ -65,7 +66,7 @@
                          data-bs-title="@CDescription">
             </InputNumber>
         }
-        else if (CFieldType == Domain.Enums.FieldType.CString)
+        else if (CFieldType == Core.Enums.FieldType.CString)
         {
             <InputText @attributes=CapturedAttributes 
                        @bind-Value="SValue" class="form-control"
@@ -78,7 +79,7 @@
                        data-bs-title="@CDescription">
             </InputText>
         }
-        else if (CFieldType == Domain.Enums.FieldType.CBool)
+        else if (CFieldType == Core.Enums.FieldType.CBool)
         {
             <InputCheckbox @attributes=CapturedAttributes
                            @bind-Value="BValue"
@@ -92,7 +93,7 @@
             </InputCheckbox>
 
         }
-        else if (CFieldType == Domain.Enums.FieldType.CSelect)
+        else if (CFieldType == Core.Enums.FieldType.CSelect)
         {
             @if (Record is not null)
             {
@@ -236,7 +237,7 @@
     //[Parameter]
     //public Expression<Func<object>> MessageValue { get; set; }
     [Parameter]
-    public Domain.Enums.FieldType CFieldType { get; set; }
+    public Core.Enums.FieldType CFieldType { get; set; }
 
     [Parameter]
     public String CDisplayName { get; set; }

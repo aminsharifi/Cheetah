@@ -1,4 +1,4 @@
-﻿@using Cheetah.Domain.Common
+﻿@using Cheetah.Core.Common
 @inherits MyComponentBase
 
 <div class="row my-4" style="direction:rtl">
@@ -15,10 +15,10 @@
                 <div class="row">
                     @* <CInput LValue="Record.Id"
                 CDescription="شناسه یکتا سیستمی"
-                CDisplayName="شناسه" CFieldType="@(Domain.Enums.FieldType.CID)"></CInput> *@
+                CDisplayName="شناسه" CFieldType="@(Core.Enums.FieldType.CID)"></CInput> *@
                     @*       <CInput BValue="Record.EnableRecord"
                 CDescription="فعال"
-                CDisplayName="فعال" CFieldType="@(Domain.Enums.FieldType.CBool)"></CInput> *@
+                CDisplayName="فعال" CFieldType="@(Core.Enums.FieldType.CBool)"></CInput> *@
                     @if (RowTemplate is not null)
                     {
                         @RowTemplate

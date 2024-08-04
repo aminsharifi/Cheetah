@@ -1,4 +1,4 @@
-using Cheetah.Application.Business.Interfaces;
+using Cheetah.Core.Interfaces;
 using Cheetah.Presentation.Web.Blazor.Client;
 using Cheetah.Presentation.Web.Blazor.Client.Serivce;
 

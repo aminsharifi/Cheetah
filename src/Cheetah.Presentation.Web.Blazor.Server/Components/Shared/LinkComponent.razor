@@ -1,4 +1,4 @@
-﻿@using Cheetah.Domain.Common.DTOs
+﻿@using Cheetah.Core.Common.DTOs
 @if (Records?.Sd_Status is not null)
 {
     <MudDataGrid ReadOnly="@ReadonlyState" Items="@Records.FloatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"

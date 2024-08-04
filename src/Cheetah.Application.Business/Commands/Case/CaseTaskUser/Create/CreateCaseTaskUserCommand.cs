@@ -1,5 +1,0 @@
-﻿using Cheetah.Domain.Interfaces.WorkItem.DTOs;
-
-namespace Cheetah.Application.Business.Commands.Case.CaseTaskUser.Create;
-
-public record CreateCaseTaskUserCommand(UpdateWorkItemUser_Request input) : ICommand<Result<UpdateWorkItemUser_Response>>;

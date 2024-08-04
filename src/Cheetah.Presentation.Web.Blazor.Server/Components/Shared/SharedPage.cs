@@ -1,6 +1,6 @@
-﻿using Cheetah.Domain.Common;
-using Cheetah.Domain.Common.DTOs;
-using Cheetah.Domain.Enums;
+﻿using Cheetah.Core.Common;
+using Cheetah.Core.Common.DTOs;
+using Cheetah.Core.Enums;
 using Cheetah.Presentation.Web.Blazor.Server.Helper;
 
 namespace Cheetah.Presentation.Web.Blazor.Server.Components.Shared;
