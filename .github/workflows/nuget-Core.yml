@@ -12,7 +12,7 @@ env:
 
 defaults:
   run:
-    working-directory: src/Cheetah.Core
+    working-directory: src/Core
     
 jobs:
   build:
