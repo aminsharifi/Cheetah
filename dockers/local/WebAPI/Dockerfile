@@ -7,17 +7,16 @@ EXPOSE 1991
 FROM docker.repoifb.cmn/dotnet/sdk:8.0 AS build
 WORKDIR /
 COPY ["dockers/local/nuget.config", "."]
-COPY ["src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentation.Services.WebAPI.csproj", "src/Cheetah.Presentation.Services.WebAPI/"]
-COPY ["src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/Cheetah.Infrastructure.Persistence.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.Npgsql/"]
-COPY ["src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/Cheetah.Infrastructure.Persistence.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Persistence.Providers.SqlServer/"]
-COPY ["src/Cheetah.Infrastructure.Persistence/Cheetah.Infrastructure.Persistence.csproj", "src/Cheetah.Infrastructure.Persistence/"]
-COPY ["src/Cheetah.Application.Business/Cheetah.Application.Business.csproj", "src/Cheetah.Application.Business/"]
-COPY ["src/Cheetah.Domain/Cheetah.Domain.csproj", "src/Cheetah.Domain/"]
+COPY ["sample/src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentation.Services.WebAPI.csproj", "sample/src/Cheetah.Presentation.Services.WebAPI/"]
+COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
+COPY ["src/Cheetah.Infrastructure.Providers.SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Providers.SqlServer/"]
+COPY ["src/Cheetah.UseCases/Cheetah.UseCases.csproj", "src/Cheetah.UseCases/"]
+COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
 
 RUN dotnet restore "src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentation.Services.WebAPI.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 COPY . .
-WORKDIR "/src/Cheetah.Presentation.Services.WebAPI"
+WORKDIR "/sample/src/Cheetah.Presentation.Services.WebAPI"
 RUN dotnet build -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 FROM build AS publish
