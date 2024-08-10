@@ -7,16 +7,16 @@ EXPOSE 1991
 FROM docker.repoifb.cmn/dotnet/sdk:8.0 AS build
 WORKDIR /
 COPY ["dockers/local/nuget.config", "."]
-COPY ["sample/src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentation.Services.WebAPI.csproj", "sample/src/Cheetah.Presentation.Services.WebAPI/"]
-COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
-COPY ["src/Cheetah.Infrastructure.Providers.SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Providers.SqlServer/"]
-COPY ["src/Cheetah.UseCases/Cheetah.UseCases.csproj", "src/Cheetah.UseCases/"]
-COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
+COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
+COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
+COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main/"]
+COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
+COPY ["sample/src/Presentation/Services/WebAPI/Cheetah.Sample.Presentation.Services.WebAPI.csproj", "sample/src/Presentation/Services/WebAPI/"]
 
-RUN dotnet restore "src/Cheetah.Presentation.Services.WebAPI/Cheetah.Presentation.Services.WebAPI.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
+RUN dotnet restore "src/Presentation/Services/WebAPI/Cheetah.Presentation.Services.WebAPI.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 COPY . .
-WORKDIR "/sample/src/Cheetah.Presentation.Services.WebAPI"
+WORKDIR "/sample/src/Presentation/Services/WebAPI"
 RUN dotnet build -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 FROM build AS publish
