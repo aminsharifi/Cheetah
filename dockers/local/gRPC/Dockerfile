@@ -9,16 +9,16 @@ EXPOSE 1990
 FROM docker.repoifb.cmn/dotnet/sdk:8.0 AS build
 WORKDIR /
 COPY ["dockers/local/nuget.config", "."]
-COPY ["src/Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj", "src/Cheetah.Presentation.Services.gRPC/"]
-COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
-COPY ["src/Cheetah.UseCases/Cheetah.UseCases.csproj", "src/Cheetah.UseCases/"]
-COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
-COPY ["src/Cheetah.Infrastructure.Providers.Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Providers.Npgsql/"]
-COPY ["src/Cheetah.Infrastructure.Providers.SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Providers.SqlServer/"]
+COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
+COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
+COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main"]
+COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
+COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
+COPY ["src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC.csproj", "src/Presentation/Services/gRPC/"]
 
-RUN dotnet restore "src/Cheetah.Presentation.Services.gRPC/Cheetah.Presentation.Services.gRPC.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
+RUN dotnet restore "src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 COPY . .
-WORKDIR "/src/Cheetah.Presentation.Services.gRPC"
+WORKDIR "/src/Presentation/Services/gRPC"
 RUN dotnet build  -c Release -o /app/build  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 FROM build AS publish
