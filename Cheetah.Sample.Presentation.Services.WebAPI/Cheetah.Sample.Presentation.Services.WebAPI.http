@@ -1,0 +1,6 @@
+@Cheetah.Sample.Presentation.Services.WebAPI_HostAddress = http://localhost:5152
+
+GET {{Cheetah.Sample.Presentation.Services.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
