@@ -74,7 +74,7 @@ jobs:
       - uses: kzrnm/get-net-sdk-project-versions-action@v1.3.0
         id: get-version
         with:
-          proj-path: ./src/Cheetah.Core/Cheetah.Core.csproj
+          proj-path: ./src/Core/Cheetah.Core.csproj
       - run: echo "VTAG=${{steps.get-version.outputs.version}}" >> $GITHUB_ENV
 
       # Extract metadata (tags, labels) for Docker
