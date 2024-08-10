@@ -9,10 +9,10 @@ WORKDIR /
 COPY ["dockers/local/nuget.config", "."]
 COPY ["src/Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj", "src/Cheetah.Presentation.Web.Blazor.Server/"]
 COPY ["src/Cheetah.Infrastructure.Providers.Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Providers.Npgsql/"]
-COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
 COPY ["src/Cheetah.UseCases/Cheetah.UseCases.csproj", "src/Cheetah.UseCases/"]
-COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
+COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
 COPY ["src/Cheetah.Infrastructure.Providers.SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Providers.SqlServer/"]
+COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
 RUN dotnet restore "src/Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 COPY . .
 WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
