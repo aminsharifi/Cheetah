@@ -1,6 +1,6 @@
 ﻿using Cheetah.Core.Interfaces.Cartable.DTOs;
 
-namespace Cheetah.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
+namespace Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class ListInboxResponse : Cartable_Response
 {
