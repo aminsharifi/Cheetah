@@ -6,15 +6,15 @@ EXPOSE 1988
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /
-COPY ["src/Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj", "src/Cheetah.Presentation.Web.Blazor.Server/"]
-COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
-COPY ["src/Cheetah.UseCases/Cheetah.UseCases.csproj", "src/Cheetah.UseCases/"]
-COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
-COPY ["src/Cheetah.Infrastructure.Providers.Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Providers.Npgsql/"]
-COPY ["src/Cheetah.Infrastructure.Providers.SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Providers.SqlServer/"]
-RUN dotnet restore "src/Cheetah.Presentation.Web.Blazor.Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
+COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
+COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
+COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/"]
+COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Cheetah/Infrastructure/Providers/Npgsql/"]
+COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah/Infrastructure/Providers/SqlServer/"]
+COPY ["src/Presentation/Web/Blazor/Server/Cheetah.Presentation.Web.Blazor.Server.csproj", "src/Presentation/Web/Blazor/Server/"]
+RUN dotnet restore "src/Presentation/Web/Blazor/Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
 COPY . .
-WORKDIR "/src/Cheetah.Presentation.Web.Blazor.Server"
+WORKDIR "/src/Presentation/Web/Blazor/Server"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish

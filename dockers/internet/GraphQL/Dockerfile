@@ -7,15 +7,15 @@ EXPOSE 1992
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /
-COPY ["src/Cheetah.Presentation.Services.GraphQL/Cheetah.Presentation.Services.GraphQL.csproj", "src/Cheetah.Presentation.Services.GraphQL/"]
-COPY ["src/Cheetah.Infrastructure/Cheetah.Infrastructure.csproj", "src/Cheetah.Infrastructure/"]
-COPY ["src/Cheetah.UseCases/Cheetah.UseCases.csproj", "src/Cheetah.UseCases/"]
-COPY ["src/Cheetah.Core/Cheetah.Core.csproj", "src/Cheetah.Core/"]
-COPY ["src/Cheetah.Infrastructure.Providers.Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Cheetah.Infrastructure.Providers.Npgsql/"]
-COPY ["src/Cheetah.Infrastructure.Providers.SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Cheetah.Infrastructure.Providers.SqlServer/"]
-RUN dotnet restore "src/Cheetah.Presentation.Services.GraphQL/Cheetah.Presentation.Services.GraphQL.csproj"
+COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
+COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
+COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Cheetah/Infrastructure/Main/"]
+COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
+COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
+COPY ["src/Presentation/Services/GraphQL/Cheetah.Presentation.Services.GraphQL.csproj", "src/Presentation/Services/GraphQL/"]
+RUN dotnet restore "src/Presentation/Services/GraphQL/Cheetah.Presentation.Services.GraphQL.csproj"
 COPY . .
-WORKDIR "/src/Cheetah.Presentation.Services.GraphQL"
+WORKDIR "/src/Presentation/Services/GraphQL"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
