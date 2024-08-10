@@ -13,9 +13,10 @@ COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructu
 COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
 COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
 COPY ["src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC.csproj", "src/Presentation/Services/gRPC/"]
+
 RUN dotnet restore "src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC.csproj"
 COPY . .
-WORKDIR "/src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC"
+WORKDIR "/src/Presentation/Services/gRPC/"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
