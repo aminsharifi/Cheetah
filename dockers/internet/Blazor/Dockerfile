@@ -16,7 +16,7 @@ COPY ["src/Presentation/Web/Blazor/Server/Cheetah.Presentation.Web.Blazor.Server
 
 RUN dotnet restore "src/Presentation/Web/Blazor/Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
 COPY . .
-WORKDIR "/src/Presentation/Web/Blazor/Server"
+WORKDIR "/src/Presentation/Web/Blazor/Server/"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
