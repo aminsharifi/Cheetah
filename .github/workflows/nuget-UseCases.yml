@@ -12,7 +12,7 @@ env:
 
 defaults:
   run:
-    working-directory: src/Cheetah.UseCases
+    working-directory: src/UseCases
     
 jobs:
   build:

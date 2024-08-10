@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /
 COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
 COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
-COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Cheetah/Infrastructure/Main/"]
+COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main/"]
 COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
 COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
 COPY ["src/Presentation/Services/GraphQL/Cheetah.Presentation.Services.GraphQL.csproj", "src/Presentation/Services/GraphQL/"]
