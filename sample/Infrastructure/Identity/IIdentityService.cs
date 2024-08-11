@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Cheetah.Infrastructure.Identity
+namespace Cheetah.Sample.Infrastructure.Identity
 {
     public interface IIdentityService
     {

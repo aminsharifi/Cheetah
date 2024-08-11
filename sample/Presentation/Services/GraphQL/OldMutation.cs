@@ -25,7 +25,7 @@ public class OldMutation
 
     public async Task<Result<F_Case>> CreateRequestAsync(
         [Service] IWorkItem iWorkItem,
-        [Service] ApplicationDbContext _db,
+        [Service] CheetahDbContext _db,
         F_Case request)
     {
         return new Result<F_Case>();
@@ -37,7 +37,7 @@ public class OldMutation
 
     public async Task<F_Case> PerformWorkItemAsync(
            [Service] IWorkItem iWorkItem,
-           [Service] ApplicationDbContext _db,
+           [Service] CheetahDbContext _db,
            F_WorkItem request)
     {
         return new F_Case();

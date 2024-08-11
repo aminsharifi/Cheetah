@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Infrastructure.Identity;
+﻿namespace Cheetah.Sample.Infrastructure.Identity;
 
 public static class IdentityResultExtensions
 {

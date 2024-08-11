@@ -1,6 +1,6 @@
 ﻿using Cheetah.Core.Entities.Dimentions;
 
-namespace Cheetah.Infrastructure.Identity;
+namespace Cheetah.Sample.Infrastructure.Identity;
 public class ApplicationUser : IdentityUser
 {
     [Column(Order = 101)]
