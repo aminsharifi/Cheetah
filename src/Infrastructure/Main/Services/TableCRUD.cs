@@ -7,7 +7,7 @@ using Cheetah.Infrastructure.Data;
 
 namespace Cheetah.Infrastructure.Services;
 
-public class TableCRUD(ApplicationDbContext _db) : ITableCRUD
+public class TableCRUD(CheetahDbContext _db) : ITableCRUD
 {
     public async Task<int> AddLink(BaseLink obj_DTO)
     {

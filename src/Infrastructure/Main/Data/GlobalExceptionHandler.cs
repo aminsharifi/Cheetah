@@ -1,6 +1,6 @@
 ﻿namespace Cheetah.Infrastructure.Data;
 
-internal sealed class GlobalExceptionHandler : IExceptionHandler
+public sealed class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger;
 

@@ -12,11 +12,13 @@ COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
 COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/"]
 COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
 COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
-COPY ["src/Presentation/Web/Blazor/Server/Cheetah.Presentation.Web.Blazor.Server.csproj", "src/Presentation/Web/Blazor/Server/"]
 
-RUN dotnet restore "src/Presentation/Web/Blazor/Server/Cheetah.Presentation.Web.Blazor.Server.csproj"
+COPY ["sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj", "sample/src/Presentation/Web/Blazor/Server/"]
+COPY ["sample/src/Infrastructure/Main/Cheetah.Sample.Infrastructure.csproj", "sample/src/Infrastructure/"]
+
+RUN dotnet restore "sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj"
 COPY . .
-WORKDIR "/src/Presentation/Web/Blazor/Server/"
+WORKDIR "sample/src/Presentation/Web/Blazor/Server/"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
@@ -28,4 +30,4 @@ COPY --from=publish /app/publish .
 RUN chown -R 1988:1988 /app
 RUN useradd -u 1988 cheetah
 USER cheetah
-ENTRYPOINT ["dotnet", "Cheetah.Presentation.Web.Blazor.Server.dll"]
+ENTRYPOINT ["dotnet", "Cheetah.Sample.Presentation.Web.Blazor.Server.dll"]

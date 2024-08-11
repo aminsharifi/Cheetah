@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Data;
+using Cheetah.Sample.Infrastructure.Data;
 using Cheetah.Sample.Presentation.Services.gRPC.Middleware;
 using Cheetah.Sample.Presentation.Services.gRPC.Services;
 
@@ -25,7 +25,7 @@ builder.Services.AddTransient<ExceptionMiddleware>();
 
 
 
-var app = await builder.InitializeCheetahSettingsAsync();
+var app = await builder.InitializeSettingsAsync();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
