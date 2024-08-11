@@ -11,7 +11,7 @@ namespace Cheetah.Infrastructure.Data;
 
 public static class InitialiserExtensions
 {
-    public static async Task<WebApplication> InitializeCommonSettingsAsync(this WebApplicationBuilder? builder)
+    public static async Task<WebApplication> InitializeCheetahSettingsAsync(this WebApplicationBuilder? builder)
     {
         builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder?.Services.AddProblemDetails();
