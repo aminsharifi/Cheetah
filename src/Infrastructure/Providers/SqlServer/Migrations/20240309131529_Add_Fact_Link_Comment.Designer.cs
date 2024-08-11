@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(CheetahDbContext))]
     [Migration("20240309131529_Add_Fact_Link_Comment")]
     partial class Add_Fact_Link_Comment
     {

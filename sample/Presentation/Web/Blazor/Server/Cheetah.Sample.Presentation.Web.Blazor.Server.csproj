@@ -36,10 +36,6 @@
 		<Folder Include="wwwroot\dist\" />
 	</ItemGroup>
 
-	<ItemGroup>		
-		<ProjectReference Include="..\..\..\..\..\src\Infrastructure\Providers\SqlServer\Cheetah.Infrastructure.Providers.SqlServer.csproj" />		
-	</ItemGroup>
-
 	<ItemGroup>
 		<Compile Update="Resx\Localization.Designer.cs">
 			<DependentUpon>Localization.resx</DependentUpon>
@@ -66,6 +62,10 @@
 
 	<ItemGroup>
 		<None Include="Components\Account\Shared\_Imports.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\Infrastructure\Cheetah.Sample.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

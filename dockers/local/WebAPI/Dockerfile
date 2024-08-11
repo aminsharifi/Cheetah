@@ -11,9 +11,11 @@ COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
 COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
 COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main/"]
 COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
+
+COPY ["sample/src/Infrastructure/Main/Cheetah.Sample.Infrastructure.csproj", "sample/src/Infrastructure/Main/"]
 COPY ["sample/src/Presentation/Services/WebAPI/Cheetah.Sample.Presentation.Services.WebAPI.csproj", "sample/src/Presentation/Services/WebAPI/"]
 
-RUN dotnet restore "src/Presentation/Services/WebAPI/Cheetah.Presentation.Services.WebAPI.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
+RUN dotnet restore "src/Presentation/Services/WebAPI/Cheetah.Sample.Presentation.Services.WebAPI.csproj"  --source "http://repoifb.cmn/artifactory/api/nuget/nuget"
 
 COPY . .
 WORKDIR "/sample/src/Presentation/Services/WebAPI"
@@ -29,4 +31,4 @@ COPY --from=publish /app/publish .
 RUN chown -R 1988:1988 /app
 RUN useradd -u 1988 cheetah
 USER cheetah
-ENTRYPOINT ["dotnet", "Cheetah.Presentation.Services.WebAPI.dll"]
+ENTRYPOINT ["dotnet", "Cheetah.Sample.Presentation.Services.WebAPI.dll"]

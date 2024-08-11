@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(CheetahDbContext))]
     [Migration("20240519155941_Add_FlowCondition_Constraints")]
     partial class Add_FlowCondition_Constraints
     {

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(CheetahDbContext))]
     [Migration("20240624084139_Update_Task")]
     partial class Update_Task
     {

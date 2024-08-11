@@ -2,18 +2,17 @@
 using Cheetah.Core.Aggregates.ProcessAggregate.Links;
 using Cheetah.Core.Aggregates.UserAggregate.Links;
 using Cheetah.Core.Common;
-using Cheetah.Core.Helpers;
 using Cheetah.Core.Entities.Dimentions;
 using Cheetah.Core.Entities.Facts;
 using Cheetah.Core.Entities.Links;
+using Cheetah.Core.Helpers;
 using Cheetah.Infrastructure.Data.Configurations;
-using Cheetah.Infrastructure.Identity;
 
 namespace Cheetah.Infrastructure.Data;
-public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+public partial class CheetahDbContext : DbContext
 {
     private readonly IDomainEventDispatcher? _dispatcher;
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
+    public CheetahDbContext(DbContextOptions<DbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
     {
 
         _dispatcher = dispatcher;
@@ -62,10 +61,6 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, I
           SaveChangesAsync().GetAwaiter().GetResult();
 
     #region DbSets
-
-    #region Identities
-    public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
-    #endregion
 
     #region Dimentions
     public virtual DbSet<D_Entity> D_Entities { get; set; }

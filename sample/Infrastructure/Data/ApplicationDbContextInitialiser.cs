@@ -1,17 +1,13 @@
-﻿using Cheetah.Core.Interfaces;
-using Cheetah.Core.Interfaces.Cartable;
-using Cheetah.Core.Interfaces.WorkItem;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Infrastructure.Identity;
-using Cheetah.Infrastructure.Services;
+﻿using Cheetah.Core.Entities.Dimentions;
+using Cheetah.Infrastructure.Data;
+using Cheetah.Sample.Infrastructure.Identity;
 using Cheetah.UseCases.Services;
-using Cheetah.UseCases.Validations;
 
-namespace Cheetah.Infrastructure.Data;
+namespace Cheetah.Sample.Infrastructure.Data;
 
 public static class InitialiserExtensions
 {
-    public static async Task<WebApplication> InitializeCheetahSettingsAsync(this WebApplicationBuilder? builder)
+    public static async Task<WebApplication> InitializeSettingsAsync(this WebApplicationBuilder? builder)
     {
         builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder?.Services.AddProblemDetails();
@@ -50,9 +46,6 @@ public static class InitialiserExtensions
 
         #endregion
 
-        //builder.Services.addse
-        builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
-
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
         var _nameSpace = nameof(Cheetah) + "." +
@@ -68,9 +61,24 @@ public static class InitialiserExtensions
                 ),
                 ServiceLifetime.Transient
                 );
+
+            builder.Services.AddDbContext<CheetahDbContext>(
+               b => b.UseLazyLoadingProxies(true)
+               .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
+               , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
+               ),
+               ServiceLifetime.Transient
+               );
         }
         else
         {
+            builder.Services.AddDbContext<CheetahDbContext>(
+            b => b.UseLazyLoadingProxies(true)
+            .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+            x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
+            ServiceLifetime.Transient
+            );
+
             builder.Services.AddDbContext<ApplicationDbContext>(
                 b => b.UseLazyLoadingProxies(true)
                 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -127,17 +135,6 @@ public static class InitialiserExtensions
 
         #endregion
 
-        #region Other services
-
-        builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
-        builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
-        builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
-        builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
-        builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
-        builder.Services.AddScoped(typeof(ISync), typeof(Sync));
-
-        #endregion
-
         #region MediatR
 
         var mediatRAssemblies = new[]
@@ -151,8 +148,8 @@ public static class InitialiserExtensions
         #endregion
 
         #region Mapster
-        var mapperConfig = new Mapper(GetConfiguredMappingConfig());
-        builder.Services.AddSingleton<IMapper>(mapperConfig);
+        //var mapperConfig = new Mapper(GetConfiguredMappingConfig());
+        //builder.Services.AddSingleton<IMapper>(mapperConfig);
         #endregion
 
         #region Build & Config
@@ -175,7 +172,7 @@ public static class InitialiserExtensions
 
         return app;
     }
-
+    /*
     /// <summary>
     /// Mapster(Mapper) global configuration settings
     /// To learn more about Mapster,
@@ -185,6 +182,7 @@ public static class InitialiserExtensions
     public static TypeAdapterConfig GetConfiguredMappingConfig()
     {
         var config = TypeAdapterConfig.GlobalSettings;
+
 
         var mediatRAssemblies = new[]
        {
@@ -198,4 +196,5 @@ public static class InitialiserExtensions
 
         return config;
     }
+    */
 }

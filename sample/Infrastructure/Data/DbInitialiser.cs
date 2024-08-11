@@ -1,7 +1,7 @@
 ﻿using Cheetah.Core.Enums;
-using Cheetah.Infrastructure.Identity;
+using Cheetah.Sample.Infrastructure.Identity;
 
-namespace Cheetah.Infrastructure.Data;
+namespace Cheetah.Sample.Infrastructure.Data;
 
 public interface IDbInitializer
 {

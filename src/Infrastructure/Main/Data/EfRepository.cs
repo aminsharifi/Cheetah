@@ -8,7 +8,7 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
 {
     private readonly IMemoryCache _cache;
     private MemoryCacheEntryOptions _cacheOptions;
-    public EfRepository(IMemoryCache cache, ApplicationDbContext dbContext) : base(dbContext)
+    public EfRepository(IMemoryCache cache, CheetahDbContext dbContext) : base(dbContext)
     {
         _cache = cache;
         _cacheOptions = new MemoryCacheEntryOptions()

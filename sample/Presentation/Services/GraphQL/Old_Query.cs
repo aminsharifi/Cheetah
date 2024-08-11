@@ -10,33 +10,33 @@ public class Old_Query
 {
     #region Dimentions
 
-    public IQueryable<D_Entity> d_Entities([Service] ApplicationDbContext context)
+    public IQueryable<D_Entity> d_Entities([Service] CheetahDbContext context)
     {
         return context.D_Entities;
     }
 
-    public IQueryable<D_Tag> d_Tags([Service] ApplicationDbContext context)
+    public IQueryable<D_Tag> d_Tags([Service] CheetahDbContext context)
     {
         return context.D_Tags;
     }
 
-    public IQueryable<D_Process> d_Processes([Service] ApplicationDbContext context)
+    public IQueryable<D_Process> d_Processes([Service] CheetahDbContext context)
     {
         return context.D_Processes;
     }
 
-    public IQueryable<D_CaseState> d_CaseStates([Service] ApplicationDbContext context)
+    public IQueryable<D_CaseState> d_CaseStates([Service] CheetahDbContext context)
     {
         return context.D_CaseStates;
     }
 
 
-    public IQueryable<D_User> d_Users([Service] ApplicationDbContext context)
+    public IQueryable<D_User> d_Users([Service] CheetahDbContext context)
     {
         return context.D_Users;
     }
 
-    public IQueryable<D_Operand> d_Operands([Service] ApplicationDbContext context)
+    public IQueryable<D_Operand> d_Operands([Service] CheetahDbContext context)
     {
         return context.D_Operands;
     }
@@ -47,7 +47,7 @@ public class Old_Query
     #region workItemAsync
 
     public IQueryable<CartableDTO> workItem(
-        [Service] ApplicationDbContext context)
+        [Service] CheetahDbContext context)
     {
         //var Outbox = context.L_UserAssignments
         //    .Select(x =>
@@ -74,7 +74,7 @@ public class Old_Query
 
     //[Authorize]
     public IQueryable<CartableDTO> inbox(
-       [Service] ApplicationDbContext context)
+       [Service] CheetahDbContext context)
     {
         var inbox = workItem(context).Where(x => !x.OccurredUserActions.Any());
         return inbox;
@@ -84,7 +84,7 @@ public class Old_Query
     #region OutboxAsync
 
     public IQueryable<CartableDTO> outbox(
-        [Service] ApplicationDbContext context)
+        [Service] CheetahDbContext context)
     {
         var Outbox = workItem(context).Where(x => !x.OccurredUserActions.Any());
         return Outbox;
@@ -92,27 +92,27 @@ public class Old_Query
     #endregion
 
 
-    public IQueryable<F_Scenario> f_Scenarios([Service] ApplicationDbContext context)
+    public IQueryable<F_Scenario> f_Scenarios([Service] CheetahDbContext context)
     {
         return context.F_Scenarios;
     }
 
-    public IQueryable<F_Task> f_Tasks([Service] ApplicationDbContext context)
+    public IQueryable<F_Task> f_Tasks([Service] CheetahDbContext context)
     {
         return context.F_Tasks;
     }
 
-    public IQueryable<F_Condition> f_Conditions([Service] ApplicationDbContext context)
+    public IQueryable<F_Condition> f_Conditions([Service] CheetahDbContext context)
     {
         return context.F_Conditions;
     }
 
-    public IQueryable<F_Case> f_Requests([Service] ApplicationDbContext context)
+    public IQueryable<F_Case> f_Requests([Service] CheetahDbContext context)
     {
         return context.F_Cases;
     }
 
-    public IQueryable<F_WorkItem> f_WorkItems([Service] ApplicationDbContext context)
+    public IQueryable<F_WorkItem> f_WorkItems([Service] CheetahDbContext context)
     {
         return context.F_WorkItems;
     }
@@ -121,7 +121,7 @@ public class Old_Query
 
     #region Links
 
-    public IQueryable<L_UserCondition> l_UserConditions([Service] ApplicationDbContext context)
+    public IQueryable<L_UserCondition> l_UserConditions([Service] CheetahDbContext context)
     {
         return context.L_UserConditions;
     }

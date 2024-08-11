@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Data;
+using Cheetah.Sample.Infrastructure.Data;
 using Cheetah.Sample.Presentation.Services.GraphQL;
 using Cheetah.Sample.Presentation.Services.GraphQL.Helper;
 
@@ -56,7 +56,7 @@ builder.Services.AddCors(o => o.AddPolicy("Cheetah", builder =>
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
 
-var app = await builder.InitializeCheetahSettingsAsync();
+var app = await builder.InitializeSettingsAsync();
 
 //Configure the HTTP request pipeline.   
 if (app.Environment.IsDevelopment())
