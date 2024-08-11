@@ -27,7 +27,7 @@ builder.Services.SwaggerDocument(o =>
 
 
 
-var app = await builder.InitializeCommonSettingsAsync();
+var app = await builder.InitializeCheetahSettingsAsync();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
