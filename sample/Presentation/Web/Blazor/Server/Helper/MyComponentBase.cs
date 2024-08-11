@@ -16,6 +16,6 @@ public class MyComponentBase : ComponentBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public NavigationManager _NavigationManager { get; set; } = default!;
     [Inject] public CNavigation _CNavigation { get; set; } = default!;
-    [Inject] public ApplicationDbContext _db { get; set; } = default!;
+    [Inject] public CheetahDbContext _db { get; set; } = default!;
 
 }

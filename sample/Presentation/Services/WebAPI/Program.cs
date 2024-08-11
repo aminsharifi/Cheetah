@@ -1,4 +1,4 @@
-using Cheetah.Infrastructure.Data;
+using Cheetah.Sample.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +25,7 @@ builder.Services.SwaggerDocument(o =>
     o.ShortSchemaNames = true;
 });
 
-
-
-var app = await builder.InitializeCheetahSettingsAsync();
+var app = await builder.InitializeSettingsAsync();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())

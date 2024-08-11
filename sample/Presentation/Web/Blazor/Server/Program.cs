@@ -1,5 +1,5 @@
 using Cheetah.Core.Resx;
-using Cheetah.Infrastructure.Data;
+using Cheetah.Sample.Infrastructure.Data;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Account;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
@@ -61,7 +61,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 //    client.BaseAddress = new Uri("http://localhost:1991/");
 //});
 
-var app = await builder.InitializeCheetahSettingsAsync();
+var app = await builder.InitializeSettingsAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

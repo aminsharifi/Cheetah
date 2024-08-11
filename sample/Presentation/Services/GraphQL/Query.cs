@@ -4,7 +4,7 @@ namespace Cheetah.Sample.Presentation.Services.GraphQL;
 
 public class Query
 {
-    public IQueryable<string> ListString([Service] ApplicationDbContext context)
+    public IQueryable<string> ListString([Service] CheetahDbContext context)
     {
         List<string> ListString = new List<string>();
         ListString.Add("1");

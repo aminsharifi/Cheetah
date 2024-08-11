@@ -12,10 +12,13 @@ COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
 COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main/"]
 COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
 COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
-COPY ["src/Presentation/Services/GraphQL/Cheetah.Presentation.Services.GraphQL.csproj", "src/Presentation/Services/GraphQL/"]
-RUN dotnet restore "src/Presentation/Services/GraphQL/Cheetah.Presentation.Services.GraphQL.csproj"
+
+COPY ["sample/src/Presentation/Services/GraphQL/Cheetah.Sample.Presentation.Services.GraphQL.csproj", "sample/src/Presentation/Services/GraphQL/"]
+COPY ["sample/src/Infrastructure/Main/Cheetah.Sample.Infrastructure.csproj", "sample/src/Infrastructure/Main/"]
+
+RUN dotnet restore "sample/src/Presentation/Services/GraphQL/Cheetah.Sample.Presentation.Services.GraphQL.csproj"
 COPY . .
-WORKDIR "/src/Presentation/Services/GraphQL"
+WORKDIR "sample/src/Presentation/Services/GraphQL"
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
@@ -27,4 +30,4 @@ COPY --from=publish /app/publish .
 RUN chown -R 1988:1988 /app
 RUN useradd -u 1988 cheetah
 USER cheetah
-ENTRYPOINT ["dotnet", "Cheetah.Presentation.Services.GraphQL.dll"]
+ENTRYPOINT ["dotnet", "Cheetah.Sample.Presentation.Services.GraphQL.dll"]

@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\..\src\Infrastructure\Providers\SqlServer\Cheetah.Infrastructure.Providers.SqlServer.csproj" />
+	  <ProjectReference Include="..\..\..\Infrastructure\Cheetah.Sample.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>
