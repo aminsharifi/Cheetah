@@ -6,11 +6,11 @@ EXPOSE 1989
 EXPOSE 1990
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /sample/src/Presentation/Services/gRPC
-COPY ["Cheetah.Presentation.Services.gRPC.csproj", "."]
+WORKDIR /src
+COPY ["sample/src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC.csproj", "."]
 RUN dotnet restore "./Cheetah.Sample.Presentation.Services.gRPC.csproj"
 COPY . .
-WORKDIR "sample/src/Presentation/Services/gRPC/."
+WORKDIR "/src/."
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish

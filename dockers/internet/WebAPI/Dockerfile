@@ -7,11 +7,11 @@ EXPOSE 1991
 EXPOSE 1992
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /sample/src/Presentation/Services/WebAPI
-COPY ["Cheetah.Sample.Presentation.Services.WebAPI.csproj", "."]
+WORKDIR /src
+COPY ["sample/src/Presentation/Services/WebAPI/Cheetah.Sample.Presentation.Services.WebAPI.csproj", "."]
 RUN dotnet restore "./Cheetah.sample.Presentation.Services.WebAPI.csproj"
 COPY . .
-WORKDIR "/sample/src/Presentation/Services/WebAPI/."
+WORKDIR "/src/."
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
