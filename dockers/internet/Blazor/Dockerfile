@@ -10,10 +10,10 @@ COPY ["sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web
 RUN dotnet restore "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Blazor/Server/."
-RUN dotnet build  -c Release -o /app/build
+RUN dotnet build "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
