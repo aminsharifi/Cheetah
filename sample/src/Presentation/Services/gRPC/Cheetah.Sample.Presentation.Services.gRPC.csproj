@@ -7,11 +7,10 @@
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<DockerfileContext>.</DockerfileContext>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
-		<PackageReference Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
 	</ItemGroup>
