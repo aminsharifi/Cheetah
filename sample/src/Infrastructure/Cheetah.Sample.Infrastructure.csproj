@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Cheetah.Infrastructure.Providers.SqlServer" Version="8.5.4" />
+	  <ProjectReference Include="..\..\..\src\Infrastructure\Providers\SqlServer\Cheetah.Infrastructure.Providers.SqlServer.csproj" />
 	</ItemGroup>
 
 </Project>
