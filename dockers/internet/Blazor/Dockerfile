@@ -6,15 +6,16 @@ WORKDIR /app
 EXPOSE 1988
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src/Blazor/Server
-COPY ["sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj", "."]
-RUN dotnet restore "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj"
+WORKDIR /
+COPY ["sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj", "WebBlazor/"]
+COPY ["sample/src/Infrastructure/Cheetah.Sample.Infrastructure.csproj", "Infrastructure/"]
+RUN dotnet restore "WebBlazor/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Blazor/Server/."
-RUN dotnet build "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/build
+RUN dotnet build "WebBlazor/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "WebBlazor/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
