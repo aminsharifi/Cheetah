@@ -6,11 +6,11 @@ EXPOSE 1991
 EXPOSE 1992
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /src/GraphQL
 COPY ["sample/src/Presentation/Services/GraphQL/Cheetah.Sample.Presentation.Services.GraphQL.csproj", "."]
 RUN dotnet restore "./Cheetah.Sample.Presentation.Services.GraphQL.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/GraphQL/."
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
