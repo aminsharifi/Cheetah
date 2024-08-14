@@ -6,19 +6,11 @@ EXPOSE 1991
 EXPOSE 1992
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /
-COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
-COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
-COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main/"]
-COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
-COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
-
-COPY ["sample/src/Presentation/Services/GraphQL/Cheetah.Sample.Presentation.Services.GraphQL.csproj", "sample/src/Presentation/Services/GraphQL/"]
-COPY ["sample/src/Infrastructure/Main/Cheetah.Sample.Infrastructure.csproj", "sample/src/Infrastructure/Main/"]
-
-RUN dotnet restore "sample/src/Presentation/Services/GraphQL/Cheetah.Sample.Presentation.Services.GraphQL.csproj"
+WORKDIR /sample/src/Presentation/Services/GraphQL
+COPY ["Cheetah.Sample.Presentation.Services.GraphQL.csproj", "."]
+RUN dotnet restore "./Cheetah.Sample.Presentation.Services.GraphQL.csproj"
 COPY . .
-WORKDIR "sample/src/Presentation/Services/GraphQL"
+WORKDIR "sample/src/Presentation/Services/GraphQL/."
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
