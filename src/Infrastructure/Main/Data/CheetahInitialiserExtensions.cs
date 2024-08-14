@@ -10,45 +10,19 @@ namespace Cheetah.Infrastructure.Data;
 
 public static class CheetahInitialiserExtensions
 {
-    public static async Task<WebApplication> InitializeCheetahSettingsAsync(this WebApplicationBuilder? builder)
+    public static WebApplicationBuilder InitializeCheetahSettingsAsync(this WebApplicationBuilder builder)
     {
-        builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
-        builder?.Services.AddProblemDetails();
         //builder.Services.addse
         builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
 
-        #region Other services
+        #region Cheetah Services
 
-        builder.Services.AddScoped(typeof(IDbInitializer), typeof(CheetahDbInitialiser));
+        builder.Services.AddScoped(typeof(ICheetahDbInitialiser), typeof(CheetahDbInitialiser));
         builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
         builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
         builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
         builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
         builder.Services.AddScoped(typeof(ISync), typeof(Sync));
-
-        #endregion
-
-        #region Serilog
-        builder.Host.UseSerilog((context, configuration) =>
-        configuration.ReadFrom.Configuration(context.Configuration));
-
-        var logger = Log.Logger = new LoggerConfiguration()
-            .WriteTo
-            .MSSqlServer(
-            connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
-            sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents" })
-            .CreateLogger();
-
-        //var logger = Log.Logger = new LoggerConfiguration()
-        //    .Enrich.FromLogContext()
-        //    .WriteTo.Console()
-        //    .WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-        //    sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents" })
-        //    .CreateLogger();
-
-        var microsoftLogger = new SerilogLoggerFactory(logger).CreateLogger("Programm");
-
-        builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
 
         #endregion
 
@@ -67,26 +41,23 @@ public static class CheetahInitialiserExtensions
         #region Mapster
         var mapperConfig = new Mapper(GetConfiguredMappingConfig());
         builder.Services.AddSingleton<IMapper>(mapperConfig);
-        #endregion
+        #endregion     
 
-        #region Build & Config
-
-        var app = builder.Build();
-        app.UseExceptionHandler();
-        app.UseSerilogRequestLogging();
-
-        #endregion
-
+        return builder;
+    }
+    public static async Task<WebApplication> CheetahSettingsAsync(this WebApplication? builder)
+    {
         #region DB Initials
 
-        using var scope = app.Services.CreateScope();
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        using var scope = builder.Services.CreateScope();
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<ICheetahDbInitialiser>();
         await dbInitializer.Initialize();
 
         #endregion
 
-        return app;
+        return builder;
     }
+
 
     /// <summary>
     /// Mapster(Mapper) global configuration settings

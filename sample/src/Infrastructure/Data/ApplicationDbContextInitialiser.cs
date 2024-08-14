@@ -1,14 +1,13 @@
-﻿using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Infrastructure.Data;
+﻿using Cheetah.Infrastructure.Data;
 using Cheetah.Sample.Infrastructure.Identity;
-using Cheetah.UseCases.Services;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 
 public static class InitialiserExtensions
 {
-    public static async Task<WebApplication> InitializeSettingsAsync(this WebApplicationBuilder? builder)
+    public static async Task<WebApplication> InitializeSettingsAsync(this WebApplicationBuilder builder)
     {
+        builder = builder.InitializeCheetahSettingsAsync();
         builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder?.Services.AddProblemDetails();
 
@@ -135,23 +134,6 @@ public static class InitialiserExtensions
 
         #endregion
 
-        #region MediatR
-
-        var mediatRAssemblies = new[]
-        {
-            Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(Cartable)), // UseCases
-        };
-        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
-        builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-        builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
-        #endregion
-
-        #region Mapster
-        //var mapperConfig = new Mapper(GetConfiguredMappingConfig());
-        //builder.Services.AddSingleton<IMapper>(mapperConfig);
-        #endregion
-
         #region Build & Config
 
         var app = builder.Build();
@@ -161,6 +143,8 @@ public static class InitialiserExtensions
         app.UseAuthorization();
 
         #endregion
+
+        app = await app.CheetahSettingsAsync();
 
         #region DB Initials
 
