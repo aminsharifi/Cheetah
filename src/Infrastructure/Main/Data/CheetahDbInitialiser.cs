@@ -1,10 +1,10 @@
 ﻿namespace Cheetah.Infrastructure.Data;
 
-public interface IDbInitializer
+public interface ICheetahDbInitialiser
 {
     Task<bool> Initialize();
 }
-public class CheetahDbInitialiser : IDbInitializer
+public class CheetahDbInitialiser : ICheetahDbInitialiser
 {
     public readonly CheetahDbContext _db;
     public CheetahDbInitialiser(CheetahDbContext db)

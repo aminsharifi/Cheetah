@@ -10,7 +10,7 @@ public class MyComponentBase : ComponentBase
     [Inject] public IGlobalization globalization { get; set; } = default!;
     [Inject] public ITableCRUD simpleClassRepository { get; set; } = default!;
     [Inject] public ICartable iCartable { get; set; } = default!;
-    [Inject] public IDbInitializer _IDbInitializer { get; set; } = default!;
+    [Inject] public ICheetahDbInitialiser _IDbInitializer { get; set; } = default!;
     [Inject] public IJSRuntime _JSRuntime { get; set; } = default!;
     [Inject] public ISnackbar Snackbar { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
