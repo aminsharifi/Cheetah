@@ -11,10 +11,10 @@ COPY ["sample/src/Presentation/Services/GraphQL/Cheetah.Sample.Presentation.Serv
 RUN dotnet restore "./Cheetah.Sample.Presentation.Services.GraphQL.csproj"
 COPY . .
 WORKDIR "/src/GraphQL/."
-RUN dotnet build  -c Release -o /app/build
+RUN dotnet build "./Cheetah.Sample.Presentation.Services.GraphQL.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Cheetah.Sample.Presentation.Services.GraphQL.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

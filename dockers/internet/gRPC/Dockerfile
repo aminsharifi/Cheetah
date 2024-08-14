@@ -11,10 +11,10 @@ COPY ["sample/src/Presentation/Services/gRPC/Cheetah.Presentation.Services.gRPC.
 RUN dotnet restore "./Cheetah.Sample.Presentation.Services.gRPC.csproj"
 COPY . .
 WORKDIR "/src/gRPC/."
-RUN dotnet build  -c Release -o /app/build
+RUN dotnet build "./Cheetah.Sample.Presentation.Services.gRPC.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Cheetah.Sample.Presentation.Services.gRPC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

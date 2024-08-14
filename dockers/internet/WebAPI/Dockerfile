@@ -12,10 +12,10 @@ COPY ["sample/src/Presentation/Services/WebAPI/Cheetah.Sample.Presentation.Servi
 RUN dotnet restore "./Cheetah.sample.Presentation.Services.WebAPI.csproj"
 COPY . .
 WORKDIR "/src/WebAPI/."
-RUN dotnet build  -c Release -o /app/build
+RUN dotnet build "./Cheetah.sample.Presentation.Services.WebAPI.csproj"  -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Cheetah.sample.Presentation.Services.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
