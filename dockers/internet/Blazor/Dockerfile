@@ -5,20 +5,11 @@ WORKDIR /app
 EXPOSE 1988
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /
-
-COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
-COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
-COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/"]
-COPY ["src/Infrastructure/Providers/Npgsql/Cheetah.Infrastructure.Providers.Npgsql.csproj", "src/Infrastructure/Providers/Npgsql/"]
-COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
-
-COPY ["sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj", "sample/src/Presentation/Web/Blazor/Server/"]
-COPY ["sample/src/Infrastructure/Main/Cheetah.Sample.Infrastructure.csproj", "sample/src/Infrastructure/"]
-
-RUN dotnet restore "sample/src/Presentation/Web/Blazor/Server/Cheetah.Sample.Presentation.Web.Blazor.Server.csproj"
+WORKDIR /sample/src/Presentation/Web/Blazor/Server
+COPY ["Cheetah.Sample.Presentation.Web.Blazor.Server.csproj", "."]
+RUN dotnet restore "./Cheetah.Sample.Presentation.Web.Blazor.Server.csproj"
 COPY . .
-WORKDIR "sample/src/Presentation/Web/Blazor/Server/"
+WORKDIR "/sample/src/Presentation/Web/Blazor/Server/."
 RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
