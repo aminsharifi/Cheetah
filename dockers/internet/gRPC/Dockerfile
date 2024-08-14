@@ -7,15 +7,16 @@ EXPOSE 1989
 EXPOSE 1990
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src/gRPC
-COPY ["sample/src/Presentation/Services/gRPC/Cheetah.Sample.Presentation.Services.gRPC.csproj", "."]
-RUN dotnet restore "./Cheetah.Sample.Presentation.Services.gRPC.csproj"
+WORKDIR /
+COPY ["sample/src/Presentation/Services/gRPC/Cheetah.Sample.Presentation.Services.gRPC.csproj", "gRPC/"]
+COPY ["sample/src/Infrastructure/Cheetah.Sample.Infrastructure.csproj", "Infrastructure/"]
+RUN dotnet restore "gRPC/Cheetah.Sample.Presentation.Services.gRPC.csproj"
 COPY . .
-WORKDIR "/src/gRPC/."
-RUN dotnet build "./Cheetah.Sample.Presentation.Services.gRPC.csproj" -c Release -o /app/build
+WORKDIR "/gRPC"
+RUN dotnet build  -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./Cheetah.Sample.Presentation.Services.gRPC.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish  -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
