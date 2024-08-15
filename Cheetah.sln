@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Infrastructure.Prov
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Infrastructure.Providers.Npgsql", "src\Infrastructure\Providers\Npgsql\Cheetah.Infrastructure.Providers.Npgsql.csproj", "{6247C7D4-02AF-4D8F-820F-1D0A78EA6362}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleWebAPI", "sample\src\Presentation\Services\SampleWebAPI\SampleWebAPI.csproj", "{6AE7EBF6-E242-4C25-9688-6F71AE57E289}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{22FB4589-8ED9-4A79-B0B8-18E6478FF09B}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
@@ -77,6 +79,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{5DC77B
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{79A773A4-4BB9-4E84-A90C-8BAB0DEE49E8}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\internet\WebAPI\Dockerfile = dockers\internet\WebAPI\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E60E58B1-9369-4235-B9A6-31E263014B85}"
 EndProject
@@ -138,6 +143,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Presentation
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Infrastructure", "sample\src\Infrastructure\Cheetah.Sample.Infrastructure.csproj", "{DC7727A5-C1A2-44A1-87A0-624B7373D3A3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleWebAPI", "SampleWebAPI", "{01338E17-868A-4D29-B0E6-B6FE1276730C}"
+	ProjectSection(SolutionItems) = preProject
+		dockers\internet\SampleWebAPI\Dockerfile = dockers\internet\SampleWebAPI\Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +174,10 @@ Global
 		{6247C7D4-02AF-4D8F-820F-1D0A78EA6362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6247C7D4-02AF-4D8F-820F-1D0A78EA6362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6247C7D4-02AF-4D8F-820F-1D0A78EA6362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE7EBF6-E242-4C25-9688-6F71AE57E289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE7EBF6-E242-4C25-9688-6F71AE57E289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE7EBF6-E242-4C25-9688-6F71AE57E289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE7EBF6-E242-4C25-9688-6F71AE57E289}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E68D7C74-E3B5-4EB1-B4E0-2348E3E2746E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E68D7C74-E3B5-4EB1-B4E0-2348E3E2746E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E68D7C74-E3B5-4EB1-B4E0-2348E3E2746E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -206,6 +220,7 @@ Global
 		{075FC1B4-4354-46E9-9270-B5B7FAE9008C} = {B68C5B65-D29A-4C03-A606-E50AE0FB296C}
 		{71E22712-9606-4260-8335-30E349E58EC8} = {ACE38A6A-D0BF-461E-8E94-EA0472821142}
 		{6247C7D4-02AF-4D8F-820F-1D0A78EA6362} = {ACE38A6A-D0BF-461E-8E94-EA0472821142}
+		{6AE7EBF6-E242-4C25-9688-6F71AE57E289} = {8134CD51-705D-4A7D-BCE6-D8C15C45EAAF}
 		{E3650071-446E-4A8A-8AFD-3E510B8CF848} = {5681EDC5-D792-4347-BC7A-AD18764005B8}
 		{ACE38A6A-D0BF-461E-8E94-EA0472821142} = {E3650071-446E-4A8A-8AFD-3E510B8CF848}
 		{1FD212CF-7881-475C-8F80-540144E9677B} = {22FB4589-8ED9-4A79-B0B8-18E6478FF09B}
@@ -247,6 +262,7 @@ Global
 		{06899C13-5825-45F3-B5F4-2BC634D1A4B7} = {35309B6D-147B-459A-848A-2F3555EF5179}
 		{BEC35B9F-C823-4ABE-A29B-BF8D021DE084} = {D9A8C0A6-D33F-46BA-B5FA-5328D2B5C44B}
 		{DC7727A5-C1A2-44A1-87A0-624B7373D3A3} = {18760F63-9BE5-4768-B386-3198D9EA44B5}
+		{01338E17-868A-4D29-B0E6-B6FE1276730C} = {9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}
