@@ -3,8 +3,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 1991
-EXPOSE 1992
+EXPOSE 2991
+EXPOSE 2992
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src/SampleWebAPI
