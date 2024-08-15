@@ -9,7 +9,6 @@ EXPOSE 1992
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src/WebAPI
 COPY ["sample/src/Presentation/Services/WebAPI/Cheetah.Sample.Presentation.Services.WebAPI.csproj", "WebAPI/"]
-COPY ["sample/src/Infrastructure/Cheetah.Sample.Infrastructure.csproj", "Infrastructure/"]
 RUN dotnet restore "WebAPI/Cheetah.Sample.Presentation.Services.WebAPI.csproj"
 COPY . .
 WORKDIR "/src/WebAPI/."
