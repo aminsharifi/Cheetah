@@ -12,11 +12,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Directory.Build.props", "."]
-COPY ["SampleWebAPI/SampleWebAPI.csproj", "SampleWebAPI/"]
-RUN dotnet restore "./SampleWebAPI/SampleWebAPI.csproj"
+COPY ["sample/src/Presentation/Services/SampleWebAPI/SampleWebAPI.csproj", "sample/src/Presentation/Services/SampleWebAPI/"]
+COPY ["sample/src/Infrastructure/Cheetah.Sample.Infrastructure.csproj", "sample/src/Infrastructure/"]
+COPY ["src/Infrastructure/Providers/SqlServer/Cheetah.Infrastructure.Providers.SqlServer.csproj", "src/Infrastructure/Providers/SqlServer/"]
+COPY ["src/Infrastructure/Main/Cheetah.Infrastructure.csproj", "src/Infrastructure/Main/"]
+COPY ["src/UseCases/Cheetah.UseCases.csproj", "src/UseCases/"]
+COPY ["src/Core/Cheetah.Core.csproj", "src/Core/"]
+RUN dotnet restore "./sample/src/Presentation/Services/SampleWebAPI/SampleWebAPI.csproj"
 COPY . .
-WORKDIR "/src/SampleWebAPI"
+WORKDIR "/src/sample/src/Presentation/Services/SampleWebAPI"
 RUN dotnet build "./SampleWebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
