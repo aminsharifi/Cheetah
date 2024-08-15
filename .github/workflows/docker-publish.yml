@@ -32,7 +32,9 @@ jobs:
           - dockerfile: ./dockers/internet/gRPC/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.gRPC
           - dockerfile: ./dockers/internet/GraphQL/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Cheetah.GraphQL
+            image: ghcr.io/${{ github.actor }}/Cheetah.GraphQL            
+          - dockerfile: ./dockers/internet/SampleWebAPI/Dockerfile
+            image: ghcr.io/${{ github.actor }}/Cheetah.SampleWebAPI
     permissions:
       contents: read
       packages: write
