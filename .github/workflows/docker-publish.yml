@@ -33,8 +33,6 @@ jobs:
             image: ghcr.io/${{ github.actor }}/Cheetah.gRPC
           - dockerfile: ./dockers/internet/GraphQL/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.GraphQL            
-          - dockerfile: ./dockers/internet/SampleWebAPI/Dockerfile
-            image: ghcr.io/${{ github.actor }}/Cheetah.SampleWebAPI
           - dockerfile: ./dockers/internet/WebAPI/Dockerfile
             image: ghcr.io/${{ github.actor }}/Cheetah.WebAPI
     permissions:
