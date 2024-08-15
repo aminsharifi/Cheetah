@@ -120,9 +120,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Share", "Share", "{F030B3F0-BCC0-4985-A505-A40D7456DF3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{A9A29696-E80D-4E9D-8332-21C4002E4236}"
-	ProjectSection(SolutionItems) = preProject
-		sample\src\Presentation\Services\WebAPI\Cheetah.Sample.Presentation.Services.WebAPI.csproj = sample\src\Presentation\Services\WebAPI\Cheetah.Sample.Presentation.Services.WebAPI.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blazor", "Blazor", "{47FA6B4A-37FB-4EB2-AD6B-8914D2342C4A}"
 EndProject
@@ -147,6 +144,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleWebAPI", "SampleWebAP
 	ProjectSection(SolutionItems) = preProject
 		dockers\internet\SampleWebAPI\Dockerfile = dockers\internet\SampleWebAPI\Dockerfile
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Presentation.Services.WebAPI", "sample\src\Presentation\Services\WebAPI\Cheetah.Sample.Presentation.Services.WebAPI.csproj", "{8736F02B-83C8-439A-B769-E9B7A3F2A594}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -210,6 +209,10 @@ Global
 		{DC7727A5-C1A2-44A1-87A0-624B7373D3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC7727A5-C1A2-44A1-87A0-624B7373D3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC7727A5-C1A2-44A1-87A0-624B7373D3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -263,6 +266,7 @@ Global
 		{BEC35B9F-C823-4ABE-A29B-BF8D021DE084} = {D9A8C0A6-D33F-46BA-B5FA-5328D2B5C44B}
 		{DC7727A5-C1A2-44A1-87A0-624B7373D3A3} = {18760F63-9BE5-4768-B386-3198D9EA44B5}
 		{01338E17-868A-4D29-B0E6-B6FE1276730C} = {9C3921CA-C6F1-4EEE-93F8-F7FF69328CD7}
+		{8736F02B-83C8-439A-B769-E9B7A3F2A594} = {A9A29696-E80D-4E9D-8332-21C4002E4236}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}
