@@ -1,8 +1,11 @@
-using Microsoft.AspNetCore.Authentication;
+using Cheetah.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder = builder
+    .InitializeCheetahSettingsAsync();
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

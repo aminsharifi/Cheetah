@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
+namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 {
     [DbContext(typeof(CheetahDbContext))]
     [Migration("20240303073238_Init")]
@@ -3950,7 +3950,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.ToTable("L_WorkItemCondition", "Links");
                 });
 
-            modelBuilder.Entity("Cheetah.Infrastructure.Persistence.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("Cheetah.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -4467,7 +4467,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                     b.Navigation("WorkItem");
                 });
 
-            modelBuilder.Entity("Cheetah.Infrastructure.Persistence.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("Cheetah.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.HasOne("Cheetah.Core.Entities.Dimentions.D_User", "IU_User")
                         .WithMany()
@@ -4487,7 +4487,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Cheetah.Infrastructure.Persistence.Identity.ApplicationUser", null)
+                    b.HasOne("Cheetah.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -4496,7 +4496,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Cheetah.Infrastructure.Persistence.Identity.ApplicationUser", null)
+                    b.HasOne("Cheetah.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -4511,7 +4511,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Cheetah.Infrastructure.Persistence.Identity.ApplicationUser", null)
+                    b.HasOne("Cheetah.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -4520,7 +4520,7 @@ namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Cheetah.Infrastructure.Persistence.Identity.ApplicationUser", null)
+                    b.HasOne("Cheetah.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

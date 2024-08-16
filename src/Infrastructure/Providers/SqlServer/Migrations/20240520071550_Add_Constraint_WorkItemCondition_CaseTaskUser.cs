@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
+namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 {
     /// <inheritdoc />
     public partial class Add_Constraint_WorkItemCondition_CaseTaskUser : Migration

@@ -12,10 +12,14 @@ namespace Cheetah.Infrastructure.Data;
 public partial class CheetahDbContext : DbContext
 {
     private readonly IDomainEventDispatcher? _dispatcher;
-    public CheetahDbContext(DbContextOptions<DbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
+  
+    public CheetahDbContext(DbContextOptions<CheetahDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
     {
-
         _dispatcher = dispatcher;
+        if (this.Database.GetPendingMigrations().Count() > 0)
+        {
+            this.Database.Migrate();
+        }
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
