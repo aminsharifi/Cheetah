@@ -12,22 +12,9 @@ public static class CheetahInitialiserExtensions
 {
     public static WebApplicationBuilder InitializeCheetahSettingsAsync(this WebApplicationBuilder builder)
     {
-        //builder.Services.addse
         builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
 
-        #region Cheetah Services
-
-        builder.Services.AddScoped(typeof(ICheetahDbInitialiser), typeof(CheetahDbInitialiser));
-        builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
-        builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
-        builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
-        builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
-        builder.Services.AddScoped(typeof(ISync), typeof(Sync));
-
-        #endregion
-
         #region MediatR
-
         var mediatRAssemblies = new[]
         {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
@@ -38,10 +25,55 @@ public static class CheetahInitialiserExtensions
         builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
         #endregion
 
+        #region Repository
+        builder.Services.AddMemoryCache();
+        builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+        builder.Services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+        #endregion
+
         #region Mapster
         var mapperConfig = new Mapper(GetConfiguredMappingConfig());
         builder.Services.AddSingleton<IMapper>(mapperConfig);
-        #endregion     
+        #endregion
+
+        #region Cheetah Services
+        builder.Services.AddScoped(typeof(ICheetahDbInitialiser), typeof(CheetahDbInitialiser));
+        builder.Services.AddScoped(typeof(ISync), typeof(Sync));
+        builder.Services.AddScoped(typeof(ITableCRUD), typeof(TableCRUD));
+        builder.Services.AddScoped(typeof(IWorkItem), typeof(WorkItem));
+        builder.Services.AddScoped(typeof(ICartable), typeof(Cartable));
+        builder.Services.AddScoped(typeof(ICopyClass), typeof(CopyClass));
+        #endregion
+
+        #region DB
+        var provider = builder.Configuration.GetValue("Provider", "Npgsql");
+        var _connection = builder.Configuration
+                .GetConnectionString("DefaultConnection");
+        var _nameSpace = "Cheetah.Infrastructure.Providers.";
+        if (provider is "Npgsql")
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            builder.Services.AddDbContext<CheetahDbContext>(
+                b => b.UseLazyLoadingProxies(true)
+                .UseNpgsql(_connection,
+                x => x.MigrationsAssembly(_nameSpace + "Npgsql")
+                ),
+                ServiceLifetime.Transient
+                );
+        }
+        else
+        {
+            builder.Services.AddDbContext<CheetahDbContext>(
+                b => b.UseLazyLoadingProxies(true)
+                .UseSqlServer(_connection,
+                x => x.MigrationsAssembly(_nameSpace + "SqlServer")),
+                ServiceLifetime.Transient
+                );
+        }
+        #endregion
+
+        
 
         return builder;
     }
@@ -58,7 +90,6 @@ public static class CheetahInitialiserExtensions
         return builder;
     }
 
-
     /// <summary>
     /// Mapster(Mapper) global configuration settings
     /// To learn more about Mapster,
@@ -69,13 +100,13 @@ public static class CheetahInitialiserExtensions
     {
         var config = TypeAdapterConfig.GlobalSettings;
 
-        var mediatRAssemblies = new[]
+        var cheetahAssemblies = new[]
        {
             Assembly.GetAssembly(typeof(D_Tag)), // Core
             Assembly.GetAssembly(typeof(Cartable)), // UseCases
         };
 
-        IList<IRegister> registers = config.Scan(mediatRAssemblies);
+        IList<IRegister> registers = config.Scan(cheetahAssemblies);
 
         config.Apply(registers);
 
