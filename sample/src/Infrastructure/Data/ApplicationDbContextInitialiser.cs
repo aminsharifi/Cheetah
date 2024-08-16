@@ -107,8 +107,6 @@ public static class InitialiserExtensions
 
         var microsoftLogger = new SerilogLoggerFactory(logger).CreateLogger("Programm");
 
-        builder.Services.AddInfrastructureServices(builder.Configuration, microsoftLogger);
-
         #endregion
 
         #region Identity

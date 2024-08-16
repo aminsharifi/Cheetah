@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Cheetah.Infrastructure.Persistence.Providers.SqlServer.Migrations
+namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 {
     /// <inheritdoc />
     public partial class Add_Form_Entity : Migration
