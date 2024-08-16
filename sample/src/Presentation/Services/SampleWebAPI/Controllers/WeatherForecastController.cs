@@ -1,3 +1,4 @@
+using Ardalis.SharedKernel;
 using Cheetah.Core.Entities.Dimentions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,17 +9,21 @@ namespace SampleWebAPI.Controllers
     
     [ApiController]
     [Route("[controller]")]    
-    public class WeatherForecastController(ILogger<WeatherForecastController> logger) : ControllerBase
+    public class WeatherForecastController(
+        ILogger<WeatherForecastController> logger,
+        IReadRepository<D_Tag> tag) : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };        
+        };
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
             D_User _user = D_User.a_sharifi;
+
+            var aaa = await tag.ListAsync();
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
