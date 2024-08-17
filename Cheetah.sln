@@ -137,6 +137,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Presentation.Services.WebAPI", "sample\src\Presentation\Services\WebAPI\Cheetah.Sample.Presentation.Services.WebAPI.csproj", "{8736F02B-83C8-439A-B769-E9B7A3F2A594}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Presentation.Web.Blazor.Server", "src\Presentation\Web\Blazor\Server\Cheetah.Presentation.Web.Blazor.Server.csproj", "{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,10 @@ Global
 		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8736F02B-83C8-439A-B769-E9B7A3F2A594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -251,6 +257,7 @@ Global
 		{BEC35B9F-C823-4ABE-A29B-BF8D021DE084} = {D9A8C0A6-D33F-46BA-B5FA-5328D2B5C44B}
 		{DC7727A5-C1A2-44A1-87A0-624B7373D3A3} = {18760F63-9BE5-4768-B386-3198D9EA44B5}
 		{8736F02B-83C8-439A-B769-E9B7A3F2A594} = {A9A29696-E80D-4E9D-8332-21C4002E4236}
+		{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586} = {9BCE7CFA-7138-4000-A1F1-E05607C74A49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {969943B1-3883-4A12-8F5C-72233444D018}
