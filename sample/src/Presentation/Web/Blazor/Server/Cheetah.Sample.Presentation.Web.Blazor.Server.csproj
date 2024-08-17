@@ -15,6 +15,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Services\**" />
+	  <Content Remove="Services\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <None Remove="Services\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 	<ItemGroup>
@@ -27,7 +34,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Services\" />
 		<Folder Include="wwwroot\imeges\" />
 		<Folder Include="wwwroot\dist\" />
 	</ItemGroup>
