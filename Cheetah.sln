@@ -77,9 +77,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{5DC77B
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{79A773A4-4BB9-4E84-A90C-8BAB0DEE49E8}"
-	ProjectSection(SolutionItems) = preProject
-		dockers\internet\WebAPI\Dockerfile = dockers\internet\WebAPI\Dockerfile
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E60E58B1-9369-4235-B9A6-31E263014B85}"
 EndProject
