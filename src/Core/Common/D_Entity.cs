@@ -79,7 +79,7 @@ public partial class D_Entity
 
     public static readonly D_Entity D_User =
         (D_Entity)new D_Entity()
-        .SetDisplay(true)
+        .SetDisplay(false)
         .SetId(106)
         .SetERPCode(106)
         .SetSortIndex(106)
