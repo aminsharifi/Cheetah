@@ -1,11 +1,22 @@
 using Cheetah.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder = builder
-    .InitializeCheetahSettingsAsync();
+var _connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder = builder.CheetahConfigurationAsync(_connection!);
+
+if (builder.Environment.IsProduction())
+{
+    builder.WebHost.ConfigureKestrel(serverOptions =>
+    {
+        serverOptions.ListenAnyIP(1991, cfg => { cfg.Protocols = HttpProtocols.Http1; });
+    });
+}
+
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

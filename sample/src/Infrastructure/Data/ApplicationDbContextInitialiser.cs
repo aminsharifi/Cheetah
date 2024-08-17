@@ -7,9 +7,13 @@ public static class InitialiserExtensions
 {
     public static async Task<WebApplication> InitializeSettingsAsync(this WebApplicationBuilder builder)
     {
-        builder = builder.InitializeCheetahSettingsAsync();
+        var _connection = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder = builder.CheetahConfigurationAsync(_connection!);
+        GlobalConfiguration.Configuration.UseSqlServerStorage(_connection);
         builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder?.Services.AddProblemDetails();
+
+        builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
 
         #region Production
         if (builder.Environment.IsProduction())
@@ -38,50 +42,28 @@ public static class InitialiserExtensions
         }
         #endregion
 
-        #region Hangfire
-
-        GlobalConfiguration.Configuration
-           .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-        #endregion
-
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
-        var _nameSpace = nameof(Cheetah) + "." +
-            nameof(Infrastructure) + ".";
+
+        var _nameSpace = "Cheetah.Infrastructure.Providers.";
         if (provider is "Npgsql")
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             builder.Services.AddDbContext<ApplicationDbContext>(
                 b => b.UseLazyLoadingProxies(true)
-                .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
-                , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
+                .UseNpgsql(_connection,
+                x => x.MigrationsAssembly(_nameSpace + "Npgsql")
                 ),
                 ServiceLifetime.Transient
                 );
-
-            builder.Services.AddDbContext<CheetahDbContext>(
-               b => b.UseLazyLoadingProxies(true)
-               .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
-               , x => x.MigrationsAssembly(_nameSpace + "Providers.Npgsql")
-               ),
-               ServiceLifetime.Transient
-               );
         }
         else
         {
-            builder.Services.AddDbContext<CheetahDbContext>(
-            b => b.UseLazyLoadingProxies(true)
-            .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-            x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
-            ServiceLifetime.Transient
-            );
-
             builder.Services.AddDbContext<ApplicationDbContext>(
                 b => b.UseLazyLoadingProxies(true)
-                .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                x => x.MigrationsAssembly(_nameSpace + "Providers.SqlServer")),
+                .UseSqlServer(_connection,
+                x => x.MigrationsAssembly(_nameSpace + "SqlServer")),
                 ServiceLifetime.Transient
                 );
         }
@@ -142,8 +124,6 @@ public static class InitialiserExtensions
 
         #endregion
 
-        app = await app.CheetahSettingsAsync();
-
         #region DB Initials
 
         using var scope = app.Services.CreateScope();
@@ -154,29 +134,4 @@ public static class InitialiserExtensions
 
         return app;
     }
-    /*
-    /// <summary>
-    /// Mapster(Mapper) global configuration settings
-    /// To learn more about Mapster,
-    /// see https://github.com/MapsterMapper/Mapster
-    /// </summary>
-    /// <returns></returns>
-    public static TypeAdapterConfig GetConfiguredMappingConfig()
-    {
-        var config = TypeAdapterConfig.GlobalSettings;
-
-
-        var mediatRAssemblies = new[]
-       {
-            Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(Cartable)), // UseCases
-        };
-
-        IList<IRegister> registers = config.Scan(mediatRAssemblies);
-
-        config.Apply(registers);
-
-        return config;
-    }
-    */
 }
