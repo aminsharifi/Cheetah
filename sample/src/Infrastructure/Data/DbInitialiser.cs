@@ -12,6 +12,7 @@ public class DbInitializer : IDbInitializer
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     public readonly ApplicationDbContext _db;
+    
     public DbInitializer(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
         ApplicationDbContext db)
@@ -23,10 +24,17 @@ public class DbInitializer : IDbInitializer
 
     public async Task<bool> Initialize()
     {
+
         //if (await _userManager?.Users?.AnyAsync(x=>x.UserName == "Delete"))
         //{
         //    await _db.Database.EnsureCreatedAsync();
         //}
+
+        var _database = _db.Database;
+
+        var _pending = _database.GetPendingMigrations();
+
+        var _cnt = _pending.Count();
 
         if (_db.Database.GetPendingMigrations().Count() > 0)
         {
@@ -53,7 +61,7 @@ public class DbInitializer : IDbInitializer
 
             await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
         }
-
+        
         return true;
     }
 }

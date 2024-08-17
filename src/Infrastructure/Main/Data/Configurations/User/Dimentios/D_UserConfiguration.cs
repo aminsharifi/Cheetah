@@ -1,4 +1,5 @@
 ﻿using Cheetah.Core.Entities.Dimentions;
+using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.Infrastructure.Data.Configurations.User.Dimentios;
 
@@ -59,7 +60,6 @@ public class D_UserConfiguration : IEntityTypeConfiguration<D_User>
             .WithOne()
             .HasForeignKey<D_User>(x => x.DelegateId)
             .OnDelete(DeleteBehavior.Restrict);
-
 
         #endregion
 
