@@ -10,7 +10,7 @@ namespace Cheetah.Infrastructure.Data;
 
 public static class CheetahInitialiserExtensions
 {
-    public static WebApplicationBuilder InitializeCheetahSettingsAsync(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder CheetahConfigurationAsync(this WebApplicationBuilder builder, String connection)
     {
         builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
 
@@ -47,8 +47,7 @@ public static class CheetahInitialiserExtensions
 
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
-        var _connection = builder.Configuration
-                .GetConnectionString("DefaultConnection");
+    
         var _nameSpace = "Cheetah.Infrastructure.Providers.";
         if (provider is "Npgsql")
         {
@@ -56,7 +55,7 @@ public static class CheetahInitialiserExtensions
 
             builder.Services.AddDbContext<CheetahDbContext>(
                 b => b.UseLazyLoadingProxies(true)
-                .UseNpgsql(_connection,
+                .UseNpgsql(connection,
                 x => x.MigrationsAssembly(_nameSpace + "Npgsql")
                 ),
                 ServiceLifetime.Transient
@@ -66,7 +65,7 @@ public static class CheetahInitialiserExtensions
         {
             builder.Services.AddDbContext<CheetahDbContext>(
                 b => b.UseLazyLoadingProxies(true)
-                .UseSqlServer(_connection,
+                .UseSqlServer(connection,
                 x => x.MigrationsAssembly(_nameSpace + "SqlServer")),
                 ServiceLifetime.Transient
                 );
@@ -74,18 +73,6 @@ public static class CheetahInitialiserExtensions
         #endregion
 
         
-
-        return builder;
-    }
-    public static async Task<WebApplication> CheetahSettingsAsync(this WebApplication? builder)
-    {
-        #region DB Initials
-
-        using var scope = builder.Services.CreateScope();
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<ICheetahDbInitialiser>();
-        await dbInitializer.Initialize();
-
-        #endregion
 
         return builder;
     }

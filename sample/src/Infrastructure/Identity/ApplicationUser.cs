@@ -1,12 +1,10 @@
-﻿using Cheetah.Core.Entities.Dimentions;
-
-namespace Cheetah.Sample.Infrastructure.Identity;
+﻿namespace Cheetah.Sample.Infrastructure.Identity;
 public class ApplicationUser : IdentityUser
 {
     [Column(Order = 101)]
     public long? IU_UserId { get; set; }
 
-    [Column(Order = 102)]
-    [ForeignKey(nameof(IU_UserId))]
-    public virtual D_User IU_User { get; set; }
+    //[Column(Order = 102)]
+    //[ForeignKey(nameof(IU_UserId))]
+    //public virtual D_User IU_User { get; set; }
 }
