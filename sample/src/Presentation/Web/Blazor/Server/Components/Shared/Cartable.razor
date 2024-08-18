@@ -1,6 +1,6 @@
 ﻿@using Cheetah.Core.Common.DTOs
 @using Cheetah.Core.Interfaces.Cartable.DTOs
-
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @inherits MyComponentBase
 
 <div dir="rtl">
@@ -14,25 +14,25 @@
         <MudTable Items="@cartableDTOList">
             <HeaderContent>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_RadNumber)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RadNumber)))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_PCreateDate)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_PCreateDate)))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_PRecieveDate)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_PRecieveDate)))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_Requestor)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Requestor)))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_Process)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Process)))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_Task)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Task)))
                 </MudTh>
                 <MudTh>
-                    @(globalization.GetValue(nameof(Localization.BlazorServer_Summary)))
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Summary)))
                 </MudTh>
             </HeaderContent>
             <RowTemplate>

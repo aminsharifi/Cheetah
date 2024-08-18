@@ -137,7 +137,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Sample.Presentation.Services.WebAPI", "sample\src\Presentation\Services\WebAPI\Cheetah.Sample.Presentation.Services.WebAPI.csproj", "{8736F02B-83C8-439A-B769-E9B7A3F2A594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cheetah.Presentation.Web.Blazor.Server", "src\Presentation\Web\Blazor\Server\Cheetah.Presentation.Web.Blazor.Server.csproj", "{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cheetah.Presentation.Web.Blazor.Server", "src\Presentation\Web\Blazor\Server\Cheetah.Presentation.Web.Blazor.Server.csproj", "{8ABB5CBB-BBB7-4EA2-B432-8EA0BCC59586}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

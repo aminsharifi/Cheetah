@@ -5,11 +5,12 @@
 @using Cheetah.Core.Common
 @using Cheetah.Core.Entities.Dimentions
 @using Cheetah.Core.Enums
+@using Cheetah.Presentation.Web.Blazor.Server.Components.Shared
 @using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Shared
-@using Cheetah.Sample.Presentation.Web.Blazor.Server.Resx
+@using Cheetah.Presentation.Web.Blazor.Server.Resx
 @using DNTPersianUtils.Core
 @using MudBlazor
-
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @inherits SharedPage
 <NavigationComponent _CNavigation="@_CNavigation"></NavigationComponent>
 
@@ -18,8 +19,8 @@
     @if (!IsLoading)
     {
         <div class="col-lg-5 col-sm-9">
-            <MudSelect Label=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter) ))
-                       HelperText=@(globalization.GetValue(nameof(Localization.BlazorServer_SelectParameter) ))
+            <MudSelect Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SelectParameter) ))
+                       HelperText=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SelectParameter) ))
                        AnchorOrigin="Origin.BottomCenter" AdornmentColor="Color.Primary"
                        AdornmentIcon="@Icons.Material.Filled.Settings"
                        @bind-Value="SelectedName" T="KeyValuePair<String, String>">
@@ -34,7 +35,7 @@
             {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
                         OnClick="Addnew"
-                        Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Add) )) />
+                        Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Add) )) />
             }
         </div>
         <div class="col-lg-1 col-sm-3">
@@ -49,24 +50,12 @@
 
         @if (Sync is true)
         {
-            <div class="col-lg-3 col-sm-3">
-                <MudButton Color="@(_color)"
-                           OnClick="GetLastModified"
-                           EndIcon="@Icons.Material.Filled.Refresh"
-                           id="LastUpdateButton">
-                    آخرین بروزرسانی:
-                    @LastModified?.ToString("HH:mm:ss") @LastModified?.ConvertToPersianDay()
-                </MudButton>
-            </div>
-            <div class="col-lg-1 col-sm-3">
-                <MudCheckBox Label="فعال" Variant="Variant.Text"
-                             Value="((D_Entity)Record).EnableRecord"
-                             ReadOnly="true"
-                             Color="Color.Primary"
-                             CheckedIcon="@Icons.Material.Filled.Verified"
-                             UncheckedColor="Color.Error"
-                             UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
-            </div>
+            <SyncStateComponent color="@(_color)" getLastModified="GetLastModified"
+                                lastModified="@(LastModified)"
+                                enableRecord="((D_Entity)Record).EnableRecord">
+
+            </SyncStateComponent>
+
         }
     }
 
@@ -80,7 +69,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" style="border-radius:revert;width: 7em;font-size:large;"
                               lang="fa" dir="rtl">
-                            @(globalization.GetValue(nameof(Localization.BlazorServer_Filter)))
+                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Filter)))
                         </span>
                     </div>
                 </div>

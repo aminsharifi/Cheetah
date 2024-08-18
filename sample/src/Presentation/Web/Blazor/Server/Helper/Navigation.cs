@@ -1,5 +1,5 @@
 ﻿using Cheetah.Core.Resx;
-using Localization = Cheetah.Sample.Presentation.Web.Blazor.Server.Resx.Localization;
+using Localization = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization;
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
 public enum CNavigationEnum
 {
@@ -21,7 +21,7 @@ public class CNavigation
     public List<CNavigationStruct> NavigationList { get; set; }
 
     public IGlobalization iGlobalization =
-        new Globalization(nameof(Cheetah) + "." + nameof(Cheetah.Sample) + "." +
+        new Globalization(nameof(Cheetah)  + "." +
             nameof(Presentation) + "." + nameof(Web) + "." +
             nameof(Blazor) + "." + nameof(Server));
 

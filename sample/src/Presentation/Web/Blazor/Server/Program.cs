@@ -9,11 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IGlobalization>
     (
     x => new Globalization(nameof(Cheetah) + "." +
-    nameof(Cheetah.Sample) +
-    "." + nameof(Cheetah.Sample.Presentation) + "." +
-    nameof(Cheetah.Sample.Presentation.Web) + "." +
-    nameof(Cheetah.Sample.Presentation.Web.Blazor) + "." +
-    nameof(Cheetah.Sample.Presentation.Web.Blazor.Server)));
+    nameof(Cheetah.Presentation) + "." +
+    nameof(Cheetah.Presentation.Web) + "." +
+    nameof(Cheetah.Presentation.Web.Blazor) + "." +
+    nameof(Cheetah.Presentation.Web.Blazor.Server)));
 
 builder.Services.AddScoped<CNavigation>();
 

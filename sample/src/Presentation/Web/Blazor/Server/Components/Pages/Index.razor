@@ -1,17 +1,17 @@
 ﻿@page "/Request"
-
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @inherits MyComponentBase
-<PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_NewMessage) ))</PageTitle>
+<PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_NewMessage)))</PageTitle>
 
     <div>
-        <h1>@(globalization.GetValue(nameof(Localization.BlazorServer_ModelDiagram) ))</h1>
+    <h1>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ModelDiagram)))</h1>
     <br />
     <div class="btn-group" role="group" aria-label="Basic example" style="direction: ltr;width: 20em;">
         <button id="save-button" class="btn btn-info">
-            @(globalization.GetValue(nameof(Localization.BlazorServer_Save) ))
+            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Save)))
         </button>
         <button class="btn btn-primary" @onclick="TestConfirmation">
-            @(globalization.GetValue(nameof(Localization.BlazorServer_Upload) ))
+            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Upload)))
         </button>
     </div>
 </div>
@@ -32,6 +32,6 @@
     private async Task TestConfirmation()
     {
         await _JSRuntime.InvokeVoidAsync("ShowBPMN");
-        value = globalization.GetValue(nameof(Localization.BlazorServer_Upload) );
+        value = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Upload));
     }
 }
