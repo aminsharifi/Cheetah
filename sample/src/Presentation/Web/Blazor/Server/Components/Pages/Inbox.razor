@@ -1,6 +1,6 @@
 ﻿@page "/Inbox"
 @inherits MyComponentBase
-
-<PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_Inbox) ))</PageTitle>
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+<PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Inbox)))</PageTitle>
 
 <Cartable Inbox="true" Username="AdmissionManager"></Cartable>

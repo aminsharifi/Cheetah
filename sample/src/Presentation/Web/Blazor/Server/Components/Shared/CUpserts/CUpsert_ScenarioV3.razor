@@ -2,6 +2,7 @@
 @using Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition
 @using Cheetah.Core.Common
 @using Cheetah.Core.Common.DTOs
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @inherits CUpsert_GeneralCode
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
                  Name="D_TaskPattern" Id="@Id" reference="@reference"
@@ -22,16 +23,16 @@
                     <thead>
                         <tr style="width:90%">
                             <th data-sortable="true" aria-sort="ascending">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                             </th>
                             <th data-sortable="true">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                             </th>
                             <th data-sortable="true">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Condition)))
                             </th>
                             <th data-sortable="true">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                             </th>
                         </tr>
                     </thead>
@@ -67,7 +68,7 @@
                                 </td>
                                 <td>
                                     <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                 Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                 Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                  Value="@_scenarioCondition.EnableRecord"
                                                  Color="Color.Primary"
                                                  CheckedIcon="@Icons.Material.Filled.Verified"
@@ -95,7 +96,7 @@
                                        Variant="Variant.Filled" Color="Color.Primary"
                                        EndIcon="@Icons.Material.Filled.PersonAdd"
                                        @onclick="AddTaskPattern">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_AddToTasks)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddToTasks)))
                             </MudButton>
                         </center>
                     </div>
@@ -105,7 +106,7 @@
                         <caption>
                             <div class="row my-1" style="justify-content: center;">
                                 <span class="col-2 text-success">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_TasksList)))
+                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_TasksList)))
                                 </span>
                             </div>
                         </caption>
@@ -114,10 +115,10 @@
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
                                     <th data-sortable="true" aria-sort="ascending" width="10px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                                     </th>
                                     <th data-sortable="true" width="10px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                                     </th>
                                 }
                                 <th data-sortable="true" width="100px">
@@ -126,7 +127,7 @@
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
                                     <th data-sortable="true" width="200px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_FormName)))
                                     </th>
                                     <th data-sortable="true" width="500px">
                                         ایفاکنندگان
@@ -135,12 +136,12 @@
                                 @if (_scenarioStep == ScenarioStep.Actions)
                                 {
                                     <th data-sortable="true" width="10px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Actions)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Actions)))
                                     </th>
                                 }
 
                                 <th data-sortable="true" width="10px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                 </th>
                             </tr>
                         </thead>
@@ -194,18 +195,18 @@
                                                 <thead>
                                                     <tr>
                                                         <th data-sortable="true" aria-sort="ascending" style="width: 50px">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                                                         </th>
                                                         <th data-sortable="true" style="width: 50px">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                                                         </th>
 
                                                         <th data-sortable="true" style="width:300px">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Condition)))
                                                         </th>
 
                                                         <th data-sortable="true" style="width: 50px">
-                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -241,7 +242,7 @@
                                                             </td>
                                                             <td style="width:100px">
                                                                 <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                                             Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                             Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                                              Value="@_taskCondition?.EnableRecord"
                                                                              Color="Color.Primary"
                                                                              CheckedIcon="@Icons.Material.Filled.Verified"
@@ -262,7 +263,7 @@
                                                 <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
                                                            EndIcon="@Icons.Material.Filled.CheckBox" Color="Color.Primary"
                                                            @onclick="(e => Add_Actions(e,_task))">
-                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_AddActions)))
+                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddActions)))
                                                 </MudButton>
                                             </center>
                                             <div>
@@ -270,22 +271,22 @@
                                                     <thead>
                                                         <tr>
                                                             <th data-sortable="true" aria-sort="ascending">
-                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                                                             </th>
                                                             <th data-sortable="true">
-                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                                                             </th>
                                                             <th data-sortable="true">
-                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Conditions)))
+                                                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Conditions)))
                                                             </th>
                                                             <th data-sortable="true">
-                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_NextActions)))
+                                                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_NextActions)))
                                                             </th>
                                                             <th data-sortable="true">
-                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_CaseState)))
+                                                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_CaseState)))
                                                             </th>
                                                             <th data-sortable="true">
-                                                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -310,25 +311,25 @@
                                                                         <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled" Color="Color.Primary"
                                                                                    EndIcon="@Icons.Material.Filled.Engineering"
                                                                                    @onclick="(e => Add_ActionsCondition(e,_action))">
-                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddToConditions)))
+                                                                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddToConditions)))
                                                                         </MudButton>
                                                                     </center>
                                                                     <Ctable>
                                                                         <thead>
                                                                             <tr>
                                                                                 <th data-sortable="true" aria-sort="ascending" style="width: 50px">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                                                                                 </th>
                                                                                 <th data-sortable="true" style="width: 50px">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                                                                                 </th>
 
                                                                                 <th data-sortable="true">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Condition)))
                                                                                 </th>
 
                                                                                 <th data-sortable="true" style="width: 50px">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -363,7 +364,7 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                                                                     Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                     Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                                                                      Value="@_flowCondition?.EnableRecord"
                                                                                                      Color="Color.Primary"
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
@@ -381,23 +382,23 @@
                                                                         <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled" Color="Color.Primary"
                                                                                    EndIcon="@Icons.Material.Filled.NextPlan"
                                                                                    @onclick="(e => Add_ActionsTask(e,_action))">
-                                                                            @(globalization.GetValue(nameof(Localization.BlazorServer_AddNextAction)))
+                                                                            @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddNextAction)))
                                                                         </MudButton>
                                                                     </center>
                                                                     <Ctable>
                                                                         <thead>
                                                                             <tr>
                                                                                 <th data-sortable="true" aria-sort="ascending" style="width: 50px">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                                                                                 </th>
                                                                                 <th data-sortable="true" style="width: 50px">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                                                                                 </th>
                                                                                 <th data-sortable="true">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Action)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Action)))
                                                                                 </th>
                                                                                 <th data-sortable="true">
-                                                                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -432,7 +433,7 @@
                                                                                     </td>
                                                                                     <td>
                                                                                         <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                                                                     Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                                     Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                                                                      Value="@Task.EnableRecord"
                                                                                                      Color="Color.Primary"
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
@@ -459,7 +460,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                                                 Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                                                 Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                                                  Value="@_action.EnableRecord"
                                                                                  Color="Color.Primary"
                                                                                  CheckedIcon="@Icons.Material.Filled.Verified"
@@ -476,7 +477,7 @@
                                     }
                                     <td>
                                         <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                     Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                                     Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                                      Value="@_task.EnableRecord"
                                                      Color="Color.Primary"
                                                      CheckedIcon="@Icons.Material.Filled.Verified"
@@ -491,7 +492,7 @@
                 </div>
                 <LinkComponent ReadonlyState="@ReadonlyState" Records="@LinkRecords"
                                reference="@reference"
-                               Title=@(globalization.GetValue(nameof(Localization.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
+                               Title=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
                 </LinkComponent>
             </div>
         }

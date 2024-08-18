@@ -1,4 +1,5 @@
 ﻿@using Cheetah.Core.Common.DTOs
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @inherits CUpsert_GeneralCode
 
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
@@ -8,7 +9,7 @@
     <RowTemplate>
         <LinkComponent Records="@LinkRecords"
                        reference="@reference"
-                       Title=@(globalization.GetValue(nameof(Localization.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
+                       Title=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
         </LinkComponent>
     </RowTemplate>
 </CEditDimentions>
