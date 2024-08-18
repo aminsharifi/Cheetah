@@ -1,5 +1,4 @@
-﻿using Cheetah.Sample.Presentation.Web.Blazor.Server.Resx;
-
+﻿using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization;
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Shared;
 public class CUpsert_GeneralCode : SharedPage
 {
@@ -30,8 +29,8 @@ public class CUpsert_GeneralCode : SharedPage
     {
         if (LoadData)
         {
-            string rowAdd = globalization.GetValue(nameof(Localization.BlazorServer_Add));
-            string rowSave = globalization.GetValue(nameof(Localization.BlazorServer_Save));
+            string rowAdd = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Add));
+            string rowSave = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Save));
 
             Title = Id > 0 ? rowSave : rowAdd;
             await LoadDTO();
@@ -79,12 +78,12 @@ public class CUpsert_GeneralCode : SharedPage
 
             if (IsNew)
             {
-                string rowAdded = globalization.GetValue(nameof(Localization.BlazorServer_RowAdded), new string[] { });
+                string rowAdded = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowAdded), new string[] { });
                 Snackbar.Add(rowAdded, Severity.Success);
             }
             else
             {
-                string rowSaved = globalization.GetValue(nameof(Localization.BlazorServer_RowSaved), new string[] { Record.DisplayName });
+                string rowSaved = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowSaved), new string[] { Record.DisplayName });
                 Snackbar.Add(rowSaved, Severity.Success);
             }
 

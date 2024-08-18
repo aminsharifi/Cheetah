@@ -159,6 +159,9 @@
   <data name="BlazorServer_Close" xml:space="preserve">
     <value>بستن</value>
   </data>
+  <data name="BlazorServer_Condition" xml:space="preserve">
+    <value>شرط</value>
+  </data>
   <data name="BlazorServer_ConditionAndVariableList" xml:space="preserve">
     <value>لیست شرط‌ها/متغیرها</value>
   </data>
@@ -191,9 +194,6 @@
   </data>
   <data name="BlazorServer_EnableRecord" xml:space="preserve">
     <value>فعال</value>
-  </data>
-  <data name="BlazorServer_TasksList" xml:space="preserve">
-    <value>لیست ‌تاییدها</value>
   </data>
   <data name="BlazorServer_ERPCode" xml:space="preserve">
     <value>کد در ERP</value>
@@ -372,8 +372,14 @@
   <data name="BlazorServer_Tag" xml:space="preserve">
     <value>تگ</value>
   </data>
+  <data name="BlazorServer_TagCategory" xml:space="preserve">
+    <value>دسته بندی تگ</value>
+  </data>
   <data name="BlazorServer_Task" xml:space="preserve">
     <value>نام فرم</value>
+  </data>
+  <data name="BlazorServer_TasksList" xml:space="preserve">
+    <value>لیست ‌تاییدها</value>
   </data>
   <data name="BlazorServer_Upload" xml:space="preserve">
     <value>بارگزاری</value>
@@ -395,11 +401,5 @@
   </data>
   <data name="BlazorServer_Welcome" xml:space="preserve">
     <value>{0} خوش آمدید</value>
-  </data>
-  <data name="BlazorServer_Condition" xml:space="preserve">
-    <value>شرط</value>
-  </data>
-  <data name="BlazorServer_TagCategory" xml:space="preserve">
-    <value>دسته بندی تگ</value>
   </data>
 </root>

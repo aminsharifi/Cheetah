@@ -25,4 +25,24 @@
 		<PackageReference Include="MudBlazor" Version="7.6.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Helper\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resx\Localization.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Localization.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resx\Localization.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
 </Project>

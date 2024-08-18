@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
+namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Localization {
+    public class Localization {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cheetah.Sample.Presentation.Web.Blazor.Server.Resx.Localization", typeof(Localization).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cheetah.Presentation.Web.Blazor.Server.Resx.Localization", typeof(Localization).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اقدام.
         /// </summary>
-        internal static string BlazorServer_Action {
+        public static string BlazorServer_Action {
             get {
                 return ResourceManager.GetString("BlazorServer_Action", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اقدامات.
         /// </summary>
-        internal static string BlazorServer_Actions {
+        public static string BlazorServer_Actions {
             get {
                 return ResourceManager.GetString("BlazorServer_Actions", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ایجاد.
         /// </summary>
-        internal static string BlazorServer_Add {
+        public static string BlazorServer_Add {
             get {
                 return ResourceManager.GetString("BlazorServer_Add", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اضافه کردن اقدامات.
         /// </summary>
-        internal static string BlazorServer_AddActions {
+        public static string BlazorServer_AddActions {
             get {
                 return ResourceManager.GetString("BlazorServer_AddActions", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to افزودن به لیست شرط‌ها/متغیرها.
         /// </summary>
-        internal static string BlazorServer_AddConditionAndVariable {
+        public static string BlazorServer_AddConditionAndVariable {
             get {
                 return ResourceManager.GetString("BlazorServer_AddConditionAndVariable", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اضافه کردن اقدام بعدی.
         /// </summary>
-        internal static string BlazorServer_AddNextAction {
+        public static string BlazorServer_AddNextAction {
             get {
                 return ResourceManager.GetString("BlazorServer_AddNextAction", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اضافه کردن شرط‌ها.
         /// </summary>
-        internal static string BlazorServer_AddToConditions {
+        public static string BlazorServer_AddToConditions {
             get {
                 return ResourceManager.GetString("BlazorServer_AddToConditions", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to افزودن فرم.
         /// </summary>
-        internal static string BlazorServer_AddToTasks {
+        public static string BlazorServer_AddToTasks {
             get {
                 return ResourceManager.GetString("BlazorServer_AddToTasks", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to بصورت خودکار ساخته می‌شود.
         /// </summary>
-        internal static string BlazorServer_AutomaticGenerated {
+        public static string BlazorServer_AutomaticGenerated {
             get {
                 return ResourceManager.GetString("BlazorServer_AutomaticGenerated", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to انصراف.
         /// </summary>
-        internal static string BlazorServer_Cancel {
+        public static string BlazorServer_Cancel {
             get {
                 return ResourceManager.GetString("BlazorServer_Cancel", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to وضعیت درخواست.
         /// </summary>
-        internal static string BlazorServer_CaseState {
+        public static string BlazorServer_CaseState {
             get {
                 return ResourceManager.GetString("BlazorServer_CaseState", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to مقدار.
         /// </summary>
-        internal static string BlazorServer_CellValue {
+        public static string BlazorServer_CellValue {
             get {
                 return ResourceManager.GetString("BlazorServer_CellValue", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to چیتا.
         /// </summary>
-        internal static string BlazorServer_Cheetah {
+        public static string BlazorServer_Cheetah {
             get {
                 return ResourceManager.GetString("BlazorServer_Cheetah", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to بستن.
         /// </summary>
-        internal static string BlazorServer_Close {
+        public static string BlazorServer_Close {
             get {
                 return ResourceManager.GetString("BlazorServer_Close", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to شرط.
         /// </summary>
-        internal static string BlazorServer_Condition {
+        public static string BlazorServer_Condition {
             get {
                 return ResourceManager.GetString("BlazorServer_Condition", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لیست شرط‌ها/متغیرها.
         /// </summary>
-        internal static string BlazorServer_ConditionAndVariableList {
+        public static string BlazorServer_ConditionAndVariableList {
             get {
                 return ResourceManager.GetString("BlazorServer_ConditionAndVariableList", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to شرط‌ها.
         /// </summary>
-        internal static string BlazorServer_Conditions {
+        public static string BlazorServer_Conditions {
             get {
                 return ResourceManager.GetString("BlazorServer_Conditions", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ارتباط با ما.
         /// </summary>
-        internal static string BlazorServer_ContactUs {
+        public static string BlazorServer_ContactUs {
             get {
                 return ResourceManager.GetString("BlazorServer_ContactUs", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ایجاد.
         /// </summary>
-        internal static string BlazorServer_Create {
+        public static string BlazorServer_Create {
             get {
                 return ResourceManager.GetString("BlazorServer_Create", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to آیا از حذف ردیف اطمینان دارید؟.
         /// </summary>
-        internal static string BlazorServer_DeleteConformation {
+        public static string BlazorServer_DeleteConformation {
             get {
                 return ResourceManager.GetString("BlazorServer_DeleteConformation", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to توضیحات.
         /// </summary>
-        internal static string BlazorServer_Description {
+        public static string BlazorServer_Description {
             get {
                 return ResourceManager.GetString("BlazorServer_Description", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام نمایشی.
         /// </summary>
-        internal static string BlazorServer_DisplayName {
+        public static string BlazorServer_DisplayName {
             get {
                 return ResourceManager.GetString("BlazorServer_DisplayName", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ویرایش پارامتر.
         /// </summary>
-        internal static string BlazorServer_EditParameter {
+        public static string BlazorServer_EditParameter {
             get {
                 return ResourceManager.GetString("BlazorServer_EditParameter", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to رایانامه.
         /// </summary>
-        internal static string BlazorServer_Email {
+        public static string BlazorServer_Email {
             get {
                 return ResourceManager.GetString("BlazorServer_Email", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to فعال.
         /// </summary>
-        internal static string BlazorServer_Enable {
+        public static string BlazorServer_Enable {
             get {
                 return ResourceManager.GetString("BlazorServer_Enable", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to فعال.
         /// </summary>
-        internal static string BlazorServer_EnableRecord {
+        public static string BlazorServer_EnableRecord {
             get {
                 return ResourceManager.GetString("BlazorServer_EnableRecord", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to کد در ERP.
         /// </summary>
-        internal static string BlazorServer_ERPCode {
+        public static string BlazorServer_ERPCode {
             get {
                 return ResourceManager.GetString("BlazorServer_ERPCode", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to خروج.
         /// </summary>
-        internal static string BlazorServer_Exit {
+        public static string BlazorServer_Exit {
             get {
                 return ResourceManager.GetString("BlazorServer_Exit", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اطلاعات تکمیلی.
         /// </summary>
-        internal static string BlazorServer_ExtraInformation {
+        public static string BlazorServer_ExtraInformation {
             get {
                 return ResourceManager.GetString("BlazorServer_ExtraInformation", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to فیلتر.
         /// </summary>
-        internal static string BlazorServer_Filter {
+        public static string BlazorServer_Filter {
             get {
                 return ResourceManager.GetString("BlazorServer_Filter", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نامی که کاربر مشاهده می‌کند.
         /// </summary>
-        internal static string BlazorServer_ForDisplayName {
+        public static string BlazorServer_ForDisplayName {
             get {
                 return ResourceManager.GetString("BlazorServer_ForDisplayName", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام فرم.
         /// </summary>
-        internal static string BlazorServer_FormName {
+        public static string BlazorServer_FormName {
             get {
                 return ResourceManager.GetString("BlazorServer_FormName", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام سیستمی.
         /// </summary>
-        internal static string BlazorServer_ForName {
+        public static string BlazorServer_ForName {
             get {
                 return ResourceManager.GetString("BlazorServer_ForName", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to جهت مرتب‌سازی.
         /// </summary>
-        internal static string BlazorServer_ForSorting {
+        public static string BlazorServer_ForSorting {
             get {
                 return ResourceManager.GetString("BlazorServer_ForSorting", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اطلاعات عمومی.
         /// </summary>
-        internal static string BlazorServer_GeneralInformation {
+        public static string BlazorServer_GeneralInformation {
             get {
                 return ResourceManager.GetString("BlazorServer_GeneralInformation", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to شناسه.
         /// </summary>
-        internal static string BlazorServer_Id {
+        public static string BlazorServer_Id {
             get {
                 return ResourceManager.GetString("BlazorServer_Id", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to صندوق ورودی.
         /// </summary>
-        internal static string BlazorServer_Inbox {
+        public static string BlazorServer_Inbox {
             get {
                 return ResourceManager.GetString("BlazorServer_Inbox", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to مستقل.
         /// </summary>
-        internal static string BlazorServer_Independ {
+        public static string BlazorServer_Independ {
             get {
                 return ResourceManager.GetString("BlazorServer_Independ", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ایجاد ردیف.
         /// </summary>
-        internal static string BlazorServer_InsertRow {
+        public static string BlazorServer_InsertRow {
             get {
                 return ResourceManager.GetString("BlazorServer_InsertRow", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to موقعیت.
         /// </summary>
-        internal static string BlazorServer_Location {
+        public static string BlazorServer_Location {
             get {
                 return ResourceManager.GetString("BlazorServer_Location", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ورود.
         /// </summary>
-        internal static string BlazorServer_Login {
+        public static string BlazorServer_Login {
             get {
                 return ResourceManager.GetString("BlazorServer_Login", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to متن پیام.
         /// </summary>
-        internal static string BlazorServer_Message {
+        public static string BlazorServer_Message {
             get {
                 return ResourceManager.GetString("BlazorServer_Message", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to طراحی فرآیند.
         /// </summary>
-        internal static string BlazorServer_ModelDiagram {
+        public static string BlazorServer_ModelDiagram {
             get {
                 return ResourceManager.GetString("BlazorServer_ModelDiagram", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام.
         /// </summary>
-        internal static string BlazorServer_Name {
+        public static string BlazorServer_Name {
             get {
                 return ResourceManager.GetString("BlazorServer_Name", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام و نام خانوادگی.
         /// </summary>
-        internal static string BlazorServer_NameAndFamily {
+        public static string BlazorServer_NameAndFamily {
             get {
                 return ResourceManager.GetString("BlazorServer_NameAndFamily", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to درخواست جدید.
         /// </summary>
-        internal static string BlazorServer_NewMessage {
+        public static string BlazorServer_NewMessage {
             get {
                 return ResourceManager.GetString("BlazorServer_NewMessage", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to اقدام های بعدی.
         /// </summary>
-        internal static string BlazorServer_NextActions {
+        public static string BlazorServer_NextActions {
             get {
                 return ResourceManager.GetString("BlazorServer_NextActions", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to شما دسترسی ندارید.
         /// </summary>
-        internal static string BlazorServer_NotAuthorize {
+        public static string BlazorServer_NotAuthorize {
             get {
                 return ResourceManager.GetString("BlazorServer_NotAuthorize", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to چنین صفحه ای پیدا نشد.
         /// </summary>
-        internal static string BlazorServer_NotFound {
+        public static string BlazorServer_NotFound {
             get {
                 return ResourceManager.GetString("BlazorServer_NotFound", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to عملگر.
         /// </summary>
-        internal static string BlazorServer_Operand {
+        public static string BlazorServer_Operand {
             get {
                 return ResourceManager.GetString("BlazorServer_Operand", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to کارهای انجام شده.
         /// </summary>
-        internal static string BlazorServer_Outbox {
+        public static string BlazorServer_Outbox {
             get {
                 return ResourceManager.GetString("BlazorServer_Outbox", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to پارامتر.
         /// </summary>
-        internal static string BlazorServer_Parameter {
+        public static string BlazorServer_Parameter {
             get {
                 return ResourceManager.GetString("BlazorServer_Parameter", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نوع پارامتر.
         /// </summary>
-        internal static string BlazorServer_ParameterType {
+        public static string BlazorServer_ParameterType {
             get {
                 return ResourceManager.GetString("BlazorServer_ParameterType", resourceCulture);
             }
@@ -540,7 +540,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to تاریخ ایجاد.
         /// </summary>
-        internal static string BlazorServer_PCreateDate {
+        public static string BlazorServer_PCreateDate {
             get {
                 return ResourceManager.GetString("BlazorServer_PCreateDate", resourceCulture);
             }
@@ -549,7 +549,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لیست سمت هایی که در نقش {0} هستند.
         /// </summary>
-        internal static string BlazorServer_PositionsInRole {
+        public static string BlazorServer_PositionsInRole {
             get {
                 return ResourceManager.GetString("BlazorServer_PositionsInRole", resourceCulture);
             }
@@ -558,7 +558,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to تاریخ دریافت.
         /// </summary>
-        internal static string BlazorServer_PRecieveDate {
+        public static string BlazorServer_PRecieveDate {
             get {
                 return ResourceManager.GetString("BlazorServer_PRecieveDate", resourceCulture);
             }
@@ -567,7 +567,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام فرآیند.
         /// </summary>
-        internal static string BlazorServer_Process {
+        public static string BlazorServer_Process {
             get {
                 return ResourceManager.GetString("BlazorServer_Process", resourceCulture);
             }
@@ -576,7 +576,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to رهگیری.
         /// </summary>
-        internal static string BlazorServer_RadNumber {
+        public static string BlazorServer_RadNumber {
             get {
                 return ResourceManager.GetString("BlazorServer_RadNumber", resourceCulture);
             }
@@ -585,7 +585,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ثبت‌نام.
         /// </summary>
-        internal static string BlazorServer_Register {
+        public static string BlazorServer_Register {
             get {
                 return ResourceManager.GetString("BlazorServer_Register", resourceCulture);
             }
@@ -594,7 +594,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to درخواست کننده.
         /// </summary>
-        internal static string BlazorServer_Requestor {
+        public static string BlazorServer_Requestor {
             get {
                 return ResourceManager.GetString("BlazorServer_Requestor", resourceCulture);
             }
@@ -603,7 +603,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to بازنشانی.
         /// </summary>
-        internal static string BlazorServer_Reset {
+        public static string BlazorServer_Reset {
             get {
                 return ResourceManager.GetString("BlazorServer_Reset", resourceCulture);
             }
@@ -612,7 +612,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to برگشت.
         /// </summary>
-        internal static string BlazorServer_Return {
+        public static string BlazorServer_Return {
             get {
                 return ResourceManager.GetString("BlazorServer_Return", resourceCulture);
             }
@@ -621,7 +621,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام نقش.
         /// </summary>
-        internal static string BlazorServer_RoleName {
+        public static string BlazorServer_RoleName {
             get {
                 return ResourceManager.GetString("BlazorServer_RoleName", resourceCulture);
             }
@@ -630,7 +630,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ردیف با موفقیت ایجاد شد.
         /// </summary>
-        internal static string BlazorServer_RowAdded {
+        public static string BlazorServer_RowAdded {
             get {
                 return ResourceManager.GetString("BlazorServer_RowAdded", resourceCulture);
             }
@@ -639,7 +639,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to حذف.
         /// </summary>
-        internal static string BlazorServer_RowDelete {
+        public static string BlazorServer_RowDelete {
             get {
                 return ResourceManager.GetString("BlazorServer_RowDelete", resourceCulture);
             }
@@ -648,7 +648,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ردیف &apos;{0}&apos;.
         /// </summary>
-        internal static string BlazorServer_RowDescId {
+        public static string BlazorServer_RowDescId {
             get {
                 return ResourceManager.GetString("BlazorServer_RowDescId", resourceCulture);
             }
@@ -657,7 +657,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to توضیحات.
         /// </summary>
-        internal static string BlazorServer_RowDescription {
+        public static string BlazorServer_RowDescription {
             get {
                 return ResourceManager.GetString("BlazorServer_RowDescription", resourceCulture);
             }
@@ -666,7 +666,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام نمایشی.
         /// </summary>
-        internal static string BlazorServer_RowDisplayName {
+        public static string BlazorServer_RowDisplayName {
             get {
                 return ResourceManager.GetString("BlazorServer_RowDisplayName", resourceCulture);
             }
@@ -675,7 +675,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ویرایش.
         /// </summary>
-        internal static string BlazorServer_RowEdit {
+        public static string BlazorServer_RowEdit {
             get {
                 return ResourceManager.GetString("BlazorServer_RowEdit", resourceCulture);
             }
@@ -684,7 +684,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to شناسه.
         /// </summary>
-        internal static string BlazorServer_RowId {
+        public static string BlazorServer_RowId {
             get {
                 return ResourceManager.GetString("BlazorServer_RowId", resourceCulture);
             }
@@ -693,7 +693,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام.
         /// </summary>
-        internal static string BlazorServer_RowName {
+        public static string BlazorServer_RowName {
             get {
                 return ResourceManager.GetString("BlazorServer_RowName", resourceCulture);
             }
@@ -702,7 +702,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ردیف {0} با موفقیت ذخیره شد.
         /// </summary>
-        internal static string BlazorServer_RowSaved {
+        public static string BlazorServer_RowSaved {
             get {
                 return ResourceManager.GetString("BlazorServer_RowSaved", resourceCulture);
             }
@@ -711,7 +711,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ذخیره.
         /// </summary>
-        internal static string BlazorServer_Save {
+        public static string BlazorServer_Save {
             get {
                 return ResourceManager.GetString("BlazorServer_Save", resourceCulture);
             }
@@ -720,7 +720,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لیست راهبردهایی که مرتبط با فرآیند {0} هستند.
         /// </summary>
-        internal static string BlazorServer_ScenariosInProcess {
+        public static string BlazorServer_ScenariosInProcess {
             get {
                 return ResourceManager.GetString("BlazorServer_ScenariosInProcess", resourceCulture);
             }
@@ -729,7 +729,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to انتخاب.
         /// </summary>
-        internal static string BlazorServer_Select {
+        public static string BlazorServer_Select {
             get {
                 return ResourceManager.GetString("BlazorServer_Select", resourceCulture);
             }
@@ -738,7 +738,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لطفا یک مورد را انتخاب نمایید.
         /// </summary>
-        internal static string BlazorServer_SelectOneItem {
+        public static string BlazorServer_SelectOneItem {
             get {
                 return ResourceManager.GetString("BlazorServer_SelectOneItem", resourceCulture);
             }
@@ -747,7 +747,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to انتخاب پارامتر.
         /// </summary>
-        internal static string BlazorServer_SelectParameter {
+        public static string BlazorServer_SelectParameter {
             get {
                 return ResourceManager.GetString("BlazorServer_SelectParameter", resourceCulture);
             }
@@ -756,7 +756,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ارسال.
         /// </summary>
-        internal static string BlazorServer_Send {
+        public static string BlazorServer_Send {
             get {
                 return ResourceManager.GetString("BlazorServer_Send", resourceCulture);
             }
@@ -765,7 +765,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to ترتیب.
         /// </summary>
-        internal static string BlazorServer_SortIndex {
+        public static string BlazorServer_SortIndex {
             get {
                 return ResourceManager.GetString("BlazorServer_SortIndex", resourceCulture);
             }
@@ -774,7 +774,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نظرات و پیشنهادات.
         /// </summary>
-        internal static string BlazorServer_Suggestion {
+        public static string BlazorServer_Suggestion {
             get {
                 return ResourceManager.GetString("BlazorServer_Suggestion", resourceCulture);
             }
@@ -783,7 +783,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to خلاصه درخواست.
         /// </summary>
-        internal static string BlazorServer_Summary {
+        public static string BlazorServer_Summary {
             get {
                 return ResourceManager.GetString("BlazorServer_Summary", resourceCulture);
             }
@@ -792,7 +792,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to جدول {0}.
         /// </summary>
-        internal static string BlazorServer_TableDescription {
+        public static string BlazorServer_TableDescription {
             get {
                 return ResourceManager.GetString("BlazorServer_TableDescription", resourceCulture);
             }
@@ -801,7 +801,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لیست جدول‌ها.
         /// </summary>
-        internal static string BlazorServer_Tablelist {
+        public static string BlazorServer_Tablelist {
             get {
                 return ResourceManager.GetString("BlazorServer_Tablelist", resourceCulture);
             }
@@ -810,7 +810,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام جدول: {0}.
         /// </summary>
-        internal static string BlazorServer_TableName {
+        public static string BlazorServer_TableName {
             get {
                 return ResourceManager.GetString("BlazorServer_TableName", resourceCulture);
             }
@@ -819,7 +819,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to تگ.
         /// </summary>
-        internal static string BlazorServer_Tag {
+        public static string BlazorServer_Tag {
             get {
                 return ResourceManager.GetString("BlazorServer_Tag", resourceCulture);
             }
@@ -828,7 +828,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to دسته بندی تگ.
         /// </summary>
-        internal static string BlazorServer_TagCategory {
+        public static string BlazorServer_TagCategory {
             get {
                 return ResourceManager.GetString("BlazorServer_TagCategory", resourceCulture);
             }
@@ -837,7 +837,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to نام فرم.
         /// </summary>
-        internal static string BlazorServer_Task {
+        public static string BlazorServer_Task {
             get {
                 return ResourceManager.GetString("BlazorServer_Task", resourceCulture);
             }
@@ -846,7 +846,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to لیست ‌تاییدها.
         /// </summary>
-        internal static string BlazorServer_TasksList {
+        public static string BlazorServer_TasksList {
             get {
                 return ResourceManager.GetString("BlazorServer_TasksList", resourceCulture);
             }
@@ -855,7 +855,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to بارگزاری.
         /// </summary>
-        internal static string BlazorServer_Upload {
+        public static string BlazorServer_Upload {
             get {
                 return ResourceManager.GetString("BlazorServer_Upload", resourceCulture);
             }
@@ -864,7 +864,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to بارگزاری شد.
         /// </summary>
-        internal static string BlazorServer_Uploaded {
+        public static string BlazorServer_Uploaded {
             get {
                 return ResourceManager.GetString("BlazorServer_Uploaded", resourceCulture);
             }
@@ -873,7 +873,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to کاربرانی که در موقعیت {0} هستند.
         /// </summary>
-        internal static string BlazorServer_UsersInLocation {
+        public static string BlazorServer_UsersInLocation {
             get {
                 return ResourceManager.GetString("BlazorServer_UsersInLocation", resourceCulture);
             }
@@ -882,7 +882,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to کاربرانی که در سمت {0} هستند.
         /// </summary>
-        internal static string BlazorServer_UsersInPosition {
+        public static string BlazorServer_UsersInPosition {
             get {
                 return ResourceManager.GetString("BlazorServer_UsersInPosition", resourceCulture);
             }
@@ -891,7 +891,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to متغییر.
         /// </summary>
-        internal static string BlazorServer_Variable {
+        public static string BlazorServer_Variable {
             get {
                 return ResourceManager.GetString("BlazorServer_Variable", resourceCulture);
             }
@@ -900,7 +900,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to هشدار.
         /// </summary>
-        internal static string BlazorServer_Warning {
+        public static string BlazorServer_Warning {
             get {
                 return ResourceManager.GetString("BlazorServer_Warning", resourceCulture);
             }
@@ -909,7 +909,7 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Resx {
         /// <summary>
         ///   Looks up a localized string similar to {0} خوش آمدید.
         /// </summary>
-        internal static string BlazorServer_Welcome {
+        public static string BlazorServer_Welcome {
             get {
                 return ResourceManager.GetString("BlazorServer_Welcome", resourceCulture);
             }
