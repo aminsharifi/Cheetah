@@ -1,7 +1,7 @@
 ﻿@page "/Sent"
-
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @inherits MyComponentBase
 
-<PageTitle>@(globalization.GetValue(nameof(Localization.BlazorServer_Outbox) ))</PageTitle>
+<PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Outbox)))</PageTitle>
 
 <Cartable Inbox="false" Username="m.sharifi"></Cartable>

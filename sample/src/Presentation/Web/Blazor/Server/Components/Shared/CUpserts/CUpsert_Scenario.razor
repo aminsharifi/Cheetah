@@ -2,6 +2,7 @@
 @using Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition
 @using Cheetah.Core.Common
 @using Mapster
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 
 @inherits CUpsert_GeneralCode
 <CEditDimentions Record="@Record" Records="@Records" IsInline="@IsInline"
@@ -23,16 +24,16 @@
                     <thead>
                         <tr style="width:90%">
                             <th data-sortable="true" aria-sort="ascending">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                             </th>
                             <th data-sortable="true">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                             </th>
                             <th data-sortable="true">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_Condition)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Condition)))
                             </th>
                             <th data-sortable="true">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                             </th>
                         </tr>
                     </thead>
@@ -96,7 +97,7 @@
                                        Variant="Variant.Filled" Color="Color.Primary"
                                        EndIcon="@Icons.Material.Filled.PersonAdd"
                                        @onclick="AddTaskPattern">
-                                @(globalization.GetValue(nameof(Localization.BlazorServer_AddToTasks)))
+                                @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddToTasks)))
                             </MudButton>
                         </center>
                     </div>
@@ -106,7 +107,7 @@
                         <caption>
                             <div class="row my-1" style="justify-content: center;">
                                 <span class="col-2 text-success">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_TasksList)))
+                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_TasksList)))
                                 </span>
                             </div>
                         </caption>
@@ -115,14 +116,14 @@
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
                                     <th data-sortable="true" aria-sort="ascending" width="10px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_RowId)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowId)))
                                     </th>
                                     <th data-sortable="true" width="10px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_SortIndex)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_SortIndex)))
                                     </th>
                                 }
                                 <th data-sortable="true" width="200px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_FormName)))
+                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_FormName)))
                                 </th>
                                 @if (_scenarioStep == ScenarioStep.Tasks)
                                 {
@@ -133,12 +134,12 @@
                                 @if (_scenarioStep == ScenarioStep.Actions)
                                 {
                                     <th data-sortable="true" width="10px">
-                                        @(globalization.GetValue(nameof(Localization.BlazorServer_Actions)))
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Actions)))
                                     </th>
                                 }
 
                                 <th data-sortable="true" width="10px">
-                                    @(globalization.GetValue(nameof(Localization.BlazorServer_Enable)))
+                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
                                 </th>
                             </tr>
                         </thead>
@@ -476,7 +477,7 @@
                 </div>
                 <LinkComponent ReadonlyState="@ReadonlyState" Records="@LinkRecords"
                                reference="@reference"
-                               Title=@(globalization.GetValue(nameof(Localization.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
+                               Title=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
                 </LinkComponent>
             </div>
         }

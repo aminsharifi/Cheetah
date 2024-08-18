@@ -39,22 +39,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Resx\Localization.Designer.cs">
-			<DependentUpon>Localization.resx</DependentUpon>
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Resx\Localization.resx">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-			<LastGenOutput>Localization.Designer.cs</LastGenOutput>
-			<Generator>ResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
 		<UpToDateCheckInput Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 
@@ -67,6 +51,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\..\src\Presentation\Web\Blazor\Server\Cheetah.Presentation.Web.Blazor.Server.csproj" />
 	  <ProjectReference Include="..\..\..\..\Infrastructure\Cheetah.Sample.Infrastructure.csproj" />
 	</ItemGroup>
 

@@ -1,0 +1,31 @@
+﻿@using DNTPersianUtils.Core
+@using MudBlazor
+<div class="col-lg-3 col-sm-3">
+    <MudButton Color="@(color)"
+               OnClick="getLastModified"
+               EndIcon="@Icons.Material.Filled.Refresh"
+               id="LastUpdateButton">
+        آخرین بروزرسانی:
+        @lastModified?.ToString("HH:mm:ss") @lastModified?.ConvertToPersianDay()
+    </MudButton>
+</div>
+<div class="col-lg-1 col-sm-3">
+    <MudCheckBox Label="فعال" Variant="Variant.Text"
+                 Value="@enableRecord"
+                 ReadOnly="true"
+                 Color="Color.Primary"
+                 CheckedIcon="@Icons.Material.Filled.Verified"
+                 UncheckedColor="Color.Error"
+                 UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"></MudCheckBox>
+</div>
+
+@code {
+    [Parameter]
+    public DateTimeOffset? lastModified { get; set; }
+    [Parameter]
+    public Boolean? enableRecord { get; set; }
+    [Parameter]
+    public EventCallback getLastModified { get; set; }
+    [Parameter]
+    public Color color { get; set; }
+}
