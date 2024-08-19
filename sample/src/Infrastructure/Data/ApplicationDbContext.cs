@@ -1,13 +1,13 @@
 ﻿using Cheetah.Sample.Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
     private readonly IDomainEventDispatcher? _dispatcher;
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
+    public ApplicationDbContext(
+        DbContextOptions<ApplicationDbContext> options,
+        IDomainEventDispatcher? dispatcher) : base(options)
     {
-
         _dispatcher = dispatcher;
     }
 
