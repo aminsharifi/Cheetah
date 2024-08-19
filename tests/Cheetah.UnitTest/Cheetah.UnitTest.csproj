@@ -28,7 +28,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Core\Cheetah.Core.csproj" />
 	  <ProjectReference Include="..\..\src\UseCases\Cheetah.UseCases.csproj" />
 	</ItemGroup>
 

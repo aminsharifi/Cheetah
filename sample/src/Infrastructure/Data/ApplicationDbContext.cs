@@ -1,4 +1,5 @@
 ﻿using Cheetah.Sample.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
