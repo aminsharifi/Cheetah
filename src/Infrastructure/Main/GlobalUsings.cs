@@ -18,8 +18,5 @@ global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
-global using Serilog;
-global using Serilog.Extensions.Logging;
-global using Serilog.Sinks.MSSqlServer;
 global using System.Reflection;
 global using System.Text;
