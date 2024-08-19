@@ -1,5 +1,10 @@
 ﻿using Cheetah.Infrastructure.Data;
 using Cheetah.Sample.Infrastructure.Identity;
+using Hangfire;
+using Serilog;
+using Serilog.Extensions.Logging;
+using Serilog.Sinks.MSSqlServer;
+using Winton.Extensions.Configuration.Consul;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 
