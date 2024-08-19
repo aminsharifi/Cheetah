@@ -1,5 +1,6 @@
 ﻿using Cheetah.Core.Enums;
 using Cheetah.Sample.Infrastructure.Identity;
+using System.Linq.Expressions;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 
@@ -12,7 +13,7 @@ public class DbInitializer : IDbInitializer
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     public readonly ApplicationDbContext _db;
-    
+
     public DbInitializer(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
         ApplicationDbContext db)
@@ -40,28 +41,35 @@ public class DbInitializer : IDbInitializer
         {
             _db.Database.Migrate();
         }
-
-        if (!await _roleManager.RoleExistsAsync(nameof(RoleProperty.User)))
+        try
         {
-            await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
-        }
-
-        if (!await _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin)))
-        {
-            await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
-
-            ApplicationUser user = new()
+            if (!await _roleManager.RoleExistsAsync(nameof(RoleProperty.User)))
             {
-                UserName = "Admin",
-                Email = "Admin@poshtibanebartar.com",
-                EmailConfirmed = true
-            };
+                await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.User)));
+            }
 
-            await _userManager.CreateAsync(user, "Cheetah@123");
+            if (!await _roleManager.RoleExistsAsync(nameof(RoleProperty.Admin)))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(nameof(RoleProperty.Admin)));
 
-            await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
+                ApplicationUser user = new()
+                {
+                    UserName = "Admin",
+                    Email = "Admin@poshtibanebartar.com",
+                    EmailConfirmed = true
+                };
+
+                await _userManager.CreateAsync(user, "Cheetah@123");
+
+                await _userManager.AddToRoleAsync(user, nameof(RoleProperty.Admin));
+            }
         }
-        
+        catch (Exception ex)
+        {
+
+        }
+
+
         return true;
     }
 }
