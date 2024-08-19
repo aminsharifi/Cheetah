@@ -47,7 +47,7 @@ public static class CheetahInitialiserExtensions
 
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
-    
+
         var _nameSpace = "Cheetah.Infrastructure.Providers.";
         if (provider is "Npgsql")
         {
@@ -66,13 +66,14 @@ public static class CheetahInitialiserExtensions
             builder.Services.AddDbContext<CheetahDbContext>(
                 b => b.UseLazyLoadingProxies(true)
                 .UseSqlServer(connection,
-                x => x.MigrationsAssembly(_nameSpace + "SqlServer")),
-                ServiceLifetime.Transient
-                );
+                x => x.MigrationsAssembly(_nameSpace + "SqlServer")
+                .EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null)
+                ), ServiceLifetime.Transient);
         }
         #endregion
-
-        
 
         return builder;
     }

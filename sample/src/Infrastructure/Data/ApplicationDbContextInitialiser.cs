@@ -1,5 +1,7 @@
-﻿using Cheetah.Infrastructure.Data;
+﻿using Cheetah.Core.Interfaces;
+using Cheetah.Infrastructure.Data;
 using Cheetah.Sample.Infrastructure.Identity;
+using Cheetah.UseCases.Services;
 using Hangfire;
 using Serilog;
 using Serilog.Extensions.Logging;
@@ -13,7 +15,7 @@ public static class InitialiserExtensions
     public static async Task<WebApplication> InitializeSettingsAsync(this WebApplicationBuilder builder)
     {
         var _connection = builder.Configuration.GetConnectionString("DefaultConnection");
-        builder = builder.CheetahConfigurationAsync(_connection!);
+        builder.CheetahConfigurationAsync(_connection!);
         GlobalConfiguration.Configuration.UseSqlServerStorage(_connection);
         builder?.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder?.Services.AddProblemDetails();
@@ -68,11 +70,17 @@ public static class InitialiserExtensions
             builder.Services.AddDbContext<ApplicationDbContext>(
                 b => b.UseLazyLoadingProxies(true)
                 .UseSqlServer(_connection,
-                x => x.MigrationsAssembly(_nameSpace + "SqlServer")),
+                x => x.MigrationsAssembly(_nameSpace + "SqlServer")
+                .EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorNumbersToAdd: null)),
                 ServiceLifetime.Transient
                 );
         }
         #endregion
+
+        builder.Services.AddScoped(typeof(ISync), typeof(Sync));
 
         #region Serilog
         builder.Host.UseSerilog((context, configuration) =>
@@ -131,9 +139,17 @@ public static class InitialiserExtensions
 
         #region DB Initials
 
-        using var scope = app.Services.CreateScope();
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        await dbInitializer.Initialize();
+        try
+        {
+            using var scope = app.Services.CreateScope();
+            var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+            await dbInitializer.Initialize();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
 
         #endregion
 
