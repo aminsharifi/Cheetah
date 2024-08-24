@@ -238,16 +238,15 @@ public class TableCRUD(CheetahDbContext _db) : ITableCRUD
 
             secondType = DatabaseClass.GetDBType(obj_DTO.SecondType);
 
-
             if (obj_DTO.Sd_Status == nameof(LinkProperty.First))
             {
-                //instance.SetFirstAndSecond(obj_DTO.FixedId, link.Key.Item1);
-
-
+                instance.SetFirstId(obj_DTO.FixedId);
+                instance.SetSecondId(link.Key.Item1);
             }
             else
             {
-                //instance.SetFirstAndSecond(link.Key.Item1, obj_DTO.FixedId);
+                instance.SetFirstId(link.Key.Item1);
+                instance.SetSecondId(obj_DTO.FixedId);
             }
 
             var floatedInstance = await GetAsync(
@@ -277,11 +276,7 @@ public class TableCRUD(CheetahDbContext _db) : ITableCRUD
 
         _db.AddRange(simpleLinkClass);
 
-        await _db.SaveChangesAsync();
-
-        return 0;
-
-        //return await _db.SaveChangesAsync();
+       return await _db.SaveChangesAsync();
     }
     public async Task<DateTimeOffset?> GetLastUpdate(string TableName)
     {
