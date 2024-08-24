@@ -52,7 +52,7 @@ public static class InitialiserExtensions
         #region DB
         var provider = builder.Configuration.GetValue("Provider", "Npgsql");
 
-        var _nameSpace = "Cheetah.Infrastructure.Providers.";
+        var _nameSpace = "Cheetah.Sample.Infrastructure";
         if (provider is "Npgsql")
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -60,7 +60,7 @@ public static class InitialiserExtensions
             builder.Services.AddDbContext<ApplicationDbContext>(
                 b => b.UseLazyLoadingProxies(true)
                 .UseNpgsql(_connection,
-                x => x.MigrationsAssembly(_nameSpace + "Npgsql")
+                x => x.MigrationsAssembly(_nameSpace)
                 ),
                 ServiceLifetime.Transient
                 );
@@ -70,7 +70,7 @@ public static class InitialiserExtensions
             builder.Services.AddDbContext<ApplicationDbContext>(
                 b => b.UseLazyLoadingProxies(true)
                 .UseSqlServer(_connection,
-                x => x.MigrationsAssembly(_nameSpace + "SqlServer")
+                x => x.MigrationsAssembly(_nameSpace)
                 .EnableRetryOnFailure(
                     maxRetryCount: 5,
                     maxRetryDelay: TimeSpan.FromSeconds(30),
