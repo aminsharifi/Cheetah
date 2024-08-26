@@ -35,7 +35,7 @@ public abstract class BaseEntity : EntityBase<long>, IAggregateRoot
     {
         ERPCode = eRPCode;
         return this;
-    }
+    }  
     public BaseEntity SetEnableRecord(bool enableRecord)
     {
         EnableRecord = enableRecord;

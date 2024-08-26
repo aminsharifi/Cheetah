@@ -1,6 +1,6 @@
 ﻿using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Entities.Dimentions;
+namespace Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
 public partial class D_WorkItemState : BaseEntity
 {
     public D_WorkItemState()

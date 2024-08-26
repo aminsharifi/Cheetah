@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Common.DTOs;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Facts.Specifications;
 

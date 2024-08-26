@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
+using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Links;
 using Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
-using Cheetah.Core.Entities.Links;
 using Cheetah.UseCases.Queries.Process.ProcessScenario.List;
 using NSubstitute;
 

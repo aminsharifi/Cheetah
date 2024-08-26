@@ -1,6 +1,4 @@
-﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition;
-
-namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition.Specifications;
+﻿namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
 
 public class GetConditionsByTaskSpec : Specification<L_TaskCondition, long>
 {

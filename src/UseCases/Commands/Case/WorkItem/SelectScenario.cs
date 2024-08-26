@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.DTOs.Condition;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.DTOs.Condition;
 using Cheetah.UseCases.Queries.Condition.List;
 using Cheetah.UseCases.Queries.Process.ProcessScenario.List;
 

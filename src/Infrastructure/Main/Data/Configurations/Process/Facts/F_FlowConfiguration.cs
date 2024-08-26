@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 
 namespace Cheetah.Infrastructure.Data.Configurations.Process.Facts;
 

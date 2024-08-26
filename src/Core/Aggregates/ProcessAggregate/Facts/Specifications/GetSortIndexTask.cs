@@ -1,6 +1,4 @@
-﻿using Cheetah.Core.Entities.Facts;
-
-namespace Cheetah.Core.Aggregates.ProcessAggregate.Facts.Task.Specifications;
+﻿namespace Cheetah.Core.Aggregates.ProcessAggregate.Facts.Specifications;
 
 public class GetSortIndexTask : SingleResultSpecification<F_Task, long?>
 {

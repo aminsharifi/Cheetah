@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Aggregates.ConditionAggregate.Specifications;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.ConditionAggregate.Specifications;
 
 namespace Cheetah.UseCases.Queries.Condition.List;
 

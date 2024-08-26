@@ -1,6 +1,7 @@
-﻿using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Common;
 
 namespace Cheetah.Core.Aggregates.CaseAggregate.Links;
 

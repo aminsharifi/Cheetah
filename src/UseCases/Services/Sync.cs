@@ -1,10 +1,11 @@
-﻿using Cheetah.Core.Aggregates.UserAggregate.Links;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Aggregates.UserAggregate.Links;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
 using Cheetah.Core.Enums;
 using Cheetah.Core.Interfaces;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.UseCases.Queries.Condition.Get;
 
 namespace Cheetah.UseCases.Services;

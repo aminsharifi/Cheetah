@@ -1,5 +1,6 @@
-﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 
 namespace Cheetah.UnitTest.Core.Aggregates.CaseAggregate.Facts.Specifications;
 

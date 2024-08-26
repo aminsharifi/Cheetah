@@ -1,6 +1,5 @@
 ﻿using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
 

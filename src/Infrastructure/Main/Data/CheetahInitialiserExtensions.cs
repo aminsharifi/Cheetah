@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
 using Cheetah.Core.Interfaces;
 using Cheetah.Core.Interfaces.Cartable;
 using Cheetah.Core.Interfaces.WorkItem;

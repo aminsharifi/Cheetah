@@ -1,8 +1,7 @@
 ﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links;
 using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Links;
 
-namespace Cheetah.Core.Entities.Facts;
+namespace Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 
 public partial class F_Flow : BaseEntity
 {

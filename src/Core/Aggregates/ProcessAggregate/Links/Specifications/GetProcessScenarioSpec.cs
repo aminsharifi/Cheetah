@@ -1,6 +1,4 @@
-﻿using Cheetah.Core.Entities.Links;
-
-namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
+﻿namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
 
 public class GetProcessScenarioSpec : Specification<L_ProcessScenario>
 {

@@ -1,9 +1,11 @@
 ﻿using Ardalis.SharedKernel;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts;
 using Cheetah.Core.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.UseCases.Queries.Case.Case.Get;
 using Mapster;
 using MapsterMapper;

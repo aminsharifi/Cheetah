@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Core.Entities.Links;
+﻿namespace Cheetah.Core.Aggregates.ProcessAggregate.Links;
 
 public partial class L_TaskFlow
 {

@@ -1,7 +1,13 @@
-﻿using Cheetah.Core.Aggregates.UserAggregate.Links;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.Common.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Aggregates.UserAggregate.Links;
 using Cheetah.Core.Interfaces.Cartable.DTOs;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.Infrastructure.Data;
 
 namespace Cheetah.Sample.Presentation.Services.GraphQL;

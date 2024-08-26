@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 
-namespace Cheetah.Core.Entities.Links;
+namespace Cheetah.Core.Aggregates.ProcessAggregate.Links;
 
 public partial class L_ProcessScenario
 {

@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition;
-using Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition.Specifications;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links;
+using Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
 
 namespace Cheetah.UseCases.Queries.Process.TaskCondition.List;
 

@@ -1,7 +1,7 @@
 ﻿using Cheetah.Core.Common;
 using Cheetah.Core.Enums;
 
-namespace Cheetah.Core.Entities.Dimentions;
+namespace Cheetah.Core.Aggregates.Common.Dimentions;
 
 public partial class D_Entity : BaseEntity
 {
