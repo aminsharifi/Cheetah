@@ -1,5 +1,9 @@
-﻿@using Cheetah.Core.Aggregates.ProcessAggregate.Links
-@using Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition
+﻿@using Cheetah.Core.Aggregates.CaseAggregate.Dimentions
+@using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions
+@using Cheetah.Core.Aggregates.ConditionAggregate.Facts
+@using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions
+@using Cheetah.Core.Aggregates.ProcessAggregate.Facts
+@using Cheetah.Core.Aggregates.ProcessAggregate.Links
 @using Cheetah.Core.Common
 @using Cheetah.Core.Common.DTOs
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
@@ -13,9 +17,9 @@
         {
             <div class="row">
                 <center>
-                    <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
+                    <MudButton  Variant="Variant.Filled"
                                EndIcon="@Icons.Material.Filled.SettingsInputComponent" Color="Color.Primary"
-                               @onclick="(e => Add_ScenarioCondition(e,(F_Scenario)Record))">
+                               OnClick="(e => Add_ScenarioCondition(e,(F_Scenario)Record))">
                         افزودن پیش شرط
                     </MudButton>
                 </center>
@@ -61,7 +65,7 @@
                                         @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
                                         {
                                             <MudSelectItem T="long?" Value="@_Condition.Id">
-                                                @_Condition.DisplayName (@_Condition.Name)
+                                                @_Condition.DisplayName
                                             </MudSelectItem>
                                         }
                                     </MudSelect>
@@ -74,7 +78,7 @@
                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                  UncheckedColor="Color.Error"
                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                 @onclick="args=>_scenarioCondition.SetEnableRecord(!_scenarioCondition.EnableRecord)" />
+                                                 ValueChanged="@((bool newCheckboxValue) => _scenarioCondition.SetEnableRecord(newCheckboxValue))" />
                                 </td>
                             </tr>
                         }
@@ -84,9 +88,9 @@
             <div class="row shadow rounded my-1 mx-1 p-1">
                 <MudTabs Outlined="true">
                     <MudTabPanel Text="نمایش فرم ها" Icon="@Icons.Material.Filled.Task"
-                                 @onclick="(x=>_scenarioStep = ScenarioStep.Tasks)" />
+                                 OnClick="(x=>_scenarioStep = ScenarioStep.Tasks)" />
                     <MudTabPanel Text="نمایش اقدام ها" Icon="@Icons.Material.Filled.Work"
-                                 @onclick="(x=>_scenarioStep = ScenarioStep.Actions)" />
+                                 OnClick="(x=>_scenarioStep = ScenarioStep.Actions)" />
                 </MudTabs>
                 @if (_scenarioStep == ScenarioStep.Tasks)
                 {
@@ -95,7 +99,7 @@
                             <MudButton Disabled="@ReadonlyState"
                                        Variant="Variant.Filled" Color="Color.Primary"
                                        EndIcon="@Icons.Material.Filled.PersonAdd"
-                                       @onclick="AddTaskPattern">
+                                       OnClick="AddTaskPattern">
                                 @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddToTasks)))
                             </MudButton>
                         </center>
@@ -138,11 +142,10 @@
                                     <th data-sortable="true" width="10px">
                                         @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Actions)))
                                     </th>
+                                    <th data-sortable="true" width="10px">
+                                        @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
+                                    </th>
                                 }
-
-                                <th data-sortable="true" width="10px">
-                                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -178,7 +181,7 @@
                                                 @foreach (var _f_Form in _list_F_Form)
                                                 {
                                                     <MudSelectItem T="long?" Value="@_f_Form.Id">
-                                                        @_f_Form.DisplayName (@_f_Form.Name)
+                                                        @_f_Form.DisplayName
                                                     </MudSelectItem>
                                                 }
                                             </MudSelect>
@@ -187,7 +190,7 @@
                                             <center>
                                                 <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
                                                            EndIcon="@Icons.Material.Filled.Person" Color="Color.Primary"
-                                                           @onclick="(e => Add_TaskCondition(e,_task))">
+                                                           OnClick="(e => Add_TaskCondition(e,_task))">
                                                     افزودن ایفاکننده
                                                 </MudButton>
                                             </center>
@@ -235,7 +238,7 @@
                                                                    .Where(x => x.Tag?.TagCategoryId == D_TagCategory.Performer.Id))
                                                                     {
                                                                         <MudSelectItem T="long?" Value="@_Condition.Id">
-                                                                            @_Condition.DisplayName (@_Condition.Name)
+                                                                            @_Condition.DisplayName
                                                                         </MudSelectItem>
                                                                     }
                                                                 </MudSelect>
@@ -243,12 +246,12 @@
                                                             <td style="width:100px">
                                                                 <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
                                                                              Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
-                                                                             Value="@_taskCondition?.EnableRecord"
+                                                                             Value="@_taskCondition!.EnableRecord"
                                                                              Color="Color.Primary"
                                                                              CheckedIcon="@Icons.Material.Filled.Verified"
                                                                              UncheckedColor="Color.Error"
                                                                              UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                             @onclick="args=>_taskCondition!.SetEnableRecord(!_taskCondition.EnableRecord)" />
+                                                                             ValueChanged="@((bool newCheckboxValue) => _taskCondition!.SetEnableRecord(newCheckboxValue))" />
                                                             </td>
                                                         </tr>
                                                     }
@@ -262,7 +265,7 @@
                                             <center>
                                                 <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled"
                                                            EndIcon="@Icons.Material.Filled.CheckBox" Color="Color.Primary"
-                                                           @onclick="(e => Add_Actions(e,_task))">
+                                                           OnClick="(e => Add_Actions(e,_task))">
                                                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddActions)))
                                                 </MudButton>
                                             </center>
@@ -310,7 +313,7 @@
                                                                     <center>
                                                                         <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled" Color="Color.Primary"
                                                                                    EndIcon="@Icons.Material.Filled.Engineering"
-                                                                                   @onclick="(e => Add_ActionsCondition(e,_action))">
+                                                                                   OnClick="(e => Add_ActionsCondition(e,_action))">
                                                                             @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddToConditions)))
                                                                         </MudButton>
                                                                     </center>
@@ -357,7 +360,7 @@
                                                                                             @foreach (var _Condition in _list_F_Condition.Where(x => x.Tag?.TagCategoryId == D_TagCategory.Action.Id))
                                                                                             {
                                                                                                 <MudSelectItem T="long?" Value="@_Condition.Id">
-                                                                                                    @_Condition.DisplayName (@_Condition.Name)
+                                                                                                    @_Condition.DisplayName
                                                                                                 </MudSelectItem>
                                                                                             }
                                                                                         </MudSelect>
@@ -365,12 +368,12 @@
                                                                                     <td>
                                                                                         <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
                                                                                                      Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
-                                                                                                     Value="@_flowCondition?.EnableRecord"
+                                                                                                     Value="@_flowCondition!.EnableRecord"
                                                                                                      Color="Color.Primary"
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UncheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     @onclick="args=>_flowCondition!.SetEnableRecord(!_flowCondition.EnableRecord)" />
+                                                                                                     ValueChanged="@((bool newCheckboxValue) => _flowCondition.SetEnableRecord(newCheckboxValue))" />
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -381,7 +384,7 @@
                                                                     <center>
                                                                         <MudButton Disabled="@ReadonlyState" Variant="Variant.Filled" Color="Color.Primary"
                                                                                    EndIcon="@Icons.Material.Filled.NextPlan"
-                                                                                   @onclick="(e => Add_ActionsTask(e,_action))">
+                                                                                   OnClick="(e => Add_ActionsTask(e,_action))">
                                                                             @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_AddNextAction)))
                                                                         </MudButton>
                                                                     </center>
@@ -403,26 +406,25 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            @foreach (var Task in _action.FlowTasks
+                                                                            @foreach (var flowTask in _action.FlowTasks
                                                                            .OrderBy(x => x.SortIndex))
                                                                             {
                                                                                 <tr>
                                                                                     <td>
                                                                                         <span style="width: 50px">
-                                                                                            @(Task?.Id)
+                                                                                            @(flowTask?.Id)
                                                                                         </span>
                                                                                     </td>
                                                                                     <td>
                                                                                         <MudNumericField ReadOnly="@ReadonlyState" style="width: 50px"
-                                                                                                         Value="Task?.SortIndex"
-                                                                                                         ValueChanged="(long? newValue)=>Task?.SetSortIndex(newValue)" />
+                                                                                                         Value="flowTask?.SortIndex"
+                                                                                                         ValueChanged="(long? newValue)=>flowTask?.SetSortIndex(newValue)" />
                                                                                     </td>
                                                                                     <td>
                                                                                         <MudSelect ReadOnly="@ReadonlyState" T="long?"
-                                                                                                   Value="Task?.SecondId"
-                                                                                                   ValueChanged="(long? newValue)=>Task?.SetSecondId(newValue)"
-                                                                                                   style="direction:rtl"
-                                                                                                   @oninput="(e => SelectedToTaskChanged(e,Task))">
+                                                                                                   Value="flowTask?.SecondId"
+                                                                                                   ValueChanged="(long? newValue)=>flowTask?.SetSecondId(newValue)"
+                                                                                                   style="direction:rtl">
                                                                                             @foreach (var ToTask in (Record as F_Scenario).Tasks.OrderBy(x => x.SortIndex))
                                                                                             {
                                                                                                 <MudSelectItem T="long?" Value="@ToTask.Id">
@@ -434,12 +436,12 @@
                                                                                     <td>
                                                                                         <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
                                                                                                      Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
-                                                                                                     Value="@Task.EnableRecord"
+                                                                                                     Value="@flowTask.EnableRecord"
                                                                                                      Color="Color.Primary"
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UncheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     @onclick="args=>Task.SetEnableRecord(!Task.EnableRecord)" />
+                                                                                                     ValueChanged="@((bool newCheckboxValue) => flowTask.SetEnableRecord(newCheckboxValue))"/>
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -449,7 +451,7 @@
                                                                 <td>
                                                                     <MudSelect T="long?" ReadOnly="@ReadonlyState" Value="_action.CaseStateId"
                                                                                style="direction:rtl; width:150px"
-                                                                               @oninput="(e => SelectedCaseStateChanged(e,_action))">
+                                                                               ValueChanged="(long? newValue)=>_action?.SetCaseStateId(newValue)">
                                                                         @foreach (var CaseState in _list_CaseState)
                                                                         {
                                                                             <MudSelectItem T="long?" Value="@CaseState.Id">
@@ -466,7 +468,7 @@
                                                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                  UncheckedColor="Color.Error"
                                                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                 @onclick="args=>_action.SetEnableRecord(!_action.EnableRecord)" />
+                                                                                 ValueChanged="@((bool newCheckboxValue) => _action.SetEnableRecord(newCheckboxValue))"/>
                                                                 </td>
                                                             </tr>
                                                         }
@@ -474,17 +476,17 @@
                                                 </Ctable>
                                             </div>
                                         </td>
+                                        <td>
+                                            <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
+                                                         Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
+                                                         Value="@_task.EnableRecord"
+                                                         Color="Color.Primary"
+                                                         UncheckedColor="Color.Error"
+                                                         CheckedIcon="@Icons.Material.Filled.Verified"
+                                                         UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
+                                                         ValueChanged="@((bool newCheckboxValue) => _task.SetEnableRecord(newCheckboxValue))" />
+                                        </td>
                                     }
-                                    <td>
-                                        <MudCheckBox ReadOnly="@ReadonlyState" Disabled="@ReadonlyState"
-                                                     Label=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Enable)))
-                                                     Value="@_task.EnableRecord"
-                                                     Color="Color.Primary"
-                                                     CheckedIcon="@Icons.Material.Filled.Verified"
-                                                     UncheckedColor="Color.Error"
-                                                     UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                     @onclick="args=>_task.SetEnableRecord(!_task.EnableRecord)" />
-                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -649,9 +651,13 @@
         {
             _ScenarioCondition = await simpleClassRepository
             .GetLastAsync(nameof(L_ScenarioCondition)) as L_ScenarioCondition;
+
+            var a = 1;
         }
 
         cObject.ScenarioConditions.Add(_ScenarioCondition);
+
+        // ((F_Scenario)Record).ScenarioConditions.Add(_ScenarioCondition);
     }
     private async Task Add_ActionsCondition(MouseEventArgs e, F_Flow cObject)
     {
@@ -672,26 +678,26 @@
     }
     private async Task Add_Actions(MouseEventArgs e, F_Task cObject)
     {
-        L_TaskFlow _l_TaskAction = new();
+        L_TaskFlow _taskFlow = new();
 
         F_Flow _f_Action = await simpleClassRepository.GetLastAsync(nameof(F_Flow)) as F_Flow;
 
-        _l_TaskAction.SetTask(cObject);
+        _taskFlow.SetTask(cObject);
 
-        // _l_TaskAction.Flow = _f_Action;
+        _taskFlow.SetFlow(_f_Action);
 
         ICollection<L_TaskFlow> _TaskItems = cObject.TaskFlows;
 
         if (_TaskItems.Any())
         {
-            _l_TaskAction.SetSortIndex(_TaskItems.Max(x => x.SortIndex) + 1);
+            _taskFlow.SetSortIndex(_TaskItems.Max(x => x.SortIndex) + 1);
         }
         else
         {
-            _l_TaskAction.SetSortIndex(1);
+            _taskFlow.SetSortIndex(1);
         }
 
-        cObject.TaskFlows.Add(_l_TaskAction);
+        cObject.TaskFlows.Add(_taskFlow);
     }
     private async Task AddTaskPattern()
     {

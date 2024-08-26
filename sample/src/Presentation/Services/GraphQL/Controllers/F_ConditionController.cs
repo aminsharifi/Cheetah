@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Common;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Common;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Interfaces;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.Sample.Presentation.Services.GraphQL.Controllers;
 [Route("[controller]")]

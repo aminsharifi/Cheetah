@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Aggregates.UserAggregate.Links;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Aggregates.UserAggregate.Links;
 using Cheetah.Core.Aggregates.UserAggregate.Specifications;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.UnitTest.Core.Aggregates.UserAggregate.Specifications;
 

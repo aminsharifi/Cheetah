@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
 using System.Runtime.InteropServices;
 
 namespace Cheetah.Core.Aggregates.CaseAggregate.Specifications;

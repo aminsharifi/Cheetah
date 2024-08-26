@@ -1,6 +1,6 @@
 ﻿using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Entities.Dimentions;
+namespace Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 
 public partial class D_UserInformation : BaseEntity
 {

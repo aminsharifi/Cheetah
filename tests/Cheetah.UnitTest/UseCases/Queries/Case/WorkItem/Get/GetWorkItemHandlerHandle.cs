@@ -1,10 +1,11 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts;
 using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
 using Cheetah.Core.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Common.DTOs;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.UseCases.Queries.Case.WorkItem.Get;
 using Cheetah.UseCases.Queries.Condition.Get;
 using Mapster;

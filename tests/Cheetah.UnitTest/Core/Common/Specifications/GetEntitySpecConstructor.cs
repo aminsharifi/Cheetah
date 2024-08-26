@@ -1,6 +1,6 @@
-﻿using Cheetah.Core.Common.DTOs;
+﻿using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
-using Cheetah.Core.Entities.Dimentions;
 
 namespace Cheetah.UnitTest.Core.Common.Specifications;
 

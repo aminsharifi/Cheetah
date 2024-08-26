@@ -1,6 +1,4 @@
-﻿using Cheetah.Core.Entities.Facts;
-
-namespace Cheetah.Core.Aggregates.ProcessAggregate.Facts.Task.Specifications;
+﻿namespace Cheetah.Core.Aggregates.ProcessAggregate.Facts.Specifications;
 
 public class GetTasksFromScenarioSpec : Specification<F_Task>
 {

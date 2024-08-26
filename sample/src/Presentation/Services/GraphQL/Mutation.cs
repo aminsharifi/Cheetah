@@ -1,8 +1,9 @@
-﻿using Cheetah.Core.Interfaces;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Interfaces;
 using Cheetah.Core.Interfaces.Cartable;
 using Cheetah.Core.Interfaces.WorkItem;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.Sample.Presentation.Services.Share.Services;
 
 namespace Cheetah.Sample.Presentation.Services.GraphQL;

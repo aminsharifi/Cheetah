@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 
 namespace Cheetah.UseCases.Queries.Process.TaskEntity.List;
 

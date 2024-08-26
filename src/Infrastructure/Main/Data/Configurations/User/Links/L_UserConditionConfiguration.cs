@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Aggregates.UserAggregate.Links;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Links;
 
 namespace Cheetah.Infrastructure.Data.Configurations.User.Links;
 

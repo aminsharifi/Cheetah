@@ -1,6 +1,6 @@
-﻿using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
 
-namespace Cheetah.Core.Entities.Facts;
+namespace Cheetah.Core.Aggregates.ConditionAggregate.Facts;
 public partial class F_Condition
 {
     #region Values
@@ -14,7 +14,7 @@ public partial class F_Condition
         .SetSortIndex(20)
         .SetERPCode(-20)
         .SetName("ReviewState = Approve")
-        .SetDisplayName("وضعیت بررسی مساوی Approve است.");
+        .SetDisplayName("تایید");
 
     public static readonly F_Condition Reject =
       (F_Condition)new F_Condition()
@@ -25,7 +25,7 @@ public partial class F_Condition
       .SetSortIndex(21)
       .SetERPCode(-21)
       .SetName("ReviewState = Reject")
-      .SetDisplayName("وضعیت بررسی مساوی Reject است.");
+      .SetDisplayName("عدم تایید");
 
     public static readonly F_Condition Revise =
         (F_Condition)new F_Condition()
@@ -36,7 +36,7 @@ public partial class F_Condition
         .SetSortIndex(22)
         .SetERPCode(-22)
         .SetName("ReviewState = Revise")
-        .SetDisplayName("وضعیت بررسی مساوی Revise است.");
+        .SetDisplayName("بازنگری");
 
     public static readonly F_Condition SendRequest =
       (F_Condition)new F_Condition()
@@ -47,7 +47,7 @@ public partial class F_Condition
       .SetSortIndex(23)
       .SetERPCode(-23)
       .SetName("ReviewState = SendRequest")
-      .SetDisplayName("وضعیت بررسی مساوی SendRequest است.");
+      .SetDisplayName("ارسال درخواست");
 
     #endregion
 }

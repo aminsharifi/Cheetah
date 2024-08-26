@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
-using Cheetah.Core.Entities.Links;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links;
+using Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
 
 namespace Cheetah.UnitTest.Core.Aggregates.ProcessAggregate.Links.Specifications;
 

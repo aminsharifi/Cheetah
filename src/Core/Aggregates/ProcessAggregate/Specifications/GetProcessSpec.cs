@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Helpers;
-using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Helpers;
 
 namespace Cheetah.Core.Aggregates.ProcessAggregate.Specifications;
 
