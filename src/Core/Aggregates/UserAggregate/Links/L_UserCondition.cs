@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Common;
 
 namespace Cheetah.Core.Aggregates.UserAggregate.Links;
 

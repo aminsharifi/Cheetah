@@ -1,6 +1,6 @@
 ﻿using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Entities.Facts;
+namespace Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 
 public partial class F_Form : BaseEntity
 {

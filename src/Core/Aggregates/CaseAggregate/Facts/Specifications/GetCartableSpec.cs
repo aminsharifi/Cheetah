@@ -1,7 +1,6 @@
-﻿using Cheetah.Core.Enums;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
+using Cheetah.Core.Enums;
 using Cheetah.Core.Interfaces.Cartable.DTOs;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
 

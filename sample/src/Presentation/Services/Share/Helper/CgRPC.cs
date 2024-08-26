@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Common;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Common;
 using Cheetah.Core.Common.DTOs;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah_GrpcService;
 
 namespace Cheetah.Sample.Presentation.Services.Share.Helper;

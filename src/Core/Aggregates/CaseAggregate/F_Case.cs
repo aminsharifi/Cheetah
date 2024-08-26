@@ -1,8 +1,8 @@
-﻿using Cheetah.Core.Aggregates.CaseAggregate.Links;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
+using Cheetah.Core.Aggregates.CaseAggregate.Links;
 using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Dimentions;
 
-namespace Cheetah.Core.Entities.Facts;
+namespace Cheetah.Core.Aggregates.CaseAggregate.Facts;
 
 /// <summary>
 /// F_Case type is Fact and used for instancing for each request

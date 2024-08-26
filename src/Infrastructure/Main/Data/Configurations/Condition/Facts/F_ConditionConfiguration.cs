@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
 
 namespace Cheetah.Infrastructure.Data.Configurations.Condition.Facts;
 

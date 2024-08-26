@@ -1,6 +1,7 @@
-﻿using Cheetah.Core.Aggregates.ProcessAggregate.Facts.Task.Specifications;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts.Specifications;
 using Cheetah.Core.DTOs.Condition;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.UseCases.Queries.Case.CaseTaskUser.List;
 using Cheetah.UseCases.Queries.Condition.List;
 using Cheetah.UseCases.Queries.Process.TaskFlow.List;

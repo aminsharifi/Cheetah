@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Links;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Links;
 
 namespace Cheetah.UseCases.Queries.Process.ProcessScenario.List;
 

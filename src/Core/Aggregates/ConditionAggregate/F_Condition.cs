@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Entities.Facts;
+namespace Cheetah.Core.Aggregates.ConditionAggregate.Facts;
 public partial class F_Condition : BaseEntity, IAggregateRoot
 {
     public F_Condition()

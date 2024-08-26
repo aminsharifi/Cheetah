@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Interfaces.WorkItem;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Interfaces.WorkItem;
 using Cheetah.Infrastructure.Data;
 
 namespace Cheetah.Sample.Presentation.Services.GraphQL;

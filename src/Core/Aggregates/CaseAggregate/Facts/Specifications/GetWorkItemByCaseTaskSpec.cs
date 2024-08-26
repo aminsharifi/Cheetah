@@ -1,5 +1,4 @@
-﻿using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
 
 namespace Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
 

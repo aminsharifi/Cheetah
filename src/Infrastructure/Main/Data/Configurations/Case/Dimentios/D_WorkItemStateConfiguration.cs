@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
 
 namespace Cheetah.Infrastructure.Data.Configurations.Case.Dimentios;
 

@@ -1,8 +1,8 @@
-﻿using Cheetah.Core.Common;
+﻿using Cheetah.Core.Aggregates.Common.Dimentions;
+using Cheetah.Core.Common;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Enums;
 using Cheetah.Core.Interfaces;
-using Cheetah.Core.Entities.Dimentions;
 using Cheetah.Infrastructure.Data;
 
 namespace Cheetah.Infrastructure.Services;

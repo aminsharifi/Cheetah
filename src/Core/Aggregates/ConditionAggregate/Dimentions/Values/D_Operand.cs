@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Core.Entities.Dimentions;
+﻿namespace Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
 
 public partial class D_Operand
 {

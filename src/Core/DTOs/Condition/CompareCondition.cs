@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
 
 namespace Cheetah.Core.DTOs.Condition;
 

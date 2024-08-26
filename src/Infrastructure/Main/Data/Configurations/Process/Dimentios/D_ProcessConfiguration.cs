@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
 namespace Cheetah.Infrastructure.Data.Configurations.Process.Dimentios;
 
 public class D_ProcessConfiguration : IEntityTypeConfiguration<D_Process>

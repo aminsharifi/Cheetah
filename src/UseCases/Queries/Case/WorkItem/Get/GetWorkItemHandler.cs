@@ -1,8 +1,8 @@
-﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts.Specifications;
 using Cheetah.Core.Aggregates.CaseAggregate.Links;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Common.Specifications;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.UseCases.Queries.Condition.Get;
 
 namespace Cheetah.UseCases.Queries.Case.WorkItem.Get;
