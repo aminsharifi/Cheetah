@@ -1,6 +1,4 @@
-﻿using Cheetah.Core.Entities.Links;
-
-namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskFlow.Specifications;
+﻿namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.Specifications;
 
 public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
 {

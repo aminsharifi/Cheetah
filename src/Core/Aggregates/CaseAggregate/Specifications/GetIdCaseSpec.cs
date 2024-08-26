@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
+using Cheetah.Core.Aggregates.CaseAggregate.Facts;
 
 namespace Cheetah.Core.Aggregates.CaseAggregate.Specifications;
 public class GetIdCaseSpec : Specification<F_Case, long?>

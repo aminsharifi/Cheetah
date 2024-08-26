@@ -1,6 +1,6 @@
-﻿using Cheetah.Core.Common;
+﻿using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Common;
 using Cheetah.Core.Enums;
-using Cheetah.Core.Entities.Dimentions;
 
 namespace Cheetah.Infrastructure.Data.Configurations;
 
@@ -94,7 +94,8 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.EnableRecord))
                         .HasColumnOrder(9)
-                        .HasDefaultValue(true)
+                        //.HasDefaultValue(true)
+                        .HasDefaultValueSql(database.IsSqlServer() ? "1" : "1")
                         .HasComment("Active status of the record");
 
                     entity.HasIndex(nameof(BaseEntity.ERPCode))

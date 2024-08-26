@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Common;
 
 namespace Cheetah.Core.Aggregates.ProcessAggregate.Links;
 

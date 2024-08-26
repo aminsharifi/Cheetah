@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.Common.Dimentions;
 namespace Cheetah.Infrastructure.Data.Configurations.Base;
 
 public class D_EntityConfiguration : IEntityTypeConfiguration<D_Entity>

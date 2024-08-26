@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
 using Cheetah.Core.Aggregates.ConditionAggregate.Specifications;
-using Cheetah.Core.Entities.Facts;
 using Cheetah.UseCases.Queries.Condition.List;
 using Microsoft.Extensions.Caching.Memory;
 using NSubstitute;

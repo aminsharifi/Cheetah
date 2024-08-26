@@ -1,4 +1,4 @@
-﻿using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
 namespace Cheetah.Infrastructure.Data.Configurations.Condition.Dimentios;
 
 public class D_TagCategoryConfiguration : IEntityTypeConfiguration<D_TagCategory>

@@ -1,4 +1,5 @@
-﻿using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
 using Cheetah.UseCases.Commands.Case.WorkItem.Create;
 
 namespace Cheetah.UseCases.Commands.Case.WorkItem.Update;

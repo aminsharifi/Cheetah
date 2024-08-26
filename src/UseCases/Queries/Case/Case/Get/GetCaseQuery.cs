@@ -1,6 +1,6 @@
-﻿using Cheetah.Core.Aggregates.ConditionAggregate.DTOs;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.ConditionAggregate.DTOs;
 using Cheetah.Core.Common.DTOs;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.UseCases.Queries.Case.Case.Get;
 

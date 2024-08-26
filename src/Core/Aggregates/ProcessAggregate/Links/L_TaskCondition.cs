@@ -1,7 +1,7 @@
-﻿using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Aggregates.ProcessAggregate.Links.TaskCondition;
+namespace Cheetah.Core.Aggregates.ProcessAggregate.Links;
 
 public partial class L_TaskCondition : BaseLink
 {

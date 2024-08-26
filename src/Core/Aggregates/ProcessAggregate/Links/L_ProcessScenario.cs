@@ -1,8 +1,8 @@
-﻿using Cheetah.Core.Common;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Entities.Links;
+namespace Cheetah.Core.Aggregates.ProcessAggregate.Links;
 
 public partial class L_ProcessScenario : BaseLink
 {
@@ -19,5 +19,4 @@ public partial class L_ProcessScenario : BaseLink
     {
         return (L_ProcessScenario)MemberwiseClone();
     }
-
 }

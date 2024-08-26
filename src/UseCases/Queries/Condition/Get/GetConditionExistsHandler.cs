@@ -1,8 +1,8 @@
-﻿using Cheetah.Core.Aggregates.ConditionAggregate.Specifications;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.ConditionAggregate.Specifications;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.UseCases.Queries.Condition.Get;
 

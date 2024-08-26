@@ -1,8 +1,8 @@
-﻿using Cheetah.Core.Common.DTOs;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
 using Cheetah.Core.Interfaces.WorkItem.DTOs;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
 
 namespace Cheetah.UseCases.Commands.Case.CaseTaskUser.Create;
 

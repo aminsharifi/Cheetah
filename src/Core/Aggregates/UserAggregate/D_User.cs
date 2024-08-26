@@ -1,7 +1,7 @@
 ﻿using Cheetah.Core.Aggregates.UserAggregate.Links;
 using Cheetah.Core.Common;
 
-namespace Cheetah.Core.Entities.Dimentions;
+namespace Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 public partial class D_User : BaseEntity<D_User>, IAggregateRoot
 {
     public D_User()

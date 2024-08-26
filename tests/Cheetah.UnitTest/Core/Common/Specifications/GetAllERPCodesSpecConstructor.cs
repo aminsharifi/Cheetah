@@ -1,5 +1,5 @@
-﻿using Cheetah.Core.Common.Specifications;
-using Cheetah.Core.Entities.Dimentions;
+﻿using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+using Cheetah.Core.Common.Specifications;
 
 namespace Cheetah.UnitTest.Core.Common.Specifications;
 

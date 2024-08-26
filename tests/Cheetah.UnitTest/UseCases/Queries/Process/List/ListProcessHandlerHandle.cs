@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
+using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
 using Cheetah.Core.Aggregates.ProcessAggregate.Specifications;
-using Cheetah.Core.Entities.Dimentions;
 using Cheetah.UseCases.Queries.Process.List;
 using NSubstitute;
 

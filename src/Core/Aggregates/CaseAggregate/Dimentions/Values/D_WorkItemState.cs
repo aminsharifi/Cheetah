@@ -1,4 +1,4 @@
-﻿namespace Cheetah.Core.Entities.Dimentions;
+﻿namespace Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
 public partial class D_WorkItemState
 {
     #region Values

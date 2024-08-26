@@ -1,4 +1,9 @@
-﻿using Cheetah.Core.Aggregates.CaseAggregate.Links;
+﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
+using Cheetah.Core.Aggregates.CaseAggregate.Links;
+using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
 using Cheetah.Core.Enums;
@@ -6,11 +11,9 @@ using Cheetah.Core.Interfaces;
 using Cheetah.Core.Interfaces.Cartable;
 using Cheetah.Core.Interfaces.Cartable.DTOs;
 using Cheetah.Core.Interfaces.WorkItem;
-using Cheetah.Core.Entities.Dimentions;
-using Cheetah.Core.Entities.Facts;
+using Cheetah.Sample.Presentation.Services.Share.Helper;
 using Cheetah.UseCases.Queries.Process.TaskEntity.List;
 using Cheetah_GrpcService;
-using Cheetah.Sample.Presentation.Services.Share.Helper;
 
 namespace Cheetah.Sample.Presentation.Services.Share.Services;
 
