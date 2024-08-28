@@ -65,9 +65,11 @@ public class GetCaseHandler(
         var _workItemUserId = await userRepository.FirstOrDefaultAsync(_workItemUserSpec, cancellationToken);
 
         F_WorkItem _workItem = (F_WorkItem)new F_WorkItem()
-            .SetUserId(_workItemUserId)
+            .SetUserId(_workItemUserId);
+
+        _workItem = request.WorkItemBase is not null ? (F_WorkItem)_workItem
             .SetName(request.WorkItemBase.Name)
-            .SetDisplayName(request.WorkItemBase.DisplayName);
+            .SetDisplayName(request.WorkItemBase.DisplayName) : _workItem;
 
         _workItem.WorkItemConditions?.Clear();
 
