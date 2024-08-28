@@ -15,8 +15,8 @@ public class GetIdEntitySpec<T> : SingleResultSpecification<T, long> where T : B
         StringBuilder _keyBulder = new();
         _keyBulder.Append(input.GetType().ToString());
 
-        Query
-            .EnableCache(nameof(GetIdEntitySpec<T>), _keyBulder.ToString());
+        //Query
+        //    .EnableCache(nameof(GetIdEntitySpec<T>), _keyBulder.ToString());
 
         Query.AsNoTracking();
 
