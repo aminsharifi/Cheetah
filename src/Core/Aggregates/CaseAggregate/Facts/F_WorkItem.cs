@@ -45,7 +45,6 @@ public partial class F_WorkItem : BaseEntity
     public virtual D_WorkItemState? WorkItemState { get; private set; }
     public F_WorkItem SetInbox()
     {
-        this.WorkItemState = D_WorkItemState.Inbox;
         this.WorkItemStateId = D_WorkItemState.Inbox.Id;
         return this;
     }
@@ -56,7 +55,6 @@ public partial class F_WorkItem : BaseEntity
     public F_WorkItem SetSent()
     {
         this.WorkItemStateId = D_WorkItemState.Sent.Id;
-        this.WorkItemState = D_WorkItemState.Sent;
         SetLastModified(DateTimeOffset.Now);
         return this;
     }
@@ -67,7 +65,6 @@ public partial class F_WorkItem : BaseEntity
     public F_WorkItem SetExit()
     {
         this.WorkItemStateId = D_WorkItemState.Exit.Id;
-        this.WorkItemState = D_WorkItemState.Exit;
         return this;
     }
     public bool IsExit()
@@ -77,7 +74,6 @@ public partial class F_WorkItem : BaseEntity
     public F_WorkItem SetFuture()
     {
         this.WorkItemStateId = D_WorkItemState.Future.Id;
-        this.WorkItemState = D_WorkItemState.Future;
         return this;
     }   
     public bool IsFuture()
