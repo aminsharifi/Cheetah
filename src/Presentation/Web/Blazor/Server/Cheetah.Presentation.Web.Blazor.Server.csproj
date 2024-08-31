@@ -23,6 +23,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\UseCases\Cheetah.UseCases.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Resx\Localization.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
