@@ -6,7 +6,6 @@ using Hangfire;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.MSSqlServer;
-using Winton.Extensions.Configuration.Consul;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 
@@ -23,6 +22,7 @@ public static class InitialiserExtensions
         builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
 
         #region Production
+        /*
         if (builder.Environment.IsProduction())
         {
             var _CONSUL = builder.Configuration.GetValue("CONSUL", "True");
@@ -47,6 +47,7 @@ public static class InitialiserExtensions
                     });
             }
         }
+        */
         #endregion
 
         #region DB
