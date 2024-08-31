@@ -4,10 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsProduction())
 {
-    builder.WebHost.ConfigureKestrel(serverOptions =>
-    {
-        serverOptions.ListenAnyIP(1991, cfg => { cfg.Protocols = HttpProtocols.Http1; });
-    });
+    //builder.WebHost.ConfigureKestrel(serverOptions =>
+    //{
+    //    serverOptions.ListenAnyIP(1991, cfg => { cfg.Protocols = HttpProtocols.Http1; });
+    //});
 }
 
 // Add services to the container.
@@ -36,17 +36,19 @@ var app = await builder.InitializeSettingsAsync();
 
 //}
 
+app.UseDeveloperExceptionPage();
+app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
-}
-else
-{
-    app.UseDefaultExceptionHandler(); // from FastEndpoints
-    app.UseHsts();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseDeveloperExceptionPage();
+//    app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+//}
+//else
+//{
+//    app.UseDefaultExceptionHandler(); // from FastEndpoints
+//    app.UseHsts();
+//}
 
 app.UseFastEndpoints();
 app.UseSwaggerGen(); // FastEndpoints middleware
