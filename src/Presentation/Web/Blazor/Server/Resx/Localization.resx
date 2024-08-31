@@ -402,4 +402,8 @@
   <data name="BlazorServer_Welcome" xml:space="preserve">
     <value>{0} خوش آمدید</value>
   </data>
+  <data name="BlazorServer_Assignee" xml:space="preserve">
+    <value>کاربر اختصاص داده شده</value>
+    <comment>اختصاص داده شده</comment>
+  </data>
 </root>

@@ -34,7 +34,7 @@ public class CartableDTO
     public SimpleClassDTO? Process { get; set; }
     public SimpleClassDTO? Task { get; set; }
     public SimpleClassDTO? Form { get; set; }
-    public IEnumerable<SimpleClassDTO> ValidUserActions { get; set; }
+    public IEnumerable<SimpleClassDTO> ValidUserActions { get; set; } = default!;
     #endregion
 
     public string? Summary { get; set; }
