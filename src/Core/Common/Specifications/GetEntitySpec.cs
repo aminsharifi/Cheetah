@@ -15,7 +15,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
     public GetEntitySpec(long Id)
     {
         Query.Where(x => x.Id == Id);
-        Query.EnableCache(nameof(GetEntitySpec<T>), Id);
+        //Query.EnableCache(nameof(GetEntitySpec<T>), Id);
         Query.AsNoTracking();
     }
 
