@@ -128,42 +128,53 @@ public class Cartable(
 
         var _inboxList = Inbox.ToList();
 
+
         for (int i = 0; i < _inboxList.LongCount(); i++)
         {
+
             var _Record = Records.First(x => x.Id == _inboxList[i]?.WorkItem?.Id);
 
             var _user = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.UserId!.Value));
 
-            _inboxList[i].User = _user.Adapt<SimpleClassDTO>();
+            _inboxList[i].User = _user?.Adapt<SimpleClassDTO>();
 
             var _requestor = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case!.RequestorId!.Value));
 
-            _inboxList[i].Requestor = _requestor.Adapt<SimpleClassDTO>();
+            _inboxList[i].Requestor = _requestor?.Adapt<SimpleClassDTO>();
 
             var _creator = await userRepository.FirstOrDefaultAsync(new GetEntitySpec<D_User>(_Record.Case.CreatorId!.Value));
 
-            _inboxList[i].Creator = _creator.Adapt<SimpleClassDTO>();
+            _inboxList[i].Creator = _creator?.Adapt<SimpleClassDTO>();
+
 
             var _process = await processRepository.FirstOrDefaultAsync(new GetEntitySpec<D_Process>(_Record.Case.ProcessId!.Value));
-            _inboxList[i].Process = _process.Adapt<SimpleClassDTO>();
+            _inboxList[i].Process = _process?.Adapt<SimpleClassDTO>();
 
             var _task = await taskRepository.FirstOrDefaultAsync(new GetTask(_Record.TaskId));
-            _inboxList[i].Task = _task.Adapt<SimpleClassDTO>();
+            _inboxList[i].Task = _task?.Adapt<SimpleClassDTO>();
             _inboxList[i].Form = _task?.Form.Adapt<SimpleClassDTO>();
 
             var _taskId = Guard.Against.Null(_Record.TaskId);
 
             var _flows = await iSender.Send(new ListFlowsByTaskQuery(_taskId));
 
+
             #region validUserActions
 
-            var _validUserActions = _flows.Value.SelectMany(a => a.Flow.FlowConditions,
-                 (a, b) =>
 
-                     conditionRepository.FirstOrDefaultAsync(
-                         new GetEntitySpec<F_Condition>(b.SecondId!.Value)).GetAwaiter().GetResult()
-                 .Adapt<SimpleClassDTO>());
-            _inboxList[i].ValidUserActions = _validUserActions.ToList();
+            var _validUserActions = _flows.Value.SelectMany(a => a.Flow?.FlowConditions,
+               (a, b) => b.SecondId).ToList();
+
+            var _simpleValidUserActions = new List<SimpleClassDTO>();
+
+            foreach (long _validUserAction in _validUserActions)
+            {
+                var _cnd = await conditionRepository
+                    .FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(_validUserAction));
+
+                _simpleValidUserActions.Add(_cnd.Adapt<SimpleClassDTO>());
+            }
+            _inboxList[i].ValidUserActions = _simpleValidUserActions;
 
             #endregion
 
@@ -183,6 +194,7 @@ public class Cartable(
             #endregion
 
         }
+
         return _inboxList;
     }
 

@@ -1,7 +1,9 @@
 ﻿@using Cheetah.Core.Common.DTOs
+@using Cheetah.Core.Interfaces.Cartable
 @using Cheetah.Core.Interfaces.Cartable.DTOs
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
-@inherits MyComponentBase
+@using Cheetah.Core.Resx
+@using MudBlazor
 
 <div dir="rtl">
 
@@ -26,6 +28,9 @@
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Requestor)))
                 </MudTh>
                 <MudTh>
+                    @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Assignee)))
+                </MudTh>
+                <MudTh>
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Process)))
                 </MudTh>
                 <MudTh>
@@ -37,14 +42,15 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd>@context?.Case?.Id</MudTd>
-                    <MudTd>@context?.Case?.Created</MudTd>
-                    <MudTd>@context?.WorkItem?.Created</MudTd>
-                    <MudTd>@context?.Requestor?.DisplayName</MudTd>
-                    <MudTd>@context?.Process?.DisplayName</MudTd>
-                    <MudTd>@context?.Task?.DisplayName</MudTd>
-                    <MudTd>@context.Summary</MudTd>
-                </RowTemplate>
-            </MudTable>
+                <MudTd>@context?.Case?.Created</MudTd>
+                <MudTd>@context?.WorkItem?.Created</MudTd>
+                <MudTd>@context?.Requestor?.DisplayName</MudTd>
+                <MudTd>@context?.User?.DisplayName</MudTd>
+                <MudTd>@context?.Process?.DisplayName</MudTd>
+                <MudTd>@context?.Task?.DisplayName</MudTd>
+                <MudTd>@context.Summary</MudTd>
+            </RowTemplate>
+        </MudTable>
         <hr />
         <br />
         <br />
@@ -52,6 +58,9 @@
 </div>
 @code
 {
+    [Inject] public IGlobalization globalization { get; set; } = default!;
+    [Inject] public ICartable iCartable { get; set; } = default!;
+
     [Parameter]
     public Boolean Inbox { get; set; }
 
@@ -63,8 +72,10 @@
     protected override async Task OnInitializedAsync()
     {
         var cartableDTO = new CartableDTO();
-
-        cartableDTO.User = new SimpleClassDTO() { DisplayName = Username };
+        if (Username is not null)
+        {
+            cartableDTO.User = new SimpleClassDTO() { DisplayName = Username };
+        }
 
         if (Inbox)
         {
