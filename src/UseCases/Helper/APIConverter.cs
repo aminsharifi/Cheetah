@@ -50,7 +50,8 @@ public static class APIConverter
                 Base = f_condition.Adapt<BaseClassWithNameDTO>(),
                 Tag = f_condition?.Tag?.Adapt<BaseClassWithNameDTO>(),
                 Operand = f_condition?.Operand?.Adapt<BaseClassWithNameDTO>(),
-                Value = f_condition?.Value
+                Value = f_condition?.Value,
+                ApproveState = f_condition!.ApproveState
             };
 
             yield return _condition;
