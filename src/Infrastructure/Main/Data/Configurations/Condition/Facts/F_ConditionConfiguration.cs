@@ -32,6 +32,10 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
             .Property(e => e.Value)
             .HasColumnOrder(102);
 
+        builder
+            .Property(e => e.ApproveState)
+            .HasColumnOrder(103);
+
         builder.Ignore(x => x.BooleanValue);
 
         builder.Ignore(x => x.FloatValue);
