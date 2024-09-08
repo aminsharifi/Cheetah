@@ -3,8 +3,7 @@ using Cheetah.Core.Interfaces.Cartable;
 
 namespace Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
-public class ListInbox(ILogger<ListInbox> logger, ICartable iCartable)
-    : Endpoint<ListInboxRequest, ListInboxResponse>
+public class ListInbox(ILogger<ListInbox> logger, ICartable iCartable) : Endpoint<ListInboxRequest, ListInboxResponse>
 {
     public override void Configure()
     {

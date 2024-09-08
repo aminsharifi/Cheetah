@@ -1,4 +1,5 @@
-﻿using Cheetah.Core.Common.DTOs;
+﻿using Cheetah.Core.Aggregates.ConditionAggregate.DTOs;
+using Cheetah.Core.Common.DTOs;
 
 namespace Cheetah.Core.Interfaces.Cartable.DTOs;
 
@@ -25,7 +26,7 @@ public class CartableDTO
     public IEnumerable<SimpleClassDTO>? CaseStateList { get; set; }
     public SimpleClassDTO? WorkItem { get; set; }
     public SimpleClassDTO? WorkItemState { get; set; }
-    public IEnumerable<SimpleClassDTO> OccurredUserActions { get; set; }
+    public IEnumerable<ConditionDTO> OccurredUserActions { get; set; }
 
     #endregion
 
@@ -34,7 +35,7 @@ public class CartableDTO
     public SimpleClassDTO? Process { get; set; }
     public SimpleClassDTO? Task { get; set; }
     public SimpleClassDTO? Form { get; set; }
-    public IEnumerable<SimpleClassDTO> ValidUserActions { get; set; } = default!;
+    public IEnumerable<ConditionDTO> ValidUserActions { get; set; } = default!;
     #endregion
 
     public string? Summary { get; set; }

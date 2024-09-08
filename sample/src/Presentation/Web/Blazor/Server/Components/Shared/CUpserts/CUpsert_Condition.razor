@@ -1,4 +1,5 @@
 ﻿@using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions
+@using Cheetah.Core.Aggregates.ConditionAggregate.Facts
 @using Cheetah.Core.Common
 @inherits CUpsert_GeneralCode
 
@@ -7,25 +8,54 @@
                  ParentCallback="@ParentCallback" Title="@Title"
                  LinkRecords="@LinkRecords">
     <RowTemplate>
-        @*         <CInput @bind-NLValue="(Record as F_Condition).PublicTagId"
-        Records="@List_D_Tag"
-        Record="@((Record as F_Condition).Tag)"
-        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
-        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Tag)))
-        SelectedProcessesChanged="@SelectedTagChanged"
-        CFieldType="@(Core.Enums.FieldType.CSelect)"
-        reference="@reference"></CInput> *@
+        <div class="col-sm-11 col-lg-4">
+            <MudSelect ReadOnly="@ReadonlyState" Label="تگ"
+                       Value="(Record as F_Condition).TagId"
+                       ValueChanged="(long? newValue)=>(Record as F_Condition).SetTagId(newValue)"
+                       @oninput="@SelectedTagChanged">
+                @foreach (var _tag in List_D_Tag)
+                {
+                    <MudSelectItem T="long?" Value="@_tag.Id">
+                        @_tag.DisplayName
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+        <div class="col-sm-11 col-lg-4">
+            <MudSelect ReadOnly="@ReadonlyState"
+                       Label=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
+                       Value="(Record as F_Condition).OperandId"
+                       ValueChanged="(long? newValue)=>(Record as F_Condition).SetOperandId(newValue)"
+                       @oninput="@SelectedOperandChanged">
+                @foreach (var _operand in List_D_Operand)
+                {
+                    <MudSelectItem T="long?" Value="@_operand.Id">
+                        @_operand.DisplayName
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+        @switch ((Record as F_Condition)?.Tag?.TagTypeId)
+        {
+            case var _string when _string == D_TagType.String.Id:
+                <div class="col-sm-11 col-lg-4">
+                    <MudInput ReadOnly="@ReadonlyState"
+                              Label=@(globalization.GetValue(nameof(Localization.BlazorServer_CellValue)))
+                              Value="(Record as F_Condition)?.Value"
+                              ValueChanged="(string? newValue)=>(Record as F_Condition)?.SetValue(newValue)"></MudInput>
+                </div>
+                break;
+        }
 
-        @*         <CInput CFieldType="@(Core.Enums.FieldType.CSelect)"
-        Records="@List_D_Operand"
-        @bind-NLValue="(Record as F_Condition).PublicOperandId"
-        Record="@((Record as F_Condition).Operand)"
-        CDescription=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-        CDisplayName=@(globalization.GetValue(nameof(Localization.BlazorServer_Operand)))
-        SelectedProcessesChanged="@SelectedOperandChanged"
-        reference="@reference"></CInput> *@
+        <div class="col-sm-11 col-lg-4">
+            <MudSwitch ReadOnly="@ReadonlyState"
+                       Label="وضعیت تایید"
+                       Value="(Record as F_Condition)?.ApproveState"
+                       ValueChanged="(Boolean? newValue)=>(Record as F_Condition)?.SetApproveState(newValue.Value)"
+                       Color="Color.Tertiary"></MudSwitch>
+        </div>
 
-        @*         @switch ((Record as F_Condition)?.Tag?.TagTypeId)
+        @*@switch ((Record as F_Condition)?.Tag?.TagTypeId)
         {
         case var _boolean when _boolean == D_TagType.Boolean.Id:
         <CInput CFieldType="@(Core.Enums.FieldType.CBool)"
@@ -68,8 +98,8 @@
 
     public override async Task ExtendedLoadDTO()
     {
-        // List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag));
-        // List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand));
+        List_D_Tag = await simpleClassRepository.GetAllByNameAsync(nameof(D_Tag));
+        List_D_Operand = await simpleClassRepository.GetAllByNameAsync(nameof(D_Operand));
     }
 
     private async Task SelectedOperandChanged(ChangeEventArgs e)
@@ -77,11 +107,7 @@
         if (e.Value is not null)
         {
             var _operandId = Int64.Parse(e.Value.ToString());
-
-            var _selectedOperand = List_D_Operand
-            .First(x => x.Id == _operandId) as D_Operand;
-            // (Record as F_Condition).SetOperand(_selectedOperand);
-
+            (Record as F_Condition).SetOperandId(_operandId);
             TagTypeId = D_TagType.String.Id;
         }
     }
@@ -91,9 +117,7 @@
         if (e.Value is not null)
         {
             var _tagId = Int64.Parse(e.Value.ToString());
-            var _tag = List_D_Tag.First(x => x.Id == _tagId) as D_Tag;
-
-            // (Record as F_Condition).SetTag(_tag);
+            (Record as F_Condition).SetTagId(_tagId);
         }
     }
 }
