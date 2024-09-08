@@ -97,7 +97,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         {
             Value = value == true ? "1" : "0";
         }
-    }
+    } 
 
     public float? FloatValue
     {
@@ -117,6 +117,14 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     public F_Condition ShallowCopy()
     {
         return (F_Condition)MemberwiseClone();
+    }
+
+    public Boolean ApproveState { get; private set; }
+
+    public BaseEntity SetApproveState(bool approveState)
+    {
+        ApproveState = approveState;
+        return this;
     }
 
     #region Collections

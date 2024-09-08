@@ -165,14 +165,20 @@ public class Cartable(
             var _validUserActions = _flows.Value.SelectMany(a => a.Flow?.FlowConditions,
                (a, b) => b.SecondId).ToList();
 
-            var _simpleValidUserActions = new List<SimpleClassDTO>();
+            List<ConditionDTO> _simpleValidUserActions = new();
 
             foreach (long _validUserAction in _validUserActions)
             {
                 var _cnd = await conditionRepository
                     .FirstOrDefaultAsync(new GetEntitySpec<F_Condition>(_validUserAction));
 
-                _simpleValidUserActions.Add(_cnd.Adapt<SimpleClassDTO>());
+                ConditionDTO _conditionDTO = new();
+
+                _conditionDTO.Base = _cnd.Adapt<BaseClassWithNameDTO>();
+
+                _conditionDTO.ApproveState = _cnd.ApproveState;
+
+                _simpleValidUserActions.Add(_conditionDTO);
             }
             _inboxList[i].ValidUserActions = _simpleValidUserActions;
 
@@ -180,13 +186,20 @@ public class Cartable(
 
             #region occurredUserActions
 
-            List<SimpleClassDTO> _occurredUserActions = new();
+            List<ConditionDTO> _occurredUserActions = new();
 
             foreach (var workItemCondition in _Record?.WorkItemConditions)
             {
                 var _condition = await conditionRepository.FirstOrDefaultAsync(
                     new GetEntitySpec<F_Condition>(workItemCondition.SecondId!.Value));
-                _occurredUserActions.Add(_condition.Adapt<SimpleClassDTO>());
+
+                ConditionDTO _conditionDTO = new();
+
+                _conditionDTO.Base = _condition.Adapt<BaseClassWithNameDTO>();
+
+                _conditionDTO.ApproveState = _condition.ApproveState;
+
+                _occurredUserActions.Add(_conditionDTO);
             }
 
             _inboxList[i].OccurredUserActions = _occurredUserActions;
@@ -266,7 +279,7 @@ public class Cartable(
                 #region ValidUserActions
                 var _taskValidUserActions = outputRequestItem!
                                 .ValidUserActions
-                                .Select(x => x.Id)
+                                .Select(x => x.Base.Id.Value)
                                 .ToList();
 
                 var _validUserActions = await GetConditions(_taskValidUserActions);
@@ -357,7 +370,6 @@ public class Cartable(
         var _response = await GetCartableAsync(request, CartableProperty.Inbox);
         return _response;
     }
-
 
     public async Task<Result<IEnumerable<CartableDTO>>> OutboxAsync(CartableDTO cartableDTO)
     {
