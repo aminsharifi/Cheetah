@@ -4,8 +4,8 @@ public class GetFlowsByTaskSpec : Specification<L_TaskFlow>
 {
     public GetFlowsByTaskSpec(long CurrentTaskId)
     {
-        Query
-            .EnableCache(nameof(GetFlowsByTaskSpec), CurrentTaskId);
+        //Query
+        //    .EnableCache(nameof(GetFlowsByTaskSpec), CurrentTaskId);
 
         Query
          .Where(x => x.FirstId == CurrentTaskId);

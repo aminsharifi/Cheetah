@@ -28,7 +28,7 @@ public class GetEntitySpec<T> : Specification<T> where T : BaseEntity
     {
         var Find = false;
 
-        Query.EnableCache(nameof(GetEntitySpec<T>), input);
+        //Query.EnableCache(nameof(GetEntitySpec<T>), input);
 
         if (EnableTrack == false)
         {

@@ -51,7 +51,7 @@ public static class APIConverter
                 Tag = f_condition?.Tag?.Adapt<BaseClassWithNameDTO>(),
                 Operand = f_condition?.Operand?.Adapt<BaseClassWithNameDTO>(),
                 Value = f_condition?.Value,
-                ApproveState = f_condition!.ApproveState
+                CheckValidation = f_condition!.CheckValidation
             };
 
             yield return _condition;

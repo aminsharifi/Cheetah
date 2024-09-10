@@ -14,8 +14,8 @@ public class GetUserByCaseConditionSpec : Specification<L_UserCondition, long>
     /// <param name="ConditionFilter">Condition's Ids</param>
     public GetUserByCaseConditionSpec(IEnumerable<long> UserFilter, IEnumerable<long> ConditionFilter)
     {
-        Query
-            .EnableCache(nameof(GetUserByCaseConditionSpec), UserFilter + "-" + ConditionFilter);
+        //Query
+        //    .EnableCache(nameof(GetUserByCaseConditionSpec), UserFilter + "-" + ConditionFilter);
 
         Query
             .AsNoTracking();
