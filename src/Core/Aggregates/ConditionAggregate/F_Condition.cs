@@ -119,11 +119,11 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         return (F_Condition)MemberwiseClone();
     }
 
-    public Boolean ApproveState { get; private set; }
+    public Boolean CheckValidation { get; private set; }
 
-    public BaseEntity SetApproveState(bool approveState)
+    public BaseEntity SetCheckValidation(bool checkValidation)
     {
-        ApproveState = approveState;
+        CheckValidation = checkValidation;
         return this;
     }
 
