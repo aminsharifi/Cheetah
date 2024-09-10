@@ -12,7 +12,7 @@ public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepositor
     {
         _cache = cache;
         _cacheOptions = new MemoryCacheEntryOptions()
-         .SetAbsoluteExpiration(relative: TimeSpan.FromSeconds(1));
+         .SetAbsoluteExpiration(relative: TimeSpan.FromMicroseconds(1));
     }
     public async Task<T?> FirstOrDefaultAsync(ISpecification<T> specification, CancellationToken cancellationToken = default)
     {

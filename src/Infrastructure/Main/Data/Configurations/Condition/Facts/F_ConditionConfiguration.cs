@@ -33,7 +33,7 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
             .HasColumnOrder(102);
 
         builder
-            .Property(e => e.ApproveState)
+            .Property(e => e.CheckValidation)
             .HasColumnOrder(103);
 
         builder.Ignore(x => x.BooleanValue);

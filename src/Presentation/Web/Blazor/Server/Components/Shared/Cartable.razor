@@ -19,6 +19,9 @@
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RadNumber)))
                 </MudTh>
                 <MudTh>
+                    شناسه ERP
+                </MudTh>
+                <MudTh>
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_PCreateDate)))
                 </MudTh>
                 <MudTh>
@@ -42,8 +45,8 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd>@context?.Case?.Id</MudTd>
+                <MudTd>@context?.Case?.ERPCode</MudTd>
                 <MudTd>@context?.Case?.Created</MudTd>
-                <MudTd>@context?.WorkItem?.Created</MudTd>
                 <MudTd>@context?.Requestor?.DisplayName</MudTd>
                 <MudTd>@context?.User?.DisplayName</MudTd>
                 <MudTd>@context?.Process?.DisplayName</MudTd>
@@ -76,7 +79,6 @@
         {
             cartableDTO.User = new SimpleClassDTO() { DisplayName = Username };
         }
-
         if (Inbox)
         {
             cartableDTOList = (await iCartable.InboxAsync(cartableDTO)).Value;
