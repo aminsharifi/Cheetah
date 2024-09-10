@@ -4,8 +4,8 @@ public class GetConditionsByTaskSpec : Specification<L_TaskCondition, long>
 {
     public GetConditionsByTaskSpec(long CurrentTaskId)
     {
-        Query
-            .EnableCache(nameof(GetConditionsByTaskSpec), CurrentTaskId);
+        //Query
+        //    .EnableCache(nameof(GetConditionsByTaskSpec), CurrentTaskId);
 
         Query
             .Where(x => x.FirstId == CurrentTaskId)

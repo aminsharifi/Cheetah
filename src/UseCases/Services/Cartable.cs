@@ -176,7 +176,7 @@ public class Cartable(
 
                 _conditionDTO.Base = _cnd.Adapt<BaseClassWithNameDTO>();
 
-                _conditionDTO.ApproveState = _cnd.ApproveState;
+                _conditionDTO.CheckValidation = _cnd.CheckValidation;
 
                 _simpleValidUserActions.Add(_conditionDTO);
             }
@@ -197,7 +197,7 @@ public class Cartable(
 
                 _conditionDTO.Base = _condition.Adapt<BaseClassWithNameDTO>();
 
-                _conditionDTO.ApproveState = _condition.ApproveState;
+                _conditionDTO.CheckValidation = _condition.CheckValidation;
 
                 _occurredUserActions.Add(_conditionDTO);
             }

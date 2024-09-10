@@ -1,7 +1,5 @@
 ﻿using Cheetah.Core.Common;
 using Cheetah.Core.Enums;
-using System;
-using static Azure.Core.HttpHeader;
 
 namespace Cheetah.Infrastructure.Data;
 public class DatabaseClass

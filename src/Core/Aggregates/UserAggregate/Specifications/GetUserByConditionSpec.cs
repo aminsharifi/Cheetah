@@ -13,8 +13,8 @@ public class GetUserByConditionSpec : Specification<L_UserCondition, long>
     /// <param name="PerformerConditions">Condition's Ids</param>
     public GetUserByConditionSpec(IEnumerable<long> PerformerConditions)
     {
-        Query
-            .EnableCache(nameof(GetUserByCaseConditionSpec), PerformerConditions);
+        //Query
+        //    .EnableCache(nameof(GetUserByCaseConditionSpec), PerformerConditions);
 
         Query
             .Where(x => x.SecondId != null && PerformerConditions.Contains(x.SecondId.Value));

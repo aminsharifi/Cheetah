@@ -8,5 +8,5 @@ public class ConditionDTO
     public BaseClassWithNameDTO? Tag { get; set; }
     public BaseClassWithNameDTO? Operand { get; set; }
     public string? Value { get; set; }
-    public Boolean ApproveState { get; set; }
+    public Boolean CheckValidation { get; set; }
 }

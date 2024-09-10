@@ -4,8 +4,8 @@ public class GetTask : SingleResultSpecification<F_Task>
 {
     public GetTask(long? taskId)
     {
-        Query
-            .EnableCache(nameof(GetTask), taskId);
+        //Query
+        //    .EnableCache(nameof(GetTask), taskId);
 
         Query
             .Where(x => x.Id == taskId);

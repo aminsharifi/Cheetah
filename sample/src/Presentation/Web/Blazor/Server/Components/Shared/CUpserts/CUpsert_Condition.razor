@@ -50,8 +50,8 @@
         <div class="col-sm-11 col-lg-4">
             <MudSwitch ReadOnly="@ReadonlyState"
                        Label="وضعیت تایید"
-                       Value="(Record as F_Condition)?.ApproveState"
-                       ValueChanged="(Boolean? newValue)=>(Record as F_Condition)?.SetApproveState(newValue.Value)"
+                       Value="(Record as F_Condition)?.CheckValidation"
+                       ValueChanged="(Boolean? newValue)=>(Record as F_Condition)?.SetCheckValidation(newValue.Value)"
                        Color="Color.Tertiary"></MudSwitch>
         </div>
 
