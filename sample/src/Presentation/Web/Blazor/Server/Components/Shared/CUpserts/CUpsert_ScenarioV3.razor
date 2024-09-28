@@ -492,7 +492,7 @@
                         </tbody>
                     </Ctable>
                 </div>
-                <LinkComponent ReadonlyState="@ReadonlyState" Records="@LinkRecords"
+                <LinkComponent ReadonlyState="!(Create!.Value)" Records="@LinkRecords"
                                reference="@reference"
                                Title=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
                 </LinkComponent>
