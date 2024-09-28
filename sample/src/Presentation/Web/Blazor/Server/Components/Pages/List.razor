@@ -31,7 +31,7 @@
             </MudSelect>
         </div>
         <div class="col-lg-1 col-sm-3">
-            @if (Sync != true && type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
+            @if (Create is true && type != nameof(LinkProperty.First) && type != nameof(LinkProperty.Second))
             {
                 <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
                         OnClick="Addnew"
@@ -78,6 +78,7 @@
 
         <ListGenericTypeItems Records="@Records"
                               reference="@reference" Name="@Name" Sync="@Sync"
+                              Create="@Create" Read="@Read" Update="@Update" Delete="@Delete"
                               ParentCallback="UpdateForm" LoadData="@LoadData"
                               type="@type" @ref="listGenericTypeItems">
         </ListGenericTypeItems>
@@ -180,7 +181,7 @@
         .GetAllByNameAsync(nameof(D_Entity));
 
         _d_Entity = _entities
-        .Where(x => ((D_Entity)x).Display == true)
+        .Where(x => ((D_Entity)x).Read == true)
         .ToList();
 
         keyValuePair.Clear();
@@ -193,6 +194,10 @@
         {
             Name = keyValuePair.First().Key;
             Sync = (_d_Entity.First() as D_Entity)!.Sync;
+            Create = (_d_Entity.First() as D_Entity)!.Create;
+            Read = (_d_Entity.First() as D_Entity)!.Read;
+            Update = (_d_Entity.First() as D_Entity)!.Update;
+            Delete = (_d_Entity.First() as D_Entity)!.Delete;
             _NavigationManager.NavigateTo($"/List/{Name}");
         }
         await LoadRecords();
@@ -213,6 +218,11 @@
             SetLastModified();
 
             Sync = ((D_Entity)Record).Sync;
+
+            Create = ((D_Entity)Record).Create;
+            Read = ((D_Entity)Record).Read;
+            Update = ((D_Entity)Record).Update;
+            Delete = ((D_Entity)Record).Delete;
 
             Records = await simpleClassRepository.GetAllByNameAsync(Name);
 

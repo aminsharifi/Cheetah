@@ -8,11 +8,11 @@ public class D_EntityConfiguration : IEntityTypeConfiguration<D_Entity>
         builder.HasComment("Table's name in the Cheetah");
 
         builder
-         .HasIndex(e => e.Display)
+         .HasIndex(e => e.Read)
          .IsUnique(false);
 
         builder
-            .Property(e => e.Display)
+            .Property(e => e.Read)
             .HasDefaultValue(true)
             .HasColumnOrder(100);
     }
