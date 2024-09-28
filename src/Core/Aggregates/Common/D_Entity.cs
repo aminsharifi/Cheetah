@@ -10,7 +10,7 @@ public partial class D_Entity : BaseEntity
     }
     public D_Entity SetDisplay(Boolean display)
     {
-        this.Display = display;
+        this.Read = display;
         return this;
     }
     public D_Entity SetSync(Boolean sync)
@@ -18,8 +18,10 @@ public partial class D_Entity : BaseEntity
         this.Sync = sync;
         return this;
     }
-
-    public bool? Display { get; private set; } = false;
+    public bool? Create { get; private set; } = false;
+    public bool? Read { get; private set; } = false;
+    public bool? Update { get; private set; } = false;
+    public bool? Delete { get; private set; } = false;
     public bool? Sync { get; private set; } = false;
 }
 public partial class D_Entity
