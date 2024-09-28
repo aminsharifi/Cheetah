@@ -21,6 +21,15 @@ public class SharedPage : MyComponentBase
     public bool? Sync { get; set; }
 
     [Parameter]
+    public bool? Create { get; set; } = false;
+    [Parameter]
+    public bool? Read { get; set; } = false;
+    [Parameter]
+    public bool? Update { get; set; } = false;
+    [Parameter]
+    public bool? Delete { get; set; } = false;
+
+    [Parameter]
     public bool ReadonlyState { get; set; } = false;
 
     [Parameter]
