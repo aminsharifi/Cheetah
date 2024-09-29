@@ -4,6 +4,7 @@
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @using Cheetah.Core.Resx
 @using MudBlazor
+@using DNTPersianUtils.Core
 
 <div dir="rtl">
 
@@ -28,6 +29,9 @@
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_PRecieveDate)))
                 </MudTh>
                 <MudTh>
+                    تاریخ ارسال
+                </MudTh>
+                <MudTh>
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Requestor)))
                 </MudTh>
                 <MudTh>
@@ -40,17 +44,23 @@
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Task)))
                 </MudTh>
                 <MudTh>
+                    وضعیت فرآیند
+                </MudTh>
+                <MudTh>
                     @(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_Summary)))
                 </MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd>@context?.Case?.Id</MudTd>
                 <MudTd>@context?.Case?.ERPCode</MudTd>
-                <MudTd>@context?.Case?.Created</MudTd>
+                <MudTd>@context?.Case?.Created?.ToString("HH:mm:ss") @context?.Case?.Created?.ConvertToPersianDay()</MudTd>
+                <MudTd>@context?.WorkItem?.Created?.ToString("HH:mm:ss") @context?.WorkItem?.Created?.ConvertToPersianDay()</MudTd>
+                <MudTd>@context?.WorkItem?.LastModified?.ToString("HH:mm:ss") @context?.WorkItem?.LastModified?.ConvertToPersianDay()</MudTd>
                 <MudTd>@context?.Requestor?.DisplayName</MudTd>
                 <MudTd>@context?.User?.DisplayName</MudTd>
                 <MudTd>@context?.Process?.DisplayName</MudTd>
                 <MudTd>@context?.Task?.DisplayName</MudTd>
+                <MudTd>@context?.CaseState?.DisplayName</MudTd>
                 <MudTd>@context.Summary</MudTd>
             </RowTemplate>
         </MudTable>

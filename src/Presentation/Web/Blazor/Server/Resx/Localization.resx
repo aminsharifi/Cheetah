@@ -403,7 +403,7 @@
     <value>{0} خوش آمدید</value>
   </data>
   <data name="BlazorServer_Assignee" xml:space="preserve">
-    <value>کاربر اختصاص داده شده</value>
-    <comment>اختصاص داده شده</comment>
+    <value>ایفاکننده</value>
+    <comment>ایفاکننده</comment>
   </data>
 </root>
