@@ -133,7 +133,7 @@ namespace Cheetah.Presentation.Web.Blazor.Server.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to کاربر اختصاص داده شده.
+        ///   Looks up a localized string similar to ایفاکننده.
         /// </summary>
         public static string BlazorServer_Assignee {
             get {

@@ -18,6 +18,7 @@ using Cheetah.UseCases.Helper;
 using Cheetah.UseCases.Queries.Condition.List;
 using Cheetah.UseCases.Queries.Process.TaskCondition.List;
 using Cheetah.UseCases.Queries.Process.TaskFlow.List;
+using Mapster;
 using Microsoft.Extensions.Logging;
 
 namespace Cheetah.UseCases.Services;
@@ -110,7 +111,7 @@ public class Cartable(
         var _GetCartableSpec = new GetCartableSpec(cartableDTO: cartableDTO, cartableProperty: _cartableProperty);
         var Records = await workItemRepository.ListAsync(_GetCartableSpec);
         var _totalItems = await workItemRepository.CountAsync(_GetCartableSpec);
-
+        var _users = await userRepository.ListAsync();
         var Inbox = Records
         .Select(workItem =>
             new CartableDTO()
@@ -118,6 +119,7 @@ public class Cartable(
                 PageSize = cartableDTO.PageSize,
                 PageNumber = cartableDTO.PageNumber,
                 TotalItems = _totalItems,
+                User = _users.Where(x => x.Equals(workItem)).FirstOrDefault().Adapt<SimpleClassDTO>(),
                 Case = workItem.Case.Adapt<SimpleClassDTO>(),
                 CaseState = workItem?.Case?.CaseState.Adapt<SimpleClassDTO>(),
                 WorkItem = workItem.Adapt<SimpleClassDTO>(),
