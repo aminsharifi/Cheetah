@@ -3,6 +3,8 @@ using Cheetah.Sample.Infrastructure.Data;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Account;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +61,33 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 //{
 //    client.BaseAddress = new Uri("http://localhost:1991/");
 //});
+
+#region Semantic Kernel
+var _ai = builder.Configuration.GetSection("AI");
+builder
+    .Services
+    .AddKernel();
+// Add a chat completion service:
+
+string apiKey = _ai.GetValue<string>("ApiKey")!;
+string modelId = _ai.GetValue<string>("ModelId")!;
+Uri endpoint = new Uri(_ai.GetValue<string>("Endpoint")!);
+#pragma warning disable SKEXP0010
+var kernel = Kernel.CreateBuilder()
+    .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint)
+    .Build();
+
+builder.Services.AddTransient((serviceProvider) => {
+    return new Kernel(serviceProvider);
+});
+
+builder.Services.AddSingleton(sp =>
+{
+    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+    return chatCompletionService;
+});
+
+#endregion
 
 var app = await builder.InitializeSettingsAsync();
 
