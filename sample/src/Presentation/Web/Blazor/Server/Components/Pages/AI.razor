@@ -1,0 +1,70 @@
+﻿@page "/"
+@page "/AI"
+@inherits MyComponentBase
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+@inject IJSRuntime JSRuntime;
+@inject IChatCompletionService ChatCompletionService
+@inject Kernel kernel;
+@inject NavigationManager navigationManager
+<PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_NewMessage)))</PageTitle>
+<MudContainer Class="mt-4">
+    <MudCard>
+        <MudCardContent>
+            <MudTextField @bind-Value="userInput" Label="پرسش شما"
+                          MultiLine="true" Rows="5" Variant="Variant.Outlined" />
+            <MudButton OnClick="SendMessage"
+                       Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
+                ارسال
+            </MudButton>
+            @if (question.Length > 0)
+            {
+                <br />
+                <hr />
+                <MudText Typo="Typo.h6">پرسش:</MudText>
+                <MudText Typo="Typo.body2">@question</MudText>
+                <br />
+                <MudText Typo="Typo.h6">پاسخ:</MudText>
+                <MudText Typo="Typo.body2">@_aIResponse</MudText>
+            }
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private string userInput = String.Empty;
+    private string question = String.Empty;
+    ChatHistory history = new();
+    String _aIResponse = String.Empty;
+
+    private async Task SendMessage()
+    {
+        if (!string.IsNullOrWhiteSpace(userInput))
+        {
+            _aIResponse = String.Empty;
+            using (HttpClient client = new HttpClient())
+            {
+                var _uri = navigationManager.Uri;
+                var _httpresponse = await client.GetStringAsync(_uri + "docs/1.txt");
+                history.AddSystemMessage(_httpresponse);
+            }
+            question = userInput;
+            history.AddUserMessage(userInput);
+            var response = ChatCompletionService.GetStreamingChatMessageContentsAsync(
+                chatHistory: history,
+                kernel: kernel
+                );
+
+            await foreach (var chunk in response)
+            {
+                _aIResponse += chunk;
+                StateHasChanged();
+            }
+
+            history.AddAssistantMessage(_aIResponse);
+
+            userInput = string.Empty; // Clear input after sending
+        }
+    }
+}
