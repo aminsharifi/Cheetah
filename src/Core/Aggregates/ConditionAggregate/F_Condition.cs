@@ -119,7 +119,7 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
         return (F_Condition)MemberwiseClone();
     }
 
-    public Boolean CheckValidation { get; private set; }
+    public Boolean? CheckValidation { get; private set; }
 
     public BaseEntity SetCheckValidation(bool checkValidation)
     {
