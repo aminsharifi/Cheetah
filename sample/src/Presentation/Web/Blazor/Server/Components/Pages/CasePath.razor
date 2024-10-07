@@ -1,0 +1,20 @@
+﻿@page "/CasePath"
+@inject IJSRuntime JSRuntime;
+<h3>CasePath</h3>
+<div class="row">
+    <div id="canvas" style="height: 800px;direction: ltr;"></div>
+    <div id="js-properties-panel" style=" height: 800px;"></div>    
+</div>
+@code {
+    string value;
+
+    int GaugeValue = 10;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("updateValue", GaugeValue == 100 ? GaugeValue = 0 : GaugeValue += 10);
+        }
+    }
+
+}

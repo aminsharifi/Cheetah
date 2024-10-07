@@ -14,19 +14,19 @@
         <MudCardContent>
             <MudTextField @bind-Value="userInput" Label="پرسش شما"
                           MultiLine="true" Rows="5" Variant="Variant.Outlined" />
-            <MudButton OnClick="SendMessage"
+            <MudButton OnClick="SendMessage" Disabled="disableSubmit"
                        Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
                 ارسال
             </MudButton>
             @if (question.Length > 0)
             {
-                <br />
-                <hr />
-                <MudText Typo="Typo.h6">پرسش:</MudText>
-                <MudText Typo="Typo.body2">@question</MudText>
-                <br />
-                <MudText Typo="Typo.h6">پاسخ:</MudText>
-                <MudText Typo="Typo.body2">@_aIResponse</MudText>
+                    <br />
+                    <hr />
+                    <MudText Typo="Typo.h6">پرسش:</MudText>
+                    <MudText Typo="Typo.body2">@question</MudText>
+                    <br />
+                    <MudText Typo="Typo.h6">پاسخ:</MudText>
+                    <MudText Typo="Typo.body2">@_aIResponse</MudText>
             }
         </MudCardContent>
     </MudCard>
@@ -37,11 +37,13 @@
     private string question = String.Empty;
     ChatHistory history = new();
     String _aIResponse = String.Empty;
+    bool disableSubmit = false;
 
     private async Task SendMessage()
     {
         if (!string.IsNullOrWhiteSpace(userInput))
         {
+            disableSubmit = true;
             _aIResponse = String.Empty;
             using (HttpClient client = new HttpClient())
             {
@@ -51,6 +53,7 @@
             }
             question = userInput;
             history.AddUserMessage(userInput);
+            userInput = string.Empty; // Clear input after sending
             var response = ChatCompletionService.GetStreamingChatMessageContentsAsync(
                 chatHistory: history,
                 kernel: kernel
@@ -63,8 +66,8 @@
             }
 
             history.AddAssistantMessage(_aIResponse);
+            disableSubmit = false;
 
-            userInput = string.Empty; // Clear input after sending
         }
     }
 }
