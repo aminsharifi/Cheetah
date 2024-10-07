@@ -8,6 +8,10 @@
 @inject IChatCompletionService ChatCompletionService
 @inject Kernel kernel;
 @inject NavigationManager navigationManager
+@inject IConfiguration Configuration
+
+@if (bool.Parse(@Configuration["AI:Enable"]!))
+{
 <PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_NewMessage)))</PageTitle>
 <MudContainer Class="mt-4">
     <MudCard>
@@ -31,7 +35,7 @@
         </MudCardContent>
     </MudCard>
 </MudContainer>
-
+    }
 @code {
     private string userInput = String.Empty;
     private string question = String.Empty;
