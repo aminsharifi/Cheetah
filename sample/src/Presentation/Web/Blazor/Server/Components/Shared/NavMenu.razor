@@ -1,7 +1,11 @@
-﻿<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Forum">
-        دستیار هوشمند
-    </MudNavLink>
+﻿@inject IConfiguration Configuration
+<MudNavMenu>
+    @if (bool.Parse(@Configuration["AI:Enable"]!))
+    {
+        <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Forum">
+            دستیار هوشمند
+        </MudNavLink>
+    }
     <AuthorizeView Roles="Admin">
         <MudNavLink Href="List" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">
             ویرایش پارامتر

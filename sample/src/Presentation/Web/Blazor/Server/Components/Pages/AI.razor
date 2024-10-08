@@ -4,22 +4,29 @@
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @using Microsoft.SemanticKernel
 @using Microsoft.SemanticKernel.ChatCompletion
+@using System.DirectoryServices.Protocols
+@using Visus.Ldap
 @inject IJSRuntime JSRuntime;
 @inject IChatCompletionService ChatCompletionService
 @inject Kernel kernel;
 @inject NavigationManager navigationManager
-<PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_NewMessage)))</PageTitle>
-<MudContainer Class="mt-4">
-    <MudCard>
-        <MudCardContent>
-            <MudTextField @bind-Value="userInput" Label="پرسش شما"
-                          MultiLine="true" Rows="5" Variant="Variant.Outlined" />
-            <MudButton OnClick="SendMessage" Disabled="disableSubmit"
-                       Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
-                ارسال
-            </MudButton>
-            @if (question.Length > 0)
-            {
+@inject IConfiguration Configuration
+@inject ILdapAuthenticationService<LdapUser> authService
+
+@if (bool.Parse(@Configuration["AI:Enable"]!))
+{
+    <PageTitle>@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_NewMessage)))</PageTitle>
+    <MudContainer Class="mt-12">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField @bind-Value="userInput" Label="پرسش شما"
+                              MultiLine="true" Rows="5" Variant="Variant.Outlined" />
+                <MudButton OnClick="SendMessage" Disabled="disableSubmit"
+                           Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
+                    ارسال
+                </MudButton>
+                @if (question.Length > 0)
+                {
                     <br />
                     <hr />
                     <MudText Typo="Typo.h6">پرسش:</MudText>
@@ -27,12 +34,46 @@
                     <br />
                     <MudText Typo="Typo.h6">پاسخ:</MudText>
                     <MudText Typo="Typo.body2">@_aIResponse</MudText>
-            }
-        </MudCardContent>
-    </MudCard>
-</MudContainer>
-
+                }
+            </MudCardContent>
+        </MudCard>
+    </MudContainer>
+    <MudContainer Class="mt-12">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField @bind-Value="username" Label="username" Variant="Variant.Outlined" />
+                <MudTextField @bind-Value="password" Label="password" Variant="Variant.Outlined" />
+                <MudButton OnClick="Authentication" Disabled="disableSubmit"
+                           Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
+                    Authentication
+                </MudButton>
+                <MudTextField @bind-Value="Response" Label="Response" Variant="Variant.Outlined" ReadOnly="true" />
+            </MudCardContent>
+        </MudCard>
+    </MudContainer>
+}
 @code {
+    string username, password, Response;
+    private async Task Authentication()
+    {
+        try
+        {
+            (var retval, var claims) = await this.authService.LoginUserAsync(username, password, null);
+            var identity = new ClaimsIdentity(claims, "LDAP");
+            var principal = new ClaimsPrincipal(identity);
+            // await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, princial);
+            // return this.Ok(retval);
+            Response = retval!.DisplayName;
+        }
+        catch (DirectoryOperationException ex)
+        {
+            Response = ex.Response.ErrorMessage;
+        }
+        catch
+        {
+            Response = "Unauthorized";
+        }
+    }
     private string userInput = String.Empty;
     private string question = String.Empty;
     ChatHistory history = new();

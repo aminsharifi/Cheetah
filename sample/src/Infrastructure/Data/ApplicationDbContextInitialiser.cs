@@ -6,6 +6,9 @@ using Hangfire;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.MSSqlServer;
+using Visus.Ldap;
+using Visus.LdapAuthentication;
+using Visus.LdapAuthentication.Configuration;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 
@@ -20,6 +23,18 @@ public static class InitialiserExtensions
         builder?.Services.AddProblemDetails();
 
         builder.Services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
+
+        #region Ldap
+        var _ldap = builder.Configuration.GetSection(LdapOptions.Section);
+        if (_ldap is not null)
+        {
+            builder.Services.AddLdapAuthentication(o =>
+            {
+                _ldap.Bind(o);
+            });
+        }
+        #endregion
+
 
         #region Production
         /*
