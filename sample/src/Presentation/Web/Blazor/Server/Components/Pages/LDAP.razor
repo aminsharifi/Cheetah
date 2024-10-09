@@ -1,0 +1,58 @@
+﻿@page "/LDAP"
+@inherits MyComponentBase
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+@using System.DirectoryServices.Protocols
+@using Visus.Ldap
+@inject IJSRuntime JSRuntime;
+@inject IConfiguration Configuration
+@inject ILdapAuthenticationService<LdapUser> authService
+<PageTitle>اتصال به LDAP</PageTitle>
+<MudContainer Class="mt-12">
+    <MudCard>
+        <MudCardContent>
+            <MudTextField @bind-Value="username" Label="username" Variant="Variant.Outlined" />
+
+            <MudTextField @bind-Value="password" Label="Password" Variant="Variant.Outlined"
+                          InputType="@(_isPasswordVisible ? InputType.Text : InputType.Password)"
+                          Adornment="Adornment.End"
+                          AdornmentIcon="@(_isPasswordVisible ? Icons.Material.Outlined.Visibility : Icons.Material.Outlined.VisibilityOff)"
+                          OnAdornmentClick="TogglePasswordVisibility" AdornmentAriaLabel="Show Password" />
+            <MudButton OnClick="Authentication" Disabled="disableSubmit"
+                       Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
+                Authentication
+            </MudButton>
+            <MudTextField @bind-Value="Response" Label="Response" Variant="Variant.Outlined" ReadOnly="true" />
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+@code {
+    string username, password, Response;
+    bool disableSubmit = false;
+    private bool _isPasswordVisible = false;
+    private void TogglePasswordVisibility()
+    {
+        _isPasswordVisible = !_isPasswordVisible;
+    }
+    private async Task Authentication()
+    {
+        disableSubmit = true;
+        try
+        {
+            (var retval, var claims) = await this.authService.LoginUserAsync(username, password, null);
+            var identity = new ClaimsIdentity(claims, "LDAP");
+            var principal = new ClaimsPrincipal(identity);
+            // await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, princial);
+            // return this.Ok(retval);
+            Response = retval!.DisplayName;
+        }
+        catch (DirectoryOperationException ex)
+        {
+            Response = ex.Response.ErrorMessage;
+        }
+        catch
+        {
+            Response = "Unauthorized";
+        }
+        disableSubmit = false;
+    }
+}

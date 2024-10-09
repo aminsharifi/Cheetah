@@ -21,7 +21,13 @@
             صندوق خروجی
         </MudNavLink>
     </AuthorizeView>
+    @if (bool.Parse(@Configuration["LdapOptions:Enable"]!))
+    {
+    <MudNavLink Href="LDAP" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.FolderShared">
+        اتصال به LDAP
+    </MudNavLink>
+    }
     <MudNavLink Href="Contact" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ContactPhone">
         ارتباط با ما
-    </MudNavLink>
+    </MudNavLink>    
 </MudNavMenu>

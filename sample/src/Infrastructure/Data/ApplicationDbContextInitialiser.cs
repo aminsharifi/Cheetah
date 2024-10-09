@@ -6,7 +6,6 @@ using Hangfire;
 using Serilog;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.MSSqlServer;
-using Visus.Ldap;
 using Visus.LdapAuthentication;
 using Visus.LdapAuthentication.Configuration;
 
@@ -34,7 +33,6 @@ public static class InitialiserExtensions
             });
         }
         #endregion
-
 
         #region Production
         /*
