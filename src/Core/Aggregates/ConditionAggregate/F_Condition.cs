@@ -1,5 +1,7 @@
-﻿using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
+﻿using Cheetah.Core.Aggregates.Common.Dimentions;
+using Cheetah.Core.Aggregates.ConditionAggregate.Dimentions;
 using Cheetah.Core.Common;
+using System.Drawing;
 
 namespace Cheetah.Core.Aggregates.ConditionAggregate.Facts;
 public partial class F_Condition : BaseEntity, IAggregateRoot
@@ -8,6 +10,22 @@ public partial class F_Condition : BaseEntity, IAggregateRoot
     {
 
     }
+
+    #region D_Color
+    public virtual D_Color? Color { get; private set; }
+    public long? ColorId { get; private set; }
+    public F_Condition SetColor(D_Color? color)
+    {
+        this.Color = color;
+        SetColorId(color.Id);
+        return this;
+    }
+    public F_Condition SetColorId(Int64? colorId)
+    {
+        this.ColorId = colorId;       
+        return this;
+    }
+    #endregion
 
     #region Tag
     public virtual D_Tag? Tag { get; private set; }
