@@ -74,6 +74,7 @@ public partial class CheetahDbContext : DbContext
 
     #region Dimentions
     public virtual DbSet<D_Entity> D_Entities { get; set; }
+    public virtual DbSet<D_Color> D_Colors { get; set; }
     public virtual DbSet<D_Tag> D_Tags { get; set; }
     public virtual DbSet<D_Process> D_Processes { get; set; }
     public virtual DbSet<D_CaseState> D_CaseStates { get; set; }
