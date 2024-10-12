@@ -49,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ardalis.Result" Version="9.1.0" />
+		<PackageReference Include="Ardalis.Result" Version="10.0.0" />
 		<PackageReference Include="Ardalis.SharedKernel" Version="1.6.0" />
 	</ItemGroup>
 

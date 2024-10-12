@@ -1,7 +1,6 @@
 ﻿@page "/LDAP"
 @inherits MyComponentBase
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
-@using System.DirectoryServices.Protocols
 @using Visus.Ldap
 @inject IJSRuntime JSRuntime;
 @inject IConfiguration Configuration
@@ -45,13 +44,9 @@
             // return this.Ok(retval);
             Response = retval!.DisplayName;
         }
-        catch (DirectoryOperationException ex)
+        catch (Exception ex)
         {
-            Response = ex.Response.ErrorMessage;
-        }
-        catch
-        {
-            Response = "Unauthorized";
+            Response = ex.Message;
         }
         disableSubmit = false;
     }
