@@ -21,8 +21,9 @@ public partial class CheetahDbContext : DbContext
     public CheetahDbContext(DbContextOptions<CheetahDbContext> options, IDomainEventDispatcher? dispatcher) : base(options)
     {
         _dispatcher = dispatcher;
+        var _cnt = this.Database.GetPendingMigrations().Count();
 
-        if (this.Database.GetPendingMigrations().Count() > 0)
+        if (_cnt > 0)
         {
             this.Database.Migrate();
         }
