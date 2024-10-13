@@ -37,9 +37,9 @@ public class DbInitializer : IDbInitializer
 
         var _cnt = _pending.Count();
 
-        if (_db.Database.GetPendingMigrations().Count() > 0)
+        if (_cnt > 0)
         {
-            _db.Database.Migrate();
+           _db.Database.Migrate();
         }
         try
         {

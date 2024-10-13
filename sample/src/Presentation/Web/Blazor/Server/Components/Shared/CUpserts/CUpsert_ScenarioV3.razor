@@ -18,7 +18,7 @@
         {
             <div class="row">
                 <center>
-                    <MudButton  Variant="Variant.Filled"
+                    <MudButton Variant="Variant.Filled"
                                EndIcon="@Icons.Material.Filled.SettingsInputComponent" Color="Color.Primary"
                                OnClick="(e => Add_ScenarioCondition(e,(F_Scenario)Record))">
                         افزودن پیش شرط
@@ -87,6 +87,7 @@
                 </Ctable>
             </div>
             <div class="row shadow rounded my-1 mx-1 p-1">
+
                 <MudTabs Outlined="true">
                     <MudTabPanel Text="نمایش فرم ها" Icon="@Icons.Material.Filled.Task"
                                  OnClick="(x=>_scenarioStep = ScenarioStep.Tasks)" />
@@ -442,7 +443,7 @@
                                                                                                      CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                                      UncheckedColor="Color.Error"
                                                                                                      UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                                     ValueChanged="@((bool newCheckboxValue) => flowTask.SetEnableRecord(newCheckboxValue))"/>
+                                                                                                     ValueChanged="@((bool newCheckboxValue) => flowTask.SetEnableRecord(newCheckboxValue))" />
                                                                                     </td>
                                                                                 </tr>
                                                                             }
@@ -469,7 +470,7 @@
                                                                                  CheckedIcon="@Icons.Material.Filled.Verified"
                                                                                  UncheckedColor="Color.Error"
                                                                                  UncheckedIcon="@Icons.Material.Filled.DoNotDisturb"
-                                                                                 ValueChanged="@((bool newCheckboxValue) => _action.SetEnableRecord(newCheckboxValue))"/>
+                                                                                 ValueChanged="@((bool newCheckboxValue) => _action.SetEnableRecord(newCheckboxValue))" />
                                                                 </td>
                                                             </tr>
                                                         }
@@ -492,12 +493,13 @@
                             }
                         </tbody>
                     </Ctable>
-                </div>
+                </div>               
                 <LinkComponent ReadonlyState="!(Create!.Value)" Records="@LinkRecords"
                                reference="@reference"
                                Title=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
                 </LinkComponent>
             </div>
+
         }
     </RowTemplate>
 </CEditDimentions>
@@ -571,14 +573,14 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
     {
         return $"{string.Join(", ", selectedValues?.DisplayName)}";
     }
-    private async Task SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
+    private void SelectedOperandChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (String.IsNullOrEmpty(e.ToString()))
         {
@@ -592,7 +594,7 @@
             .First(x => x.Id == _D_OperandId) as D_Operand);
         }
     }
-    private async Task SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
+    private void SelectedParameterListChanged(ChangeEventArgs e, F_Condition f_Condition)
     {
         if (Id > 0 && e.Value is not null)
         {
@@ -717,7 +719,7 @@
 
         (Record as F_Scenario).Tasks.Add(d_Task);
     }
-    private async Task SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
+    private void SelectedCaseStateChanged(ChangeEventArgs e, F_Flow f_Flow)
     {
         if (Id > 0 && e.Value is not null)
         {
@@ -726,7 +728,7 @@
             f_Flow.SetCaseStateId(CaseStateId);
         }
     }
-    private async Task SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)
+    private void SelectedToTaskChanged(ChangeEventArgs e, L_FlowTask TaskSelector)
     {
         if (Id > 0 && e.Value is not null)
         {
@@ -740,7 +742,7 @@
             TaskSelector.SetTask(null);
         }
     }
-    private async Task SelectedScenarioConditionsChanged(ChangeEventArgs e, L_ScenarioCondition ScenarioCondition)
+    private void SelectedScenarioConditionsChanged(ChangeEventArgs e, L_ScenarioCondition ScenarioCondition)
     {
         if (Id > 0 && e.Value is not null)
         {

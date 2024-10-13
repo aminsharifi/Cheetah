@@ -1,4 +1,5 @@
 ﻿@using Cheetah.Core.Common.DTOs
+
 @if (Records?.Sd_Status is not null)
 {
     <MudDataGrid ReadOnly="@ReadonlyState" Items="@Records.FloatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"
@@ -11,6 +12,7 @@
             <MudTextField Value="_searchString" Placeholder="جستجو" Adornment="Adornment.Start" Immediate="true"
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </ToolBarContent>
+
         <Columns>
             <PropertyColumn Property="x => x.Value"
                             Title="انتخاب" IsEditable="true">
@@ -22,8 +24,11 @@
                                  @onclick="args=>TogglePattern(context.Item)" />
                 </CellTemplate>
             </PropertyColumn>
+
             <PropertyColumn Property="x => x.Key.Item2" Title="نام" />
+
         </Columns>
+
         <PagerContent>
             <MudDataGridPager T="KeyValuePair<Tuple<long?, string>, bool>" />
         </PagerContent>
