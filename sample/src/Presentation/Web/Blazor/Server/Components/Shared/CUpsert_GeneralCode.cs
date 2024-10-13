@@ -1,4 +1,7 @@
-﻿using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization;
+﻿using Cheetah.Core.Aggregates.ProcessAggregate.Dimentions;
+using Cheetah.Core.Aggregates.ProcessAggregate.Facts;
+using Cheetah.Core.Aggregates.ProcessAggregate.Links;
+using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization;
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Shared;
 public class CUpsert_GeneralCode : SharedPage
 {
@@ -63,29 +66,65 @@ public class CUpsert_GeneralCode : SharedPage
 
             if (IsNew)
             {
-                Record = await simpleClassRepository.CreateAsync(Record);
+                if (Record is F_Scenario)
+                {
+                    #region Create Scenario
+                    Record = await simpleClassRepository.CreateAsync(Record);
+                    Record = Record
+                        .SetERPCode(-(Record.Id))
+                        .SetSortIndex(Record.Id);
+                    Record = await simpleClassRepository.UpdateAsync(Record);
+                    #endregion
+
+                    #region Create Process
+                    D_Process _process = new();
+                    _process = (D_Process)_process
+                        .SetName(Record.Name)
+                        .SetDisplayName(Record.DisplayName)
+                        .SetDescription(Record.Description)
+                        .SetSortIndex(Record.SortIndex)
+                        .SetEnableRecord(Record.EnableRecord);
+                    _process = (D_Process)await simpleClassRepository.CreateAsync(_process);
+                    _process.SetERPCode(-(_process.Id));
+                    _process = (D_Process)await simpleClassRepository.UpdateAsync(_process);
+                    #endregion
+
+                    #region Process Scenario
+                    L_ProcessScenario _processScenario = new();
+
+                    _processScenario = (L_ProcessScenario)_processScenario
+                        .SetFirstId(_process.Id)
+                        .SetSecondId(Record.Id)
+                        .SetSortIndex(Record.SortIndex)
+                        .SetName(Record.Name)
+                        .SetDisplayName(Record.DisplayName)
+                        .SetDescription(Record.Description);
+
+                    _processScenario = (L_ProcessScenario)await simpleClassRepository.CreateAsync(_processScenario);
+                    _processScenario.SetERPCode(-(_processScenario.Id));
+                    _processScenario = (L_ProcessScenario)await simpleClassRepository.UpdateAsync(_processScenario);
+                    #endregion
+
+                }
+                else
+                {
+                    Record = await simpleClassRepository.CreateAsync(Record);
+                }
                 LinkRecords.FixedId = Record.Id;
-            }
-            else
-            {
-                Record = await simpleClassRepository.UpdateAsync(Record);
-            }
-
-            if (LinkRecords.Sd_Status != null)
-            {
-                await UpdateLink();
-            }
-
-            if (IsNew)
-            {
                 string rowAdded = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowAdded), new string[] { });
                 Snackbar.Add(rowAdded, Severity.Success);
             }
             else
             {
+                Record = await simpleClassRepository.UpdateAsync(Record);
                 string rowSaved = globalization.GetValue(nameof(BlazorServerResource.BlazorServer_RowSaved), new string[] { Record.DisplayName });
                 Snackbar.Add(rowSaved, Severity.Success);
             }
+
+            //if (LinkRecords.Sd_Status != null)
+            //{
+            //    await UpdateLink();
+            //}
 
             if (!IsInline)
             {
