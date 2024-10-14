@@ -5,17 +5,22 @@
         {
             <MudGrid Class="d-flex justify-end">
                 <MudItem>
-                    <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Expand" Href="@Href" />
+                     <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Expand" Href="@Href" />  
                 </MudItem>
             </MudGrid>
         }
+       
         <div class="d-flex flex-column py-1">
-            <GeneralComponent Name="@Name" IsInline="true"
+            
+                <GeneralComponent Name="@Name" IsInline="true"
                               ParentCallback="@Submit" Id="@Id"
                               reference="@reference" LoadData="@LoadData"
                               Title="@Title">
-            </GeneralComponent>
+            </GeneralComponent>  
+         
         </div>
+    
+
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">انصراف</MudButton>
