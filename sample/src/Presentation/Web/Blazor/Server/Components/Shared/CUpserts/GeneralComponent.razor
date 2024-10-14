@@ -7,16 +7,11 @@
 
 @if (Name == nameof(F_Scenario))
 {
-    @*         <CUpsert_Scenario Name="@Name" IsInline="@IsInline"
-                      ParentCallback="@ParentCallback" Id="@Id"
-                      reference="@reference" LoadData="@LoadData"
-                      Title="@Title">
-    </CUpsert_Scenario> *@
-    <CUpsert_ScenarioV3 Name="@Name" IsInline="@IsInline"
+    <CUpsert_Scenario Name="@Name" IsInline="@IsInline"
                         ParentCallback="@ParentCallback" Id="@Id"
                         reference="@reference" LoadData="@LoadData"
                         Title="@Title">
-    </CUpsert_ScenarioV3>
+    </CUpsert_Scenario>
 }
 else if (Name == nameof(D_Tag))
 {
