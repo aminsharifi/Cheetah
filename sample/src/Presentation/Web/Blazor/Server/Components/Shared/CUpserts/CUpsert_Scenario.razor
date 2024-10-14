@@ -86,8 +86,8 @@
                     </tbody>
                 </Ctable>
             </div>
-            <div class="row shadow rounded my-1 mx-1 p-1">
 
+            <div class="row shadow rounded my-1 mx-1 p-1">
                 <MudTabs Outlined="true">
                     <MudTabPanel Text="نمایش فرم ها" Icon="@Icons.Material.Filled.Task"
                                  OnClick="(x=>_scenarioStep = ScenarioStep.Tasks)" />
@@ -493,7 +493,7 @@
                             }
                         </tbody>
                     </Ctable>
-                </div>               
+                </div>
                 <LinkComponent ReadonlyState="!(Create!.Value)" Records="@LinkRecords"
                                reference="@reference"
                                Title=@(globalization.GetValue(nameof(BlazorServerResource.BlazorServer_ScenariosInProcess), new String[] { Record?.DisplayName}))>
@@ -573,7 +573,7 @@
                 FloatState = AllRecords.Select(x => new KeyValuePair<Tuple<long?, string>, Boolean>(
                     new Tuple<long?, string>(x.Id, x.DisplayName),
                     AllLink.Any(y => y.FirstId == x.Id && y.SecondId == Id)))
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                .ToDictionary(x => x.Key, x => x.Value)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            .ToDictionary(x => x.Key, x => x.Value)
             };
     }
     private string GetMultiSelectionText(BaseEntity selectedValues)
