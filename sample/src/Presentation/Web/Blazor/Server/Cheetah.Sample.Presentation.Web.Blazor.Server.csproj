@@ -26,8 +26,6 @@
 		<Content Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageReference Include="BootstrapBlazor" Version="8.10.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
 		  <PrivateAssets>all</PrivateAssets>
@@ -36,6 +34,7 @@
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.22.0" />
 		<PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.21.1-alpha" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -61,7 +60,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Update="Components\Shared\CUpserts\CUpsert_ScenarioV3.razor">
+		<Content Update="Components\Shared\CUpserts\CUpsert_Scenario.razor">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 	</ItemGroup>

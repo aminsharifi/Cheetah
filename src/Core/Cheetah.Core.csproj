@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>	
+	<PropertyGroup>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile></DocumentationFile>
 		<EnablePackageValidation>True</EnablePackageValidation>
@@ -14,38 +14,38 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Aggregates\CaseAggregate\Events\**" />
-	  <Compile Remove="Aggregates\CaseAggregate\Handlers\**" />
-	  <Compile Remove="Aggregates\ConditionAggregate\Facts\**" />
-	  <Compile Remove="Aggregates\ConditionAggregate\Links\**" />
-	  <Compile Remove="Interfaces\**" />
-	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
-	  <EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
-	  <EmbeddedResource Remove="Aggregates\ConditionAggregate\Facts\**" />
-	  <EmbeddedResource Remove="Aggregates\ConditionAggregate\Links\**" />
-	  <EmbeddedResource Remove="Interfaces\**" />
-	  <None Remove="Aggregates\CaseAggregate\Events\**" />
-	  <None Remove="Aggregates\CaseAggregate\Handlers\**" />
-	  <None Remove="Aggregates\ConditionAggregate\Facts\**" />
-	  <None Remove="Aggregates\ConditionAggregate\Links\**" />
-	  <None Remove="Interfaces\**" />
+		<Compile Remove="Aggregates\CaseAggregate\Events\**" />
+		<Compile Remove="Aggregates\CaseAggregate\Handlers\**" />
+		<Compile Remove="Aggregates\ConditionAggregate\Facts\**" />
+		<Compile Remove="Aggregates\ConditionAggregate\Links\**" />
+		<Compile Remove="Interfaces\**" />
+		<EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
+		<EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
+		<EmbeddedResource Remove="Aggregates\ConditionAggregate\Facts\**" />
+		<EmbeddedResource Remove="Aggregates\ConditionAggregate\Links\**" />
+		<EmbeddedResource Remove="Interfaces\**" />
+		<None Remove="Aggregates\CaseAggregate\Events\**" />
+		<None Remove="Aggregates\CaseAggregate\Handlers\**" />
+		<None Remove="Aggregates\ConditionAggregate\Facts\**" />
+		<None Remove="Aggregates\ConditionAggregate\Links\**" />
+		<None Remove="Interfaces\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="Interfaces\Cartable\DTOs\CartableDTO.cs" />
-	  <Compile Include="Interfaces\Cartable\DTOs\Cartable_Request.cs" />
-	  <Compile Include="Interfaces\Cartable\DTOs\Cartable_Response.cs" />
-	  <Compile Include="Interfaces\Cartable\ICartable.cs" />
-	  <Compile Include="Interfaces\ICopyClass.cs" />
-	  <Compile Include="Interfaces\ISync.cs" />
-	  <Compile Include="Interfaces\ITableCRUD.cs" />
-	  <Compile Include="Interfaces\WorkItem\DTOs\CreateCase_Request.cs" />
-	  <Compile Include="Interfaces\WorkItem\DTOs\CreateCase_Response.cs" />
-	  <Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItemUser_Request.cs" />
-	  <Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItemUser_Response.cs" />
-	  <Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItem_Request.cs" />
-	  <Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItem_Response.cs" />
-	  <Compile Include="Interfaces\WorkItem\IWorkItem.cs" />
+		<Compile Include="Interfaces\Cartable\DTOs\CartableDTO.cs" />
+		<Compile Include="Interfaces\Cartable\DTOs\Cartable_Request.cs" />
+		<Compile Include="Interfaces\Cartable\DTOs\Cartable_Response.cs" />
+		<Compile Include="Interfaces\Cartable\ICartable.cs" />
+		<Compile Include="Interfaces\ICopyClass.cs" />
+		<Compile Include="Interfaces\ISync.cs" />
+		<Compile Include="Interfaces\ITableCRUD.cs" />
+		<Compile Include="Interfaces\WorkItem\DTOs\CreateCase_Request.cs" />
+		<Compile Include="Interfaces\WorkItem\DTOs\CreateCase_Response.cs" />
+		<Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItemUser_Request.cs" />
+		<Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItemUser_Response.cs" />
+		<Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItem_Request.cs" />
+		<Compile Include="Interfaces\WorkItem\DTOs\UpdateWorkItem_Response.cs" />
+		<Compile Include="Interfaces\WorkItem\IWorkItem.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -54,22 +54,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resx\Localization.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Localization.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Resx\Localization.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Localization.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Resx\Localization.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Localization.Designer.cs</LastGenOutput>
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Resx\Localization.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Localization.Designer.cs</LastGenOutput>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Aggregates\CaseAggregate\Links\Values\" />
+		<Folder Include="Aggregates\CaseAggregate\Links\Values\" />
 	</ItemGroup>
 </Project>
