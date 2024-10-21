@@ -3,7 +3,7 @@ using Cheetah.Core.Common.DTOs;
 
 namespace Cheetah.Core.Interfaces.Cartable.DTOs;
 
-public class Cartable_Response
+public class CartableResponse
 {
     public long? PageNumber { get; set; }
     public long? PageSize { get; set; }
