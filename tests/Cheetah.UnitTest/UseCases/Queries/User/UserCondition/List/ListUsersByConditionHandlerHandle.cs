@@ -2,6 +2,7 @@
 using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Aggregates.UserAggregate.Links;
 using Cheetah.Core.Aggregates.UserAggregate.Specifications;
+using Cheetah.UseCases.Queries.User.UserCondition.Get;
 using Cheetah.UseCases.Queries.User.UserCondition.List;
 using NSubstitute;
 

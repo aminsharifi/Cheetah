@@ -26,7 +26,6 @@
 	  <Folder Include="Commands\Process\ProcessScenario\" />
 	  <Folder Include="Commands\Process\Process\" />
 	  <Folder Include="Commands\User\UserCondition\" />
-	  <Folder Include="Queries\User\UserCondition\Get\" />
 	</ItemGroup>
 
 </Project>
