@@ -14,7 +14,7 @@ public class ListInbox(ILogger<ListInbox> logger, ICartable iCartable) : Endpoin
     {
         logger.LogInformation("started " + nameof(ListInbox) + " {@" + nameof(ListInbox) + "}", request);
 
-        var output_Request = await iCartable.InboxAsync(request.Adapt<Cartable_Request>());
+        var output_Request = await iCartable.InboxAsync(request.Adapt<CartableRequest>());
 
         Response = output_Request.Value.Adapt<ListInboxResponse>();
 

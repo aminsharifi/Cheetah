@@ -16,7 +16,7 @@ public class ListWorkItemsHistory(ILogger<ListWorkItemsHistory> logger, ICartabl
     {
         logger.LogInformation("started " + nameof(ListWorkItemsHistory) + " {@" + nameof(ListWorkItemsHistory) + "}", request);
 
-        var output_Request = await iCartable.GetCartableAsync(request.Adapt<Cartable_Request>(), CartableProperty.All);
+        var output_Request = await iCartable.GetCartableAsync(request.Adapt<CartableRequest>(), CartableProperty.All);
 
         List<ListWorkItemsHistoryResponse> _listWorkItemsResponses = new();
 

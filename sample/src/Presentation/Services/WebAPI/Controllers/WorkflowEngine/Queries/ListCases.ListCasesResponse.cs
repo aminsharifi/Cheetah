@@ -2,6 +2,6 @@
 
 namespace Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
-public class ListCasesResponse : Cartable_Response
+public class ListCasesResponse : CartableResponse
 {
 }
