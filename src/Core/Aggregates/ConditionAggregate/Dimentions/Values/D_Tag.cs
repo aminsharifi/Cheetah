@@ -27,8 +27,6 @@ public partial class D_Tag
         .SetDescription(D_TagType.String.DisplayName!)
         .SetEnableRecord(true);
 
-
-
     public static readonly D_Tag Position =
         (D_Tag)new D_Tag()
         .SetTagTypeId(D_TagType.String.Id)
@@ -49,7 +47,7 @@ public partial class D_Tag
         .SetSortIndex(7)
         .SetERPCode(-7)
         .SetName(nameof(Employees))
-        .SetDisplayName("مدیر این پرسنل")
+        .SetDisplayName("چارت کاربر")
         .SetDescription(D_TagType.String.DisplayName!)
         .SetEnableRecord(true);
 
@@ -64,8 +62,6 @@ public partial class D_Tag
         .SetDisplayName("مبلغ")
         .SetDescription(D_TagType.Numberic.DisplayName!)
         .SetEnableRecord(true);
-
-
 
     public static readonly D_Tag ReviewState =
         (D_Tag)new D_Tag()
