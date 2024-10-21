@@ -2,7 +2,7 @@
 
 namespace Cheetah.Core.Interfaces.Cartable.DTOs;
 
-public class Cartable_Request
+public class CartableRequest
 {
     public long? PageNumber { get; set; }
     public long? PageSize { get; set; }

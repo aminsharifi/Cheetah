@@ -14,7 +14,7 @@ public class ListOutbox(ILogger<ListOutbox> logger, ICartable iCartable) : Endpo
     {
         logger.LogInformation("started " + nameof(ListOutbox) + " {@" + nameof(ListOutbox) + "}", request);
 
-        var output_Request = await iCartable.OutboxAsync(request.Adapt<Cartable_Request>());
+        var output_Request = await iCartable.OutboxAsync(request.Adapt<CartableRequest>());
 
         Response = output_Request.Value.Adapt<ListOutboxResponse>();
 

@@ -213,7 +213,7 @@ public class Cartable(
         return _inboxList;
     }
 
-    public async Task<Result<Cartable_Response>> GetCartableAsync(Cartable_Request request, CartableProperty? cartableProperty)
+    public async Task<Result<CartableResponse>> GetCartableAsync(CartableRequest request, CartableProperty? cartableProperty)
     {
         logger.LogInformation("started " + nameof(Cartable));
         logger.LogInformation("{@InputCartable}", request);
@@ -249,7 +249,7 @@ public class Cartable(
            await GetCartableAsync(cartableDTO);
 
         #region Output
-        Cartable_Response _OutputCartable = new();
+        CartableResponse _OutputCartable = new();
 
         _OutputCartable.Cases = new();
 
@@ -367,7 +367,7 @@ public class Cartable(
         return _GetCartableQuery;
     }
 
-    public async Task<Result<Cartable_Response>> InboxAsync(Cartable_Request request)
+    public async Task<Result<CartableResponse>> InboxAsync(CartableRequest request)
     {
         var _response = await GetCartableAsync(request, CartableProperty.Inbox);
         return _response;
@@ -382,7 +382,7 @@ public class Cartable(
         return _GetCartableQuery;
     }
 
-    public async Task<Result<Cartable_Response>> OutboxAsync(Cartable_Request request)
+    public async Task<Result<CartableResponse>> OutboxAsync(CartableRequest request)
     {
         var _response = await GetCartableAsync(request, CartableProperty.Outbox);
         return _response;
