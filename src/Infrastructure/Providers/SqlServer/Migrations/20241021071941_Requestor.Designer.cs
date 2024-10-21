@@ -4,6 +4,7 @@ using Cheetah.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 {
     [DbContext(typeof(CheetahDbContext))]
-    partial class CheetahDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241021071941_Requestor")]
+    partial class Requestor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4094,6 +4097,11 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Core")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
+                        .HasColumnOrder(102);
+
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
@@ -4140,11 +4148,6 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasDefaultValue("")
                         .HasColumnOrder(4)
                         .HasComment("The localized name of each record");
-
-                    b.Property<string>("Domain")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)")
-                        .HasColumnOrder(102);
 
                     b.Property<long?>("ERPCode")
                         .HasColumnType("bigint")
@@ -4194,10 +4197,6 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasColumnOrder(11)
                         .HasComment("By which user has it been updated?");
 
-                    b.Property<long?>("ManagerId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(111);
-
                     b.Property<string>("Name")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(512)
@@ -4237,8 +4236,6 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 
                     b.HasIndex("LastModified")
                         .IsDescending();
-
-                    b.HasIndex("ManagerId");
 
                     b.HasIndex("Name")
                         .IsDescending();
@@ -4880,10 +4877,6 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasForeignKey("Cheetah.Core.Aggregates.UserAggregate.Dimentions.D_User", "DelegateId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Cheetah.Core.Aggregates.UserAggregate.Dimentions.D_User", "Manager")
-                        .WithMany()
-                        .HasForeignKey("ManagerId");
-
                     b.HasOne("Cheetah.Core.Aggregates.UserAggregate.Dimentions.D_User", "Parent")
                         .WithMany("Childs")
                         .HasForeignKey("Parent_Id");
@@ -4893,8 +4886,6 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasForeignKey("UserInformationId");
 
                     b.Navigation("Delegate");
-
-                    b.Navigation("Manager");
 
                     b.Navigation("Parent");
 

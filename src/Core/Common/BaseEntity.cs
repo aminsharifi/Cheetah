@@ -10,10 +10,10 @@ public abstract class BaseEntity : EntityBase<long>, IAggregateRoot
     public string? Name { get; private set; }
     public string? DisplayName { get; private set; }
     public string? Description { get; private set; }
-    public Guid? GuidRecord { get; private set; } = Guid.NewGuid();
+    public Guid? GuidRecord { get; private set; }
     public bool EnableRecord { get; private set; } = true;
     public long? ERPCode { get; private set; }
-    public DateTimeOffset? Created { get; private set; } = DateTimeOffset.Now;
+    public DateTimeOffset? Created { get; private set; }
     public string? CreatedBy { get; private set; }
     public DateTimeOffset? LastModified { get; private set; }
     public string? LastModifiedBy { get; private set; }
