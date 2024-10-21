@@ -13,7 +13,7 @@ public partial class D_User : BaseEntity<D_User>, IAggregateRoot
     #endregion
 
     #region Simple Prob    
-    public string? Core { get; private set; }
+    public string? Domain { get; private set; }
     public bool? EnabledForAssignation { get; private set; }
     public bool? DelegateEnabled { get; private set; }
     public bool? CreatedCasesSkipAssigRules { get; private set; }
@@ -30,6 +30,9 @@ public partial class D_User : BaseEntity<D_User>, IAggregateRoot
 
     public long? DelegateId { get; private set; }
     public virtual D_User? Delegate { get; private set; }
+
+    public long? ManagerId { get; private set; }
+    public virtual D_User? Manager { get; private set; }
 
     public long? UserInformationId { get; private set; }
     public virtual D_UserInformation? UserInformation { get; private set; }

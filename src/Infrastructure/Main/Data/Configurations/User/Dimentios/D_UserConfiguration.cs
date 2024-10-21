@@ -11,7 +11,7 @@ public class D_UserConfiguration : IEntityTypeConfiguration<D_User>
         #region Simple Prob
 
         builder
-            .Property(e => e.Core)
+            .Property(e => e.Domain)
             .HasColumnOrder(102)
             .HasMaxLength(25);
 
@@ -53,6 +53,10 @@ public class D_UserConfiguration : IEntityTypeConfiguration<D_User>
         builder
             .Property(e => e.UserInformationId)
             .HasColumnOrder(110);
+
+        builder
+            .Property(e => e.ManagerId)
+            .HasColumnOrder(111);
 
         builder
             .HasOne(e => e.Delegate)
