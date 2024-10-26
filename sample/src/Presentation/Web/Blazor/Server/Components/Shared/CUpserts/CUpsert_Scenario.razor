@@ -355,7 +355,7 @@
                                                                                                          style="width: 50px"></MudNumericField>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <MudSelect T="long?"
+                                                                                        <MudSelect T="long?"  ReadOnly="@ReadonlyState"
                                                                                                    Value="_flowCondition?.SecondId"
                                                                                                    ValueChanged="(long? newValue)=>_flowCondition?.SetSecondId(newValue)"
                                                                                                    style="direction:rtl">
