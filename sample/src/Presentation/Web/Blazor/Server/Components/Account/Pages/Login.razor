@@ -1,11 +1,14 @@
 ﻿@page "/Account/Login"
 @using Cheetah.Sample.Infrastructure.Identity
+@using Visus.Ldap
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-
+@inject UserManager<ApplicationUser> userManager
+@inject IConfiguration Configuration
+@inject ILdapAuthenticationService<LdapUser> authService
 <PageTitle>Log in</PageTitle>
 
 <h1>Log in</h1>
@@ -109,7 +112,35 @@
         }
         else
         {
-            errorMessage = "Error: Invalid login attempt.";
+            bool _validUser = false;
+            try
+            {
+                (var retval, var claims) = await this.authService.LoginUserAsync(Input.UserName, Input.Password, null);
+                var identity = new ClaimsIdentity(claims, "LDAP");
+                var principal = new ClaimsPrincipal(identity);
+                // await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, princial);
+                // return this.Ok(retval);
+
+                _validUser = true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Error: Invalid login attempt.";
+            }
+            if (_validUser)
+            {
+                var _applicationUser = await userManager.FindByNameAsync(Input.UserName);
+                if (_applicationUser is not null)
+                {
+                    await SignInManager.SignInAsync(_applicationUser!, isPersistent: Input.RememberMe);
+                    Logger.LogInformation("User logged in.");
+                    RedirectManager.RedirectTo(ReturnUrl);
+                }
+                else
+                {
+                    errorMessage = "Error: Invalid login attempt.";
+                }
+            }
         }
     }
 
