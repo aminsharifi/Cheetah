@@ -70,6 +70,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Aggregates\AIAggregate\Specifications\" />
 		<Folder Include="Aggregates\CaseAggregate\Links\Values\" />
 	</ItemGroup>
 </Project>

@@ -94,8 +94,8 @@ public static class BaseEntityConfiguration
 
                     entity.Property(nameof(BaseEntity.EnableRecord))
                         .HasColumnOrder(9)
-                        //.HasDefaultValue(true)
-                        .HasDefaultValueSql(database.IsSqlServer() ? "1" : "1")
+                        .HasDefaultValue(true)
+                        //.HasDefaultValueSql(database.IsSqlServer() ? "1" : "1")
                         .HasComment("Active status of the record");
 
                     entity.HasIndex(nameof(BaseEntity.ERPCode))

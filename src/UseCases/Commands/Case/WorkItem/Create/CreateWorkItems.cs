@@ -1,6 +1,5 @@
 ﻿using Cheetah.Core.Aggregates.CaseAggregate.Facts;
 using Cheetah.Core.Aggregates.ConditionAggregate.Facts;
-using Cheetah.Core.Aggregates.UserAggregate.Specifications;
 using Cheetah.UseCases.Queries.Process.TaskEntity.List;
 using Cheetah.UseCases.Queries.User.UserCondition.Get;
 using Cheetah.UseCases.Queries.User.UserCondition.List;

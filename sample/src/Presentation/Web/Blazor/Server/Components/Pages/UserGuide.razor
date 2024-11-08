@@ -1,0 +1,140 @@
+﻿@page "/UserGuide"
+@inherits MyComponentBase
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+
+<PageTitle>دستورالعمل</PageTitle>
+<MudGrid>
+    <MudItem xs="12">
+        <MudDataGrid Items="items" Filterable="true" FilterMode="DataGridFilterMode.Simple"
+                     Striped="true" Hover="true"
+                     FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
+                     Bordered="true" Dense="true"
+                     T="UserGuideItem">
+            <ToolBarContent>
+                <MudButton Color="Color.Primary"
+                           Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="AddNewItem">
+                    افزودن
+                </MudButton>
+            </ToolBarContent>
+            <Columns>
+                <PropertyColumn Property="x => x.Id" Title="شناسه" Editable="false" />
+                <PropertyColumn Property="x => x.Subject" Title="عنوان" />
+                <PropertyColumn Property="x => x.Description" Title="توضیحات" />
+                <PropertyColumn Property="x => x.Keywords" Title="کلیدواژه ها" />
+                <TemplateColumn CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudButtonGroup OverrideStyles="false">
+                            <MudButton Color="Color.Info"
+                                       Variant="Variant.Filled"
+                                       StartIcon="@Icons.Material.Filled.Edit"
+                                       OnClick="@(()=>EditItem(@context.Item))">
+                                ویرایش
+                            </MudButton>
+                            <MudButton Color="Color.Error"
+                                       Disabled="false"
+                                       Variant="Variant.Filled"
+                                       StartIcon="@Icons.Material.Filled.DeleteForever"
+                                       OnClick="@(()=>DeleteItem(@context.Item.Id))">
+                                حذف
+                            </MudButton>
+                        </MudButtonGroup>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+        </MudDataGrid>
+    </MudItem>
+</MudGrid>
+<MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
+    <MessageContent>
+        آیا از حذف ردیف اطمینان دارید؟
+    </MessageContent>
+    <YesButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error"
+                   StartIcon="@Icons.Material.Filled.DeleteForever">حذف</MudButton>
+    </YesButton>
+</MudMessageBox>
+@code {
+    MudMessageBox mbox { get; set; }
+    public List<UserGuideItem>? items = new();
+    private UserGuideItem currentItem = new();
+    private bool isDialogOpen = false;
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            items = await GetAllItems();
+            StateHasChanged();
+        }
+    }
+
+    private async Task AddNewItem()
+    {
+        var _userGuide_Edit = await ShowDialog();
+        if (_userGuide_Edit.Canceled)
+        {
+            currentItem = new();
+            return;
+        }
+        var _result = await httpClient.PostAsJsonAsync("AI/Commands/CreateUserGuide",
+        (UserGuideItem)_userGuide_Edit.Data);
+        currentItem = new();
+        items = await GetAllItems();
+        StateHasChanged();
+    }
+    public async Task EditItem(UserGuideItem item)
+    {
+        currentItem = item;
+        var _userGuide_Edit = await ShowDialog();
+        if (_userGuide_Edit.Canceled)
+        {
+            currentItem = new();
+            return;
+        }
+        var _result = await httpClient.PutAsJsonAsync("AI/Commands/UpdateUserGuide",
+        (UserGuideItem)_userGuide_Edit.Data);
+        currentItem = new();
+        items = await GetAllItems();
+        StateHasChanged();
+    }
+    private async Task DeleteItem(long id)
+    {
+        bool? result = await mbox.ShowAsync();
+        if (!result.Value)
+        {
+            return;
+        }
+        var _response = await httpClient.DeleteAsync("AI/Commands/DeleteUserGuide/" + id);
+        await GetAllItems();
+        StateHasChanged();
+    }
+    private async Task<DialogResult?> ShowDialog()
+    {
+        var options = new DialogOptions
+            {
+                MaxWidth = MaxWidth.Medium
+            };
+
+        var parameters = new DialogParameters<UserGuide_Edit>();
+
+        parameters.Add(x => x.currentItem, currentItem);
+
+        var dialogresult = await DialogService.ShowAsync<UserGuide_Edit>("دستورالعمل", parameters, options);
+
+        var result = await dialogresult.Result;
+
+        return result;
+    }
+
+    private async Task<List<UserGuideItem>?> GetAllItems()
+    {
+        items = await httpClient
+        .GetFromJsonAsync<List<UserGuideItem>>("AI/Queries/ListUserGuides");
+        return items;
+    }
+}
