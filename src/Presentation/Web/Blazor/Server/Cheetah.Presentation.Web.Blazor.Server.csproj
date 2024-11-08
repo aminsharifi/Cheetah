@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helper\**" />
+    <Content Remove="Helper\**" />
+    <EmbeddedResource Remove="Helper\**" />
+    <None Remove="Helper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -19,10 +26,6 @@
 		<!--<PackageReference Include="MudBlazor" Version="6.*" />-->
 		<PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
 		<PackageReference Include="BootstrapBlazor" Version="8.10.2" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Helper\" />
 	</ItemGroup>
 
 	<ItemGroup>

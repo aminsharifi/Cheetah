@@ -9,6 +9,7 @@ public partial class F_Scenario : BaseEntity
     {
 
     }
+
     #region Relations
 
     public virtual ICollection<F_Task>? Tasks { get; set; } = new HashSet<F_Task>();

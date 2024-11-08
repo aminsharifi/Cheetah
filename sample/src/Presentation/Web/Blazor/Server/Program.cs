@@ -1,5 +1,6 @@
 using Cheetah.Core.Resx;
 using Cheetah.Sample.Infrastructure.Data;
+using Cheetah.Sample.Presentation.Web.Blazor.Server.AI;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Account;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
@@ -27,6 +28,9 @@ builder.Services.AddMudServices();
 builder.Services.AddBootstrapBlazor();
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped(sp => new HttpClient {
+    BaseAddress = new Uri("http://localhost:802/") });
 
 //builder.Services
 //  .AddIdentityCore<ApplicationUser>();
@@ -73,11 +77,14 @@ string apiKey = _ai.GetValue<string>("ApiKey")!;
 string modelId = _ai.GetValue<string>("ModelId")!;
 Uri endpoint = new Uri(_ai.GetValue<string>("Endpoint")!);
 #pragma warning disable SKEXP0010
+
+
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint)
     .Build();
 
-builder.Services.AddTransient((serviceProvider) => {
+builder.Services.AddTransient((serviceProvider) =>
+{
     return new Kernel(serviceProvider);
 });
 
@@ -86,6 +93,14 @@ builder.Services.AddSingleton(sp =>
     var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
     return chatCompletionService;
 });
+builder.Services.AddSingleton(sp =>
+{
+    var userGuideInfo = kernel.GetRequiredService<UserGuideInfo>();
+    return userGuideInfo;
+});
+// Add the plugin to the kernel
+
+kernel.Plugins.AddFromType<UserGuideInfo>("userguide_info");
 
 #endregion
 

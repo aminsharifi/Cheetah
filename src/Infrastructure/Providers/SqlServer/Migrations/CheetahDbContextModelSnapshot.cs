@@ -26,6 +26,133 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_UserGuide", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1)
+                        .HasComment("The unique key of each record")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnOrder(6)
+                        .HasDefaultValueSql("GETDATE()")
+                        .HasComment("Record creation date");
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(12)
+                        .HasComment("Created by what user?");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(5)
+                        .HasComment("Additional description of each record");
+
+                    b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(4)
+                        .HasComment("The localized name of each record");
+
+                    b.Property<long?>("ERPCode")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10)
+                        .HasComment("ID of this record in ERP");
+
+                    b.Property<bool>("EnableRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnOrder(9)
+                        .HasComment("Active status of the record");
+
+                    b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnOrder(8)
+                        .HasDefaultValueSql("NEWSEQUENTIALID ()")
+                        .HasComment("Unique GUID identifier");
+
+                    b.Property<string>("Keywords")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<DateTimeOffset?>("LastModified")
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnOrder(7)
+                        .HasComment("The date the record was last updated");
+
+                    b.Property<string>("LastModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(11)
+                        .HasComment("By which user has it been updated?");
+
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(3)
+                        .HasComment("English name of each record");
+
+                    b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(2)
+                        .HasComment("The sort index of the record");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Created")
+                        .IsDescending();
+
+                    b.HasIndex("ERPCode")
+                        .IsDescending();
+
+                    b.HasIndex("EnableRecord")
+                        .IsDescending();
+
+                    b.HasIndex("LastModified")
+                        .IsDescending();
+
+                    b.HasIndex("Name")
+                        .IsDescending();
+
+                    b.ToTable("F_UserGuide", "Facts", t =>
+                        {
+                            t.HasComment("UserGuides for FAQ");
+                        });
+                });
+
             modelBuilder.Entity("Cheetah.Core.Aggregates.CaseAggregate.Dimentions.D_CaseState", b =>
                 {
                     b.Property<long>("Id")
@@ -76,8 +203,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -244,8 +371,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -402,8 +529,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -540,8 +667,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("F_CaseId")
@@ -677,8 +804,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -824,8 +951,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -981,8 +1108,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -1128,8 +1255,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -1356,8 +1483,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -1694,8 +1821,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -1862,8 +1989,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2072,8 +2199,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2204,8 +2331,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2321,7 +2448,7 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 
                     b.Property<long?>("ColorId")
                         .HasColumnType("bigint")
-                        .HasColumnOrder(100);
+                        .HasColumnOrder(104);
 
                     b.Property<DateTimeOffset?>("Created")
                         .ValueGeneratedOnAdd()
@@ -2362,8 +2489,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2584,8 +2711,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2725,8 +2852,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2837,8 +2964,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -2969,8 +3096,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<Guid?>("GuidRecord")
@@ -3092,8 +3219,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FormId")
@@ -3238,8 +3365,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -3385,8 +3512,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -3532,8 +3659,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -3692,8 +3819,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -3839,8 +3966,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -3986,8 +4113,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
@@ -4154,8 +4281,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<bool?>("EnabledForAssignation")
@@ -4347,8 +4474,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<string>("FirstName")
@@ -4500,8 +4627,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<bool>("EnableRecord")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(true)
                         .HasColumnOrder(9)
-                        .HasDefaultValueSql("1")
                         .HasComment("Active status of the record");
 
                     b.Property<long?>("FifthId")
