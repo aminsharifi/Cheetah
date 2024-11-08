@@ -26,6 +26,8 @@
 		<Content Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="HtmlSanitizer" Version="8.1.870" />
+		<PackageReference Include="Markdig" Version="0.38.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
 		  <PrivateAssets>all</PrivateAssets>
@@ -60,6 +62,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="Components\Account\Pages\LoginEn.razor">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+		<Content Update="Components\Pages\UserGuide.razor">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
 		<Content Update="Components\Shared\CUpserts\CUpsert_Scenario.razor">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>

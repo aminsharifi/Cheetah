@@ -10,57 +10,33 @@ if (builder.Environment.IsProduction())
     //});
 }
 
-// Add services to the container.
-
-//builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-//var app = builder.Build();
-
-builder.Services.AddFastEndpoints();
-builder.Services.AddFastEndpointsApiExplorer();
-builder.Services.SwaggerDocument(o =>
-{
-    o.ShortSchemaNames = true;
-});
+builder.Services.AddFastEndpoints()
+                .SwaggerDocument(o =>
+                {
+                    o.ShortSchemaNames = true;
+                });
 
 var app = await builder.InitializeSettingsAsync();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//app.UseSwagger();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+}
+else
+{
+    app.UseDefaultExceptionHandler(); // from FastEndpoints
+    app.UseHsts();
+}
 
-//app.UseSwaggerUI();
-
-//}
-
-app.UseDeveloperExceptionPage();
-app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
-
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseDeveloperExceptionPage();
-//    app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
-//}
-//else
-//{
-//    app.UseDefaultExceptionHandler(); // from FastEndpoints
-//    app.UseHsts();
-//}
-
-app.UseFastEndpoints();
-app.UseSwaggerGen(); // FastEndpoints middleware
-
+app.UseFastEndpoints()
+        .UseSwaggerGen(); // Includes AddFileServer and static files middleware
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.UseAuthentication();
-
-app.MapControllers();
+//app.UseAuthentication();
 
 app.MapGet("/", () => Results.Ok("Ok!"));
 

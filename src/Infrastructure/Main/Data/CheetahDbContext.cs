@@ -1,4 +1,5 @@
-﻿using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
+﻿using Cheetah.Core.Aggregates.AIAggregate.Facts;
+using Cheetah.Core.Aggregates.CaseAggregate.Dimentions;
 using Cheetah.Core.Aggregates.CaseAggregate.Facts;
 using Cheetah.Core.Aggregates.CaseAggregate.Links;
 using Cheetah.Core.Aggregates.Common.Dimentions;
@@ -94,7 +95,8 @@ public partial class CheetahDbContext : DbContext
     public virtual DbSet<F_WorkItem> F_WorkItems { get; set; }
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
     public virtual DbSet<F_Flow> F_Flows { get; set; }
-
+    public virtual DbSet<F_UserGuide> F_UserGuides { get; set; }
+    
     #endregion
 
     #region Links

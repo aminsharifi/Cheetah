@@ -1,7 +1,9 @@
-﻿@page "/"
-@page "/AI"
+﻿@page "/AI"
 @inherits MyComponentBase
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+@using Ganss.Xss
+@using Markdig
 @using Microsoft.SemanticKernel
 @using Microsoft.SemanticKernel.ChatCompletion
 @inject IJSRuntime JSRuntime;
@@ -16,8 +18,8 @@
     <MudContainer Class="mt-12">
         <MudCard>
             <MudCardContent>
-                <MudTextField @bind-Value="userInput" Label="پرسش شما"
-                              MultiLine="true" Rows="5" Variant="Variant.Outlined" />
+                <MudTextField @bind-Value="userInput" Label="پرسش شما" OnKeyDown="HandleKeyDown"
+                              MultiLine="true" Rows="5" Variant="Variant.Outlined" cli />
                 <MudButton OnClick="SendMessage" Disabled="disableSubmit"
                            Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
                     ارسال
@@ -27,51 +29,105 @@
                     <br />
                     <hr />
                     <MudText Typo="Typo.h6">پرسش:</MudText>
-                    <MudText Typo="Typo.body2">@question</MudText>
+                    <MudText Typo="Typo.body1">@question</MudText>
                     <br />
                     <MudText Typo="Typo.h6">پاسخ:</MudText>
-                    <MudText Typo="Typo.body2">@_aIResponse</MudText>
+                    @* <MudText Typo="Typo.body2">@_aIResponse</MudText> *@
+                    <div> @((MarkupString)_hTMLResponse)</div>
                 }
             </MudCardContent>
         </MudCard>
     </MudContainer>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            direction: rtl; /* Set the direction to right-to-left */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: right; /* Optional: Align text to the left */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Optional: Add background color to headers */
+        }
+    </style>
 }
-@code { 
+@code {
     private string userInput = String.Empty;
     private string question = String.Empty;
-    ChatHistory history = new();
+    ChatHistory _chathistory = new();
     String _aIResponse = String.Empty;
+    String _hTMLResponse = String.Empty;
     bool disableSubmit = false;
-
+    public List<UserGuideItem>? items = new();
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        // Check if the Enter key was pressed
+        if (e.Key == "Enter")
+        {
+            await SendMessage();
+            userInput = string.Empty; // Clear input after sending
+        }
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            items = await GetAllItems();
+            foreach (var item in items)
+            {
+                _chathistory.AddSystemMessage(nameof(item.Subject) + ":" + item.Subject + "\n" +
+                nameof(item.Description) + ":" + item.Description + "\n" +
+                nameof(item.Keywords) + ":" + item.Keywords + "\n" +
+                nameof(item.Body) + ":" + item.Body + "\n"
+                );
+            }
+            _chathistory.AddSystemMessage("Only respond using the information from my previous system messages. Your answers should be highly accurate and focus solely on that information.");
+            StateHasChanged();
+        }
+    }
     private async Task SendMessage()
     {
         if (!string.IsNullOrWhiteSpace(userInput))
         {
             disableSubmit = true;
             _aIResponse = String.Empty;
-            using (HttpClient client = new HttpClient())
-            {
-                var _uri = navigationManager.Uri;
-                var _httpresponse = await client.GetStringAsync(_uri + "docs/1.txt");
-                history.AddSystemMessage(_httpresponse);
-            }
+
             question = userInput;
-            history.AddUserMessage(userInput);
+            _chathistory.AddUserMessage(userInput);
+
             userInput = string.Empty; // Clear input after sending
             var response = ChatCompletionService.GetStreamingChatMessageContentsAsync(
-                chatHistory: history,
-                kernel: kernel
-                );
+                chatHistory: _chathistory,
+                kernel: kernel);
+
+            var pipeline = new MarkdownPipelineBuilder()
+            .UseAdvancedExtensions() // This includes the table extension
+            .Build();
 
             await foreach (var chunk in response)
             {
                 _aIResponse += chunk;
+                _hTMLResponse = Markdown.ToHtml(_aIResponse, pipeline);
+                // Sanitize the HTML
+                // var sanitizer = new HtmlSanitizer();
+                // _hTMLResponse = sanitizer.Sanitize(html);
                 StateHasChanged();
             }
 
-            history.AddAssistantMessage(_aIResponse);
+            _chathistory.AddAssistantMessage(_aIResponse);
             disableSubmit = false;
 
         }
+    }
+    private async Task<List<UserGuideItem>?> GetAllItems()
+    {
+        items = await httpClient
+        .GetFromJsonAsync<List<UserGuideItem>>("AI/Queries/ListUserGuides");
+        return items;
     }
 }
