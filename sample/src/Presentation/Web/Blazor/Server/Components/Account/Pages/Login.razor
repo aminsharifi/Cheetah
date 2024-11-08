@@ -1,7 +1,6 @@
 ﻿@page "/Account/Login"
 @using Cheetah.Sample.Infrastructure.Identity
 @using Visus.Ldap
-
 @inject SignInManager<ApplicationUser> SignInManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
@@ -9,61 +8,41 @@
 @inject UserManager<ApplicationUser> userManager
 @inject IConfiguration Configuration
 @inject ILdapAuthenticationService<LdapUser> authService
-<PageTitle>Log in</PageTitle>
+<PageTitle>ورود به سیستم</PageTitle>
 
-<h1>Log in</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <StatusMessage Message="@errorMessage" />
-            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
-                <DataAnnotationsValidator />
-                <h2>Use a local account to log in.</h2>
-                <hr />
-                <ValidationSummary class="text-danger" role="alert" />
-                <div class="form-floating mb-3">
-                    @*      <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label for="email" class="form-label">Email</label>
-                    <ValidationMessage For="() => Input.Email" class="text-danger" /> *@
-                    <InputText @bind-Value="Input.UserName" class="form-control" autocomplete="username"
-                               aria-required="true" />
-                    @* <label for="UserName" class="form-label">UserName</label> *@
-                    @* <ValidationMessage For="() => Input.UserName" class="text-danger" /> *@
-                </div>
-                <div class="form-floating mb-3">
-                    <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label for="password" class="form-label">Password</label>
-                    <ValidationMessage For="() => Input.Password" class="text-danger" />
-                </div>
-                <div class="checkbox mb-3">
-                    <label class="form-label">
-                        <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
-                        Remember me
-                    </label>
-                </div>
-                <div>
-                    <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-                <div>
-                    <p>
-                        <a href="Account/ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </EditForm>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
+<h1 class="text-center">ورود به سیستم</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <section>
+                <StatusMessage Message="@errorMessage" />
+                <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+                    <DataAnnotationsValidator />
+                    <hr />
+                    <ValidationSummary class="text-danger" role="alert" />
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Input.UserName" class="form-control" autocomplete="username"
+                                   aria-required="true" placeholder="نام کاربری" />
+                        <label for="UserName" class="form-label">نام کاربری</label>
+                        <ValidationMessage For="() => Input.UserName" class="text-danger" />
+                    </div>
+                    <div class="form-floating mb-3">
+                        <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="رمز عبور" />
+                        <label for="password" class="form-label">رمز عبور</label>
+                        <ValidationMessage For="() => Input.Password" class="text-danger" />
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label class="form-label">
+                            <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
+                            مرا به خاطر بسپار
+                        </label>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-100 btn btn-lg btn-primary">ورود به سیستم</button>
+                    </div>
+                </EditForm>
+            </section>
+        </div>
     </div>
 </div>
 
@@ -83,20 +62,16 @@
     {
         if (HttpMethods.IsGet(HttpContext.Request.Method))
         {
-            // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
         }
     }
 
     public async Task LoginUser()
     {
-        // This doesn't count login failures towards account lockout
-        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        // var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
         var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-            Logger.LogInformation("User logged in.");
+            Logger.LogInformation("کاربر وارد سیستم شد.");
             RedirectManager.RedirectTo(ReturnUrl);
         }
         else if (result.RequiresTwoFactor)
@@ -107,7 +82,7 @@
         }
         else if (result.IsLockedOut)
         {
-            Logger.LogWarning("User account locked out.");
+            Logger.LogWarning("حساب کاربری قفل شده است.");
             RedirectManager.RedirectTo("Account/Lockout");
         }
         else
@@ -118,14 +93,11 @@
                 (var retval, var claims) = await this.authService.LoginUserAsync(Input.UserName, Input.Password, null);
                 var identity = new ClaimsIdentity(claims, "LDAP");
                 var principal = new ClaimsPrincipal(identity);
-                // await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, princial);
-                // return this.Ok(retval);
-
                 _validUser = true;
             }
             catch (Exception ex)
             {
-                errorMessage = "Error: Invalid login attempt.";
+                errorMessage = "خطا: تلاش ورود نامعتبر.";
             }
             if (_validUser)
             {
@@ -133,12 +105,12 @@
                 if (_applicationUser is not null)
                 {
                     await SignInManager.SignInAsync(_applicationUser!, isPersistent: Input.RememberMe);
-                    Logger.LogInformation("User logged in.");
+                    Logger.LogInformation("کاربر وارد سیستم شد.");
                     RedirectManager.RedirectTo(ReturnUrl);
                 }
                 else
                 {
-                    errorMessage = "Error: Invalid login attempt.";
+                    errorMessage = "خطا: تلاش ورود نامعتبر.";
                 }
             }
         }
@@ -146,10 +118,6 @@
 
     private sealed class InputModel
     {
-        // [Required]
-        // [EmailAddress]
-        // public string Email { get; set; } = "";
-
         [Required]
         public string UserName { get; set; } = "";
 
@@ -157,7 +125,7 @@
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "مرا به خاطر بسپار؟")]
         public bool RememberMe { get; set; }
     }
 }

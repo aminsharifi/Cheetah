@@ -2,9 +2,16 @@
 <MudNavMenu>
     @if (bool.Parse(@Configuration["AI:Enable"]!))
     {
-        <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Forum">
-            دستیار هوشمند
-        </MudNavLink>
+        <AuthorizeView>
+            <MudNavLink Href="AI" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Assistant">
+                دستیار هوشمند
+            </MudNavLink>
+        </AuthorizeView>
+        <AuthorizeView Roles="Admin">
+            <MudNavLink Href="UserGuide" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.QuestionAnswer">
+                دستورالعمل
+            </MudNavLink>
+        </AuthorizeView>
     }
     <AuthorizeView Roles="Admin">
         <MudNavLink Href="List" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">
@@ -21,13 +28,14 @@
             صندوق خروجی
         </MudNavLink>
     </AuthorizeView>
-@*     @if (bool.Parse(@Configuration["LdapOptions:Enable"]!))
+    @*     @if (bool.Parse(@Configuration["LdapOptions:Enable"]!))
     {
     <MudNavLink Href="LDAP" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.FolderShared">
-        اتصال به LDAP
+    اتصال به LDAP
     </MudNavLink>
-    }
-    <MudNavLink Href="Contact" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ContactPhone">
+    } *@
+
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ContactPhone">
         ارتباط با ما
-    </MudNavLink>     *@
+    </MudNavLink>
 </MudNavMenu>

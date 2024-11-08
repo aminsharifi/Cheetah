@@ -9,17 +9,6 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
         builder.HasComment("Condition of each tag");
 
         builder
-            .Property(e => e.ColorId)
-            .HasColumnOrder(100);
-
-        builder
-            .HasOne(x => x.Color)
-            .WithMany()
-            .HasForeignKey(x => x.ColorId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-
-        builder
             .Property(e => e.TagId)
             .HasColumnOrder(100);
 
@@ -46,6 +35,16 @@ public class F_ConditionConfiguration : IEntityTypeConfiguration<F_Condition>
         builder
             .Property(e => e.CheckValidation)
             .HasColumnOrder(103);
+
+        builder
+          .Property(e => e.ColorId)
+          .HasColumnOrder(104);
+
+        builder
+            .HasOne(x => x.Color)
+            .WithMany()
+            .HasForeignKey(x => x.ColorId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.Ignore(x => x.BooleanValue);
 
