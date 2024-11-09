@@ -1,5 +1,6 @@
 ﻿@page "/Links/Create/{Name}/{type}/{LinkId:long}/{reference}"
 @page "/Links/Edit/{Name}/{type}/{Id:long}/{reference}"
+@attribute [Authorize]
 @using Cheetah.Core.Aggregates.Common.Dimentions
 @using Cheetah.Core.Common
 @inherits MyComponentBase
