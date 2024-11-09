@@ -7,6 +7,7 @@
 @using Markdig
 @using Microsoft.SemanticKernel
 @using Microsoft.SemanticKernel.ChatCompletion
+@using Microsoft.SemanticKernel.Connectors.OpenAI
 @inject IJSRuntime JSRuntime;
 @inject IChatCompletionService ChatCompletionService
 @inject Kernel kernel;
@@ -65,6 +66,12 @@
     String _hTMLResponse = String.Empty;
     bool disableSubmit = false;
     public List<UserGuideItem>? items = new();
+    OpenAIPromptExecutionSettings executionSettings = new OpenAIPromptExecutionSettings
+        {
+            Temperature = 0.0,
+            TopP = 1,
+            Seed = 0
+        };
     private async Task HandleKeyDown(KeyboardEventArgs e)
     {
         // Check if the Enter key was pressed
@@ -102,9 +109,20 @@
             _chathistory.AddUserMessage(userInput);
 
             userInput = string.Empty; // Clear input after sending
-            var response = ChatCompletionService.GetStreamingChatMessageContentsAsync(
+
+
+            // var response = await ChatCompletionService.GetChatMessageContentsAsync(
+            //     chatHistory: _chathistory,
+            //     kernel: kernel,
+            //     executionSettings: executionSettings);
+
+
+            var response = ChatCompletionService
+            .GetStreamingChatMessageContentsAsync(
                 chatHistory: _chathistory,
-                kernel: kernel);
+                kernel: kernel
+            ,executionSettings: executionSettings
+            );
 
             var pipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions() // This includes the table extension
@@ -120,6 +138,8 @@
                 StateHasChanged();
             }
 
+            _hTMLResponse = Markdown.ToHtml(_aIResponse, pipeline);
+            StateHasChanged();
             _chathistory.AddAssistantMessage(_aIResponse);
             disableSubmit = false;
 
