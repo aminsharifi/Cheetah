@@ -6,6 +6,7 @@ using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Account;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,8 +77,10 @@ builder
 string apiKey = _ai.GetValue<string>("ApiKey")!;
 string modelId = _ai.GetValue<string>("ModelId")!;
 Uri endpoint = new Uri(_ai.GetValue<string>("Endpoint")!);
-#pragma warning disable SKEXP0010
 
+// string modelId = "AI21-Jamba-1.5-Mini";
+// string modelId = "Cohere-command-r-08-2024";
+#pragma warning disable SKEXP0010
 
 var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint)
