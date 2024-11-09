@@ -13,29 +13,23 @@
             </MudNavLink>
         </AuthorizeView>
     }
+    else
+    {
+        <MudNavLink Href="Contact" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ContactPhone">
+            ارتباط با ما
+        </MudNavLink>
+    }
     <AuthorizeView Roles="Admin">
         <MudNavLink Href="List" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">
             ویرایش پارامتر
         </MudNavLink>
     </AuthorizeView>
-    <AuthorizeView Roles="Admin">
+    <AuthorizeView>
         <MudNavLink Href="Inbox" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Inbox">
             صندوق ورودی
         </MudNavLink>
-    </AuthorizeView>
-    <AuthorizeView Roles="Admin">
         <MudNavLink Href="Sent" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Outbox">
             صندوق خروجی
         </MudNavLink>
     </AuthorizeView>
-    @*     @if (bool.Parse(@Configuration["LdapOptions:Enable"]!))
-    {
-    <MudNavLink Href="LDAP" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.FolderShared">
-    اتصال به LDAP
-    </MudNavLink>
-    } *@
-
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.ContactPhone">
-        ارتباط با ما
-    </MudNavLink>
 </MudNavMenu>
