@@ -2,7 +2,8 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime _jSRuntime;
 @inject IGlobalization globalization;
-
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
 <PageTitle>چیتا</PageTitle>
 
 <MudRTLProvider RightToLeft="true">
@@ -38,6 +39,22 @@
 
 @code
 {
+    private bool? isAuthenticated;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        isAuthenticated = authState?.User.Identity.IsAuthenticated;
+
+        if (isAuthenticated is true)
+        {
+            Navigation.NavigateTo("/AI");
+        }
+        else
+        {
+            Navigation.NavigateTo("/Contact");
+        }
+    }
     bool _drawerOpen = true;
     public void DrawerToggle2(MouseEventArgs e)
     {
