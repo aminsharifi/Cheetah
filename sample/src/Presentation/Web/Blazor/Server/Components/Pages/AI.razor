@@ -20,13 +20,17 @@
     <MudContainer Class="mt-12">
         <MudCard>
             <MudCardContent>
-                <MudTextField lang="fa" @bind-Value="userInput" Label="پرسش شما" OnKeyDown="HandleKeyDown"
-                              MultiLine="true" Rows="5" Variant="Variant.Outlined" cli />
-                <MudButton OnClick="SendMessage" Disabled="disableSubmit"
-                           Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
-                    ارسال
-                </MudButton>
-                @if (question.Length > 0)
+                <MudForm>
+                    <MudTextField lang="fa" @bind-Value="userInput" Label="پرسش شما"
+                                  OnKeyDown="HandleKeyDown" @ref="_MudTextField" TextChanged="InputTextChanged"
+                                  Clearable="true" Immediate="true" Disabled="disableSubmit"
+                                  MultiLine="true" Rows="5" Variant="Variant.Outlined" />
+                    <MudButton OnClick="SendMessage" Disabled="disableSubmit"
+                               Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
+                        ارسال
+                    </MudButton>
+                </MudForm>
+                @if (_hTMLResponse.Length > 0)
                 {
                     <br />
                     <hr />
@@ -66,6 +70,16 @@
     String _hTMLResponse = String.Empty;
     bool disableSubmit = false;
     public List<UserGuideItem>? items = new();
+    private MudTextField<string> _MudTextField = new();
+    private async Task InputTextChanged(string value)
+    {
+        if (!String.IsNullOrEmpty(value) && value.TrimEnd().EndsWith("ارسال"))
+        {
+            await SendMessage();
+            await _MudTextField.Clear();
+            await _MudTextField.FocusAsync();
+        }
+    }
     OpenAIPromptExecutionSettings executionSettings = new OpenAIPromptExecutionSettings
         {
             Temperature = 0.0,
@@ -78,7 +92,8 @@
         if (e.Key == "Enter")
         {
             await SendMessage();
-            userInput = string.Empty; // Clear input after sending
+            await _MudTextField.Clear();
+            await _MudTextField.FocusAsync();
         }
     }
     protected async override Task OnAfterRenderAsync(bool firstRender)
@@ -95,33 +110,29 @@
                 );
             }
             _chathistory.AddSystemMessage("Only respond using the information from my previous system messages. Your answers should be highly accurate and focus solely on that information.");
-            StateHasChanged();
+            // StateHasChanged();
         }
+        await _MudTextField.FocusAsync();
     }
     private async Task SendMessage()
     {
         if (!string.IsNullOrWhiteSpace(userInput))
         {
+            userInput = userInput.TrimEnd("ارسال".ToCharArray());
+            question = userInput;
             disableSubmit = true;
             _aIResponse = String.Empty;
-
-            question = userInput;
-            _chathistory.AddUserMessage(userInput);
-
-            userInput = string.Empty; // Clear input after sending
-
+            _chathistory.AddUserMessage(question);
 
             // var response = await ChatCompletionService.GetChatMessageContentsAsync(
             //     chatHistory: _chathistory,
             //     kernel: kernel,
             //     executionSettings: executionSettings);
 
-
             var response = ChatCompletionService
             .GetStreamingChatMessageContentsAsync(
                 chatHistory: _chathistory,
-                kernel: kernel
-            ,executionSettings: executionSettings
+                executionSettings: executionSettings
             );
 
             var pipeline = new MarkdownPipelineBuilder()
@@ -139,10 +150,10 @@
             }
 
             _hTMLResponse = Markdown.ToHtml(_aIResponse, pipeline);
-            StateHasChanged();
+            // StateHasChanged();
             _chathistory.AddAssistantMessage(_aIResponse);
+            userInput = String.Empty;
             disableSubmit = false;
-
         }
     }
     private async Task<List<UserGuideItem>?> GetAllItems()

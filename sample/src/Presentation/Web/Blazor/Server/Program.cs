@@ -30,8 +30,10 @@ builder.Services.AddBootstrapBlazor();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped(sp => new HttpClient {
-    BaseAddress = new Uri("http://localhost:802/") });
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri("http://localhost:802/")
+});
 
 //builder.Services
 //  .AddIdentityCore<ApplicationUser>();
@@ -69,9 +71,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 #region Semantic Kernel
 var _ai = builder.Configuration.GetSection("AI");
-builder
-    .Services
-    .AddKernel();
+
 // Add a chat completion service:
 
 string apiKey = _ai.GetValue<string>("ApiKey")!;
@@ -86,9 +86,9 @@ var kernel = Kernel.CreateBuilder()
     .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint)
     .Build();
 
-builder.Services.AddTransient((serviceProvider) =>
+builder.Services.AddSingleton(serviceProvider =>
 {
-    return new Kernel(serviceProvider);
+    return kernel;
 });
 
 builder.Services.AddSingleton(sp =>
