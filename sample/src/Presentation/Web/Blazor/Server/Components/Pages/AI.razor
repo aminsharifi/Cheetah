@@ -19,7 +19,7 @@
     <MudContainer Class="mt-12">
         <MudCard>
             <MudCardContent>
-                <MudTextField @bind-Value="userInput" Label="پرسش شما" OnKeyDown="HandleKeyDown"
+                <MudTextField lang="fa" @bind-Value="userInput" Label="پرسش شما" OnKeyDown="HandleKeyDown"
                               MultiLine="true" Rows="5" Variant="Variant.Outlined" cli />
                 <MudButton OnClick="SendMessage" Disabled="disableSubmit"
                            Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">

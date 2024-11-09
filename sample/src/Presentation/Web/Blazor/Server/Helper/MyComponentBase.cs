@@ -2,9 +2,8 @@
 using Cheetah.Core.Interfaces.Cartable;
 using Cheetah.Core.Resx;
 using Cheetah.Infrastructure.Data;
-using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel;
-using System.Configuration;
+using Microsoft.SemanticKernel.ChatCompletion;
 
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
 
