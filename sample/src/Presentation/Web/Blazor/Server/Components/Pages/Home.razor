@@ -1,0 +1,23 @@
+﻿@page "/"
+@inherits MyComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+<h3>Home</h3>
+
+@code {
+    private bool? isAuthenticated;
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        isAuthenticated = authState?.User.Identity.IsAuthenticated;
+
+        if (isAuthenticated is true)
+        {
+            Navigation.NavigateTo("/AI");
+        }
+        else
+        {
+            Navigation.NavigateTo($"Account/Login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}", forceLoad: true);
+        }
+    }
+}
