@@ -11,7 +11,7 @@
                 <MudTextField Lines="5" @bind-Value="currentItem.Body" Label="متن" Required="true" />
             </MudItem>
             <MudItem xs="3">
-                <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="BodyValidation">اعتبارسنجی</MudButton>
+                <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="BodyValidation" Disabled="disableSubmit">اعتبارسنجی</MudButton>
             </MudItem>
             <MudItem xs="12">
                 <MudTextField @bind-Value="currentItem.Subject" Label="عنوان" Required="true" />
@@ -44,9 +44,8 @@
 
     private async Task BodyValidation()
     {
-        var chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
-
-        _kernel.Plugins.AddFromType<UserGuideInfo>("userguide_info");
+        disableSubmit = true;
+        // _kernel.Plugins.AddFromType<UserGuideInfo>("userguide_info");
 
         ChatHistory chatHistory = new ChatHistory();
 
@@ -54,12 +53,10 @@
 
         chatHistory.AddUserMessage(currentItem.Body);
 
-
-
         chatHistory.AddSystemMessage("extract subject from it in persian laguage");
 
         // Get the response from the AI
-        var result = await chatCompletionService.GetChatMessageContentAsync(
+        var result = await ChatCompletionService.GetChatMessageContentAsync(
            chatHistory,
            kernel: _kernel);
 
@@ -68,7 +65,7 @@
         chatHistory.AddSystemMessage("just extract description from it in persian laguage");
 
         // Get the response from the AI
-        result = await chatCompletionService.GetChatMessageContentAsync(
+        result = await ChatCompletionService.GetChatMessageContentAsync(
            chatHistory,
            kernel: _kernel);
 
@@ -78,10 +75,12 @@
         chatHistory.AddSystemMessage("just extract keywords from it in persian laguage");
 
         // Get the response from the AI
-        result = await chatCompletionService.GetChatMessageContentAsync(
+        result = await ChatCompletionService.GetChatMessageContentAsync(
           chatHistory,
           kernel: _kernel);
 
         currentItem.Keywords = result?.Items.FirstOrDefault()?.ToString();
+
+        disableSubmit = false;
     }
 }
