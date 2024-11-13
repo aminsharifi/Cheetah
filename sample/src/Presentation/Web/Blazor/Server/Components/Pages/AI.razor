@@ -17,33 +17,56 @@
 @if (bool.Parse(@Configuration["AI:Enable"]!))
 {
     <PageTitle>دستیار هوشمند</PageTitle>
-    <MudContainer Class="mt-12">
-        <MudCard>
-            <MudCardContent>
-                <MudForm>
-                    <MudTextField lang="fa" @bind-Value="userInput" Label="پرسش شما"
+    <MudContainer MaxWidth="MaxWidth.False" Class="google-page-style mt-5">
+        <!-- Google Logo Section -->
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12">
+                <img src="/imeges/ai.jfif" alt="Google Logo" class="google-logo" />
+            </MudItem>
+        </MudGrid>
+
+        <!-- Search Input Field with Icons -->
+        <MudGrid Justify="Justify.Center" Spacing="2">
+            <MudItem xs="10" md="8" lg="6" Class="search-container">
+                <MudPaper Class="search-bar" Elevation="3">
+                    <MudIconButton Icon="@Icons.Material.Filled.Search" Disabled="disableSubmit" Color="Color.Dark" OnClick="SendMessage" />
+                    <MudTextField @bind-Value="userInput"
+                                  Immediate="true" Disabled="disableSubmit"
                                   OnKeyDown="HandleKeyDown" @ref="_MudTextField" TextChanged="InputTextChanged"
-                                  Clearable="true" Immediate="true" Disabled="disableSubmit"
-                                  MultiLine="true" Rows="5" Variant="Variant.Outlined" />
-                    <MudButton OnClick="SendMessage" Disabled="disableSubmit"
-                               Color="Color.Primary" Variant="Variant.Filled" Class="mt-2">
-                        ارسال
-                    </MudButton>
-                </MudForm>
-                @if (_hTMLResponse.Length > 0)
-                {
+                                  Placeholder="پرسش خود را از سیستم بپرسید" FullWidth="true" HideBorder="true" Class="search-input" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Mic" Color="Color.Dark" />
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+        <!-- Buttons -->
+        <MudGrid Justify="Justify.Center" Spacing="1" Class="google-button-section">
+            <MudItem>
+                <MudButton OnClick="SendMessage" Disabled="disableSubmit"
+                           Variant="Variant.Filled" Color="Color.Primary">جستجو دقیق</MudButton>
+            </MudItem>
+            <MudItem>
+                <MudButton OnClick="SendMessage" Disabled="disableSubmit"
+                           Variant="Variant.Filled" Color="Color.Primary">جستجوی اکتشافی</MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+    @if (_hTMLResponse.Length > 0)
+    {
+        <MudContainer Class="mt-12">
+            <MudCard>
+                <MudCardContent>
                     <br />
-                    <hr />
                     <MudText Typo="Typo.h6">پرسش:</MudText>
                     <MudText Typo="Typo.body1">@question</MudText>
                     <br />
                     <MudText Typo="Typo.h6">پاسخ:</MudText>
                     @* <MudText Typo="Typo.body2">@_aIResponse</MudText> *@
                     <div> @((MarkupString)_hTMLResponse)</div>
-                }
-            </MudCardContent>
-        </MudCard>
-    </MudContainer>
+                </MudCardContent>
+            </MudCard>
+        </MudContainer>
+    }
     <style>
         table {
             border-collapse: collapse;
@@ -59,6 +82,60 @@
 
         th {
             background-color: #f2f2f2; /* Optional: Add background color to headers */
+        }
+    </style>
+    <style>
+        .google-page-style {
+            text-align: center;
+        }
+
+        .google-logo {
+            width: 270px;
+            margin-bottom: 20px;
+        }
+
+        .top-navigation {
+            padding: 10px 20px;
+        }
+
+            .top-navigation .nav-item {
+                margin: 0 10px;
+            }
+
+            .top-navigation a {
+                text-decoration: none;
+                color: #000;
+            }
+
+        .search-container {
+            margin: auto;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 24px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+            .search-bar:hover {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                transform: scale(1.02);
+            }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+        }
+
+        .google-btn {
+            min-width: 160px; /* Ensure the buttons are wide enough for content */
+        }
+
+        .google-button-section {
+            margin-top: 20px;
         }
     </style>
 }
