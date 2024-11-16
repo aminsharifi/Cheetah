@@ -55,8 +55,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ardalis.Result" Version="10.0.0" />
-		<PackageReference Include="Ardalis.SharedKernel" Version="1.6.0" />
+		<PackageReference Include="Ardalis.Result" Version="10.1.0" />
+		<PackageReference Include="Ardalis.SharedKernel" Version="2.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>

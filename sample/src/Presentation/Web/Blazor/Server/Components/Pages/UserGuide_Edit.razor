@@ -31,10 +31,10 @@
 </MudDialog>
 
 @code {
-    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] MudDialog MudDialog { get; set; }
     [Parameter] public UserGuideItem currentItem { get; set; }
-    void Submit() => MudDialog.Close(DialogResult.Ok(currentItem));
-    void Cancel() => MudDialog.Cancel();
+    void Submit() => MudDialog.CloseAsync(DialogResult.Ok(currentItem));
+    void Cancel() => MudDialog.CloseAsync();
 
     private string userInput = String.Empty;
     private string question = String.Empty;

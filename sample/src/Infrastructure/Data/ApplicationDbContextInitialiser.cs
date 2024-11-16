@@ -25,6 +25,7 @@ public static class InitialiserExtensions
 
         #region Ldap
         var _ldap = builder.Configuration.GetSection(LdapOptions.Section);
+
         if (_ldap is not null)
         {
             builder.Services.AddLdapAuthentication(o =>
