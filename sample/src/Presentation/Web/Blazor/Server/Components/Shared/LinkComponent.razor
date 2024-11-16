@@ -3,10 +3,10 @@
 @if (Records?.Sd_Status is not null)
 {
     <MudDataGrid ReadOnly="@ReadonlyState" Items="@Records.FloatState.OrderByDescending(x=>x.Value).ThenBy(x=>x.Key.Item2)"
-                 T="KeyValuePair<Tuple<long?, string>, bool>"
                  Hover="true"
                  Bordered="true" Striped="true"
                  QuickFilter="@_quickFilter">
+
         <ToolBarContent>
             <MudText Typo="Typo.h6">@Title</MudText>
             <MudSpacer />
