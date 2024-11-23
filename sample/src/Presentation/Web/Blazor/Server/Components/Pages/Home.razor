@@ -1,19 +1,36 @@
 ﻿@page "/"
 @inherits MyComponentBase
 @inject NavigationManager navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IConfiguration configuration
 <h3>Home</h3>
 
 @code {
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var isAuthenticated = authState?.User.Identity.IsAuthenticated;
         if (bool.Parse(configuration["AI:Enable"]!))
         {
-            navigation.NavigateTo("Account/Login?ReturnUrl=AI");
+            if (isAuthenticated is true)
+            {
+                navigation.NavigateTo("/AI");
+            }
+            else
+            {
+                navigation.NavigateTo("Account/Login?ReturnUrl=AI");
+            }
         }
         else
         {
-            navigation.NavigateTo("Account/Login?ReturnUrl=List");
+            if (isAuthenticated is true)
+            {
+                navigation.NavigateTo("/List");
+            }
+            else
+            {
+                navigation.NavigateTo("Account/Login?ReturnUrl=List");
+            }
         }
     }
 }
