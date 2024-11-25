@@ -1,4 +1,6 @@
-﻿@inject IConfiguration Configuration
+﻿@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@inject IConfiguration Configuration
+@inherits SharedPage
 <MudNavMenu>
     @if (bool.Parse(@Configuration["AI:Enable"]!))
     {
@@ -8,9 +10,15 @@
             </MudNavLink>
         </AuthorizeView>
         <AuthorizeView Roles="Admin">
-            <MudNavLink Href="UserGuide" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.QuestionAnswer">
-                دستورالعمل
+            <MudNavLink Href="MangePages" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AdfScanner">
+                مدیریت صفحه ها
             </MudNavLink>
+            @foreach (F_PageTable Record in Records)
+            {
+                <MudNavLink Href="@string.Concat("CustomPage\\",Record.Name)" Match="NavLinkMatch.Prefix" Icon="@GetIcon(Record.Icon)">
+                    @Record.DisplayName
+                </MudNavLink>
+            }
         </AuthorizeView>
     }
     else
@@ -33,3 +41,19 @@
         </MudNavLink>
     </AuthorizeView>
 </MudNavMenu>
+
+@code
+{
+    private string GetIcon(string iconName)
+    {
+        return (typeof(Icons.Material.Filled).GetField(iconName)?.GetValue(null) as string);
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Records = await _db.F_PageTables.ToListAsync();
+            StateHasChanged();
+        }
+    }
+}

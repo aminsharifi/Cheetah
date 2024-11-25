@@ -18,17 +18,17 @@ public partial class F_PageTable : BaseEntity, IAggregateRoot
     public virtual ICollection<F_UserGuide>? UserGuides { get; set; } = new HashSet<F_UserGuide>();
     #endregion
 
-    public F_PageTable SetJsonData(string jsonData)
+    public F_PageTable SetJsonData(string? jsonData)
     {
         JsonData = jsonData;
         return this;
     } 
-    public F_PageTable SetPolicy(string policy)
+    public F_PageTable SetPolicy(string? policy)
     {
         Policy = policy;
         return this;
     }
-    public F_PageTable SetIcon(string icon)
+    public F_PageTable SetIcon(string? icon)
     {
         Icon = icon;
         return this;

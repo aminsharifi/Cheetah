@@ -1,0 +1,134 @@
+﻿@attribute [Authorize]
+@page "/MangePages"
+@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@using Cheetah.Core.Common
+@inherits SharedPage
+
+<PageTitle>مدیریت صفحه ها</PageTitle>
+@if (true)
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudDataGrid Items="Records as List<F_PageTable>" Filterable="true" FilterMode="DataGridFilterMode.Simple"
+                         Striped="true" Hover="true" T="F_PageTable"
+                         FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
+                         Bordered="true" Dense="true">
+                <ToolBarContent>
+                    <MudButton Color="Color.Primary"
+                               Variant="Variant.Filled"
+                               StartIcon="@Icons.Material.Filled.Add"
+                               OnClick="AddNewItem">
+                        افزودن
+                    </MudButton>
+                </ToolBarContent>
+                <Columns>
+                    <PropertyColumn Property="x => x.Id" Title="شناسه" Editable="false" />
+                    <PropertyColumn Property="x => x.Name" Title="نام فرم" Editable="false" />
+                    <PropertyColumn Property="x => x.DisplayName" Title="عنوان فرم" Editable="false" />
+                    <PropertyColumn Property="x => x.JsonData" Title="تعریف فیلدها" Editable="false" />
+                    <PropertyColumn Property="x => x.Policy" Title="تعریف قواعد" Editable="false" />
+                    <TemplateColumn>
+                        <CellTemplate>
+                            <MudButtonGroup OverrideStyles="false">
+                                <MudButton Color="Color.Info"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.Edit"
+                                           OnClick="@(()=>EditItem(@context.Item))">
+                                    ویرایش
+                                </MudButton>
+                                <MudButton Color="Color.Error"
+                                           Disabled="false"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.DeleteForever"
+                                           OnClick="@(()=>DeleteItem(@context.Item))">
+                                    حذف
+                                </MudButton>
+                            </MudButtonGroup>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
+        </MudItem>
+    </MudGrid>
+
+}
+<MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
+    <MessageContent>
+        آیا از حذف ردیف اطمینان دارید؟
+    </MessageContent>
+    <YesButton>
+        <MudButton Variant="Variant.Filled" Color="Color.Error"
+                   StartIcon="@Icons.Material.Filled.DeleteForever">حذف</MudButton>
+    </YesButton>
+</MudMessageBox>
+@code {
+    MudMessageBox mbox { get; set; }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Records = await _db.F_PageTables.ToListAsync();
+            StateHasChanged();
+        }
+    }
+    private async Task AddNewItem()
+    {
+        Record = new F_PageTable();
+        var _userGuide_Edit = await ShowDialog();
+        if (_userGuide_Edit.Canceled)
+        {
+            Record = new F_PageTable();
+            return;
+        }
+
+        await _db.F_PageTables.AddAsync((F_PageTable)_userGuide_Edit.Data);
+
+        await _db.SaveChangesAsync();
+
+        Record = new F_PageTable();
+        Records = await _db.F_PageTables.ToListAsync();
+        StateHasChanged();
+    }
+    public async Task EditItem(BaseEntity item)
+    {
+        Record = item;
+        var _userGuide_Edit = await ShowDialog();
+        if (_userGuide_Edit.Canceled)
+        {
+            Record = new F_PageTable();
+            return;
+        }
+
+        await _db.SaveChangesAsync();
+        Records = await _db.F_PageTables.ToListAsync();
+        StateHasChanged();
+    }
+    private async Task<DialogResult?> ShowDialog()
+    {
+        var options = new DialogOptions
+            {
+                MaxWidth = MaxWidth.Medium
+            };
+
+        var parameters = new DialogParameters<MangePages_Edit>();
+
+        parameters.Add(x => x.Record, Record);
+
+        var dialogresult = await DialogService
+        .ShowAsync<MangePages_Edit>("دستورالعمل", parameters, options);
+
+        var result = await dialogresult.Result;
+
+        return result;
+    }
+    private async Task DeleteItem(F_PageTable item)
+    {
+        var result = await mbox.ShowAsync();
+        if (result is not null)
+        {
+            _db.F_PageTables.Remove(item);
+            Records = await _db.F_PageTables.ToListAsync();
+        }
+        StateHasChanged();
+    }
+}
