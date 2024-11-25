@@ -1,0 +1,47 @@
+﻿@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+@using Microsoft.SemanticKernel.ChatCompletion
+@using Microsoft.SemanticKernel;
+@using Microsoft.SemanticKernel.Connectors.OpenAI
+@inherits SharedPage
+<MudDialog>
+    <DialogContent>
+        <MudGrid Class="d-flex justify-end">
+            <MudItem xs="9">
+                <MudTextField Lines="5" Value="Record.Name"
+                              Label="نام فرم" Required="true"
+                              ValueChanged="(string? newValue)=>Record?.SetName(newValue)" />
+            </MudItem>
+            <MudItem xs="9">
+                <MudTextField Lines="5" Value="Record.DisplayName"
+                              Label="عنوان فرم" Required="true"
+                              ValueChanged="(string? newValue)=>Record?.SetDisplayName(newValue)" />
+            </MudItem>
+            <MudItem xs="9">
+                <MudTextField Lines="5" Value="((F_PageTable)Record).Icon"
+                              Label="آیکن" Required="true"
+                              ValueChanged="(string? newValue)=>((F_PageTable)Record).SetIcon(newValue)" />
+            </MudItem>
+            <MudItem xs="9">
+                <MudTextField Lines="5" Value="((F_PageTable)Record).JsonData"
+                              Label="تعریف فیلدها" Required="true"
+                              ValueChanged="(string? newValue)=>((F_PageTable)Record).SetJsonData(newValue)" />
+            </MudItem>
+            <MudItem xs="9">
+                <MudTextField Lines="5" Value="((F_PageTable)Record).Policy"
+                              Label="تعریف قواعد" Required="true"
+                              ValueChanged="(string? newValue)=>((F_PageTable)Record).SetPolicy(newValue)" />
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Error" OnClick="Cancel">انصراف</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Submit">ذخیره</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    void Submit() => MudDialog.Close(DialogResult.Ok(Record));
+    void Cancel() => MudDialog.Close();
+}

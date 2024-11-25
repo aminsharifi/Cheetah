@@ -1,0 +1,178 @@
+﻿@page "/CustomPage/{Name}"
+@attribute [Authorize]
+@inherits SharedPage
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+@using Mapster
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+
+<PageTitle>دستورالعمل</PageTitle>
+<MudButton Color="Color.Primary" class="mt-4"
+           Variant="Variant.Filled"
+           StartIcon="@Icons.Material.Filled.Add"
+           OnClick="AddNewItem">
+    افزودن
+</MudButton>
+@if (items.Count() > 0)
+{
+    <MudGrid>
+        <MudItem xs="12">
+            <MudDataGrid Items="items" Filterable="true" FilterMode="DataGridFilterMode.Simple"
+                         Striped="true" Hover="true"
+                         FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
+                         Bordered="true" Dense="true" T="UserGuideItem">
+                <ToolBarContent>
+                </ToolBarContent>
+                <Columns>
+                    <PropertyColumn Property="x => x.Id" Title="شناسه" Editable="false" />
+                    @* <PropertyColumn Property="x => x.JsonData" Title="داده های JSON" /> *@
+                    @foreach (var column in pageTable.JsonData.Split("،"))
+                    {
+                        <TemplateColumn>
+                            <HeaderTemplate>
+                                @column
+                            </HeaderTemplate>
+                            <CellTemplate>
+                                <MudTextField Value="@context.Item.JsonValues[column]" ReadOnly="true" />
+                            </CellTemplate>
+                        </TemplateColumn>
+                        @* 
+                  <PropertyColumn Title="column" Value="@((item) => ((JsonElement)item.JsonData).GetProperty(column).GetString())" ></PropertyColumn> *@
+                    }
+                    <TemplateColumn>
+                        <CellTemplate>
+                            <MudButtonGroup OverrideStyles="false">
+                                <MudButton Color="Color.Info"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.Edit"
+                                           OnClick="@(()=>EditItem(@context.Item))">
+                                    ویرایش
+                                </MudButton>
+                                <MudButton Color="Color.Error"
+                                           Disabled="false"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.DeleteForever"
+                                           OnClick="@(()=>DeleteItem(@context.Item.Id))">
+                                    حذف
+                                </MudButton>
+                            </MudButtonGroup>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+            </MudDataGrid>
+        </MudItem>
+    </MudGrid>
+    <MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
+        <MessageContent>
+            آیا از حذف ردیف اطمینان دارید؟
+        </MessageContent>
+        <YesButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Error"
+                       StartIcon="@Icons.Material.Filled.DeleteForever">حذف</MudButton>
+        </YesButton>
+    </MudMessageBox>
+}
+
+@code {
+    MudMessageBox mbox { get; set; }
+    F_PageTable pageTable { get; set; }
+    public List<UserGuideItem>? items = new();
+    private UserGuideItem currentItem = new();
+    private bool isDialogOpen = false;
+    private string previousName;
+    protected async override Task OnParametersSetAsync()
+    {
+        // Check if the Name parameter has changed
+        if (previousName != Name)
+        {
+            previousName = Name;
+            items = await GetAllItems();
+            StateHasChanged();
+        }
+    }
+    private async Task AddNewItem()
+    {
+        var _userGuide_Edit = await ShowDialog();
+        if (_userGuide_Edit.Canceled)
+        {
+            currentItem = new();
+            return;
+        }
+        var _result = await httpClient.PostAsJsonAsync("AI/Commands/CreateUserGuide",
+        (UserGuideItem)_userGuide_Edit.Data);
+        currentItem = new();
+        items = await GetAllItems();
+        StateHasChanged();
+    }
+    public async Task EditItem(UserGuideItem item)
+    {
+        currentItem = item;
+        var _userGuide_Edit = await ShowDialog();
+        if (_userGuide_Edit.Canceled)
+        {
+            currentItem = new();
+            return;
+        }
+        var _result = await httpClient.PutAsJsonAsync("AI/Commands/UpdateUserGuide",
+        (UserGuideItem)_userGuide_Edit.Data);
+        currentItem = new();
+        items = await GetAllItems();
+        StateHasChanged();
+    }
+    private async Task DeleteItem(long id)
+    {
+        var result = await mbox.ShowAsync();
+        if (result is not null)
+        {
+            var _response = await httpClient.DeleteAsync("AI/Commands/DeleteUserGuide/" + id);
+            await GetAllItems();
+        }
+
+        StateHasChanged();
+    }
+    private async Task<DialogResult?> ShowDialog()
+    {
+        var options = new DialogOptions
+            {
+                MaxWidth = MaxWidth.Medium
+            };
+
+        var parameters = new DialogParameters<CustomPage_Edit>();
+
+        parameters.Add(x => x.currentItem, currentItem);
+        parameters.Add(x => x.pageTable, pageTable);
+
+        var dialogresult = await DialogService.ShowAsync<CustomPage_Edit>("دستورالعمل", parameters, options);
+
+        var result = await dialogresult.Result;
+
+        return result;
+    }
+    private async Task<List<UserGuideItem>?> GetAllItems()
+    {
+        pageTable = await _db.F_PageTables.Where(x => x.Name == Name).AsNoTracking().FirstAsync();
+
+        items = await _db.F_UserGuides
+        .Where(x => x.PageTableId == pageTable.Id)
+        .Select(x => x.Adapt<UserGuideItem>())
+        .AsNoTracking()
+        .ToListAsync();
+
+        foreach (var item in items)
+        {
+            // jsonData
+            using JsonDocument jsonDoc = JsonDocument.Parse(item.JsonData);
+            var root = jsonDoc.RootElement;
+            item.columns = root.EnumerateObject().Select(p => p.Name).ToList();
+            // Populate the data
+            Dictionary<string, string> _jsonValues = new();
+            foreach (var column in item.columns)
+            {
+                item.JsonValues.Add(column, root.GetString(column));
+            }
+        }
+        return items;
+    }
+}

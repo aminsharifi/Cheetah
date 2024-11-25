@@ -1,8 +1,9 @@
-﻿@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+﻿@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
 @using Microsoft.SemanticKernel.ChatCompletion
 @using Microsoft.SemanticKernel;
 @using Microsoft.SemanticKernel.Connectors.OpenAI
-@using static Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Pages.UserGuide
+@using static Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Pages.CustomPage
 @inherits SharedPage
 <MudDialog>
     <DialogContent>
@@ -33,6 +34,7 @@
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
     [Parameter] public UserGuideItem currentItem { get; set; }
+    [Parameter] public F_PageTable pageTable { get; set; }
     void Submit() => MudDialog.Close(DialogResult.Ok(currentItem));
     void Cancel() => MudDialog.Close();
 
@@ -46,14 +48,10 @@
     {
         disableSubmit = true;
 
-        string prompt = @"
-                Please provide the following UserGuide details in JSON format:
-                {
-                    ""Subject"": ""عنوان دستورالعمل"",
-                    ""Description"": ""توضیحات دستورالعمل"",
-                    ""Keywords"": ""کلیدواژه های دستورالعمل""
-                }
-                " + currentItem.Body;
+        string prompt = @"Please provide the following details in JSON format with these keys:" +
+        pageTable.JsonData +
+        @" values not be in arrays   
+        "+ currentItem.Body;
 
         var jsonResponse = await _kernel.InvokePromptAsync(prompt);
 

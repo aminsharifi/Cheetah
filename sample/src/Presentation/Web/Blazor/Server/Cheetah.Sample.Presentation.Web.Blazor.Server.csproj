@@ -66,7 +66,7 @@
 		<Content Update="Components\Account\Pages\LoginEn.razor">
 		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
-		<Content Update="Components\Pages\UserGuide.razor">
+		<Content Update="Components\Pages\CustomPage.razor">
 		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>
 		<Content Update="Components\Shared\CUpserts\CUpsert_Scenario.razor">
