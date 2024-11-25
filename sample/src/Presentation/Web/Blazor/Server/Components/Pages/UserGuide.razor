@@ -1,6 +1,5 @@
 ﻿@page "/UserGuide"
 @attribute [Authorize]
-@attribute [Authorize]
 @inherits MyComponentBase
 @using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
 @using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
@@ -8,13 +7,14 @@
 @using Microsoft.SemanticKernel.ChatCompletion
 
 <PageTitle>دستورالعمل</PageTitle>
-<MudGrid>
+@if (items.Any())
+{
+   <MudGrid>
     <MudItem xs="12">
         <MudDataGrid Items="items" Filterable="true" FilterMode="DataGridFilterMode.Simple"
                      Striped="true" Hover="true"
                      FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
-                     Bordered="true" Dense="true"
-                     T="UserGuideItem">
+                     Bordered="true" Dense="true" T="UserGuideItem">
             <ToolBarContent>
                 <MudButton Color="Color.Primary"
                            Variant="Variant.Filled"
@@ -25,10 +25,21 @@
             </ToolBarContent>
             <Columns>
                 <PropertyColumn Property="x => x.Id" Title="شناسه" Editable="false" />
-                <PropertyColumn Property="x => x.Subject" Title="عنوان" />
-                <PropertyColumn Property="x => x.Description" Title="توضیحات" />
-                <PropertyColumn Property="x => x.Keywords" Title="کلیدواژه ها" />
-                <TemplateColumn CellClass="d-flex justify-end">
+                @* <PropertyColumn Property="x => x.JsonData" Title="داده های JSON" /> *@
+                @foreach (var column in items.FirstOrDefault()?.columns)
+                {
+                    <TemplateColumn>
+                        <HeaderTemplate>
+                            @column
+                        </HeaderTemplate>
+                        <CellTemplate>
+                            <MudTextField Value="@context.Item.JsonValues[column]" />
+                        </CellTemplate>
+                    </TemplateColumn>
+                    @* 
+                  <PropertyColumn Title="column" Value="@((item) => ((JsonElement)item.JsonData).GetProperty(column).GetString())" ></PropertyColumn> *@
+                }
+                <TemplateColumn>
                     <CellTemplate>
                         <MudButtonGroup OverrideStyles="false">
                             <MudButton Color="Color.Info"
@@ -59,7 +70,9 @@
         <MudButton Variant="Variant.Filled" Color="Color.Error"
                    StartIcon="@Icons.Material.Filled.DeleteForever">حذف</MudButton>
     </YesButton>
-</MudMessageBox>
+</MudMessageBox> 
+}
+
 @code {
     MudMessageBox mbox { get; set; }
     public List<UserGuideItem>? items = new();
@@ -132,11 +145,24 @@
 
         return result;
     }
-
     private async Task<List<UserGuideItem>?> GetAllItems()
     {
         items = await httpClient
         .GetFromJsonAsync<List<UserGuideItem>>("AI/Queries/ListUserGuides");
+        foreach (var item in items)
+        {
+            // jsonData
+            using JsonDocument jsonDoc = JsonDocument.Parse(item.JsonData);
+            var root = jsonDoc.RootElement;
+
+            item.columns= root.EnumerateObject().Select(p => p.Name).ToList();
+            // Populate the data
+            Dictionary<string, string> _jsonValues = new();
+            foreach (var column in item.columns)
+            {
+                item.JsonValues.Add(column, root.GetString(column));
+            }
+        }
         return items;
     }
 }

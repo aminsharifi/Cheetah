@@ -169,7 +169,7 @@
             {
                 // var jobId = BackgroundJob.Enqueue(() => Console.WriteLine("Fire-and-forget!"));
 
-                await simpleClassRepository.deleteAsync(Name, Id);
+                await simpleClassRepository.DeleteAsync(Name, Id);
                 Records = Records.Where(x => x.Id != DeletedState);
             }
             catch (Exception ex)

@@ -180,9 +180,8 @@
             items = await GetAllItems();
             foreach (var item in items)
             {
-                _chathistory.AddSystemMessage(nameof(item.Subject) + ":" + item.Subject + "\n" +
-                nameof(item.Description) + ":" + item.Description + "\n" +
-                nameof(item.Keywords) + ":" + item.Keywords + "\n" +
+                _chathistory.AddSystemMessage(nameof(item.JsonData) + ":" +
+                item.JsonData + "\n" +
                 nameof(item.Body) + ":" + item.Body + "\n"
                 );
             }

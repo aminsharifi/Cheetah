@@ -4,6 +4,7 @@ using Cheetah.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 {
     [DbContext(typeof(CheetahDbContext))]
-    partial class CheetahDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241119090008_add_PageTable")]
+    partial class add_PageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,6 +247,9 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                     b.Property<long?>("PageTableId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PageTableId1")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("SortIndex")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
@@ -269,6 +275,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .IsDescending();
 
                     b.HasIndex("PageTableId");
+
+                    b.HasIndex("PageTableId1");
 
                     b.ToTable("F_UserGuide", "Facts", t =>
                         {
@@ -4849,9 +4857,14 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 
             modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_UserGuide", b =>
                 {
+                    b.HasOne("Cheetah.Core.Aggregates.AIAggregate.Facts.F_PageTable", null)
+                        .WithMany()
+                        .HasForeignKey("PageTableId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Cheetah.Core.Aggregates.AIAggregate.Facts.F_PageTable", "PageTable")
                         .WithMany("UserGuides")
-                        .HasForeignKey("PageTableId");
+                        .HasForeignKey("PageTableId1");
 
                     b.Navigation("PageTable");
                 });

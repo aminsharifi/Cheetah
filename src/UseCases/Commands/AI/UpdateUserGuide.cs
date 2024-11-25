@@ -15,9 +15,7 @@ public static class UpdateUserGuide
         }
 
         _userGuide
-            .SetSubject(userGuide.Subject)
-            .SetDescription(userGuide.Description)
-            .SetKeywords(userGuide.Keywords)
+            .SetJsonData(userGuide.JsonData)
             .SetBody(userGuide.Body);
 
         await userGuideRepository.UpdateAsync(_userGuide, CancellationToken.None);

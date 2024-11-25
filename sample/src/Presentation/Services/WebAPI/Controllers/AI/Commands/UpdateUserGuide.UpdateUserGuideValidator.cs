@@ -9,14 +9,8 @@ public class UpdateUserGuideValidator : Validator<UpdateUserGuideRequest>
         RuleFor(x => x.Id)
            .GreaterThan(0);
 
-        RuleFor(x => x.Subject)
+        RuleFor(x => x.JsonData)
            .MinimumLength(5);
-
-        RuleFor(x => x.Description)
-            .MinimumLength(5);
-
-        RuleFor(x => x.Keywords)
-            .MinimumLength(5);
 
         RuleFor(x => x.Body)
             .MinimumLength(5);

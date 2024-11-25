@@ -4,7 +4,7 @@ using Cheetah.Core.Common.DTOs;
 namespace Cheetah.Core.Interfaces;
 public interface ITableCRUD
 {
-    public Task<int> deleteAsync(string type, long? id);
+    public Task<int> DeleteAsync(string type, long? id);
     public Task<IEnumerable<BaseEntity>> GetAllByNameAsync(string type);
     public Task<Tuple<SimpleClassDTO, IEnumerable<SimpleClassDTO>>> GetAllBySimpleClassAsync(SimpleClassDTO simpleClass);
     public Task<Dictionary<string, string>> GetAllTableNameAsync(string SchemaName);
