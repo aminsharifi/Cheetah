@@ -1,6 +1,4 @@
-﻿using Cheetah.Sample.Presentation.Services.WebAPI.Controllers.AI.Queries;
-
-namespace Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
+﻿namespace Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
 public class GetUserGuideRequest
 {

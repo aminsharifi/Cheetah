@@ -7,12 +7,10 @@ namespace Cheetah.Sample.Presentation.Web.Blazor.Server.AI
     {
         public long Id { get; set; }
         [Description("user guide's subject)")]
-        public string Subject { get; set; }
-        [Description("user guide's description)")]
-        public string Description { get; set; }
-        [Description("user guide's keyword)")]
-        public string Keywords { get; set; }
-        [Description("user guide's body)")]
+        public List<string> columns = new List<string>();
+        public string JsonData { get; set; }
+        public Dictionary<string, string> JsonValues = new();
+        [Description("user guide's JsonData")]
         public string Body { get; set; }
     }
     public class UserGuideInfo

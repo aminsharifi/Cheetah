@@ -96,7 +96,8 @@ public partial class CheetahDbContext : DbContext
     public virtual DbSet<F_Scenario> F_Scenarios { get; set; }
     public virtual DbSet<F_Flow> F_Flows { get; set; }
     public virtual DbSet<F_UserGuide> F_UserGuides { get; set; }
-    
+    public virtual DbSet<F_PageTable> F_PageTables { get; set; }
+
     #endregion
 
     #region Links

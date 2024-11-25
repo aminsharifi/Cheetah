@@ -13,15 +13,15 @@
             <MudItem xs="3">
                 <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="BodyValidation" Disabled="disableSubmit">اعتبارسنجی</MudButton>
             </MudItem>
-            <MudItem xs="12">
-                <MudTextField @bind-Value="currentItem.Subject" Label="عنوان" Required="true" />
-            </MudItem>
-            <MudItem xs="12">
-                <MudTextField @bind-Value="currentItem.Description" Label="توضیحات" Required="true" />
-            </MudItem>
-            <MudItem xs="12">
-                <MudTextField @bind-Value="currentItem.Keywords" Label="کلمات کلیدی" Required="true" />
-            </MudItem>
+            @*  <MudItem xs="12">
+                <MudTextField @bind-Value="currentItem.JsonData" Label="اطلاعات JSON" Required="true" />
+            </MudItem> *@
+            @foreach (var column in currentItem.columns)
+            {
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="currentItem.JsonValues[column]" Label="@column" ReadOnly="true" />
+                </MudItem>
+            }
         </MudGrid>
     </DialogContent>
     <DialogActions>
@@ -31,10 +31,10 @@
 </MudDialog>
 
 @code {
-    [CascadingParameter] MudDialog MudDialog { get; set; }
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
     [Parameter] public UserGuideItem currentItem { get; set; }
-    void Submit() => MudDialog.CloseAsync(DialogResult.Ok(currentItem));
-    void Cancel() => MudDialog.CloseAsync();
+    void Submit() => MudDialog.Close(DialogResult.Ok(currentItem));
+    void Cancel() => MudDialog.Close();
 
     private string userInput = String.Empty;
     private string question = String.Empty;
@@ -42,44 +42,42 @@
     String _aIResponse = String.Empty;
     bool disableSubmit = false;
 
-    private async Task BodyValidation()
+    public async Task BodyValidation()
     {
         disableSubmit = true;
-        // _kernel.Plugins.AddFromType<UserGuideInfo>("userguide_info");
 
-        ChatHistory chatHistory = new ChatHistory();
+        string prompt = @"
+                Please provide the following UserGuide details in JSON format:
+                {
+                    ""Subject"": ""عنوان دستورالعمل"",
+                    ""Description"": ""توضیحات دستورالعمل"",
+                    ""Keywords"": ""کلیدواژه های دستورالعمل""
+                }
+                " + currentItem.Body;
 
-        chatHistory.AddSystemMessage("user guide's body:\n");
+        var jsonResponse = await _kernel.InvokePromptAsync(prompt);
 
-        chatHistory.AddUserMessage(currentItem.Body);
+        var _cleanedJsonResponse = jsonResponse.ToString()
+        .Replace("```", string.Empty)
+        .Replace("json", string.Empty);
 
-        chatHistory.AddSystemMessage("extract subject from it in persian laguage");
+        // Parse JSON into a Dictionary
+        var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, string>>(_cleanedJsonResponse);
 
-        // Get the response from the AI
-        var result = await ChatCompletionService.GetChatMessageContentAsync(
-           chatHistory,
-           kernel: _kernel);
+        currentItem.JsonData = _cleanedJsonResponse;
 
-        currentItem.Subject = result?.Items.FirstOrDefault()?.ToString();
+        // jsonData
+        using JsonDocument jsonDoc = JsonDocument.Parse(currentItem.JsonData);
+        var root = jsonDoc.RootElement;
 
-        chatHistory.AddSystemMessage("just extract description from it in persian laguage");
-
-        // Get the response from the AI
-        result = await ChatCompletionService.GetChatMessageContentAsync(
-           chatHistory,
-           kernel: _kernel);
-
-        currentItem.Description = result?.Items.FirstOrDefault()?.ToString();
-
-
-        chatHistory.AddSystemMessage("just extract keywords from it in persian laguage");
-
-        // Get the response from the AI
-        result = await ChatCompletionService.GetChatMessageContentAsync(
-          chatHistory,
-          kernel: _kernel);
-
-        currentItem.Keywords = result?.Items.FirstOrDefault()?.ToString();
+        currentItem.columns = root.EnumerateObject().Select(p => p.Name).ToList();
+        currentItem.JsonValues = new();
+        // Populate the data
+        Dictionary<string, string> _jsonValues = new();
+        foreach (var column in currentItem.columns)
+        {
+            currentItem.JsonValues.Add(column, root.GetString(column));
+        }
 
         disableSubmit = false;
     }

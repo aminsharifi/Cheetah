@@ -6,7 +6,6 @@ using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Account;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +31,8 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("http://localhost:802/")
+    //BaseAddress = new Uri("http://localhost:802/")
+    BaseAddress = new Uri("https://localhost:7277")
 });
 
 //builder.Services

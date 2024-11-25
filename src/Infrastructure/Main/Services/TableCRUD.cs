@@ -43,7 +43,7 @@ public class TableCRUD(CheetahDbContext _db) : ITableCRUD
         await _db.SaveChangesAsync();
         return obj_DTO;
     }
-    public async Task<int> deleteAsync(string type, long? id)
+    public async Task<int> DeleteAsync(string type, long? id)
     {
         if (!string.IsNullOrEmpty(type))
         {
