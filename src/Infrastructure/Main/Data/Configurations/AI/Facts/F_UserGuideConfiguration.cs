@@ -1,4 +1,5 @@
 ﻿using Cheetah.Core.Aggregates.AIAggregate.Facts;
+using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 
 namespace Cheetah.Infrastructure.Data.Configurations.AI.Facts;
 
@@ -9,17 +10,13 @@ public class F_UserGuideConfiguration : IEntityTypeConfiguration<F_UserGuide>
         builder
             .HasComment("UserGuides for FAQ");
 
-        builder.Property(e => e.Subject)
-            .HasMaxLength(1024);
-
-        builder.Property(e => e.Description)
-            .HasMaxLength(1024);
-
-        builder.Property(e => e.Keywords)
-            .HasMaxLength(1024);
+        builder.Property(e => e.JsonData)
+             .HasColumnType("nvarchar(max)"); // Set the property to nvarchar(max)
 
         builder.Property(e => e.Body)
               .HasColumnType("nvarchar(max)"); // Set the property to nvarchar(max)
 
+        builder.Property(e => e.VectorBody)
+               .HasColumnType("VARBINARY(MAX)"); // Store as VARBINARY
     }
 }

@@ -16,16 +16,19 @@
 	<ItemGroup>
 		<Compile Remove="Aggregates\CaseAggregate\Events\**" />
 		<Compile Remove="Aggregates\CaseAggregate\Handlers\**" />
+		<Compile Remove="Aggregates\CaseAggregate\Links\Values\**" />
 		<Compile Remove="Aggregates\ConditionAggregate\Facts\**" />
 		<Compile Remove="Aggregates\ConditionAggregate\Links\**" />
 		<Compile Remove="Interfaces\**" />
 		<EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
 		<EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
+		<EmbeddedResource Remove="Aggregates\CaseAggregate\Links\Values\**" />
 		<EmbeddedResource Remove="Aggregates\ConditionAggregate\Facts\**" />
 		<EmbeddedResource Remove="Aggregates\ConditionAggregate\Links\**" />
 		<EmbeddedResource Remove="Interfaces\**" />
 		<None Remove="Aggregates\CaseAggregate\Events\**" />
 		<None Remove="Aggregates\CaseAggregate\Handlers\**" />
+		<None Remove="Aggregates\CaseAggregate\Links\Values\**" />
 		<None Remove="Aggregates\ConditionAggregate\Facts\**" />
 		<None Remove="Aggregates\ConditionAggregate\Links\**" />
 		<None Remove="Interfaces\**" />
@@ -49,8 +52,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Ardalis.Result" Version="10.0.0" />
-		<PackageReference Include="Ardalis.SharedKernel" Version="1.6.0" />
+		<PackageReference Include="Ardalis.Result" Version="10.1.0" />
+		<PackageReference Include="Ardalis.SharedKernel" Version="2.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,10 +70,5 @@
 			<LastGenOutput>Localization.Designer.cs</LastGenOutput>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Aggregates\AIAggregate\Specifications\" />
-		<Folder Include="Aggregates\CaseAggregate\Links\Values\" />
 	</ItemGroup>
 </Project>

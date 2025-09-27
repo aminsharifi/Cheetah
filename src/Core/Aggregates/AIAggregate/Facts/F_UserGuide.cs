@@ -9,29 +9,26 @@ public partial class F_UserGuide : BaseEntity, IAggregateRoot
     }
 
     #region Simple Prob
-    public string Subject { get; private set; }
-    public string Description { get; private set; }
-    public string Keywords { get; private set; }
     public string Body { get; private set; }
+    public byte[] VectorBody { get; set; } // Store as VARBINARY
+    public string JsonData { get; private set; }
+    public virtual F_PageTable? PageTable { get; private set; }
+    public long? PageTableId { get; private set; }
+
     #endregion
 
     #region Relations
 
     #endregion
 
-    public F_UserGuide SetSubject(string subject)
+    public F_UserGuide SetJsonData(string jsonData)
     {
-        Subject = subject;
+        JsonData = jsonData;
         return this;
     }
-    public F_UserGuide SetDescription(string description)
+    public F_UserGuide SetPageTableId(long pageTableId)
     {
-        Description = description;
-        return this;
-    }
-    public F_UserGuide SetKeywords(string keywords)
-    {
-        Keywords = keywords;
+        PageTableId = pageTableId;
         return this;
     }
     public F_UserGuide SetBody(string body)

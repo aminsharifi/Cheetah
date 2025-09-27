@@ -2,8 +2,6 @@
 
 public class CreateUserGuideResponse
 {
-    public string Subject { get; set; }
-    public string Description { get; set; }
-    public string Keywords { get; set; }
+    public string JsonData { get; set; }
     public string Body { get; set; }
 }

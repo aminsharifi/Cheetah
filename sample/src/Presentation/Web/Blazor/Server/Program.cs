@@ -1,13 +1,14 @@
 using Cheetah.Core.Resx;
 using Cheetah.Sample.Infrastructure.Data;
-using Cheetah.Sample.Presentation.Web.Blazor.Server.AI;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Account;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
+using KristofferStrube.Blazor.MediaCaptureStreams;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddSingleton<IGlobalization>
     (
@@ -23,14 +24,28 @@ builder.Services.AddScoped<CNavigation>();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// Adding IMediaDevicesService to service collection.
+builder.Services.AddMediaDevicesService();
+
+builder.Services.AddSignalR(options =>
+{
+    options.MaximumReceiveMessageSize = 902400; // Set maximum message size to 900 KB (adjust as needed)
+    //options.ClientTimeoutInterval = TimeSpan.FromMinutes(3);
+    //options.KeepAliveInterval = TimeSpan.FromMinutes(3);
+    options.EnableDetailedErrors = true; // Optional: Enable detailed errors for debugging
+});
+
 builder.Services.AddMudServices();
 
 builder.Services.AddBootstrapBlazor();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped(sp => new HttpClient {
-    BaseAddress = new Uri("http://localhost:802/") });
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri("http://localhost:802/")
+    //BaseAddress = new Uri("https://localhost:7277")
+});
 
 //builder.Services
 //  .AddIdentityCore<ApplicationUser>();
@@ -68,39 +83,71 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 #region Semantic Kernel
 var _ai = builder.Configuration.GetSection("AI");
-builder
-    .Services
-    .AddKernel();
+
 // Add a chat completion service:
 
 string apiKey = _ai.GetValue<string>("ApiKey")!;
 string modelId = _ai.GetValue<string>("ModelId")!;
-Uri endpoint = new Uri(_ai.GetValue<string>("Endpoint")!);
+string embeddingModelId = _ai.GetValue<string>("EmbeddingModelId")!;
+var _endpoint = _ai.GetValue<string>("Endpoint");
+var _embeddingEndpoint = _ai.GetValue<string>("EmbeddingEndpoint");
+
+// string modelId = "AI21-Jamba-1.5-Mini";
+// string modelId = "Cohere-command-r-08-2024";
 #pragma warning disable SKEXP0010
 
+var kernel = Kernel.CreateBuilder();
 
-var kernel = Kernel.CreateBuilder()
-    .AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint)
-    .Build();
 
-builder.Services.AddTransient((serviceProvider) =>
+if (!String.IsNullOrEmpty(_endpoint))
 {
-    return new Kernel(serviceProvider);
+    Uri endpoint = new Uri(_endpoint);
+    kernel.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint);
+
+    kernel.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey,
+        httpClient: new HttpClient { BaseAddress = endpoint });
+}
+else
+{
+
+    //var proxy = new WebProxy("192.168.100.31:808")
+    //{
+    //    Credentials = new NetworkCredential("a", "a")
+    //};
+
+    //var httpClientHandler = new HttpClientHandler
+    //{
+    //    Proxy = proxy,
+    //    UseProxy = true,
+    //};
+
+    //var httpClient = new HttpClient(httpClientHandler);
+    //kernel.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, httpClient: httpClient);
+    //kernel.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey, httpClient: httpClient);
+    kernel.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey);
+    kernel.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey);
+}
+
+var _kernelBuild = kernel.AddInMemoryVectorStore().Build();
+
+builder.Services.AddTransient(serviceProvider =>
+{
+    return _kernelBuild;
 });
 
-builder.Services.AddSingleton(sp =>
+builder.Services.AddTransient(sp =>
 {
-    var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
+    var chatCompletionService = _kernelBuild.GetRequiredService<IChatCompletionService>();
     return chatCompletionService;
 });
-builder.Services.AddSingleton(sp =>
-{
-    var userGuideInfo = kernel.GetRequiredService<UserGuideInfo>();
-    return userGuideInfo;
-});
+//builder.Services.AddSingleton(sp =>
+//{
+//    var userGuideInfo = kernel.GetRequiredService<UserGuideInfo>();
+//    return userGuideInfo;
+//});
 // Add the plugin to the kernel
 
-kernel.Plugins.AddFromType<UserGuideInfo>("userguide_info");
+//kernel.Plugins.AddFromType<UserGuideInfo>("userguide_info");
 
 #endregion
 

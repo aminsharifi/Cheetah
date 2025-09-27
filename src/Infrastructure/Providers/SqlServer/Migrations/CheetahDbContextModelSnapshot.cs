@@ -18,13 +18,255 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_PageTable", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1)
+                        .HasComment("The unique key of each record")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset?>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnOrder(6)
+                        .HasDefaultValueSql("GETDATE()")
+                        .HasComment("Record creation date");
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(12)
+                        .HasComment("Created by what user?");
+
+                    b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(5)
+                        .HasComment("Additional description of each record");
+
+                    b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(4)
+                        .HasComment("The localized name of each record");
+
+                    b.Property<long?>("ERPCode")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10)
+                        .HasComment("ID of this record in ERP");
+
+                    b.Property<bool>("EnableRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnOrder(9)
+                        .HasComment("Active status of the record");
+
+                    b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnOrder(8)
+                        .HasDefaultValueSql("NEWSEQUENTIALID ()")
+                        .HasComment("Unique GUID identifier");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JsonData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("LastModified")
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnOrder(7)
+                        .HasComment("The date the record was last updated");
+
+                    b.Property<string>("LastModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(11)
+                        .HasComment("By which user has it been updated?");
+
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(3)
+                        .HasComment("English name of each record");
+
+                    b.Property<string>("Policy")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(2)
+                        .HasComment("The sort index of the record");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Created")
+                        .IsDescending();
+
+                    b.HasIndex("ERPCode")
+                        .IsDescending();
+
+                    b.HasIndex("EnableRecord")
+                        .IsDescending();
+
+                    b.HasIndex("LastModified")
+                        .IsDescending();
+
+                    b.HasIndex("Name")
+                        .IsDescending();
+
+                    b.ToTable("F_PageTable", "Facts", t =>
+                        {
+                            t.HasComment("UserGuides for FAQ");
+                        });
+                });
+
+            modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_UploadedFile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1)
+                        .HasComment("The unique key of each record")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnOrder(6)
+                        .HasDefaultValueSql("GETDATE()")
+                        .HasComment("Record creation date");
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(12)
+                        .HasComment("Created by what user?");
+
+                    b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(5)
+                        .HasComment("Additional description of each record");
+
+                    b.Property<string>("DisplayName")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(4)
+                        .HasComment("The localized name of each record");
+
+                    b.Property<long?>("ERPCode")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10)
+                        .HasComment("ID of this record in ERP");
+
+                    b.Property<bool>("EnableRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnOrder(9)
+                        .HasComment("Active status of the record");
+
+                    b.Property<Guid?>("GuidRecord")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnOrder(8)
+                        .HasDefaultValueSql("NEWSEQUENTIALID ()")
+                        .HasComment("Unique GUID identifier");
+
+                    b.Property<DateTimeOffset?>("LastModified")
+                        .HasColumnType("datetimeoffset")
+                        .HasColumnOrder(7)
+                        .HasComment("The date the record was last updated");
+
+                    b.Property<string>("LastModifiedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(11)
+                        .HasComment("By which user has it been updated?");
+
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
+                        .HasDefaultValue("")
+                        .HasColumnOrder(3)
+                        .HasComment("English name of each record");
+
+                    b.Property<long?>("SortIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L)
+                        .HasColumnOrder(2)
+                        .HasComment("The sort index of the record");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Created")
+                        .IsDescending();
+
+                    b.HasIndex("ERPCode")
+                        .IsDescending();
+
+                    b.HasIndex("EnableRecord")
+                        .IsDescending();
+
+                    b.HasIndex("LastModified")
+                        .IsDescending();
+
+                    b.HasIndex("Name")
+                        .IsDescending();
+
+                    b.ToTable("F_UploadedFile", "Facts");
+                });
 
             modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_UserGuide", b =>
                 {
@@ -57,10 +299,9 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasComment("Created by what user?");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)")
                         .HasDefaultValue("")
                         .HasColumnOrder(5)
                         .HasComment("Additional description of each record");
@@ -92,10 +333,9 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasDefaultValueSql("NEWSEQUENTIALID ()")
                         .HasComment("Unique GUID identifier");
 
-                    b.Property<string>("Keywords")
+                    b.Property<string>("JsonData")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastModified")
                         .HasColumnType("datetimeoffset")
@@ -118,6 +358,9 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasColumnOrder(3)
                         .HasComment("English name of each record");
 
+                    b.Property<long?>("PageTableId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("SortIndex")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
@@ -125,10 +368,9 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .HasColumnOrder(2)
                         .HasComment("The sort index of the record");
 
-                    b.Property<string>("Subject")
+                    b.Property<byte[]>("VectorBody")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
+                        .HasColumnType("VARBINARY(MAX)");
 
                     b.HasKey("Id");
 
@@ -146,6 +388,8 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
 
                     b.HasIndex("Name")
                         .IsDescending();
+
+                    b.HasIndex("PageTableId");
 
                     b.ToTable("F_UserGuide", "Facts", t =>
                         {
@@ -4724,6 +4968,15 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_UserGuide", b =>
+                {
+                    b.HasOne("Cheetah.Core.Aggregates.AIAggregate.Facts.F_PageTable", "PageTable")
+                        .WithMany("UserGuides")
+                        .HasForeignKey("PageTableId");
+
+                    b.Navigation("PageTable");
+                });
+
             modelBuilder.Entity("Cheetah.Core.Aggregates.CaseAggregate.Facts.F_Case", b =>
                 {
                     b.HasOne("Cheetah.Core.Aggregates.CaseAggregate.Dimentions.D_CaseState", "CaseState")
@@ -5041,6 +5294,11 @@ namespace Cheetah.Infrastructure.Providers.SqlServer.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Cheetah.Core.Aggregates.AIAggregate.Facts.F_PageTable", b =>
+                {
+                    b.Navigation("UserGuides");
                 });
 
             modelBuilder.Entity("Cheetah.Core.Aggregates.CaseAggregate.Facts.F_Case", b =>

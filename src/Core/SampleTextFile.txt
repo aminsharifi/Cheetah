@@ -1,0 +1,238 @@
+﻿using Ardalis.Result;
+
+namespace Farasa.Application.Helper
+{
+    public static class FluentResultExtensions
+    {
+        public static Result AsResult(this FluentValidation.Results.ValidationResult valResult)
+        {
+            var resultErrors = new List<Result>();
+
+            foreach (var valFailure in valResult.Errors)
+            {
+                var _customState = Enum.Parse<ResultStatus>(valFailure.ErrorCode);
+
+                switch (_customState)
+                {
+                    case ResultStatus.Conflict:
+                        resultErrors.Add(Result.Conflict(valFailure.ErrorMessage));
+                        break;
+                    case ResultStatus.Error:
+                        resultErrors.Add(Result.Error(valFailure.ErrorMessage));
+                        break;
+                    case ResultStatus.Forbidden:
+                        resultErrors.Add(Result.Forbidden(valFailure.ErrorMessage));
+                        break;
+                    case ResultStatus.Unauthorized:
+                        resultErrors.Add(Result.Unauthorized(valFailure.ErrorMessage));
+                        break;
+                    case ResultStatus.NotFound:
+                        resultErrors.Add(Result.NotFound(valFailure.ErrorMessage));
+                        break;
+                    case ResultStatus.CriticalError:
+                        resultErrors.Add(Result.CriticalError(valFailure.ErrorMessage));
+                        break;
+                    case ResultStatus.Unavailable:
+                        resultErrors.Add(Result.Unavailable(valFailure.ErrorMessage));
+                        break;
+                }
+            }
+
+            if (resultErrors.Any())
+            {
+                var _errors = resultErrors.SelectMany(x => x.ValidationErrors);
+                return Result.Invalid(_errors);
+            }
+            return Result.Success();
+        }
+    }
+}
+////////////////////////////////////////////
+using Ardalis.Result;
+using AutoMapper;
+using Farasa.Application.Helper;
+using Farasa.Application.WorkFlow.Commands.CheetahWorkFlowWrapper;
+using Farasa.Core.DTOs;
+using Farasa.Core.Interfaces.Commands;
+using Farasa.Core.Interfaces.Repositories.CUD;
+using Farasa.Core.Interfaces.Repositories.Read;
+using Farasa.Core.WorkFlow.EntityClasses;
+using Farasa.Core.WorkFlow.LogClasses;
+
+namespace Farasa.Application.WorkFlow.CheetahWorkFlowWrapper;
+
+public class CheetahWorkFlowCommands : IEntityIBaseListPostCommands<CheetahWorkFlowModel>, IBaseListPostCommands<CheetahWorkFlow>
+{
+    ICommonRepository<CheetahWorkFlow> _commonRepository;
+    ICommonReadonlyRepository<CheetahWorkFlow> _commonReadonlyRepository;
+    IMapper _iMapper;
+    public CheetahWorkFlowCommands(ICommonRepository<CheetahWorkFlow> commonRepository,
+        ICommonReadonlyRepository<CheetahWorkFlow> commonReadonlyRepository, IMapper iMapper)
+    {
+        _iMapper = iMapper;
+        _commonRepository = commonRepository;
+        _commonReadonlyRepository = commonReadonlyRepository;
+    }
+    public async Task<Result<CheetahWorkFlowModel>> AddAsync(CheetahWorkFlowModel cheetahWorkFlow)
+    {
+        CheetahWorkFlowValidators _validationRules = new(_commonReadonlyRepository);
+        var _validationResults = await _validationRules
+            .AddAsync()
+            .ValidateAsync(cheetahWorkFlow);
+
+        if (!_validationResults.IsValid)
+        {
+            return _validationResults.AsResult();
+        }
+
+        var _cheetahWorkFlow = await _commonRepository
+            .CreateAsync(_iMapper.Map<CheetahWorkFlow>(cheetahWorkFlow));
+
+        return Result.Created(cheetahWorkFlow);
+    }
+
+    public async Task<Result> EditByIdAsync(int id, CheetahWorkFlowModel cheetahWorkFlow)
+    {
+        CheetahWorkFlowValidators _validationRules = new(_commonReadonlyRepository);
+        var _validationResults = await _validationRules
+            .EditByIdAsync(id)
+            .ValidateAsync(cheetahWorkFlow);
+
+        if (!_validationResults.IsValid)
+        {
+            return _validationResults.AsResult();
+        }        
+        await _commonRepository.UpdateByIdAsync(id, _iMapper.Map<CheetahWorkFlow>(cheetahWorkFlow));
+        return Result.NoContent();
+    }
+
+    public async Task<Result> RemoveByIdAsync(int id)
+    {
+        CheetahWorkFlowValidators _validationRules = new(_commonReadonlyRepository);
+        var _validationResults = await _validationRules
+            .EditByIdAsync(id)
+            .ValidateAsync(new CheetahWorkFlowModel());
+
+        if (!_validationResults.IsValid)
+        {
+            return _validationResults.AsResult();
+        }
+
+        await _commonRepository.DeleteAsync(id);
+        return Result.NoContent();
+    }
+
+    public async Task<Result<CheetahWorkFlow>> AddBaseListPostAsync(BaseListPostViewModel baseListPostViewModel, long currentUser)
+    {
+        var newRole = new CheetahWorkFlow()
+        {
+            Name = baseListPostViewModel.Name,
+            Description = baseListPostViewModel.Description ?? string.Empty, // Use empty string if null
+            IsActive = baseListPostViewModel.IsActive,
+            CheetahWorkFlowLogs =
+                    [
+                        new CheetahWorkFlowLog {
+                            Name = baseListPostViewModel.Name,
+                            Description = baseListPostViewModel.Description ?? string.Empty, // Use empty string if null
+                            IsActive = baseListPostViewModel.IsActive,
+                            UserID = currentUser,
+                            LogDate = DateTime.Now
+                        }
+                    ]
+        };
+
+        var _created = await _commonRepository.CreateAsync(newRole);
+
+        return Result.Created(_created.Value); // Return success
+    }
+
+    public async Task<Result> EditBaseListPostAsync(BaseListPostViewModel baseListPostViewModel, long currentUser)
+    {
+        var _fetched = await _commonReadonlyRepository
+            .FetchByIdAsync((int)baseListPostViewModel.Id);
+
+        var roleEntity = _fetched.Value;
+
+        if (roleEntity is null) // Check if the workflow exists
+        {
+            return Result.Invalid();
+        }
+        // Update properties
+        roleEntity.Name = baseListPostViewModel.Name;
+        roleEntity.Description = baseListPostViewModel.Description;
+        roleEntity.IsActive = baseListPostViewModel.IsActive;
+
+        // Create a new log entry
+        var log = new CheetahWorkFlowLog()
+        {
+            Name = baseListPostViewModel.Name,
+            Description = baseListPostViewModel.Description,
+            LogDate = DateTime.Now,
+            IsActive = baseListPostViewModel.IsActive,
+            CheetahWorkFlowId = roleEntity.ID,
+            UserID = currentUser
+        };
+
+        roleEntity.CheetahWorkFlowLogs.Add(log);
+
+        await _commonRepository.UpdateByIdAsync((int)roleEntity.ID, roleEntity);
+
+        return Result.NoContent();
+    }
+}
+//////////////////////////////////////////////////
+using Ardalis.Result;
+using Farasa.Core.Interfaces.Repositories.Read;
+using Farasa.Core.WorkFlow.EntityClasses;
+using FluentValidation;
+
+namespace Farasa.Application.WorkFlow.Commands.CheetahWorkFlowWrapper
+{
+    public class CheetahWorkFlowValidators : AbstractValidator<CheetahWorkFlowModel>
+    {
+        private readonly ICommonReadonlyRepository<CheetahWorkFlow> _commonReadonlyRepository;
+        public CheetahWorkFlowValidators(ICommonReadonlyRepository<CheetahWorkFlow> commonReadonlyRepository)
+        {
+            _commonReadonlyRepository = commonReadonlyRepository;
+        }
+        public CheetahWorkFlowValidators AddAsync()
+        {
+            RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("نام باید تکمیل شود")
+            .MinimumLength(3).WithMessage("نام باید بیش از 3 کارکتر باشد")
+            .MaximumLength(60).WithMessage("نام باید کمتر از 60 کاراکتر باشد")
+            .WithErrorCode(ResultStatus.Invalid.ToString());
+
+            return this;
+        }
+        public CheetahWorkFlowValidators EditByIdAsync(int id)
+        {
+            RuleFor(x => x.ID)
+                .NotEqual(id)
+                .WithErrorCode(ResultStatus.Conflict.ToString());
+
+            RuleFor(x => x.ID)
+                      .MustAsync(async (id, cancellation) =>
+                      {
+                          var exists = await _commonReadonlyRepository.FetchByIdAsync((int)id);
+                          return exists != null;
+                      })
+                      .WithErrorCode(ResultStatus.NotFound.ToString());
+
+            return this;
+        }
+        public CheetahWorkFlowValidators RemoveByIdAsync(int id)
+        {
+            RuleFor(x => x.ID)
+                      .MustAsync(async (id, cancellation) =>
+                      {
+                          var exists = await _commonReadonlyRepository.FetchByIdAsync((int)id);
+                          return exists != null;
+                      })
+                      .WithErrorCode(ResultStatus.NotFound.ToString());
+
+            return this;
+        }
+    }
+}
+////////////////////////////////////////////
