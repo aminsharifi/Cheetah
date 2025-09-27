@@ -1,0 +1,224 @@
+﻿@inherits AIChatCode
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+<div class="hint-box" id="hint-box"></div>
+<script src="/js/hints.js"></script>
+<MudContainer MaxWidth="MaxWidth.False" Class="google-page-style mt-1">
+    <!-- Google Logo Section -->
+    @* <MudGrid Justify="Justify.Center">
+        <MudItem xs="12">
+            <img src="/imeges/ai.jfif" alt="Google Logo" class="google-logo" />
+        </MudItem>
+    </MudGrid> *@
+
+    <!-- Search Input Field with Icons -->
+    <MudGrid Justify="Justify.Center" Spacing="2">
+        <MudItem xs="10" md="8" lg="6" Class="search-container">
+            <MudPaper Class="search-bar" Elevation="3">
+                <MudIconButton Icon="@Icons.Material.Filled.Search" Disabled="disableSubmit" Color="Color.Dark" OnClick="SendMessage" />
+                <MudTextField @bind-Value="userInput"
+                              Immediate="true" Disabled="disableSubmit"
+                              OnKeyDown="HandleKeyDown" @ref="_MudTextField" TextChanged="InputTextChanged"
+                              Placeholder="پرسش خود را از سیستم بپرسید" FullWidth="true" HideBorder="true"
+                              Class="search-input" />
+
+                @if (!isRecording)
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Mic" Color="Color.Dark" OnClick="StartRecording" />
+                }
+                else
+                {
+                    <MudIconButton Icon="@Icons.Material.Filled.Mic" Color="Color.Secondary" OnClick="StopRecording" />
+                }
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Buttons -->
+    <MudGrid Justify="Justify.Center" Spacing="1" Class="google-button-section">
+        <MudItem>
+            <MudButton OnClick="AccurateSearch" Disabled="disableSubmit"
+                       Variant="Variant.Filled" Color="Color.Primary">جستجو دقیق</MudButton>
+        </MudItem>
+        <MudItem>
+            <MudButton OnClick="StandardSearch" Disabled="disableSubmit"
+                       Variant="Variant.Filled" Color="Color.Primary">جستجوی خلاقانه</MudButton>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Justify="Justify.Center" Spacing="1" Class="google-button-section">
+        <MudItem>
+            <audio id="myAudio" hidden>
+                <source src="" type="audio/wav" />
+                Your browser does not support the audio element.
+            </audio>
+        </MudItem>
+    </MudGrid>
+
+</MudContainer>
+@if (_hTMLResponse.Length > 0)
+{
+    <MudContainer Class="mt-2">
+        <MudCard>
+            <MudCardContent>
+                <br />
+                <MudText Typo="Typo.h6">پرسش:</MudText>
+                <MudText Typo="Typo.body1">@question</MudText>
+                <br />
+                <MudText Typo="Typo.h6">پاسخ:</MudText>
+                @* <MudText Typo="Typo.body2">@_aIResponse</MudText> *@
+                <div> @((MarkupString)_hTMLResponse)</div>
+            </MudCardContent>
+        </MudCard>
+    </MudContainer>
+}
+
+<script>
+             (function () {
+                let mediaRecorder;
+                let audioChunks = [];
+
+                window.startRecording = async () => {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        mediaRecorder = new MediaRecorder(stream);
+
+                        mediaRecorder.ondataavailable = event => {
+                            audioChunks.push(event.data);
+                        };
+
+                        audioChunks = []; // Reset audio chunks for a new recording
+                        mediaRecorder.start();
+                    } catch (error) {
+                        console.error("Error accessing microphone: ", error);
+                        alert("Could not access microphone. Please check your permissions and device.");
+                    }
+                };
+
+    window.stopRecording = () => {
+        return new Promise((resolve, reject) => {
+            if (mediaRecorder) {
+                mediaRecorder.onstop = async () => {
+                    try {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            resolve(reader.result); // This will be a base64 string
+                        };
+
+                        reader.onerror = () => {
+                            reject(new Error("Error reading audio data."));
+                        };
+
+                        reader.readAsDataURL(audioBlob); // Convert Blob to base64
+                    } catch (error) {
+                        reject(new Error("Error processing audio data: " + error.message));
+                    }
+                };
+
+                // Stop the media recorder
+                mediaRecorder.stop();
+            } else {
+                reject(new Error("Media recorder not initialized."));
+            }
+        });
+    };
+
+            })();
+</script>
+<script>
+    function changeMusic(music) {
+    const audioElement = document.getElementById("myAudio");
+    audioElement.pause(); // Pause current playback
+    audioElement.setAttribute('src', music); // Change the source
+    audioElement.load(); // Load new audio source
+    audioElement.play(); // Play new audio
+    }
+
+</script>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        direction: rtl; /* Set the direction to right-to-left */
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: right; /* Optional: Align text to the left */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Optional: Add background color to headers */
+    }
+</style>
+<style>
+    .google-page-style {
+        text-align: center;
+    }
+
+    .google-logo {
+        width: 270px;
+        margin-bottom: 20px;
+    }
+
+    .top-navigation {
+        padding: 10px 20px;
+    }
+
+        .top-navigation .nav-item {
+            margin: 0 10px;
+        }
+
+        .top-navigation a {
+            text-decoration: none;
+            color: #000;
+        }
+
+    .search-container {
+        margin: auto;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        border-radius: 24px;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+        .search-bar:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+
+    .search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+    }
+
+    .google-btn {
+        min-width: 160px; /* Ensure the buttons are wide enough for content */
+    }
+
+    .google-button-section {
+        margin-top: 20px;
+    }
+</style>
+<style>
+    .hint-box {
+        text-align:center;
+        margin-top: 8px;
+        height: 24px;
+        color: #666;
+        font-size: 14px;
+        font-style: italic;
+        min-height: 24px;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+</style>
+
+@code {
+
+}

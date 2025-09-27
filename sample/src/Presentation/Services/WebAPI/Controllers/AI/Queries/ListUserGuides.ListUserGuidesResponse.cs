@@ -9,4 +9,5 @@ public class ListUserGuidesResponse
     public long Id { get; set; }
     public string JsonData { get; set; }
     public string Body { get; set; }
+    public byte[] VectorBody { get; set; } // Store as VARBINARY
 }

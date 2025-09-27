@@ -14,21 +14,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="Aggregates\AIAggregate\Specifications\**" />
 		<Compile Remove="Aggregates\CaseAggregate\Events\**" />
 		<Compile Remove="Aggregates\CaseAggregate\Handlers\**" />
 		<Compile Remove="Aggregates\CaseAggregate\Links\Values\**" />
 		<Compile Remove="Aggregates\ConditionAggregate\Facts\**" />
 		<Compile Remove="Aggregates\ConditionAggregate\Links\**" />
 		<Compile Remove="Interfaces\**" />
-		<EmbeddedResource Remove="Aggregates\AIAggregate\Specifications\**" />
 		<EmbeddedResource Remove="Aggregates\CaseAggregate\Events\**" />
 		<EmbeddedResource Remove="Aggregates\CaseAggregate\Handlers\**" />
 		<EmbeddedResource Remove="Aggregates\CaseAggregate\Links\Values\**" />
 		<EmbeddedResource Remove="Aggregates\ConditionAggregate\Facts\**" />
 		<EmbeddedResource Remove="Aggregates\ConditionAggregate\Links\**" />
 		<EmbeddedResource Remove="Interfaces\**" />
-		<None Remove="Aggregates\AIAggregate\Specifications\**" />
 		<None Remove="Aggregates\CaseAggregate\Events\**" />
 		<None Remove="Aggregates\CaseAggregate\Handlers\**" />
 		<None Remove="Aggregates\CaseAggregate\Links\Values\**" />
