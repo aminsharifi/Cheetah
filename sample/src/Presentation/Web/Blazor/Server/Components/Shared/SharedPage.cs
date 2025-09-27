@@ -1,7 +1,9 @@
 ﻿using Cheetah.Core.Common;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Enums;
+using Cheetah.Sample.Presentation.Web.Blazor.Server.AI;
 using Cheetah.Sample.Presentation.Web.Blazor.Server.Helper;
+using Microsoft.SemanticKernel;
 
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Shared;
 public class SharedPage : MyComponentBase
@@ -16,6 +18,7 @@ public class SharedPage : MyComponentBase
 
     [Parameter]
     public string Name { get; set; }
+
 
     [Parameter]
     public bool? Sync { get; set; }

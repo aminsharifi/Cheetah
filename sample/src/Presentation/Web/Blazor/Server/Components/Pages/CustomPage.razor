@@ -1,0 +1,84 @@
+﻿@page "/CustomPage/{Name}"
+@attribute [Authorize]
+@inherits CustomPage_Code
+@using BlazorServerResource = Cheetah.Presentation.Web.Blazor.Server.Resx.Localization
+@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+@using Mapster
+@using Microsoft.SemanticKernel
+@using Microsoft.SemanticKernel.ChatCompletion
+@using Microsoft.SemanticKernel.Embeddings
+
+<PageTitle>دستورالعمل</PageTitle>
+  @if (IsLoading)
+{
+    <img src="imeges/Gears.png" />
+}
+else
+{
+    <MudButton Color="Color.Primary" class="mt-4"
+               Variant="Variant.Filled"
+               StartIcon="@Icons.Material.Filled.Add"
+               OnClick="AddNewItem">
+        افزودن
+    </MudButton>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudDataGrid Items="items" Filterable="true" FilterMode="DataGridFilterMode.Simple"
+                         Striped="true" Hover="true"
+                         FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
+                         Bordered="true" Dense="true" T="UserGuideItem">
+                <ToolBarContent>
+                </ToolBarContent>
+                <Columns>
+                    <TemplateColumn>
+                        <HeaderTemplate>
+                            اقدامات
+                        </HeaderTemplate>
+                        <CellTemplate>
+                            <MudButtonGroup OverrideStyles="false">
+                                <MudButton Color="Color.Info"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.Edit"
+                                           OnClick="@(()=>EditItem(@context.Item))">
+                                    ویرایش
+                                </MudButton>
+                                <MudButton Color="Color.Error"
+                                           Disabled="false"
+                                           Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.DeleteForever"
+                                           OnClick="@(()=>DeleteItem(@context.Item.Id))">
+                                    حذف
+                                </MudButton>
+                            </MudButtonGroup>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <PropertyColumn Property="x => x.Id" Title="شناسه" Editable="false" />
+                    @foreach (var header in headers)
+                    {
+                        <TemplateColumn>
+                            <HeaderTemplate>
+                                @header
+                            </HeaderTemplate>
+                            <CellTemplate>
+                                <MudTextField Value="@context.Item.JsonValues[header]" ReadOnly="true" />
+                            </CellTemplate>
+                        </TemplateColumn>
+                    }
+                </Columns>
+            </MudDataGrid>
+        </MudItem>
+    </MudGrid>
+    <MudMessageBox @ref="mbox" Title="هشدار" CancelText="انصراف">
+        <MessageContent>
+            آیا از حذف ردیف اطمینان دارید؟
+        </MessageContent>
+        <YesButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Error"
+                       StartIcon="@Icons.Material.Filled.DeleteForever">حذف</MudButton>
+        </YesButton>
+    </MudMessageBox>
+}
+@code {
+
+}

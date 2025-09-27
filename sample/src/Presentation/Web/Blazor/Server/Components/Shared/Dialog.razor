@@ -29,12 +29,12 @@
 </MudDialog>
 
 @code {
-    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [CascadingParameter] MudDialog MudDialog { get; set; }
 
     [Parameter] public string ButtonText { get; set; }
 
     [Parameter] public Color Color { get; set; }
 
-    void Submit() => MudDialog.Close(DialogResult.Ok(true));
-    void Cancel() => MudDialog.Cancel();
+    void Submit() => MudDialog.CloseAsync(DialogResult.Ok(true));
+    void Cancel() => MudDialog.CloseAsync();
 }

@@ -1,0 +1,47 @@
+﻿@using Cheetah.Core.Resx
+@inherits LayoutComponentBase
+@inject IJSRuntime _jSRuntime;
+@inject IGlobalization globalization;
+
+<PageTitle>دستیار هوشمند چیتا</PageTitle>
+<MudRTLProvider RightToLeft="true">
+    <MudPopoverProvider />
+    <MudThemeProvider IsDarkMode="false" />
+    <MudDialogProvider />
+    <MudSnackbarProvider />
+    <MudLayout>
+        @*       <MudAppBar Elevation="0">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
+                           Edge="Edge.Start" OnClick="DrawerToggle" />
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"
+                           Href="https://github.com/aminsharifi/Cheetah"
+                           Target="_blank" />
+            <LoginDisplay></LoginDisplay>
+        </MudAppBar>
+        <MudDrawer Open="_drawerOpen" Elevation="1">
+            <MudDrawerHeader>
+                <MudText Typo="Typo.h6">دستیار هوشمند چیتا</MudText>
+            </MudDrawerHeader>
+            <NavMenu />
+        </MudDrawer> *@
+        <MudMainContent Style="padding-top:0">
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+</MudRTLProvider>
+
+@code
+{
+    bool _drawerOpen = true;
+    public void DrawerToggle2(MouseEventArgs e)
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+    public void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

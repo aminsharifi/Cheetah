@@ -2,18 +2,15 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime _jSRuntime;
 @inject IGlobalization globalization;
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject NavigationManager Navigation
-<PageTitle>چیتا</PageTitle>
 
-<MudRTLProvider RightToLeft="true">
+<PageTitle>دستیار هوشمند چیتا</PageTitle>
+ <MudRTLProvider RightToLeft="true">
     <MudPopoverProvider />
     <MudThemeProvider IsDarkMode="false" />
     <MudDialogProvider />
-
     <MudSnackbarProvider />
     <MudLayout>
-        <MudAppBar Elevation="0">
+         <MudAppBar Elevation="0">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                            Edge="Edge.Start" OnClick="DrawerToggle" />
             <MudSpacer />
@@ -24,37 +21,20 @@
         </MudAppBar>
         <MudDrawer Open="_drawerOpen" Elevation="1">
             <MudDrawerHeader>
-                @* <MudText Typo="Typo.h6">Cheetah_Web</MudText> *@
-                <MudText Typo="Typo.h6">گروه گسترش صنایع بهپرور</MudText>
+                <MudText Typo="Typo.h6">دستیار هوشمند چیتا</MudText>
             </MudDrawerHeader>
             <NavMenu />
-        </MudDrawer>
+        </MudDrawer> 
         <MudMainContent>
             <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
                 @Body
             </MudContainer>
         </MudMainContent>
     </MudLayout>
-</MudRTLProvider>
+</MudRTLProvider> 
 
 @code
 {
-    private bool? isAuthenticated;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        isAuthenticated = authState?.User.Identity.IsAuthenticated;
-
-        if (isAuthenticated is true)
-        {
-            Navigation.NavigateTo("/AI");
-        }
-        else
-        {
-            Navigation.NavigateTo("/Contact");
-        }
-    }
     bool _drawerOpen = true;
     public void DrawerToggle2(MouseEventArgs e)
     {

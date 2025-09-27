@@ -1,0 +1,89 @@
+﻿@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@using Cheetah.Sample.Presentation.Web.Blazor.Server.AI
+@using Microsoft.SemanticKernel.ChatCompletion
+@using Microsoft.SemanticKernel;
+@using Microsoft.SemanticKernel.Connectors.OpenAI
+@using static Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Pages.CustomPage
+@inherits SharedPage
+<MudDialog>
+    <DialogContent>
+        <MudGrid Class="d-flex justify-end">
+            <MudItem xs="9">
+                <MudTextField Lines="5" @bind-Value="currentItem.Body" Label="متن" Required="true" />
+            </MudItem>
+            <MudItem xs="3">
+                <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="BodyValidation" Disabled="disableSubmit">اعتبارسنجی</MudButton>
+            </MudItem>
+            @*  <MudItem xs="12">
+                <MudTextField @bind-Value="currentItem.JsonData" Label="اطلاعات JSON" Required="true" />
+            </MudItem> *@
+            @foreach (var column in currentItem.columns)
+            {
+                <MudItem xs="12">
+                    <MudTextField @bind-Value="currentItem.JsonValues[column]" Label="@column" ReadOnly="true" />
+                </MudItem>
+            }
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Error" OnClick="Cancel">انصراف</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Submit">ذخیره</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public UserGuideItem currentItem { get; set; }
+    [Parameter] public F_PageTable pageTable { get; set; }
+    void Submit() => MudDialog.Close(DialogResult.Ok(currentItem));
+    void Cancel() => MudDialog.Close(DialogResult.Cancel());
+
+    private string userInput = String.Empty;
+    private string question = String.Empty;
+    ChatHistory _chathistory = new();
+    String _aIResponse = String.Empty;
+    bool disableSubmit = false;
+
+    public async Task BodyValidation()
+    {
+        disableSubmit = true;
+
+        string prompt = @"Provide the following details in this JSON format:" +
+        pageTable.JsonData +
+                    @"
+        " + currentItem.Body;
+        try
+        {
+            var jsonResponse = await _kernel.InvokePromptAsync(prompt);
+
+            var _cleanedJsonResponse = jsonResponse.ToString()
+            .Replace("```", string.Empty)
+            .Replace("json", string.Empty);
+
+            // Parse JSON into a Dictionary
+            var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, string>>(_cleanedJsonResponse);
+
+            currentItem.JsonData = _cleanedJsonResponse;
+
+            // jsonData
+            using JsonDocument jsonDoc = JsonDocument.Parse(currentItem.JsonData);
+            var root = jsonDoc.RootElement;
+
+            currentItem.columns = root.EnumerateObject().Select(p => p.Name).ToList();
+            currentItem.JsonValues = new();
+            // Populate the data
+            Dictionary<string, string> _jsonValues = new();
+            foreach (var column in currentItem.columns)
+            {
+                currentItem.JsonValues.Add(column, root.GetString(column));
+            }
+        }
+        catch (Exception ex)
+        {
+
+
+        }
+
+        disableSubmit = false;
+    }
+}

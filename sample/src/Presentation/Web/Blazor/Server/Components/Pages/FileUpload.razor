@@ -1,0 +1,226 @@
+﻿@page "/FileUpload"
+@using Cheetah.Core.Aggregates.AIAggregate.Facts
+@inherits MyComponentBase
+
+<PageTitle>آپلود عکس</PageTitle>
+
+<MudPaper Class="pa-4" Elevation="1">
+    <!-- Header Section -->
+    <MudText Typo="Typo.h5" Class="mb-2">فایل‌های JPG و PNG خود را بارگذاری نمایید.</MudText>
+
+    <!-- File Upload Component -->
+    <MudFileUpload T="IReadOnlyList<IBrowserFile>"
+                   Accept=".png,.jpg"
+                   FilesChanged="UploadFiles"
+                   MaximumFileCount="10">
+        <ActivatorContent>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.CloudUpload">
+                انتخاب یا رها کردن فایل‌ها
+            </MudButton>
+        </ActivatorContent>
+    </MudFileUpload>
+
+    <!-- File Preview List -->
+    @if (filePreviews.Any())
+    {
+        <MudList T="IBrowserFile">
+            @foreach (var (file, previewUrl) in filePreviews)
+            {
+                <MudListItem>
+                    <MudGrid Container="true" AlignItems="Center">
+                        <!-- File Thumbnail -->
+                        <MudItem xs="2">
+                            <MudAvatar>
+                                <MudImage Src="@previewUrl" Alt="@file.Name" />
+                            </MudAvatar>
+                        </MudItem>
+
+                        <!-- File Details -->
+                        <MudItem xs="8">
+                            <MudText>@file.Name</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                @($"{file.Size / 1024.0:F2} KB")
+                            </MudText>
+                        </MudItem>
+
+                        <!-- Delete Button -->
+                        <MudItem xs="2" Class="text-right">
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                           Color="Color.Error"
+                                           OnClick="@(() => RemoveFile(file))"
+                                           aria-label="حذف فایل" />
+                        </MudItem>
+                    </MudGrid>
+                </MudListItem>
+            }
+        </MudList>
+
+        <!-- Save Files Button -->
+        <div class="mt-4 text-right">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Success"
+                       OnClick="SaveFilesAsync"
+                       StartIcon="@Icons.Material.Filled.Save">
+                ذخیره فایل‌ها
+            </MudButton>
+        </div>
+    }
+
+</MudPaper>
+
+<MudList T="F_UploadedFile">
+    @foreach (var (file, previewUrl) in fileDBs)
+    {
+        <MudListItem>
+            <MudGrid Container="true" AlignItems="Center">
+                <!-- File Thumbnail -->
+                <MudItem xs="2">
+                    <MudAvatar>
+                        <MudImage Src="@previewUrl" Alt="@file.Name" />
+                    </MudAvatar>
+                </MudItem>
+
+                <!-- File Details -->
+                <MudItem xs="8">
+                    <MudLink Href="@($"http://localhost:802/AI/Queries/GetImage/{file.Name}")" Target="_blank">
+                        <MudText>@($"http://localhost:802/AI/Queries/GetImage/{file.Name}")</MudText>
+                    </MudLink>
+                    <MudText Typo="Typo.caption" Color="Color.Secondary">
+                        @($"{file.Content.Length / 1024.0:F2} KB")
+                    </MudText>
+                </MudItem>
+
+                <!-- Delete Button -->
+                <MudItem xs="2" Class="text-right">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Color="Color.Error"
+                                   OnClick="@(() => RemoveFile(file))"
+                                   aria-label="حذف فایل" />
+                </MudItem>
+            </MudGrid>
+        </MudListItem>
+    }
+</MudList>
+@code {
+    // List of file previews (file and its preview URL)
+    private List<(IBrowserFile File, string PreviewUrl)> filePreviews = new();
+
+    private List<(F_UploadedFile File, string PreviewUrl)> fileDBs = new();
+
+    private async Task GetUploadedFilesAsyc()
+    {
+        fileDBs.Clear();
+
+        var _UploadedFiles = await _db.F_UploadedFiles
+                .ToListAsync();
+
+        //populate fileDBs with the uploaded files
+        foreach (var file in _UploadedFiles)
+        {
+            var base64 = Convert.ToBase64String(file.Content);
+            var previewUrl = $"data:{file.ContentType};base64,{base64}";
+            fileDBs.Add((file, previewUrl));
+        }
+        StateHasChanged();
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await GetUploadedFilesAsyc();
+        }
+    }
+
+    /// <summary>
+    /// Handles file upload and generates previews.
+    /// </summary>
+    private async Task UploadFiles(IReadOnlyList<IBrowserFile> newFiles)
+    {
+        foreach (var file in newFiles)
+        {
+            // Check file size limit (5 MB)
+            if (file.Size <= 5 * 1024 * 1024)
+            {
+                var previewUrl = await GetImagePreview(file);
+                filePreviews.Add((file, previewUrl));
+            }
+            else
+            {
+                Snackbar.Add($"فایل {file.Name} بزرگ‌تر از 5 مگابایت است.", Severity.Warning);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Removes a file from the preview list.
+    /// </summary>
+    private void RemoveFile(IBrowserFile file)
+    {
+        var item = filePreviews.FirstOrDefault(f => f.File == file);
+        if (item != default)
+        {
+            filePreviews.Remove(item);
+            StateHasChanged();
+        }
+    }
+    private async Task RemoveFile(F_UploadedFile file)
+    {
+        var item = await _db.F_UploadedFiles.FindAsync(file.Id);
+        if (item != default)
+        {
+            _db.F_UploadedFiles.Remove(item);
+            await _db.SaveChangesAsync();
+            var _fileDB = fileDBs.Where(x => x.File.Id == file.Id).FirstOrDefault();
+            fileDBs.Remove(_fileDB);
+            StateHasChanged();
+        }
+    }
+    /// <summary>
+    /// Saves uploaded files to the server or local storage.
+    /// </summary>
+    private async Task SaveFilesAsync()
+    {
+        foreach (var file in filePreviews.Select(x => x.File))
+        {
+            // Use OpenReadStream() to access file content as a stream
+
+            using var stream = file.OpenReadStream();
+
+            var fileContent = await ReadStreamAsync(stream);
+
+            var uploadedFile = new F_UploadedFile()
+                .SetContentType(file.ContentType)
+                .SetContent(fileContent)
+                .SetName(file.Name);
+
+            await _db.F_UploadedFiles.AddAsync((F_UploadedFile)uploadedFile);
+        }
+        await _db.SaveChangesAsync();
+        filePreviews.Clear();
+        Snackbar.Add("فایل‌ها با موفقیت ذخیره شدند.", Severity.Success);
+        await GetUploadedFilesAsyc();
+    }
+
+    /// <summary>
+    /// Generates a base64 image preview for the uploaded file.
+    /// </summary>
+    private async Task<string> GetImagePreview(IBrowserFile file)
+    {
+        using var stream = file.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024);
+
+        var memoryStream = await ReadStreamAsync(stream);
+
+        var base64 = Convert.ToBase64String(memoryStream);
+        return $"data:{file.ContentType};base64,{base64}";
+    }
+    private async Task<byte[]> ReadStreamAsync(Stream stream)
+    {
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        return memoryStream.ToArray();
+    }
+
+}
