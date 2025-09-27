@@ -1,0 +1,11 @@
+﻿@using Cheetah.Sample.Presentation.Web.Blazor.Server.Components;
+@layout Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Layout.EmptyLayout
+@page "/Help"
+
+<AIChat UserGuideId=@UserGuideId></AIChat>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int UserGuideId { get; set; }
+}

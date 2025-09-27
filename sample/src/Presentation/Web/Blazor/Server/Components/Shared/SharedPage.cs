@@ -19,6 +19,7 @@ public class SharedPage : MyComponentBase
     [Parameter]
     public string Name { get; set; }
 
+
     [Parameter]
     public bool? Sync { get; set; }
 

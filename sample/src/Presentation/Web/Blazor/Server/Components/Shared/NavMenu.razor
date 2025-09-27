@@ -9,7 +9,7 @@
                 دستیار هوشمند
             </MudNavLink>
         </AuthorizeView>
-        <AuthorizeView Roles="Admin">
+        <AuthorizeView Roles="Admin">         
             <MudNavLink Href="MangePages" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AdfScanner">
                 مدیریت صفحه ها
             </MudNavLink>
@@ -19,6 +19,9 @@
                     @Record.DisplayName
                 </MudNavLink>
             }
+                   <MudNavLink Href="FileUpload" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.FileUpload">
+                    مدیریت بارگذاری ها
+                </MudNavLink>
         </AuthorizeView>
     }
     else

@@ -15,5 +15,8 @@ public class F_UserGuideConfiguration : IEntityTypeConfiguration<F_UserGuide>
 
         builder.Property(e => e.Body)
               .HasColumnType("nvarchar(max)"); // Set the property to nvarchar(max)
+
+        builder.Property(e => e.VectorBody)
+               .HasColumnType("VARBINARY(MAX)"); // Store as VARBINARY
     }
 }

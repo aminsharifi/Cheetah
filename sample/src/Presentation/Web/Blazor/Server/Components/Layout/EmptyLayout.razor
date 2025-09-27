@@ -4,13 +4,13 @@
 @inject IGlobalization globalization;
 
 <PageTitle>دستیار هوشمند چیتا</PageTitle>
- <MudRTLProvider RightToLeft="true">
+<MudRTLProvider RightToLeft="true">
     <MudPopoverProvider />
     <MudThemeProvider IsDarkMode="false" />
     <MudDialogProvider />
     <MudSnackbarProvider />
     <MudLayout>
-         <MudAppBar Elevation="0">
+        @*       <MudAppBar Elevation="0">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"
                            Edge="Edge.Start" OnClick="DrawerToggle" />
             <MudSpacer />
@@ -24,14 +24,14 @@
                 <MudText Typo="Typo.h6">دستیار هوشمند چیتا</MudText>
             </MudDrawerHeader>
             <NavMenu />
-        </MudDrawer> 
-        <MudMainContent>
+        </MudDrawer> *@
+        <MudMainContent Style="padding-top:0">
             <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
                 @Body
             </MudContainer>
         </MudMainContent>
     </MudLayout>
-</MudRTLProvider> 
+</MudRTLProvider>
 
 @code
 {
