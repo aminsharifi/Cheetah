@@ -4,7 +4,7 @@ global using Ardalis.Specification.EntityFrameworkCore;
 global using FluentValidation;
 global using Mapster;
 global using MapsterMapper;
-global using MediatR;
+global using Mediator;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Http;

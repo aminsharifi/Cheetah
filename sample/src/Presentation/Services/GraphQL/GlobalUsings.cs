@@ -1,5 +1,5 @@
 ﻿global using Ardalis.SharedKernel;
-global using MediatR;
+global using Mediator;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.IdentityModel.Tokens;

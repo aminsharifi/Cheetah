@@ -5,5 +5,5 @@ global using Ardalis.Specification;
 global using FluentValidation;
 global using Mapster;
 global using MapsterMapper;
-global using MediatR;
 global using Microsoft.Extensions.Caching.Memory;
+global using Mediator;

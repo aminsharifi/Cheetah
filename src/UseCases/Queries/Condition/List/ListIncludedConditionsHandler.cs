@@ -8,7 +8,7 @@ public class ListIncludedConditionsHandler(
     IMemoryCache cache)
     : IQueryHandler<ListIncludedConditionsQuery, Result<IEnumerable<F_Condition>>>
 {
-    public async Task<Result<IEnumerable<F_Condition>>> Handle(ListIncludedConditionsQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<IEnumerable<F_Condition>>> Handle(ListIncludedConditionsQuery request, CancellationToken cancellationToken)
     {
         List<F_Condition> f_Conditions = new();
 

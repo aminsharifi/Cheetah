@@ -15,7 +15,7 @@ public class GetConditionExistsHandler(
     IReadRepository<D_Operand> operandRepository)
   : IQueryHandler<GetConditionExistsQuery, Result<bool>>
 {
-    public async Task<Result<bool>> Handle(GetConditionExistsQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<bool>> Handle(GetConditionExistsQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(request.input.Tag);
         Guard.Against.Null(request.input.Operand);
