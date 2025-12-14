@@ -13,7 +13,7 @@ public class GetCaseTaskUserHandler(
     IReadRepository<D_User> userRepository)
   : IQueryHandler<GetCaseTaskUserQuery, Result<L_CaseTaskUser>>
 {
-    public async Task<Result<L_CaseTaskUser>> Handle(GetCaseTaskUserQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<L_CaseTaskUser>> Handle(GetCaseTaskUserQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(request.input.Case);
         Guard.Against.Null(request.input.Task);

@@ -96,39 +96,25 @@ var _embeddingEndpoint = _ai.GetValue<string>("EmbeddingEndpoint");
 // string modelId = "Cohere-command-r-08-2024";
 #pragma warning disable SKEXP0010
 
-var kernel = Kernel.CreateBuilder();
+var kernelBuilder = Kernel.CreateBuilder();
 
-
-if (!String.IsNullOrEmpty(_endpoint))
+if (!string.IsNullOrEmpty(_endpoint))
 {
     Uri endpoint = new Uri(_endpoint);
-    kernel.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint);
-
-    kernel.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey,
+    kernelBuilder.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint);
+    kernelBuilder.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey,
         httpClient: new HttpClient { BaseAddress = endpoint });
 }
 else
 {
-
-    //var proxy = new WebProxy("192.168.100.31:808")
-    //{
-    //    Credentials = new NetworkCredential("a", "a")
-    //};
-
-    //var httpClientHandler = new HttpClientHandler
-    //{
-    //    Proxy = proxy,
-    //    UseProxy = true,
-    //};
-
-    //var httpClient = new HttpClient(httpClientHandler);
-    //kernel.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, httpClient: httpClient);
-    //kernel.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey, httpClient: httpClient);
-    kernel.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey);
-    kernel.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey);
+    kernelBuilder.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey);
+    kernelBuilder.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey);
 }
 
-var _kernelBuild = kernel.AddInMemoryVectorStore().Build();
+// Register the in-memory vector store in DI
+kernelBuilder.Services.AddInMemoryVectorStore();
+
+var _kernelBuild = kernelBuilder.Build();
 
 builder.Services.AddTransient(serviceProvider =>
 {

@@ -16,7 +16,7 @@ public class GetCaseHandler(
     IReadRepository<F_Condition> conditionRepository,
     ISender iSender, IMapper iMapper) : IQueryHandler<GetCaseQuery, Result<F_Case>>
 {
-    public async Task<Result<F_Case>> Handle(GetCaseQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<F_Case>> Handle(GetCaseQuery request, CancellationToken cancellationToken)
     {
         #region Validations
 

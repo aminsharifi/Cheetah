@@ -15,14 +15,16 @@ public static class CheetahInitialiserExtensions
         builder.Services.AddValidatorsFromAssemblyContaining(typeof(BaseEntityValidation));
 
         #region MediatR
-        var mediatRAssemblies = new[]
-        {
-            Assembly.GetAssembly(typeof(D_Tag)), // Core
-            Assembly.GetAssembly(typeof(Cartable)), // UseCases
-        };
-        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
+        //var mediatRAssemblies = new[]
+        //{
+        //    Assembly.GetAssembly(typeof(D_Tag)), // Core
+        //    Assembly.GetAssembly(typeof(Cartable)), // UseCases
+        //};
+        //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
+
+        builder.Services.AddMediatorSourceGen();
         builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-        builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+        builder.Services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
         #endregion
 
         #region Repository

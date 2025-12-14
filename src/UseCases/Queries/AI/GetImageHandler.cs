@@ -6,7 +6,7 @@ namespace Cheetah.UseCases.Queries.Case.Case.Get;
 public class GetImageHandler(IReadRepository<F_UploadedFile> uploadedFileRepository) :
     IQueryHandler<GetUserGuideQuery, Result<UserGuideDTO>>
 {
-    public async Task<Result<UserGuideDTO>> Handle(GetUserGuideQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<UserGuideDTO>> Handle(GetUserGuideQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Zero(request.Id);
 

@@ -6,7 +6,7 @@ namespace Cheetah.UseCases.Queries.Process.TaskFlow.List;
 public class ListFlowsByTaskHandler(
     IReadRepository<L_TaskFlow> taskFlowRepository) : IQueryHandler<ListFlowsByTaskQuery, Result<IEnumerable<L_TaskFlow>>>
 {
-    public async Task<Result<IEnumerable<L_TaskFlow>>> Handle(ListFlowsByTaskQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<IEnumerable<L_TaskFlow>>> Handle(ListFlowsByTaskQuery request, CancellationToken cancellationToken)
     {
         var _getFlowsByTaskSpec = new GetFlowsByTaskSpec(request.currentTaskId);
 
