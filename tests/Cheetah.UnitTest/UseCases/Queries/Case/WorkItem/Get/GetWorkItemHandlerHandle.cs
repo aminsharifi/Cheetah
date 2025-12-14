@@ -9,7 +9,7 @@ using Cheetah.Core.Common.DTOs;
 using Cheetah.UseCases.Queries.Case.WorkItem.Get;
 using Cheetah.UseCases.Queries.Condition.Get;
 using Mapster;
-using MediatR;
+using Mediator;
 using NSubstitute;
 
 namespace Cheetah.UnitTest.UseCases.Queries.Case.WorkItem.Get;

@@ -12,7 +12,7 @@ public class GetWorkItemHandler(
     IReadRepository<F_WorkItem> workItemRepository,
     ISender iSender) : IQueryHandler<GetWorkItemQuery, Result<F_WorkItem>>
 {
-    public async Task<Result<F_WorkItem>> Handle(GetWorkItemQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<F_WorkItem>> Handle(GetWorkItemQuery request, CancellationToken cancellationToken)
     {
         var _workItemSpec = new GetWorkItemSpec(request.WorkItem, true);
 

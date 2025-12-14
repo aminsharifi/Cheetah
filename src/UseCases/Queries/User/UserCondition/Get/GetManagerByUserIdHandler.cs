@@ -6,7 +6,7 @@ namespace Cheetah.UseCases.Queries.User.UserCondition.Get;
 public class GetManagerByUserIdHandler(
     IReadRepository<D_User> userRepository) : IQueryHandler<GetManagerByUserIdQuery, Result<long?>>
 {
-    public async Task<Result<long?>> Handle(GetManagerByUserIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<long?>> Handle(GetManagerByUserIdQuery request, CancellationToken cancellationToken)
     {
         var _getUserByConditionSpec = new GetManagerByUserIdSpec(request.userId);
 

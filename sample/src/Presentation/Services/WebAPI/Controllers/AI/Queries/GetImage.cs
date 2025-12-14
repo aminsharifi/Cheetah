@@ -1,5 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using Cheetah.Core.Aggregates.AIAggregate.Facts;
+﻿using Cheetah.Core.Aggregates.AIAggregate.Facts;
 using Cheetah.Core.Aggregates.CaseAggregate.Specifications;
 using Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
 
@@ -19,12 +18,12 @@ public class GetImage(ILogger<GetImage> logger, IReadRepository<F_UploadedFile> 
         var image = await uploadedFile
             .FirstOrDefaultAsync(new GetImageSpec(request.Name), cancellationToken: cancellationToken);
 
-        await SendBytesAsync(
-               bytes: image.Content,
-               contentType: image.ContentType,
-               fileName: image.Name,
-               enableRangeProcessing: true,
-               cancellation: cancellationToken);
+        await Send.BytesAsync(
+         bytes: image.Content,
+         fileName: image.Name,
+         contentType: image.ContentType,
+         enableRangeProcessing: true,
+         cancellation: cancellationToken);
 
         //Response = new FileInfo(request.Name).Adapt<GetImageResponse>();
         // File(image.Content, image.ContentType);

@@ -5,8 +5,8 @@
 		<DocumentationFile></DocumentationFile>
 		<EnablePackageValidation>True</EnablePackageValidation>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>8.5.4</Version>
-		<TargetFramework>net8.0</TargetFramework>
+		<Version>8.5.5</Version>
+		<TargetFramework>net10.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -53,7 +53,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="Ardalis.Result" Version="10.1.0" />
-		<PackageReference Include="Ardalis.SharedKernel" Version="2.1.1" />
+		<PackageReference Include="Ardalis.SharedKernel" Version="5.0.0" />
+		<PackageReference Include="Mediator.Abstractions" Version="3.0.1" />
+		<PackageReference Include="Mediator.SourceGenerator" Version="3.0.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

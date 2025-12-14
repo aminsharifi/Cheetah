@@ -15,7 +15,7 @@ public class GetConditionIdHandler(
     IReadRepository<D_Operand> operandRepository)
   : IQueryHandler<GetConditionIdQuery, Result<long>>
 {
-    public async Task<Result<long>> Handle(GetConditionIdQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<long>> Handle(GetConditionIdQuery request, CancellationToken cancellationToken)
     {
         long? _conditionID = default!;
 

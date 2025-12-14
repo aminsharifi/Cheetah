@@ -1,7 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using Cheetah.Core.Aggregates.AIAggregate.Facts;
-using Cheetah.Sample.Presentation.Services.WebAPI.Controllers.WorkflowEngine.Queries;
-using Cheetah.UseCases.DTOs.AI;
+﻿using Cheetah.Core.Aggregates.AIAggregate.Facts;
 
 namespace Cheetah.Sample.Presentation.Services.WebAPI.Controllers.AI.Queries;
 

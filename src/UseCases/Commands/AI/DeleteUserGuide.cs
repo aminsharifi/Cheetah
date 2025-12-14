@@ -4,7 +4,7 @@ namespace Cheetah.UseCases.Commands.AI;
 
 public static class DeleteUserGuide
 {
-    public static async Task<Result<bool>> Handle(IRepository<F_UserGuide> userGuideRepository, long userGuideId)
+    public static async Task<Result> Handle(IRepository<F_UserGuide> userGuideRepository, long userGuideId)
     {
         var _userGuide = await userGuideRepository.GetByIdAsync(userGuideId);
 
@@ -15,6 +15,6 @@ public static class DeleteUserGuide
 
         await userGuideRepository.DeleteAsync(_userGuide, CancellationToken.None);
 
-        return true;
+        return Result.Success();
     }
 }

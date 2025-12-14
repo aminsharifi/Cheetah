@@ -2,7 +2,7 @@
 global using Ardalis.SharedKernel;
 global using Grpc.Core;
 global using Grpc.Core.Interceptors;
-global using MediatR;
+global using Mediator;
 global using Microsoft.AspNetCore.Server.Kestrel.Core;
 global using Newtonsoft.Json;
 global using Serilog;

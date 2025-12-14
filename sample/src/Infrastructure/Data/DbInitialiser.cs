@@ -1,6 +1,5 @@
 ﻿using Cheetah.Core.Enums;
 using Cheetah.Sample.Infrastructure.Identity;
-using System.Linq.Expressions;
 
 namespace Cheetah.Sample.Infrastructure.Data;
 
