@@ -6,7 +6,7 @@ namespace Cheetah.UseCases.Queries.Process.TaskCondition.List;
 public class ListConditionsByTaskHandler(IReadRepository<L_TaskCondition> _taskConditionRepository)
     : IQueryHandler<ListConditionsByTaskQuery, Result<IEnumerable<long>>>
 {
-    public async Task<Result<IEnumerable<long>>> Handle(ListConditionsByTaskQuery request, CancellationToken cancellationToken)
+    public async ValueTask<Result<IEnumerable<long>>> Handle(ListConditionsByTaskQuery request, CancellationToken cancellationToken)
     {
         var _currentTaskId = Guard.Against.Null(request.currentTaskId);
 

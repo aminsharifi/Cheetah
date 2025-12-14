@@ -1,5 +1,4 @@
-﻿using Ardalis.SharedKernel;
-using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
+﻿using Cheetah.Core.Aggregates.UserAggregate.Dimentions;
 using Cheetah.Core.Common.DTOs;
 using Cheetah.Core.Common.Specifications;
 using Cheetah.Core.Interfaces;

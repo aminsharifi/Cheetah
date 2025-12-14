@@ -10,6 +10,7 @@ using Microsoft.SemanticKernel.Connectors.InMemory;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Embeddings;
 using Microsoft.SemanticKernel.TextToAudio;
+using Microsoft.SemanticKernel.Data;
 
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Shared;
 
@@ -388,7 +389,11 @@ public class AIChatCode : MyComponentBase
             await _MudTextField.FocusAsync();
         }
     }
-    IVectorStoreRecordCollection<long, UserGuideItem> collection;
+    //InMemoryVectorStoreRecordCollection<long, UserGuideItem> collection;
+
+
+    InMemoryVectorStore vectorStore = new();
+    VectorStoreCollection<long, UserGuideItem> collection;
 
     protected ReadOnlyMemory<float> GetVector(byte[] inputByte)
     {
@@ -416,9 +421,11 @@ public class AIChatCode : MyComponentBase
             await _JSRuntime.InvokeVoidAsync("startHints");
             items = (await GetAllItems()).ToList();
 #pragma warning disable CS0029
-            collection = new InMemoryVectorStoreRecordCollection<long, UserGuideItem>("userguideiItems");
-            // Create the collection if it doesn't exist yet.
-            await collection.CreateCollectionIfNotExistsAsync();
+            collection = vectorStore.GetCollection<long, UserGuideItem>("userguideiItems");
+
+            // Optional: Explicitly ensure creation (idempotent, useful for schema setup)
+            await collection.EnsureCollectionExistsAsync();  // This is the current method name
+
             foreach (var item in items)
             {
                 item.FloatVectorBody = GetVector(item.VectorBody);
@@ -491,11 +498,11 @@ public class AIChatCode : MyComponentBase
                 // Generate a vector for your search text, using your chosen embedding generation implementation.
                 ReadOnlyMemory<float> searchVector = await TextEmbedding(question);
 
-                // Do the search
-                var searchResult = await collection.VectorizedSearchAsync(searchVector, new() { Top = 3 });
+                // Vector search with pre-computed embedding vector
+                var searchResults = collection.SearchAsync(searchVector, top: 3);
 
                 // Inspect the returned hotel.
-                await foreach (var record in searchResult.Results)
+                await foreach (var record in searchResults)
                 {
                     if (!_UserGuideItem.Any(x => x.Id == record.Record.Id) && record.Score < 0.6)
                     {

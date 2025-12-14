@@ -7,8 +7,8 @@
 		<UserSecretsId>6a47fed2-0064-4c27-a36d-b83508c5b544</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>.</DockerfileContext>
-		<Version>8.5.4</Version>
-		<TargetFramework>net8.0</TargetFramework>
+		<Version>8.5.5</Version>
+		<TargetFramework>net10.0</TargetFramework>
 		<TreatWarningsAsErrors>False</TreatWarningsAsErrors>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -26,26 +26,72 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\cs\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\de\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\es\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\fr\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\it\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\ja\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\ko\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\Microsoft.Build.Locator.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\Microsoft.IO.Redist.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\Newtonsoft.Json.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\pl\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\pt-BR\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\ru\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.Buffers.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.Collections.Immutable.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.CommandLine.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.Memory.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.Numerics.Vectors.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.Runtime.CompilerServices.Unsafe.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\System.Threading.Tasks.Extensions.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\tr\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\zh-Hans\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-net472\zh-Hant\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\cs\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\de\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\es\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\fr\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\it\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\ja\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\ko\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\Microsoft.Build.Locator.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.deps.json" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll.config" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.runtimeconfig.json" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\Newtonsoft.Json.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\pl\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\pt-BR\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\ru\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\System.Collections.Immutable.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\System.CommandLine.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\tr\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\zh-Hans\System.CommandLine.resources.dll" />
+		<Content Remove="C:\Users\sharifi.m.BEHPARVAR\.nuget\packages\microsoft.codeanalysis.workspaces.msbuild\4.14.0\contentFiles\any\any\BuildHost-netcore\zh-Hant\System.CommandLine.resources.dll" />
 		<Content Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="HtmlSanitizer" Version="8.1.870" />
+		<PackageReference Include="HtmlSanitizer" Version="9.0.889" />
 		<PackageReference Include="KristofferStrube.Blazor.MediaCaptureStreams" Version="0.4.0" />
 		<PackageReference Include="KristofferStrube.Blazor.MediaStreamRecording" Version="0.1.0-alpha.2" />
 		<PackageReference Include="KristofferStrube.Blazor.Streams" Version="0.5.0" />
-		<PackageReference Include="Markdig" Version="0.38.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.11" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+		<PackageReference Include="Markdig" Version="0.44.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.32.0" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.InMemory" Version="1.31.0-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.32.0" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.32.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-		<PackageReference Include="RestSharp" Version="112.1.0" />
-		<PackageReference Include="System.Text.Json" Version="8.0.5" />
+		<PackageReference Include="Microsoft.Extensions.VectorData.Abstractions" Version="9.7.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.68.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.InMemory" Version="1.68.0-preview" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.68.0" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.68.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+		<PackageReference Include="RestSharp" Version="113.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

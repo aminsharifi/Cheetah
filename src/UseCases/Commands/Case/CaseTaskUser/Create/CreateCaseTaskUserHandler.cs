@@ -11,7 +11,7 @@ public class CreateCaseTaskUserHandler(
     IRepository<F_WorkItem> _workItemRepository)
   : ICommandHandler<CreateCaseTaskUserCommand, Result<UpdateWorkItemUser_Response>>
 {
-    public async Task<Result<UpdateWorkItemUser_Response>> Handle(CreateCaseTaskUserCommand request, CancellationToken cancellationToken)
+    public async ValueTask<Result<UpdateWorkItemUser_Response>> Handle(CreateCaseTaskUserCommand request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(request.input.WorkItem);
         Guard.Against.Null(request.input.User);

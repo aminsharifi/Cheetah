@@ -9,7 +9,7 @@ using Cheetah.Core.Common.Specifications;
 using Cheetah.UseCases.Queries.Case.Case.Get;
 using Mapster;
 using MapsterMapper;
-using MediatR;
+using Mediator;
 using NSubstitute;
 
 namespace Cheetah.UnitTest.UseCases.Queries.Case.Case.Get;
