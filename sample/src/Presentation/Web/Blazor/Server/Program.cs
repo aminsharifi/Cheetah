@@ -9,7 +9,6 @@ using Microsoft.SemanticKernel.ChatCompletion;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddSingleton<IGlobalization>
     (
     x => new Globalization(nameof(Cheetah) + "." +
@@ -162,10 +161,17 @@ app.UseStaticFiles();
 
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+//app.MapRazorComponents<App>()
+//    .AddInteractiveServerRenderMode();
 
 // Add additional endpoints required by the Identity /Account Razor components.
 //app.MapAdditionalIdentityEndpoints();
+
+
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode(options =>
+    {
+        options.ContentSecurityFrameAncestorsPolicy = "'self' https://bpms.behparvar.com:8037 https://aut.behparvar.com";
+    });
 
 app.Run();
