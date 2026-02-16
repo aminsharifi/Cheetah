@@ -6,7 +6,8 @@
 <h3>Home</h3>
 
 @code {
-    protected override async Task OnInitializedAsync()
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var isAuthenticated = authState?.User.Identity.IsAuthenticated;
@@ -14,23 +15,28 @@
         {
             if (isAuthenticated is true)
             {
-                navigation.NavigateTo("/AI");
+                navigation.NavigateTo("/AI", replace: true);
             }
             else
             {
-                navigation.NavigateTo("Account/Login?ReturnUrl=AI");
+                navigation.NavigateTo("Account/Login?ReturnUrl=AI", replace: true);
             }
         }
         else
         {
             if (isAuthenticated is true)
             {
-                navigation.NavigateTo("/List");
+                navigation.NavigateTo("/List", replace: true);
             }
             else
             {
-                navigation.NavigateTo("Account/Login?ReturnUrl=List");
+                navigation.NavigateTo("Account/Login?ReturnUrl=List", replace: true);
             }
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+       
     }
 }

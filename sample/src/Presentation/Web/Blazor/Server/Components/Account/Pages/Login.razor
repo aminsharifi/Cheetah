@@ -108,6 +108,10 @@
                 {
                     await SignInManager.SignInAsync(_applicationUser!, isPersistent: Input.RememberMe);
                     Logger.LogInformation("کاربر وارد سیستم شد.");
+                    if (ReturnUrl is null)
+                    {
+                        ReturnUrl = "/";
+                    }
                     RedirectManager.RedirectTo(ReturnUrl);
                 }
                 else
