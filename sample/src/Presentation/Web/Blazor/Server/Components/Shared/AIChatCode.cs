@@ -317,11 +317,11 @@ public class AIChatCode : MyComponentBase
 
     protected string userInput = string.Empty;
     protected string question = string.Empty;
-    protected ChatHistory _chathistory = new();
+    protected ChatHistory _chathistory = [];
     protected string _aIResponse = string.Empty;
     protected string _hTMLResponse = string.Empty;
     protected bool disableSubmit = false;
-    protected List<UserGuideItem>? items = new();
+    protected List<UserGuideItem>? items = [];
     protected MudTextField<string> _MudTextField = new();
     protected async Task InputTextChanged(string value)
     {
@@ -418,7 +418,7 @@ public class AIChatCode : MyComponentBase
     {
         if (firstRender)
         {
-            await _JSRuntime.InvokeVoidAsync("startHints");
+            //await _JSRuntime.InvokeVoidAsync("startHints");
             items = (await GetAllItems()).ToList();
 #pragma warning disable CS0029
             collection = vectorStore.GetCollection<long, UserGuideItem>("userguideiItems");

@@ -42,7 +42,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("http://localhost:802/")
+    BaseAddress = new Uri("http://localhost:802")
     //BaseAddress = new Uri("https://localhost:7277")
 });
 
