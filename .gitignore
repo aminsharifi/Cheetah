@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /cheetah_grpc/Serilog.txt
 /Cheetah.Presentation.Services.gRPC/Serilog.txt
 /src/Cheetah.Presentation.Services.gRPC/Serilog.txt
+/sample/src/Presentation/Web/Blazor/Server/appsettings.Development.json
