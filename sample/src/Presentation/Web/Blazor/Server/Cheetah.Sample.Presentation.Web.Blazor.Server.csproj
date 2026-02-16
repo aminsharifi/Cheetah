@@ -75,23 +75,23 @@
 		<Content Remove="Components\Account\Shared\_Imports.razor" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="HtmlSanitizer" Version="9.0.889" />
-		<PackageReference Include="KristofferStrube.Blazor.MediaCaptureStreams" Version="0.4.0" />
+		<PackageReference Include="HtmlSanitizer" Version="9.0.892" />
+		<PackageReference Include="KristofferStrube.Blazor.MediaCaptureStreams" Version="0.4.1" />
 		<PackageReference Include="KristofferStrube.Blazor.MediaStreamRecording" Version="0.1.0-alpha.2" />
 		<PackageReference Include="KristofferStrube.Blazor.Streams" Version="0.5.0" />
-		<PackageReference Include="Markdig" Version="0.44.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1">
+		<PackageReference Include="Markdig" Version="0.45.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.VectorData.Abstractions" Version="9.7.0" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.68.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" Version="1.70.0" />
 		<PackageReference Include="Microsoft.SemanticKernel.Connectors.InMemory" Version="1.68.0-preview" />
-		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.68.0" />
-		<PackageReference Include="Microsoft.SemanticKernel" Version="1.68.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-		<PackageReference Include="RestSharp" Version="113.0.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.70.0" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.70.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+		<PackageReference Include="RestSharp" Version="113.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
