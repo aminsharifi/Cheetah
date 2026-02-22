@@ -368,7 +368,7 @@ public class AIChatCode : MyComponentBase
         if (!string.IsNullOrEmpty(value) && value.TrimEnd().EndsWith("ارسال"))
         {
             await SendMessage(nameof(Avasho));
-            await _MudTextField.Clear();
+            await _MudTextField.ClearAsync();
             await _MudTextField.FocusAsync();
         }
     }
@@ -385,7 +385,7 @@ public class AIChatCode : MyComponentBase
         if (e.Key == "Enter")
         {
             await AccurateSearch();
-            await _MudTextField.Clear();
+            await _MudTextField.ClearAsync();
             await _MudTextField.FocusAsync();
         }
     }
@@ -420,8 +420,8 @@ public class AIChatCode : MyComponentBase
         {
             //await _JSRuntime.InvokeVoidAsync("startHints");
             items = (await GetAllItems()).ToList();
-#pragma warning disable CS0029
-            collection = vectorStore.GetCollection<long, UserGuideItem>("userguideiItems");
+            #pragma warning disable CS0029
+           collection = vectorStore.GetCollection<long, UserGuideItem>("userguideiItems");
 
             // Optional: Explicitly ensure creation (idempotent, useful for schema setup)
             await collection.EnsureCollectionExistsAsync();  // This is the current method name

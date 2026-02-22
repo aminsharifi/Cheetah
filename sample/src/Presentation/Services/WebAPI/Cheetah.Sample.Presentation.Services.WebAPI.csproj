@@ -13,8 +13,8 @@
 	<ItemGroup>
 		<PackageReference Include="Ardalis.ListStartupServices" Version="1.1.4" />
 		<PackageReference Include="FastEndpoints.ApiExplorer" Version="2.3.0" />
-		<PackageReference Include="FastEndpoints.Swagger" Version="7.1.1" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+		<PackageReference Include="FastEndpoints.Swagger" Version="7.2.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
 	</ItemGroup>
 
 	<ItemGroup>
