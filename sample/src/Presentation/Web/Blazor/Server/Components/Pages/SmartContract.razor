@@ -1,0 +1,214 @@
+﻿@layout Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Layout.EmptyLayout
+@page "/SmartContract"
+@inject NavigationManager Navigation
+@inject HttpClient Http
+
+@using MudBlazor
+@using System.Text
+@using System.Threading.Tasks
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
+    @if (responseMessage.Length > 0)
+    {
+        <MudPaper Elevation="4" Class="pa-5">
+            <MudCard Class="mt-4" Elevation="4">
+                <MudCardContent>
+                    <MudText Typo="Typo.h4" Align="Align.Center" Color="Color.Info">نتیجه وب‌سرویس:</MudText>
+                    <MudText Typo="Typo.h6" Align="Align.Center">@responseMessage</MudText>
+                    @* <MudText Typo="Typo.body2" Align="Align.Center">@responseText</MudText> *@
+                </MudCardContent>
+            </MudCard>
+        </MudPaper>
+    }
+    else
+    {
+        <MudPaper Elevation="4" Class="pa-5">
+            <MudText Typo="Typo.h4" Align="Align.Center">نتیجه قرارداد هوشمند</MudText>
+            <MudText Typo="Typo.subtitle1" Align="Align.Center" Color="Color.Info" Class="my-2">اطلاعات مربوط به تراکنش شما</MudText>
+
+            <!-- Query Parameters Section -->
+            <MudGrid>
+                <MudItem xs="12" sm="6">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6"><strong>وضعیت:</strong> @status</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6"><strong>مرجع:</strong> @reference</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6"><strong>تراکنش:</strong> @transaction</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudText Typo="Typo.h6"><strong>تاریخ:</strong> @date</MudText>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+
+            <!-- Add a section for review -->
+            <MudDivider Class="my-4" />
+
+            <MudText Typo="Typo.h6" Align="Align.Center">ثبت نظر شما</MudText>
+
+            <!-- Form for Review -->
+            <MudForm @ref="reviewForm" Class="mt-4">
+                <MudTextField @bind-Value="riUserComment" Label="توضیح" Variant="Variant.Outlined" Required="true"
+                              Lines="4" MaxLength="1000" Placeholder="نظر کاربری خود را وارد کنید" Class="w-full mt-4" />
+
+                <MudButton Color="Color.Primary" Class="mt-4" OnClick="OnSubmitReview">ارسال نظر</MudButton>
+            </MudForm>
+            <MudDivider Class="my-4" />
+        </MudPaper>
+    }
+</MudContainer>
+
+@code {
+    private string status = String.Empty;
+    private string reference = String.Empty;
+    private string transaction = String.Empty;
+    private string date = String.Empty;
+
+    private string radNumber = String.Empty; // This will be auto-filled with reference
+    private string riUserComment = String.Empty; // To capture the RI_UserComment
+    private string responseMessage = String.Empty; // To hold the response message from the web service
+    private string responseText = String.Empty;
+    private MudForm reviewForm;
+
+    private HttpClient httpClient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var handler = new HttpClientHandler
+        {
+            MaxConnectionsPerServer = 10 // Adjust the max connections per server as needed
+        };
+
+        httpClient = new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromMinutes(10) // Set the desired timeout
+        };
+
+        // Get the current URL
+        var uri = Navigation.Uri;
+
+        // Decode the URL to handle HTML entities like &amp;
+        var decodedUri = System.Net.WebUtility.HtmlDecode(uri);
+
+        // Extract query parameters from the decoded URI
+        var uriComponents = new Uri(decodedUri);
+        var queryParameters = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uriComponents.Query);
+
+        // Get specific query parameters and assign default values if missing
+        status = queryParameters.ContainsKey("status") ? queryParameters["status"].ToString() : "موجود نیست";
+        reference = queryParameters.ContainsKey("reference") ? queryParameters["reference"].ToString() : "موجود نیست";
+        transaction = queryParameters.ContainsKey("transaction") ? queryParameters["transaction"].ToString() : "موجود نیست";
+        date = queryParameters.ContainsKey("date") ? queryParameters["date"].ToString() : "موجود نیست";
+
+        // Automatically set radNumber from reference
+        radNumber = reference;
+    }
+
+    // On Submit, call the web service
+    private async Task OnSubmitReview()
+    {
+        if (string.IsNullOrEmpty(riUserComment))
+        {
+            responseMessage = "لطفا نظر خود را وارد کنید!";
+            StateHasChanged(); // Ensure UI is updated immediately
+            return;
+        }
+
+        // Prepare the XML payload for the Bizagi WebService in GET URL format
+        var activityInfo = CreateActivityInfoQuery();
+
+        // Send the GET request to the web service
+        var response = await CallWebService(activityInfo);
+
+        // Handle the response from the web service
+        if (response != null && response.errorCode == "0")
+        {
+            responseMessage = "تراکنش با موفقیت انجام شد.";
+        }
+        else
+        {
+            responseMessage = $"خطا: {response?.errorMessage ?? "مشخص نیست"}";
+        }
+
+        StateHasChanged(); // Ensure UI is updated after response
+    }
+
+    // Generate the query string for the Bizagi WebService GET request
+    private string CreateActivityInfoQuery()
+    {
+        return $"activityInfo=<BizAgiWSParam>" +
+               $"<domain>domain</domain>" +
+               $"<userName>admon</userName>" +
+               $"<ActivityData>" +
+               $"<radNumber>{radNumber}</radNumber>" +
+               $"<taskName>WebServiceTask</taskName>" +
+               $"<Entities>" +
+               $"<ToBeSignedHistory>" +
+               $"<SmartContract>" +
+               $"<SC_RequestInformation>" +
+               $"<RI_UserComment>{riUserComment}</RI_UserComment>" +
+               $"</SC_RequestInformation>" +
+               $"</SmartContract>" +
+               $"</ToBeSignedHistory>" +
+               $"</Entities>" +
+               $"</ActivityData>" +
+               $"</BizAgiWSParam>";
+    }
+
+    // HTTP GET request to Web Service
+    private async Task<dynamic> CallWebService(string activityInfo)
+    {
+        // Prepare the request URL for GET request
+        var url = $"http://localhost:8036/BehparvarGroup/WebServices/WorkflowEngineSOA.asmx/performActivityAsString?{activityInfo}";
+
+        try
+        {
+            Console.WriteLine(url);
+            // Send the GET request
+            var response = await httpClient.GetAsync(url);
+
+            // Check if the response is successful
+            if (response.IsSuccessStatusCode)
+            {
+                var responseText = await response.Content.ReadAsStringAsync();
+                return ParseResponse(responseText);
+            }
+            else
+            {
+                responseMessage = "خطا در برقراری ارتباط با وب‌سرویس.";
+                return new { errorCode = "-1", errorMessage = response.ReasonPhrase };
+            }
+        }
+        catch (Exception ex)
+        {
+            responseMessage = $"خطا: {ex.Message}";
+            return new { errorCode = "-1", errorMessage = ex.Message };
+        }
+    }
+
+    // Parse the response (you can parse XML/JSON here based on your response format)
+    private dynamic ParseResponse(string responseText)
+    {
+        this.responseText = responseText;
+        Console.WriteLine(this.responseText);
+        // Assuming the response is plain text or XML; you can process accordingly.
+        return new { errorCode = "0", errorMessage = "عملیات با موفقیت انجام شد." };  // Dummy success response
+    }
+}
