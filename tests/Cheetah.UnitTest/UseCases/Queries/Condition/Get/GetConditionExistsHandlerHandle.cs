@@ -41,7 +41,7 @@ public class GetConditionExistsHandlerHandle
     }
 
     [Fact]
-    public async void CheckConditionExist()
+    public async Task CheckConditionExist()
     {
         #region Arrange
         _condition = new F_Condition()

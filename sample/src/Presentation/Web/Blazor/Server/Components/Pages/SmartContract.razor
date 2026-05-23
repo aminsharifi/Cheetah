@@ -38,14 +38,14 @@
                 <MudItem xs="12" sm="6">
                     <MudCard>
                         <MudCardContent>
-                            <MudText Typo="Typo.h6"><strong>مرجع:</strong> @reference</MudText>
+                            <MudText Typo="Typo.h6"><strong>شماره رهگیری فرآیند:</strong> @reference</MudText>
                         </MudCardContent>
                     </MudCard>
                 </MudItem>
                 <MudItem xs="12" sm="6">
                     <MudCard>
                         <MudCardContent>
-                            <MudText Typo="Typo.h6"><strong>تراکنش:</strong> @transaction</MudText>
+                            <MudText Typo="Typo.h6"><strong>شماره تراکنش امضا:</strong> @transaction</MudText>
                         </MudCardContent>
                     </MudCard>
                 </MudItem>
@@ -85,9 +85,9 @@
     private string riUserComment = String.Empty; // To capture the RI_UserComment
     private string responseMessage = String.Empty; // To hold the response message from the web service
     private string responseText = String.Empty;
-    private MudForm reviewForm;
+    private MudForm reviewForm = default!;
 
-    private HttpClient httpClient;
+    private HttpClient httpClient = default!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -112,7 +112,7 @@
         var queryParameters = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uriComponents.Query);
 
         // Get specific query parameters and assign default values if missing
-        status = queryParameters.ContainsKey("status") ? queryParameters["status"].ToString() : "موجود نیست";
+        status = queryParameters.ContainsKey("status") ? queryParameters["status"].Equals("SUCCESS") ? "امضا شد" : queryParameters["status"]! : "موجود نیست";
         reference = queryParameters.ContainsKey("reference") ? queryParameters["reference"].ToString() : "موجود نیست";
         transaction = queryParameters.ContainsKey("transaction") ? queryParameters["transaction"].ToString() : "موجود نیست";
         date = queryParameters.ContainsKey("date") ? queryParameters["date"].ToString() : "موجود نیست";
@@ -138,7 +138,7 @@
         var response = await CallWebService(activityInfo);
 
         // Handle the response from the web service
-        if (response != null && response.errorCode == "0")
+        if (response != null && response!.errorCode == "0")
         {
             responseMessage = "تراکنش با موفقیت انجام شد.";
         }

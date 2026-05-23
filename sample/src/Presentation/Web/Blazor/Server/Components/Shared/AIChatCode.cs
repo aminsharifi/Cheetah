@@ -10,7 +10,6 @@ using Microsoft.SemanticKernel.Connectors.InMemory;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Embeddings;
 using Microsoft.SemanticKernel.TextToAudio;
-using Microsoft.SemanticKernel.Data;
 
 namespace Cheetah.Sample.Presentation.Web.Blazor.Server.Components.Shared;
 
@@ -18,15 +17,29 @@ public class AIChatCode : MyComponentBase
 {
     [Parameter]
     public int UserGuideId { get; set; } = 0;
+
     protected bool isRecording = false;
-    protected string audioUrl;
-    protected string audioData; // This will hold the base64 string
+    protected bool disableSubmit = false;
+    protected string audioUrl = string.Empty;
+    protected string audioData = string.Empty;
     protected string result = string.Empty;
-    protected string AvashoToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzeXN0ZW0iOiJzYWhhYiIsImNyZWF0ZVRpbWUiOiIxNDAzMDkxMzEzMjkxOTUzOCIsInVuaXF1ZUZpZWxkcyI6eyJ1c2VybmFtZSI6Ijk1YjYwNDQyLWQ1ODgtNDg2NC04ODY1LTJiNjFiMzg5NjNkZiJ9LCJkYXRhIjp7InNlcnZpY2VJRCI6ImRmNTNhNzgwLTIxNTgtNDUyNC05MjQ3LWM2ZjBiYWQzZTc3MCIsInJhbmRvbVRleHQiOiI1ZlQzQyJ9LCJncm91cE5hbWUiOiI4MzM3ZjhmOGE5MjUyOWY0YTIwNmFmMzI4MTYzOTYyYyJ9.glBuR7NC--H-JqmVxuHsizkFmlgXJd0ZZ36lRlzTULE";
-    protected string AvanegarToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzeXN0ZW0iOiJzYWhhYiIsImNyZWF0ZVRpbWUiOiIxNDAzMTIxNzE0MzgwMDM0MCIsInVuaXF1ZUZpZWxkcyI6eyJ1c2VybmFtZSI6Ijk1YjYwNDQyLWQ1ODgtNDg2NC04ODY1LTJiNjFiMzg5NjNkZiJ9LCJkYXRhIjp7InNlcnZpY2VJRCI6IjlmMjE1NjVjLTcxZmEtNDViMy1hZDQwLTM4ZmY2YTZjNWM2OCIsInJhbmRvbVRleHQiOiJXVjVFQSJ9LCJncm91cE5hbWUiOiI3ZWVmZGZkMjk4ZGNlYTRjNjY1YTM2ZDA1NTQ4MjhkYSJ9.ShiqUN5zC1Xkmp9JSJ9lqE0ppayEEyKlq38w-DLPyIg";
-    protected string avalAi = "aa-2GJjxrO08MEOCCTbdwFQikmMN3WaBPDaW9oN0hVLARCrx39N";
-    protected string avalAIAddress = "https://api.avalai.ir/v1";
-    protected string vts = "whisper-1";
+    protected string userInput = string.Empty;
+    protected string question = string.Empty;
+    protected string _aIResponse = string.Empty;
+    protected string _hTMLResponse = string.Empty;
+    protected string Endpoint = string.Empty;
+    protected string ApiKey = string.Empty;
+    protected string ModelId = string.Empty;
+    protected string EmbeddingModelId = string.Empty;
+    protected string VTSModelId = string.Empty;
+    protected string AvashoURL = string.Empty;
+    protected string AvashoToken = string.Empty;
+    protected string AvanegarURL = string.Empty;
+    protected string AvanegarToken = string.Empty;
+    protected ChatHistory _chathistory = [];
+    protected List<UserGuideItem>? items = [];
+    protected MudTextField<string> _MudTextField = new();
+
     protected async Task StartRecording()
     {
         try
@@ -163,11 +176,11 @@ public class AIChatCode : MyComponentBase
 
         var _kernel2 = Kernel.CreateBuilder()
               .AddOpenAITextToAudio(modelId: "tts-1",
-              apiKey: "aa-2GJjxrO08MEOCCTbdwFQikmMN3WaBPDaW9oN0hVLARCrx39N",
-              httpClient: new HttpClient { BaseAddress = new Uri("https://api.avalai.ir/v1") })
+              apiKey: ApiKey,
+              httpClient: new HttpClient { BaseAddress = new Uri(Endpoint) })
               .Build();
 
-        // new HttpClient { BaseAddress = new Uri("https://api.avalai.ir/v1")) }
+        // new HttpClient { BaseAddress = new Uri(Endpoint)) }
 
         var texttoAudio = _kernel2.GetRequiredService<ITextToAudioService>();
 
@@ -260,9 +273,9 @@ public class AIChatCode : MyComponentBase
 #pragma warning disable SKEXP0010
 
         var audiokernel = Kernel.CreateBuilder()
-         .AddOpenAIAudioToText(modelId: vts,
-          apiKey: avalAi,
-          httpClient: new HttpClient { BaseAddress = new Uri(avalAIAddress) })
+         .AddOpenAIAudioToText(modelId: VTSModelId,
+          apiKey: ApiKey,
+          httpClient: new HttpClient { BaseAddress = new Uri(Endpoint) })
          .Build();
 
         var audioToTextService = audiokernel.GetRequiredService<IAudioToTextService>();
@@ -314,21 +327,12 @@ public class AIChatCode : MyComponentBase
 
         }
     }
-
-    protected string userInput = string.Empty;
-    protected string question = string.Empty;
-    protected ChatHistory _chathistory = [];
-    protected string _aIResponse = string.Empty;
-    protected string _hTMLResponse = string.Empty;
-    protected bool disableSubmit = false;
-    protected List<UserGuideItem>? items = [];
-    protected MudTextField<string> _MudTextField = new();
     protected async Task InputTextChanged(string value)
     {
         /*
 
         var kernel = Kernel.CreateBuilder()
-        .AddOpenAIAudioToText("aa-2GJjxrO08MEOCCTbdwFQikmMN3WaBPDaW9oN0hVLARCrx39N", "whisper-1", "https://api.avalai.ir/v1")
+        .AddOpenAIAudioToText("aa-2GJjxrO08MEOCCTbdwFQikmMN3WaBPDaW9oN0hVLARCrx39N", "whisper-1", Endpoint)
     .Build();
 
     var audioToTextService = kernel.GetRequiredService<IAudioToTextService>();
@@ -373,11 +377,11 @@ public class AIChatCode : MyComponentBase
         }
     }
 
-    OpenAIPromptExecutionSettings executionSettings = new OpenAIPromptExecutionSettings
+    OpenAIPromptExecutionSettings executionSettings = new()
     {
-        //Temperature = 0.0,
-        //TopP = 1,
-        //Seed = 0
+        Temperature = 0.0,
+        TopP = 1,
+        Seed = 0
     };
     protected async Task HandleKeyDown(KeyboardEventArgs e)
     {
@@ -405,6 +409,7 @@ public class AIChatCode : MyComponentBase
     {
 #pragma warning disable SKEXP0001
         var _embedingText = _kernel.GetRequiredService<ITextEmbeddingGenerationService>();
+        
 
         IList<ReadOnlyMemory<float>> embeddings =
             await _embedingText.GenerateEmbeddingsAsync(
@@ -412,16 +417,34 @@ public class AIChatCode : MyComponentBase
                     Text
                 ]);
         return embeddings[0];
+
     }
-    List<UserGuideItem> _UserGuideItem = new();
+    List<UserGuideItem> _UserGuideItem = [];
+
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            #region Semantic Kernel
+            var _ai = Configuration.GetSection("AI");
+            // Add a chat completion service:
+            Endpoint = _ai.GetValue<string>("Endpoint")!;
+            ApiKey = _ai.GetValue<string>("ApiKey")!;
+            ModelId = _ai.GetValue<string>("ModelId")!;
+            EmbeddingModelId = _ai.GetValue<string>("EmbeddingModelId")!;
+            VTSModelId = _ai.GetValue<string>("VTSModelId")!;
+            AvashoURL = _ai.GetValue<string>("AvashoURL")!;
+            AvashoToken = _ai.GetValue<string>("AvashoToken")!;
+            AvanegarURL = _ai.GetValue<string>("AvanegarURL")!;
+            AvanegarToken = _ai.GetValue<string>("AvanegarToken")!;
+            #endregion
+
+
             //await _JSRuntime.InvokeVoidAsync("startHints");
-            items = (await GetAllItems()).ToList();
-            #pragma warning disable CS0029
-           collection = vectorStore.GetCollection<long, UserGuideItem>("userguideiItems");
+            items = [.. (await GetAllItems())];
+
+#pragma warning disable CS0029
+            collection = vectorStore.GetCollection<long, UserGuideItem>("userguideiItems");
 
             // Optional: Explicitly ensure creation (idempotent, useful for schema setup)
             await collection.EnsureCollectionExistsAsync();  // This is the current method name
@@ -532,17 +555,24 @@ public class AIChatCode : MyComponentBase
             .UseAdvancedExtensions() // This includes the table extension
             .Build();
 
+            
             var wholeResponse = await ChatCompletionService.GetChatMessageContentsAsync(
                 chatHistory: _chathistory,
                 executionSettings: executionSettings);
-
+            
+            /*
+            var _list = _chathistory.ToList();
+            _aIResponse += _chathistory.Last();
+            _hTMLResponse = Markdown.ToHtml(_aIResponse, pipeline);
+            StateHasChanged();
+            */
+           
             foreach (var response in wholeResponse)
             {
                 _aIResponse += response;
                 _hTMLResponse = Markdown.ToHtml(_aIResponse, pipeline);
                 StateHasChanged();
             }
-
             
 
             /*
