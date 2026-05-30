@@ -100,9 +100,14 @@ var kernelBuilder = Kernel.CreateBuilder();
 if (!string.IsNullOrEmpty(_endpoint))
 {
     Uri endpoint = new Uri(_endpoint);
-    kernelBuilder.AddOpenAIChatCompletion(modelId: modelId, apiKey: apiKey, endpoint: endpoint);
+    kernelBuilder.AddOpenAIChatCompletion(
+        modelId: modelId,
+        apiKey: apiKey,
+        httpClient: new HttpClient { BaseAddress = endpoint }
+    );
     kernelBuilder.AddOpenAITextEmbeddingGeneration(modelId: embeddingModelId, apiKey: apiKey,
         httpClient: new HttpClient { BaseAddress = endpoint });
+
 }
 else
 {

@@ -13,10 +13,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Hangfire.SqlServer" Version="1.8.23" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8" />
 		<PackageReference Include="Winton.Extensions.Configuration.Consul" Version="3.4.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
-		<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="9.0.3" />
+		<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
