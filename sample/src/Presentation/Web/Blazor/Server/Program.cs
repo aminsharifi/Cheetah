@@ -51,7 +51,6 @@ builder.Services.AddScoped(sp => new HttpClient
 
 #region New Login
 
-
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
